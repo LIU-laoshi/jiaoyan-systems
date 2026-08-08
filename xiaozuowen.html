@@ -1,0 +1,2452 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>小学生作文写作助学系统</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:#fff8f0;color:#333;line-height:1.7;}
+.header{background:linear-gradient(135deg,#ff6b35,#ff8e53,#e84545);padding:40px 20px 30px;text-align:center;color:#fff;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(255,255,255,0.1) 0%,transparent 70%);animation:headerGlow 6s ease-in-out infinite;}
+@keyframes headerGlow{0%,100%{transform:translate(0,0)}50%{transform:translate(5%,5%)}}
+.header h1{font-size:28px;font-weight:700;margin-bottom:8px;position:relative;z-index:1;text-shadow:0 2px 4px rgba(0,0,0,0.2);}
+.header .subtitle{font-size:14px;color:rgba(255,255,255,0.9);letter-spacing:2px;position:relative;z-index:1;}
+.stats-row{display:flex;justify-content:center;gap:16px;margin:24px auto 0;max-width:600px;position:relative;z-index:1;}
+.stat-card{background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);border-radius:12px;padding:14px 20px;text-align:center;flex:1;backdrop-filter:blur(4px);}
+.stat-card .num{font-size:28px;font-weight:700;color:#fff;}
+.stat-card .label{font-size:12px;color:rgba(255,255,255,0.85);margin-top:2px;}
+.tags-row{display:flex;justify-content:center;gap:12px;margin-top:16px;flex-wrap:wrap;position:relative;z-index:1;}
+.tag{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);border-radius:20px;padding:4px 16px;font-size:12px;color:#fff;}
+.start-btn{display:inline-block;margin-top:20px;background:#fff;color:#ff6b35;border:none;padding:12px 40px;border-radius:30px;font-size:16px;font-weight:700;cursor:pointer;position:relative;z-index:1;transition:all 0.3s;box-shadow:0 4px 15px rgba(255,107,53,0.35);}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,107,53,0.45);}
+.container{max-width:900px;margin:0 auto;padding:16px;}
+.tab-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;background:#fff;border-radius:14px;padding:8px;box-shadow:0 2px 10px rgba(255,107,53,0.08);position:sticky;top:0;z-index:100;}
+.tab-btn{flex:1;min-width:100px;padding:10px 6px;border:none;border-radius:10px;background:transparent;color:#888;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.3s;text-align:center;white-space:nowrap;}
+.tab-btn.active{background:linear-gradient(135deg,#ff6b35,#ff8e53);color:#fff;box-shadow:0 3px 12px rgba(255,107,53,0.3);font-weight:700;}
+.tab-btn:hover:not(.active){background:#fff5ef;color:#ff6b35;}
+.module{display:none;}
+.module.active{display:block;}
+.card{background:#fff;border-radius:14px;padding:22px;margin-bottom:16px;box-shadow:0 2px 10px rgba(255,107,53,0.06);border-left:4px solid #ff6b35;}
+.card-teal{border-left-color:#4ecdc4;}
+.card-blue{border-left-color:#5b8def;}
+.card h3{color:#ff6b35;font-size:17px;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.card h3 .icon{font-size:18px;}
+.card h4{color:#4ecdc4;font-size:15px;margin:12px 0 6px;}
+.card p{font-size:14px;color:#555;margin-bottom:6px;}
+.card ul{padding-left:18px;}
+.card li{font-size:14px;line-height:1.85;}
+.card .example{background:#f0faf9;border-left:3px solid #4ecdc4;padding:10px 14px;border-radius:0 8px 8px 0;margin:8px 0;font-size:13px;color:#555;line-height:1.8;}
+.card .method{background:#fff5ef;border-radius:8px;padding:10px 14px;margin:6px 0;}
+.card .method-green{background:#f0faf9;border-radius:8px;padding:10px 14px;margin:6px 0;border-left:3px solid #4ecdc4;}
+.card .method-title{color:#ff6b35;font-weight:600;font-size:14px;margin-bottom:4px;}
+.card .method-tag{display:inline-block;background:#4ecdc4;color:#fff;padding:1px 8px;border-radius:8px;font-size:11px;margin-left:6px;font-weight:600;}
+.card .step-arrow{text-align:center;color:#ff6b35;font-size:16px;margin:4px 0;}
+.tip-box{background:#fff5ef;border-left:4px solid #ff6b35;padding:10px 14px;border-radius:0 10px 10px 0;margin:8px 0;font-size:13px;}
+.example-box{background:#f0faf9;border-left:4px solid #4ecdc4;padding:10px 14px;border-radius:0 10px 10px 0;margin:8px 0;font-size:13px;}
+.highlight{color:#ff6b35;font-weight:700;}
+.teal-hl{color:#4ecdc4;font-weight:700;}
+.grade-tab-bar{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.grade-tab{padding:6px 16px;border-radius:20px;border:1px solid #f0e6dc;background:#fff;color:#888;font-size:13px;cursor:pointer;transition:all 0.3s;}
+.grade-tab.active{background:#ff6b35;color:#fff;border-color:#ff6b35;}
+.grade-content{display:none;}
+.grade-content.active{display:block;}
+.essay-card{background:#fff;border-radius:14px;padding:22px;margin-bottom:16px;box-shadow:0 2px 10px rgba(255,107,53,0.06);}
+.essay-card .title-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:6px;}
+.essay-card .essay-title{font-size:17px;color:#ff6b35;font-weight:700;}
+.essay-card .essay-score{background:linear-gradient(135deg,#ff6b35,#ff8e53);color:#fff;padding:3px 12px;border-radius:12px;font-size:13px;font-weight:600;}
+.essay-card .meta{font-size:12px;color:#aaa;margin-bottom:10px;}
+.essay-card .body{font-size:14px;color:#333;line-height:2;text-indent:2em;margin-bottom:12px;}
+.essay-card .highlights{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
+.essay-card .hl-tag{background:#fff5ef;color:#ff6b35;padding:3px 10px;border-radius:10px;font-size:12px;}
+.essay-card .hl-tag-teal{background:#f0faf9;color:#4ecdc4;padding:3px 10px;border-radius:10px;font-size:12px;}
+.essay-card .analysis{background:#f7fafc;padding:10px 14px;border-radius:8px;font-size:13px;color:#555;line-height:1.8;}
+.essay-card .analysis .yqh-point{background:#f0faf9;border-left:3px solid #4ecdc4;padding:6px 10px;border-radius:0 6px 6px 0;margin:6px 0;font-size:13px;color:#2d7d77;}
+.sub-tab-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.sub-tab{padding:6px 14px;border-radius:20px;border:1px solid #f0e6dc;background:#fff;color:#888;font-size:13px;cursor:pointer;transition:all 0.3s;}
+.sub-tab.active{background:#4ecdc4;color:#fff;border-color:#4ecdc4;}
+.sub-content{display:none;}
+.sub-content.active{display:block;}
+.material-item{background:#fff5ef;border-radius:10px;padding:14px;margin-bottom:10px;border-left:3px solid #ff6b35;}
+.material-item h4{color:#ff6b35;font-size:14px;margin-bottom:4px;}
+.material-item p{font-size:13px;color:#555;line-height:1.7;}
+.material-item .theme-tag{display:inline-block;background:#f0faf9;color:#4ecdc4;padding:2px 8px;border-radius:8px;font-size:11px;margin-top:4px;}
+.quote-item{background:#fff;border:1px solid #f0e6dc;border-radius:10px;padding:10px 14px;margin-bottom:8px;font-size:13px;}
+.quote-item .q-text{font-style:italic;color:#555;}
+.quote-item .q-explain{margin-top:4px;color:#888;font-size:12px;}
+.life-item{background:#fff5ef;border-radius:10px;padding:10px 14px;margin-bottom:8px;}
+.life-item .li-title{font-weight:700;color:#ff6b35;font-size:14px;}
+.life-item .li-desc{font-size:13px;color:#666;margin-top:2px;}
+.template-box{background:#fff;border:1px dashed #4ecdc4;border-radius:10px;padding:10px 14px;margin-bottom:8px;font-size:13px;}
+.template-box .t-label{font-weight:700;color:#4ecdc4;font-size:14px;}
+.material-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;}
+.material-grid-item{background:#fff5ef;border-radius:8px;padding:8px 10px;font-size:13px;text-align:center;}
+.practice-card{background:#fff;border-radius:14px;padding:22px;margin-bottom:16px;box-shadow:0 2px 10px rgba(255,107,53,0.06);}
+.practice-card .pq-title{font-size:16px;color:#ff6b35;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.practice-card .pq-title .arrow{transition:transform 0.3s;font-size:12px;}
+.practice-card .pq-title.open .arrow{transform:rotate(90deg);}
+.practice-card .pq-body{display:none;margin-top:14px;}
+.practice-card .pq-body.open{display:block;}
+.practice-card h4{color:#4ecdc4;font-size:14px;margin:10px 0 6px;}
+.practice-card .guide-step{background:#fff5ef;border-radius:8px;padding:10px 14px;margin:4px 0;font-size:13px;color:#555;}
+.practice-card .yqh-step{background:#f0faf9;border-radius:8px;padding:10px 14px;margin:4px 0;font-size:13px;color:#2d7d77;border-left:3px solid #4ecdc4;}
+.practice-card .outline-item{background:#f5f0ff;border-radius:8px;padding:10px 14px;margin:6px 0;}
+.practice-card .outline-item .oi-title{font-weight:600;color:#ff6b35;font-size:14px;}
+.practice-card .outline-item p{font-size:13px;color:#555;margin-top:2px;}
+.practice-card .start-example{background:#fff8f0;border-left:3px solid #ff6b35;padding:10px 14px;border-radius:0 8px 8px 0;font-size:13px;color:#555;line-height:1.8;}
+.badge{display:inline-block;background:#ff6b35;color:#fff;border-radius:10px;padding:2px 10px;font-size:12px;margin-right:6px;vertical-align:middle;}
+.badge.teal{background:#4ecdc4;}
+.badge.blue{background:#5b8def;}
+.badge.purple{background:#a78bfa;}
+.badge.pink{background:#f472b6;}
+.eval-section{background:#fff;border-radius:14px;padding:22px;margin-bottom:16px;box-shadow:0 2px 10px rgba(255,107,53,0.06);}
+.eval-section h3{color:#ff6b35;font-size:17px;margin-bottom:12px;}
+.eval-textarea{width:100%;min-height:180px;border:2px solid #f0e6dc;border-radius:10px;padding:14px;font-size:14px;line-height:1.8;resize:vertical;font-family:inherit;outline:none;transition:border-color 0.2s;}
+.eval-textarea:focus{border-color:#ff6b35;}
+.eval-section select{width:100%;border:2px solid #f0e6dc;border-radius:10px;padding:10px;font-size:14px;font-family:inherit;outline:none;transition:border-color 0.2s;}
+.eval-section select:focus{border-color:#ff6b35;}
+.ai-analysis-btn{padding:14px 40px;border:none;border-radius:30px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 4px 15px rgba(102,126,234,0.4);transition:all .3s;}
+.ai-analysis-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,0.5);}
+.ai-analysis-btn:active{transform:translateY(0);}
+.ai-report{background:#f7fafc;border-radius:14px;padding:20px;margin-top:16px;border:1px solid #f0e6dc;}
+.ai-report-header{text-align:center;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid #f0e6dc;}
+.ai-score-big{font-size:48px;font-weight:800;color:#ff6b35;line-height:1.2;}
+.ai-score-label{font-size:14px;color:#888;margin-top:4px;}
+.ai-grade-badge{display:inline-block;padding:4px 16px;border-radius:20px;font-size:13px;font-weight:600;margin-top:8px;}
+.ai-dim-row{display:flex;align-items:flex-start;gap:12px;margin:12px 0;padding:12px;background:#fff;border-radius:10px;border-left:4px solid #ddd;}
+.ai-dim-row.good{border-left-color:#48bb78;}
+.ai-dim-row.mid{border-left-color:#ed8936;}
+.ai-dim-row.low{border-left-color:#f56565;}
+.ai-dim-name{font-weight:700;font-size:14px;color:#ff6b35;min-width:80px;}
+.ai-dim-score{font-weight:700;font-size:18px;min-width:60px;text-align:center;}
+.ai-dim-detail{flex:1;font-size:13px;color:#555;line-height:1.7;}
+.ai-dim-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;margin:2px 4px 2px 0;}
+.ai-dim-tag.pos{background:#c6f6d5;color:#22543d;}
+.ai-dim-tag.neg{background:#fed7d7;color:#742a2a;}
+.ai-suggest{background:#fff5ef;border-radius:10px;padding:14px;margin-top:12px;font-size:13px;color:#7c3a10;line-height:1.7;}
+.ai-suggest-title{font-weight:700;color:#ff6b35;margin-bottom:6px;}
+.ai-loading{text-align:center;padding:40px;color:#667eea;font-size:16px;}
+.char-count{font-size:12px;color:#aaa;margin-top:4px;text-align:right;}
+.dim-row{display:flex;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:6px;}
+.dim-label{font-size:14px;font-weight:600;color:#ff6b35;width:70px;flex-shrink:0;}
+.dim-btns{display:flex;gap:6px;flex-wrap:wrap;}
+.dim-btn{padding:5px 12px;border-radius:16px;border:1px solid #f0e6dc;background:#fff;color:#888;font-size:12px;cursor:pointer;transition:all 0.3s;}
+.dim-btn.selected{background:#ff6b35;color:#fff;border-color:#ff6b35;}
+.dim-btn:hover:not(.selected){border-color:#ff6b35;color:#ff6b35;}
+.dim-max{font-size:11px;color:#aaa;margin-left:2px;}
+.checklist-box{background:#f0faf9;border-radius:12px;padding:18px;margin-bottom:16px;border:1px solid #d5f0ed;}
+.checklist-box h3{color:#ff6b35;font-size:16px;margin-bottom:10px;}
+.checklist-item{display:flex;align-items:flex-start;gap:8px;margin:8px 0;font-size:13px;color:#333;cursor:pointer;}
+.checklist-item input[type='checkbox']{margin-top:3px;flex-shrink:0;accent-color:#4ecdc4;}
+.checklist-item.checked{color:#4ecdc4;}
+.checklist-item .ci-label{flex:1;}
+.checklist-item .ci-hint{font-size:12px;color:#e8943a;display:block;margin-top:2px;}
+.pitfall-box{background:#fff5f5;border-radius:12px;padding:18px;margin-bottom:16px;border:1px solid #fed7d7;}
+.pitfall-box h3{color:#c53030;font-size:16px;margin-bottom:10px;}
+.pitfall-item{display:flex;align-items:flex-start;gap:8px;margin:8px 0;font-size:13px;color:#333;}
+.pitfall-item .pi-num{background:#fc8181;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.result-box{background:linear-gradient(135deg,#ff6b35,#ff8e53);border-radius:14px;padding:24px;color:#fff;text-align:center;margin-top:16px;}
+.result-box .total-score{font-size:48px;font-weight:700;color:#fff;}
+.result-box .total-label{font-size:14px;color:rgba(255,255,255,0.8);}
+.result-box .grade-badge{display:inline-block;margin-top:8px;padding:4px 20px;border-radius:20px;font-size:14px;font-weight:600;background:rgba(255,255,255,0.25);}
+.result-box .suggestions{text-align:left;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.2);}
+.result-box .suggestions h4{color:#fff;margin-bottom:8px;}
+.result-box .suggestions p{font-size:13px;line-height:1.8;color:rgba(255,255,255,0.9);}
+.result-box .suggestions .yqh-check{color:#c6f6d5;font-size:13px;line-height:1.8;}
+.result-box .suggestions .pitfall-warn{color:#fed7d7;font-size:13px;line-height:1.8;}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;margin-bottom:16px;}
+.formula-card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(255,107,53,0.08);overflow:hidden;cursor:pointer;transition:all 0.3s;border:2px solid transparent;}
+.formula-card:hover{box-shadow:0 4px 20px rgba(255,107,53,0.15);}
+.formula-card.flipped{border-color:#4ecdc4;}
+.formula-front{padding:22px;text-align:center;}
+.formula-front .ff-icon{font-size:36px;margin-bottom:8px;}
+.formula-front .ff-title{font-size:16px;font-weight:700;color:#ff6b35;margin-bottom:6px;}
+.formula-front .ff-subtitle{font-size:13px;color:#4ecdc4;font-weight:600;margin-bottom:8px;}
+.formula-front .ff-brief{font-size:13px;color:#555;line-height:1.7;}
+.formula-front .ff-hint{font-size:11px;color:#aaa;margin-top:10px;}
+.formula-back{padding:20px;display:none;}
+.formula-card.flipped .formula-front{display:none;}
+.formula-card.flipped .formula-back{display:block;}
+.formula-back .fb-title{font-size:15px;font-weight:700;color:#ff6b35;margin-bottom:10px;text-align:center;}
+.formula-back .fb-step{background:#fff5ef;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13px;color:#555;line-height:1.7;}
+.formula-back .fb-step .fb-step-title{font-weight:600;color:#4ecdc4;}
+.formula-back .fb-example{background:#f0faf9;border-left:3px solid #4ecdc4;padding:8px 12px;border-radius:0 6px 6px 0;margin:6px 0;font-size:12px;color:#2d7d77;line-height:1.7;}
+.formula-back .fb-hint{font-size:11px;color:#aaa;margin-top:8px;text-align:center;}
+.hidden{display:none !important;}
+.back-link{display:inline-block;margin-bottom:16px;color:#ff6b35;font-size:14px;cursor:pointer;text-decoration:none;}
+.back-link:hover{text-decoration:underline;}
+/* 登录验证样式 */
+.login-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;z-index:99999;transition:opacity .4s;}
+.login-box{background:#fff;border-radius:16px;padding:36px 32px;width:300px;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.login-box h2{text-align:center;margin:0 0 24px;font-size:20px;color:#333;}
+.login-input{width:100%;padding:12px 16px;margin:10px 0;border:1.5px solid #ddd;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border-color .3s;}
+.login-input:focus{border-color:#667eea;}
+.login-btn{width:100%;padding:12px;margin:16px 0 8px;border:none;border-radius:8px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:16px;cursor:pointer;transition:opacity .3s;}
+.login-btn:hover{opacity:.9;}
+.login-error{color:#e74c3c;font-size:13px;text-align:center;min-height:18px;}
+.login-credits{text-align:center;margin-top:16px;font-size:12px;color:#aaa;}
+/* 账号管理样式 */
+.acct-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding:0 4px;}
+.acct-user{font-size:14px;color:#555;}
+.acct-user .acct-name{color:#ff6b35;font-weight:700;}
+.acct-mgr-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border:1.5px solid #ff6b35;border-radius:8px;background:transparent;color:#ff6b35;font-size:14px;font-weight:600;cursor:pointer;transition:all .25s;}
+.acct-mgr-btn:hover{background:#ff6b35;color:#fff;}
+.acct-mgr-btn.hidden{display:none!important;}
+.acct-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.acct-table{width:100%;border-collapse:collapse;margin-top:16px;}
+.acct-table th{text-align:left;padding:10px 12px;background:#fff5ef;color:#ff6b35;font-size:13px;font-weight:600;border-bottom:2px solid #f0e6dc;}
+.acct-table td{padding:10px 12px;border-bottom:1px solid #f0e6dc;font-size:13px;color:#555;}
+.acct-table tr:hover td{background:#fff8f0;}
+.acct-form{background:#fff5ef;border:1px solid #f0e6dc;border-radius:12px;padding:20px;margin:16px 0;}
+.acct-form-row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;}
+.acct-form-row .acct-field{flex:1;min-width:140px;}
+.acct-form-row .acct-field label{display:block;font-size:13px;color:#555;margin-bottom:4px;}
+.acct-form-row .acct-field input{width:100%;padding:10px 14px;border:1.5px solid #f0e6dc;border-radius:8px;font-size:14px;box-sizing:border-box;outline:none;}
+.acct-form-row .acct-field input:focus{border-color:#ff6b35;}
+.acct-status-on{color:#4ecdc4;font-weight:600;}
+.acct-status-off{color:#e53e3e;font-weight:600;}
+.acct-expired{color:#e53e3e;font-weight:700;}
+.acct-expiry-warn{color:#d69e2e;font-weight:600;}
+.acct-modules-count{color:#ff6b35;font-weight:600;cursor:pointer;text-decoration:underline;}
+.acct-modules-count:hover{color:#ff8e53;}
+.acct-act-btn{padding:5px 12px;border:none;border-radius:6px;font-size:12px;cursor:pointer;margin:0 2px;transition:opacity .2s;}
+.acct-act-btn:hover{opacity:.85;}
+.acct-act-reset{background:#3182ce;color:#fff;}
+.acct-act-modules{background:#ff6b35;color:#fff;}
+.acct-act-expiry{background:#4ecdc4;color:#fff;}
+.acct-act-toggle{background:#d69e2e;color:#fff;}
+.acct-act-delete{background:#e53e3e;color:#fff;}
+.acct-empty{text-align:center;color:#aaa;padding:30px;font-size:14px;}
+.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0;}
+.module-grid-item{display:flex;align-items:center;gap:6px;padding:8px 10px;border:1.5px solid #f0e6dc;border-radius:8px;cursor:pointer;font-size:13px;transition:all .2s;background:#fff;}
+.module-grid-item:hover{border-color:#ff6b35;}
+.module-grid-item.checked{border-color:#ff6b35;background:rgba(255,107,53,.05);}
+.module-grid-item input{margin:0;cursor:pointer;}
+.module-grid-item label{cursor:pointer;flex:1;}
+.expiry-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px;}
+.expiry-quick-btn{padding:6px 14px;border:1.5px solid #f0e6dc;border-radius:8px;background:#fff;font-size:13px;cursor:pointer;transition:all .2s;color:#555;}
+.expiry-quick-btn:hover{border-color:#ff6b35;color:#ff6b35;}
+.expiry-quick-btn.active{border-color:#ff6b35;background:#ff6b35;color:#fff;}
+.expiry-date-input{padding:8px 12px;border:1.5px solid #f0e6dc;border-radius:8px;font-size:14px;outline:none;}
+.expiry-date-input:focus{border-color:#ff6b35;}
+.module-modal-mask{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.4);z-index:99998;display:flex;align-items:center;justify-content:center;}
+.module-modal{background:#fff;border-radius:14px;padding:24px;width:90%;max-width:500px;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.module-modal h3{color:#ff6b35;margin-bottom:12px;font-size:16px;}
+.module-modal .modal-actions{display:flex;gap:10px;margin-top:16px;justify-content:flex-end;}
+.modal-btn{padding:8px 20px;border:none;border-radius:8px;font-size:14px;cursor:pointer;transition:all .2s;}
+.modal-btn-primary{background:#ff6b35;color:#fff;}
+.modal-btn-primary:hover{background:#ff8e53;}
+.modal-btn-ghost{background:#fff5ef;color:#555;}
+.modal-btn-ghost:hover{background:#f0e6dc;}
+.acct-page{display:none;}
+.acct-page.active{display:block;}
+@media(max-width:600px){
+.header h1{font-size:22px;}
+.stats-row{flex-direction:column;align-items:center;}
+.stat-card{width:80%;}
+.tab-btn{min-width:80px;font-size:12px;padding:8px 4px;}
+.card{padding:16px;}
+.formula-grid{grid-template-columns:1fr;}
+.module-grid{grid-template-columns:repeat(2,1fr);}
+.acct-table{font-size:12px;}
+.acct-table th,.acct-table td{padding:6px 8px;}
+}
+</style>
+</head>
+<body>
+<!-- 登录验证页 -->
+<div class='login-overlay' id='loginOverlay'>
+<div class='login-box'>
+<h2>🔒 系统登录</h2>
+<input type='text' class='login-input' id='loginUser' placeholder='请输入账号' autocomplete='off'>
+<input type='password' class='login-input' id='loginPass' placeholder='请输入密码' autocomplete='off'>
+<button class='login-btn' onclick='doLogin()'>登 录</button>
+<div class='login-error' id='loginError'></div>
+<div class='login-credits'>系统设计制作：刘岳</div>
+</div>
+</div>
+<!-- 账号管理页面 -->
+<div class='acct-page' id='accountPage' style='max-width:900px;margin:0 auto;padding:16px;'>
+<div class='back-link' onclick='showMainContent()'>← 返回主页</div>
+<div class='card'>
+<h3 style='color:#ff6b35;font-size:18px;margin-bottom:16px;'>⚙️ 账号管理</h3>
+<div class='acct-form'>
+<h4 style='color:#4ecdc4;font-size:15px;margin-bottom:12px;'>创建子账号</h4>
+<div class='acct-form-row'>
+<div class='acct-field'><label>用户名</label><input type='text' id='newAcctUser' placeholder='请输入用户名' autocomplete='off'></div>
+<div class='acct-field'><label>密码</label><input type='text' id='newAcctPass' placeholder='请输入密码' autocomplete='off'></div>
+<div class='acct-field'><label>显示名</label><input type='text' id='newAcctName' placeholder='如：张小明' autocomplete='off'></div>
+</div>
+<div style='margin-top:12px;'>
+<label style='font-size:13px;color:#555;display:block;margin-bottom:6px;'>使用板块设置（默认全选）</label>
+<div class='module-grid' id='newAcctModules'></div>
+</div>
+<div style='margin-top:12px;'>
+<label style='font-size:13px;color:#555;display:block;margin-bottom:4px;'>使用期限设置</label>
+<div class='expiry-row'>
+<button type='button' class='expiry-quick-btn' onclick='setExpiryQuick(7,this)'>7天</button>
+<button type='button' class='expiry-quick-btn' onclick='setExpiryQuick(30,this)'>30天</button>
+<button type='button' class='expiry-quick-btn' onclick='setExpiryQuick(90,this)'>90天</button>
+<button type='button' class='expiry-quick-btn' onclick='setExpiryQuick(180,this)'>180天</button>
+<button type='button' class='expiry-quick-btn' onclick='setExpiryQuick(365,this)'>365天</button>
+<input type='date' class='expiry-date-input' id='newAcctExpiry' onchange='clearExpiryQuickActive()'>
+</div>
+</div>
+<button class='modal-btn modal-btn-primary' onclick='createAccount()' style='margin-top:16px;'>创建子账号</button>
+</div>
+<h4 style='color:#4ecdc4;font-size:15px;margin-top:20px;margin-bottom:8px;'>子账号列表</h4>
+<div id='accountListWrap'></div>
+</div>
+</div>
+<!-- 首页 -->
+<div id='homePage'>
+<div class='header'>
+<h1>📖 小学生作文写作助学系统</h1>
+<div class='subtitle'>快乐学作文 · 轻松写出好文章 ✏️</div>
+<div class='stats-row'>
+<div class='stat-card'><div class='num'>32</div><div class='label'>📝 写作技巧</div></div>
+<div class='stat-card'><div class='num'>16</div><div class='label'>📖 范文</div></div>
+<div class='stat-card'><div class='num'>100+</div><div class='label'>🎨 素材</div></div>
+</div>
+<div class='tags-row'>
+<span class='tag'>覆盖三至六年级</span>
+<span class='tag'>对标部编版教材</span>
+<span class='tag'>教研写作方法</span>
+<span class='tag'>广州特色素材</span>
+</div>
+<button class='start-btn' onclick='scrollToContent()'>🚀 开始学习</button>
+</div>
+</div>
+<!-- 主内容 -->
+<div class='container' id='mainContent' style='display:none;'>
+<div class='acct-bar'>
+<div class='acct-user'>当前用户：<span class='acct-name' id='currentUserName'>—</span></div>
+<button class='acct-mgr-btn hidden' id='acctMgrBtn' onclick='showAccountPage()'>⚙️ 账号管理</button>
+</div>
+<div class='tab-bar'>
+<button class='tab-btn active' data-module='写作技巧库' onclick='switchTab(0)'>📚 写作技巧库</button>
+<button class='tab-btn' data-module='范文赏析' onclick='switchTab(1)'>✨ 范文赏析</button>
+<button class='tab-btn' data-module='素材宝库' onclick='switchTab(2)'>📦 素材宝库</button>
+<button class='tab-btn' data-module='实战演练' onclick='switchTab(3)'>🎯 实战演练</button>
+<button class='tab-btn' data-module='写作自评' onclick='switchTab(4)'>📊 写作自评</button>
+<button class='tab-btn' data-module='教研写作公式' onclick='switchTab(5)'>🧠 教研写作公式</button>
+</div>
+
+<!-- 模块1：写作技巧库 -->
+<div class='module active' id='mod0'>
+<div class='grade-tab-bar'>
+<button class='grade-tab active' onclick='switchGrade(0,0)'>三年级 · 作文起步</button>
+<button class='grade-tab' onclick='switchGrade(0,1)'>四年级 · 能力提升</button>
+<button class='grade-tab' onclick='switchGrade(0,2)'>五年级 · 进阶突破</button>
+<button class='grade-tab' onclick='switchGrade(0,3)'>六年级 · 冲刺提升</button>
+</div>
+<div class='grade-content active' id='g0_0'>
+<div class='card'>
+<h3><span class='icon'>🖼️</span>看图写话四步法</h3>
+<p>第一步：看图——仔细看图上有什么人、什么东西、什么环境；</p>
+<p>第二步：想事——想一想图片里发生了什么事；</p>
+<p>第三步：说话——用自己的话把故事说一遍；</p>
+<p>第四步：写话——把说的话写下来，注意把句子写完整。</p>
+<div class='example'>【示例】图片上有一个小女孩在浇花。<br>看图：小女孩、花盆、水壶、阳台；<br>想事：小女孩在阳台上浇花，花开了她很开心；<br>说话：星期天的早上，小红在阳台上给花浇水，花儿张开了笑脸，好像在说谢谢你；<br>写话：一个星期天的早晨，小红端着小水壶来到阳台，她轻轻地给每一盆花浇水。花儿喝饱了水，开得更加鲜艳了，好像在对小红微笑呢！</div>
+</div>
+<div class='card card-teal'>
+<h3><span class='icon'>👦</span>写人小妙招</h3>
+<div class='method'>
+<div class='method-title'>第一笔：画外貌</div>
+<p>长什么样？穿什么衣服？有什么特点？抓住最特别的地方写！</p>
+</div>
+<div class='method'>
+<div class='method-title'>第二笔：写一件小事</div>
+<p>这个人做过一件什么让你印象深刻的事？要写具体！</p>
+</div>
+<div class='method'>
+<div class='method-title'>第三笔：写感受</div>
+<p>你觉得这个人怎么样？你心里怎么想的？</p>
+</div>
+<div class='example'>【示例片段】我的妈妈有一头乌黑的长发，笑起来眼睛弯弯的，像两个小月牙🌙。有一次我发高烧，妈妈整晚都没有睡觉，一会儿摸摸我的额头，一会儿给我喂水。第二天早上我的烧退了，可是妈妈的眼睛却红了。我觉得妈妈是世界上最温柔的人。</div>
+<div class='method-green'>
+<div class='method-title'>教研写作方法：人物三板斧</div>
+<p>外貌抓特点→语言有个性→动作传心理。三斧齐下，人物就活了！</p>
+</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>📅</span>写事入门：六要素法<span class='method-tag'>教研写作方法</span></h3>
+<p>写一件事，就像讲故事，要把六个要点写清楚：</p>
+<div class='method'>
+<div class='method-title'>🕐 时间</div>
+<p>什么时候发生的？</p>
+</div>
+<div class='method'>
+<div class='method-title'>📍 地点</div>
+<p>在哪里发生的？</p>
+</div>
+<div class='method'>
+<div class='method-title'>👤 人物</div>
+<p>有谁在场？</p>
+</div>
+<div class='method'>
+<div class='method-title'>❓ 起因</div>
+<p>为什么会发生这件事？</p>
+</div>
+<div class='method'>
+<div class='method-title'>📖 经过</div>
+<p>事情的经过是怎样的？（这是最重要的部分，要写详细，加上动作和对话会更生动！）</p>
+</div>
+<div class='method'>
+<div class='method-title'>✅ 结果</div>
+<p>最后怎么样了？</p>
+</div>
+<div class='example'>【示例】上星期六（时间），我和爸爸去公园学骑自行车（地点+人物+起因）。一开始我总是摔倒，膝盖都磕青了，想放弃。爸爸说：别怕，爸爸扶着车后面呢！我鼓起勇气又骑了上去（经过）。慢慢地，我能自己骑了，风从耳边吹过，好爽呀！我终于学会骑自行车啦（结果）！</div>
+</div>
+<div class='card card-teal'>
+<h3><span class='icon'>🌈</span>五感描写法<span class='method-tag'>教研写作方法</span></h3>
+<p>用五种感官来描写，让读者好像亲眼看到、亲耳听到一样！</p>
+<div class='method'>
+<div class='method-title'>👀 视觉（看）</div>
+<p>看到了什么？什么颜色？什么形状？</p>
+</div>
+<div class='method'>
+<div class='method-title'>👂 听觉（听）</div>
+<p>听到了什么声音？</p>
+</div>
+<div class='method'>
+<div class='method-title'>👃 嗅觉（闻）</div>
+<p>闻到了什么味道？</p>
+</div>
+<div class='method'>
+<div class='method-title'>👅 味觉（尝）</div>
+<p>尝到了什么味道？</p>
+</div>
+<div class='method'>
+<div class='method-title'>✋ 触觉（摸）</div>
+<p>摸到了什么？什么感觉？</p>
+</div>
+<div class='example'>【广州花市片段】走进花市，眼前是一片花的海洋，红的桃花、金的年桔、粉的月季，五颜六色（视觉）。耳边是人们讨价还价的笑声和花商的吆喝声（听觉）。空气中飘着淡淡的花香，甜甜的（嗅觉）。我摸了摸一盆多肉植物的叶子，肉嘟嘟的，好可爱（触觉）。</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>✏️</span>句子要完整</h3>
+<p>一个完整的句子要有：谁 + 干什么。</p>
+<div class='method'>
+<div class='method-title'>完整句 = 谁 + 干什么</div>
+<p>谁（主语）+ 干什么（谓语）= 完整的句子</p>
+</div>
+<div class='example'>✅ 完整：小红在花园里浇花。<br>❌ 不完整：在花园里浇花。（少了"谁"）<br>❌ 不完整：小红在花园里。（少了"干什么"）</div>
+<div class='tip-box'>💡 小窍门：写完一句话，检查一下有没有"谁"和"干什么"，两个都有才算完整哦！</div>
+</div>
+<div class='card card-teal'>
+<h3><span class='icon'>🎨</span>比喻句入门</h3>
+<p>比喻句就是打比方，把一个东西说成另一个东西，让描写更生动！</p>
+<div class='method'>
+<div class='method-title'>公式：A像B</div>
+<p>A（要写的东西）+ 像 + B（用来比方的东西）= 比喻句</p>
+</div>
+<div class='example'>🌸 木棉花像一个个小火炬。<br>☁️ 白云像棉花糖一样。<br>⭐ 星星像宝石一样闪闪发光。<br>💧 珠江像一条闪亮的丝带。</div>
+<div class='tip-box'>💡 小窍门：用来比方的东西要和要写的东西有相似的地方，不能乱比哦！</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>📝</span>标点符号小课堂</h3>
+<div class='method'>
+<div class='method-title'>逗号 ，</div>
+<p>句子中间停一下用逗号。</p>
+</div>
+<div class='method'>
+<div class='method-title'>句号 。</div>
+<p>一句话说完了用句号。</p>
+</div>
+<div class='method'>
+<div class='method-title'>问号 ？</div>
+<p>问问题的时候用问号。</p>
+</div>
+<div class='method'>
+<div class='method-title'>感叹号 ！</div>
+<p>表示惊讶、开心、激动的时候用感叹号。</p>
+</div>
+<div class='example'>【示例】今天天气真好啊！我们一起去公园玩，好不好？好的！</div>
+</div>
+</div>
+<div class='grade-content' id='g0_1'>
+<div class='card'>
+<h3><span class='icon'>🎬</span>好开头三招<span class='method-tag'>教研写作方法</span></h3>
+<p>作文开头很重要，好的开头能让读者一下子被吸引住！</p>
+<div class='method'>
+<div class='method-title'>第一招：声音开头</div>
+<p>用声音把读者带进画面</p>
+<div class='example'>叮铃铃——下课铃响了，同学们像快乐的小鸟一样飞出教室。</div>
+</div>
+<div class='method'>
+<div class='method-title'>第二招：提问开头</div>
+<p>用问题勾起读者的好奇心</p>
+<div class='example'>你有没有过这样的经历：明明很努力了，结果却不如意？我有过。</div>
+</div>
+<div class='method'>
+<div class='method-title'>第三招：环境开头</div>
+<p>描写周围的环境，营造气氛</p>
+<div class='example'>清晨，薄薄的雾笼罩着校园，几只小鸟在枝头叽叽喳喳地唱着歌，新的一天开始了。</div>
+</div>
+</div>
+<div class='card card-teal'>
+<h3><span class='icon'>🔍</span>细节描写：慢镜头法<span class='method-tag'>教研写作方法</span></h3>
+<p>把动作拆成慢镜头，就像看慢动作回放一样！不要只写一个动作，要把一个大动作拆成好几个小动作。</p>
+<div class='method-green'>
+<div class='method-title'>口诀：先怎样→再怎样→然后怎样→最后怎样</div>
+</div>
+<div class='example'>【普通写法】妈妈在厨房切菜。<br><br>【慢镜头写法】妈妈系上围裙，从冰箱里拿出一根黄瓜，放在水龙头下哗哗地冲洗干净，然后放在砧板上，右手握紧菜刀，左手按住黄瓜，刀落下，咔嚓咔嚓，黄瓜变成了一片片薄薄的小圆片。刀在妈妈手里灵活地飞舞，不一会儿，一盘整齐的黄瓜片就切好了。🥒</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>🏔️</span>写景顺序法</h3>
+<p>写景不能东一笔西一笔，要有顺序地写：</p>
+<div class='method'>
+<div class='method-title'>1️⃣ 从上到下</div>
+<p>先写天空→再写远山→再写地面</p>
+</div>
+<div class='method'>
+<div class='method-title'>2️⃣ 从远到近</div>
+<p>先写远处的景色→再写近处的景色</p>
+</div>
+<div class='method'>
+<div class='method-title'>3️⃣ 时间顺序</div>
+<p>早上→中午→傍晚，或者春夏秋冬的变化</p>
+</div>
+<div class='example'>【广州白云山片段（从上到下）】站在白云山山顶，抬头是湛蓝的天空，几朵白云像棉花糖一样飘着。远处，连绵的山峦一座连着一座，披着绿色的外衣。山脚下，高楼大厦密密麻麻，珠江像一条闪亮的丝带蜿蜒穿过城市。近处，路旁的榕树舒展着长长的胡须，几只松鼠在枝头跳来跳去。🌿</div>
+</div>
+<div class='card card-teal'>
+<h3><span class='icon'>🎭</span>人物对话写法</h3>
+<p>写对话能让人物活起来！记住对话的三个部分：</p>
+<div class='method'>
+<div class='method-title'>提示语 + 引号 + 说的话</div>
+<p>提示语：谁说的、怎么说的</p>
+<p>引号：用冒号和引号把说的话包起来</p>
+<p>说的话：人物说的话要符合身份</p>
+</div>
+<div class='example'>【示例】奶奶笑眯眯地说："后生仔，食咗饭未啊？"<br><br>老师严肃地说："这次考试大家要认真审题。"<br><br>小明激动地喊道："我考了一百分！"</div>
+<div class='tip-box'>💡 小窍门：不同的人说话方式不一样。老奶奶说话和小朋友不一样，老师说话和妈妈不一样。</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>🌳</span>拟人句入门</h3>
+<p>把不是人的东西当成人来写，让它们会说话、会做事、有感情！</p>
+<div class='method'>
+<div class='method-title'>公式：东西 + 人的动作/表情</div>
+</div>
+<div class='example'>🌸 花儿张开了笑脸。<br>🍃 风儿轻轻地唱着歌。<br>🌞 太阳笑眯眯地看着我们。<br>🐦 小鸟在枝头聊天。<br>🌊 海浪拍着手欢迎我们。</div>
+</div>
+<div class='card card-teal'>
+<h3><span class='icon'>📖</span>段落分明法</h3>
+<p>一篇好的作文，至少要分成三段：</p>
+<div class='method'>
+<div class='method-title'>开头段</div>
+<p>点题，引出要写的内容（3-4句为佳）</p>
+</div>
+<div class='method'>
+<div class='method-title'>中间段</div>
+<p>具体写事情，可以有多个自然段，每段写一个方面的内容</p>
+</div>
+<div class='method'>
+<div class='method-title'>结尾段</div>
+<p>总结全文或抒发感受</p>
+</div>
+<div class='tip-box'>💡 小窍门：每段开头空两格，一段只说一个意思，不要把什么都塞在一段里！</div>
+</div>
+</div>
+<div class='grade-content' id='g0_2'>
+<div class='card'>
+<h3><span class='icon'>🎭</span>人物刻画三板斧<span class='method-tag'>教研写作方法</span></h3>
+<p>写好人物，这三板斧缺一不可：</p>
+<div class='method'>
+<div class='method-title'>第一斧：外貌抓特点</div>
+<p>不要面面俱到，抓住最特别的地方写！比如最明显的特点：高鼻子、大眼睛、总是笑眯眯。</p>
+</div>
+<div class='method'>
+<div class='method-title'>第二斧：语言有个性</div>
+<p>每个人说话的方式不一样，让人物说属于自己的话。老奶奶说话和小朋友不一样，老师说话和妈妈不一样。</p>
+</div>
+<div class='method'>
+<div class='method-title'>第三斧：动作传心理</div>
+<p>不用直接写他紧张/开心，写动作让读者自己感受！</p>
+</div>
+<div class='example'>【普通写法】他很紧张。<br><br>【动作传心理】他的手心全是汗，不停地揪着衣角，嘴唇动了动，却什么声音也没发出来。<br><br>【对比示例】<br>普通：老师走进教室。<br>生动：李老师踩着高跟鞋，噔噔噔地走进教室，把教案往讲台上一放，扫视了一圈，教室立刻安静了下来。</div>
+</div>
+<div class='card card-teal'>
+<h3><span class='icon'>📚</span>读后感写法：四步法<span class='method-tag'>教研写作方法</span></h3>
+<p>写读后感，记住四个字：引→概→感→联</p>
+<div class='method'>
+<div class='method-title'>引——引出书名</div>
+<p>我最近读了《XX》这本书，</p>
+</div>
+<div class='method'>
+<div class='method-title'>概——概括内容</div>
+<p>这本书讲了……（用自己的话简单说一说主要内容，不要太长）</p>
+</div>
+<div class='method'>
+<div class='method-title'>感——谈感受</div>
+<p>我最感动/最受启发的是……（写出自己最真实的感受）</p>
+</div>
+<div class='method'>
+<div class='method-title'>联——联系实际</div>
+<p>这让我想起了……（联系自己的生活经历来写）</p>
+</div>
+<div class='tip-box'>💡 重点在"感"与"联"，这两部分要多写！</div>
+<div class='example'>【四步法示例】<br>引：最近我读了一本叫《夏洛的网》的书。<br>概：这本书讲的是小猪威尔伯和蜘蛛夏洛的故事。夏洛为了救威尔伯，在网上织出了赞美威尔伯的字，最后威尔伯得救了，可夏洛却离开了这个世界。<br>感：我最感动的是夏洛对朋友的那份真心。她说：你是我的朋友，这件事本身就是一件了不起的事。读到这里，我的眼眶湿润了。<br>联：这让我想起了我的好朋友小明，有一次我考试没考好，难过地哭了，他默默地陪在我身边，还把他的笔记借给我看。真正的朋友，就是在你最需要的时候出现的人。</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>🚀</span>想象作文三秘诀</h3>
+<div class='method'>
+<div class='method-title'>1️⃣ 大胆想象</div>
+<p>越新奇越好！可以想象未来的世界、奇妙的旅行、神奇的发明。</p>
+</div>
+<div class='method'>
+<div class='method-title'>2️⃣ 合理逻辑</div>
+<p>想象要讲道理。比如未来有飞行汽车，但要解释为什么能飞；二十年后的家乡，变化要有依据。</p>
+</div>
+<div class='method'>
+<div class='method-title'>3️⃣ 真情实感</div>
+<p>想象的世界里也要有真实的感情。看到未来家乡的变化，你会惊喜、感动、自豪……这些真实感受让文章有了温度。</p>
+</div>
+<div class='example'>【《二十年后的家乡》片段】到了2046年，我的家乡广州已经完全变了样。珠江上架起了透明的空中走廊，人们可以一边散步一边欣赏江景。广州塔升级了，不仅能观景，塔顶还建了一个空中花园，种满了各种鲜花。最让我惊讶的是，街上的垃圾桶都变成了智能机器人，看到垃圾就会自动捡起来，还会对你说：谢谢你保持城市整洁！🏙️ 虽然家乡变了很多，但街角那家老字号肠粉店还在，老板还是笑眯眯的陈爷爷，他说：什么都可以变，但肠粉的味道不能变！听到这话，我心里暖洋洋的。</div>
+</div>
+<div class='card card-teal'>
+<h3><span class='icon'>🌸</span>借物抒情法<span class='method-tag'>教研写作方法</span></h3>
+<p>写一个东西，不只是写它长什么样，还要写出你对它的感情和想法。</p>
+<div class='method'>
+<div class='method-title'>第一步：写外观</div>
+<p>这个东西长什么样？什么颜色？什么形状？</p>
+</div>
+<div class='method'>
+<div class='method-title'>第二步：写故事</div>
+<p>这个东西和你之间有什么故事？</p>
+</div>
+<div class='method'>
+<div class='method-title'>第三步：写感情</div>
+<p>看到这个东西，你心里有什么感觉？想到了什么？</p>
+</div>
+<div class='example'>【示例：木棉花】色：木棉花红得像火焰，开满了枝头。受：看到它，我心里涌起一股激动。想：这让我想起爷爷说过的话，做人要像木棉一样挺直腰板。识：木棉花是广州的市花，它热烈而勇敢，就像我们广州人一样。</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>🔄</span>一波三折法<span class='method-tag'>教研写作方法</span></h3>
+<p>好故事就像过山车，有起有伏才精彩！在故事中设置小波折，让事情不是一帆风顺。</p>
+<div class='method'>
+<div class='method-title'>结构</div>
+<p>起——事情开始了，看起来一切顺利</p>
+<p>折——突然出现了问题或困难</p>
+<p>再起——想办法解决了困难</p>
+<p>终——最终结果</p>
+</div>
+<div class='example'>【示例框架】<br>题目：《学游泳》<br>起：暑假到了，我开心地去报了游泳班，心想游泳有什么难的？<br>折：第一天下水，我就呛了好几口水，吓得直发抖，再也不想学了。<br>再起：教练鼓励我，教我先学憋气。我鼓起勇气，一次又一次地练习，终于能在水下憋气十秒了。<br>终：结课时，我居然能游25米了！回想那段呛水的经历，我明白了：困难只是暂时的，坚持就能成功！</div>
+</div>
+</div>
+<div class='grade-content' id='g0_3'>
+<div class='card'>
+<h3><span class='icon'>📝</span>记叙文高分秘诀：一波三折法<span class='method-tag'>教研写作方法</span></h3>
+<p>好故事就像过山车，有起有伏才精彩！</p>
+<div class='method'>
+<div class='method-title'>起</div>
+<p>事情开始了，看起来一切顺利</p>
+</div>
+<div class='method'>
+<div class='method-title'>折</div>
+<p>突然出现了问题或困难</p>
+</div>
+<div class='method'>
+<div class='method-title'>再起</div>
+<p>想办法解决了困难</p>
+</div>
+<div class='method'>
+<div class='method-title'>终</div>
+<p>又出现新的转折或最终结果</p>
+</div>
+<div class='tip-box'>💡 注意：波折不要太夸张，要真实合理，生活中本来就充满了小意外！</div>
+</div>
+<div class='card card-teal'>
+<h3><span class='icon'>✏️</span>半命题作文技巧：补题三原则<span class='method-tag'>教研写作方法</span></h3>
+<p>半命题作文如《那一次，我懂得了____》，需要你自己把题目补完整。</p>
+<div class='method'>
+<div class='method-title'>1️⃣ 熟悉原则</div>
+<p>选你最了解、最熟悉的内容来补。你经历过的才写得真实。</p>
+</div>
+<div class='method'>
+<div class='method-title'>2️⃣ 新颖原则</div>
+<p>尽量避开大家都会写的内容，选一个有新意的角度。</p>
+</div>
+<div class='method'>
+<div class='method-title'>3️⃣ 有话可说原则</div>
+<p>选你能写出很多内容的，别选空泛的词。</p>
+</div>
+<div class='example'>【5个补题示例】<br>题目：《那一次，我懂得了____》<br>1. 那一次，我懂得了坚持——写学骑自行车/学游泳，大家常写，但真实<br>2. 那一次，我懂得了感恩——写妈妈生病后自己做饭，比较有新意<br>3. 那一次，我懂得了倾听——写和朋友吵架后学会听对方说，角度新颖<br>4. 那一次，我懂得了勇敢——写第一次独自坐地铁，贴近生活<br>5. 那一次，我懂得了分享——写把心爱的玩具借给弟弟，有话可说<br><br>推荐：倾听和感恩比较新颖，容易得高分！</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>⏰</span>考场作文攻略</h3>
+<div class='method'>
+<div class='method-title'>⏱️ 时间分配（以40分钟为例）</div>
+<p>审题+构思：5分钟（很重要，不要省！）</p>
+<p>写正文：30分钟</p>
+<p>检查修改：5分钟</p>
+</div>
+<div class='method'>
+<div class='method-title'>📏 字数控制</div>
+<p>三年级：200-250字</p>
+<p>四年级：300-350字</p>
+<p>五年级：400-450字</p>
+<p>六年级：500-550字</p>
+<p>不要写太少，也不要写太长，比要求多50字左右最好。</p>
+</div>
+<div class='method'>
+<div class='method-title'>✅ 检查清单</div>
+<p>□ 题目写了吗？</p>
+<p>□ 有没有错别字？</p>
+<p>□ 句子通不通？</p>
+<p>□ 有没有跑题？</p>
+<p>□ 开头结尾有没有？</p>
+<p>□ 有没有用好词好句？</p>
+</div>
+<div class='example'>【考场小贴士】<br>1. 拿到试卷先看作文题，写作过程中灵感可能随时冒出来<br>2. 先在草稿纸上列提纲：开头写什么→中间写什么→结尾写什么<br>3. 字迹工整很重要！老师看作文先看字迹<br>4. 万一写错了，划一条横线就好，不要涂成黑疙瘩<br>5. 结尾留2-3分钟回头检查，总能发现几个小错误</div>
+</div>
+<div class='card card-teal'>
+<h3><span class='icon'>🎨</span>好词好句积累法<span class='method-tag'>教研写作方法</span></h3>
+<p>好词好句是作文的"装饰品"，用得好能让作文闪闪发光！</p>
+<div class='method'>
+<div class='method-title'>1️⃣ 四字词语</div>
+<p>积累并运用四字词语，如：姹紫嫣红、草长莺飞、活蹦乱跳、小心翼翼</p>
+</div>
+<div class='method'>
+<div class='method-title'>2️⃣ 比喻句</div>
+<p>A像B，让描写更生动。如：白云像棉花糖一样。</p>
+</div>
+<div class='method'>
+<div class='method-title'>3️⃣ 拟人句</div>
+<p>把东西当成人来写。如：花儿张开了笑脸。</p>
+</div>
+<div class='method'>
+<div class='method-title'>4️⃣ 形容词</div>
+<p>用形容词让描写更丰富。如：金灿灿的阳光、绿油油的草地。</p>
+</div>
+<div class='tip-box'>💡 小窍门：不要堆砌太多好词好句，一篇作文用3-5个就好，用得自然最重要！</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>🌟</span>广州特色素材法<span class='method-tag'>教研写作方法</span></h3>
+<p>写广州本地的事情，比写北方的雪景更真实、更有特色！</p>
+<div class='method'>
+<div class='method-title'>🌸 逛花市</div>
+<p>过年逛花市的热闹场景，金桔、桃花、水仙花，人山人海中挑年花。</p>
+</div>
+<div class='method'>
+<div class='method-title'>🐲 赛龙舟</div>
+<p>端午节珠江上龙舟竞渡，鼓声震天，队员齐心协力划桨。</p>
+</div>
+<div class='method'>
+<div class='method-title'>🍵 喝早茶</div>
+<p>一家人去茶楼喝早茶，虾饺、叉烧包、凤爪，悠闲地聊天。</p>
+</div>
+<div class='method'>
+<div class='method-title'>🏔️ 白云山</div>
+<p>爬白云山看日出，山顶俯瞰广州城，珠江像丝带。</p>
+</div>
+<div class='method'>
+<div class='method-title'>🏙️ 广州塔</div>
+<p>夜晚的广州塔变换着颜色，像一根彩色荧光棒。</p>
+</div>
+<div class='example'>【广州花市片段】走进花市，眼前是一片花的海洋。红的桃花像害羞的小姑娘，金的年桔挂满了果实像一棵棵小圣诞树。妈妈牵着我的手，在人群中挤来挤去，我踮着脚尖看这盆、摸那盆，最后选了一盆粉色的月季花。老板笑着说："小妹妹好眼光，这盆花开得最旺！"我抱着花，心里比花还甜。🌸</div>
+</div>
+<div class='card card-teal'>
+<h3><span class='icon'>🔗</span>过渡衔接法<span class='method-tag'>教研写作方法</span></h3>
+<p>段落和段落之间要用过渡词连接，让文章读起来通顺流畅。</p>
+<div class='method'>
+<div class='method-title'>时间过渡词</div>
+<p>首先→然后→接着→后来→最后</p>
+</div>
+<div class='method'>
+<div class='method-title'>因果过渡词</div>
+<p>因为→所以 / 虽然→但是</p>
+</div>
+<div class='method'>
+<div class='method-title'>递进过渡词</div>
+<p>不仅→而且 / 又 / 也</p>
+</div>
+<div class='example'>【示例】首先，我们来到了花市的入口。然后，一股花香扑面而来。接着，我们看到了五颜六色的鲜花。最后，我选了一盆最喜欢的月季花。</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 模块2：范文赏析 -->
+<div class='module' id='mod1'>
+<div id='essayList'></div>
+</div>
+<!-- 模块3：素材宝库 -->
+<div class='module' id='mod2'>
+<div class='sub-tab-bar'>
+<button class='sub-tab active' onclick='switchSub(2,0)'>🎨 好词好句</button>
+<button class='sub-tab' onclick='switchSub(2,1)'>💬 名言警句</button>
+<button class='sub-tab' onclick='switchSub(2,2)'>🌟 生活素材</button>
+<button class='sub-tab' onclick='switchSub(2,3)'>📝 开头结尾模板</button>
+</div>
+<div class='sub-content active' id='s2_0'>
+<div class='card'>
+<h3>🎨 好词好句</h3>
+<h4>👤 写人</h4>
+<p><strong>外貌词：</strong>乌黑发亮、浓眉大眼、眉清目秀、白发苍苍、面带微笑、精神抖擞、虎头虎脑、小巧玲珑、容光焕发、炯炯有神</p>
+<p><strong>好句子：</strong></p>
+<ul>
+<li>她的眼睛像两颗黑葡萄，又大又亮，忽闪忽闪的。</li>
+<li>爷爷的脸上刻满了皱纹，每一道都像是岁月写下的故事。</li>
+<li>他一笑起来，露出两颗小虎牙，可爱极了。</li>
+<li>妈妈的手虽然粗糙，却是我觉得世界上最温暖的手。</li>
+<li>老师的目光像一盏灯，照亮了我心里的每一个角落。</li>
+</ul>
+<h4>🏔️ 写景</h4>
+<p><strong>四季词：</strong>春：姹紫嫣红、草长莺飞、春暖花开 | 夏：骄阳似火、绿树成荫、蝉鸣蛙叫 | 秋：硕果累累、秋高气爽、金风送爽 | 冬：寒风刺骨、白雪皑皑、银装素裹</p>
+<p><strong>好句子：</strong></p>
+<ul>
+<li>春天的木棉花开了，红彤彤地挂在枝头，像一簇簇跳动的火焰。🔥</li>
+<li>夏夜的星空，一颗颗星星像宝石一样镶嵌在深蓝色的天幕上。</li>
+<li>秋风吹过，金黄的落叶打着旋儿飘下来，像一只只翩翩起舞的蝴蝶。</li>
+<li>冬天的早晨，窗上结了一层冰花，有的像小树，有的像花朵，美极了。</li>
+<li>雨后的彩虹挂在天边，七种颜色排成一排，像一座五彩的桥。</li>
+<li>珠江像一条闪亮的丝带，弯弯曲曲地穿过广州城。</li>
+<li>白云山上，晨雾像一条白纱巾，轻轻地披在山腰上。</li>
+</ul>
+<h4>🎬 写事</h4>
+<p><strong>动作词：</strong>飞奔、猛扑、蹑手蹑脚、奋不顾身、翩翩起舞、大步流星、小心翼翼、手忙脚乱、昂首挺胸、东张西望</p>
+<p><strong>心情词：</strong>喜出望外、心花怒放、忐忑不安、垂头丧气、怒气冲冲、激动万分、百感交集、心急如焚、欣喜若狂、闷闷不乐</p>
+<p><strong>好句子：</strong></p>
+<ul>
+<li>听到这个好消息，我高兴得一蹦三尺高。</li>
+<li>我的心怦怦直跳，好像揣了一只小兔子。</li>
+<li>他的脸涨得通红，像一个熟透的番茄。</li>
+<li>眼泪像断了线的珠子，一颗颗滚落下来。</li>
+<li>我的心里像打翻了五味瓶，酸甜苦辣一起涌上来。</li>
+</ul>
+<h4>🐾 写动物</h4>
+<p><strong>外形词：</strong>毛茸茸、圆滚滚、玲珑可爱、威风凛凛、雪白无暇、油光发亮、机灵乖巧、憨态可掬</p>
+<p><strong>动态词：</strong>活蹦乱跳、左顾右盼、悠然自得、摇头摆尾、展翅高飞、蹑手蹑脚、腾空而起、翩翩起舞</p>
+<p><strong>好句子：</strong></p>
+<ul>
+<li>豆豆全身长着金黄色的毛，摸上去软绵绵的，像一团棉花糖。</li>
+<li>它的尾巴摇得像个小风扇，好像永远都不会累。</li>
+<li>小金鱼在鱼缸里游来游去，尾巴像一把漂亮的小扇子。</li>
+<li>鹦鹉的羽毛五颜六色的，像穿了一件花衣裳。</li>
+</ul>
+<h4>🌈 写广州</h4>
+<p><strong>好句子：</strong></p>
+<ul>
+<li>广州塔像一位亭亭玉立的少女，在夜色中变换着彩色的衣裙。</li>
+<li>花市里人山人海，花香混合着笑声，这就是广州年的味道。</li>
+<li>早茶推车上摆满了晶莹剔透的虾饺、金黄酥脆的叉烧酥，看了就馋。</li>
+<li>珠江两岸灯火通明，倒映在水里，碎成了满河星光。</li>
+<li>白云山上的榕树，气根垂下来像老爷爷的胡子，又长又密。</li>
+<li>端午节的珠江上，龙舟像离弦的箭一样冲出去，鼓声震天。</li>
+</ul>
+</div>
+</div>
+<div class='sub-content' id='s2_1'>
+<div class='card'>
+<h3>💬 名言警句</h3>
+<h4>📚 勤奋学习</h4>
+<div class='quote-item'><div class='q-text'>「书山有路勤为径，学海无涯苦作舟。」</div><div class='q-explain'>💡 学习没有捷径，只有勤奋和刻苦才能到达目标。</div></div>
+<div class='quote-item'><div class='q-text'>「少壮不努力，老大徒伤悲。」</div><div class='q-explain'>💡 小时候不努力，长大了后悔也来不及了。</div></div>
+<div class='quote-item'><div class='q-text'>「读书破万卷，下笔如有神。」</div><div class='q-explain'>💡 书读得多了，写起作文来就会很厉害。</div></div>
+<div class='quote-item'><div class='q-text'>「天才是百分之一的灵感加百分之九十九的汗水。」</div><div class='q-explain'>💡 爱迪生说的，天才也需要努力，光靠聪明是不够的。</div></div>
+<div class='quote-item'><div class='q-text'>「学如逆水行舟，不进则退。」</div><div class='q-explain'>💡 学习就像逆着水流划船，不努力往前划，就会往后退。</div></div>
+<h4>⏰ 珍惜时间</h4>
+<div class='quote-item'><div class='q-text'>「一寸光阴一寸金，寸金难买寸光阴。」</div><div class='q-explain'>💡 时间比金子还珍贵，花多少钱也买不回来。</div></div>
+<div class='quote-item'><div class='q-text'>「一年之计在于春，一日之计在于晨。」</div><div class='q-explain'>💡 一年最重要的是春天，一天最重要的是早晨，要好好珍惜。</div></div>
+<div class='quote-item'><div class='q-text'>「黑发不知勤学早，白首方悔读书迟。」</div><div class='q-explain'>💡 年轻的时候不早点好好学习，老了后悔也来不及。</div></div>
+<div class='quote-item'><div class='q-text'>「莫等闲，白了少年头，空悲切。」</div><div class='q-explain'>💡 岳飞说的，不要虚度青春年华，不然老了只有后悔。</div></div>
+<div class='quote-item'><div class='q-text'>「盛年不重来，一日难再晨。」</div><div class='q-explain'>💡 陶渊明说的，美好的年华不会再来，一天也不会有两个早晨。</div></div>
+<h4>🤝 诚实守信</h4>
+<div class='quote-item'><div class='q-text'>「人而无信，不知其可也。」</div><div class='q-explain'>💡 孔子说的，一个人如果不讲信用，就不知道他还能做什么了。</div></div>
+<div class='quote-item'><div class='q-text'>「言必信，行必果。」</div><div class='q-explain'>💡 说话一定要算数，做事一定要有结果。</div></div>
+<div class='quote-item'><div class='q-text'>「失信就是失败。」</div><div class='q-explain'>💡 失去了信用，就等于失败了，信用比什么都重要。</div></div>
+<div class='quote-item'><div class='q-text'>「诚实是人生永远最美好的品格。」</div><div class='q-explain'>💡 高尔基说的，诚实是一个人身上最美好的品质。</div></div>
+<h4>❤️ 感恩孝敬</h4>
+<div class='quote-item'><div class='q-text'>「谁言寸草心，报得三春晖。」</div><div class='q-explain'>💡 孟郊写的，小草怎么能报答春天的阳光呢？就像我们很难完全报答父母的恩情。</div></div>
+<div class='quote-item'><div class='q-text'>「百善孝为先。」</div><div class='q-explain'>💡 所有的美德中，孝敬父母是排在第一位的。</div></div>
+<div class='quote-item'><div class='q-text'>「滴水之恩，当涌泉相报。」</div><div class='q-explain'>💡 别人给你一滴水的帮助，你应该像泉水一样回报。</div></div>
+<div class='quote-item'><div class='q-text'>「羊有跪乳之恩，鸦有反哺之义。」</div><div class='q-explain'>💡 小羊跪着吃奶，小乌鸦长大了喂老乌鸦，动物都知道感恩，何况人呢？</div></div>
+<div class='quote-item'><div class='q-text'>「落红不是无情物，化作春泥更护花。」</div><div class='q-explain'>💡 龚自珍写的，落花不是没有感情，它化为泥土来保护花朵，就像父母默默守护我们。</div></div>
+<h4>💪 坚持毅力</h4>
+<div class='quote-item'><div class='q-text'>「锲而不舍，金石可镂。」</div><div class='q-explain'>💡 只要坚持不懈，连金石都能雕刻，做什么都能成功。</div></div>
+<div class='quote-item'><div class='q-text'>「千里之行，始于足下。」</div><div class='q-explain'>💡 再远的路，也要从脚下第一步开始走。</div></div>
+<div class='quote-item'><div class='q-text'>「宝剑锋从磨砺出，梅花香自苦寒来。」</div><div class='q-explain'>💡 宝剑的锋利是磨出来的，梅花的清香是从严寒中来的，成功需要磨炼。</div></div>
+</div>
+</div>
+<div class='sub-content' id='s2_2'>
+<div class='card'>
+<h3>🌟 生活素材</h3>
+<h4>🏫 校园生活</h4>
+<div class='life-item'><div class='li-title'>🏃 运动会</div><div class='li-desc'>跑道上你追我赶、同学加油呐喊、摔倒了爬起来继续跑。可用于：坚持、团结、拼搏等主题</div></div>
+<div class='life-item'><div class='li-title'>📝 考试</div><div class='li-desc'>考前紧张复习、考试时的忐忑、成绩出来后的喜悦或失落。可用于：努力、成长、面对挫折等主题</div></div>
+<div class='life-item'><div class='li-title'>😄 课间趣事</div><div class='li-desc'>和同学玩的游戏、闹的小笑话、课间的开心时光。可用于：友情、快乐、童年等主题</div></div>
+<div class='life-item'><div class='li-title'>🎨 美术课</div><div class='li-desc'>画画时的专注、作品完成后的成就感、和同学分享的快乐。可用于：创造、快乐、发现美等主题</div></div>
+<div class='life-item'><div class='li-title'>🔬 科学实验</div><div class='li-desc'>做实验时的好奇、失败后的重试、成功后的惊喜。可用于：探索、好奇、坚持等主题</div></div>
+<h4>🏠 家庭生活</h4>
+<div class='life-item'><div class='li-title'>🍳 做饭</div><div class='li-desc'>第一次学做饭的笨手笨脚、爸妈的指导、饭菜的香味。可用于：成长、感恩、第一次等主题</div></div>
+<div class='life-item'><div class='li-title'>🚗 旅行</div><div class='li-desc'>和家人出游的见闻、途中的趣事、美丽的风景。可用于：快乐、亲情、发现美等主题</div></div>
+<div class='life-item'><div class='li-title'>🎉 过节</div><div class='li-desc'>全家人团聚的热闹、传统习俗的有趣、节日的温暖。可用于：团圆、传统文化、幸福等主题</div></div>
+<div class='life-item'><div class='li-title'>📖 亲子阅读</div><div class='li-desc'>和爸妈一起读书的温馨时光、讨论故事情节的乐趣。可用于：阅读、亲情、成长等主题</div></div>
+<div class='life-item'><div class='li-title'>🧹 家务劳动</div><div class='li-desc'>第一次扫地洗碗的笨拙、学会后的自豪、帮爸妈分担的快乐。可用于：成长、责任、感恩等主题</div></div>
+<h4>🌍 社会见闻</h4>
+<div class='life-item'><div class='li-title'>💺 让座</div><div class='li-desc'>公交车上看到有人给老人让座，或者自己让座后的开心。可用于：善良、文明、温暖等主题</div></div>
+<div class='life-item'><div class='li-title'>🙋 志愿者</div><div class='li-desc'>参加志愿活动的感受、帮助别人后的快乐。可用于：奉献、爱心、责任等主题</div></div>
+<div class='life-item'><div class='li-title'>🏘️ 社区活动</div><div class='li-desc'>社区里的文化活动、邻居间的互帮互助。可用于：和谐、邻里情、社区生活等主题</div></div>
+<h4>🌴 广州特色</h4>
+<div class='life-item'><div class='li-title'>🌸 逛花市</div><div class='li-desc'>过年逛花市的热闹场景，金桔、桃花、水仙花，人山人海中挑年花。可用于：传统节日、热闹、春节等主题</div></div>
+<div class='life-item'><div class='li-title'>🐲 赛龙舟</div><div class='li-desc'>端午节珠江上龙舟竞渡，鼓声震天，队员齐心协力划桨。可用于：团结、传统、拼搏等主题</div></div>
+<div class='life-item'><div class='li-title'>🍵 喝早茶</div><div class='li-desc'>一家人去茶楼喝早茶，虾饺、叉烧包、凤爪，悠闲地聊天。可用于：亲情、传统文化、幸福等主题</div></div>
+<div class='life-item'><div class='li-title'>🏔️ 爬白云山</div><div class='li-desc'>春天爬白云山看花开、山顶俯瞰广州城、珠江像丝带。可用于：自然、坚持、发现美等主题</div></div>
+<div class='life-item'><div class='li-title'>🏙️ 夜游珠江</div><div class='li-desc'>晚上坐船游珠江，看两岸灯火、广州塔变色、江风拂面。可用于：美景、城市、快乐等主题</div></div>
+<div class='life-item'><div class='li-title'>🎭 看粤剧</div><div class='li-desc'>和爷爷奶奶去看粤剧，演员的水袖和唱腔。可用于：传统文化、亲情、艺术等主题</div></div>
+</div>
+</div>
+<div class='sub-content' id='s2_3'>
+<div class='card'>
+<h3>📝 开头结尾模板</h3>
+<h4>🎬 开头5种</h4>
+<div class='template-box'><div class='t-label'>1. 写景式开头</div>____的____（时间/季节），____（景物描写），____（引出下文）。<br>例：深秋的傍晚，夕阳把天边染成了一片橘红，我独自走在回家的小路上，心里装满了说不出的感动。</div>
+<div class='template-box'><div class='t-label'>2. 提问式开头</div>你有没有____（经历/感受）？我有过。那一次____，让我____。<br>例：你有没有为了一个目标拼尽全力？我有过。那次运动会，让我真正懂得了什么叫坚持。</div>
+<div class='template-box'><div class='t-label'>3. 声音式开头</div>____（声音描写），____（引出场景/事件）。<br>例：叮铃铃——下课铃响了，同学们像快乐的小鸟一样飞出教室，操场上一下子热闹了起来。</div>
+<div class='template-box'><div class='t-label'>4. 引用式开头</div>____说过：____。这句话让我深有感触，因为____。<br>例：高尔基说过：书籍是人类进步的阶梯。这句话让我深有感触，因为一本好书改变了我对阅读的看法。</div>
+<div class='template-box'><div class='t-label'>5. 对比式开头</div>有人喜欢____，有人喜欢____，而我____。<br>例：有人喜欢春天的花红柳绿，有人喜欢冬天的银装素裹，而我最喜欢秋天的硕果累累。</div>
+<h4>🎯 结尾5种</h4>
+<div class='template-box'><div class='t-label'>1. 抒情式结尾</div>____啊，你____（赞美/感慨），我会永远____。<br>例：珠江啊，你见证了这座城市的变化，也承载着我们一代又一代广州人的记忆，我会永远爱着你。</div>
+<div class='template-box'><div class='t-label'>2. 道理式结尾</div>这件事让我明白了：____。<br>例：这件事让我明白了：真正的勇敢不是不害怕，而是害怕了依然选择面对。</div>
+<div class='template-box'><div class='t-label'>3. 呼应式结尾</div>（回到开头的场景或话题）如今，____，但____（不变的东西）。<br>例：如今，每当我走过那条小路，总会想起那个温暖的傍晚，时光在变，那份感动却永远不变。</div>
+<div class='template-box'><div class='t-label'>4. 展望式结尾</div>我相信，____一定会____。<br>例：我相信，只要我们每个人都献出一点爱，这个世界一定会变得更加美好。</div>
+<div class='template-box'><div class='t-label'>5. 祝福式结尾</div>愿____，愿____。<br>例：愿所有善良的人都能被世界温柔以待，愿每一份努力都不被辜负。</div>
+</div>
+</div>
+</div>
+<!-- 模块4：实战演练 -->
+<div class='module' id='mod3'>
+<div id='practiceList'></div>
+</div>
+
+<!-- 模块5：写作自评 -->
+<div class='module' id='mod4'>
+<div class='eval-section'>
+<h3>🎓 选择年级</h3>
+<select id='evalGrade' onchange='updateWordHint()'>
+<option value='3'>三年级（300字以上）</option>
+<option value='4'>四年级（400字以上）</option>
+<option value='5'>五年级（450字以上）</option>
+<option value='6'>六年级（500字以上）</option>
+</select>
+</div>
+<div class='eval-section'>
+<h3>📝 输入你的作文</h3>
+<textarea class='eval-textarea' id='essayInput' placeholder='在此输入你的作文全文，建议300字以上...'></textarea>
+<div class='char-count' id='charCount'>已输入 0 字</div>
+<div style='text-align:center;margin-top:14px;'>
+<button class='ai-analysis-btn' onclick='analyzeEssay()'>🤖 一键智能分析得分</button>
+</div>
+</div>
+<div class='eval-section'>
+<h3>📊 手动评分（100分制）</h3>
+<p style='font-size:13px;color:#888;margin-bottom:14px;'>小学作文评分标准：内容35分 + 表达30分 + 结构20分 + 书写15分 = 100分</p>
+<div class='dim-row'>
+<span class='dim-label'>内容<span class='dim-max'>/35</span></span>
+<div class='dim-btns'>
+<button class='dim-btn' data-dim='neirong' data-score='35' onclick='selectDim(this)'>优秀(35分)</button>
+<button class='dim-btn' data-dim='neirong' data-score='28' onclick='selectDim(this)'>良好(28分)</button>
+<button class='dim-btn' data-dim='neirong' data-score='21' onclick='selectDim(this)'>一般(21分)</button>
+<button class='dim-btn' data-dim='neirong' data-score='14' onclick='selectDim(this)'>待提升(14分)</button>
+</div>
+</div>
+<div class='dim-row'>
+<span class='dim-label'>表达<span class='dim-max'>/30</span></span>
+<div class='dim-btns'>
+<button class='dim-btn' data-dim='biaoda' data-score='30' onclick='selectDim(this)'>优秀(30分)</button>
+<button class='dim-btn' data-dim='biaoda' data-score='24' onclick='selectDim(this)'>良好(24分)</button>
+<button class='dim-btn' data-dim='biaoda' data-score='18' onclick='selectDim(this)'>一般(18分)</button>
+<button class='dim-btn' data-dim='biaoda' data-score='12' onclick='selectDim(this)'>待提升(12分)</button>
+</div>
+</div>
+<div class='dim-row'>
+<span class='dim-label'>结构<span class='dim-max'>/20</span></span>
+<div class='dim-btns'>
+<button class='dim-btn' data-dim='jiegou' data-score='20' onclick='selectDim(this)'>优秀(20分)</button>
+<button class='dim-btn' data-dim='jiegou' data-score='16' onclick='selectDim(this)'>良好(16分)</button>
+<button class='dim-btn' data-dim='jiegou' data-score='12' onclick='selectDim(this)'>一般(12分)</button>
+<button class='dim-btn' data-dim='jiegou' data-score='8' onclick='selectDim(this)'>待提升(8分)</button>
+</div>
+</div>
+<div class='dim-row'>
+<span class='dim-label'>书写<span class='dim-max'>/15</span></span>
+<div class='dim-btns'>
+<button class='dim-btn' data-dim='shuxie' data-score='15' onclick='selectDim(this)'>优秀(15分)</button>
+<button class='dim-btn' data-dim='shuxie' data-score='12' onclick='selectDim(this)'>良好(12分)</button>
+<button class='dim-btn' data-dim='shuxie' data-score='9' onclick='selectDim(this)'>一般(9分)</button>
+<button class='dim-btn' data-dim='shuxie' data-score='6' onclick='selectDim(this)'>待提升(6分)</button>
+</div>
+</div>
+<div style='text-align:center;margin-top:14px;'>
+<button class='ai-analysis-btn' style='background:linear-gradient(135deg,#ff6b35,#ff8e53);box-shadow:0 4px 15px rgba(255,107,53,0.4);' onclick='updateEvalResult()'>🎯 查看手动评分结果</button>
+</div>
+</div>
+<div class='checklist-box'>
+<h3>✅ 写作自查清单</h3>
+<p style='font-size:12px;color:#2d7d77;margin-bottom:10px;'>逐项检查你的作文，打勾越多，作文越好！</p>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>是否有明确的题目？<span class='ci-hint'>题目要简洁、贴切，能概括全文内容</span></span></div>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>开头是否点题？<span class='ci-hint'>开头不能太长，3-4句为佳，快速进入正题</span></span></div>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>是否有具体的事例和细节描写？<span class='ci-hint'>用慢镜头法把动作拆开写，不要只说做了什么</span></span></div>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>是否用了比喻或拟人等修辞手法？<span class='ci-hint'>至少用1-2处比喻或拟人，让语言更生动</span></span></div>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>是否有好词好句（成语、四字词语）？<span class='ci-hint'>用3-5个好词好句，用得自然最重要</span></span></div>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>段落是否分明？（至少3段）<span class='ci-hint'>开头段、中间段（可多段）、结尾段</span></span></div>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>结尾是否总结了全文或抒发了感受？<span class='ci-hint'>不能虎头蛇尾，结尾要有力</span></span></div>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>是否写了真实的感受和经历？<span class='ci-hint'>真情实感最能打动人，不要编造</span></span></div>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>有没有写流水账？<span class='ci-hint'>记一件事要有重点，不能事无巨细全写</span></span></div>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>字数是否达标？<span class='ci-hint'>三年级300字/四年级400字/五年级450字/六年级500字</span></span></div>
+</div>
+<div class='pitfall-box'>
+<h3>⚠️ 常见失分警示</h3>
+<p style='font-size:12px;color:#c53030;margin-bottom:10px;'>以下是最常见的失分点，一定要避免！</p>
+<div class='pitfall-item'><span class='pi-num'>1</span><span>跑题偏题——写的内容和题目要求不一致</span></div>
+<div class='pitfall-item'><span class='pi-num'>2</span><span>流水账——只叙事不写细节，像记流水账一样</span></div>
+<div class='pitfall-item'><span class='pi-num'>3</span><span>开头太长或太短——超过5句还没进入正题，或只有一句话</span></div>
+<div class='pitfall-item'><span class='pi-num'>4</span><span>没有分段或分段不合理——整篇文章只有一大段</span></div>
+<div class='pitfall-item'><span class='pi-num'>5</span><span>错别字和标点错误——一逗到底，没有句号</span></div>
+<div class='pitfall-item'><span class='pi-num'>6</span><span>用套路素材——下雨送伞、深夜去医院、扶老奶奶过马路</span></div>
+<div class='pitfall-item'><span class='pi-num'>7</span><span>写北方素材——堆雪人、打雪仗，与广州生活脱节</span></div>
+<div class='pitfall-item'><span class='pi-num'>8</span><span>结尾喊口号——"让我们携手共创美好明天"等空话</span></div>
+</div>
+<div id='aiAnalysisResult' class='hidden'></div>
+<div id='evalResult' class='hidden'></div>
+</div>
+<!-- 模块6：教研写作公式 -->
+<div class='module' id='mod5'>
+<div class='card card-teal'>
+<h3><span class='icon'>🧠</span>教研写作公式卡<span class='method-tag'>点击卡片翻转查看详情</span></h3>
+<p style='font-size:14px;color:#555;margin-bottom:16px;line-height:1.8;'>六大核心写作公式，涵盖结构、描写、写事、写人、积累、素材六大维度。点击任意卡片，翻转查看详细步骤和示范。建议反复练习，内化为自己的写作本能。</p>
+</div>
+<div class='formula-grid'>
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>🏗️</div>
+<div class='ff-title'>公式一：三段式结构法</div>
+<div class='ff-subtitle'>开头点题 → 中间细节 → 结尾升华</div>
+<div class='ff-brief'>小学万能结构，开头3-4句点题，中间具体写事，结尾总结感受。</div>
+<div class='ff-hint'>👉 点击翻转查看详细步骤</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>三段式结构法 · 详细步骤</div>
+<div class='fb-step'><span class='fb-step-title'>第一步：开头段（3-4句）</span><br>点题，引出要写的内容。可以用声音开头、提问开头或环境开头。</div>
+<div class='fb-step'><span class='fb-step-title'>第二步：中间段（主体）</span><br>具体写事情，用六要素把事情写清楚，用慢镜头法写动作，加入对话和感受。</div>
+<div class='fb-step'><span class='fb-step-title'>第三步：结尾段（2-3句）</span><br>总结全文或抒发感受。可以写道理式结尾、呼应式结尾或抒情式结尾。</div>
+<div class='fb-example'>示范（题目：一件难忘的事）：<br>开头：那件事虽然过去很久了，但每次想起来，心里还是暖暖的。<br>中间：上星期六，我和爸爸去公园学骑自行车……（具体经过）<br>结尾：那一次，我不仅学会了骑自行车，更懂得了：坚持就是胜利！</div>
+<div class='fb-hint'>👉 再次点击返回</div>
+</div>
+</div>
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>🎬</div>
+<div class='ff-title'>公式二：慢镜头描写法</div>
+<div class='ff-subtitle'>把一个动作拆成几个小动作</div>
+<div class='ff-brief'>就像看慢动作回放一样，把一个大动作拆成好几个小动作，让读者身临其境。</div>
+<div class='ff-hint'>👉 点击翻转查看详细步骤</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>慢镜头描写法 · 详细步骤</div>
+<div class='fb-step'><span class='fb-step-title'>第一步：找出关键动作</span><br>找到最精彩的那个动作，准备拆解。</div>
+<div class='fb-step'><span class='fb-step-title'>第二步：拆成小动作</span><br>用"先→再→然后→最后"的顺序，把一个大动作拆成3-5个小动作。</div>
+<div class='fb-step'><span class='fb-step-title'>第三步：加入感官描写</span><br>每个小动作都加上看到、听到、感觉到的描写。</div>
+<div class='fb-step'><span class='fb-step-title'>第四步：加入心理活动</span><br>写一写当时心里在想什么。</div>
+<div class='fb-example'>示范（切菜）：<br>普通：妈妈在切菜。<br>慢镜头：妈妈系上围裙，从冰箱拿出一根黄瓜，放在水龙头下哗哗冲洗干净，然后放在砧板上，右手握紧菜刀，左手按住黄瓜，刀落下，咔嚓咔嚓，黄瓜变成了一片片薄薄的小圆片。</div>
+<div class='fb-hint'>👉 再次点击返回</div>
+</div>
+</div>
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>📅</div>
+<div class='ff-title'>公式三：六要素写事法</div>
+<div class='ff-subtitle'>时间/地点/人物/起因/经过/结果</div>
+<div class='ff-brief'>写一件事，把六个要素写清楚，经过部分要最详细。</div>
+<div class='ff-hint'>👉 点击翻转查看详细步骤</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>六要素写事法 · 详细步骤</div>
+<div class='fb-step'><span class='fb-step-title'>🕐 时间</span><br>什么时候发生的？可以用具体时间或季节。</div>
+<div class='fb-step'><span class='fb-step-title'>📍 地点</span><br>在哪里发生的？</div>
+<div class='fb-step'><span class='fb-step-title'>👤 人物</span><br>有谁在场？主角是谁？</div>
+<div class='fb-step'><span class='fb-step-title'>❓ 起因</span><br>为什么会发生这件事？</div>
+<div class='fb-step'><span class='fb-step-title'>📖 经过（最重要！）</span><br>事情的经过是怎样的？要用慢镜头法写动作，加入对话和感受。这是最长的部分！</div>
+<div class='fb-step'><span class='fb-step-title'>✅ 结果</span><br>最后怎么样了？你有什么感受？</div>
+<div class='fb-example'>示范：上星期六（时间），我和爸爸去公园学骑自行车（地点+人物+起因）。一开始我总是摔倒……（经过要详细）慢慢地，我能自己骑了（结果）！</div>
+<div class='fb-hint'>👉 再次点击返回</div>
+</div>
+</div>
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>🎭</div>
+<div class='ff-title'>公式四：人物三板斧</div>
+<div class='ff-subtitle'>外貌抓特点 → 语言有个性 → 动作传心理</div>
+<div class='ff-brief'>写好人物的三把斧头，三斧齐下，人物就活了！</div>
+<div class='ff-hint'>👉 点击翻转查看详细步骤</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>人物三板斧 · 详细步骤</div>
+<div class='fb-step'><span class='fb-step-title'>第一斧：外貌抓特点</span><br>不要面面俱到，抓住最特别的地方写！比如小酒窝、大眼睛、总是笑眯眯。</div>
+<div class='fb-step'><span class='fb-step-title'>第二斧：语言有个性</span><br>让人物说属于自己的话。老奶奶说话和小朋友不一样，老师说话和妈妈不一样。</div>
+<div class='fb-step'><span class='fb-step-title'>第三斧：动作传心理</span><br>不用直接写"他很紧张"，写动作让读者自己感受！手心出汗、揪衣角、嘴唇动了动。</div>
+<div class='fb-example'>示范（写紧张的弟弟）：<br>外貌：弟弟的小脸蛋红扑扑的，两只大眼睛滴溜溜地转。<br>语言：他小声嘟囔："我……我才不害怕呢！"<br>动作：可是他的手紧紧攥着衣角，腿微微发抖，嘴唇动了动，却什么也没说出来。</div>
+<div class='fb-hint'>👉 再次点击返回</div>
+</div>
+</div>
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>🌈</div>
+<div class='ff-title'>公式五：好词好句积累法</div>
+<div class='ff-subtitle'>比喻句/拟人句/四字词语</div>
+<div class='ff-brief'>三种好词好句的运用方法，让作文闪闪发光！</div>
+<div class='ff-hint'>👉 点击翻转查看详细步骤</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>好词好句积累法 · 详细步骤</div>
+<div class='fb-step'><span class='fb-step-title'>第一种：比喻句</span><br>A像B，让描写更生动。例：白云像棉花糖一样。<br>口诀：找相似，打比方。</div>
+<div class='fb-step'><span class='fb-step-title'>第二种：拟人句</span><br>把东西当成人来写，让它会说话、会做事。例：花儿张开了笑脸。<br>口诀：非人物，当人写。</div>
+<div class='fb-step'><span class='fb-step-title'>第三种：四字词语</span><br>积累并运用四字词语。例：姹紫嫣红、活蹦乱跳、小心翼翼。<br>口诀：多积累，自然用。</div>
+<div class='fb-example'>示范（写春天）：<br>比喻：桃花像害羞的小姑娘，红着脸藏在枝头。<br>拟人：春风轻轻地抚摸着我的脸。<br>四字词语：草长莺飞、春暖花开、姹紫嫣红。<br>组合效果：春天来了，草长莺飞，春暖花开。桃花像害羞的小姑娘红着脸，春风轻轻地抚摸着我的脸，一切都在悄悄地醒来。</div>
+<div class='fb-hint'>👉 再次点击返回</div>
+</div>
+</div>
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>🌴</div>
+<div class='ff-title'>公式六：广州特色素材法</div>
+<div class='ff-subtitle'>逛花市/赛龙舟/喝早茶/白云山</div>
+<div class='ff-brief'>用广州本地的素材写作文，比写北方的雪景更真实、更有特色！</div>
+<div class='ff-hint'>👉 点击翻转查看详细步骤</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>广州特色素材法 · 详细步骤</div>
+<div class='fb-step'><span class='fb-step-title'>素材一：逛花市</span><br>过年逛花市的热闹场景，金桔、桃花、水仙花。可用于：春节、热闹、传统文化。</div>
+<div class='fb-step'><span class='fb-step-title'>素材二：赛龙舟</span><br>端午节珠江上龙舟竞渡，鼓声震天。可用于：团结、拼搏、传统节日。</div>
+<div class='fb-step'><span class='fb-step-title'>素材三：喝早茶</span><br>一家人去茶楼喝早茶，虾饺、叉烧包。可用于：亲情、幸福、传统文化。</div>
+<div class='fb-step'><span class='fb-step-title'>素材四：白云山</span><br>爬白云山看日出，山顶俯瞰广州城。可用于：自然、坚持、发现美。</div>
+<div class='fb-step'><span class='fb-step-title'>素材五：珠江夜景</span><br>夜晚的珠江两岸灯火通明，广州塔变换颜色。可用于：美景、城市、快乐。</div>
+<div class='fb-example'>示范（逛花市片段）：<br>走进花市，眼前是一片花的海洋。红的桃花像害羞的小姑娘，金的年桔挂满了果实像一棵棵小圣诞树。妈妈牵着我的手，在人群中挤来挤去，我踮着脚尖看这盆、摸那盆。老板笑着说："小妹妹好眼光！"我抱着花，心里比花还甜。</div>
+<div class='fb-hint'>👉 再次点击返回</div>
+</div>
+</div>
+</div>
+<div class='card card-teal' style='margin-top:16px;'>
+<h3><span class='icon'>💡</span>写作公式运用总攻略</h3>
+<p style='font-size:14px;color:#555;margin-bottom:14px;line-height:1.8;'>六大公式不是孤立的，可以组合使用！下面是不同类型作文的推荐组合：</p>
+<div class='method-green'>
+<div class='method-title'>写人作文推荐组合</div>
+<p>人物三板斧（外貌+语言+动作）+ 慢镜头描写法（动作细节）+ 好词好句积累法（比喻拟人）</p>
+<div class='example'>先用三板斧搭好人物的骨架，再用慢镜头法把关键动作写生动，最后用好词好句给语言"化妆"。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>写事作文推荐组合</div>
+<p>三段式结构法（整体框架）+ 六要素写事法（内容组织）+ 慢镜头描写法（动作细节）</p>
+<div class='example'>先用三段式搭好开头-中间-结尾的骨架，再用六要素把事情写清楚，关键部分用慢镜头法写生动。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>写景作文推荐组合</div>
+<p>三段式结构法（框架）+ 五感描写法（多角度描写）+ 好词好句积累法（比喻拟人）</p>
+<div class='example'>先用三段式搭好结构，再用五感法从看、听、闻、摸多角度描写，最后用比喻拟人让景色更生动。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>考场速用口诀</div>
+<p>结构用三段式，写事用六要素；描写用慢镜头，写人用三板斧；语言用好词好句，素材用广州特色。考前背熟这六句口诀，考场上自然调用。</p>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+var essays = [
+{
+title: '我的妈妈',
+source: '原创范文',
+type: '写人',
+grade: '三年级',
+category: '亲情类',
+score: 92,
+highlights: ['外貌特点鲜明', '选材真实温暖', '感情真挚'],
+body: '我的妈妈中等个子，留着一头乌黑的短发，笑起来脸上有个小酒窝，特别好看。\n\n妈妈每天都很忙。早上，她总是第一个起床，给我们做早餐。我最喜欢吃她做的鸡蛋饼，金黄金黄的，咬一口又香又软。\n\n有一回，我放学回家下起了大雨，我没有带伞。正着急的时候，远处出现了一个熟悉的身影——是妈妈！她举着一把蓝色的伞跑过来，把伞撑在我头上，自己的半边身子却被雨淋湿了。我看着妈妈湿漉漉的肩膀，鼻子酸酸的。\n\n妈妈，您辛苦了，我永远爱您！💕',
+analysis: '小作者用外貌+小事+感受的方法写妈妈，选了送伞这个很暖心的小故事，让人读了很感动。如果再写一两句妈妈当时说的话，就更加生动了！',
+yqhPoints: '运用了人物三板斧——外貌抓特点（小酒窝）+小事（送伞）+感受（鼻子酸酸的）；运用了慢镜头描写法——妈妈举着伞跑过来，把伞撑在我头上，动作分解清晰。'
+},
+{
+title: '春天来了',
+source: '原创范文',
+type: '写景',
+grade: '三年级',
+category: '写景类',
+score: 90,
+highlights: ['五感法运用全面', '广州特色明显', '比喻句生动'],
+body: '春天来了！春天来了！\n\n你听，小鸟在枝头叽叽喳喳地唱着歌，小溪哗哗地流淌，好像在说：春天来了，春天来了！\n\n你看，草地上冒出了嫩绿的小芽，像给大地铺上了一层绿毯子。桃花开了，粉粉的，一朵挨着一朵，远远望去像一片粉色的云。木棉树上挂满了红彤彤的木棉花，像一个个小火炬，这是我们广州的市花呢！\n\n你闻，空气中飘着淡淡的花香，甜甜的，让人忍不住深深吸一口气。\n\n你感受，春风轻轻地吹过脸颊，暖暖的，像妈妈的手在抚摸我。\n\n春天真美呀！我爱春天！🌸',
+analysis: '这篇作文最棒的地方就是用五官来感受春天，读着读着好像春天就在眼前！特别是写木棉花像小火炬这个比喻，非常有想象力。',
+yqhPoints: '运用了五感描写法——视觉（绿毯子、粉色的云）、听觉（叽叽喳喳）、嗅觉（淡淡的花香）、触觉（暖暖的春风）；运用了比喻句（像小火炬、像绿毯子）；体现了广州特色（木棉花是广州的市花）。'
+},
+{
+title: '我家的小狗',
+source: '原创范文',
+type: '写动物',
+grade: '四年级',
+category: '写动物类',
+score: 91,
+highlights: ['外形习性全面', '动作描写生动', '结尾升华主题'],
+body: '我家有一只小狗，叫豆豆。它全身长着金黄色的毛，摸上去软绵绵的，像一团棉花糖。两只耳朵总是耷拉着，一跑起来就忽闪忽闪的。豆豆的鼻子黑黑的、湿湿的，据说这是健康的表现呢。\n\n豆豆最喜欢吃肉骨头。每次我吃饭的时候，它就蹲在我脚边，歪着脑袋眼巴巴地看着我，尾巴摇得像个小风扇。我要是假装不给它，它就会用爪子扒拉我的裤腿，嘴里还呜呜地叫，好像在说：求求你啦！\n\n豆豆还是我的小跟班。我写作业，它就趴在我脚边；我出门玩，它就追着我跑。有一次我心情不好，坐在沙发上发呆，豆豆悄悄地跳上来，把头靠在我腿上，用湿湿的鼻子蹭我的手。那一刻，我觉得所有的烦恼都飞走了。\n\n豆豆不只是一只小狗，它是我的好朋友。🐕',
+analysis: '写动物就是要这样：外形+习性+趣事，三样都写了，豆豆就像活了一样！特别是豆豆安慰小作者那一段，非常感人。',
+yqhPoints: '运用了人物三板斧的变体——外形抓特点（棉花糖一样的毛、小风扇一样的尾巴）+习性描写（爱吃骨头）+趣事（安慰我）；运用了比喻句（像棉花糖、像小风扇）；结尾从宠物升华到朋友，主题提升。'
+},
+{
+title: '广州的早茶',
+source: '原创范文',
+type: '记事',
+grade: '四年级',
+category: '广州特色类',
+score: 93,
+highlights: ['场景描写生动', '广州特色浓郁', '结尾有深度'],
+body: '星期天的早上，爷爷笑眯眯地对我说：走，带你去喝早茶！我一听就乐了，广州的早茶可是一大享受呢！\n\n我们来到街角的那家茶楼，一进门，好热闹！到处都是说话声、碗碟声、叫茶声，热气腾腾的。我们找了个靠窗的位置坐下，爷爷熟练地用开水烫了烫碗筷，这是广州人的习惯。\n\n点心来了！推车的小姐姐一车一车地过来。我眼睛都看花了：晶莹剔透的虾饺、金黄酥脆的叉烧酥、白白胖胖的奶黄包、香喷喷的凤爪……每样都想吃！我最喜欢虾饺，咬一口，鲜美的虾肉弹弹的，太好吃了！\n\n爷爷一边喝茶一边慢慢吃，还给我讲他年轻时喝早茶的故事。窗外的阳光照进来，茶香混着点心的香味，我觉得这就是广州最幸福的味道。\n\n早茶不只是吃饭，更是一家人坐在一起的温暖时光。🍵',
+analysis: '这篇作文把广州早茶写活了！从进门的热闹到点心的描写，再到和爷爷的互动，层次分明。用五感来写点心，让人看了就想吃。结尾的感悟特别好！',
+yqhPoints: '运用了五感描写法——视觉（晶莹剔透的虾饺）、听觉（说话声碗碟声）、味觉（鲜美的虾肉弹弹的）、嗅觉（茶香混着点心的香味）；运用了广州特色素材法（早茶）；结尾从吃饭升华到亲情陪伴，主题提升。'
+},
+{
+title: '读《夏洛的网》有感',
+source: '原创范文',
+type: '读后感',
+grade: '五年级',
+category: '读后感类',
+score: 90,
+highlights: ['四步法结构清晰', '联系自身真实', '感悟深刻'],
+body: '最近，我读了一本叫《夏洛的网》的书，作者是美国的怀特。这本书让我哭了好几次。\n\n这本书讲了小猪威尔伯和蜘蛛夏洛的故事。夏洛为了救威尔伯，在网上织出了赞美威尔伯的字，最后威尔伯得救了，可夏洛却离开了这个世界。\n\n我最感动的是夏洛对朋友的那份真心。她说：你是我的朋友，这件事本身就是一件了不起的事。读到这里，我的眼眶湿润了。夏洛用自己最后的力量帮助朋友，这种友情太珍贵了。\n\n这让我想起了我的好朋友小明。有一次我考试没考好，难过地哭了，他默默地陪在我身边，还把他的笔记借给我看。从那以后，我也学会了在朋友需要的时候出现。真正的朋友，就是在你最需要的时候出现的人。\n\n《夏洛的网》让我明白：友情是世界上最珍贵的礼物。📖',
+analysis: '这篇读后感写得非常棒！四步法用得很好，感与联是重点，小作者花了很多笔墨，写得很真实。联系自身经历那段特别打动人。',
+yqhPoints: '运用了读后感四步法——引（引出书名）→概（概括内容）→感（谈感受）→联（联系实际）；重点放在感与联，篇幅分配合理；联系自身经历真实感人。'
+},
+{
+title: '二十年后的广州',
+source: '原创范文',
+type: '想象作文',
+grade: '五年级',
+category: '想象类',
+score: 91,
+highlights: ['想象大胆合理', '广州特色突出', '变与不变对比巧妙'],
+body: '2046年的一天，我乘坐超音速飞机回到了阔别二十年的家乡——广州。\n\n刚出机场，我就被眼前的景象惊呆了。马路不见了，取而代之的是一条条悬浮在空中的透明通道，人们在里面悠闲地走着。路边的树不是普通的树，而是能净化空气的超级树，叶子闪闪发光。\n\n我来到珠江边，珠江水清澈见底，能看到鱼儿在水里游。江面上没有了旧桥，取而代之的是一座座漂亮的彩虹桥。广州塔也变了样，它长高了一倍，塔身可以变换颜色，夜晚的时候整座塔像一根巨大的彩色荧光棒。\n\n最让我感动的是，我找到了小时候常去的那家糖水铺。老板换成了原来的小女儿，但双皮奶的味道一点都没变。她说：爸爸说了，什么都可以变，但手艺不能变。\n\n喝着甜甜的双皮奶，看着眼前既熟悉又陌生的广州，我心里涌起一股说不出的感动。家乡在变，但那份温暖永远不会变。🏙️',
+analysis: '这篇想象作文太精彩了！既有大胆的想象（悬浮通道、超级树），又有合理的逻辑，还有真情实感。特别是不变的糖水铺这个细节，变与不变的对比写得太好了！',
+yqhPoints: '运用了想象作文三秘诀——大胆想象（悬浮通道、超级树）+合理逻辑（环保需要）+真情实感（糖水铺的温暖）；运用了广州特色素材法（珠江、广州塔、糖水铺）；变与不变的对比是文章的点睛之笔。'
+},
+{
+title: '那一次，我懂得了坚持',
+source: '原创范文',
+type: '半命题',
+grade: '六年级',
+category: '成长感悟类',
+score: 92,
+highlights: ['一波三折结构', '心理描写真实', '结尾感悟深刻'],
+body: '人生中有很多那一次，让我最难忘的是那一次——我学会了坚持。\n\n五年级的时候，学校举办运动会，我被选上参加800米长跑。我平时跑步就不快，心里直打鼓：800米，那得跑多久呀？\n\n比赛开始了，前400米我还跟得上，可到了600米，腿像灌了铅一样沉，嗓子火辣辣的疼，速度越来越慢。旁边的同学一个个超过了我，我几乎想放弃了。\n\n就在这时，我听到了班上同学的加油声：加油！别放弃！我咬了咬牙，一步一步地向前迈。腿很酸，但每一步都在靠近终点。最后一百米，我拼尽全力冲了出去。\n\n我跑了第六名，不是什么好名次。但是当我跨过终点线的那一刻，我哭了——不是因为输了，而是因为我没有放弃。那一次，我懂得了：坚持不是第一名才有的专利，每一个不放弃的人都是赢家。🏃',
+analysis: '这篇作文最大的亮点是真实感！心理描写特别到位，读者仿佛能感受到那种想放弃又咬牙坚持的感觉。结尾的感悟不落俗套，非常深刻！',
+yqhPoints: '运用了一波三折法——起（被选上跑步）→折（想放弃）→再起（听到加油声咬牙坚持）→终（跑了第六名但没放弃）；运用了人物三板斧的"动作传心理"——腿像灌了铅、嗓子火辣辣、咬了咬牙；结尾感悟不落俗套。'
+},
+{
+title: '珠江边的傍晚',
+source: '原创范文',
+type: '记叙文',
+grade: '六年级',
+category: '写景叙事类',
+score: 94,
+highlights: ['写景优美', '叙事有深度', '结尾升华自然'],
+body: '夕阳西下，我和奶奶漫步在珠江边。\n\n天边的云被夕阳染成了橙红色，江面上波光粼粼，像撒了一层碎金子。几艘游船缓缓驶过，留下一道道白色的水花。远处的广州塔在晚霞中像一位亭亭玉立的少女，变换着紫色的灯光。\n\n江边很热闹。有人在跑步，有人在遛狗，有几个老人在下棋。奶奶指着江对岸说：以前这里都是旧房子，哪有现在这么漂亮。我看着对岸灯火通明的大楼，很难想象从前的样子。\n\n走着走着，奶奶在一张长椅上坐了下来，看着江面出神。她轻轻地说：时间过得真快呀，一晃眼，这条江看了几十年了。我握住奶奶的手，没有说话。\n\n风吹过来，江水轻轻拍着岸边，广州塔的灯光倒映在水中。这一刻，我忽然觉得，珠江不仅仅是一条河，它是这座城市的记忆，也是一代又一代广州人心中永远流淌的温暖。🌆',
+analysis: '这篇作文以珠江边散步为线索，写景、叙事、抒情融为一体，非常成熟。和奶奶的对话很自然，不经意间就引出了对时间、对城市的思考。',
+yqhPoints: '运用了五感描写法——视觉（碎金子、亭亭玉立的少女）、听觉（江水轻轻拍着岸边）、触觉（风吹过来）；运用了借物抒情法——通过珠江写城市的记忆和广州人的温暖；比喻句优美（像撒了碎金子、像亭亭玉立的少女）。'
+},
+{
+title: '第一次做蛋炒饭',
+source: '原创范文',
+type: '记事',
+grade: '四年级',
+category: '成长类',
+score: 89,
+highlights: ['过程描写详细', '感受真实', '结尾有感悟'],
+body: '今天，我决定学做蛋炒饭。妈妈在旁边指导我。\n\n我先拿出两个鸡蛋，在碗边轻轻一磕，蛋壳裂开了一条缝。我用两只手掰开蛋壳，蛋黄和蛋清"咕咚"一声掉进碗里。我拿起筷子搅拌，"啪啪啪"，蛋液变成了淡黄色。\n\n然后，我打开煤气灶，往锅里倒了一点油。油热了，我把蛋液倒进去，"滋啦"一声，蛋液立刻鼓起了泡泡，像一朵金黄色的花。我赶紧用铲子翻炒，把鸡蛋弄碎。\n\n接着，我把冷饭倒进锅里，和鸡蛋一起翻炒。妈妈说："要不停地翻，不然会糊的。"我使劲地翻，手都酸了。最后，我撒了一点盐和葱花，一锅香喷喷的蛋炒饭就做好了！\n\n我尝了一口，虽然有点咸，但这是我亲手做的，觉得特别好吃！通过这次做饭，我明白了：自己动手做的东西，吃起来最香。🍳',
+analysis: '这篇作文用慢镜头法把做蛋炒饭的过程写得很详细，从磕蛋到翻炒，每一步都写清楚了。结尾的感悟也很好，很真实！',
+yqhPoints: '运用了慢镜头描写法——把做蛋炒饭拆成磕蛋→搅拌→倒油→倒蛋液→翻炒→加饭→撒盐等小动作；运用了六要素写事法——时间（今天）+人物（我和妈妈）+经过（详细）+结果（做好了）；比喻句运用（像一朵金黄色的花）。'
+},
+{
+title: '美丽的白云山',
+source: '原创范文',
+type: '写景',
+grade: '四年级',
+category: '写景类',
+score: 88,
+highlights: ['写景有顺序', '比喻句生动', '广州特色'],
+body: '春天到了，我们全家去爬白云山。\n\n站在山脚下抬头看，白云山像一个披着绿纱巾的巨人，高高地站在那里。山上的树木郁郁葱葱，一片翠绿。\n\n我们沿着山路往上爬。路边开满了各种各样的花，红的、黄的、紫的，五颜六色，像给山路铺了一条彩色的地毯。蝴蝶在花丛中翩翩起舞，小鸟在枝头叽叽喳喳地唱歌，好像在欢迎我们。\n\n爬到半山腰，我累得满头大汗，腿也酸了。妈妈鼓励我说："加油，快到山顶了！"我咬咬牙，继续往上爬。\n\n终于到山顶了！站在山顶往下看，整个广州城尽收眼底。高楼大厦像积木一样小，珠江像一条闪亮的丝带，弯弯曲曲地穿过城市。远处的广州塔细细长长的，像一根针插在地上。风吹过来，凉凉的，所有的疲劳都消失了。\n\n白云山真美呀！我爱白云山，更爱美丽的广州！🏔️',
+analysis: '这篇写景作文用从下到上的顺序写，条理很清楚。比喻句用得好——像巨人、像彩色地毯、像积木、像丝带。结尾表达了爱广州的感情，很自然！',
+yqhPoints: '运用了写景顺序法——从下到上（山脚→半山腰→山顶）；运用了五感描写法——视觉（五颜六色的花、积木一样的高楼）、听觉（小鸟唱歌）、触觉（凉凉的风）；比喻句丰富（像巨人、像丝带、像积木）。'
+},
+{
+title: '我的老师',
+source: '原创范文',
+type: '写人',
+grade: '五年级',
+category: '写人类',
+score: 90,
+highlights: ['外貌语言动作结合', '选材典型', '感情真挚'],
+body: '我们的语文老师姓李，同学们都叫她李老师。\n\n李老师个子不高，戴着一副圆圆的眼镜，笑起来眼睛弯弯的，像两个小月牙。她说话的声音很好听，像银铃一样清脆。\n\n有一次，我上课走了神，在课本上画画。李老师走过来，我以为她要批评我，吓得赶紧把画藏起来。没想到，李老师轻轻拿起我的画看了看，笑着说："画得不错嘛！不过，要是上课的时候也能这么认真听讲，就更棒了。"我的脸一下子红了，从那以后，我上课再也不走神了。\n\n李老师不只会批评人，更会鼓励人。每次我作文写得好，她都会在班上读给大家听，还贴在教室后面的展示栏上。她常说："每个同学都有自己的闪光点，老师就是帮你们找到它的人。"\n\n这就是我的老师，一个温柔又严格的好老师。我喜欢她！👩‍🏫',
+analysis: '这篇作文用外貌+语言+小事的方法写老师，选了走神被老师温柔提醒的故事，很真实。老师的语言也很有个性，不是简单的批评而是鼓励。',
+yqhPoints: '运用了人物三板斧——外貌抓特点（圆圆的眼镜、小月牙眼睛）+语言有个性（"画得不错嘛"）+小事（走神被提醒）；选材典型，不用套路素材；结尾感情真挚。'
+},
+{
+title: '一次难忘的义卖',
+source: '原创范文',
+type: '记事',
+grade: '五年级',
+category: '记事类',
+score: 89,
+highlights: ['叙事完整', '细节生动', '有感悟'],
+body: '上周五，我们学校举办了一次爱心义卖活动。我负责我们班的摊位。\n\n活动一开始，操场上就热闹起来了。到处都是叫卖声、讨价还价声、欢笑声。我们班的摊位上摆满了同学们捐的东西：有看过的课外书、有做好的手工、还有自己画的画。\n\n"这本书多少钱？""五块。""太贵了，三块行不行？""好吧好吧，卖给你！"\n\n我忙得不可开交，一会儿收钱，一会儿找零，一会儿给顾客介绍商品。有一个一年级的小妹妹看中了我做的手工花，可是她只有两块钱，而花标价五块。看着她失望的眼神，我心一软，说："两块就两块，卖给你啦！"小妹妹抱着花，开心地跑了。\n\n活动结束后，我们班一共卖了三百多块钱，全部捐给了山区的孩子。虽然我很累，但想到这些钱能帮助别的小朋友，心里比吃了蜜还甜。\n\n这次义卖让我明白：帮助别人，快乐自己。💝',
+analysis: '这篇作文把义卖活动的热闹场景写得很生动，对话也很自然。卖花给小妹妹的细节特别好，体现了小作者的善良。结尾的感悟也很贴切。',
+yqhPoints: '运用了六要素写事法——时间（上周五）+地点（学校操场）+人物（我和同学们）+起因（义卖活动）+经过（卖东西的详细过程）+结果（卖了三百多块）；对话描写自然有个性；结尾感悟贴切。'
+},
+{
+title: '给妈妈的一封信',
+source: '原创范文',
+type: '书信',
+grade: '六年级',
+category: '书信类',
+score: 91,
+highlights: ['书信格式规范', '感情真挚', '细节动人'],
+body: '亲爱的妈妈：\n\n您好！\n\n有些话我一直想对您说，却始终没有勇气开口。今天，我想借着这封信，把心里话说出来。\n\n妈妈，谢谢您每天早上五点半就起床给我做早餐。以前我总觉得这是理所当然的，直到有一天，我半夜起来上厕所，看到厨房的灯还亮着——您在为第二天的早餐做准备。那一刻，我的鼻子酸酸的。\n\n妈妈，谢谢您每次考试没考好时，不骂我，而是陪我一起找原因。您说："分数不重要，重要的是你努力了。"这句话像一盏灯，照亮了我灰暗的心情。\n\n妈妈，我知道我有时候会跟您顶嘴，会嫌您啰嗦。其实每次说完我就后悔了，只是不好意思道歉。今天我想对您说：妈妈，对不起，我以后会更懂事的。\n\n妈妈，我爱您！不只是在母亲节，而是每一天。\n\n祝\n身体健康，永远快乐！\n\n您的女儿\n2025年5月10日',
+analysis: '这封信格式规范（称呼、问候、正文、祝语、署名、日期齐全），感情非常真挚。选取的三个细节都很真实——早起做早餐、考试没考好不骂、顶嘴后后悔。结尾"不只是母亲节，而是每一天"很打动人。',
+yqhPoints: '书信格式规范完整；运用了人物三板斧的变体——通过具体细节展现妈妈的形象（早起做早餐、陪找原因）；选材真实不套路；感情真挚动人。'
+},
+{
+title: '广州花市',
+source: '原创范文',
+type: '记事',
+grade: '三年级',
+category: '广州特色类',
+score: 88,
+highlights: ['广州特色鲜明', '描写生动', '感情真挚'],
+body: '过年前，妈妈带我去了广州的花市。\n\n一走进花市，哇！好多人呀！人山人海的，大家都笑着、说着、看着。花市里到处都是花，红的桃花、金的年桔、粉的月季、白的水仙……五颜六色，像一条彩色的河。\n\n我最喜欢桃花。粉粉的桃花一朵挨着一朵，远远看去像一片粉色的云。妈妈说："桃花代表好运，买一束回家，新的一年就会有好运气！"\n\n我们还买了一盆金桔。金桔树上挂满了圆圆的小金桔，黄澄澄的，像一棵小圣诞树。老板笑着说："小朋友，这盆金桔又大又甜，包你新年大吉大利！"\n\n我抱着妈妈买的花，走在热闹的花市里，闻着花香，听着笑声，心里比花还甜。广州的花市真好，这就是广州年的味道呀！🌸',
+analysis: '小作者把广州花市的热闹写得很生动！五颜六色的花、老板的话、闻花香听笑声，五感都用上了。三年级能写成这样非常棒！',
+yqhPoints: '运用了五感描写法——视觉（五颜六色的花）、嗅觉（闻着花香）、听觉（笑声）；比喻句生动（像彩色的河、像粉色的云、像小圣诞树）；广州特色素材运用自然。'
+},
+{
+title: '端午看龙舟',
+source: '原创范文',
+type: '记事',
+grade: '四年级',
+category: '广州特色类',
+score: 89,
+highlights: ['场面描写热烈', '动词丰富', '有感悟'],
+body: '端午节那天，爸爸带我去珠江边看龙舟比赛。\n\n珠江两岸挤满了人，大家伸着脖子往江面上看。我踮起脚尖，好不容易才找到一个好位置。\n\n"咚！咚！咚！"鼓声响起来了，像打雷一样震耳欲聋。几条龙舟像离弦的箭一样冲了出去，船头的龙头张着大嘴，好像在怒吼。船上的叔叔们穿着统一的衣服，使劲地划着桨，动作整齐得像一个人。\n\n"加油！加油！"岸边的人都在喊，我也跟着喊起来。我紧紧盯着那条红色的龙舟，它是我们街道的队！只见红船越划越快，一个又一个地超过了前面的船。\n\n最后，红船第一个冲过了终点线！我高兴得跳了起来："我们赢了！我们赢了！"\n\n回家的路上，爸爸说："龙舟比赛最重要的是团结，一个人的力量再大也不行，大家齐心协力才能赢。"我使劲点头，心想：原来团结的力量这么大呀！🐲',
+analysis: '这篇作文把龙舟比赛的紧张热烈写出来了！动词用得好——冲、划、超过、跳。鼓声和加油声让读者好像身临其境。结尾的感悟也很自然。',
+yqhPoints: '运用了六要素写事法——时间（端午节）+地点（珠江边）+人物（我和爸爸）+经过（看龙舟比赛）+结果（我们赢了）；动词丰富（冲、划、超过）；广州特色素材运用自然；结尾感悟贴切。'
+},
+{
+title: '我最喜欢的一本书',
+source: '原创范文',
+type: '读后感',
+grade: '六年级',
+category: '读后感类',
+score: 90,
+highlights: ['引概感联完整', '联系实际紧密', '感悟深刻'],
+body: '高尔基说过：书籍是人类进步的阶梯。在所有书中，我最喜欢的是《草房子》。\n\n《草房子》是曹文轩写的一部儿童小说，讲了男孩桑桑在油麻地小学度过的六年时光。他和纸月、杜小康、细马等小伙伴之间发生了许多动人的故事。最让我难忘的是杜小康的故事——他家从最富裕变得一贫如洗，不得不辍学去放鸭子，但他没有放弃，而是勇敢地面对困难。\n\n我最受触动的是杜小康在暴风雨中追赶鸭群的那一段。他没有哭，没有喊，只是拼命地追。那一刻，我觉得他虽然失去了富裕的生活，却得到了更珍贵的东西——坚强。\n\n这让我想起了我自己。上学期数学竞赛我考砸了，回家哭了一晚上。妈妈说：哭完了就站起来。后来我每天多练半小时数学题，期末考试终于进步了。杜小康在暴风雨中能坚持，我也在挫折中学会了不放弃。\n\n《草房子》让我明白：苦难不是坏事，它让我们变得更强大。📖',
+analysis: '这篇读后感写得非常棒！四步法用得很好，感与联是重点，小作者花了很多笔墨，写得很真实。联系自身经历那段特别打动人。',
+yqhPoints: '运用了读后感四步法——引→概→感→联；重点在感与联，篇幅分配合理；引用名言开头（高尔基）；联系自身经历真实感人。'
+}
+];
+
+var practices = [
+{
+grade: '三年级',
+title: '《我的好朋友》',
+type: '写人',
+category: '写人',
+requirement: '写一个你的好朋友，把他的样子和你们之间的一件趣事写下来。',
+guide: ['先用外貌+性格的方法介绍好朋友', '写一件你们一起经历的小事，要有动作和对话', '结尾说说你对这个朋友的感受'],
+yqhGuide: ['教研写作方法：用人物三板斧——外貌抓特点→语言有个性→动作传心理', '选材要真实，写你真正经历过的事'],
+outlines: [
+{title: '方向一：一起玩游戏', desc: '你们一起玩游戏的一次经历，发生了什么有趣的事'},
+{title: '方向二：互相帮助', desc: '他/她帮你解决困难的一件事，或者你帮他的事'},
+{title: '方向三：闹别扭又和好', desc: '你们闹别扭后和好的故事，写出心理变化'}
+],
+materials: '推荐素材：校园生活素材（课间趣事、运动会）、广州特色素材（一起逛花市、喝早茶）',
+startExample: '我有一个好朋友，他叫____，____（外貌特点）。我们之间发生过很多有趣的事，最让我难忘的是……'
+},
+{
+grade: '三年级',
+title: '《____的早晨》',
+type: '半命题写景',
+category: '写景',
+requirement: '在横线上填一个词语（如校园/公园/春天），写一篇写景作文。',
+guide: ['先补好题目，选你最熟悉的地方', '按照一定的顺序写（从上到下/从远到近）', '用上比喻句让景色更生动'],
+yqhGuide: ['教研写作方法：用写景顺序法——从上到下或从远到近', '用五感描写法，不只写看到的，还写听到的、闻到的'],
+outlines: [
+{title: '方向一：校园的早晨', desc: '同学们陆续到校的场景，琅琅读书声'},
+{title: '方向二：公园的早晨', desc: '晨练的老人、跑步的年轻人、唱歌的小鸟'},
+{title: '方向三：广州的早晨', desc: '肠粉店的香味、骑楼下的阳光、忙碌的人们'}
+],
+materials: '推荐素材：广州素材（早茶店的早晨、白云山的早晨、珠江边的早晨）',
+startExample: '____（什么时候），____（地点）的早晨，____（写第一个看到的景色）。'
+},
+{
+grade: '三年级',
+title: '《广州花市》',
+type: '记事',
+category: '广州特色',
+requirement: '写一写你去逛花市的经历，把看到的、听到的、感受到的写下来。',
+guide: ['写清楚什么时候去的、和谁去的', '写花市里看到了什么花、听到了什么声音', '写出你当时的心情'],
+yqhGuide: ['教研写作方法：用五感描写法——看（五颜六色的花）、听（叫卖声笑声）、闻（花香）', '用比喻句让描写更生动'],
+outlines: [
+{title: '方向一：买花的过程', desc: '和妈妈挑花、讨价还价、买花回家的经过'},
+{title: '方向二：花市的见闻', desc: '花市里热闹的场景、各种各样的人'},
+{title: '方向三：花市里的故事', desc: '在花市遇到了一个有趣的人或事'}
+],
+materials: '推荐素材：桃花（代表好运）、金桔（大吉大利）、水仙花、年花',
+startExample: '过年前，妈妈带我去逛花市。一走进花市，____（描写看到的场景）。'
+},
+{
+grade: '四年级',
+title: '《一次难忘的____》',
+type: '半命题记事',
+category: '记事',
+requirement: '在横线上填一个词语（如旅行/比赛/教训），写一次难忘的经历。',
+guide: ['用六要素把事情写完整（时间/地点/人物/起因/经过/结果）', '经过部分要详细，用慢镜头法写动作', '写出你当时的真实感受'],
+yqhGuide: ['教研写作方法：用六要素写事法——时间/地点/人物/起因/经过/结果', '经过部分用慢镜头描写法，把动作拆开写'],
+outlines: [
+{title: '方向一：一次难忘的比赛', desc: '紧张、努力、收获的过程'},
+{title: '方向二：一次难忘的旅行', desc: '见闻、趣事、感悟'},
+{title: '方向三：一次难忘的教训', desc: '犯错、后悔、成长'}
+],
+materials: '推荐素材：校园素材（运动会、考试）、家庭素材（旅行、做饭）',
+startExample: '那是____（时间），在____（地点），发生了一件让我至今难忘的事……'
+},
+{
+grade: '四年级',
+title: '《广州的____》',
+type: '半命题（广州特色）',
+category: '广州特色',
+requirement: '在横线上填一个词语（如早茶/花市/龙舟/骑楼），写出广州的特色。',
+guide: ['选你亲身经历过的、最熟悉的来写', '写出这个地方/活动的独特之处', '可以加入家人互动的温暖场景'],
+yqhGuide: ['教研写作方法：用广州特色素材法——选你最熟悉的广州元素', '用五感描写法写特色场景'],
+outlines: [
+{title: '方向一：广州的早茶', desc: '和家人去茶楼的热闹场景、各种点心'},
+{title: '方向二：广州的花市', desc: '过年逛花市的欢乐、挑花的过程'},
+{title: '方向三：广州的龙舟', desc: '端午节看龙舟赛的紧张激烈'}
+],
+materials: '推荐素材：虾饺、叉烧包、凤爪（早茶）；桃花、金桔（花市）；鼓声、龙舟（龙舟赛）',
+startExample: '说到广州，不得不提____。每年____的时候，____（描写场景）。'
+},
+{
+grade: '四年级',
+title: '《第一次做____》',
+type: '半命题记事',
+category: '成长',
+requirement: '写你第一次做某件事的经历，把过程写清楚。',
+guide: ['写清楚为什么想做这件事', '把做这件事的过程一步一步写清楚', '写出成功或失败后的感受'],
+yqhGuide: ['教研写作方法：用慢镜头描写法——把过程拆成几个小步骤', '用比喻句让描写更生动'],
+outlines: [
+{title: '方向一：第一次做饭', desc: '做蛋炒饭/煮面条的过程，笨手笨脚到成功'},
+{title: '方向二：第一次骑自行车', desc: '摔倒、害怕、坚持、学会的过程'},
+{title: '方向三：第一次独自坐地铁', desc: '紧张、问路、到达目的地的自豪'}
+],
+materials: '推荐素材：家庭生活素材（做饭、做家务）、校园素材（第一次上台表演）',
+startExample: '今天，我决定学做____。一开始我____（心情），但是……'
+},
+{
+grade: '五年级',
+title: '《当我遇到困难时》',
+type: '命题记事',
+category: '成长',
+requirement: '写一次你遇到困难的经历，写出你是怎样面对和克服的。',
+guide: ['写出困难的来龙去脉，让读者明白有多难', '重点写你克服困难的过程，包括内心挣扎', '结尾写出你从中明白了什么道理'],
+yqhGuide: ['教研写作方法：用一波三折法——起→折→再起→终', '用人物三板斧的"动作传心理"——不直接写紧张，写动作'],
+outlines: [
+{title: '方向一：学习上的困难', desc: '某门功课怎么也学不好，后来怎么克服的'},
+{title: '方向二：生活上的困难', desc: '第一次独自完成一件事的艰难'},
+{title: '方向三：人际关系上的困难', desc: '和朋友产生矛盾，怎么解决的'}
+],
+materials: '推荐素材：考试失利、学骑自行车/游泳、和朋友吵架',
+startExample: '困难，人人都会遇到。那一次，我遇到了____，当时我心里____（心情），但是……'
+},
+{
+grade: '五年级',
+title: '《二十年后的____》',
+type: '想象作文',
+category: '想象',
+requirement: '想象二十年后的某个人/地方/事物，写一篇想象作文。',
+guide: ['大胆想象，但要有合理的逻辑', '想象中要有真情实感，不是冷冰冰的机器世界', '可以对比现在和未来，突出变化'],
+yqhGuide: ['教研写作方法：想象作文三秘诀——大胆想象+合理逻辑+真情实感', '用"变与不变"的对比，让文章有深度'],
+outlines: [
+{title: '方向一：二十年后的学校', desc: '教室、老师、课程全变了，但什么没变？'},
+{title: '方向二：二十年后的家乡', desc: '广州的变化——珠江、广州塔、老街'},
+{title: '方向三：二十年后的我', desc: '自己的职业和生活'}
+],
+materials: '推荐素材：广州元素（珠江、广州塔、白云山、肠粉店）',
+startExample: '时间过得真快，转眼到了20__年。____（描写未来场景，突出和现在的不同）。'
+},
+{
+grade: '五年级',
+title: '《读〈____〉有感》',
+type: '读后感',
+category: '读后感',
+requirement: '选一本你读过的书，写一篇读后感。要求引出书名、概括内容、谈感受、联系实际。',
+guide: ['引：引出书名和作者', '概：用自己的话概括主要内容', '感：写出最受感动的部分', '联：联系自己的生活经历'],
+yqhGuide: ['教研写作方法：读后感四步法——引→概→感→联', '重点在"感"和"联"，这两部分要多写'],
+outlines: [
+{title: '方向一：《夏洛的网》', desc: '友情主题，联系自己的好朋友'},
+{title: '方向二：《草房子》', desc: '坚强主题，联系自己遇到挫折的经历'},
+{title: '方向三：《西游记》', desc: '坚持主题，联系学习或生活中的困难'}
+],
+materials: '推荐素材：自己的真实经历（考试失利、和朋友吵架、学某项技能）',
+startExample: '最近，我读了一本叫《____》的书，____（作者）。这本书讲了……'
+},
+{
+grade: '六年级',
+title: '《成长路上的一盏灯》',
+type: '命题记叙',
+category: '成长',
+requirement: '写一个在你成长路上帮助过你、引导过你的人或事。',
+guide: ['一盏灯是比喻，指的是给你方向和力量的人或事', '写出这个人是怎样帮助你的，要具体', '写出你对这个人/这件事的感恩和感悟'],
+yqhGuide: ['教研写作方法：借物抒情法——"灯"是比喻，要写出它代表的人或事', '用一波三折法让故事有起伏'],
+outlines: [
+{title: '方向一：老师的鼓励', desc: '在你灰心时给了你力量'},
+{title: '方向二：父母的爱', desc: '默默支持你成长的人'},
+{title: '方向三：一本书/一句话', desc: '改变了你的想法'}
+],
+materials: '推荐素材：校园素材（老师的鼓励）、家庭素材（父母的陪伴）、读书素材',
+startExample: '在成长的道路上，有黑暗也有光明。而____，就是我成长路上的一盏灯，照亮了我____的路。'
+},
+{
+grade: '六年级',
+title: '《那一次，我懂得了____》',
+type: '半命题',
+category: '成长',
+requirement: '把题目补充完整，写一次让你明白道理的经历。',
+guide: ['补题三原则：熟悉、新颖、有话可说', '写出经历的过程，要有起伏', '结尾写出你懂得了什么道理'],
+yqhGuide: ['教研写作方法：半命题补题三原则——熟悉+新颖+有话可说', '用一波三折法让故事有起伏', '结尾感悟要不落俗套'],
+outlines: [
+{title: '方向一：我懂得了坚持', desc: '学某项技能的艰难过程'},
+{title: '方向二：我懂得了感恩', desc: '妈妈生病后自己照顾她的经历'},
+{title: '方向三：我懂得了倾听', desc: '和朋友吵架后学会听对方说'},
+{title: '方向四：我懂得了勇敢', desc: '第一次独自完成一件事'}
+],
+materials: '推荐素材：真实经历（学游泳、学骑车、考试失利、和朋友矛盾）',
+startExample: '人生中有很多那一次，让我最难忘的是那一次——我懂得了____。'
+},
+{
+grade: '六年级',
+title: '《给____的一封信》',
+type: '书信格式',
+category: '书信',
+requirement: '给一个人写一封信，表达你的真实感受。注意书信格式。',
+guide: ['注意书信格式：称呼+正文+祝福语+署名+日期', '正文要有真情实感，说心里话', '可以写感谢、道歉、建议等内容'],
+yqhGuide: ['教研写作方法：书信格式要完整——称呼+问候+正文+祝语+署名+日期', '用具体细节代替空洞的感谢'],
+outlines: [
+{title: '方向一：给老师的一封信', desc: '感谢教诲，写出老师帮助你的具体事例'},
+{title: '方向二：给父母的一封信', desc: '说出心里话，感谢或道歉'},
+{title: '方向三：给未来自己的一封信', desc: '写下对未来的期待和现在的努力'}
+],
+materials: '推荐素材：老师的帮助、父母的付出、自己的目标和努力',
+startExample: '亲爱的____：你好！有些话我一直想对你说，却始终没有勇气开口。今天，我想借着这封信……'
+},
+{
+grade: '四年级',
+title: '《美丽的白云山》',
+type: '写景',
+category: '写景',
+requirement: '写一次你去白云山的经历，把看到的景色写下来。',
+guide: ['按照一定的顺序写（从下到上/从远到近）', '用比喻句让景色更生动', '写出爬山的感受'],
+yqhGuide: ['教研写作方法：写景顺序法——从下到上或从远到近', '用五感描写法——看、听、闻、摸'],
+outlines: [
+{title: '方向一：春天爬白云山', desc: '花开、鸟叫、山顶俯瞰广州城'},
+{title: '方向二：秋天爬白云山', desc: '落叶、凉爽、山顶看日落'},
+{title: '方向三：雨后爬白云山', desc: '云雾、清新、山顶看云海'}
+],
+materials: '推荐素材：广州元素（白云山、珠江、广州塔、榕树）',
+startExample: '____天到了，我们全家去爬白云山。站在山脚下抬头看，____（描写远望的景色）。'
+},
+{
+grade: '五年级',
+title: '《我最喜欢的小动物》',
+type: '写动物',
+category: '写动物',
+requirement: '写一个你喜欢的小动物，把它的样子、习性和你们之间的趣事写下来。',
+guide: ['写外形：什么颜色、什么形状、摸起来什么感觉', '写习性：爱吃什么、喜欢做什么', '写趣事：你和它之间发生的有趣的事'],
+yqhGuide: ['教研写作方法：人物三板斧的变体——外形+习性+趣事', '用比喻句描写外形', '用慢镜头法写动作'],
+outlines: [
+{title: '方向一：家里的小狗/小猫', desc: '外形、习性、和你的互动'},
+{title: '方向二：爷爷家的小鸡/小鸭', desc: '外形、习性、有趣的事'},
+{title: '方向三：观察到的野生动物', desc: '公园里的松鼠、珠江边的白鹭'}
+],
+materials: '推荐素材：家里的宠物、校园里的小动物、广州公园里的动物',
+startExample: '我家有一只____，它叫____。它____（外形特点），____（摸起来什么感觉）。'
+},
+{
+grade: '六年级',
+title: '《藏在____里的爱》',
+type: '半命题',
+category: '亲情',
+requirement: '把题目补充完整（如藏在早餐里的爱/藏在书包里的爱），写一篇记叙文。',
+guide: ['补题要选一个具体的物品或场景', '写清楚这个物品/场景背后藏着怎样的爱', '通过具体细节展现爱的具体形态'],
+yqhGuide: ['教研写作方法：借物抒情法——通过一个小物品写大情感', '用慢镜头法聚焦关键细节'],
+outlines: [
+{title: '方向一：藏在早餐里的爱', desc: '妈妈每天早起做早餐的故事'},
+{title: '方向二：藏在书包里的爱', desc: '发现妈妈藏在书包里的小物件'},
+{title: '方向三：藏在一碗汤里的爱', desc: '外婆/妈妈煲汤的故事'}
+],
+materials: '推荐素材：广州素材（老火靓汤、早茶）、家庭素材（做早餐、缝书包）',
+startExample: '我从来不知道，那碗每天早上的白粥里，藏着妈妈____的秘密。'
+}
+];
+
+var dimScores = {neirong: 0, biaoda: 0, jiegou: 0, shuxie: 0};
+var dimSuggestions = {
+neirong: {
+'35': '内容优秀！主题明确，内容具体，情感真挚。选材典型，细节生动，能充分支撑主题。继续保持！',
+'28': '内容良好。主题基本明确，内容较具体。建议：1）增加更多细节描写；2）用慢镜头法把动作写生动；3）确保内容紧扣主题。',
+'21': '内容一般。主题不够突出，选材和细节有待加强。建议：1）确定一个明确的中心；2）用六要素法把事情写清楚；3）增加具体的事例。',
+'14': '内容需要较大提升。建议：1）先确定写什么；2）用六要素写事法组织内容；3）写真实经历，不用套路素材。'
+},
+biaoda: {
+'30': '表达优秀！语句通顺，修辞运用得当，句式有变化，语言生动。继续保持！',
+'24': '表达良好，语句基本通顺，但缺少亮点。建议：1）用比喻句或拟人句让语言更生动；2）注意句式长短搭配；3）积累好词好句。',
+'18': '表达一般，语句较平淡。建议：1）用好词好句积累法；2）将"很好""很美"换成具体描写；3）多读范文，学习好写法。',
+'12': '表达需要系统提升。建议：1）先保证每句话通顺；2）练习用比喻句和拟人句；3）写完后逐句检查。'
+},
+jiegou: {
+'20': '结构优秀！开头结尾好，段落分明，行文顺序清晰。',
+'16': '结构良好，层次较清晰。建议：1）检查段落过渡；2）开头简洁点题；3）结尾总结升华。',
+'12': '结构一般，段落安排有待优化。建议：1）写作前先列提纲；2）用三段式结构法；3）每段只写一个意思。',
+'8': '结构需要重点改进。建议：1）用三段式结构法；2）开头点题，结尾总结；3）段落分明，每段开头空两格。'
+},
+shuxie: {
+'15': '书写优秀！字迹工整，标点正确，没有错别字。',
+'12': '书写良好，基本工整。建议：保持字间距均匀，标点使用正确。',
+'9': '书写一般，字迹不够工整。建议：1）放慢书写速度；2）不要涂大墨团；3）标点要规范。',
+'6': '书写需要重点改进。建议：1）坚持每天练字；2）先在草稿纸上列提纲；3）注意标点规范。'
+}
+};
+
+function scrollToContent() {
+document.getElementById('homePage').style.display = 'none';
+document.getElementById('mainContent').style.display = '';
+window.scrollTo(0, 0);
+}
+
+function switchTab(idx) {
+var btns = document.querySelectorAll('.tab-btn');
+var mods = document.querySelectorAll('.module');
+var tabModules = ['写作技巧库','范文赏析','素材宝库','实战演练','写作自评','教研写作公式'];
+if (!isModuleAllowed(tabModules[idx])) { alert('您没有使用该板块的权限'); return; }
+for (var i = 0; i < btns.length; i++) {
+btns[i].className = 'tab-btn' + (i === idx ? ' active' : '');
+mods[i].className = 'module' + (i === idx ? ' active' : '');
+}
+}
+
+function switchGrade(modIdx, gradeIdx) {
+var parent = document.getElementById('mod' + modIdx);
+var tabs = parent.querySelectorAll('.grade-tab');
+var contents = parent.querySelectorAll('.grade-content');
+for (var i = 0; i < tabs.length; i++) {
+tabs[i].className = 'grade-tab' + (i === gradeIdx ? ' active' : '');
+contents[i].className = 'grade-content' + (i === gradeIdx ? ' active' : '');
+}
+}
+
+function switchSub(modIdx, subIdx) {
+var parent = document.getElementById('mod' + modIdx);
+var tabs = parent.querySelectorAll('.sub-tab');
+var contents = parent.querySelectorAll('.sub-content');
+for (var i = 0; i < tabs.length; i++) {
+tabs[i].className = 'sub-tab' + (i === subIdx ? ' active' : '');
+contents[i].className = 'sub-content' + (i === subIdx ? ' active' : '');
+}
+}
+
+function renderEssays() {
+var html = '';
+for (var i = 0; i < essays.length; i++) {
+var e = essays[i];
+var hlHtml = '';
+for (var j = 0; j < e.highlights.length; j++) {
+var tagClass = j % 2 === 0 ? 'hl-tag' : 'hl-tag-teal';
+hlHtml += '<span class="' + tagClass + '">' + e.highlights[j] + '</span>';
+}
+var yqhHtml = '';
+if (e.yqhPoints) {
+yqhHtml = '<div class="yqh-point"><strong>🧠 教研写作方法论点评：</strong>' + e.yqhPoints + '</div>';
+}
+html += '<div class="essay-card">' +
+'<div class="title-bar">' +
+'<span class="essay-title">' + e.title + '</span>' +
+'<span class="essay-score">' + e.score + '/100</span>' +
+'</div>' +
+'<div class="meta">' + e.grade + ' | ' + e.type + ' | ' + e.category + ' | ' + e.source + '</div>' +
+'<div class="body">' + e.body.replace(/\n/g, '<br>') + '</div>' +
+'<div class="highlights">' + hlHtml + '</div>' +
+'<div class="analysis"><strong>💡 亮点分析：</strong>' + e.analysis + '</div>' +
+yqhHtml +
+'</div>';
+}
+document.getElementById('essayList').innerHTML = html;
+}
+
+function renderPractices() {
+var html = '';
+for (var i = 0; i < practices.length; i++) {
+var p = practices[i];
+var guideHtml = '';
+for (var j = 0; j < p.guide.length; j++) {
+guideHtml += '<div class="guide-step">' + p.guide[j] + '</div>';
+}
+var yqhGuideHtml = '';
+if (p.yqhGuide) {
+yqhGuideHtml = '<h4>🧠 教研写作审题指导</h4>';
+for (var m = 0; m < p.yqhGuide.length; m++) {
+yqhGuideHtml += '<div class="yqh-step">' + p.yqhGuide[m] + '</div>';
+}
+}
+var outlineHtml = '';
+for (var k = 0; k < p.outlines.length; k++) {
+outlineHtml += '<div class="outline-item"><div class="oi-title">' + p.outlines[k].title + '</div><p>' + p.outlines[k].desc + '</p></div>';
+}
+html += '<div class="practice-card">' +
+'<div class="pq-title" onclick="togglePractice(this)"><span class="arrow">▶</span> ' +
+'<span class="badge" style="margin-right:6px">' + p.grade + '</span>' +
+p.title + '（' + p.type + '·' + p.category + '）</div>' +
+'<div class="pq-body">' +
+'<h4>题目要求</h4>' +
+'<p>' + p.requirement + '</p>' +
+'<h4>审题指导</h4>' +
+guideHtml +
+yqhGuideHtml +
+'<h4>提纲方向</h4>' +
+outlineHtml +
+'<h4>推荐素材</h4>' +
+'<p>' + p.materials + '</p>' +
+'<h4>开头示例</h4>' +
+'<div class="start-example">' + p.startExample + '</div>' +
+'</div></div>';
+}
+document.getElementById('practiceList').innerHTML = html;
+}
+
+function togglePractice(el) {
+var body = el.nextElementSibling;
+var isOpen = body.className.indexOf('open') >= 0;
+if (isOpen) {
+body.className = 'pq-body';
+el.className = 'pq-title';
+} else {
+body.className = 'pq-body open';
+el.className = 'pq-title open';
+}
+}
+
+function updateWordHint() {
+var grade = document.getElementById('evalGrade').value;
+var hints = {'3':'三年级建议300字以上', '4':'四年级建议400字以上', '5':'五年级建议450字以上', '6':'六年级建议500字以上'};
+var hintEl = document.getElementById('charCount');
+if (hintEl) {
+var len = document.getElementById('essayInput').value.length;
+hintEl.textContent = '已输入 ' + len + ' 字（' + hints[grade] + '）';
+}
+}
+
+function analyzeEssay() {
+var text = document.getElementById('essayInput').value.trim();
+var container = document.getElementById('aiAnalysisResult');
+if (!text || text.length < 20) {
+container.className = '';
+container.innerHTML = '<div class="ai-report"><div style="text-align:center;color:#e74c3c;padding:20px;">⚠️ 请先在上方文本框中输入你的作文（至少20字），再点击分析。</div></div>';
+container.scrollIntoView({behavior:'smooth'});
+return;
+}
+container.className = '';
+container.innerHTML = '<div class="ai-report"><div class="ai-loading">🔍 正在智能分析你的作文，请稍候...</div></div>';
+container.scrollIntoView({behavior:'smooth'});
+setTimeout(function() {
+var result = doAnalyzeEssay(text);
+container.innerHTML = result;
+}, 600);
+}
+
+function doAnalyzeEssay(text) {
+var chars = text.replace(/\s/g, '').length;
+var paragraphs = text.split(/\n\s*\n/).filter(function(p){return p.trim().length > 0;});
+var paraCount = paragraphs.length;
+var sentences = text.split(/[。！？；\n]/).filter(function(s){return s.trim().length > 2;});
+var sentenceCount = sentences.length;
+
+var sensoryWords = ['看','听','闻','尝','摸','红','白','绿','黄','亮','暗','热','冷','暖','凉','香','甜','软','硬','滑','粗','细','光','影','色','声','味','清','蓝','紫','金','银','黑'];
+var emotionWords = ['开心','快乐','高兴','难过','害怕','紧张','激动','感动','自豪','害羞','惊喜','担心','期待','失望','兴奋','幸福','温暖','心疼','不舍','怀念','感激','敬佩','孤独','勇敢','忧伤','欣慰','无奈','生气','愤怒','伤心','满意','安心'];
+var actionWords = ['走','跑','跳','说','看','听','做','写','读','拿','放','打','推','拉','抓','踢','站','坐','爬','追','喊','笑','哭','唱','问','答','帮','送','找','等','回','来','去','吃','喝','洗','切','种','抱','扶','牵','拍','摸','揉','捏','擦','扫','举','握'];
+var transitionWords = ['首先','其次','然后','接着','后来','最后','但是','因为','所以','虽然','而且','不仅','还','又','也','然而','不过','因此','可是','并且','此外','总之','一开始','后来','最终'];
+var rhetoricWords = ['像','仿佛','好似','犹如','宛如','如同','好像','一样','似的','一般'];
+var personificationWords = ['花儿笑','风儿唱','太阳笑','小树摇','星星眨','月亮笑','鸟儿唱','蝴蝶舞','花儿开','花儿张','风儿吹','风儿抚','春风吹','春风摸'];
+var idiomWords = ['姹紫嫣红','草长莺飞','春暖花开','骄阳似火','绿树成荫','硕果累累','秋高气爽','金风送爽','活蹦乱跳','小心翼翼','蹑手蹑脚','大步流星','手忙脚乱','昂首挺胸','东张西望','毛茸茸','圆滚滚','威风凛凛','憨态可掬','翩翩起舞','喜出望外','心花怒放','忐忑不安','垂头丧气','怒气冲冲','激动万分','心急如焚','欣喜若狂','闷闷不乐'];
+var clicheWords = ['下雨送伞','深夜去医院','扶老奶奶过马路','为中华之崛起','成为祖国栋梁','共创美好明天','携手','感恩的心','泪水模糊','眼眶湿润'];
+var northWords = ['堆雪人','打雪仗','滑冰','北方','大雪纷飞','暖气','炕','冻冰','雪地'];
+var emptyWords = ['非常','十分','特别','超级','极其','格外','相当','无比','异常'];
+var persuasiveWords = ['应该','必须','让我们','我们要','应当','需要','务必'];
+
+var sensoryCount = countMatches(text, sensoryWords);
+var emotionCount = countMatches(text, emotionWords);
+var actionCount = countMatches(text, actionWords);
+var transitionCount = countMatches(text, transitionWords);
+var rhetoricCount = countMatches(text, rhetoricWords);
+var personificationCount = countMatches(text, personificationWords);
+var idiomCount = countMatches(text, idiomWords);
+var clicheCount = countMatches(text, clicheWords);
+var northCount = countMatches(text, northWords);
+var emptyCount = countMatches(text, emptyWords);
+var persuasiveCount = countMatches(text, persuasiveWords);
+
+var firstParaLen = paragraphs.length > 0 ? paragraphs[0].replace(/\s/g,'').length : 0;
+var lastParaLen = paragraphs.length > 1 ? paragraphs[paragraphs.length-1].replace(/\s/g,'').length : 0;
+var avgSentenceLen = sentenceCount > 0 ? Math.round(chars / sentenceCount) : 0;
+var sentenceLens = sentences.map(function(s){return s.replace(/\s/g,'').length;});
+var shortSentences = sentenceLens.filter(function(l){return l > 0 && l <= 15;}).length;
+var longSentences = sentenceLens.filter(function(l){return l > 40;}).length;
+var punctTypes = 0;
+if(/[。]/.test(text)) punctTypes++;
+if(/[！]/.test(text)) punctTypes++;
+if(/[？]/.test(text)) punctTypes++;
+if(/[，]/.test(text)) punctTypes++;
+if(/[、]/.test(text)) punctTypes++;
+if(/[：]/.test(text)) punctTypes++;
+if(/[；]/.test(text)) punctTypes++;
+if(/[——]/.test(text)) punctTypes++;
+if(/[""]/.test(text)) punctTypes++;
+if(/[……]/.test(text)) punctTypes++;
+
+var uniqueChars = {};
+for (var i = 0; i < text.length; i++) { uniqueChars[text[i]] = true; }
+var uniqueRatio = chars > 0 ? Object.keys(uniqueChars).length / chars : 0;
+var dialogueCount = (text.match(/[""]/g) || []).length / 2;
+
+var gradeVal = '3';
+var gradeSel = document.getElementById('evalGrade');
+if (gradeSel) gradeVal = gradeSel.value;
+var wordReqs = {'3':300, '4':400, '5':450, '6':500};
+var wordReq = wordReqs[gradeVal] || 300;
+var gradeNames = {'3':'三年级','4':'四年级','5':'五年级','6':'六年级'};
+var gradeName = gradeNames[gradeVal] || '三年级';
+
+var contentScore = 0, contentTags = [];
+if (chars >= wordReq) { contentScore += 12; contentTags.push({t:'字数达标(' + chars + '字)', pos:true}); }
+else if (chars >= wordReq * 0.7) { contentScore += 8; contentTags.push({t:'字数偏少(' + chars + '字/' + wordReq + '字)', pos:false}); }
+else { contentScore += 4; contentTags.push({t:'字数严重不足(' + chars + '字/' + wordReq + '字)', pos:false}); }
+if (actionCount >= 8) { contentScore += 8; contentTags.push({t:'动作描写丰富(' + actionCount + '处)', pos:true}); }
+else if (actionCount >= 4) { contentScore += 5; contentTags.push({t:'有动作描写(' + actionCount + '处)', pos:true}); }
+else { contentScore += 2; contentTags.push({t:'动作描写不足(' + actionCount + '处)', pos:false}); }
+if (sensoryCount >= 6) { contentScore += 7; contentTags.push({t:'感官描写丰富(' + sensoryCount + '处)', pos:true}); }
+else if (sensoryCount >= 3) { contentScore += 4; contentTags.push({t:'有感官描写(' + sensoryCount + '处)', pos:true}); }
+else { contentScore += 1; contentTags.push({t:'感官描写不足(' + sensoryCount + '处)', pos:false}); }
+if (emotionCount >= 5) { contentScore += 5; contentTags.push({t:'情感表达丰富(' + emotionCount + '处)', pos:true}); }
+else if (emotionCount >= 2) { contentScore += 3; contentTags.push({t:'有情感表达(' + emotionCount + '处)', pos:true}); }
+else { contentTags.push({t:'情感表达不足(' + emotionCount + '处)', pos:false}); }
+if (idiomCount >= 3) { contentScore += 3; contentTags.push({t:'好词好句丰富(' + idiomCount + '处)', pos:true}); }
+else if (idiomCount >= 1) { contentScore += 2; contentTags.push({t:'有好词好句(' + idiomCount + '处)', pos:true}); }
+contentScore = Math.min(contentScore, 35);
+if (clicheCount > 0) { contentScore = Math.max(contentScore - 4, 0); contentTags.push({t:'检测到老套素材(' + clicheCount + '处)', pos:false}); }
+if (northCount > 0) { contentScore = Math.max(contentScore - 3, 0); contentTags.push({t:'检测到北方素材(' + northCount + '处)', pos:false}); }
+var contentLevel = contentScore >= 28 ? 'good' : (contentScore >= 20 ? 'mid' : 'low');
+
+var biaodaScore = 0, biaodaTags = [];
+if (rhetoricCount >= 3) { biaodaScore += 8; biaodaTags.push({t:'比喻句丰富(' + rhetoricCount + '处)', pos:true}); }
+else if (rhetoricCount >= 1) { biaodaScore += 5; biaodaTags.push({t:'有比喻句(' + rhetoricCount + '处)', pos:true}); }
+else { biaodaTags.push({t:'缺少比喻句', pos:false}); }
+if (personificationCount >= 1) { biaodaScore += 4; biaodaTags.push({t:'有拟人句(' + personificationCount + '处)', pos:true}); }
+if (idiomCount >= 2) { biaodaScore += 4; biaodaTags.push({t:'四字词语运用好(' + idiomCount + '处)', pos:true}); }
+else if (idiomCount >= 1) { biaodaScore += 2; biaodaTags.push({t:'有四字词语(' + idiomCount + '处)', pos:true}); }
+if (avgSentenceLen >= 8 && avgSentenceLen <= 25) { biaodaScore += 4; biaodaTags.push({t:'句式长短适中(均' + avgSentenceLen + '字)', pos:true}); }
+else if (avgSentenceLen > 0) { biaodaScore += 2; biaodaTags.push({t:'句式均长' + avgSentenceLen + '字', pos:false}); }
+if (shortSentences > 0 && longSentences > 0) { biaodaScore += 3; biaodaTags.push({t:'长短句交替(' + shortSentences + '短/' + longSentences + '长)', pos:true}); }
+if (punctTypes >= 5) { biaodaScore += 3; biaodaTags.push({t:'标点多样(' + punctTypes + '种)', pos:true}); }
+else if (punctTypes >= 3) { biaodaScore += 2; biaodaTags.push({t:'标点基本多样(' + punctTypes + '种)', pos:true}); }
+else { biaodaTags.push({t:'标点单一(' + punctTypes + '种)', pos:false}); }
+if (emptyCount >= 5) { biaodaScore = Math.max(biaodaScore - 3, 0); biaodaTags.push({t:'空洞修饰词过多(' + emptyCount + '处)', pos:false}); }
+if (dialogueCount >= 1) { biaodaScore += 2; biaodaTags.push({t:'有对话描写(' + dialogueCount + '处)', pos:true}); }
+biaodaScore = Math.min(biaodaScore, 30);
+var biaodaLevel = biaodaScore >= 24 ? 'good' : (biaodaScore >= 16 ? 'mid' : 'low');
+
+var jiegouScore = 0, jiegouTags = [];
+if (paraCount >= 3 && paraCount <= 8) { jiegouScore += 6; jiegouTags.push({t:'段落数量合理(' + paraCount + '段)', pos:true}); }
+else if (paraCount >= 2) { jiegouScore += 3; jiegouTags.push({t:'段落偏少(' + paraCount + '段)', pos:false}); }
+else { jiegouTags.push({t:'仅1段，需分段', pos:false}); }
+if (firstParaLen > 0 && firstParaLen <= 100) { jiegouScore += 4; jiegouTags.push({t:'开头简洁(' + firstParaLen + '字)', pos:true}); }
+else if (firstParaLen > 150) { jiegouTags.push({t:'开头过长(' + firstParaLen + '字)', pos:false}); }
+else { jiegouScore += 2; }
+if (lastParaLen > 0 && lastParaLen <= 80) { jiegouScore += 4; jiegouTags.push({t:'结尾精炼(' + lastParaLen + '字)', pos:true}); }
+else if (lastParaLen > 120) { jiegouTags.push({t:'结尾偏长(' + lastParaLen + '字)', pos:false}); }
+else { jiegouScore += 2; }
+if (transitionCount >= 2) { jiegouScore += 4; jiegouTags.push({t:'有过渡衔接(' + transitionCount + '处)', pos:true}); }
+else { jiegouTags.push({t:'过渡衔接不足', pos:false}); }
+if (persuasiveCount > 3) { jiegouScore = Math.max(jiegouScore - 3, 0); jiegouTags.push({t:'说教意味偏重(' + persuasiveCount + '处)', pos:false}); }
+jiegouScore = Math.min(jiegouScore, 20);
+var jiegouLevel = jiegouScore >= 16 ? 'good' : (jiegouScore >= 10 ? 'mid' : 'low');
+
+var shuxieScore = 0, shuxieTags = [];
+if (chars >= wordReq) { shuxieScore += 5; shuxieTags.push({t:'字数满足要求', pos:true}); }
+else { shuxieTags.push({t:'字数不足' + wordReq + '字', pos:false}); }
+if (punctTypes >= 4) { shuxieScore += 4; shuxieTags.push({t:'标点使用规范', pos:true}); }
+else if (punctTypes >= 2) { shuxieScore += 2; shuxieTags.push({t:'标点基本规范', pos:true}); }
+else { shuxieTags.push({t:'标点需改善', pos:false}); }
+if (paraCount >= 3) { shuxieScore += 3; shuxieTags.push({t:'段落格式清晰', pos:true}); }
+else { shuxieTags.push({t:'段落格式需改善', pos:false}); }
+if (uniqueRatio > 0.4) { shuxieScore += 3; shuxieTags.push({t:'用词丰富度高(' + (uniqueRatio*100).toFixed(1) + '%)', pos:true}); }
+else { shuxieTags.push({t:'用词重复率偏高(' + ((1-uniqueRatio)*100).toFixed(1) + '%)', pos:false}); }
+shuxieScore = Math.min(shuxieScore, 15);
+var shuxieLevel = shuxieScore >= 12 ? 'good' : (shuxieScore >= 8 ? 'mid' : 'low');
+
+var totalScore = contentScore + biaodaScore + jiegouScore + shuxieScore;
+var grade = '';
+var gradeColor = '';
+if (totalScore >= 90) { grade = '小作家'; gradeColor = '#48bb78'; }
+else if (totalScore >= 80) { grade = '优秀'; gradeColor = '#4299e1'; }
+else if (totalScore >= 70) { grade = '良好'; gradeColor = '#ed8936'; }
+else if (totalScore >= 60) { grade = '加油'; gradeColor = '#d69e2e'; }
+else { grade = '起步'; gradeColor = '#f56565'; }
+
+var suggestions = [];
+if (chars < wordReq) suggestions.push('📝 字数不足' + wordReq + '字（' + gradeName + '要求），建议扩充内容，增加具体事例和细节描写。');
+if (actionCount < 4) suggestions.push('🏃 动作描写不足，建议用慢镜头法把动作拆成几个小动作，让读者身临其境。');
+if (sensoryCount < 3) suggestions.push('👀 感官描写不足，建议用五感法（看/听/闻/尝/摸）多角度描写。');
+if (rhetoricCount < 1) suggestions.push('🎨 缺少比喻句，建议至少用1-2处比喻（A像B），让语言更生动。');
+if (idiomCount < 1) suggestions.push('📚 缺少好词好句，建议用3-5个四字词语或成语，让语言更丰富。');
+if (paraCount < 3) suggestions.push('📄 段落过少，建议分3-5段，开头简洁点题，结尾总结升华。');
+if (firstParaLen > 150) suggestions.push('✂️ 开头过长（' + firstParaLen + '字），建议控制在100字以内，快速进入正题。');
+if (clicheCount > 0) suggestions.push('⚠️ 检测到老套素材（下雨送伞等），建议更换为广州本地素材（逛花市、喝早茶等）。');
+if (northCount > 0) suggestions.push('❄️ 检测到北方素材，广州学生建议写本地素材，更真实更有特色。');
+if (emptyCount >= 5) suggestions.push('🔤 空洞修饰词过多（"非常""十分"等），建议用具体描写替代，如"非常热"改为"汗水顺着脸颊滑落"。');
+if (transitionCount < 2) suggestions.push('🔗 过渡衔接不足，建议用"首先→然后→接着→最后"等过渡词，让文章更通顺。');
+if (persuasiveCount > 3) suggestions.push('📢 说教意味偏重，建议减少"我们应该"等说教句式，用故事传递道理。');
+if (suggestions.length === 0) suggestions.push('🌟 你的作文整体表现不错！继续保持，可以进一步提升细节描写的深度和语言的文采。');
+
+var html = '<div class="ai-report">';
+html += '<div class="ai-report-header">';
+html += '<div class="ai-score-big">' + totalScore + '<span style="font-size:20px;color:#aaa;"> / 100分</span></div>';
+html += '<div class="ai-score-label">' + gradeName + '作文智能评分（100分制）</div>';
+html += '<div class="ai-grade-badge" style="background:' + gradeColor + '20;color:' + gradeColor + ';">' + grade + '</div>';
+html += '</div>';
+
+html += '<div class="ai-dim-row ' + contentLevel + '">';
+html += '<div class="ai-dim-name">内容<br><span style="font-size:11px;color:#aaa;">/35分</span></div>';
+html += '<div class="ai-dim-score" style="color:' + (contentLevel==='good'?'#48bb78':contentLevel==='mid'?'#ed8936':'#f56565') + ';">' + contentScore + '分</div>';
+html += '<div class="ai-dim-detail">';
+contentTags.forEach(function(tag) { html += '<span class="ai-dim-tag ' + (tag.pos?'pos':'neg') + '">' + tag.t + '</span>'; });
+html += '<div style="margin-top:6px;">字数' + chars + ' | 段落' + paraCount + ' | 句子' + sentenceCount + ' | 动作词' + actionCount + ' | 感官词' + sensoryCount + ' | 情感词' + emotionCount + ' | 好词好句' + idiomCount + '</div>';
+html += '</div></div>';
+
+html += '<div class="ai-dim-row ' + biaodaLevel + '">';
+html += '<div class="ai-dim-name">表达<br><span style="font-size:11px;color:#aaa;">/30分</span></div>';
+html += '<div class="ai-dim-score" style="color:' + (biaodaLevel==='good'?'#48bb78':biaodaLevel==='mid'?'#ed8936':'#f56565') + ';">' + biaodaScore + '分</div>';
+html += '<div class="ai-dim-detail">';
+biaodaTags.forEach(function(tag) { html += '<span class="ai-dim-tag ' + (tag.pos?'pos':'neg') + '">' + tag.t + '</span>'; });
+html += '<div style="margin-top:6px;">比喻' + rhetoricCount + '处 | 拟人' + personificationCount + '处 | 四字词语' + idiomCount + '处 | 均句长' + avgSentenceLen + '字 | 标点' + punctTypes + '种 | 对话' + dialogueCount + '处</div>';
+html += '</div></div>';
+
+html += '<div class="ai-dim-row ' + jiegouLevel + '">';
+html += '<div class="ai-dim-name">结构<br><span style="font-size:11px;color:#aaa;">/20分</span></div>';
+html += '<div class="ai-dim-score" style="color:' + (jiegouLevel==='good'?'#48bb78':jiegouLevel==='mid'?'#ed8936':'#f56565') + ';">' + jiegouScore + '分</div>';
+html += '<div class="ai-dim-detail">';
+jiegouTags.forEach(function(tag) { html += '<span class="ai-dim-tag ' + (tag.pos?'pos':'neg') + '">' + tag.t + '</span>'; });
+html += '<div style="margin-top:6px;">共' + paraCount + '段 | 开头' + firstParaLen + '字 | 结尾' + lastParaLen + '字 | 过渡词' + transitionCount + '处</div>';
+html += '</div></div>';
+
+html += '<div class="ai-dim-row ' + shuxieLevel + '">';
+html += '<div class="ai-dim-name">书写<br><span style="font-size:11px;color:#aaa;">/15分</span></div>';
+html += '<div class="ai-dim-score" style="color:' + (shuxieLevel==='good'?'#48bb78':shuxieLevel==='mid'?'#ed8936':'#f56565') + ';">' + shuxieScore + '分</div>';
+html += '<div class="ai-dim-detail">';
+shuxieTags.forEach(function(tag) { html += '<span class="ai-dim-tag ' + (tag.pos?'pos':'neg') + '">' + tag.t + '</span>'; });
+html += '<div style="margin-top:6px;">用词丰富度' + (uniqueRatio*100).toFixed(1) + '% | 重复率' + ((1-uniqueRatio)*100).toFixed(1) + '%</div>';
+html += '</div></div>';
+
+html += '<div class="ai-suggest">';
+html += '<div class="ai-suggest-title">📋 提升建议（共' + suggestions.length + '条）</div>';
+suggestions.forEach(function(s) { html += '<div style="margin:4px 0;">' + s + '</div>'; });
+html += '</div>';
+
+html += '<div style="text-align:center;margin-top:14px;font-size:12px;color:#aaa;">⚠️ 本分析基于文本特征统计与小学作文评分规则算法生成，仅供参考，实际评分以教师批改为准。</div>';
+html += '</div>';
+
+return html;
+}
+
+function countMatches(text, words) {
+var count = 0;
+for (var i = 0; i < words.length; i++) {
+var idx = text.indexOf(words[i]);
+while (idx !== -1) { count++; idx = text.indexOf(words[i], idx + words[i].length); }
+}
+return count;
+}
+
+function selectDim(btn) {
+var dim = btn.getAttribute('data-dim');
+var score = parseInt(btn.getAttribute('data-score'));
+dimScores[dim] = score;
+var btns = btn.parentNode.querySelectorAll('.dim-btn');
+for (var i = 0; i < btns.length; i++) {
+btns[i].className = 'dim-btn';
+}
+btn.className = 'dim-btn selected';
+}
+
+function toggleCheck(el) {
+var cb = el.querySelector('input[type="checkbox"]');
+cb.checked = !cb.checked;
+if (cb.checked) {
+el.className = 'checklist-item checked';
+} else {
+el.className = 'checklist-item';
+}
+}
+
+function flipCard(el) {
+if (el.className.indexOf('flipped') >= 0) {
+el.className = 'formula-card';
+} else {
+el.className = 'formula-card flipped';
+}
+}
+
+function updateEvalResult() {
+var total = dimScores.neirong + dimScores.biaoda + dimScores.jiegou + dimScores.shuxie;
+var allSelected = dimScores.neirong > 0 && dimScores.biaoda > 0 && dimScores.jiegou > 0 && dimScores.shuxie > 0;
+if (!allSelected) {
+document.getElementById('evalResult').className = 'hidden';
+alert('请先给每个维度都打个分哦！');
+return;
+}
+var grade = '';
+var gradeColor = '';
+if (total >= 90) { grade = '小作家'; gradeColor = 'background:#48bb78;color:#fff;'; }
+else if (total >= 80) { grade = '优秀'; gradeColor = 'background:#4299e1;color:#fff;'; }
+else if (total >= 70) { grade = '良好'; gradeColor = 'background:#ed8936;color:#fff;'; }
+else if (total >= 60) { grade = '加油'; gradeColor = 'background:#d69e2e;color:#fff;'; }
+else { grade = '起步'; gradeColor = 'background:#e53e3e;color:#fff;'; }
+
+var sugHtml = '<h4>各维度改进建议</h4>';
+var dims = ['neirong', 'biaoda', 'jiegou', 'shuxie'];
+var dimNames = ['内容', '表达', '结构', '书写'];
+var dimMax = [35, 30, 20, 15];
+for (var i = 0; i < dims.length; i++) {
+var d = dims[i];
+var s = dimScores[d].toString();
+if (dimSuggestions[d][s]) {
+sugHtml += '<p><strong>' + dimNames[i] + '（' + s + '/' + dimMax[i] + '分）：</strong>' + dimSuggestions[d][s] + '</p>';
+}
+}
+
+var totalComment = '';
+if (total >= 90) { totalComment = '太棒了！你已经是一个小作家了！🌟 作文写得又清楚又生动，继续保持！'; }
+else if (total >= 80) { totalComment = '你写得很不错哦！👏 大部分都做得很好了，继续精益求精！'; }
+else if (total >= 70) { totalComment = '你已经有不错的写作基础了！😊 每次进步一点点，你就是最棒的！'; }
+else if (total >= 60) { totalComment = '你已经迈出了很重要的一步！🚶 多读多写多观察，你一定会越来越厉害的！'; }
+else { totalComment = '别灰心，每个大作家都是从第一篇作文开始的！🌟 先试试把一件事写清楚，慢慢来！'; }
+
+sugHtml += '<h4>总评与鼓励</h4><p>' + totalComment + '</p>';
+
+var checkedCount = 0;
+var checklistItems = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+for (var ci = 0; ci < checklistItems.length; ci++) {
+if (checklistItems[ci].checked) { checkedCount++; }
+}
+var totalChecks = checklistItems.length;
+sugHtml += '<h4>✅ 写作自查结果</h4>';
+sugHtml += '<p class="yqh-check">已完成 ' + checkedCount + '/' + totalChecks + ' 项检查。';
+if (checkedCount >= 7) {
+sugHtml += ' 检查很全面，继续保持！</p>';
+} else if (checkedCount >= 4) {
+sugHtml += ' 检查较好，还有几项可以注意。</p>';
+} else {
+sugHtml += ' 建议仔细对照自查清单，逐项检查。</p>';
+}
+
+sugHtml += '<h4>⚠️ 常见失分提醒</h4>';
+sugHtml += '<p class="pitfall-warn">请对照上方"常见失分警示"清单，确保没有踩中失分点。特别注意：①是否跑题偏题；②是否写了流水账；③是否用了套路素材；④是否写了北方素材；⑤结尾是否喊口号。这些是最常见的扣分点。</p>';
+
+var resultHtml = '<div class="result-box">' +
+'<div class="total-score">' + total + '</div>' +
+'<div class="total-label">总分（满分100分）</div>' +
+'<span class="grade-badge" style="' + gradeColor + '">' + grade + '</span>' +
+'<div class="suggestions">' + sugHtml + '</div>' +
+'</div>';
+
+document.getElementById('evalResult').innerHTML = resultHtml;
+document.getElementById('evalResult').className = '';
+}
+
+document.getElementById('essayInput').addEventListener('input', function() {
+var len = this.value.length;
+var gradeVal = document.getElementById('evalGrade').value;
+var hints = {'3':'三年级建议300字以上', '4':'四年级建议400字以上', '5':'五年级建议450字以上', '6':'六年级建议500字以上'};
+document.getElementById('charCount').textContent = '已输入 ' + len + ' 字（' + hints[gradeVal] + '）';
+});
+
+renderEssays();
+renderPractices();
+</script>
+
+<script>
+var LOGIN_USER = 'liulaoshi';
+var LOGIN_PASS = 'peiyou2026';
+var ACCT_KEY = 'xiaoxue_zuowen_accounts';
+var ALL_MODULES = ['写作技巧库','范文赏析','素材宝库','实战演练','写作自评','教研写作公式'];
+var MODULE_LABELS = {
+    '写作技巧库':'写作技巧库','范文赏析':'范文赏析','素材宝库':'素材宝库',
+    '实战演练':'实战演练','写作自评':'写作自评','教研写作公式':'教研写作公式'
+};
+var MODULE_GROUPS = [
+    {label:'板块权限',items:['写作技巧库','范文赏析','素材宝库','实战演练','写作自评','教研写作公式']}
+];
+function getAccounts() {
+    var raw = localStorage.getItem(ACCT_KEY);
+    if (!raw) return [];
+    try { return JSON.parse(raw); } catch (ex) { return []; }
+}
+function saveAccounts(list) {
+    localStorage.setItem(ACCT_KEY, JSON.stringify(list));
+}
+function initAccounts() {
+    if (!localStorage.getItem(ACCT_KEY)) saveAccounts([]);
+}
+function updateLoginUI() {
+    var userType = sessionStorage.getItem('sys_login_type') || 'main';
+    var userName = sessionStorage.getItem('sys_login_user') || '';
+    var nameEl = document.getElementById('currentUserName');
+    var btnEl = document.getElementById('acctMgrBtn');
+    if (userType === 'main') {
+        if (nameEl) nameEl.textContent = '刘老师（管理员）';
+        if (btnEl) btnEl.classList.remove('hidden');
+        applyModuleVisibility(ALL_MODULES);
+    } else {
+        var accounts = getAccounts();
+        var displayName = userName;
+        var userModules = ALL_MODULES;
+        for (var i = 0; i < accounts.length; i++) {
+            if (accounts[i].username === userName) { displayName = accounts[i].displayName || userName; userModules = accounts[i].modules || ALL_MODULES; break; }
+        }
+        if (nameEl) nameEl.textContent = displayName;
+        if (btnEl) btnEl.classList.add('hidden');
+        applyModuleVisibility(userModules);
+    }
+}
+function applyModuleVisibility(modules) {
+    var tabModules = ['写作技巧库','范文赏析','素材宝库','实战演练','写作自评','教研写作公式'];
+    var btns = document.querySelectorAll('.tab-btn');
+    for (var i = 0; i < tabModules.length; i++) {
+        if (btns[i]) {
+            if (modules.indexOf(tabModules[i]) >= 0) { btns[i].style.display = ''; }
+            else { btns[i].style.display = 'none'; }
+        }
+    }
+}
+function getUserModules() {
+    var userType = sessionStorage.getItem('sys_login_type') || 'main';
+    if (userType === 'main') return ALL_MODULES;
+    var userName = sessionStorage.getItem('sys_login_user') || '';
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === userName) return accounts[i].modules || ALL_MODULES;
+    }
+    return ALL_MODULES;
+}
+function isModuleAllowed(mod) {
+    var mods = getUserModules();
+    return mods.indexOf(mod) >= 0;
+}
+function checkLogin() {
+    if (sessionStorage.getItem('sys_login_ok') === '1') {
+        var o = document.getElementById('loginOverlay');
+        if (o) { o.style.display = 'none'; }
+        document.getElementById('homePage').style.display = '';
+        document.getElementById('mainContent').style.display = 'none';
+        updateLoginUI();
+    }
+}
+function doLogin() {
+    var u = document.getElementById('loginUser').value.trim();
+    var p = document.getElementById('loginPass').value;
+    var e = document.getElementById('loginError');
+    if (u === LOGIN_USER && p === LOGIN_PASS) {
+        sessionStorage.setItem('sys_login_ok', '1');
+        sessionStorage.setItem('sys_login_user', u);
+        sessionStorage.setItem('sys_login_type', 'main');
+        var o = document.getElementById('loginOverlay');
+        o.style.opacity = '0';
+        setTimeout(function() { o.style.display = 'none'; }, 400);
+        document.getElementById('homePage').style.display = '';
+        updateLoginUI();
+        return;
+    }
+    var accounts = getAccounts();
+    var found = null;
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === u && accounts[i].password === p) { found = accounts[i]; break; }
+    }
+    if (found) {
+        if (found.disabled) {
+            e.textContent = '该账号已被禁用，请联系老师续期';
+            return;
+        }
+        if (found.expiryDate) {
+            var nowDate = new Date();
+            var nowStr = nowDate.getFullYear() + '-' + ('0' + (nowDate.getMonth() + 1)).slice(-2) + '-' + ('0' + nowDate.getDate()).slice(-2);
+            if (nowStr > found.expiryDate) {
+                e.textContent = '账号已过期，请联系老师续期';
+                return;
+            }
+        }
+        sessionStorage.setItem('sys_login_ok', '1');
+        sessionStorage.setItem('sys_login_user', u);
+        sessionStorage.setItem('sys_login_type', 'sub');
+        var o2 = document.getElementById('loginOverlay');
+        o2.style.opacity = '0';
+        setTimeout(function() { o2.style.display = 'none'; }, 400);
+        document.getElementById('homePage').style.display = '';
+        updateLoginUI();
+        return;
+    }
+    e.textContent = '账号或密码错误，请重试';
+    document.getElementById('loginUser').value = '';
+    document.getElementById('loginPass').value = '';
+}
+function showAccountPage() {
+    renderAccountList();
+    document.getElementById('accountPage').classList.add('active');
+    document.getElementById('mainContent').style.display = 'none';
+    document.getElementById('homePage').style.display = 'none';
+    window.scrollTo(0, 0);
+}
+function showMainContent() {
+    document.getElementById('accountPage').classList.remove('active');
+    document.getElementById('homePage').style.display = '';
+    document.getElementById('mainContent').style.display = 'none';
+    window.scrollTo(0, 0);
+}
+function renderAccountList() {
+    var accounts = getAccounts();
+    var wrap = document.getElementById('accountListWrap');
+    if (accounts.length === 0) {
+        wrap.innerHTML = '<div class="acct-empty">暂无子账号，请在上方创建</div>';
+        return;
+    }
+    var html = '<div class="acct-table-wrap"><table class="acct-table"><thead><tr><th>用户名</th><th>显示名</th><th>板块权限</th><th>到期时间</th><th>状态</th><th>操作</th></tr></thead><tbody>';
+    var nowDate = new Date();
+    var nowStr = nowDate.getFullYear() + '-' + ('0' + (nowDate.getMonth() + 1)).slice(-2) + '-' + ('0' + nowDate.getDate()).slice(-2);
+    for (var i = 0; i < accounts.length; i++) {
+        var a = accounts[i];
+        var statusHtml = a.disabled ? '<span class="acct-status-off">已禁用</span>' : '<span class="acct-status-on">正常</span>';
+        var toggleText = a.disabled ? '启用' : '禁用';
+        var modCount = (a.modules || ALL_MODULES).length;
+        var expiryHtml = '—';
+        if (a.expiryDate) {
+            if (nowStr > a.expiryDate) {
+                expiryHtml = '<span class="acct-expired">' + a.expiryDate + '（已过期）</span>';
+                statusHtml = '<span class="acct-status-off">已过期</span>';
+            } else {
+                var diffMs = new Date(a.expiryDate).getTime() - new Date(nowStr).getTime();
+                var diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                var warnClass = diffDays <= 7 ? 'acct-expiry-warn' : '';
+                expiryHtml = '<span class="' + warnClass + '">' + a.expiryDate + '（剩余' + diffDays + '天）</span>';
+            }
+        }
+        html += '<tr>';
+        html += '<td>' + a.username + '</td>';
+        html += '<td>' + (a.displayName || '—') + '</td>';
+        html += '<td><span class="acct-modules-count" onclick="editAccountModules(\'' + a.username + '\')">' + modCount + '/' + ALL_MODULES.length + '</span></td>';
+        html += '<td>' + expiryHtml + '</td>';
+        html += '<td>' + statusHtml + '</td>';
+        html += '<td>';
+        html += '<button class="acct-act-btn acct-act-reset" onclick="resetAccount(\'' + a.username + '\')">重置密码</button>';
+        html += '<button class="acct-act-btn acct-act-modules" onclick="editAccountModules(\'' + a.username + '\')">编辑板块</button>';
+        html += '<button class="acct-act-btn acct-act-expiry" onclick="extendExpiry(\'' + a.username + '\')">延期</button>';
+        html += '<button class="acct-act-btn acct-act-toggle" onclick="toggleAccount(\'' + a.username + '\')">' + toggleText + '</button>';
+        html += '<button class="acct-act-btn acct-act-delete" onclick="deleteAccount(\'' + a.username + '\')">删除</button>';
+        html += '</td>';
+        html += '</tr>';
+    }
+    html += '</tbody></table></div>';
+    wrap.innerHTML = html;
+}
+function createAccount() {
+    var user = document.getElementById('newAcctUser').value.trim();
+    var pass = document.getElementById('newAcctPass').value.trim();
+    var name = document.getElementById('newAcctName').value.trim();
+    if (!user || !pass) { alert('请填写用户名和密码'); return; }
+    if (user === LOGIN_USER) { alert('用户名不能与主账号重复'); return; }
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === user) { alert('该用户名已存在'); return; }
+    }
+    var modules = getCheckedModules('newAcctModules');
+    if (modules.length === 0) { alert('请至少选择一个板块'); return; }
+    var expiryDate = document.getElementById('newAcctExpiry').value || '';
+    var now = new Date();
+    var dateStr = now.getFullYear() + '-' + ('0' + (now.getMonth() + 1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2);
+    accounts.push({ username: user, password: pass, displayName: name || user, createdAt: dateStr, disabled: false, modules: modules, expiryDate: expiryDate });
+    saveAccounts(accounts);
+    document.getElementById('newAcctUser').value = '';
+    document.getElementById('newAcctPass').value = '';
+    document.getElementById('newAcctName').value = '';
+    document.getElementById('newAcctExpiry').value = '';
+    clearExpiryQuickActive();
+    initNewAcctModules();
+    renderAccountList();
+}
+function resetAccount(username) {
+    var newPass = prompt('请输入新的密码：', '123456');
+    if (!newPass) return;
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { accounts[i].password = newPass; break; }
+    }
+    saveAccounts(accounts);
+    alert('密码已重置为：' + newPass);
+}
+function toggleAccount(username) {
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { accounts[i].disabled = !accounts[i].disabled; break; }
+    }
+    saveAccounts(accounts);
+    renderAccountList();
+}
+function deleteAccount(username) {
+    if (!confirm('确定要删除子账号"' + username + '"吗？此操作不可恢复。')) return;
+    var accounts = getAccounts();
+    var newList = [];
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username !== username) newList.push(accounts[i]);
+    }
+    saveAccounts(newList);
+    renderAccountList();
+}
+function buildModuleGridHtml(containerId, checkedModules) {
+    var html = '';
+    for (var g = 0; g < MODULE_GROUPS.length; g++) {
+        var grp = MODULE_GROUPS[g];
+        html += '<div style="font-size:13px;color:#555;margin-bottom:4px;">' + grp.label + '</div>';
+        for (var i = 0; i < grp.items.length; i++) {
+            var mod = grp.items[i];
+            var isChecked = checkedModules.indexOf(mod) >= 0;
+            var checkedAttr = isChecked ? 'checked' : '';
+            var checkedClass = isChecked ? ' checked' : '';
+            html += '<div class="module-grid-item' + checkedClass + '" onclick="toggleModuleItem(this)">';
+            html += '<input type="checkbox" id="' + containerId + '_mod_' + mod + '" ' + checkedAttr + ' onclick="event.stopPropagation()">';
+            html += '<label for="' + containerId + '_mod_' + mod + '">' + MODULE_LABELS[mod] + '</label>';
+            html += '</div>';
+        }
+    }
+    return html;
+}
+function toggleModuleItem(el) {
+    var cb = el.querySelector('input[type=checkbox]');
+    cb.checked = !cb.checked;
+    if (cb.checked) { el.classList.add('checked'); }
+    else { el.classList.remove('checked'); }
+}
+function getCheckedModules(containerId) {
+    var result = [];
+    for (var i = 0; i < ALL_MODULES.length; i++) {
+        var cb = document.getElementById(containerId + '_mod_' + ALL_MODULES[i]);
+        if (cb && cb.checked) result.push(ALL_MODULES[i]);
+    }
+    return result;
+}
+function initNewAcctModules() {
+    var container = document.getElementById('newAcctModules');
+    if (container) container.innerHTML = buildModuleGridHtml('newAcctModules', ALL_MODULES);
+}
+function setExpiryQuick(days, btn) {
+    var now = new Date();
+    now.setDate(now.getDate() + days);
+    var dateStr = now.getFullYear() + '-' + ('0' + (now.getMonth() + 1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2);
+    document.getElementById('newAcctExpiry').value = dateStr;
+    var btns = document.querySelectorAll('.expiry-quick-btn');
+    for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+    if (btn) btn.classList.add('active');
+}
+function clearExpiryQuickActive() {
+    var btns = document.querySelectorAll('.expiry-quick-btn');
+    for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+}
+function editAccountModules(username) {
+    var accounts = getAccounts();
+    var acct = null;
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { acct = accounts[i]; break; }
+    }
+    if (!acct) return;
+    var currentModules = acct.modules || ALL_MODULES;
+    var mask = document.createElement('div');
+    mask.className = 'module-modal-mask';
+    mask.id = 'moduleModalMask';
+    var html = '<div class="module-modal">';
+    html += '<h3>编辑板块权限 — ' + acct.username + '</h3>';
+    html += '<div class="module-grid" id="editModulesGrid"></div>';
+    html += '<div class="modal-actions">';
+    html += '<button class="modal-btn modal-btn-ghost" onclick="closeModuleModal()">取消</button>';
+    html += '<button class="modal-btn modal-btn-primary" onclick="saveAccountModules(\'' + username + '\')">保存</button>';
+    html += '</div>';
+    html += '</div>';
+    mask.innerHTML = html;
+    document.body.appendChild(mask);
+    var grid = document.getElementById('editModulesGrid');
+    grid.innerHTML = buildModuleGridHtml('editModulesGrid', currentModules);
+}
+function closeModuleModal() {
+    var mask = document.getElementById('moduleModalMask');
+    if (mask) mask.parentNode.removeChild(mask);
+}
+function saveAccountModules(username) {
+    var modules = getCheckedModules('editModulesGrid');
+    if (modules.length === 0) { alert('请至少选择一个板块'); return; }
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { accounts[i].modules = modules; break; }
+    }
+    saveAccounts(accounts);
+    closeModuleModal();
+    renderAccountList();
+    alert('板块权限已更新');
+}
+function extendExpiry(username) {
+    var accounts = getAccounts();
+    var acct = null;
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { acct = accounts[i]; break; }
+    }
+    if (!acct) return;
+    var currentExpiry = acct.expiryDate || '';
+    var msg = '请输入新的到期日期（格式：YYYY-MM-DD）：\n\n快捷输入：\n+7  延期7天\n+30 延期30天\n+90 延期90天\n+180 延期180天\n+365 延期365天\n\n当前到期日期：' + (currentExpiry || '未设置');
+    var input = prompt(msg, currentExpiry);
+    if (!input) return;
+    input = input.trim();
+    var newDate = '';
+    if (input.charAt(0) === '+') {
+        var days = parseInt(input.substring(1), 10);
+        if (isNaN(days) || days <= 0) { alert('请输入有效的天数'); return; }
+        var baseDate = currentExpiry ? new Date(currentExpiry) : new Date();
+        baseDate.setDate(baseDate.getDate() + days);
+        newDate = baseDate.getFullYear() + '-' + ('0' + (baseDate.getMonth() + 1)).slice(-2) + '-' + ('0' + baseDate.getDate()).slice(-2);
+    } else {
+        newDate = input;
+    }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(newDate)) { alert('日期格式不正确，请使用 YYYY-MM-DD 格式'); return; }
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { accounts[i].expiryDate = newDate; break; }
+    }
+    saveAccounts(accounts);
+    renderAccountList();
+    alert('到期时间已更新为：' + newDate);
+}
+document.addEventListener('DOMContentLoaded', function() {
+    initAccounts();
+    initNewAcctModules();
+    var u = document.getElementById('loginUser');
+    var p = document.getElementById('loginPass');
+    if (u) { u.addEventListener('keydown', function(e) { if (e.key === 'Enter') { p.focus(); } }); }
+    if (p) { p.addEventListener('keydown', function(e) { if (e.key === 'Enter') { doLogin(); } }); }
+    checkLogin();
+});
+</script>
+</body>
+</html>
