@@ -1851,7 +1851,7 @@ function copyShareLink(){
 var origShowResult=showResult;
 var PENDING_AFTER_INFO=null;
 showResult=function(){
-  if(!SHARE_INFO.childName){
+  if(!SHARE_INFO.childName && Object.keys(results).length>=2){
     PENDING_AFTER_INFO='showResult';
     document.getElementById('shareInfoModal').classList.add('show');
     return;
