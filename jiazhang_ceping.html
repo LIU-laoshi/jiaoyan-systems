@@ -624,6 +624,10 @@ function calculateResult() {
 }
 
 function saveResults() { try { localStorage.setItem("parent_diag_results", JSON.stringify(results)); syncStateToCloud(); } catch(e) {} }
+function syncShareInfoToCloud(){
+  if(!SHARE_MODE||!SHARE_INFO.childName)return;
+  syncStateToCloud();
+}
 
 function getInterp(moduleId, dimIdx, percent) {
   var interp = APP_DATA.interpretations[moduleId];
@@ -1781,6 +1785,7 @@ function initShareMode(){
     var banner=document.createElement('div');
     banner.className='share-info-banner';
     banner.innerHTML='🎓 免登录测评模式 | 完成测评后生成专属报告';
+    banner.id='shareModeBanner';
     var app=document.querySelector('.app');
     if(app)app.insertBefore(banner,app.firstChild);
     LOGIN_USER={username:'share_guest',displayName:'分享访客',isAdmin:false,modules:ALL_MODULES.slice()};
@@ -1849,8 +1854,8 @@ function submitShareInfo(){
   if(subjects.length===0){alert('请至少选择一个需要提升的科目');return;}
   SHARE_INFO={childName:name,grade:grade,subjects:subjects};
   closeShareInfo();
-  origShowReport();
   syncStateToCloud();
+  origShowReport();
 }
 
 /* Override syncStateToCloud to include share info */
@@ -1880,7 +1885,16 @@ syncStateToCloud=function(){
     headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
     body:body
   }).then(function(resp){
-    if(resp.ok){console.log('[Cloud] Sync to cloud success');}
+    if(resp.ok){
+      console.log('[Cloud] Sync to cloud success');
+      if(SHARE_MODE){
+        var b=document.getElementById('shareModeBanner');
+        if(b){
+          b.textContent='✅ 测评数据已同步';
+          setTimeout(function(){b.textContent='🎓 免登录测评模式 | 完成测评后生成专属报告';},2000);
+        }
+      }
+    }
   }).catch(function(e){console.error('[Cloud] Sync to cloud failed:',e);});
 };
 
