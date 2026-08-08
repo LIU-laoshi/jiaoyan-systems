@@ -229,6 +229,28 @@ canvas{max-width:100%}
 .admin-tab-bar button.active{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-color:transparent;}
 .logout-btn{position:absolute;right:12px;top:14px;color:#fff;border:1px solid rgba(255,255,255,0.5);background:transparent;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer;}
 
+
+/* Share Mode */
+.share-info-banner{background:linear-gradient(135deg,#43e97b,#38f9d7);color:#fff;padding:8px 14px;font-size:12px;text-align:center;border-radius:8px;margin:8px 0;}
+.share-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:10001;}
+.share-modal.show{display:flex;}
+.share-modal .modal-box{background:#fff;border-radius:14px;padding:20px;width:90%;max-width:360px;}
+.share-modal .modal-box h3{font-size:16px;margin-bottom:14px;color:#333;}
+.share-modal .modal-box .form-group{margin-bottom:12px;}
+.share-modal .modal-box .form-group label{display:block;font-size:13px;color:#666;margin-bottom:5px;}
+.share-modal .modal-box .form-group input,.share-modal .modal-box .form-group select{width:100%;padding:8px 10px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:13px;}
+.share-modal .modal-box .modal-actions{display:flex;gap:10px;margin-top:14px;}
+.share-modal .modal-box .modal-actions button{flex:1;padding:10px;border-radius:8px;border:none;font-size:14px;cursor:pointer;}
+.share-modal .modal-box .modal-actions .btn-save{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;}
+.share-modal .modal-box .modal-actions .btn-cancel{background:#f0f0f0;color:#666;}
+.share-link-box{background:#f8f9fa;border:1px solid #e0e0e0;border-radius:8px;padding:12px;margin:10px 0;}
+.share-link-box .link-url{font-size:12px;color:#1967d2;word-break:break-all;line-height:1.5;}
+.share-link-box .copy-btn{margin-top:8px;padding:6px 14px;border-radius:6px;border:1px solid #667eea;background:#fff;color:#667eea;font-size:12px;cursor:pointer;}
+.share-link-box .copy-btn:active{transform:scale(0.96);}
+.share-report-info{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:10px;padding:14px;margin:10px 0;}
+.share-report-info h3{font-size:15px;margin-bottom:6px;}
+.share-report-info p{font-size:12px;opacity:0.9;}
+
 </style>
 </head>
 <body>
@@ -258,6 +280,70 @@ canvas{max-width:100%}
   </div>
   <div id="adminResultList"></div>
   <button class="login-btn" style="margin:12px;background:#f0f0f0;color:#667eea;" onclick="showPage('page-home')">返回首页</button>
+</div>
+
+
+<!-- Share Info Modal (for share mode report generation) -->
+<div id="shareInfoModal" class="share-modal">
+  <div class="modal-box">
+    <h3>📋 生成测评报告</h3>
+    <p style="font-size:12px;color:#999;margin-bottom:12px;">请填写以下信息以生成个性化报告</p>
+    <div class="form-group">
+      <label>孩子姓名</label>
+      <input type="text" id="shareChildName" placeholder="请输入孩子姓名">
+    </div>
+    <div class="form-group">
+      <label>年级</label>
+      <select id="shareChildGrade">
+        <option value="">请选择年级</option>
+        <option value="小学一年级">小学一年级</option>
+        <option value="小学二年级">小学二年级</option>
+        <option value="小学三年级">小学三年级</option>
+        <option value="小学四年级">小学四年级</option>
+        <option value="小学五年级">小学五年级</option>
+        <option value="小学六年级">小学六年级</option>
+        <option value="初一">初一</option>
+        <option value="初二">初二</option>
+        <option value="初三">初三</option>
+        <option value="高一">高一</option>
+        <option value="高二">高二</option>
+        <option value="高三">高三</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>需要提升的科目（可多选）</label>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;" id="shareSubjects">
+        <label style="display:flex;align-items:center;gap:4px;font-size:12px;padding:4px 8px;border-radius:4px;background:#f5f5f5;cursor:pointer;"><input type="checkbox" value="语文"> 语文</label>
+        <label style="display:flex;align-items:center;gap:4px;font-size:12px;padding:4px 8px;border-radius:4px;background:#f5f5f5;cursor:pointer;"><input type="checkbox" value="数学"> 数学</label>
+        <label style="display:flex;align-items:center;gap:4px;font-size:12px;padding:4px 8px;border-radius:4px;background:#f5f5f5;cursor:pointer;"><input type="checkbox" value="英语"> 英语</label>
+        <label style="display:flex;align-items:center;gap:4px;font-size:12px;padding:4px 8px;border-radius:4px;background:#f5f5f5;cursor:pointer;"><input type="checkbox" value="物理"> 物理</label>
+        <label style="display:flex;align-items:center;gap:4px;font-size:12px;padding:4px 8px;border-radius:4px;background:#f5f5f5;cursor:pointer;"><input type="checkbox" value="化学"> 化学</label>
+        <label style="display:flex;align-items:center;gap:4px;font-size:12px;padding:4px 8px;border-radius:4px;background:#f5f5f5;cursor:pointer;"><input type="checkbox" value="生物"> 生物</label>
+        <label style="display:flex;align-items:center;gap:4px;font-size:12px;padding:4px 8px;border-radius:4px;background:#f5f5f5;cursor:pointer;"><input type="checkbox" value="政治"> 政治</label>
+        <label style="display:flex;align-items:center;gap:4px;font-size:12px;padding:4px 8px;border-radius:4px;background:#f5f5f5;cursor:pointer;"><input type="checkbox" value="历史"> 历史</label>
+        <label style="display:flex;align-items:center;gap:4px;font-size:12px;padding:4px 8px;border-radius:4px;background:#f5f5f5;cursor:pointer;"><input type="checkbox" value="地理"> 地理</label>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeShareInfo()">取消</button>
+      <button class="btn-save" onclick="submitShareInfo()">生成报告</button>
+    </div>
+  </div>
+</div>
+
+<!-- Share Link Modal (for admin to get share link) -->
+<div id="shareLinkModal" class="share-modal">
+  <div class="modal-box">
+    <h3>🔗 分享链接</h3>
+    <p style="font-size:12px;color:#999;margin-bottom:12px;">将此链接发送给家长，无需登录即可使用测评系统。测评结果将自动同步到您的数据后台。</p>
+    <div class="share-link-box">
+      <div class="link-url" id="shareLinkUrl"></div>
+      <button class="copy-btn" onclick="copyShareLink()">📋 复制链接</button>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-save" style="flex:1;" onclick="closeShareLink()">关闭</button>
+    </div>
+  </div>
 </div>
 
 <!-- Account Modal -->
@@ -327,6 +413,7 @@ canvas{max-width:100%}
     <div style="margin:12px;display:flex;gap:8px;flex-wrap:wrap;" id="adminButtons" style="display:none;">
   <button onclick="showPage('page-account')" style="padding:8px 16px;border-radius:8px;border:1px solid #667eea;background:#fff;color:#667eea;font-size:13px;cursor:pointer;">👥 账号管理</button>
   <button onclick="showPage('page-admin')" style="padding:8px 16px;border-radius:8px;border:1px solid #667eea;background:#fff;color:#667eea;font-size:13px;cursor:pointer;">📊 数据后台</button>
+  <button onclick="showShareLink()" style="padding:8px 16px;border-radius:8px;border:1px solid #43e97b;background:#fff;color:#43e97b;font-size:13px;cursor:pointer;">🔗 分享链接</button>
 </div>
 <div class="sys-badges">
       <span class="sys-badge">🔬 五大理论模型</span>
@@ -880,6 +967,9 @@ function showReport() {
   html += '<div class="summary-box">';
   html += '<h2>📊 综合教育测评报告</h2>';
   html += '<p>基于五大维度测评结果，以下为您孩子的综合教育测评画像和个性化行动建议。</p>';
+  if(SHARE_MODE && SHARE_INFO.childName){
+    html += '<div class="share-report-info"><h3>👶 '+SHARE_INFO.childName+' | '+SHARE_INFO.grade+'</h3><p>需提升科目：'+SHARE_INFO.subjects.join('、')+'</p></div>';
+  }
   html += '<div style="margin-top:10px;font-size:11px;color:rgba(255,255,255,.5)">报告编号：' + reportId + ' | 生成时间：' + now.toLocaleString("zh-CN") + '</div>';
   html += '</div>';
 
@@ -1671,6 +1761,225 @@ renderModuleList=function(){
   }
 };
 
+
+/* === Share Mode === */
+var SHARE_MODE=false;
+var SHARE_INFO={childName:'',grade:'',subjects:[]};
+
+function initShareMode(){
+  var params=new URLSearchParams(window.location.search);
+  if(params.get('share')==='1'){
+    SHARE_MODE=true;
+    var o=document.getElementById('loginOverlay');
+    if(o){o.style.display='none';}
+    var floatBtn=document.getElementById('accFloatBtn');
+    if(floatBtn)floatBtn.style.display='none';
+    var adminBtns=document.getElementById('adminButtons');
+    if(adminBtns)adminBtns.style.display='none';
+    var logoutBtn=document.querySelector('.logout-btn');
+    if(logoutBtn)logoutBtn.style.display='none';
+    var banner=document.createElement('div');
+    banner.className='share-info-banner';
+    banner.innerHTML='🎓 免登录测评模式 | 完成测评后生成专属报告';
+    var app=document.querySelector('.app');
+    if(app)app.insertBefore(banner,app.firstChild);
+    LOGIN_USER={username:'share_guest',displayName:'分享访客',isAdmin:false,modules:ALL_MODULES.slice()};
+    sessionStorage.setItem('jz_login_user',JSON.stringify(LOGIN_USER));
+    syncStateFromCloud(function(){});
+  }
+}
+
+function getCloudUsername(){
+  if(SHARE_MODE){
+    return 'jz_share_'+(SHARE_INFO.childName||'guest');
+  }
+  if(!LOGIN_USER)return 'jz_default';
+  return 'jz_'+LOGIN_USER.username;
+}
+
+function showShareLink(){
+  var url=window.location.origin+window.location.pathname+'?share=1';
+  document.getElementById('shareLinkUrl').textContent=url;
+  document.getElementById('shareLinkModal').classList.add('show');
+}
+
+function closeShareLink(){
+  document.getElementById('shareLinkModal').classList.remove('show');
+}
+
+function copyShareLink(){
+  var url=document.getElementById('shareLinkUrl').textContent;
+  var ta=document.createElement('textarea');
+  ta.value=url;
+  document.body.appendChild(ta);
+  ta.select();
+  try{
+    document.execCommand('copy');
+    alert('链接已复制！');
+  }catch(e){
+    alert('请手动复制：'+url);
+  }
+  document.body.removeChild(ta);
+}
+
+/* Override showReport for share mode */
+var origShowReport=showReport;
+showReport=function(){
+  if(SHARE_MODE){
+    if(!SHARE_INFO.childName){
+      document.getElementById('shareInfoModal').classList.add('show');
+      return;
+    }
+  }
+  origShowReport();
+};
+
+function closeShareInfo(){
+  document.getElementById('shareInfoModal').classList.remove('show');
+}
+
+function submitShareInfo(){
+  var name=document.getElementById('shareChildName').value.trim();
+  var grade=document.getElementById('shareChildGrade').value;
+  var subjects=[];
+  var checks=document.querySelectorAll('#shareSubjects input:checked');
+  for(var i=0;i<checks.length;i++){subjects.push(checks[i].value);}
+  if(!name){alert('请输入孩子姓名');return;}
+  if(!grade){alert('请选择年级');return;}
+  if(subjects.length===0){alert('请至少选择一个需要提升的科目');return;}
+  SHARE_INFO={childName:name,grade:grade,subjects:subjects};
+  closeShareInfo();
+  origShowReport();
+  syncStateToCloud();
+}
+
+/* Override syncStateToCloud to include share info */
+var origSyncStateToCloud=syncStateToCloud;
+syncStateToCloud=function(){
+  var username=getCloudUsername();
+  var stateData={};
+  try{stateData=JSON.parse(localStorage.getItem('parent_diag_results')||'{}');}catch(e){}
+  var bodyData={results:stateData};
+  if(SHARE_MODE&&SHARE_INFO.childName){
+    bodyData.displayName=SHARE_INFO.childName;
+    bodyData.grade=SHARE_INFO.grade;
+    bodyData.subjects=SHARE_INFO.subjects;
+    bodyData.loginTime=new Date().toISOString();
+    bodyData.isShare=true;
+  }else if(LOGIN_USER){
+    bodyData.displayName=LOGIN_USER.displayName;
+    bodyData.loginTime=new Date().toISOString();
+  }
+  var body=JSON.stringify({
+    username:username,
+    state_data:JSON.stringify(bodyData),
+    updated_at:new Date().toISOString()
+  });
+  fetch(SUPABASE_URL+'/rest/v1/py_user_states?on_conflict=username',{
+    method:'POST',
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
+    body:body
+  }).then(function(resp){
+    if(resp.ok){console.log('[Cloud] Sync to cloud success');}
+  }).catch(function(e){console.error('[Cloud] Sync to cloud failed:',e);});
+};
+
+/* Override renderAdminResults to show share info */
+var origRenderAdminResults=renderAdminResults;
+renderAdminResults=function(rows){
+  var html='';
+  if(!rows||rows.length===0){
+    html='<p style="text-align:center;color:#999;padding:20px;">暂无子账号测评数据</p>';
+    document.getElementById('adminResultList').innerHTML=html;
+    return;
+  }
+  var accs=getAccounts();
+  var accMap={};
+  for(var i=0;i<accs.length;i++){accMap['jz_'+accs[i].username]=accs[i];}
+
+  var filtered=[];
+  for(var i=0;i<rows.length;i++){
+    var r=rows[i];
+    var sd=r.state_data;
+    if(typeof sd==='string')sd=JSON.parse(sd);
+    var results=sd.results||sd;
+    var moduleCount=Object.keys(results).length;
+    var isCompleted=moduleCount>=5;
+    if(adminTabFilter==='completed'&&!isCompleted)continue;
+    if(adminTabFilter==='pending'&&isCompleted)continue;
+    filtered.push({row:r,stateData:sd,results:results,moduleCount:moduleCount,isCompleted:isCompleted});
+  }
+
+  if(filtered.length===0){
+    html='<p style="text-align:center;color:#999;padding:20px;">暂无符合条件的记录</p>';
+    document.getElementById('adminResultList').innerHTML=html;
+    return;
+  }
+
+  for(var i=0;i<filtered.length;i++){
+    var f=filtered[i];
+    var acc=accMap[f.row.username];
+    var isShare=f.row.username.indexOf('jz_share_')===0;
+    var displayName=f.stateData.displayName||(acc?acc.displayName:f.row.username.replace('jz_',''));
+    var updatedTime=f.row.updated_at?new Date(f.row.updated_at).toLocaleString('zh-CN'):'未知';
+    var moduleNames={'learning_style':'学习风格','parenting_style':'教育风格','personality':'性格特点','relationship':'亲子关系','study_habits':'学习习惯'};
+    var detailHtml='';
+    var totalScore=0;
+    var scoreCount=0;
+    for(var key in f.results){
+      var r=f.results[key];
+      var mName=moduleNames[key]||key;
+      var avgPct=0;
+      if(r.percents&&r.percents.length>0){
+        var sum=0;
+        for(var p=0;p<r.percents.length;p++){sum+=r.percents[p];}
+        avgPct=Math.round(sum/r.percents.length);
+        totalScore+=avgPct;
+        scoreCount++;
+      }
+      detailHtml+='<div style="margin-top:4px;">'+mName+': '+(avgPct>0?avgPct+'%':'已完成')+'</div>';
+    }
+    var avgScore=scoreCount>0?Math.round(totalScore/scoreCount):0;
+    html+='<div class="admin-result-card">';
+    html+='<div class="ar-name">'+displayName;
+    if(isShare)html+=' <span style="font-size:11px;padding:2px 6px;border-radius:4px;background:#e8f5e9;color:#2e7d32;">分享</span>';
+    if(acc&&acc.isAdmin)html+=' <span style="font-size:11px;color:#667eea;">管理员</span>';
+    html+='</div>';
+    var infoParts=[];
+    infoParts.push('账号: '+(isShare?'访客':f.row.username.replace('jz_','')));
+    if(f.stateData.grade)infoParts.push('年级: '+f.stateData.grade);
+    infoParts.push('完成模块: '+f.moduleCount+'/5');
+    infoParts.push('更新: '+updatedTime);
+    html+='<div class="ar-info">'+infoParts.join(' | ')+'</div>';
+    if(f.stateData.subjects&&f.stateData.subjects.length>0){
+      html+='<div class="ar-info" style="color:#e53935;">需提升科目: '+f.stateData.subjects.join('、')+'</div>';
+    }
+    if(avgScore>0){
+      html+='<div class="ar-score">'+avgScore+'分</div>';
+    }
+    if(f.isCompleted){
+      html+='<div style="margin-top:4px;"><span style="color:#137333;font-size:12px;">✅ 全部完成</span></div>';
+    }else{
+      html+='<div style="margin-top:4px;"><span style="color:#b06000;font-size:12px;">⏳ 进行中</span></div>';
+    }
+    html+='<div class="ar-detail">'+detailHtml+'</div>';
+    html+='</div>';
+  }
+  document.getElementById('adminResultList').innerHTML=html;
+};
+
+/* Override checkLogin for share mode */
+var origCheckLogin=checkLogin;
+checkLogin=function(){
+  var params=new URLSearchParams(window.location.search);
+  if(params.get('share')==='1'){
+    initShareMode();
+    return;
+  }
+  origCheckLogin();
+};
+
+
 document.addEventListener('DOMContentLoaded',function(){
   var u=document.getElementById('loginUser');
   var p=document.getElementById('loginPass');
@@ -1679,6 +1988,7 @@ document.addEventListener('DOMContentLoaded',function(){
   var tip=document.getElementById('cloudSyncTip');
   if(tip){tip.style.display='block';}
   checkLogin();
+  initShareMode();
 });
 </script>
 </body>
