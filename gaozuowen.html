@@ -1,0 +1,2804 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>高中生作文写作助学系统</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:#f5f0e8;color:#2a2520;line-height:1.7;}
+.header{background:linear-gradient(135deg,#0d2747 0%,#1a4068 50%,#0d2747 100%);color:#fff;padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(201,169,110,0.1) 0%,transparent 70%);animation:headerGlow 6s ease-in-out infinite;}
+@keyframes headerGlow{0%,100%{transform:translate(0,0)}50%{transform:translate(5%,5%)}}
+.header h1{font-size:28px;font-weight:700;margin-bottom:8px;position:relative;z-index:1;text-shadow:0 2px 4px rgba(0,0,0,0.3);}
+.header .subtitle{font-size:14px;color:#c9a96e;letter-spacing:3px;position:relative;z-index:1;}
+.stats-row{display:flex;justify-content:center;gap:16px;margin:24px auto 0;max-width:600px;position:relative;z-index:1;}
+.stat-card{background:rgba(255,255,255,0.12);border:1px solid rgba(201,169,110,0.3);border-radius:12px;padding:14px 20px;text-align:center;flex:1;backdrop-filter:blur(4px);}
+.stat-card .num{font-size:28px;font-weight:700;color:#c9a96e;}
+.stat-card .label{font-size:12px;color:rgba(255,255,255,0.8);margin-top:2px;}
+.tags-row{display:flex;justify-content:center;gap:12px;margin-top:16px;flex-wrap:wrap;position:relative;z-index:1;}
+.tag{background:rgba(201,169,110,0.2);border:1px solid rgba(201,169,110,0.5);border-radius:20px;padding:4px 16px;font-size:12px;color:#c9a96e;}
+.start-btn{display:inline-block;margin-top:20px;background:linear-gradient(135deg,#c9a96e,#dcc090);color:#0d2747;border:none;padding:12px 40px;border-radius:30px;font-size:16px;font-weight:700;cursor:pointer;position:relative;z-index:1;transition:all 0.3s;box-shadow:0 4px 15px rgba(201,169,110,0.4);}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,169,110,0.5);}
+.container{max-width:900px;margin:0 auto;padding:16px;}
+.tab-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;background:#fff;border-radius:14px;padding:8px;box-shadow:0 2px 10px rgba(0,0,0,0.06);}
+.tab-btn{flex:1;min-width:120px;padding:10px 6px;border:none;border-radius:10px;background:transparent;color:#3d3530;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.3s;text-align:center;}
+.tab-btn.active{background:linear-gradient(135deg,#0d2747,#1a4068);color:#fff;box-shadow:0 3px 12px rgba(13,39,71,0.3);}
+.tab-btn:hover:not(.active){background:#ede8e0;}
+.module{display:none;}
+.module.active{display:block;}
+.card{background:#fff;border-radius:14px;padding:22px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,0.05);border-left:4px solid #0d2747;}
+.card-gold{border-left-color:#c9a96e;}
+.card-green{border-left-color:#5a8a4a;}
+.card h3{color:#0d2747;font-size:17px;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.card h3 .icon{font-size:18px;}
+.card h4{color:#1a4068;font-size:15px;margin:12px 0 6px;}
+.card p{font-size:14px;color:#3d3530;margin-bottom:6px;}
+.card .example{background:#f0ebe3;border-left:3px solid #c9a96e;padding:10px 14px;border-radius:0 8px 8px 0;margin:8px 0;font-size:13px;color:#3d3530;line-height:1.8;}
+.card .method{background:#e8e4dc;border-radius:8px;padding:10px 14px;margin:6px 0;}
+.card .method-green{background:#f0f5ed;border-radius:8px;padding:10px 14px;margin:6px 0;border-left:3px solid #5a8a4a;}
+.card .method-title{color:#0d2747;font-weight:600;font-size:14px;margin-bottom:4px;}
+.card .method-tag{display:inline-block;background:#c9a96e;color:#0d2747;padding:1px 8px;border-radius:8px;font-size:11px;margin-left:6px;font-weight:600;}
+.card .step-arrow{text-align:center;color:#c9a96e;font-size:16px;margin:4px 0;}
+.grade-tab-bar{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.grade-tab{padding:6px 16px;border-radius:20px;border:1px solid #c4b8a8;background:#fff;color:#3d3530;font-size:13px;cursor:pointer;transition:all 0.3s;}
+.grade-tab.active{background:#0d2747;color:#fff;border-color:#0d2747;}
+.grade-content{display:none;}
+.grade-content.active{display:block;}
+.essay-card{background:#fff;border-radius:14px;padding:22px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,0.05);}
+.essay-card .title-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.essay-card .essay-title{font-size:17px;color:#0d2747;font-weight:700;}
+.essay-card .essay-score{background:linear-gradient(135deg,#c9a96e,#dcc090);color:#0d2747;padding:3px 12px;border-radius:12px;font-size:13px;font-weight:600;}
+.essay-card .meta{font-size:12px;color:#9a8e80;margin-bottom:10px;}
+.essay-card .body{font-size:14px;color:#2a2520;line-height:2;text-indent:2em;margin-bottom:12px;}
+.essay-card .highlights{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
+.essay-card .hl-tag{background:#e8e4dc;color:#1a4068;padding:3px 10px;border-radius:10px;font-size:12px;}
+.essay-card .hl-tag-gold{background:#f5f0e0;color:#8a6a20;padding:3px 10px;border-radius:10px;font-size:12px;}
+.essay-card .analysis{background:#f0ebe3;padding:10px 14px;border-radius:8px;font-size:13px;color:#3d3530;line-height:1.8;}
+.essay-card .analysis .yqh-point{background:#f0f5ed;border-left:3px solid #5a8a4a;padding:6px 10px;border-radius:0 6px 6px 0;margin:6px 0;font-size:13px;color:#3d5a35;}
+.sub-tab-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.sub-tab{padding:6px 14px;border-radius:20px;border:1px solid #c4b8a8;background:#fff;color:#3d3530;font-size:13px;cursor:pointer;transition:all 0.3s;}
+.sub-tab.active{background:#c9a96e;color:#0d2747;border-color:#c9a96e;}
+.sub-content{display:none;}
+.sub-content.active{display:block;}
+.material-item{background:#f0ebe3;border-radius:10px;padding:14px;margin-bottom:10px;border-left:3px solid #c9a96e;}
+.material-item h4{color:#0d2747;font-size:14px;margin-bottom:4px;}
+.material-item p{font-size:13px;color:#3d3530;line-height:1.7;}
+.material-item .theme-tag{display:inline-block;background:#e8e4dc;color:#1a4068;padding:2px 8px;border-radius:8px;font-size:11px;margin-top:4px;}
+.material-item .usage-note{font-size:12px;color:#8a6a20;margin-top:4px;font-style:italic;}
+.one-example-box{background:#f0f5ed;border-radius:10px;padding:14px;margin-bottom:10px;border-left:3px solid #5a8a4a;}
+.one-example-box h4{color:#0d2747;font-size:14px;margin-bottom:6px;}
+.one-example-box .angle-item{background:#fff;border-radius:8px;padding:10px;margin:6px 0;border:1px solid #d9d0c4;}
+.one-example-box .angle-item .angle-title{color:#5a8a4a;font-weight:600;font-size:13px;margin-bottom:2px;}
+.one-example-box .angle-item p{font-size:13px;color:#3d3530;line-height:1.7;}
+.practice-card{background:#fff;border-radius:14px;padding:22px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,0.05);}
+.practice-card .pq-title{font-size:16px;color:#0d2747;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;}
+.practice-card .pq-title .arrow{transition:transform 0.3s;font-size:12px;}
+.practice-card .pq-title.open .arrow{transform:rotate(90deg);}
+.practice-card .pq-body{display:none;margin-top:14px;}
+.practice-card .pq-body.open{display:block;}
+.practice-card h4{color:#1a4068;font-size:14px;margin:10px 0 6px;}
+.practice-card .guide-step{background:#f0ebe3;border-radius:8px;padding:10px 14px;margin:4px 0;font-size:13px;color:#3d3530;}
+.practice-card .yqh-step{background:#f0f5ed;border-radius:8px;padding:10px 14px;margin:4px 0;font-size:13px;color:#3d5a35;border-left:3px solid #5a8a4a;}
+.practice-card .outline-item{background:#e8e4dc;border-radius:8px;padding:10px 14px;margin:6px 0;}
+.practice-card .outline-item .oi-title{font-weight:600;color:#0d2747;font-size:14px;}
+.practice-card .outline-item p{font-size:13px;color:#3d3530;margin-top:2px;}
+.practice-card .start-example{background:#f5f0e0;border-left:3px solid #c9a96e;padding:10px 14px;border-radius:0 8px 8px 0;font-size:13px;color:#3d3530;line-height:1.8;}
+.eval-section{background:#fff;border-radius:14px;padding:22px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,0.05);}
+.eval-section h3{color:#0d2747;font-size:17px;margin-bottom:12px;}
+.eval-textarea{width:100%;min-height:180px;border:1px solid #d9d0c4;border-radius:10px;padding:14px;font-size:14px;line-height:1.8;resize:vertical;font-family:inherit;background:#f5f0e8;}
+.eval-textarea:focus{outline:none;border-color:#0d2747;box-shadow:0 0 0 3px rgba(13,39,71,0.1);}
+.ai-analysis-btn{padding:14px 40px;border:none;border-radius:30px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 4px 15px rgba(102,126,234,0.4);transition:all .3s;}
+.ai-analysis-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,0.5);}
+.ai-analysis-btn:active{transform:translateY(0);}
+.ai-report{background:#f0ebe3;border-radius:14px;padding:20px;margin-top:16px;border:1px solid #d9d0c4;}
+.ai-report-header{text-align:center;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid #d9d0c4;}
+.ai-score-big{font-size:48px;font-weight:800;color:#0d2747;line-height:1.2;}
+.ai-score-label{font-size:14px;color:#8a7d70;margin-top:4px;}
+.ai-grade-badge{display:inline-block;padding:4px 16px;border-radius:20px;font-size:13px;font-weight:600;margin-top:8px;}
+.ai-dim-row{display:flex;align-items:flex-start;gap:12px;margin:12px 0;padding:12px;background:#fff;border-radius:10px;border-left:4px solid #ddd;}
+.ai-dim-row.good{border-left-color:#5a8a4a;}
+.ai-dim-row.mid{border-left-color:#c87830;}
+.ai-dim-row.low{border-left-color:#c8504a;}
+.ai-dim-name{font-weight:700;font-size:14px;color:#0d2747;min-width:90px;}
+.ai-dim-score{font-weight:700;font-size:18px;min-width:60px;text-align:center;}
+.ai-dim-detail{flex:1;font-size:13px;color:#3d3530;line-height:1.7;}
+.ai-dim-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;margin:2px 4px 2px 0;}
+.ai-dim-tag.pos{background:#d4e8c4;color:#2a4a30;}
+.ai-dim-tag.neg{background:#f0d8d0;color:#6a2828;}
+.ai-suggest{background:#e8e4dc;border-radius:10px;padding:14px;margin-top:12px;font-size:13px;color:#2a3850;line-height:1.7;}
+.ai-suggest-title{font-weight:700;color:#1a4068;margin-bottom:6px;}
+.ai-loading{text-align:center;padding:40px;color:#667eea;font-size:16px;}
+.char-count{font-size:12px;color:#9a8e80;margin-top:4px;text-align:right;}
+.dim-row{display:flex;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:6px;}
+.dim-label{font-size:14px;font-weight:600;color:#0d2747;width:100px;flex-shrink:0;}
+.dim-btns{display:flex;gap:6px;flex-wrap:wrap;}
+.dim-btn{padding:5px 12px;border-radius:16px;border:1px solid #d9d0c4;background:#fff;color:#3d3530;font-size:12px;cursor:pointer;transition:all 0.3s;}
+.dim-btn.selected{background:#0d2747;color:#fff;border-color:#0d2747;}
+.dim-btn:hover:not(.selected){border-color:#0d2747;color:#0d2747;}
+.dim-max{font-size:11px;color:#9a8e80;margin-left:2px;}
+.checklist-box{background:#f0f5ed;border-radius:12px;padding:18px;margin-bottom:16px;border:1px solid #d4e8c4;}
+.checklist-box h3{color:#0d2747;font-size:16px;margin-bottom:10px;}
+.checklist-item{display:flex;align-items:flex-start;gap:8px;margin:8px 0;font-size:13px;color:#2a2520;cursor:pointer;}
+.checklist-item input[type='checkbox']{margin-top:3px;flex-shrink:0;accent-color:#5a8a4a;}
+.checklist-item.checked{color:#5a8a4a;}
+.checklist-item .ci-label{flex:1;}
+.checklist-item .ci-hint{font-size:12px;color:#8a6a20;display:block;margin-top:2px;}
+.pitfall-box{background:#f5ede8;border-radius:12px;padding:18px;margin-bottom:16px;border:1px solid #f0d8d0;}
+.pitfall-box h3{color:#a03830;font-size:16px;margin-bottom:10px;}
+.pitfall-item{display:flex;align-items:flex-start;gap:8px;margin:8px 0;font-size:13px;color:#2a2520;}
+.pitfall-item .pi-num{background:#d87060;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.result-box{background:linear-gradient(135deg,#0d2747,#1a4068);border-radius:14px;padding:24px;color:#fff;text-align:center;margin-top:16px;}
+.result-box .total-score{font-size:48px;font-weight:700;color:#c9a96e;}
+.result-box .total-label{font-size:14px;color:rgba(255,255,255,0.7);}
+.result-box .grade-badge{display:inline-block;margin-top:8px;padding:4px 20px;border-radius:20px;font-size:14px;font-weight:600;}
+.result-box .suggestions{text-align:left;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.2);}
+.result-box .suggestions h4{color:#c9a96e;margin-bottom:8px;}
+.result-box .suggestions p{font-size:13px;line-height:1.8;color:rgba(255,255,255,0.9);}
+.result-box .suggestions .yqh-check{color:#9ae6b4;font-size:13px;line-height:1.8;}
+.result-box .suggestions .pitfall-warn{color:#fed7d7;font-size:13px;line-height:1.8;}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px;margin-bottom:16px;}
+.formula-card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,0.08);overflow:hidden;cursor:pointer;transition:all 0.3s;border:2px solid transparent;}
+.formula-card:hover{box-shadow:0 4px 20px rgba(13,39,71,0.15);}
+.formula-card.flipped{border-color:#5a8a4a;}
+.formula-front{padding:22px;text-align:center;}
+.formula-front .ff-icon{font-size:36px;margin-bottom:8px;}
+.formula-front .ff-title{font-size:16px;font-weight:700;color:#0d2747;margin-bottom:6px;}
+.formula-front .ff-subtitle{font-size:13px;color:#c9a96e;font-weight:600;margin-bottom:8px;}
+.formula-front .ff-brief{font-size:13px;color:#3d3530;line-height:1.7;}
+.formula-front .ff-hint{font-size:11px;color:#9a8e80;margin-top:10px;}
+.formula-back{padding:20px;display:none;}
+.formula-card.flipped .formula-front{display:none;}
+.formula-card.flipped .formula-back{display:block;}
+.formula-back .fb-title{font-size:15px;font-weight:700;color:#0d2747;margin-bottom:10px;text-align:center;}
+.formula-back .fb-step{background:#f0ebe3;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13px;color:#3d3530;line-height:1.7;}
+.formula-back .fb-step .fb-step-title{font-weight:600;color:#1a4068;}
+.formula-back .fb-example{background:#f0f5ed;border-left:3px solid #5a8a4a;padding:8px 12px;border-radius:0 6px 6px 0;margin:6px 0;font-size:12px;color:#3d5a35;line-height:1.7;}
+.formula-back .fb-hint{font-size:11px;color:#9a8e80;margin-top:8px;text-align:center;}
+.hidden{display:none !important;}
+@media(max-width:600px){
+.header h1{font-size:22px;}
+.stats-row{flex-direction:column;align-items:center;}
+.stat-card{width:80%;}
+.tab-btn{min-width:80px;font-size:12px;padding:8px 4px;}
+.card{padding:16px;}
+.formula-grid{grid-template-columns:1fr;}
+}
+.login-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;z-index:99999;transition:opacity .4s;}
+.login-box{background:#fff;border-radius:16px;padding:36px 32px;width:300px;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.login-box h2{text-align:center;margin:0 0 24px;font-size:20px;color:#333;}
+.login-input{width:100%;padding:12px 16px;margin:10px 0;border:1.5px solid #ddd;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border-color .3s;}
+.login-input:focus{border-color:#667eea;}
+.login-btn{width:100%;padding:12px;margin:16px 0 8px;border:none;border-radius:8px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:16px;cursor:pointer;transition:opacity .3s;}
+.login-btn:hover{opacity:.9;}
+.login-error{color:#e74c3c;font-size:13px;text-align:center;min-height:18px;}
+.login-credits{text-align:center;margin-top:16px;font-size:12px;color:#aaa;}
+.acct-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding:0 4px;}
+.acct-user{font-size:14px;color:#3d3530;}
+.acct-user .acct-name{color:#0d2747;font-weight:700;}
+.acct-mgr-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border:1.5px solid #0d2747;border-radius:8px;background:transparent;color:#0d2747;font-size:14px;font-weight:600;cursor:pointer;transition:all .25s;}
+.acct-mgr-btn:hover{background:#0d2747;color:#fff;}
+.acct-mgr-btn.hidden{display:none!important;}
+.acct-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.acct-table{width:100%;border-collapse:collapse;margin-top:16px;}
+.acct-table th{text-align:left;padding:10px 12px;background:#ede8e0;color:#2a2520;font-size:13px;font-weight:600;border-bottom:2px solid #c4b8a8;}
+.acct-table td{padding:10px 12px;border-bottom:1px solid #d9d0c4;font-size:13px;color:#3d3530;}
+.acct-table tr:hover td{background:#f0ebe3;}
+.acct-form{background:#f0ebe3;border:1px solid #d9d0c4;border-radius:12px;padding:20px;margin:16px 0;}
+.acct-form-row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;}
+.acct-form-row .acct-field{flex:1;min-width:140px;}
+.acct-form-row .acct-field label{display:block;font-size:13px;color:#3d3530;margin-bottom:4px;}
+.acct-form-row .acct-field input{width:100%;padding:10px 14px;border:1.5px solid #d9d0c4;border-radius:8px;font-size:14px;box-sizing:border-box;outline:none;}
+.acct-form-row .acct-field input:focus{border-color:#0d2747;}
+.acct-status-on{color:#5a8a4a;font-weight:600;}
+.acct-status-off{color:#b03830;font-weight:600;}
+.acct-expired{color:#b03830;font-weight:700;}
+.acct-expiry-warn{color:#b8902e;font-weight:600;}
+.acct-modules-count{color:#0d2747;font-weight:600;cursor:pointer;text-decoration:underline;}
+.acct-act-btn{padding:5px 12px;border:none;border-radius:6px;font-size:12px;cursor:pointer;margin:0 2px;transition:opacity .2s;}
+.acct-act-btn:hover{opacity:.85;}
+.acct-act-reset{background:#3070a8;color:#fff;}
+.acct-act-modules{background:#0d2747;color:#fff;}
+.acct-act-expiry{background:#5a8a4a;color:#fff;}
+.acct-act-toggle{background:#b8902e;color:#fff;}
+.acct-act-delete{background:#b03830;color:#fff;}
+.acct-empty{text-align:center;color:#9a8e80;padding:30px;font-size:14px;}
+.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0;}
+.module-grid-item{display:flex;align-items:center;gap:6px;padding:8px 10px;border:1.5px solid #d9d0c4;border-radius:8px;cursor:pointer;font-size:13px;transition:all .2s;background:#fff;}
+.module-grid-item:hover{border-color:#0d2747;}
+.module-grid-item.checked{border-color:#0d2747;background:rgba(13,39,71,.05);}
+.module-grid-item input{margin:0;cursor:pointer;}
+.module-grid-item label{cursor:pointer;flex:1;}
+.expiry-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px;}
+.expiry-quick-btn{padding:6px 14px;border:1.5px solid #d9d0c4;border-radius:8px;background:#fff;font-size:13px;cursor:pointer;transition:all .2s;color:#3d3530;}
+.expiry-quick-btn:hover{border-color:#0d2747;color:#0d2747;}
+.expiry-quick-btn.active{border-color:#0d2747;background:#0d2747;color:#fff;}
+.expiry-date-input{padding:8px 12px;border:1.5px solid #d9d0c4;border-radius:8px;font-size:14px;outline:none;}
+.expiry-date-input:focus{border-color:#0d2747;}
+.module-modal-mask{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.4);z-index:99998;display:flex;align-items:center;justify-content:center;}
+.module-modal{background:#fff;border-radius:14px;padding:24px;width:90%;max-width:500px;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.module-modal h3{color:#0d2747;margin-bottom:12px;font-size:16px;}
+.module-modal .modal-actions{display:flex;gap:10px;margin-top:16px;justify-content:flex-end;}
+.modal-btn{padding:8px 20px;border:none;border-radius:8px;font-size:14px;cursor:pointer;transition:all .2s;}
+.modal-btn-primary{background:#0d2747;color:#fff;}
+.modal-btn-primary:hover{background:#1a4068;}
+.modal-btn-ghost{background:#ede8e0;color:#3d3530;}
+.modal-btn-ghost:hover{background:#d9d0c4;}
+.back-link{display:inline-block;margin-bottom:16px;color:#0d2747;font-size:14px;cursor:pointer;text-decoration:none;}
+.back-link:hover{text-decoration:underline;}
+.acct-page{display:none;}
+.acct-page.active{display:block;}
+@media(max-width:600px){
+.module-grid{grid-template-columns:repeat(2,1fr);}
+.acct-table{font-size:12px;}
+.acct-table th,.acct-table td{padding:6px 8px;}
+}
+</style>
+</head>
+<body>
+<!-- 登录验证页 -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <h2>🔒 系统登录</h2>
+    <input type="text" class="login-input" id="loginUser" placeholder="请输入账号" autocomplete="off">
+    <input type="password" class="login-input" id="loginPass" placeholder="请输入密码" autocomplete="off">
+    <button class="login-btn" onclick="doLogin()">登 录</button>
+    <div class="login-error" id="loginError"></div>
+    <div class="login-credits">系统设计制作：刘岳</div>
+  </div>
+</div>
+<div class='header'>
+<h1>高中生作文写作助学系统</h1>
+<div class='subtitle'>对标高考60分评分体系 · 融合双评制与切入分策略</div>
+<div class='stats-row'>
+<div class='stat-card'><div class='num'>50+</div><div class='label'>写作技巧</div></div>
+<div class='stat-card'><div class='num'>16</div><div class='label'>范文篇数</div></div>
+<div class='stat-card'><div class='num'>200+</div><div class='label'>素材条数</div></div>
+</div>
+<div class='tags-row'>
+<span class='tag'>覆盖高一至高三</span>
+<span class='tag'>对标2026高考</span>
+<span class='tag'>60分制双评体系</span>
+<span class='tag'>切入分42保底策略</span>
+</div>
+<button class='start-btn' onclick='scrollToContent()'>开始学习</button>
+</div>
+<!-- 账号管理页面 -->
+<div class='acct-page' id='accountPage' style='max-width:900px;margin:0 auto;padding:16px;'>
+<div class='back-link' onclick='showMainContent()'>← 返回主页</div>
+<div class='card'>
+<h3 style='color:#0d2747;font-size:18px;margin-bottom:16px;'>&#x2699;&#xFE0F; 账号管理</h3>
+<div class='acct-form'>
+<h4 style='color:#1a4068;font-size:15px;margin-bottom:12px;'>创建子账号</h4>
+<div class='acct-form-row'>
+<div class='acct-field'><label>用户名</label><input type='text' id='newAcctUser' placeholder='请输入用户名' autocomplete='off'></div>
+<div class='acct-field'><label>密码</label><input type='text' id='newAcctPass' placeholder='请输入密码' autocomplete='off'></div>
+<div class='acct-field'><label>显示名</label><input type='text' id='newAcctName' placeholder='如：张三' autocomplete='off'></div>
+</div>
+<div style='margin-top:12px;'>
+<label style='font-size:13px;color:#3d3530;display:block;margin-bottom:6px;'>使用板块设置（默认全选）</label>
+<div class='module-grid' id='newAcctModules'></div>
+</div>
+<div style='margin-top:12px;'>
+<label style='font-size:13px;color:#3d3530;display:block;margin-bottom:4px;'>使用期限设置</label>
+<div class='expiry-row'>
+<button type='button' class='expiry-quick-btn' onclick='setExpiryQuick(7,this)'>7天</button>
+<button type='button' class='expiry-quick-btn' onclick='setExpiryQuick(30,this)'>30天</button>
+<button type='button' class='expiry-quick-btn' onclick='setExpiryQuick(90,this)'>90天</button>
+<button type='button' class='expiry-quick-btn' onclick='setExpiryQuick(180,this)'>180天</button>
+<button type='button' class='expiry-quick-btn' onclick='setExpiryQuick(365,this)'>365天</button>
+<input type='date' class='expiry-date-input' id='newAcctExpiry' onchange='clearExpiryQuickActive()'>
+</div>
+</div>
+<button class='modal-btn modal-btn-primary' onclick='createAccount()' style='margin-top:16px;'>创建子账号</button>
+</div>
+<h4 style='color:#1a4068;font-size:15px;margin-top:20px;margin-bottom:8px;'>子账号列表</h4>
+<div id='accountListWrap'></div>
+</div>
+</div>
+<div class='container' id='mainContent'>
+<div class='acct-bar'>
+<div class='acct-user'>当前用户：<span class='acct-name' id='currentUserName'>—</span></div>
+<button class='acct-mgr-btn hidden' id='acctMgrBtn' onclick='showAccountPage()'>&#x2699;&#xFE0F; 账号管理</button>
+</div>
+<div class='tab-bar'>
+<button class='tab-btn active' data-module='写作技巧库' onclick='switchTab(0)'>&#x1F4DA; 写作技巧库</button>
+<button class='tab-btn' data-module='范文赏析' onclick='switchTab(1)'>&#x2728; 范文赏析</button>
+<button class='tab-btn' data-module='素材宝库' onclick='switchTab(2)'>&#x1F4E6; 素材宝库</button>
+<button class='tab-btn' data-module='实战演练' onclick='switchTab(3)'>&#x1F3AF; 实战演练</button>
+<button class='tab-btn' data-module='写作自评' onclick='switchTab(4)'>&#x1F4CA; 写作自评</button>
+<button class='tab-btn' data-module='教研写作公式' onclick='switchTab(5)'>&#x1F9E0; 教研写作公式</button>
+</div>
+<!-- Module 1: Writing Techniques -->
+<div class='module active' id='mod0'>
+<div class='grade-tab-bar'>
+<button class='grade-tab active' onclick='switchGrade(0,0)'>高一·议论文基础+记叙文进阶</button>
+<button class='grade-tab' onclick='switchGrade(0,1)'>高二·议论文提升+散文技法</button>
+<button class='grade-tab' onclick='switchGrade(0,2)'>高三·应试冲刺+高考真题</button>
+</div>
+<div class='grade-content active' id='g0_0'>
+<div class='card'>
+<h3><span class='icon'>✏️</span>议论文三要素：论点·论据·论证</h3>
+<div class='method'>
+<div class='method-title'>1. 论点——文章的灵魂</div>
+<p>论点必须明确、鲜明、有针对性。一篇议论文只能有一个中心论点，可以设若干分论点支撑。论点位置灵活，但高考阅卷建议开头明确提出，让阅卷老师3秒内抓住你的观点。</p>
+<div class='example'>中心论点：真正的成长，不在于顺境中的高歌猛进，而在于逆境中的坚守与反思。<br>分论点一：逆境是检验意志的试金石。<br>分论点二：反思是推动成长的内驱力。<br>分论点三：坚守与反思的统一，方能成就真正的成长。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 论据——观点的支撑</div>
+<p>论据分事实论据和道理论据。高考作文要求论据新鲜、典型、充分。忌用陈旧素材（如司马迁受宫刑写《史记》），宜用时代素材（如航天英雄、科技突破、青年榜样）。</p>
+<div class='example'>事实论据：桂海潮从云南山区走向太空，用行动证明出身不决定终点。<br>道理论据：王国维在《人间词话》中说："古今之成大事业、大学问者，必经过三种之境界。"</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 论证——连接论点与论据的桥梁</div>
+<p>论证是用论据证明论点的过程。基本方法包括举例论证、道理论证、对比论证、比喻论证。高考高分作文往往综合运用多种论证方法，形成立体论证结构。</p>
+<div class='example'>对比论证：有的人在舒适区中蹉跎岁月，有的人在挑战中淬炼锋芒。前者被时代裹挟，后者引领时代前行。</div>
+</div>
+</div>
+<div class='card card-gold'>
+<h3><span class='icon'>🔍</span>破题立意四法</h3>
+<div class='method'>
+<div class='method-title'>1. 关键词法——抓核心词</div>
+<p>圈出题目中的核心关键词，逐一分析其含义，确定立意方向。适用于材料作文和命题作文。</p>
+<div class='example'>题目"本手·妙手·俗手"：核心词是"本手"（基础）、"妙手"（创造）、"俗手"（短视）。立意：夯实基础方能创造，急功近利必致败局。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 因果法——追根溯源</div>
+<p>分析材料中现象的原因和结果，从因果关系中提炼观点。适用于叙事类材料和现象类材料。</p>
+<div class='example'>材料讲述某青年放弃高薪回乡创业：原因——对家乡的热爱与责任感；结果——带动乡村发展。立意：青春的价值在于回馈与担当。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 辩证法——正反合</div>
+<p>对材料中的观点进行辩证思考，既看到正面价值，也反思其局限，最终形成更全面的认识。这是高考高分作文的必备思维。</p>
+<div class='example'>"科技带来便利"：正——效率提升、信息共享；反——隐私风险、人际疏离；合——科技向善，方能真正造福人类。</div>
+</div>
+<div class='method'>
+<div class='method-title'>4. 联想法——由此及彼</div>
+<p>由材料中的具体事物联想到更广泛的社会现象、人生哲理或文化内涵，拓宽立意的深度和广度。</p>
+<div class='example'>材料提到"桥"：联想——实体之桥（港珠澳大桥）、文化之桥（中西交流）、心灵之桥（人际理解）、时代之桥（传承与创新）。选择最独特的角度立意。</div>
+</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>🏗️</span>议论文结构搭建：总分总与并列式</h3>
+<div class='method'>
+<div class='method-title'>1. 总分总结构（最常用）</div>
+<p>开头提出中心论点（总），中间分几个分论点论述（分），结尾总结升华（总）。结构清晰，阅卷老师一目了然。</p>
+<div class='example'>开头：真正的强大，是内心的从容与坚定。<br>分论点一：从容源于对自我的认知。<br>分论点二：坚定源于对信念的坚守。<br>结尾：在喧嚣中保持从容，在风雨中守住坚定，这便是真正的强大。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 并列式结构</div>
+<p>将中心论点拆解为3-4个并列的分论点，每个分论点独立成段，形成排比气势。适合展示思维的广度。</p>
+<div class='example'>中心论点：阅读塑造人生。<br>分论点一：阅读拓宽视野——看见更广阔的世界。<br>分论点二：阅读深化思考——理解更深刻的道理。<br>分论点三：阅读滋养心灵——获得更丰盈的内心。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 递进式结构</div>
+<p>分论点之间呈递进关系，由浅入深、由表及里，展示思维的深度。适合思辨性强的题目。</p>
+<div class='example'>中心论点：在变化中坚守本心。<br>第一层：变化是时代常态（是什么）。<br>第二层：变化中容易迷失本心（为什么）。<br>第三层：如何在变化中坚守本心（怎么办）。</div>
+</div>
+</div>
+<div class='card card-green'>
+<h3><span class='icon'>📝</span>材料作文审题五步法<span class='method-tag'>教研方法</span></h3>
+<div class='method-green'>
+<div class='method-title'>第一步：通读材料，抓主旨</div>
+<p>快速通读材料2-3遍，用一句话概括材料的核心意思。这一步决定立意方向是否正确——方向错了，文笔再好也是三类文以下。</p>
+</div>
+<div class='method-green'>
+<div class='method-title'>第二步：圈关键词，找关系</div>
+<p>圈出材料中的关键词，分析它们之间的关系（因果、递进、对比、并列）。关系往往暗示了立意的方向。</p>
+</div>
+<div class='method-green'>
+<div class='method-title'>第三步：多角度立意，选最佳</div>
+<p>从不同角度提出2-3个立意，比较哪个更新颖、更有深度、更有话可说。高考阅卷反模板，独特角度是加分项。</p>
+</div>
+<div class='method-green'>
+<div class='method-title'>第四步：联系现实，定方向</div>
+<p>将立意与当代社会现实、青年成长、文化传承等联系起来，确保文章有现实意义。高考作文紧扣立德树人。</p>
+</div>
+<div class='method-green'>
+<div class='method-title'>第五步：列提纲，定结构</div>
+<p>用2分钟列出文章提纲：开头怎么引出、分论点怎么设置、用什么素材、结尾怎么升华。提纲是考场作文的骨架。</p>
+</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>📚</span>论据的选择与运用</h3>
+<div class='method'>
+<div class='method-title'>1. 论据选择原则：新、真、精</div>
+<p>新——用时代素材，不用陈旧素材；真——确保素材真实准确，不编造；精——选最典型、最能支撑论点的素材。</p>
+<div class='example'>陈旧素材（慎用）：司马迁、屈原、李白、苏轼<br>时代素材（推荐）：桂海潮太空追梦、樊锦诗守护敦煌、黄文秀扶贫奉献、苏炳添突破极限</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 论据运用技巧：叙议结合</div>
+<p>叙述素材要简洁（不超过3句话），重点在分析——说清楚这个素材为什么能支撑你的论点。高考阅卷最怕"摆素材不分析"。</p>
+<div class='example'>错误示范：司马迁受了宫刑，写了《史记》，很了不起。<br>正确示范：司马迁忍辱负重，以笔为刀，在绝境中完成《史记》。他告诉我们：真正的强者不是没有眼泪，而是含着眼泪依然奔跑。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 一材多用：同一素材多角度解读</div>
+<p>考前准备5-8个万能素材，每个想好3个角度。考场灵活调用，适配任何题目。</p>
+<div class='example'>素材"敦煌女儿"樊锦诗：<br>角度一（坚守）：大漠半个世纪，守的是文化根脉。<br>角度二（创新）：推动数字化保护，让古老敦煌拥抱未来。<br>角度三（选择）：放弃大城市，选择大漠，是对价值的重新定义。</div>
+</div>
+</div>
+<div class='card card-gold'>
+<h3><span class='icon'>⚖️</span>论证方法入门：举例·道理·对比·比喻</h3>
+<div class='method'>
+<div class='method-title'>1. 举例论证</div>
+<p>用具体事例证明论点。关键在于"叙简议深"——叙述简练，分析深入。</p>
+<div class='example'>桂海潮从云南偏远山区走向浩瀚太空，他的经历证明：出身从不决定终点，奋斗才能定义人生。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 道理论证</div>
+<p>用名言警句、科学原理、公理常识等证明论点。增强文章的说服力和文化底蕴。</p>
+<div class='example'>正如鲁迅所言："愿中国青年都摆脱冷气，只是向上走，不必听自暴自弃者流的话。"青年当有向上的力量。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 对比论证</div>
+<p>将正反两方面的观点或事实进行对比，在对比中证明论点。对比越鲜明，论证越有力。</p>
+<div class='example'>面对困境，有的人选择躺平，在抱怨中虚度光阴；有的人选择迎难而上，在挑战中淬炼成长。态度不同，结局迥异。</div>
+</div>
+<div class='method'>
+<div class='method-title'>4. 比喻论证</div>
+<p>用比喻来说明道理，使抽象观点具象化。高考作文中恰当运用比喻，可显著提升文采分。</p>
+<div class='example'>人生如登山，不在于起点的高低，而在于脚步的坚定。有人出生在半山腰，却因懈怠而滑落；有人从山脚出发，终因坚持而登顶。</div>
+</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>📖</span>记叙文进阶：细节描写的深度</h3>
+<div class='method'>
+<div class='method-title'>1. 特写镜头法——放大关键瞬间</div>
+<p>在情感最浓烈的瞬间按下"暂停键"，用特写镜头放大最具感染力的细节，让读者身临其境。</p>
+<div class='example'>父亲签字时，我盯着他的手。那双手曾经有力地托起过我，此刻却微微发抖。笔尖触到纸面的瞬间，他停顿了三秒——那三秒，比三年还漫长。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 对比放大法——前后呼应</div>
+<p>通过同一细节的前后变化，展现人物成长或情感转变，形成叙事张力。</p>
+<div class='example'>曾经，爷爷的大手牵着小手，走在田埂上，步伐稳健有力。如今，我搀着爷爷的胳膊，走在医院的走廊里，他的脚步蹒跚而迟疑。时光偷走了他的力量，却把爱留在了掌心。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 以物写人法——借物抒情</div>
+<p>通过对某件物品的细腻描写，折射人物性格或情感，做到"不着一字，尽得风流"。</p>
+<div class='example'>那本翻烂的字典，书脊用透明胶粘了又粘，扉页上写着"1978年购于县城新华书店"。四十多年了，纸页泛黄发脆，可每个字爷爷都还能找到。这本字典里，藏着一个农民对知识最朴素的敬畏。</div>
+</div>
+</div>
+<div class='card card-green'>
+<h3><span class='icon'>🎭</span>记叙文进阶：情感层次的递进<span class='method-tag'>教研方法</span></h3>
+<p style='font-size:13px;color:#3d5a35;margin-bottom:10px;'>高考记叙文不同于初中，不仅要求"写清楚"，更要求"写出层次"。情感不能一步到位，要像剥洋葱一样层层深入，让阅卷老师在阅读过程中逐步被感染。</p>
+<div class='method-green'>
+<div class='method-title'>第一层：表层情感——直接感受</div>
+<p>写出人物在事件中最直接的情绪反应：高兴、悲伤、愤怒、恐惧。这是情感的"入口"。</p>
+<div class='example'>拿到成绩单的那一刻，我的手在发抖，眼眶发酸。不敢抬头，不敢呼吸，仿佛整个世界都安静了。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>第二层：深层情感——内心冲突</div>
+<p>在表层情绪之下，写出人物的内心矛盾和挣扎。这是情感的"纵深"，最能打动阅卷老师。</p>
+<div class='example'>可是，比成绩更让我难受的，是父亲接过成绩单时那个不易察觉的叹气。他没有骂我，只是默默走进了厨房。那种沉默，比任何责骂都沉重。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>第三层：升华情感——感悟蜕变</div>
+<p>在情感冲突之后，写出人物的领悟和成长。这是情感的"出口"，也是文章的"点睛之笔"。</p>
+<div class='example'>那天晚上，我听到父亲在阳台上打电话，声音很低："孩子压力大，我不能给他再加负担了。"泪水突然涌出来。原来，沉默不是失望，而是另一种方式的守护。从那以后，我学会了在沉默中听见爱。</div>
+</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>🎵</span>记叙文进阶：叙事节奏的把控</h3>
+<div class='method'>
+<div class='method-title'>1. 详略得当——该慢则慢，该快则快</div>
+<p>高潮部分放慢节奏，用大量笔墨细致描写；过渡部分加快节奏，一笔带过。高考作文800-950字，不可能面面俱到，节奏把控尤为重要。</p>
+<div class='example'>略写：那三年，日复一日地训练，汗水浸透了无数件球衣。<br>详写：决赛最后三十秒，比分持平。我接到传球，时间仿佛凝固。观众的呐喊声退到很远的地方，眼前只有篮筐。起跳——出手——球在空中旋转——</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 悬念与反转——制造叙事波澜</div>
+<p>在叙事中设置悬念或制造反转，打破读者的预期，让文章波澜起伏。高考记叙文最忌平铺直叙。</p>
+<div class='example'>所有人都以为他会放弃。教练已经换下了他，队医在检查他的脚踝。可是，在比赛还剩最后一分钟时，他站了起来，走向记录台——"我要回去。"</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 首尾呼应——形成叙事闭环</div>
+<p>开头设置的意象、问题或情感，在结尾得到回应和升华，形成完整的叙事结构。这是高考作文的基本要求。</p>
+<div class='example'>开头：那盏灯，从我记事起就一直亮着。<br>结尾：如今，我也开始为晚归的人留一盏灯。有些光，不需要言语，却能照亮整条回家的路。</div>
+</div>
+</div>
+<div class='card card-gold'>
+<h3><span class='icon'>🔗</span>综合技法：过渡与衔接</h3>
+<div class='method'>
+<div class='method-title'>1. 逻辑过渡——用关联词</div>
+<p>使用"然而""不仅如此""更重要的是""反观当下"等过渡词，在段落之间建立逻辑联系。</p>
+<div class='example'>然而，仅有个人的奋斗是不够的。时代的浪潮中，个人的选择终将与国家的命运交织在一起。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 意象过渡——用线索串联</div>
+<p>用一个核心意象贯穿全文，在段落转换时重复出现，形成自然衔接。</p>
+<div class='example'>第一段：那棵老槐树见证了我的童年。<br>第三段：老槐树又开花了，而我已长大。<br>结尾：老槐树还在，花年年开。有些东西变了，有些东西永远不变。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 设问过渡——用问题推进</div>
+<p>在段落结尾提出问题，在下一段回答，形成自问自答的过渡效果，增强文章的思辨性。</p>
+<div class='example'>那么，当传统与现代碰撞时，我们该何去何从？答案或许就藏在那些坚守与创新并存的故事里。</div>
+</div>
+</div>
+</div>
+<div class='grade-content' id='g0_1'>
+<div class='card card-green'>
+<h3><span class='icon'>⚖️</span>议论文提升：辩证论证法<span class='method-tag'>教研方法</span></h3>
+<p style='font-size:13px;color:#3d5a35;margin-bottom:10px;'>辩证论证是高考高分作文的"分水岭"。它要求不只看到事物的一面，而是从正反、利弊、得失等多个维度进行思考。发展等级中"深刻"一项的核心就是辩证思维。</p>
+<div class='method-green'>
+<div class='method-title'>1. 正反辩证——既看到利，也看到弊</div>
+<p>对论述对象进行正面和反面的分析，展现全面思考的能力。</p>
+<div class='example'>科技的发展极大地便利了生活——这是不争的事实。然而，当算法决定了我们看什么新闻、听什么音乐、交什么朋友时，我们是否也在不知不觉中交出了选择的自由？科技是工具，但当工具开始塑造使用者时，工具就成了主人。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>2. 条件辩证——在什么条件下成立</div>
+<p>指出观点的成立是有条件的，不同条件下结论可能不同。这种论证更严谨，也更有深度。</p>
+<div class='example'>"坚持就是胜利"——这句话在方向正确时是真理，在方向错误时却是灾难。南辕北辙的故事告诉我们：没有正确方向的坚持，不过是在错误的道路上越走越远。因此，坚持之前，先确认方向；方向正确之后，再全力以赴。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>3. 发展辩证——用变化的眼光看问题</div>
+<p>事物是发展变化的，今天的优势可能是明天的劣势，今天的困境可能是明天的机遇。</p>
+<div class='example'>诺基亚曾是手机之王，其衰败并非因为不够优秀，而是因为太优秀——优秀到无法自我革命。反观那些在困境中求变的企业，反而在危机中找到了新出路。优势与劣势，从来不是固定不变的标签，而是随时代流转的动态变量。</div>
+</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>🔄</span>反证法与归谬法</h3>
+<div class='method'>
+<div class='method-title'>1. 反证法——从反面证明</div>
+<p>假设论点不成立，推导出矛盾或荒谬的结论，从而证明论点正确。适合难以从正面直接论证的观点。</p>
+<div class='example'>假设"读书无用"成立，那么人类积累数千年的知识便毫无价值，文明将停滞不前。这显然与事实相悖。因此，读书绝非无用，而是个人成长和社会进步的基石。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 归谬法——推出荒谬</div>
+<p>先承认对方观点，然后按其逻辑推导，得出明显荒谬的结论，从而驳倒对方。</p>
+<div class='example'>有人说"年轻就该享受，奋斗太苦"。按照这个逻辑，年轻时虚度光阴，中年时一事无成，老年时追悔莫及——这样的人生，难道就是所谓的"享受"？真正的享受，是在奋斗之后品味果实的甘甜，而非在空虚中咀嚼遗憾的苦涩。</div>
+</div>
+</div>
+<div class='card card-gold'>
+<h3><span class='icon'>💡</span>类比论证与比喻论证</h3>
+<div class='method'>
+<div class='method-title'>1. 类比论证——以此喻彼</div>
+<p>将两类有相似性的事物进行类比，由已知事物的道理推知未知事物的道理。类比要贴切，不能牵强。</p>
+<div class='example'>树木生长需要深深扎根，方能枝繁叶茂；人的成长亦是如此，唯有夯实根基——品格、学识、能力——方能在风雨中挺立不倒。那些急于求成、根基浅薄的人，就像被连根拔起的树，看似高大，实则一推即倒。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 比喻论证——化抽象为具象</div>
+<p>用比喻将抽象道理具象化，使论证更生动。高考作文中善用比喻，是发展等级"有文采"的重要途径。</p>
+<div class='example'>文化传承不是将灰烬装进瓶子，而是将火焰传递下去。灰烬是死的，火焰是活的；装灰烬只需要一个容器，传火焰却需要一双温暖的手和一颗赤诚的心。</div>
+</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>⚔️</span>驳论技巧</h3>
+<div class='method'>
+<div class='method-title'>1. 驳论点——直接反驳对方观点</div>
+<p>指出对方论点的错误所在，可以用事实、道理或逻辑来反驳。</p>
+<div class='example'>有人认为"人工智能将取代人类"，这种观点忽略了人的独特性。人工智能可以计算、可以生成，但无法替代人的情感体验、价值判断和创造灵感。工具再强大，终究是工具；人之所以为人，不在于能做什么，而在于为什么做。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 驳论据——指出对方依据不足</div>
+<p>指出对方使用的论据不真实、不典型或不充分，从而动摇其论点。</p>
+<div class='example'>有人说"读书无用，因为某某没读过书也成了富翁"。这犯了以偏概全的逻辑错误。个例不能否定普遍规律，统计数据显示，受教育程度与收入水平、生活质量呈正相关。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 驳论证——揭露逻辑漏洞</div>
+<p>指出对方论据与论点之间缺乏必然联系，论证过程存在逻辑跳跃。</p>
+<div class='example'>"科技带来便利，所以科技是好的"——这个论证看似合理，实则忽略了科技的负面影响。便利不等于美好，效率不等于幸福。判断科技的价值，不能只看它带来了什么，还要看它带走了什么。</div>
+</div>
+</div>
+<div class='card card-green'>
+<h3><span class='icon'>🤝</span>让步说理：以退为进<span class='method-tag'>教研方法</span></h3>
+<p style='font-size:13px;color:#3d5a35;margin-bottom:10px;'>让步说理是高考议论文的高阶技法：先承认对方观点的合理性（让步），再指出其局限性或提出更高层次的认识（转折）。这种"退一步进两步"的论证方式，既展现了思维的包容性，又增强了说服力。</p>
+<div class='method-green'>
+<div class='method-title'>让步句式模板</div>
+<p>"诚然……""不可否认……""固然……"——承认对方合理之处。</p>
+<div class='example'>诚然，追求效率是现代社会的生存法则，快节奏确实带来了物质丰裕。然而，当效率成为唯一的标尺时，我们是否也失去了"慢"的能力——慢慢品味一杯茶的闲适，慢慢等待一朵花开的耐心，慢慢走进一个人内心的温柔？</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>转折句式模板</div>
+<p>"然而""但是""问题的关键在于"——指出局限性或提出更深认识。</p>
+<div class='example'>不可否认，技术进步让信息获取变得前所未有的便捷。但问题在于，当信息如洪水般涌来，我们是否还有能力分辨真伪、筛选价值？便捷不等于智慧，获取不等于理解。真正的学习，不在于掌握了多少信息，而在于建立了怎样的判断力。</div>
+</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>🎯</span>分论点的设置技巧</h3>
+<div class='method'>
+<div class='method-title'>1. 并列式分论点</div>
+<p>从同一层面展开，分论点之间是并列关系。适合展示思维广度。</p>
+<div class='example'>中心论点：文化自信是民族复兴的精神基石。<br>分论点一：文化自信源于五千年文明的深厚积淀。<br>分论点二：文化自信彰显于当代中国的创新实践。<br>分论点三：文化自信指向人类命运共同体的未来愿景。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 递进式分论点</div>
+<p>分论点之间呈递进关系，由浅入深、由表及里。适合展示思维深度。</p>
+<div class='example'>中心论点：在变局中开新局。<br>分论点一：变局是时代的常态（认知层面）。<br>分论点二：变局中蕴含机遇（判断层面）。<br>分论点三：主动求变方能开新局（行动层面）。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 对比式分论点</div>
+<p>从正反两个方面设置分论点，形成鲜明对比。适合增强论证力度。</p>
+<div class='example'>中心论点：选择决定人生。<br>分论点一：正向选择引领成长——选择奋斗，收获充实。<br>分论点二：负向选择导致虚度——选择躺平，陷入空虚。<br>分论点三：选择的智慧在于认清自己、把握方向。</div>
+</div>
+</div>
+<div class='card card-gold'>
+<h3><span class='icon'>🌿</span>散文技法：形散神聚</h3>
+<div class='method'>
+<div class='method-title'>1. "形散"——素材自由广泛</div>
+<p>散文的选材不受限制，可以古今中外、天文地理，看似散漫无章。但"散"不是乱，每一段素材都要为"神"服务。</p>
+<div class='example'>写"故乡"：可以写老屋的炊烟、村口的古井、外婆的纺车、童年的萤火虫……这些看似零散的画面，都指向同一个"神"——对故乡的眷恋与思念。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. "神聚"——主旨贯穿始终</div>
+<p>所有素材都被一条情感线索或思想主线串联，形成"形散神聚"的效果。这条主线就是文章的"神"。</p>
+<div class='example'>主线：时光流逝中不变的是亲情。<br>片段一：童年时，奶奶的背是摇篮。<br>片段二：少年时，奶奶的手是依靠。<br>片段三：如今，奶奶的背影是牵挂。<br>所有片段都指向"亲情不变"这一主旨。</div>
+</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>🎨</span>散文技法：意境营造</h3>
+<div class='method'>
+<div class='method-title'>1. 情景交融——景中有情，情中有景</div>
+<p>不直接抒发情感，而是将情感融入景物描写中，让读者在画面中感受情绪。</p>
+<div class='example'>秋天的风从田野上吹来，带着稻谷成熟的气息。远处的山峦在暮色中渐渐模糊，几只归鸟掠过天空。我站在村口的老槐树下，看炊烟从各家各户的烟囱里升起——那些炊烟，像是一根根看不见的线，牵着我心里最柔软的地方。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 虚实相生——以实景写虚情</div>
+<p>用具体的景物（实）来表达抽象的情感或哲理（虚），使文章含蓄隽永。</p>
+<div class='example'>院子里那棵老桂花树又开了。满树金黄，满院飘香。小时候，外婆总会铺一块布在树下，摇一摇树干，桂花便如雨般落下。如今，桂花依旧年年开，只是再也没有人在树下铺布了。那些落了一地的桂花，像是时光洒落的叹息。</div>
+</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>✒️</span>散文技法：语言锤炼</h3>
+<div class='method'>
+<div class='method-title'>1. 长短句交替——形成节奏</div>
+<p>长句用于细致描写和深入说理，短句用于强调和抒情。长短交替，形成文章的音乐感。</p>
+<div class='example'>长句：那条蜿蜒在群山之间的小路，承载了祖辈无数的脚印，也承载了一个村庄几代人的希望与梦想。<br>短句：路还在。人已远。梦未醒。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 叠词与排比——增强韵律</div>
+<p>恰当使用叠词和排比，使语言具有节奏感和画面感。</p>
+<div class='example'>细细的雨，轻轻的风，淡淡的雾，浅浅的愁。江南的秋，总是这样温柔地来了，又温柔地去。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 化用诗词——提升文采</div>
+<p>将古诗词的意境或句式化入自己的语言中，不露痕迹地提升文章的文化底蕴。</p>
+<div class='example'>人生何处不青山。少年时的豪情，是"不破楼兰终不还"的决绝；中年时的沉稳，是"行到水穷处，坐看云起时"的从容；暮年时的豁达，是"莫道桑榆晚，为霞尚满天"的坦然。</div>
+</div>
+</div>
+<div class='card card-green'>
+<h3><span class='icon'>🌟</span>发展等级突破：深刻<span class='method-tag'>教研方法</span></h3>
+<p style='font-size:13px;color:#3d5a35;margin-bottom:10px;'>发展等级"深刻"占5分，是高考作文拉开分差的关键。深刻不等于故弄玄虚，而是要"透过现象看本质""揭示因果关系""观点有启发性"。</p>
+<div class='method-green'>
+<div class='method-title'>1. 透过现象看本质</div>
+<p>不只描述"发生了什么"，更要分析"为什么发生"和"意味着什么"。</p>
+<div class='example'>现象：年轻人热衷"打卡"网红景点。<br>本质：在信息爆炸时代，人们渴望用"去过"来确认"存在"，用"分享"来获取"认同"。打卡的背后，是现代人对存在感的焦虑和对社交认同的渴求。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>2. 揭示因果关系</div>
+<p>不仅指出结果，更要追溯原因，展示因果链条。</p>
+<div class='example'>结果：传统文化在年轻人中"破圈"。<br>原因：国潮设计让传统审美与现代时尚融合；短视频平台降低了文化传播门槛；文化自信让年轻人主动拥抱传统。<br>启示：传承不是守旧，而是让传统以新的方式"活"在当下。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>3. 观点有启发性</div>
+<p>提出让人"眼前一亮"的见解，打破常规认知，给读者新的思考角度。</p>
+<div class='example'>人们常说要"走出舒适区"，但很少有人追问：舒适区为什么"舒适"？也许，真正的成长不是逃离舒适，而是重新定义舒适——把挑战变成新的舒适区，把未知变成新的已知。</div>
+</div>
+</div>
+</div>
+<div class='grade-content' id='g0_2'>
+<div class='card card-green'>
+<h3><span class='icon'>⏱️</span>90秒定生死：阅卷策略<span class='method-tag'>高考核心</span></h3>
+<p style='font-size:13px;color:#3d5a35;margin-bottom:10px;'>高考阅卷每篇作文平均阅读时间约90秒。这意味着：卷面3秒定基调，前两段15秒决定生死，每段首句是路标。你的文章必须在最短时间内向阅卷老师证明"这篇值得高分"。</p>
+<div class='method-green'>
+<div class='method-title'>1. 卷面3秒——第一印象</div>
+<p>字迹工整、卷面整洁、段落分明。高考双评制下，两个阅卷老师的第一印象几乎一致地决定了分数区间。</p>
+<div class='example'>建议：①用0.5mm黑色签字笔；②每段开头空两格；③不要大段涂改，用一条斜线划去即可；④段落5-7段为佳。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>2. 前15秒——开头定调</div>
+<p>开头必须迅速入题，亮明观点。切忌绕圈子、抄材料。好的开头让阅卷老师瞬间抓住你的立意和水平。</p>
+<div class='example'>优秀开头：当算法开始决定我们看什么新闻、听什么音乐、认识什么人时，"选择"这个看似属于个体的权利，正在被悄然重新定义。我们需要的，不是拒绝技术，而是在技术的洪流中守住独立思考的堤坝。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>3. 段首路标——引导阅读</div>
+<p>每段第一句话就是路标，告诉阅卷老师"这段在说什么"。段首句要精炼、有力、有观点。</p>
+<div class='example'>段首路标示例：<br>①坚守，是对初心的忠诚。<br>②创新，是对未来的拥抱。<br>③坚守与创新并非对立，而是传承与发展的统一。</div>
+</div>
+</div>
+<div class='card card-gold'>
+<h3><span class='icon'>📐</span>黄金七段式<span class='method-tag'>教研方法</span></h3>
+<p style='font-size:13px;color:#3d5a35;margin-bottom:10px;'>教研写作提出的"黄金七段式"，是高考议论文的最佳结构模板。七段式既保证了结构完整，又为思辨留出空间，是切入分42分以上的保障。</p>
+<div class='method-green'>
+<div class='method-title'>第一段：开头引题（80-100字）</div>
+<p>引述材料或现象，亮明中心论点。简洁有力，不绕圈子。</p>
+</div>
+<div class='method-green'>
+<div class='method-title'>第二段：分论点一（150-180字）</div>
+<p>第一个角度的论证。叙议结合，用1-2个素材支撑。</p>
+</div>
+<div class='method-green'>
+<div class='method-title'>第三段：分论点二（150-180字）</div>
+<p>第二个角度的论证。与分论点一形成递进或并列关系。</p>
+</div>
+<div class='method-green'>
+<div class='method-title'>第四段：分论点三（150-180字）</div>
+<p>第三个角度的论证。三段分论点构成完整的论证体系。</p>
+</div>
+<div class='method-green'>
+<div class='method-title'>第五段：辩证过渡（80-100字）</div>
+<p>对前面的论述进行辩证思考，展现思维的全面性。这是发展等级"深刻"的关键段落。</p>
+</div>
+<div class='method-green'>
+<div class='method-title'>第六段：联系现实（100-120字）</div>
+<p>将论述与现实生活、时代背景联系起来，体现文章的现实意义。紧扣立德树人。</p>
+</div>
+<div class='method-green'>
+<div class='method-title'>第七段：结尾升华（80-100字）</div>
+<p>总结全文，升华主旨。结尾要简洁有力，余味悠长。切忌喊口号。</p>
+<div class='example'>总字数约850-950字，正好在高考最佳字数区间。段落分明，结构严谨，阅卷老师90秒内可以清晰把握文章脉络。</div>
+</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>🛡️</span>切入分42分保底策略</h3>
+<div class='method'>
+<div class='method-title'>什么是切入分？</div>
+<p>高考作文设定"切入分"为42分（满分60分）。达到"三基本"——中心基本明确、结构基本完整、语言基本通顺——即可获得42分。低于42分意味着出现了明显问题。</p>
+</div>
+<div class='method'>
+<div class='method-title'>保底42分的"三基本"</div>
+<p>①中心基本明确：文章有明确的论点，不跑题、不偏题。<br>②结构基本完整：有开头、有主体、有结尾，段落分明。<br>③语言基本通顺：没有大量语病，句子通顺，标点正确。</p>
+</div>
+<div class='method'>
+<div class='method-title'>低于42分的常见原因</div>
+<p>①偏离题意——总分不超过42分。<br>②跑题——总分不超过40分。<br>③结构残缺——没有结尾或段落混乱。<br>④语言不通顺——大量语病、错别字。<br>⑤字数严重不足——不足400字直接20分以下。</p>
+</div>
+<div class='method'>
+<div class='method-title'>从42到50+的提升路径</div>
+<p>42→48分：发展等级突破一项（深刻/丰富/文采/创意任选一项突出）。<br>48→52分：发展等级突破两项，且基础等级达到一等。<br>52→55+分：基础一等+发展两项突出+卷面优秀。<br>55→58+分：全面优秀，立意深刻，文采斐然。</p>
+</div>
+</div>
+<div class='card card-green'>
+<h3><span class='icon'>💎</span>发展等级突破：文采与创意<span class='method-tag'>教研方法</span></h3>
+<div class='method-green'>
+<div class='method-title'>文采（5分）：用词贴切·句式灵活·善用修辞·文句有表现力</div>
+<p>高考阅卷中，文采是"一眼可见"的加分项。不需要全文华丽，关键段落出彩即可。</p>
+<div class='example'>普通表达：科技发展很快，改变了我们的生活。<br>文采表达：科技的巨轮碾过旧时光的辙痕，把我们的生活推入一个又一个未知的航道。我们站在浪尖上，既是被裹挟的旅人，也是掌舵的水手。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>创意（5分）：见解新颖·材料新鲜·构思精巧·有个性特征</div>
+<p>创意不是标新立异，而是提供新颖的思考角度。高考反模板，独特性是高分密码。</p>
+<div class='example'>常规立意：坚持才能成功。<br>创意立意：坚持不是不放弃，而是学会了在"放弃"与"重新开始"之间找到平衡。真正的坚持，允许暂停，允许流泪，但不允许遗忘初心。</div>
+</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>⏰</span>考场时间分配</h3>
+<div class='method'>
+<div class='method-title'>高考作文建议用时：50-60分钟</div>
+<p>审题立意：5分钟（最关键的5分钟，决定生死）<br>列提纲：3分钟（磨刀不误砍柴工）<br>正文写作：40分钟（按照提纲快速推进）<br>检查修改：5分钟（查错别字、标点、字数）<br>誊抄：2分钟（如果需要）</p>
+</div>
+<div class='method'>
+<div class='method-title'>字数控制：850-950字为黄金区间</div>
+<p>不足800字每少50字扣1分（最多扣5分）；超过1000字阅卷疲劳，可能影响得分。850-950字既满足要求，又给阅卷老师舒适的阅读体验。</p>
+</div>
+</div>
+<div class='card card-gold'>
+<h3><span class='icon'>📋</span>双评制应对策略</h3>
+<div class='method'>
+<div class='method-title'>双评制规则</div>
+<p>高考作文实行双评制：两位老师独立评分，分差不超过8分取平均分；分差超过8分则进入三评。这意味着你的文章要"经得起两个不同老师的检验"。</p>
+</div>
+<div class='method'>
+<div class='method-title'>应对策略一：立意要"稳"</div>
+<p>不要走偏锋立意。立意过于小众或争议性大，两个老师可能给出差异很大的分数。稳妥的立意+独特的角度=高分保障。</p>
+</div>
+<div class='method'>
+<div class='method-title'>应对策略二：结构要"明"</div>
+<p>结构清晰的文章，任何老师都能快速把握脉络，给出接近的分数。结构混乱的文章，不同老师的理解可能差异很大。</p>
+</div>
+<div class='method'>
+<div class='method-title'>应对策略三：卷面要"好"</div>
+<p>双评制下，卷面分的影响被放大。两个老师对卷面的印象趋于一致，好的卷面等于两个老师都给你加分。</p>
+</div>
+</div>
+<div class='card card-green'>
+<h3><span class='icon'>🔥</span>高考真题解析：2024全国I卷<span class='method-tag'>真题</span></h3>
+<p style='font-size:13px;color:#3d5a35;margin-bottom:10px;'>2024年全国I卷作文题：随着互联网的普及、人工智能的应用，越来越多的问题能很快得到答案。那我们的问题是否会越来越少？以上材料引发了你怎样的联想与思考？</p>
+<div class='method-green'>
+<div class='method-title'>审题分析</div>
+<p>核心矛盾：技术进步让问题"快速得到答案"，但"问题"是否因此减少？<br>辩证思考：答案增多≠问题减少。新技术解决旧问题的同时产生新问题；浅层答案增多但深层思考可能减少；工具理性提升但价值理性可能弱化。</p>
+</div>
+<div class='method-green'>
+<div class='method-title'>高分立意方向</div>
+<p>①答案易得，思考难求——真正的智慧不在于获得答案，而在于提出好问题。<br>②技术解困，人文解惑——人工智能能回答"是什么"，但"为什么"和"应当如何"仍需人的思考。<br>③问题不会消失，只会升级——旧问题被解决，新问题在更高层次产生，这是文明的进步规律。</p>
+</div>
+<div class='method-green'>
+<div class='method-title'>推荐素材</div>
+<p>苏格拉底的"产婆术"（提出问题比给出答案更重要）；爱因斯坦名言"提出一个问题往往比解决一个问题更重要"；智能聊天机器人等人工智能工具的局限（可以生成文本但无法替代价值判断）。</p>
+</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>📜</span>高考真题解析：2023全国I卷</h3>
+<p style='font-size:13px;color:#3d5a35;margin-bottom:8px;'>2023年全国I卷作文题："好的故事"可以改变人的命运，可以展现一个民族的形象……故事是有力量的。请写一篇文章，谈谈你对这个问题的认识和思考。</p>
+<div class='method'>
+<div class='method-title'>审题分析</div>
+<p>核心概念："故事的力量"。需要回答：故事有什么力量？力量从何而来？如何用好这种力量？</p>
+</div>
+<div class='method'>
+<div class='method-title'>高分立意方向</div>
+<p>①好的故事是精神的火种——从《觉醒年代》到《流浪地球》，故事承载着一个民族的精神密码。<br>②讲好中国故事——在全球化语境中，如何用故事传递中国价值、塑造中国形象。<br>③每个人都是故事的讲述者——普通人的奋斗故事，汇聚成时代的宏大叙事。</p>
+</div>
+</div>
+<div class='card card-gold'>
+<h3><span class='icon'>♟️</span>高考真题解析：2022全国I卷</h3>
+<p style='font-size:13px;color:#8a6a20;margin-bottom:8px;'>2022年全国I卷作文题："本手、妙手、俗手"是围棋的三个术语。本手是指合乎棋理的正规下法；妙手是出人意料的精妙下法；俗手是貌似合理而从全局看通常会受损的下法。以上材料颇具启示意义。请结合材料写一篇文章，体现你的感悟与思考。</p>
+<div class='method'>
+<div class='method-title'>审题分析</div>
+<p>三个关键词构成辩证关系：本手是基础，妙手是创新，俗手是短视。核心立意：夯实基础方能创新，急功近利必致败局。</p>
+</div>
+<div class='method'>
+<div class='method-title'>高分立意方向</div>
+<p>①守正方能出奇——本手是妙手的前提，没有扎实的基本功，所谓的创新只是空中楼阁。<br>②急功近利是最大的"俗手"——在教育、科研、人生规划中，短视行为往往得不偿失。<br>③从本手到妙手——在守正的基础上寻求出奇，这是个人成长和社会进步的正确路径。</p>
+</div>
+</div>
+<div class='card'>
+<h3><span class='icon'>🏛️</span>高考真题解析：2024北京卷</h3>
+<p style='font-size:13px;color:#3d5a35;margin-bottom:8px;'>2024年北京卷作文题：历史上，历经岁月洗礼而历久弥新的事物（如经典作品、古老建筑、传统技艺等）不在少数。请以"历久弥新"为题写一篇议论文。</p>
+<div class='method'>
+<div class='method-title'>审题分析</div>
+<p>核心概念："历久弥新"——经过时间长河的冲刷，不仅没有衰败，反而焕发新的生机。关键词："历久"（时间的考验）和"弥新"（生命力的延续）。</p>
+</div>
+<div class='method'>
+<div class='method-title'>高分立意方向</div>
+<p>①历久弥新的密码在于"守正创新"——守住精神内核，创新表达形式。<br>②经典之所以不朽，是因为它触及了人类永恒的精神命题。<br>③在快时代里，"历久弥新"是对"速食文化"最好的反思。</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Module 2: Essay Analysis -->
+<div class='module' id='mod1'>
+<div id='essayList'></div>
+</div>
+<!-- Module 3: Material Library -->
+<div class='module' id='mod2'>
+<div class='sub-tab-bar'>
+<button class='sub-tab active' onclick='switchSub(2,0)'>名言警句</button>
+<button class='sub-tab' onclick='switchSub(2,1)'>时代先锋</button>
+<button class='sub-tab' onclick='switchSub(2,2)'>经典事例</button>
+<button class='sub-tab' onclick='switchSub(2,3)'>诗词引用</button>
+<button class='sub-tab' onclick='switchSub(2,4)'>一例多吃</button>
+<button class='sub-tab' onclick='switchSub(2,5)'>2026高考新素材</button>
+</div>
+<div class='sub-content active' id='s2_0'>
+<div class='card'><h3>💪 理想/志向类</h3>
+<div class='material-item'><h4>1</h4><p>为天地立心，为生民立命，为往圣继绝学，为万世开太平。——张载</p><span class='theme-tag'>适用：理想担当、家国情怀</span></div>
+<div class='material-item'><h4>2</h4><p>穷则独善其身，达则兼济天下。——孟子</p><span class='theme-tag'>适用：理想、责任、人生选择</span></div>
+<div class='material-item'><h4>3</h4><p>士不可以不弘毅，任重而道远。——《论语》</p><span class='theme-tag'>适用：担当、坚韧、青年使命</span></div>
+<div class='material-item'><h4>4</h4><p>苟利国家生死以，岂因祸福避趋之。——林则徐</p><span class='theme-tag'>适用：爱国、担当、牺牲精神</span></div>
+<div class='material-item'><h4>5</h4><p>位卑未敢忘忧国。——陆游</p><span class='theme-tag'>适用：爱国、责任、忧患意识</span></div>
+</div>
+<div class='card card-gold'><h3>🔍 思辨/哲理类</h3>
+<div class='material-item'><h4>1</h4><p>祸兮福之所倚，福兮祸之所伏。——老子</p><span class='theme-tag'>适用：辩证思维、祸福相依</span></div>
+<div class='material-item'><h4>2</h4><p>横看成岭侧成峰，远近高低各不同。——苏轼</p><span class='theme-tag'>适用：多角度思考、认知差异</span></div>
+<div class='material-item'><h4>3</h4><p>沉舟侧畔千帆过，病树前头万木春。——刘禹锡</p><span class='theme-tag'>适用：新生事物、时代更替</span></div>
+<div class='material-item'><h4>4</h4><p>问渠那得清如许？为有源头活水来。——朱熹</p><span class='theme-tag'>适用：创新、传承、源头活水</span></div>
+<div class='material-item'><h4>5</h4><p>不畏浮云遮望眼，自缘身在最高层。——王安石</p><span class='theme-tag'>适用：格局、视野、高瞻远瞩</span></div>
+<div class='material-item'><h4>6</h4><p>纸上得来终觉浅，绝知此事要躬行。——陆游</p><span class='theme-tag'>适用：实践、知行合一</span></div>
+<div class='material-item'><h4>7</h4><p>博学之，审问之，慎思之，明辨之，笃行之。——《中庸》</p><span class='theme-tag'>适用：学习方法、思辨精神</span></div>
+</div>
+<div class='card'><h3>🌱 坚持/奋斗类</h3>
+<div class='material-item'><h4>1</h4><p>锲而不舍，金石可镂。——荀子</p><span class='theme-tag'>适用：坚持、毅力</span></div>
+<div class='material-item'><h4>2</h4><p>千磨万击还坚劲，任尔东西南北风。——郑燮</p><span class='theme-tag'>适用：坚韧、不屈</span></div>
+<div class='material-item'><h4>3</h4><p>天行健，君子以自强不息。——《周易》</p><span class='theme-tag'>适用：自强、奋斗、精神</span></div>
+<div class='material-item'><h4>4</h4><p>宝剑锋从磨砺出，梅花香自苦寒来。</p><span class='theme-tag'>适用：磨砺、成长</span></div>
+<div class='material-item'><h4>5</h4><p>路漫漫其修远兮，吾将上下而求索。——屈原</p><span class='theme-tag'>适用：探索、追求、坚持</span></div>
+</div>
+<div class='card card-gold'><h3>🏛️ 文化/传承类</h3>
+<div class='material-item'><h4>1</h4><p>不忘本来，吸收外来，面向未来。</p><span class='theme-tag'>适用：文化传承、创新发展</span></div>
+<div class='material-item'><h4>2</h4><p>源浚者流长，根深者叶茂。——白居易</p><span class='theme-tag'>适用：根基、传承、文化自信</span></div>
+<div class='material-item'><h4>3</h4><p>各美其美，美人之美，美美与共，天下大同。——费孝通</p><span class='theme-tag'>适用：文化多样、文明互鉴</span></div>
+<div class='material-item'><h4>4</h4><p>苟日新，日日新，又日新。——《大学》</p><span class='theme-tag'>适用：创新、自我革新</span></div>
+<div class='material-item'><h4>5</h4><p>周虽旧邦，其命维新。——《诗经》</p><span class='theme-tag'>适用：守正创新、文化复兴</span></div>
+</div>
+<div class='card'><h3>🌍 时代/担当类</h3>
+<div class='material-item'><h4>1</h4><p>青年一代有理想、有本领、有担当，国家就有前途，民族就有希望。</p><span class='theme-tag'>适用：青年担当、时代使命</span></div>
+<div class='material-item'><h4>2</h4><p>没有人是一座孤岛，可以自全。每个人都是大陆的一片。——多恩</p><span class='theme-tag'>适用：人类命运共同体、责任</span></div>
+<div class='material-item'><h4>3</h4><p>无穷的远方，无数的人们，都和我有关。——鲁迅</p><span class='theme-tag'>适用：责任、担当、家国情怀</span></div>
+<div class='material-item'><h4>4</h4><p>我们都是赶路人，也是铺路石。</p><span class='theme-tag'>适用：奉献、传承、时代建设</span></div>
+<div class='material-item'><h4>5</h4><p>不要因为走得太远，而忘记为什么出发。——纪伯伦</p><span class='theme-tag'>适用：不忘初心、反思</span></div>
+</div>
+<div class='card card-gold'><h3>💡 智慧/认知类</h3>
+<div class='material-item'><h4>1</h4><p>知之者不如好之者，好之者不如乐之者。——孔子</p><span class='theme-tag'>适用：热爱、兴趣、学习</span></div>
+<div class='material-item'><h4>2</h4><p>吾生也有涯，而知也无涯。——庄子</p><span class='theme-tag'>适用：求知、终身学习</span></div>
+<div class='material-item'><h4>3</h4><p>学而不思则罔，思而不学则殆。——孔子</p><span class='theme-tag'>适用：学思结合、批判思维</span></div>
+<div class='material-item'><h4>4</h4><p>穷则变，变则通，通则久。——《周易》</p><span class='theme-tag'>适用：变通、创新、发展</span></div>
+<div class='material-item'><h4>5</h4><p>提出一个问题往往比解决一个问题更重要。——爱因斯坦</p><span class='theme-tag'>适用：创新思维、质疑精神</span></div>
+</div>
+</div>
+<div class='sub-content' id='s2_1'>
+<div class='card'><h3>🚀 科技先锋</h3>
+<div class='material-item'><h4>桂海潮：从山村到太空</h4><p>云南施甸山区的孩子，一路走到北京航空航天大学，成为我国首位非飞行员出身的航天员。2023年随神舟十六号进入太空，圆了从小的飞天梦。他的故事证明：梦想不分出身，奋斗定义人生。</p><span class='theme-tag'>适用：梦想、奋斗、突破出身</span></div>
+<div class='material-item'><h4>潘建伟：量子通信领航者</h4><p>被誉为"量子之父"，带领团队实现了量子通信从跟跑到领跑的跨越。"墨子号"量子卫星的成功发射，让中国在量子科技领域走在世界前列。他说："做科研要有坐冷板凳的耐心。"</p><span class='theme-tag'>适用：科技创新、坚守、民族自信</span></div>
+<div class='material-item'><h4>屠呦呦：青蒿素发现者</h4><p>经历190次失败，在第191次实验中发现青蒿素，拯救全球数百万疟疾患者生命，成为中国首位诺贝尔生理学或医学奖得主。85岁高龄仍心系科研，用一辈子诠释了"板凳甘坐十年冷"。</p><span class='theme-tag'>适用：坚持、奉献、科学精神</span></div>
+</div>
+<div class='card card-gold'><h3>🌾 奉献楷模</h3>
+<div class='material-item'><h4>黄文秀：扶贫一线的青春之花</h4><p>北师大研究生毕业后放弃大城市工作，回到广西百色担任驻村第一书记。2019年在抗洪途中牺牲，年仅30岁。她用生命诠释了"把青春献给祖国"的誓言，是新时代青年的楷模。</p><span class='theme-tag'>适用：奉献、担当、青春价值</span></div>
+<div class='material-item'><h4>樊锦诗：敦煌女儿</h4><p>北大毕业后扎根大漠半个多世纪，守护莫高窟的文化瑰宝。她推动"数字敦煌"工程，让千年壁画在虚拟世界永存。"我躺下是敦煌，醒来还是敦煌"——这份坚守，是对文化传承最深情的告白。</p><span class='theme-tag'>适用：坚守、文化传承、创新保护</span></div>
+<div class='material-item'><h4>张桂梅：大山里的校长</h4><p>在云南华坪创办全国第一所全免费女子高中，十余年间帮助两千多名山区女孩走出大山、考上大学。身患多种疾病仍坚持每天5点起床，用生命点燃大山女孩的希望。</p><span class='theme-tag'>适用：奉献、教育、改变命运</span></div>
+</div>
+<div class='card'><h3>⚽ 体育精神</h3>
+<div class='material-item'><h4>苏炳添：亚洲速度</h4><p>32岁仍坚持高强度训练，在东京奥运会上跑出9秒83，成为首位闯入奥运百米决赛的亚洲人。他用科学训练突破身体极限，用坚持改写亚洲速度。他说："我跑的每一步，都在为后来者铺路。"</p><span class='theme-tag'>适用：突破、坚持、科学精神</span></div>
+<div class='material-item'><h4>全红婵：跳水天才的汗水</h4><p>14岁在东京奥运会上以三跳满分夺金，被称为"天才少女"。但天才的背后是每天几百次入水训练，是受伤后咬牙坚持的毅力。她的成功告诉我们：所谓的天赋，不过是热爱加坚持的另一个名字。</p><span class='theme-tag'>适用：天赋与努力、坚持、青春</span></div>
+</div>
+<div class='card card-gold'><h3>🎨 文化传承者</h3>
+<div class='material-item'><h4>李子柒：东方美学的传播者</h4><p>用短视频向世界展示中国乡村生活之美——从酿酒、造纸到制衣、做酱，每一个视频都是对传统文化的深情记录。她在海外平台拥有千万粉丝，让世界看到了中国文化的诗意与温度。</p><span class='theme-tag'>适用：文化自信、传播、东方美学</span></div>
+<div class='material-item'><h4>单霁翔：故宫"看门人"</h4><p>担任故宫博物院院长期间，推动故宫"活起来"——开放更多区域、推出文创产品、拍摄纪录片。他让六百年的紫禁城走进年轻人的生活，证明：传承不是把灰烬装进瓶子，而是把火焰传递下去。</p><span class='theme-tag'>适用：文化创新、传承、守正出新</span></div>
+</div>
+</div>
+<div class='sub-content' id='s2_2'>
+<div class='card'><h3>🔥 拼搏奋斗类</h3>
+<div class='material-item'><h4>1. 屠呦呦与青蒿素</h4><p>经历190次失败仍不放弃，屠呦呦终于在第191次实验中发现了青蒿素，拯救了全球数百万疟疾患者，成为中国首位诺贝尔生理学或医学奖得主。坚持，让她在黑暗中找到了光。</p><span class='theme-tag'>适用：坚持、奉献、造福人类</span></div>
+<div class='material-item'><h4>2. 苏炳添突破百米极限</h4><p>32岁仍坚持训练，在东京奥运会上跑出9秒83，成为首位闯入奥运百米决赛的亚洲人。他用科学和坚持改写了亚洲速度。</p><span class='theme-tag'>适用：突破自我、科学精神</span></div>
+<div class='material-item'><h4>3. 桂海潮从山村到太空</h4><p>云南山区的孩子一路走到太空，用行动证明出身不决定终点，奋斗才能定义人生。</p><span class='theme-tag'>适用：梦想、奋斗、突破出身</span></div>
+</div>
+<div class='card card-gold'><h3>❤️ 奉献担当类</h3>
+<div class='material-item'><h4>1. 黄文秀的青春抉择</h4><p>放弃大城市回到贫困山区，30岁的生命永远定格在扶贫路上。她用青春和生命诠释了"把论文写在祖国大地上"的担当。</p><span class='theme-tag'>适用：奉献、担当、青春价值</span></div>
+<div class='material-item'><h4>2. 张桂梅与大山女孩</h4><p>身患重病仍坚持办学，帮助两千多名山区女孩走出大山。她说："我生来就是高山而非溪流。"</p><span class='theme-tag'>适用：奉献、教育、改变命运</span></div>
+<div class='material-item'><h4>3. 樊锦诗守护敦煌</h4><p>半个多世纪扎根大漠，守护莫高窟。她推动数字化保护，让千年壁画永存。坚守与创新并存，是文化传承的最佳注脚。</p><span class='theme-tag'>适用：坚守、文化传承、创新</span></div>
+</div>
+<div class='card'><h3>🏛️ 文化传承类</h3>
+<div class='material-item'><h4>1. 故宫的"年轻化"</h4><p>从文创产品到纪录片《我在故宫修文物》，六百年的紫禁城以全新面貌走进年轻人的生活。传承不是守旧，而是让传统以新的方式"活"在当下。</p><span class='theme-tag'>适用：文化创新、传承、守正出新</span></div>
+<div class='material-item'><h4>2. 李子柒的文化传播</h4><p>用短视频向世界展示中国乡村生活之美，让千万海外粉丝看到中国文化的诗意与温度。一个人，一部手机，架起了跨文化理解的桥梁。</p><span class='theme-tag'>适用：文化自信、传播、东方美学</span></div>
+<div class='material-item'><h4>3. 《只此青绿》出圈</h4><p>舞蹈诗剧《只此青绿》以宋代名画《千里江山图》为灵感，将传统山水意境转化为舞台艺术，在年轻人中引发热潮。它证明：传统文化不是博物馆里的陈列品，而是可以呼吸、可以舞动的活态遗产。</p><span class='theme-tag'>适用：文化创新、艺术、传统与现代</span></div>
+</div>
+<div class='card card-gold'><h3>🌍 时代思辨类</h3>
+<div class='material-item'><h4>1. 人工智能与人类价值</h4><p>当人工智能可以写文章、画画、编程，人类的价值在哪里？答案在于：人工智能可以生成，但无法创造意义；可以计算，但无法感受温度。人的不可替代性，恰恰在于那些"无用"的东西——情感、信仰、审美、道德。</p><span class='theme-tag'>适用：科技与人文、人的价值、思辨</span></div>
+<div class='material-item'><h4>2. "躺平"与"内卷"之间</h4><p>"躺平"是对无意义竞争的消极反抗，"内卷"是低效竞争的恶性循环。两者都是对"成功"定义的困境。真正的出路不是躺也不是卷，而是重新定义值得追求的目标——从"比别人好"转向"成为更好的自己"。</p><span class='theme-tag'>适用：青年选择、价值思辨、成长</span></div>
+<div class='material-item'><h4>3. "快"与"慢"的辩证</h4><p>高铁让千里变为咫尺，外卖让美食即刻送达。但在"快"的背后，我们是否失去了"慢"的能力——慢慢读一本书，慢慢陪一个人，慢慢做成一件事？快是效率，慢是品质，两者不是对立，而是互补。</p><span class='theme-tag'>适用：快与慢、效率与品质、生活态度</span></div>
+</div>
+<div class='card'><h3>🌟 青春成长类</h3>
+<div class='material-item'><h4>1. 航天团队的年轻人</h4><p>中国航天团队平均年龄仅33岁，一群"90后""00后"托起了大国重器。他们用青春书写星辰大海的壮丽篇章，证明：最好的青春，是把个人梦想融入时代洪流。</p><span class='theme-tag'>适用：青春担当、科技强国、个人与时代</span></div>
+<div class='material-item'><h4>2. "小镇做题家"的尊严</h4><p>有人嘲笑"小镇做题家"，但每一个从乡村走出来的学子，都值得尊重。他们用勤奋对抗不公，用知识改变命运。"做题"不是终点，而是起点——是在有限资源中竭尽全力的尊严。</p><span class='theme-tag'>适用：公平、奋斗、青春尊严</span></div>
+<div class='material-item'><h4>3. 志愿者的力量</h4><p>从抗震救灾到疫情防控，从社区服务到大型赛事，志愿者无处不在。他们不求回报，用行动诠释"无穷的远方，无数的人们，都和我有关"。微光汇聚，便是星河。</p><span class='theme-tag'>适用：奉献、责任、平凡力量</span></div>
+</div>
+</div>
+<div class='sub-content' id='s2_3'>
+<div class='card'><h3>🏔️ 志向/格局类</h3>
+<div class='material-item'><h4>1</h4><p>会当凌绝顶，一览众山小。——杜甫《望岳》</p><span class='theme-tag'>适用：志向、格局、登高望远</span></div>
+<div class='material-item'><h4>2</h4><p>长风破浪会有时，直挂云帆济沧海。——李白《行路难》</p><span class='theme-tag'>适用：信念、远大志向</span></div>
+<div class='material-item'><h4>3</h4><p>不畏浮云遮望眼，自缘身在最高层。——王安石《登飞来峰》</p><span class='theme-tag'>适用：格局、视野、高瞻远瞩</span></div>
+<div class='material-item'><h4>4</h4><p>少年心事当拿云，谁念幽寒坐呜呃。——李贺《致酒行》</p><span class='theme-tag'>适用：少年志气、进取精神</span></div>
+<div class='material-item'><h4>5</h4><p>大鹏一日同风起，扶摇直上九万里。——李白《上李邕》</p><span class='theme-tag'>适用：志向远大、乘风破浪</span></div>
+</div>
+<div class='card card-gold'><h3>⚖️ 思辨/哲理类</h3>
+<div class='material-item'><h4>1</h4><p>横看成岭侧成峰，远近高低各不同。——苏轼《题西林壁》</p><span class='theme-tag'>适用：多角度思考、认知差异</span></div>
+<div class='material-item'><h4>2</h4><p>沉舟侧畔千帆过，病树前头万木春。——刘禹锡《酬乐天扬州初逢席上见赠》</p><span class='theme-tag'>适用：新生事物、时代更替</span></div>
+<div class='material-item'><h4>3</h4><p>山重水复疑无路，柳暗花明又一村。——陆游《游山西村》</p><span class='theme-tag'>适用：转机、希望、坚持</span></div>
+<div class='material-item'><h4>4</h4><p>问渠那得清如许？为有源头活水来。——朱熹《观书有感》</p><span class='theme-tag'>适用：创新、传承、源头活水</span></div>
+<div class='material-item'><h4>5</h4><p>不识庐山真面目，只缘身在此山中。——苏轼《题西林壁》</p><span class='theme-tag'>适用：认知局限、跳出局内</span></div>
+<div class='material-item'><h4>6</h4><p>梅须逊雪三分白，雪却输梅一段香。——卢梅坡《雪梅》</p><span class='theme-tag'>适用：各有长短、辩证看待</span></div>
+</div>
+<div class='card'><h3>🔥 磨砺/坚持类</h3>
+<div class='material-item'><h4>1</h4><p>千磨万击还坚劲，任尔东西南北风。——郑燮《竹石》</p><span class='theme-tag'>适用：坚韧、不屈</span></div>
+<div class='material-item'><h4>2</h4><p>宝剑锋从磨砺出，梅花香自苦寒来。——佚名</p><span class='theme-tag'>适用：磨砺、成长</span></div>
+<div class='material-item'><h4>3</h4><p>长风破浪会有时，直挂云帆济沧海。——李白《行路难》</p><span class='theme-tag'>适用：坚持、信念</span></div>
+<div class='material-item'><h4>4</h4><p>粉骨碎身浑不怕，要留清白在人间。——于谦《石灰吟》</p><span class='theme-tag'>适用：气节、坚守</span></div>
+<div class='material-item'><h4>5</h4><p>咬定青山不放松，立根原在破岩中。——郑燮《竹石》</p><span class='theme-tag'>适用：扎根、坚守</span></div>
+</div>
+<div class='card card-gold'><h3>🏛️ 文化/传承类</h3>
+<div class='material-item'><h4>1</h4><p>江山代有才人出，各领风骚数百年。——赵翼《论诗》</p><span class='theme-tag'>适用：创新、人才更替</span></div>
+<div class='material-item'><h4>2</h4><p>落红不是无情物，化作春泥更护花。——龚自珍《己亥杂诗》</p><span class='theme-tag'>适用：奉献、传承</span></div>
+<div class='material-item'><h4>3</h4><p>桐花万里丹山路，雏凤清于老凤声。——李商隐《韩冬郎即席为诗相送》</p><span class='theme-tag'>适用：传承超越、青出于蓝</span></div>
+<div class='material-item'><h4>4</h4><p>等闲识得东风面，万紫千红总是春。——朱熹《春日》</p><span class='theme-tag'>适用：百花齐放、文化多样</span></div>
+</div>
+<div class='card card-green'><h3>⭐ 教研写作万能十二句古诗词<span class='method-tag'>教研方法</span></h3>
+<p style='font-size:13px;color:#3d5a35;margin-bottom:10px;'>教研写作精选十二句万能古诗词，覆盖高考作文最常见的十二个场景。熟练运用，考场上信手拈来，瞬间提升文章文采。</p>
+<div class='material-item'><h4>1. 开篇点题</h4><p>会当凌绝顶，一览众山小。——杜甫《望岳》</p><div class='usage-note'>用法：用在文章开头，以登高望远之势引出论点，气势恢宏。</div></div>
+<div class='material-item'><h4>2. 表达志向</h4><p>长风破浪会有时，直挂云帆济沧海。——李白《行路难》</p><div class='usage-note'>用法：写在表达远大志向或坚定信念的段落，豪迈有力。</div></div>
+<div class='material-item'><h4>3. 辩证思考</h4><p>横看成岭侧成峰，远近高低各不同。——苏轼《题西林壁》</p><div class='usage-note'>用法：写在辩证分析段落，引出多角度思考的观点。</div></div>
+<div class='material-item'><h4>4. 新旧更替</h4><p>沉舟侧畔千帆过，病树前头万木春。——刘禹锡《酬乐天扬州初逢席上见赠》</p><div class='usage-note'>用法：写在论述时代变迁、新生事物不可阻挡的段落。</div></div>
+<div class='material-item'><h4>5. 创新传承</h4><p>问渠那得清如许？为有源头活水来。——朱熹《观书有感》</p><div class='usage-note'>用法：写在论述传承与创新关系的段落，点明"源头活水"的重要性。</div></div>
+<div class='material-item'><h4>6. 坚韧不拔</h4><p>千磨万击还坚劲，任尔东西南北风。——郑燮《竹石》</p><div class='usage-note'>用法：写在论述坚守与韧性的段落，以竹喻人。</div></div>
+<div class='material-item'><h4>7. 奉献传承</h4><p>落红不是无情物，化作春泥更护花。——龚自珍《己亥杂诗》</p><div class='usage-note'>用法：写在论述奉献精神或文化传承的段落，含蓄深情。</div></div>
+<div class='material-item'><h4>8. 青出于蓝</h4><p>桐花万里丹山路，雏凤清于老凤声。——李商隐《韩冬郎即席为诗相送》</p><div class='usage-note'>用法：用在文章结尾，表达"后来者超越前人"的主题，适合传承、成长类文章收尾。</div></div>
+<div class='material-item'><h4>9. 格局视野</h4><p>不畏浮云遮望眼，自缘身在最高层。——王安石《登飞来峰》</p><div class='usage-note'>用法：写在论述格局与视野的段落，表达高瞻远瞩的境界。</div></div>
+<div class='material-item'><h4>10. 转机希望</h4><p>山重水复疑无路，柳暗花明又一村。——陆游《游山西村》</p><div class='usage-note'>用法：写在论述困境中看到希望的段落，充满转折的力量。</div></div>
+<div class='material-item'><h4>11. 实践真知</h4><p>纸上得来终觉浅，绝知此事要躬行。——陆游《冬夜读书示子聿》</p><div class='usage-note'>用法：写在论述知行合一、实践重要性的段落。</div></div>
+<div class='material-item'><h4>12. 收尾升华</h4><p>大鹏一日同风起，扶摇直上九万里。——李白《上李邕》</p><div class='usage-note'>用法：用在文章结尾，以大鹏展翅之势收束全文，余味无穷。</div></div>
+</div>
+</div>
+<div class='sub-content' id='s2_4'>
+<div class='card card-green'><h3>🧠 一例多吃法：同一素材，多角度运用<span class='method-tag'>教研方法</span></h3>
+<p style='font-size:13px;color:#3d5a35;margin-bottom:14px;'>教研写作提出"一例多吃法"——同一个素材从不同角度解读，适配不同主题。考前准备5-8个万能素材，每个想好3个角度，考场上灵活应对任何题目。</p>
+<div class='one-example-box'>
+<h4>素材一：樊锦诗守护敦煌</h4>
+<p style='font-size:13px;color:#3d3530;margin-bottom:8px;'>素材概述：北大毕业后扎根大漠半个多世纪，守护莫高窟，推动"数字敦煌"工程。</p>
+<div class='angle-item'>
+<div class='angle-title'>角度一：坚守（主题：坚守与传承）</div>
+<p>大漠风沙半个世纪，她从青丝到白发，守的不是一间洞窟，而是中华文明的根脉。真正的坚守，不是没有选择，而是在万千选择中始终如一。</p>
+</div>
+<div class='angle-item'>
+<div class='angle-title'>角度二：创新（主题：守正创新）</div>
+<p>她没有只做"看门人"，而是推动数字化保护，让千年壁画在虚拟世界永生。守正是守根脉，创新是谋未来——她用行动证明：最好的传承，是让传统"活"在当下。</p>
+</div>
+<div class='angle-item'>
+<div class='angle-title'>角度三：选择（主题：人生选择与价值）</div>
+<p>北大毕业，她本可留在北京，却选择了大漠。这个选择不是牺牲，而是另一种获得——在守护文明的过程中，她也成就了自己。人生的价值，不在于选择了什么，而在于为什么选择。</p>
+</div>
+</div>
+<div class='one-example-box'>
+<h4>素材二：苏炳添突破9秒83</h4>
+<p style='font-size:13px;color:#3d3530;margin-bottom:8px;'>素材概述：32岁仍坚持训练，在东京奥运会上跑出9秒83，成为首位闯入奥运百米决赛的亚洲人。</p>
+<div class='angle-item'>
+<div class='angle-title'>角度一：突破（主题：突破自我/打破极限）</div>
+<p>多年来，"亚洲人百米跑不进10秒"像一道无形的墙。苏炳添用9秒83击碎了这堵墙。他突破的不只是数字，更是偏见和自我设限。真正的对手从来不是别人，而是那个告诉自己"你不行"的声音。</p>
+</div>
+<div class='angle-item'>
+<div class='angle-title'>角度二：科学（主题：科学精神/方法论）</div>
+<p>苏炳添的突破不只靠汗水，更靠科学——他改变起跑脚、优化步频步幅、用数据指导训练。这告诉我们：努力是基础，科学是杠杆。蛮干不如巧干，苦练还要智练。</p>
+</div>
+<div class='angle-item'>
+<div class='angle-title'>角度三：年龄（主题：年龄与可能/不服老）</div>
+<p>32岁对短跑运动员已是"高龄"，但苏炳添用行动证明：年龄不是天花板，心态才是。真正限制我们的，从来不是数字，而是对数字的恐惧。</p>
+</div>
+</div>
+<div class='one-example-box'>
+<h4>素材三：人工智能的崛起</h4>
+<p style='font-size:13px;color:#3d3530;margin-bottom:8px;'>素材概述：智能聊天机器人等人工智能工具的普及，引发关于技术、就业、教育的广泛讨论。</p>
+<div class='angle-item'>
+<div class='angle-title'>角度一：人的价值（主题：人的不可替代性）</div>
+<p>人工智能可以写文章、画画、编程，但它无法替代人的情感体验、价值判断和创造意义。人的不可替代性，恰恰在于那些"无用"的东西——爱、信仰、审美、道德。</p>
+</div>
+<div class='angle-item'>
+<div class='angle-title'>角度二：思辨（主题：技术的双刃剑）</div>
+<p>技术带来便利，也带来焦虑；带来效率，也带来疏离。关键不在于技术本身，而在于人如何驾驭技术。工具是中性的，善恶取决于握工具的手。</p>
+</div>
+<div class='angle-item'>
+<div class='angle-title'>角度三：教育（主题：教育的本质/未来教育）</div>
+<p>当人工智能可以瞬间给出答案，教育的重心必须从"记答案"转向"提问题"。真正的学习，不是积累知识，而是培养判断力、创造力和人文素养。</p>
+</div>
+</div>
+</div>
+</div>
+<div class='sub-content' id='s2_5'>
+<div class='card card-green'><h3>⭐ 2026高考适用新鲜素材<span class='method-tag'>紧跟命题趋势</span></h3>
+<p style='font-size:13px;color:#3d5a35;margin-bottom:14px;'>根据2026年高考命题趋势——情境化、思辨化、生活化，紧扣立德树人，围绕文化传承、青年成长、科技人文、价值思辨，以下新鲜素材紧贴时代脉搏。</p>
+<div class='card'><h3>🤖 人工智能与人文</h3>
+<div class='material-item'><h4>1. 人工智能时代的"人的追问"</h4><p>当人工智能可以一键生成文章、画作、代码，"人"的价值在哪里？答案在于：人工智能可以生成内容，但无法创造意义；可以模仿情感，但无法真正感受。在人工智能时代，人文教育不是奢侈品，而是必需品——它教我们成为"人"而非"工具"。</p><span class='theme-tag'>适用：科技与人文、人的价值、教育本质</span></div>
+<div class='material-item'><h4>2. 人工智能与"提问"的复兴</h4><p>人工智能时代，获取答案变得前所未有的容易，但提出好问题却变得前所未有的重要。爱因斯坦说"提出一个问题往往比解决一个问题更重要"——这句话在今天有了新的意义。未来的核心竞争力，不是记忆力，而是提问力。</p><span class='theme-tag'>适用：创新思维、教育变革、提问的力量</span></div>
+<div class='material-item'><h4>3. 算法与选择</h4><p>算法推荐让信息获取变得精准，但也让我们的视野变得越来越窄——我们看到的，都是算法"认为"我们想看的。在"信息茧房"中，我们以为自己在选择，其实是在被选择。真正的自由，是跳出算法的牢笼，主动寻找不同的声音。</p><span class='theme-tag'>适用：自由与选择、信息茧房、独立思考</span></div>
+</div>
+<div class='card card-gold'><h3>🌏 时代之变</h3>
+<div class='material-item'><h4>1. "词语之变"与时代印记</h4><p>2026年高考（全国I卷）关注"对一个词语理解的变化"，体现成长印记，关联时代之变。比如"成功"——从"出人头地"到"活出自我"；"奋斗"——从"改变命运"到"实现价值"；"幸福"——从"拥有更多"到"成为更好"。词语的变化，折射的是时代精神和价值观念的变迁。</p><span class='theme-tag'>适用：2026高考、词语理解、时代变迁</span></div>
+<div class='material-item'><h4>2. 人类命运共同体</h4><p>气候变化、公共卫生、人工智能治理——这些挑战没有国界。在"无穷的远方，无数的人们，都和我有关"的今天，"独善其身"已不再是可行的选项。人类命运共同体不是口号，而是生存的必然。</p><span class='theme-tag'>适用：人类命运、责任担当、全球视野</span></div>
+<div class='material-item'><h4>3. "国潮"与文化自信</h4><p>从汉服热到国货崛起，从《只此青绿》到《长安三万里》，"国潮"不只是消费趋势，更是文化自信的体现。年轻人不再盲目追捧西方品牌，而是主动拥抱中国文化——这是文化自觉，也是文化自信。</p><span class='theme-tag'>适用：文化自信、传承创新、青年选择</span></div>
+</div>
+<div class='card'><h3>🌱 青年成长</h3>
+<div class='material-item'><h4>1. "内卷"与"躺平"之外</h4><p>"内卷"是低效竞争的恶性循环，"躺平"是对无意义竞争的消极反抗。但青年需要的不是卷也不是躺，而是找到真正值得奋斗的方向。从"比别人好"转向"成为更好的自己"，这是更健康、更可持续的成长观。</p><span class='theme-tag'>适用：青年选择、价值思辨、成长方向</span></div>
+<div class='material-item'><h4>2. 航天团队的"90后"</h4><p>中国航天团队平均年龄33岁，文昌发射场的指挥大厅里坐满了年轻面孔。他们用青春托举大国重器，把个人梦想融入星辰大海。这是最好的青春——不是追逐流量，而是追逐星辰。</p><span class='theme-tag'>适用：青春担当、科技强国、个人与时代</span></div>
+<div class='material-item'><h4>3. "数字游民"与新生活方式</h4><p>越来越多的年轻人选择成为"数字游民"——带着电脑，边旅行边工作。这不仅是工作方式的改变，更是生活哲学的重构：工作不是生活的全部，自由不是逃避的借口。在流动中寻找安顿，在变化中保持自我。</p><span class='theme-tag'>适用：生活方式、自由与责任、青年选择</span></div>
+</div>
+<div class='card card-gold'><h3>🔥 考场万能素材包</h3>
+<p style='font-size:13px;color:#8a6a20;margin-bottom:10px;'>以下素材均可"一例多吃"，考场临时调用，适配多种主题。建议考前背熟3-5个，灵活变换角度。</p>
+<div class='material-item'><h4>万能素材一：敦煌的女儿樊锦诗</h4><p>北大毕业，扎根大漠半个多世纪，守护莫高窟，推动数字化保护。"我躺下是敦煌，醒来还是敦煌。"</p><span class='theme-tag'>适配主题：坚守与传承（守根脉）、创新保护（守正创新）、人生选择（价值与意义）、文化自信（文明传承）、奉献精神（舍与得）</span></div>
+<div class='material-item'><h4>万能素材二：苏炳添的9秒83</h4><p>32岁突破身体极限，用科学训练改写亚洲速度。"我跑的每一步，都在为后来者铺路。"</p><span class='theme-tag'>适配主题：突破自我（打破极限）、科学精神（巧干胜苦干）、坚持信念（年龄不是天花板）、民族自信（中国速度）、传承接力（为后来者铺路）</span></div>
+<div class='material-item'><h4>万能素材三：张桂梅与大山女孩</h4><p>身患重病仍坚持办学，帮助两千多名山区女孩走出大山。"我生来就是高山而非溪流。"</p><span class='theme-tag'>适配主题：奉献担当（教育扶贫）、改变命运（知识的力量）、坚韧不屈（与病魔抗争）、女性力量（独立自强）、初心使命（教育的本质）</span></div>
+<div class='material-item'><h4>万能素材四：人工智能的崛起</h4><p>人工智能可以生成文章、画画、编程，引发关于人的价值、教育本质、技术伦理的深刻讨论。</p><span class='theme-tag'>适配主题：科技与人文（人的不可替代性）、教育变革（从记答案到提问题）、技术双刃剑（便利与风险）、创新思维（提问力）、未来展望（人机协作）</span></div>
+<div class='material-item'><h4>万能素材五：《只此青绿》出圈</h4><p>以宋代名画为灵感的舞蹈诗剧，让千年文化在舞台上复活，引发年轻人对传统文化的热情。</p><span class='theme-tag'>适配主题：文化创新（传统现代表达）、文化自信（拥抱传统）、审美教育（艺术的力量）、传承发展（让传统"活"在当下）、青年选择（主动拥抱文化）</span></div>
+</div>
+</div>
+</div>
+<!-- Module 4: Practice -->
+<div class='module' id='mod3'>
+<div id='practiceList'></div>
+</div>
+<!-- Module 5: Self Evaluation -->
+<div class='module' id='mod4'>
+<div class='eval-section'>
+<h3>🤖 一键智能分析（对标高考60分制）</h3>
+<p style='font-size:13px;color:#3d3530;margin-bottom:12px;'>将你的作文粘贴到下方文本框，点击"智能分析"按钮，系统将从内容（20分）、表达（20分）、发展等级（深刻5分+丰富5分+文采5分+创意5分=20分）六个维度进行评分，总分为60分，并生成针对性提升建议。</p>
+<textarea class='eval-textarea' id='essayInput' placeholder='在此粘贴你的作文全文...'></textarea>
+<div class='char-count' id='charCount'>已输入 0 字</div>
+<div style='text-align:center;margin-top:14px;'>
+<button class='ai-analysis-btn' onclick='analyzeEssay()'>🔍 智能分析</button>
+</div>
+<div id='aiAnalysisResult'></div>
+</div>
+<div class='eval-section'>
+<h3>✋ 手动评分（对标高考评分标准）</h3>
+<p style='font-size:13px;color:#3d3530;margin-bottom:14px;'>对照高考评分标准，手动选择各维度得分。总分=内容+表达+发展等级=60分。</p>
+<div class='dim-row'>
+<span class='dim-label'>内容(20分)</span>
+<div class='dim-btns'>
+<button class='dim-btn' data-dim='neirong' data-score='20' onclick='selectDim(this)'>20 一等</button>
+<button class='dim-btn' data-dim='neirong' data-score='18' onclick='selectDim(this)'>18</button>
+<button class='dim-btn' data-dim='neirong' data-score='16' onclick='selectDim(this)'>16 二等</button>
+<button class='dim-btn' data-dim='neirong' data-score='14' onclick='selectDim(this)'>14</button>
+<button class='dim-btn' data-dim='neirong' data-score='12' onclick='selectDim(this)'>12</button>
+<button class='dim-btn' data-dim='neirong' data-score='10' onclick='selectDim(this)'>10 三等</button>
+<button class='dim-btn' data-dim='neirong' data-score='8' onclick='selectDim(this)'>8</button>
+<button class='dim-btn' data-dim='neirong' data-score='6' onclick='selectDim(this)'>6 四等</button>
+<button class='dim-btn' data-dim='neirong' data-score='4' onclick='selectDim(this)'>4</button>
+<button class='dim-btn' data-dim='neirong' data-score='2' onclick='selectDim(this)'>2</button>
+</div>
+</div>
+<div class='dim-row'>
+<span class='dim-label'>表达(20分)</span>
+<div class='dim-btns'>
+<button class='dim-btn' data-dim='biaoda' data-score='20' onclick='selectDim(this)'>20 一等</button>
+<button class='dim-btn' data-dim='biaoda' data-score='18' onclick='selectDim(this)'>18</button>
+<button class='dim-btn' data-dim='biaoda' data-score='16' onclick='selectDim(this)'>16 二等</button>
+<button class='dim-btn' data-dim='biaoda' data-score='14' onclick='selectDim(this)'>14</button>
+<button class='dim-btn' data-dim='biaoda' data-score='12' onclick='selectDim(this)'>12</button>
+<button class='dim-btn' data-dim='biaoda' data-score='10' onclick='selectDim(this)'>10 三等</button>
+<button class='dim-btn' data-dim='biaoda' data-score='8' onclick='selectDim(this)'>8</button>
+<button class='dim-btn' data-dim='biaoda' data-score='6' onclick='selectDim(this)'>6 四等</button>
+<button class='dim-btn' data-dim='biaoda' data-score='4' onclick='selectDim(this)'>4</button>
+<button class='dim-btn' data-dim='biaoda' data-score='2' onclick='selectDim(this)'>2</button>
+</div>
+</div>
+<div class='dim-row'>
+<span class='dim-label'>深刻(5分)</span>
+<div class='dim-btns'>
+<button class='dim-btn' data-dim='shenke' data-score='5' onclick='selectDim(this)'>5</button>
+<button class='dim-btn' data-dim='shenke' data-score='4' onclick='selectDim(this)'>4</button>
+<button class='dim-btn' data-dim='shenke' data-score='3' onclick='selectDim(this)'>3</button>
+<button class='dim-btn' data-dim='shenke' data-score='2' onclick='selectDim(this)'>2</button>
+<button class='dim-btn' data-dim='shenke' data-score='1' onclick='selectDim(this)'>1</button>
+<button class='dim-btn' data-dim='shenke' data-score='0' onclick='selectDim(this)'>0</button>
+</div>
+</div>
+<div class='dim-row'>
+<span class='dim-label'>丰富(5分)</span>
+<div class='dim-btns'>
+<button class='dim-btn' data-dim='fengfu' data-score='5' onclick='selectDim(this)'>5</button>
+<button class='dim-btn' data-dim='fengfu' data-score='4' onclick='selectDim(this)'>4</button>
+<button class='dim-btn' data-dim='fengfu' data-score='3' onclick='selectDim(this)'>3</button>
+<button class='dim-btn' data-dim='fengfu' data-score='2' onclick='selectDim(this)'>2</button>
+<button class='dim-btn' data-dim='fengfu' data-score='1' onclick='selectDim(this)'>1</button>
+<button class='dim-btn' data-dim='fengfu' data-score='0' onclick='selectDim(this)'>0</button>
+</div>
+</div>
+<div class='dim-row'>
+<span class='dim-label'>文采(5分)</span>
+<div class='dim-btns'>
+<button class='dim-btn' data-dim='wencai' data-score='5' onclick='selectDim(this)'>5</button>
+<button class='dim-btn' data-dim='wencai' data-score='4' onclick='selectDim(this)'>4</button>
+<button class='dim-btn' data-dim='wencai' data-score='3' onclick='selectDim(this)'>3</button>
+<button class='dim-btn' data-dim='wencai' data-score='2' onclick='selectDim(this)'>2</button>
+<button class='dim-btn' data-dim='wencai' data-score='1' onclick='selectDim(this)'>1</button>
+<button class='dim-btn' data-dim='wencai' data-score='0' onclick='selectDim(this)'>0</button>
+</div>
+</div>
+<div class='dim-row'>
+<span class='dim-label'>创意(5分)</span>
+<div class='dim-btns'>
+<button class='dim-btn' data-dim='chuangyi' data-score='5' onclick='selectDim(this)'>5</button>
+<button class='dim-btn' data-dim='chuangyi' data-score='4' onclick='selectDim(this)'>4</button>
+<button class='dim-btn' data-dim='chuangyi' data-score='3' onclick='selectDim(this)'>3</button>
+<button class='dim-btn' data-dim='chuangyi' data-score='2' onclick='selectDim(this)'>2</button>
+<button class='dim-btn' data-dim='chuangyi' data-score='1' onclick='selectDim(this)'>1</button>
+<button class='dim-btn' data-dim='chuangyi' data-score='0' onclick='selectDim(this)'>0</button>
+</div>
+</div>
+<div class='hidden' id='evalResult'></div>
+</div>
+<div class='checklist-box'>
+<h3>✅ 高考评分细则自查清单</h3>
+<div class='checklist-item' onclick='toggleCheck(this)'>
+<input type='checkbox'><span class='ci-label'>中心论点明确，开篇即提出，不绕圈子<span class='ci-hint'>阅卷老师90秒定生死，开头必须迅速亮明观点</span></span>
+</div>
+<div class='checklist-item' onclick='toggleCheck(this)'>
+<input type='checkbox'><span class='ci-label'>分论点设置合理，呈并列或递进关系<span class='ci-hint'>3个分论点最佳，段首句是路标</span></span>
+</div>
+<div class='checklist-item' onclick='toggleCheck(this)'>
+<input type='checkbox'><span class='ci-label'>论据新鲜典型，避免陈旧素材<span class='ci-hint'>慎用司马迁、屈原等老素材，多用时代先锋</span></span>
+</div>
+<div class='checklist-item' onclick='toggleCheck(this)'>
+<input type='checkbox'><span class='ci-label'>叙议结合，不只摆素材不分析<span class='ci-hint'>叙述素材不超过3句，重点在分析论证</span></span>
+</div>
+<div class='checklist-item' onclick='toggleCheck(this)'>
+<input type='checkbox'><span class='ci-label'>有辩证段落，展现全面思考<span class='ci-hint'>发展等级"深刻"的核心要求，用让步说理</span></span>
+</div>
+<div class='checklist-item' onclick='toggleCheck(this)'>
+<input type='checkbox'><span class='ci-label'>联系现实，体现时代意义<span class='ci-hint'>紧扣立德树人，关联青年成长、文化传承等</span></span>
+</div>
+<div class='checklist-item' onclick='toggleCheck(this)'>
+<input type='checkbox'><span class='ci-label'>结构完整，建议使用黄金七段式<span class='ci-hint'>开头-分论点1-2-3-辩证-联系现实-结尾</span></span>
+</div>
+<div class='checklist-item' onclick='toggleCheck(this)'>
+<input type='checkbox'><span class='ci-label'>语言通顺流畅，无大量语病<span class='ci-hint'>基础等级"表达"的基本要求</span></span>
+</div>
+<div class='checklist-item' onclick='toggleCheck(this)'>
+<input type='checkbox'><span class='ci-label'>善用修辞，提升文采<span class='ci-hint'>发展等级"文采"要求：比喻、排比、化用诗词</span></span>
+</div>
+<div class='checklist-item' onclick='toggleCheck(this)'>
+<input type='checkbox'><span class='ci-label'>字数在850-950字之间<span class='ci-hint'>不足800字每少50字扣1分，最佳区间850-950</span></span>
+</div>
+<div class='checklist-item' onclick='toggleCheck(this)'>
+<input type='checkbox'><span class='ci-label'>结尾升华有力，不喊口号<span class='ci-hint'>结尾要简洁有力，余味悠长，切忌空喊口号</span></span>
+</div>
+<div class='checklist-item' onclick='toggleCheck(this)'>
+<input type='checkbox'><span class='ci-label'>卷面整洁，字迹工整<span class='ci-hint'>双评制下卷面影响被放大，好卷面=两个老师都加分</span></span>
+</div>
+</div>
+<div class='pitfall-box'>
+<h3>⚠️ 高考常见失分警示</h3>
+<div class='pitfall-item'><span class='pi-num'>1</span><span><strong>偏离题意（致命伤）：</strong>总分不超过42分。审题时务必抓住材料核心词，立意要紧扣材料，不跑题不偏题。</span></div>
+<div class='pitfall-item'><span class='pi-num'>2</span><span><strong>字数不足：</strong>不足800字每少50字扣1分（最多扣5分）；不足400字直接20分以下；不足200字10分以下。</span></div>
+<div class='pitfall-item'><span class='pi-num'>3</span><span><strong>缺标题：</strong>扣2分。标题是第一印象，缺标题让阅卷老师觉得不够认真。</span></div>
+<div class='pitfall-item'><span class='pi-num'>4</span><span><strong>套作/抄袭：</strong>基础等级三等以下，发展等级不给分。背范文上考场是最危险的策略。</span></div>
+<div class='pitfall-item'><span class='pi-num'>5</span><span><strong>错别字：</strong>每1个扣1分，重复不计，最多扣5分。常见易错字要特别注意。</span></div>
+<div class='pitfall-item'><span class='pi-num'>6</span><span><strong>只摆素材不分析：</strong>"摆素材不分析"是阅卷老师最反感的写法之一。每个素材后必须有分析论证。</span></div>
+<div class='pitfall-item'><span class='pi-num'>7</span><span><strong>结构混乱：</strong>没有分论点，段落不分，想到哪写到哪。双评制下结构混乱的作文分差最大。</span></div>
+<div class='pitfall-item'><span class='pi-num'>8</span><span><strong>结尾喊口号：</strong>"让我们携手共创美好明天"——这种空洞的口号式结尾是最常见的失分点。</span></div>
+<div class='pitfall-item'><span class='pi-num'>9</span><span><strong>陈旧素材堆砌：</strong>司马迁、屈原、李白——这些素材阅卷老师已经看了无数遍，无法体现你的独特思考。</span></div>
+<div class='pitfall-item'><span class='pi-num'>10</span><span><strong>语言平淡无文采：</strong>通篇大白话，没有修辞，没有引用，发展等级"文采"直接失分。</span></div>
+</div>
+</div>
+<!-- Module 6: Formula Cards -->
+<div class='module' id='mod5'>
+<div class='formula-grid'>
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>📐</div>
+<div class='ff-title'>黄金七段式</div>
+<div class='ff-subtitle'>高考议论文最佳结构</div>
+<div class='ff-brief'>开头引题→分论点1→分论点2→分论点3→辩证过渡→联系现实→结尾升华。总字数850-950字，结构清晰，阅卷老师90秒内可把握全文脉络。</div>
+<div class='ff-hint'>点击翻转查看详细步骤 →</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>黄金七段式详解</div>
+<div class='fb-step'><span class='fb-step-title'>第一段·开头引题（80-100字）</span>引述材料或现象，亮明中心论点。简洁有力，不绕圈子。</div>
+<div class='fb-step'><span class='fb-step-title'>第二至四段·分论点（各150-180字）</span>三个分论点构成论证体系，可并列或递进。每段段首句是路标。</div>
+<div class='fb-step'><span class='fb-step-title'>第五段·辩证过渡（80-100字）</span>对前文论述进行辩证思考，展现思维全面性。发展等级"深刻"的关键段。</div>
+<div class='fb-step'><span class='fb-step-title'>第六段·联系现实（100-120字）</span>将论述与现实生活、时代背景联系，体现文章现实意义。紧扣立德树人。</div>
+<div class='fb-step'><span class='fb-step-title'>第七段·结尾升华（80-100字）</span>总结全文，升华主旨。简洁有力，余味悠长。</div>
+<div class='fb-hint'>总字数约850-950字，在高考最佳字数区间内</div>
+</div>
+</div>
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>⏱️</div>
+<div class='ff-title'>90秒定生死法则</div>
+<div class='ff-subtitle'>阅卷策略核心</div>
+<div class='ff-brief'>卷面3秒定基调，前两段15秒决定生死，每段首句是路标。必须在最短时间内向阅卷老师证明"这篇值得高分"。</div>
+<div class='ff-hint'>点击翻转查看应对策略 →</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>90秒定生死应对策略</div>
+<div class='fb-step'><span class='fb-step-title'>3秒·卷面定调</span>字迹工整、卷面整洁、段落分明。双评制下第一印象几乎一致地决定分数区间。</div>
+<div class='fb-step'><span class='fb-step-title'>15秒·开头定生死</span>开头迅速入题，亮明观点。切忌绕圈子、抄材料。好开头让阅卷老师瞬间抓住立意和水平。</div>
+<div class='fb-step'><span class='fb-step-title'>全程·段首路标</span>每段第一句话就是路标，告诉阅卷老师"这段在说什么"。段首句要精炼、有力、有观点。</div>
+<div class='fb-example'>示例段首句：①坚守，是对初心的忠诚。②创新，是对未来的拥抱。③坚守与创新并非对立，而是传承与发展的统一。</div>
+</div>
+</div>
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>🛡️</div>
+<div class='ff-title'>切入分42保底法</div>
+<div class='ff-subtitle'>三基本·不丢分</div>
+<div class='ff-brief'>达到"三基本"——中心基本明确、结构基本完整、语言基本通顺——即可获得切入分42分。低于42分意味着明显问题。</div>
+<div class='ff-hint'>点击翻转查看保底策略 →</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>42分保底到55+提升路径</div>
+<div class='fb-step'><span class='fb-step-title'>保底42分·三基本</span>①中心基本明确：有论点，不跑题。②结构基本完整：有开头主体结尾。③语言基本通顺：无大量语病。</div>
+<div class='fb-step'><span class='fb-step-title'>42→48分·发展突破一项</span>在深刻/丰富/文采/创意中任选一项突出。"不求全面，一点突出即可给满分"。</div>
+<div class='fb-step'><span class='fb-step-title'>48→52分·发展突破两项</span>基础等级达到一等，发展等级两项突出。</div>
+<div class='fb-step'><span class='fb-step-title'>52→55+分·全面优秀</span>基础一等+发展两项突出+卷面优秀+立意深刻。</div>
+<div class='fb-step'><span class='fb-step-title'>55→58+分·一类文</span>立意深刻，文采斐然，构思精巧，卷面完美。</div>
+</div>
+</div>
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>⚖️</div>
+<div class='ff-title'>辩证论证法</div>
+<div class='ff-subtitle'>发展等级·深刻</div>
+<div class='ff-brief'>正反辩证、条件辩证、发展辩证——从多个维度思考问题。让步说理："诚然……然而……"以退为进，增强说服力。</div>
+<div class='ff-hint'>点击翻转查看操作步骤 →</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>辩证论证操作步骤</div>
+<div class='fb-step'><span class='fb-step-title'>步骤一·正反辩证</span>既看到利也看到弊。科技带来便利，也带来隐私风险和人际疏离。</div>
+<div class='fb-step'><span class='fb-step-title'>步骤二·条件辩证</span>指出观点的成立条件。"坚持就是胜利"在方向正确时是真理，方向错误时是灾难。</div>
+<div class='fb-step'><span class='fb-step-title'>步骤三·发展辩证</span>用变化的眼光看问题。今天的优势可能是明天的劣势，今天的困境可能是明天的机遇。</div>
+<div class='fb-step'><span class='fb-step-title'>步骤四·让步说理</span>先承认对方合理（诚然…），再指出局限（然而…），最后提出更高认识。</div>
+<div class='fb-example'>示例：诚然，追求效率是现代社会的法则。然而，当效率成为唯一标尺，我们是否失去了"慢"的能力？</div>
+</div>
+</div>
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>📝</div>
+<div class='ff-title'>材料审题五步法</div>
+<div class='ff-subtitle'>破题立意核心</div>
+<div class='ff-brief'>通读抓主旨→圈词找关系→多角度立意→联系现实→列提纲定结构。5分钟决定生死，是考场作文最关键的5分钟。</div>
+<div class='ff-hint'>点击翻转查看详细步骤 →</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>材料审题五步详解</div>
+<div class='fb-step'><span class='fb-step-title'>第一步·通读抓主旨</span>快速通读2-3遍，一句话概括材料核心意思。方向错了文笔再好也三类文以下。</div>
+<div class='fb-step'><span class='fb-step-title'>第二步·圈词找关系</span>圈出关键词，分析关系（因果/递进/对比/并列），关系暗示立意方向。</div>
+<div class='fb-step'><span class='fb-step-title'>第三步·多角度立意</span>提出2-3个立意，比较哪个更新颖有深度。反模板，独特角度是加分项。</div>
+<div class='fb-step'><span class='fb-step-title'>第四步·联系现实</span>与当代社会、青年成长、文化传承联系，确保有现实意义。紧扣立德树人。</div>
+<div class='fb-step'><span class='fb-step-title'>第五步·列提纲</span>2分钟列提纲：开头怎么引出、分论点怎么设、用什么素材、结尾怎么升华。</div>
+</div>
+</div>
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>🔄</div>
+<div class='ff-title'>一例多吃法</div>
+<div class='ff-subtitle'>素材高效运用</div>
+<div class='ff-brief'>同一素材从不同角度解读，适配不同主题。考前准备5-8个万能素材，每个想好3个角度，考场灵活调用。</div>
+<div class='ff-hint'>点击翻转查看操作方法 →</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>一例多吃操作方法</div>
+<div class='fb-step'><span class='fb-step-title'>第一步·选素材</span>选择具有多义性的素材——人物（樊锦诗/苏炳添）、事件（人工智能崛起/国潮热）、现象（内卷/躺平）。</div>
+<div class='fb-step'><span class='fb-step-title'>第二步·想角度</span>每个素材想3个角度。如樊锦诗：坚守/创新/选择；苏炳添：突破/科学/年龄。</div>
+<div class='fb-step'><span class='fb-step-title'>第三步·写段落</span>为每个角度写一段100字左右的论证段落，考前背熟。</div>
+<div class='fb-step'><span class='fb-step-title'>第四步·考场调用</span>看到题目后，快速匹配素材和角度，灵活变换表述。</div>
+<div class='fb-example'>示例：樊锦诗→坚守角度："大漠半个世纪，守的是文明根脉。"→创新角度："推动数字化，让传统活在当下。"</div>
+</div>
+</div>
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>📋</div>
+<div class='ff-title'>双评制应对法</div>
+<div class='ff-subtitle'>稳定得分策略</div>
+<div class='ff-brief'>双评制：两位老师独立评分，分差≤8分取平均，超过则三评。文章要"经得起两个不同老师的检验"。</div>
+<div class='ff-hint'>点击翻转查看应对策略 →</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>双评制应对策略</div>
+<div class='fb-step'><span class='fb-step-title'>策略一·立意要"稳"</span>不走偏锋立意。过于小众或争议性大，两个老师可能给出差异很大的分数。稳妥立意+独特角度=高分保障。</div>
+<div class='fb-step'><span class='fb-step-title'>策略二·结构要"明"</span>结构清晰的文章，任何老师都能快速把握脉络，给出接近的分数。结构混乱的作文分差最大。</div>
+<div class='fb-step'><span class='fb-step-title'>策略三·卷面要"好"</span>双评制下卷面影响被放大。两个老师对卷面的印象趋于一致，好卷面=两个老师都加分。</div>
+<div class='fb-step'><span class='fb-step-title'>策略四·论据要"新"</span>两个老师看到同样的陈旧素材会给出接近的低分，看到同样的新鲜素材会给出接近的高分。</div>
+</div>
+</div>
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>🎨</div>
+<div class='ff-title'>文采提升法</div>
+<div class='ff-subtitle'>发展等级·文采</div>
+<div class='ff-brief'>用词贴切·句式灵活·善用修辞·文句有表现力。不需要全文华丽，关键段落出彩即可。化用诗词是最有效的文采提升手段。</div>
+<div class='ff-hint'>点击翻转查看具体方法 →</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>文采提升四法</div>
+<div class='fb-step'><span class='fb-step-title'>方法一·化用诗词</span>将古诗词意境化入自己的语言。如"人生何处不青山"，化用"青山"意象表达人生境遇。</div>
+<div class='fb-step'><span class='fb-step-title'>方法二·长短交替</span>长句深入说理，短句强调抒情。长短交替形成文章节奏感。</div>
+<div class='fb-step'><span class='fb-step-title'>方法三·排比造势</span>用排比句增强气势。"坚守，是对初心的忠诚；坚守，是对信念的执着；坚守，是对时间最有力的回答。"</div>
+<div class='fb-step'><span class='fb-step-title'>方法四·比喻具象</span>用比喻将抽象道理具象化。"文化传承不是将灰烬装进瓶子，而是将火焰传递下去。"</div>
+<div class='fb-example'>对比：普通"科技发展快"→文采"科技的巨轮碾过旧时光的辙痕，把生活推入未知的航道"</div>
+</div>
+</div>
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>💡</div>
+<div class='ff-title'>创意突破法</div>
+<div class='ff-subtitle'>发展等级·创意</div>
+<div class='ff-brief'>见解新颖·材料新鲜·构思精巧·有个性特征。创意不是标新立异，而是提供新颖的思考角度。高考反模板，独特性是高分密码。</div>
+<div class='ff-hint'>点击翻转查看突破技巧 →</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>创意突破四技巧</div>
+<div class='fb-step'><span class='fb-step-title'>技巧一·反向思考</span>从反面或对立面切入。别人说"坚持到底"，你说"学会放弃也是一种智慧"——但要自圆其说。</div>
+<div class='fb-step'><span class='fb-step-title'>技巧二·重新定义</span>对常见概念重新定义。如重新定义"成功"——不是比别人好，而是成为更好的自己。</div>
+<div class='fb-step'><span class='fb-step-title'>技巧三·跨界联想</span>将不同领域的道理打通。如用生物学"共生"解释文化交融，用物理学"惯性"解释思维定式。</div>
+<div class='fb-step'><span class='fb-step-title'>技巧四·细节切入</span>从一个微小细节出发，见微知著。如从一碗面条写亲情，从一个算法写时代。</div>
+<div class='fb-example'>常规立意："坚持才能成功"→创意立意："真正的坚持，允许暂停，允许流泪，但不允许遗忘初心。"</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+var essays = [
+{
+title: '答案易得，思考难求',
+score: 57,
+grade: '高三',
+type: '议论文',
+category: '科技思辨',
+source: '2024高考真题',
+body: '当搜索引擎让知识触手可及，当人工智能可以一键生成文章，我们获取答案的速度前所未有地快。然而，答案的增多并不意味着问题的减少，更不意味着思考的终结。恰恰相反，在这个答案易得的时代，真正的思考比以往任何时候都更加珍贵。\n答案易得，但好问题难求。爱因斯坦曾说："提出一个问题往往比解决一个问题更重要。"当答案变得廉价，提问就成了最稀缺的能力。搜索引擎可以告诉我们"是什么"，但无法替我们追问"为什么"；人工智能可以生成内容，但无法替代我们判断"应当如何"。真正有价值的思考，不在于获得了多少答案，而在于提出了怎样的问题。一个孩子追问"星星为什么眨眼"，远比背诵"星星会眨眼"更有意义——因为追问背后，是好奇心，是探索欲，是思考的萌芽。\n答案易得，但深度思考难求。快速得到的答案往往是浅层的、碎片化的。我们习惯了"百度一下"，却逐渐失去了静下心来读完一本书的耐心；我们习惯了"标准答案"，却逐渐丧失了独立判断的能力。当算法替我们筛选信息，当人工智能替我们组织语言，我们的思维是否也在不知不觉中被"外包"了？深度思考需要时间、需要专注、需要与不确定性共处的勇气——这些，恰恰是"快速答案"无法给予的。\n答案易得，但价值判断难求。技术可以回答"能不能"，但无法回答"该不该"。人工智能可以告诉我们如何制造原子弹，但无法告诉我们是否应当使用；算法可以推荐最吸引人的内容，但无法判断这些内容是否有益。在价值领域，没有标准答案，只有人的良知、道德和信仰。而这些，恰恰是机器永远无法替代的。\n诚然，技术进步让知识获取变得民主化、便捷化，这是不争的进步。但问题在于，当答案如洪水般涌来，我们是否还有能力分辨真伪、筛选价值、建立判断？便捷不等于智慧，获取不等于理解。真正的学习，不在于掌握了多少信息，而在于建立了怎样的判断力。\n在这个答案易得的时代，我们需要的不是更多的答案，而是更深的思考；不是更快的速度，而是更高的品质。让我们保持提问的勇气，守住思考的尊严——因为人之所以为人，不在于能给出多少答案，而在于永远在追问的路上。',
+highlights: ['辩证论证', '让步说理', '引用名言', '联系现实', '层次递进'],
+analysis: '本文围绕"答案易得与思考难求"展开辩证论证，结构清晰，采用黄金七段式。三个分论点（好问题难求、深度思考难求、价值判断难求）层层递进，展现了思维的深度。第五段让步说理（诚然……但问题在于……）是发展等级"深刻"的亮点。结尾升华有力，不喊口号。',
+yqhPoints: '本文完美运用了教研写作的黄金七段式结构和辩证论证法。让步说理段落（诚然……然而……）是发展等级"深刻"的关键。三个分论点呈递进关系，由"提问"到"思考"到"判断"，层层深入。结尾化用"在路上"的意象，余味悠长。'
+},
+{
+title: '守正与创新：文明传承的永恒命题',
+score: 56,
+grade: '高二',
+type: '议论文',
+category: '文化传承',
+source: '模拟优秀',
+body: '故宫博物院前院长单霁翔说："传承不是把灰烬装进瓶子，而是把火焰传递下去。"这句话道出了文化传承的真谛——守正与创新，缺一不可。守正是根基，创新是活力；没有守正，创新是无源之水；没有创新，守正是无本之木。\n守正，是对文化根脉的忠诚。樊锦诗扎根大漠半个多世纪，守护莫高窟的文化瑰宝。她说："我躺下是敦煌，醒来还是敦煌。"这份坚守，不是因循守旧，而是对文明根脉的深情守护。一个民族如果连自己的根脉都守不住，又何谈开枝散叶？正如大树，根深方能叶茂；正如江河，源远方能流长。守正，就是守住那个"源"、那棵"根"。\n然而，守正不等于守旧。如果樊锦诗只做"看门人"，敦煌的壁画终将在风沙中消逝。她推动"数字敦煌"工程，让千年壁画在虚拟世界永存——这才是真正的传承：守住精神内核，创新表达形式。六百年的紫禁城之所以"活"在当下，正是因为它从"高高在上"的宫殿变成了年轻人愿意走进去的"网红打卡地"。传承不是把传统供在橱窗里，而是让它以新的方式"活"在当下。\n创新，是对未来的拥抱。舞蹈诗剧《只此青绿》以宋代名画《千里江山图》为灵感，将千年山水意境转化为舞台艺术，在年轻人中引发热潮。它证明：传统文化不是博物馆里的陈列品，而是可以呼吸、可以舞动的活态遗产。当"国潮"成为时尚，当汉服走上街头，当《长安三万里》让唐诗"破圈"，我们看到的是创新赋予传统的崭新生命力。\n当然，创新也不是抛弃传统。那些为了"创新"而胡编乱造的"历史剧"，那些为了"流量"而消解经典的"恶搞"，不是创新，而是毁灭。真正的创新，是在尊重传统基础上的创造性转化和创新性发展——守得住"正"，才创得出"新"。\n在文化自信日益增强的今天，我们比任何时候都更需要处理好守正与创新的关系。守住根脉，方能行稳致远；拥抱创新，方能与时俱进。让火焰传递下去，而不是把灰烬装进瓶子——这，才是文明传承的永恒命题。'
+},
+{
+title: '真正的强大，是内心的从容',
+score: 55,
+grade: '高二',
+type: '议论文',
+category: '人生感悟',
+source: '模拟优秀',
+body: '苏轼一生颠沛流离，被贬黄州时写下"一蓑烟雨任平生"，被贬海南时写下"九死南荒吾不恨"。 外在的境遇越是恶劣，他的文字越是从容旷达。这种从容，不是麻木，不是逃避，而是一种内心的强大——在风雨中保持平静，在逆境中守住自我。\n从容源于对自我的深刻认知。一个不了解自己的人，容易被外界的评价左右：赞美则喜，批评则忧，永远活在别人的目光里。而真正从容的人，知道自己是谁、要什么、能做什么。屠呦呦在发现青蒿素之前经历了190次失败，外界质疑不断，但她始终从容以对——因为她清楚自己在做什么、为什么做。这份从容，来自对自我和使命的清醒认知。\n从容源于对信念的坚定坚守。张桂梅身患多种疾病，却坚持每天5点起床，为大山里的女孩点燃希望。面对困难，她没有抱怨，没有退缩，只有从容的坚持。这份从容，不是因为她不痛不累，而是因为她心中有比痛累更重要的东西——信念。当一个人知道自己为什么而活，就可以忍受任何一种生活。\n从容不是消极的随遇而安，而是积极的内心笃定。有人把从容误解为"躺平"——不管不问，随波逐流。这是对从容最大的误读。真正的从容，是在充分努力之后的坦然接受，是在全力以赴之后的从容不迫。它不是不争，而是不慌；不是不求，是不躁。\n反观当下，我们生活在一个"焦虑"的时代——焦虑成绩、焦虑未来、焦虑"别人家的孩子"。我们在比较中焦虑，在内卷中疲惫。也许，我们需要的不是更多的"鸡血"，而是一份从容：知道自己要什么，接受自己做不到什么，在奔跑中保持内心的安宁。\n真正的强大，不是外在的光鲜，而是内心的从容。如苏轼般，在烟雨中吟啸徐行；如屠呦呦般，在失败中笃定前行。愿我们都能在喧嚣中守住从容，在风雨中守住自我——这，才是真正的强大。'
+},
+{
+title: '平凡中的不平凡',
+score: 54,
+grade: '高一',
+type: '议论文',
+category: '人生价值',
+source: '课堂习作',
+body: '保洁阿姨每天清晨五点开始工作，环卫工人日复一日地清扫街道，快递小哥风雨无阻地奔波在路上……他们是这座城市中最平凡的人，却也是这座城市运转不可或缺的人。平凡与不平凡，从来不是对立的两极，而是同一枚硬币的两面。\n平凡是生活的底色，但不平凡藏在对平凡的认真里。我的外婆煲了一辈子的汤，从选材到火候，每一步都精准如仪器。几十年来，她煲的每一锅汤味道都一样好。这不是天赋，是几十年如一日的用心。平凡的事做到极致，就是不平凡——这句话在外婆的汤里，我深信不疑。\n平凡是多数人的宿命，但不平凡在于平凡中的坚持。苏炳添32岁仍在训练，每天重复着同样的动作千百次。单看每一天，训练是平凡的；但正是这日复一日的平凡，累积成了9秒83的不平凡。伟大不是一瞬间的爆发，而是无数个平凡日子的坚持。所谓天才，不过是把平凡的事做到了不平凡的程度。\n当然，承认平凡不是甘于平庸。平凡是一种现实，平庸是一种态度。平凡的人可以不平凡，平庸的人注定平凡。区别在于：平凡的人仍在努力，平庸的人已经放弃。外卖小哥可以在送餐之余读书学习，环卫工人可以在清扫之余观察生活、写下感悟——平凡的身份不等于平凡的人生。\n平凡是大多数人的归宿，但这并不意味着大多数人的人生没有意义。恰恰相反，正是千千万万平凡人的认真生活，构成了这个世界最动人的底色。他们不需要聚光灯，不需要鲜花和掌声，他们只需要认真地把每一天过好——这份认真本身，就是最大的不平凡。\n我们终将平凡，但我们可以选择不平庸。在平凡的位置上，做不平凡的坚持；在平凡的日子里，过不平凡的生活。因为，真正的伟大，从来不是站在山顶俯瞰众生，而是在山脚下依然仰望星空。'
+},
+{
+title: '那束光',
+score: 53,
+grade: '高一',
+type: '记叙文',
+category: '成长感悟',
+source: '课堂习作',
+body: '高三那年冬天，我的世界暗了。\n成绩像断了线的风筝，一路下坠。曾经引以为傲的数学，如今看到试卷就手心冒汗。我不敢看父母的眼睛，不敢听老师叹息，甚至不敢面对镜子里那个失魂落魄的自己。每天放学，我都绕最远的路回家，只为多走一会儿，晚一点面对那个令人窒息的家。\n那天又是模拟考，数学又一次不及格。我低着头走出校门，天已经黑了。冬天的风像刀子一样割在脸上，路灯昏黄，把我的影子拉得又细又长。\n"同学，你的围巾掉了。"\n我回过头，是一个卖烤红薯的阿姨。她的摊位就在校门口，我每天路过，却从未注意过她。此刻她举着我的围巾，在寒风中笑得很温暖。\n"谢谢。"我接过围巾，声音闷闷的。\n"考试没考好？"她似乎看出了什么，递给我一个烤红薯，"拿着，暖暖手。"\n我愣了一下，接过红薯。滚烫的温度从掌心传遍全身，像是一束光，照进了那个灰暗的冬天。\n"我跟你说啊，"阿姨一边翻着炉子里的红薯，一边说，"我儿子当年高考也考砸了，复读了一年才考上。那一年，他每天晚上学到两三点。我跟他说，急啥呀，红薯还得慢慢烤呢，急了不熟。"\n她笑了，脸上的皱纹挤在一起，像一朵开在寒冬里的花。\n"后来呢？"我问。\n"后来考上了呀，现在在城里当工程师呢。"她的语气里满是骄傲，"所以啊，同学，一次没考好怕啥呀。人生长着呢，慢慢来。"\n我咬了一口红薯，甜的。眼泪突然就掉下来了，砸在红薯皮上，留下一个小小的印子。\n那天晚上，我回到家，第一次主动打开了数学课本。不是为了追赶谁，不是为了证明什么，只是觉得——既然红薯都得慢慢烤，人也得慢慢来。\n后来的日子，我不再绕远路了。每天放学，我都会在阿姨的摊位前停留一会儿，买一个烤红薯，听她说几句话。她的乐观像一束光，温暖了我整个冬天。\n高考那天，阳光很好。走出考场，我看见阿姨还在校门口卖红薯。她冲我竖了个大拇指，笑得像个孩子。\n我笑了，眼眶又湿了。\n那束光，我一直记得。不是阳光，不是灯光，而是一个普通人在寒冷的冬天里，不经意间递来的一缕温暖——它照亮了我最暗的日子，也教会我：人生嘛，慢慢来，总会熟的。'
+},
+{
+title: '选择定义人生',
+score: 55,
+grade: '高三',
+type: '议论文',
+category: '人生选择',
+source: '模拟优秀',
+body: '黄文秀北师大毕业后放弃大城市，回到广西百色扶贫；樊锦诗北大毕业后扎根大漠，守护敦煌半个多世纪；张桂梅拖着病体，在大山里为女孩们点亮希望。他们的人生轨迹截然不同，但都因一个共同的东西而闪耀——选择。选择定义了他们是谁，也定义了他们的人生高度。\n选择，定义了人生的方向。同样是北大毕业，有人选择留在北京，樊锦诗选择了大漠。这个选择不是冲动，而是深思熟虑后的价值判断：在她看来，守护文明根脉比个人安逸更重要。方向比速度重要，选择比努力关键——选错了方向，越努力越偏离；选对了方向，即使慢，也终将抵达。人生不是百米冲刺，而是一场有选择的马拉松。\n选择，定义了人生的价值。黄文秀选择回到山区，不是因为她没有其他选择，而是因为她选择了更有意义的选择。她用30岁的生命诠释了"把青春献给祖国"的誓言。有人可能说：她太傻了，在大城市不好吗？但价值从来不是用"好不好"来衡量的，而是用"值不值"来衡量的。在黄文秀看来，为山区的百姓做点事，比在大城市多赚点钱更"值"。这份价值判断，定义了她人生的重量。\n选择，也定义了人生的高度。张桂梅选择办学，不是因为没有困难，而是明知困难仍选择前行。身患多种疾病，她依然每天5点起床；资金短缺，她依然四处奔走。她的选择不是一次性的决定，而是日复一日的坚持。选择容易，坚守难——真正的选择，不是某一刻的拍板，而是每一天的践行。\n然而，选择不是任性，更不是逃避。有人以"选择"为名逃避责任，以"自由"为借口放弃努力。这不是选择，是放弃。真正的选择，是在充分了解自己和世界之后，负责任地做出决定，并为之承担后果。选择的自由，不在于想做什么就做什么，而在于不想做什么时可以说"不"。\n反观当下，很多年轻人面临"选择的焦虑"——选什么专业、做什么工作、过什么生活。也许，我们需要的不是更多的选项，而是更清晰的自我认知。知道自己是谁，才知道该选什么；知道自己要什么，才不会在选择中迷失。\n人生就是一连串的选择。选对了，是幸运；选错了，是经验。但最可怕的，不是选错，而是不敢选。愿我们都有选择的勇气，也有承担的担当——因为，选择定义人生，而人生值得认真选择。'
+},
+{
+title: '论包容',
+score: 54,
+grade: '高二',
+type: '议论文',
+category: '思辨',
+source: '模拟优秀',
+body: '费孝通先生说："各美其美，美人之美，美美与共，天下大同。"这十六个字，道出了包容的精髓——不是消灭差异，而是在差异中寻求共生。包容，是一种胸怀，更是一种智慧。\n包容，首先是对差异的尊重。世界上没有两片相同的树叶，也没有两个相同的人。有人喜欢古典音乐，有人热爱流行歌曲；有人追求功成名就，有人向往淡泊宁静。这些差异不是对错之分，而是多元之美。一棵树上如果只有一种花，再美也单调；一个花园里百花齐放，才是真正的春天。尊重差异，不是认同一切，而是承认"不同"的合理性。\n包容，其次是对错误的宽容。人非圣贤，孰能无过。一个不能容忍错误的社会，是一个窒息创造力的社会。科学探索需要试错，艺术创作需要突破，个人成长需要跌倒后重新站起。如果每一次失败都遭到嘲笑和否定，谁还敢尝试？包容错误，不是纵容错误，而是给人改正的空间和重新开始的勇气。\n包容，更是对异见的倾听。在这个"信息茧房"的时代，我们越来越只听到与自己相同的声音。算法推荐让我们看到"想看的"，屏蔽"不想看的"，久而久之，我们以为自己的观点就是世界的全部。真正的包容，是主动走出舒适区，倾听不同的声音，理解不同的立场。也许你不会同意对方，但至少你会理解：世界比你想象的更复杂。\n当然，包容不是无原则的退让。对邪恶的包容是对善良的背叛，对暴力的包容是对和平的亵渎。包容有底线，这个底线就是正义和人性。在底线之内，我们包容一切不同；在底线之外，我们寸步不让。包容不是软弱，而是在坚定原则下的最大善意。\n在全球化时代，文明之间的碰撞前所未有地激烈。如何处理不同文化、不同价值观之间的关系，是全人类面临的课题。中国智慧给出的答案是"和而不同"——不是消灭差异，而是在差异中和谐共处。这，或许才是包容的最高境界。\n包容，让世界更宽广，让心灵更自由。如大海容纳百川，如天空包容万物。愿我们都能拥有一颗包容的心——因为，包容别人，也是在解放自己。'
+},
+{
+title: '父亲的手',
+score: 52,
+grade: '高三',
+type: '记叙文',
+category: '亲情',
+source: '课堂习作',
+body: '父亲的手，是我记忆中最深刻的画面。\n小时候，父亲的手是温暖的。冬天的早晨，他总是先搓搓手，再把我的小手包进他的大手里。那双手粗糙、宽厚，带着淡淡的机油味——他是工厂的钳工，手上的茧子比我的橡皮还厚。可就是这样一双手，给我扎辫子时笨拙又小心，像在对待世界上最珍贵的瓷器。\n上学后，父亲的手是沉默的。他不善言辞，从不说"我爱你"之类的话。但每天晚上，他都会坐在我旁边，用那双粗糙的手翻着我的课本，一页一页地看——其实他认识的字不多，很多内容看不懂。他只是想让我知道：爸爸在陪你。\n初三那年，我的成绩下滑严重。班主任请家长，父亲去了。回来后，他什么也没说，只是坐在沙发上，用那双手反复搓着膝盖。我站在门口，看着他的背影，第一次发现——那双曾经有力的手，似乎老了。\n"爸，对不起……"我终于开口。\n他转过头，笑了笑，伸出那只粗糙的手，揉了揉我的头发："没事，慢慢来。"\n就这三个字，我的眼泪夺眶而出。\n高中三年，父亲每天凌晨4点起床去工厂，晚上9点才回来。他从不说累，只是手上的茧子越来越厚，裂纹越来越多。冬天的时候，裂纹里渗着血丝，他就在上面缠一圈胶布，继续干活。我有次看到他洗手——那双手在冷水里搓着，胶布被水浸湿了，他咬着牙一条一条撕下来，露出下面红红的裂口。他发现我在看，赶紧把手缩回去："没事，不疼。"\n不疼？零下的天，冷水洗裂口，怎么可能不疼？\n高考那天，父亲请了假送我去考场。到了门口，他拍了拍我的肩膀，那只手上还缠着胶布。我低头看了看那双手——茧子、裂纹、胶布、机油味——这就是父亲的手，一双养活了一家人的手，一双从不说"爱"却满是爱的手。\n"去吧，好好考。"他笑了笑，把手插回口袋。\n我转身走进考场，不敢回头。因为我知道，一回头，眼泪就会掉下来。\n考完最后一科，走出校门，远远看见父亲站在路边，手里举着一瓶水。他的手在阳光下泛着光——不是汗水，是胶布反射的光。\n我跑过去，一把抓住他的手。那双手还是那么粗糙，那么温暖。\n"爸，我考完了。"\n"嗯，回家，你妈做了好吃的。"\n他笑了笑，握紧了我的手。\n有些爱，不在嘴上，在手上。父亲的手，是我这辈子握过的，最踏实的温暖。'
+}
+];
+var essays2 = [
+{
+title: '科技时代的坚守',
+score: 56,
+grade: '高三',
+type: '议论文',
+category: '科技人文',
+source: '模拟优秀',
+body: '当算法决定了我们看什么新闻、听什么音乐、认识什么人，当人工智能开始替我们写文章、画画、做决策，"人"的位置在哪里？这个问题，不是技术问题，而是哲学问题——它关乎人的本质、人的价值、人的未来。\n在科技时代，我们需要坚守的是人的主体性。技术是工具，人是目的——这个看似简单的命题，在技术狂飙的今天却变得模糊。当导航软件替我们规划路线，我们是否还认得路？当人工智能替我们组织语言，我们是否还会思考？工具越强大，使用者的能力反而可能越弱——这就是"技术依赖"的悖论。坚守人的主体性，就是在拥抱技术的同时，保持独立思考的能力和自主选择的意志。\n在科技时代，我们需要坚守的是人的情感温度。人工智能可以生成一封情书，但无法体会心动的感觉；可以写一首悼诗，但无法理解失去的痛苦。情感是人的本质属性，是不可被算法替代的"软实力"。张桂梅用病弱之躯守护大山女孩的梦想，这份温度，任何人工智能都无法模拟。在效率至上的时代，我们更需要守护那些"无用"的东西——共情、慈悲、审美、信仰——因为正是这些东西，定义了"人"。\n在科技时代，我们需要坚守的是人的价值判断。技术可以回答"能不能"，但无法回答"该不该"。基因编辑技术可以治愈遗传病，也可以"定制婴儿"——技术层面可行，但伦理层面呢？算法可以精准推送广告，也可以操纵舆论——技术上可行，但道德上呢？在价值领域，没有标准答案，只有人的良知。技术越是强大，价值判断就越是重要——因为它决定了技术是被善用还是被滥用。\n诚然，科技带来了前所未有的便利和可能，这一点毋庸置疑。但问题在于，当便利变成依赖，当可能变成盲目，科技就从"赋能"变成了"异化"。我们需要的不是拒绝科技——那是愚蠢的；也不是盲从科技——那是危险的。我们需要的是一种清醒的科技观：用科技增强人的能力，而不是替代人的本质；用科技拓展人的边界，而不是消解人的主体。\n在科技时代，最需要坚守的不是某项技术、某个方法，而是"人"本身——人的主体性、人的情感温度、人的价值判断。技术可以迭代，但人的本质不能被迭代；工具可以更新，但人的尊严不能被更新。让科技服务于人，而不是人服务于科技——这，是我们在这个时代必须坚守的底线。'
+},
+{
+title: '以史为鉴，可知兴替',
+score: 55,
+grade: '高二',
+type: '议论文',
+category: '历史思辨',
+source: '模拟优秀',
+body: '唐太宗说："以铜为镜，可以正衣冠；以史为镜，可以知兴替。"历史不是过去的尘埃，而是未来的路标。读懂历史，不是为了沉湎过去，而是为了照亮前方。\n以史为鉴，可以明得失。秦朝统一六国，何等辉煌，却二世而亡——因为暴政失民心。汉朝汲取秦亡教训，与民休息，开创文景之治。历史告诉我们：得民心者得天下，失民心者失天下。这个道理，两千年前适用，今天依然适用。一个不尊重民意的政权，无论多么强大，终将被历史淘汰。\n以史为鉴，可以知兴替。诺基亚曾是手机之王，其衰败不是因为不够优秀，而是因为太优秀——优秀到无法自我革命。反观那些在困境中求变的企业，反而在危机中找到了新出路。历史不是简单的重复，但总押着相似的韵脚。优势与劣势、成功与失败，从来不是固定不变的标签，而是随时代流转的动态变量。读懂这个规律，才能在变化中保持清醒。\n以史为鉴，可以育品格。读司马迁忍辱著《史记》，学到的是坚韧；读文天祥"人生自古谁无死，留取丹心照汗青"，学到的是气节；读林则徐虎门销烟，学到的是担当。历史人物的精神品格，是跨越时空的精神财富。他们用生命书写的"答案"，至今仍在回答着我们面对的"问题"。\n当然，以史为鉴不是刻舟求剑。时代在变，条件在变，简单地"复制历史经验"是危险的。真正的以史为鉴，是透过历史现象把握底层规律——那些关于人性、权力、选择、命运的规律——然后结合当下实际，做出明智的判断。历史是参考书，不是说明书；是启示录，不是操作手册。\n在信息爆炸的今天，我们反而更容易"遗忘"历史——不是因为信息太少，而是因为信息太多，以至于重要的东西被淹没在噪音中。当"娱乐至死"成为常态，当"历史虚无主义"暗中流行，我们更需要重拾"以史为鉴"的智慧。因为，一个忘记历史的民族，注定会重蹈覆辙。\n历史是一面镜子，也是一盏灯。镜子照见过去，灯照亮未来。愿我们都能从历史中汲取智慧——不是为了回到过去，而是为了更好地走向未来。'
+},
+{
+title: '论自律',
+score: 52,
+grade: '高一',
+type: '议论文',
+category: '品格修养',
+source: '课堂习作',
+body: '康德说："自由不是想做什么就做什么，而是不想做什么就可以不做什么。"这句话看似矛盾，实则道出了自律的本质——自律不是束缚，而是通向真正自由的路径。\n自律，是对欲望的节制。人都有惰性，都有贪念。想刷手机就刷手机，想吃零食就吃零食，想赖床就赖床——这不是自由，这是被欲望绑架。真正的自律，是在"想做"和"该做"之间选择"该做"，在"不想做"和"必须做"之间选择"必须做"。这种选择能力，才是真正的自由。一个不能控制自己的人，注定被别人控制；一个不能管理欲望的人，注定被欲望吞噬。\n自律，是对目标的坚持。苏炳添32岁仍在训练，每天重复同样的动作千百次。这不是天赋，是自律。天赋决定上限，自律决定下限——而大多数人的问题不在于上限不够高，而在于下限太低。自律让一个人在不想努力的时候仍然努力，在看不到结果的时候仍然坚持。这种品质，比任何天赋都珍贵。\n自律，是对时间的尊重。时间是最公平的资源——每个人每天都只有24小时。区别在于：自律的人把时间花在重要的事情上，不自律的人把时间花在舒服的事情上。日积月累，差距就在这每一天的24小时里悄然拉开。自律不是一时的心血来潮，而是每一天的微小选择——早起半小时、少刷十分钟手机、多读十页书——这些看似微不足道的选择，终将汇聚成人生的高度。\n当然，自律不是苦行僧式的自我折磨。真正的自律，是找到值得自律的事情——当你真正热爱一件事时，自律就不再痛苦，而是一种享受。苦学十年不如热爱一年，强制自律不如找到动力。自律的最高境界，不是"咬牙坚持"，而是"乐在其中"。\n在这个充满诱惑的时代，自律比以往更难，也更可贵。手机、游戏、短视频——每一项都在争夺我们的注意力。我们需要的不是更强的意志力，而是更清晰的目标感。知道自己要什么，才知道该拒绝什么。\n自律是通向自由的桥梁。越自律，越自由——这不是鸡汤，而是人生的真相。愿我们都能做自己时间的主人、欲望的主人、人生的主人。'
+},
+{
+title: '读书的意义',
+score: 56,
+grade: '高二',
+type: '议论文',
+category: '学习成长',
+source: '模拟优秀',
+body: '有人问：人工智能时代，搜索引擎可以瞬间给出答案，读书还有什么用？这个问题本身就暴露了我们对"读书"的误解——读书不是为了获取答案，而是为了学会提问；不是为了积累信息，而是为了建立判断力。\n读书，是为了看见更大的世界。一个人的经历是有限的，但书本可以带他穿越时空——与苏格拉底对话，与李白对饮，与鲁迅争论，与爱因斯坦探讨。每一本好书都是一扇窗，打开一个全新的视角。不读书的人，只活了一辈子；读书的人，活了千百辈子。世界不是我们眼前的方寸之地，而是书中展开的浩瀚星空。\n读书，是为了成为更好的自己。杨绛先生说："你的问题主要在于读书不多而想得太多。"很多时候，我们的焦虑、迷茫、痛苦，不是因为我们想得太多，而是因为我们读得太少——读得太少，所以视野狭窄，所以困于一隅，所以把小事放大。读书让我们看到：我们的困惑前人也经历过，我们的痛苦前人也承受过，而且他们找到了出路。这些出路，就写在书里。\n读书，是为了获得独立思考的能力。读书不是被动接受，而是主动对话——与作者辩论、与自己对话、与现实碰撞。真正会读书的人，不是记住书中说了什么，而是形成自己的判断。在"信息茧房"的时代，在算法替我们筛选信息的今天，独立思考比以往任何时候都更珍贵——而读书，正是培养独立思考的最佳途径。\n当然，不是所有的"读书"都有意义。刷公众号文章、看短视频"知识科普"，这些碎片化的"阅读"替代不了深度阅读。真正的读书，是捧起一本书，从头到尾，一字一句地读完——在这个过程中，你不仅在获取知识，更在训练专注力、思考力和耐心。碎片化阅读给人"学到了"的错觉，深度阅读才给人"想通了"的收获。\n在这个"答案易得"的时代，读书的意义不是减弱了，而是增强了。因为当答案变得廉价，思考就成了最稀缺的能力——而读书，正是培养思考力最有效的方式。人工智能可以替我们检索信息，但无法替我们建立判断力；可以替我们生成内容，但无法替我们形成智慧。\n读书的意义，不在于读了多少，而在于想了多少；不在于记住了什么，而在于成为了什么样的人。正如博尔赫斯所说："天堂应该是图书馆的模样。"——在那里，每一本书都是一束光，照亮我们成为更好自己的路。'
+},
+{
+title: '时代洪流中的个人',
+score: 57,
+grade: '高三',
+type: '议论文',
+category: '时代担当',
+source: '模拟优秀',
+body: '我们生活在一个剧变的时代——科技革命、全球化、气候危机、文化碰撞……时代洪流滚滚向前，个人如同一叶扁舟，被裹挟着前行。在这洪流中，个人该如何自处？又该如何作为？\n在时代洪流中，个人需要保持清醒的自我认知。洪流最大的危险不是波涛汹涌，而是让人迷失方向。当所有人都在追逐同一个目标时，你是否还记得自己想要什么？当算法替你规划人生时，你是否还有自己的判断？清醒的自我认知，是抵御洪流裹挟的第一道防线。知道自己是谁，才不会被时代定义；知道自己要什么，才不会在洪流中随波逐流。\n在时代洪流中，个人需要找到与时代的连接点。黄文秀回到山区扶贫，张桂梅在大山办学，航天团队用青春托举大国重器——他们不是被时代裹挟的人，而是主动融入时代的人。他们找到了个人价值与时代需要的交汇点：用个人的力量回应时代的呼唤。一个人只有把自己放进更大的坐标系中——家国、民族、人类——才能找到超越个人得失的意义。这不是"牺牲"，而是更高层次的"自我实现"。\n在时代洪流中，个人需要保持改变时代的勇气。时代不是不可改变的——相反，时代正是由无数个人的选择和行动塑造的。鲁迅弃医从文，用笔唤醒国人；樊锦诗扎根大漠，用一生守护文明；屠呦呦历经190次失败，用坚持拯救生命。他们不是等待时代改变的人，而是推动时代改变的人。一个人的力量也许微小，但无数微小的力量汇聚在一起，就是改变时代的洪荒之力。\n诚然，个人的力量在时代面前显得渺小。一个人改变不了世界——这话说得没错。但一个人可以改变自己周围的一小片世界。张桂梅改变不了所有山区女孩的命运，但她改变了两千多个；一个志愿者改变不了整个社会，但他改变了他帮助过的每一个人。个人不必妄自菲薄，也不必好高骛远——在自己能力范围内，做力所能及的事，这本身就是对时代最好的回应。\n在时代洪流中，最可悲的不是被裹挟，而是主动放弃。有人选择"躺平"，把一切归咎于"时代"；有人选择"内卷"，在无意义的竞争中消耗自己。这两种态度，本质上都是对个人主体性的放弃——前者放弃了行动的勇气，后者放弃了思考的智慧。真正的出路，不是躺也不是卷，而是在认清现实后依然选择前行。\n时代洪流滚滚向前，我们都是其中的一滴水。但一滴水可以折射太阳的光辉，一个人可以映照时代的精神。愿我们在洪流中保持清醒、找到连接、拥有勇气——不随波逐流，不妄自菲薄，在时代的大潮中，做一朵奔涌向前的浪花。'
+},
+{
+title: '原来沉默这么美',
+score: 51,
+grade: '高一',
+type: '记叙文',
+category: '亲情感悟',
+source: '课堂习作',
+body: '我一直觉得，父亲不爱我。\n他不会像别人的爸爸那样说"宝贝我爱你"，不会在我考了好成绩时激动地拥抱我，不会在我难过时温柔地安慰我。他只会说三个字："嗯，不错。"或者："知道了。"\n小时候，我缠着他讲故事，他翻着报纸头也不抬："自己看去。"我摔倒了哭着找他，他看了一眼："没事，起来。"我拿了奖状兴冲冲跑回家，他瞟了一眼："嗯，放那儿吧。"\n我渐渐学会了不找他。有什么事只跟妈妈说，有什么心里话只跟朋友讲。父亲在我心里，成了一个沉默的背景——存在，但无关紧要。\n直到高三那个冬天。\n那天晚自习结束已经十点半了，我走出校门，看见父亲站在路灯下。他穿着那件洗得发白的军大衣，手插在口袋里，缩着脖子，呼出的白气在寒风中散开。\n"你怎么来了？"我有些意外。\n"你妈加班，让我来接你。"他的语气还是淡淡的。\n一路上，我们都没说话。他走在我前面半步的位置，不快不慢。路灯把我们的影子拉得很长，一前一后，像两条平行的线。\n走到小区门口，他突然停下来，从口袋里掏出一个保温杯："喝口热水。"\n我接过来，杯子是温的——他在寒风里站了至少半个小时，杯子竟然还是温的。也就是说，他一直把杯子揣在怀里。\n"爸……"\n"走吧，你妈还等着呢。"他转身继续走。\n我看着他的背影——有些佝偻，头发已经花白了。他走得很快，好像不想让我看到什么。\n后来我才知道，那天妈妈并没有加班。是父亲听说那天晚自习很晚，自己骑着自行车来的。他不会骑电动车，那辆老旧的自行车骑了四十年，链条咯吱咯吱响了一路。\n再后来，我开始注意父亲的"沉默"。\n我发现，每天早上桌上热好的早餐，是他五点起来做的；我发现，我房间里那盏总是亮着的台灯，是他怕我写作业费眼换的；我发现，我书包里多出来的暖手宝，是他偷偷塞进去的。\n他什么都不说，却什么都做了。\n原来，沉默不是冷漠，是另一种语言——一种不需要文字的语言。它藏在保温杯的温度里，藏在清晨的早餐里，藏在台灯的光里。它不说"我爱你"，却把爱写进了每一个细节。\n有些爱，不在嘴上，在沉默里。原来沉默，这么美。'
+},
+{
+title: '本手·妙手·俗手',
+score: 56,
+grade: '高三',
+type: '议论文',
+category: '辩证思辨',
+source: '2022高考真题',
+body: '围棋中有三个术语：本手是合乎棋理的正规下法，妙手是出人意料的精妙下法，俗手是貌似合理而从全局看通常会受损的下法。三者看似讲棋，实则论道——守正、创新、短视，这三种态度不仅决定了棋局的胜负，也定义了人生的格局。\n本手是根基，是一切妙手的前提。没有扎实的本手，所谓的妙手不过是空中楼阁。达芬奇画了三年鸡蛋，不是因为他不会画别的，而是因为他知道：基本功是一切的根基。苏炳添每天重复千百次起跑动作，不是因为缺乏天赋，而是因为他明白：每一次枯燥的重复，都是在为本手夯实基础。本手看似平凡，甚至乏味，但它是一切卓越的起点——正如万丈高楼平地起，根基不深，楼再高也是危楼。\n然而，仅有本手是不够的。守正而不创新，只会原地踏步。妙手是本手的升华——在本手扎实的基础上，以创新的思维突破常规，走出出人意料的好棋。乔布斯在手机上去掉键盘，这是妙手；马斯克用火箭回收技术降低航天成本，这是妙手。妙手不是凭空而来，而是在无数本手的积累之上，灵光乍现的创造。没有本手的妙手是投机，有本手的妙手是创造。\n俗手是短视的产物——急功近利，只见眼前不见全局。在教育中，为了分数而刷题，不重理解，是俗手；在科研中，为了论文数量而灌水，不重质量，是俗手；在人生中，为了眼前利益而放弃长远规划，是俗手。俗手之所以"俗"，不在于它不合理——它往往在局部看起来是"对的"——而在于它缺乏全局视野，用局部的"对"换取了全局的"错"。\n从本手到妙手，再到避免俗手，这三者构成了一个完整的方法论：先夯实基础（本手），再寻求突破（妙手），同时警惕短视（俗手）。这个方法论，不仅适用于围棋，也适用于学习、工作和人生。学任何东西，都要先走好本手——把基本功练扎实；然后才有资格走妙手——在基础上创新；同时时刻警惕俗手——不为眼前利益牺牲长远发展。\n反观当下，我们生活在一个急躁的时代——人人都想走妙手，却不愿下本手的苦功。创业者想一夜暴富，学生想速成高分，写作者想一炮而红。结果往往是：没有本手的妙手变成了俗手——看似精妙，实则短视。真正的智慧，是在快时代里保持慢心态——先把本手走好，妙手自然水到渠成。\n人生如棋，落子无悔。愿我们都能走好每一步本手，在时机成熟时走出妙手，永远警惕俗手的诱惑——因为，决定棋局胜负的，从来不是一步妙手，而是无数步本手的坚实积累。'
+},
+{
+title: '在变化中坚守本心',
+score: 55,
+grade: '高二',
+type: '议论文',
+category: '思辨',
+source: '模拟优秀',
+body: '这是一个变化的时代——技术日新月异，观念不断更迭，生活方式被反复重塑。在万变之中，什么是不变的？这个问题，关乎每个人如何在时代洪流中安顿自己。\n变化是时代的常态，这是不争的事实。从互联网到人工智能，从全球化到逆全球化，从线下到线上，变化的速度越来越快，幅度越来越大。试图阻止变化是徒劳的，正如无法阻止江河奔流。但问题在于：在拥抱变化的同时，我们是否还有一些不愿、不能、不应改变的东西？\n在变化中，我们需要坚守的是价值底线。技术可以变，方法可以变，但善良不能变，诚信不能变，正义不能变。这些价值底线，是人类文明数千年积淀的精神基石。如果为了"适应变化"而放弃底线，那不是进步，而是退化。一个没有底线的社会，技术越发达，危险越大——因为底线是方向，没有方向的速度是灾难。\n在变化中，我们需要坚守的是文化根脉。每个民族都有自己的文化基因，它定义了"我们是谁"。变化可以带来新的表达形式，但不应动摇文化的核心价值。故宫从"高冷"变得"亲民"，是形式的变化；但"守护文明"的使命没有变，这是根脉的坚守。传承不是把灰烬装进瓶子，而是把火焰传递下去——火焰的形式可以变（从壁画到数字），但火焰本身不能灭。\n在变化中，我们需要坚守的是独立思考的能力。在这个信息爆炸的时代，变化往往以"潮流"的形式出现——所有人都在追逐同一个方向，所有人都害怕被"落下"。但潮流不等于正确，多数不等于真理。独立思考，就是在众声喧哗中保持清醒，在集体狂欢中守住冷静。它不是反对一切变化，而是在变化面前问一句：这个变化是好的吗？适合我吗？代价是什么？\n当然，坚守本心不是固步自封。本心不是偏见，不是固执，不是"我就是这样的人"的借口。真正的本心，是经过反思后的价值选择——它经得起质疑，受得起考验，扛得住诱惑。坚守本心，不是拒绝变化，而是在变化中保持清醒的选择——接受值得接受的变化，拒绝不该接受的变化。\n在变化与坚守之间找到平衡，是人生最重要的智慧之一。变得太快，容易迷失自我；守得太死，容易错过风景。最好的状态，是"外圆内方"——对外保持开放和灵活，对内保持坚定和清醒。如同一棵大树：枝叶随风摇摆（变化），根系深深扎入大地（坚守）。\n在万变之中，守住那颗不变的本心。这不是保守，而是清醒；不是退缩，而是定力。因为，只有知道自己不变什么，才能从容地面对万变。'
+}
+];
+essays = essays.concat(essays2);
+var practices = [
+{
+grade: '高三',
+title: '2024全国I卷：答案与问题',
+type: '材料作文',
+category: '科技思辨',
+requirement: '随着互联网的普及、人工智能的应用，越来越多的问题能很快得到答案。那我们的问题是否会越来越少？以上材料引发了你怎样的联想与思考？请写一篇文章。',
+guide: [
+'第一步：抓核心矛盾——技术让答案"快速可得"，但"问题"是否因此减少？',
+'第二步：辩证思考——答案增多不等于问题减少；浅层答案增多但深层思考可能减少；工具理性提升但价值理性可能弱化。',
+'第三步：确定立意——答案易得，思考难求；技术解困，人文解惑；问题不会消失，只会升级。'
+],
+yqhGuide: [
+'教研审题法：用辩证法分析材料——"答案增多"是现象，"问题是否减少"是追问。关键在于区分"信息层面的答案"和"智慧层面的思考"。',
+'教研结构法：用黄金七段式——开头引题亮观点，三个分论点递进（好问题难求/深度思考难求/价值判断难求），辩证过渡（诚然技术带来便利），联系现实（信息茧房时代），结尾升华。',
+'教研素材法：用爱因斯坦名言"提出一个问题往往比解决一个问题更重要"作为道理论据；用人工智能局限作为事实论据。'
+],
+outlines: [
+{title: '方向一：答案易得，思考难求', desc: '围绕"答案增多但思考减少"展开论证，用三个分论点递进：好问题难求→深度思考难求→价值判断难求。辩证段让步说理。'},
+{title: '方向二：技术解困，人文解惑', desc: '围绕"人工智能能回答是什么，但不能回答该不该"展开论证，强调人的价值判断不可替代。'},
+{title: '方向三：问题不会消失，只会升级', desc: '从文明发展角度论证：旧问题被解决，新问题在更高层次产生，这是进步的规律。'}
+],
+materials: '推荐素材：爱因斯坦"提出问题比解决问题更重要"；苏格拉底"产婆术"；智能聊天机器人等人工智能工具的局限；鲁迅"无穷的远方，无数的人们，都和我有关"。',
+startExample: '当搜索引擎让知识触手可及，当人工智能可以一键生成文章，我们获取答案的速度前所未有地快。然而，答案的增多并不意味着问题的减少——恰恰相反，在这个答案易得的时代，真正的思考比以往任何时候都更加珍贵。'
+},
+{
+grade: '高三',
+title: '2023全国I卷：故事的力量',
+type: '材料作文',
+category: '文化传承',
+requirement: '好的故事，可以改变人的命运，可以展现一个民族的形象……故事是有力量的。请写一篇文章，谈谈你对这个问题的认识和思考。',
+guide: [
+'第一步：理解"故事的力量"——故事有什么力量？力量从何而来？如何用好这种力量？',
+'第二步：多角度思考——个人层面（改变命运）、民族层面（展现形象）、文化层面（传承精神）。',
+'第三步：确定立意——好的故事是精神的火种；讲好中国故事；每个人都是故事的讲述者。'
+],
+yqhGuide: [
+'教研审题法：用联想法拓展"故事"——从《觉醒年代》到《流浪地球》，从敦煌壁画到《只此青绿》，故事承载着一个民族的精神密码。',
+'教研结构法：用递进式分论点——故事改变个人（个人层面）→故事凝聚民族（民族层面）→故事连接世界（人类层面）。',
+'教研素材法：用《觉醒年代》破圈（故事改变认知）、敦煌故事（故事传承文明）、《流浪地球》（故事展现中国形象）。'
+],
+outlines: [
+{title: '方向一：好的故事是精神的火种', desc: '从《觉醒年代》到《长安三万里》，故事承载着一个民族的精神密码，点燃一代又一代人的理想之光。'},
+{title: '方向二：讲好中国故事', desc: '在全球化语境中，如何用故事传递中国价值、塑造中国形象。从李子柒到《只此青绿》，讲好中国故事需要守正创新。'},
+{title: '方向三：每个人都是故事的讲述者', desc: '普通人的奋斗故事，汇聚成时代的宏大叙事。黄文秀、张桂梅的故事，比任何虚构都更有力量。'}
+],
+materials: '推荐素材：《觉醒年代》（故事改变认知）；敦煌故事（故事传承文明）；《流浪地球》（故事展现中国形象）；李子柒（故事传播文化）。',
+startExample: '一个民族的故事，就是它的精神密码。从《觉醒年代》中革命者的热血抉择，到《流浪地球》里人类面对末日时的团结担当——好的故事从不只是消遣，它是照亮心灵的火种，是凝聚民族的力量。'
+},
+{
+grade: '高三',
+title: '2022全国I卷：本手·妙手·俗手',
+type: '材料作文',
+category: '辩证思辨',
+requirement: '"本手、妙手、俗手"是围棋的三个术语。本手是合乎棋理的正规下法；妙手是出人意料的精妙下法；俗手是貌似合理而从全局看通常会受损的下法。请结合材料写一篇文章，体现你的感悟与思考。',
+guide: [
+'第一步：理解三个概念——本手=基础/守正，妙手=创新/出奇，俗手=短视/急功近利。',
+'第二步：分析三者关系——本手是妙手的前提，没有本手的妙手是投机；俗手是急功近利的产物。',
+'第三步：确定立意——守正方能出奇；夯实基础才能创新；急功近利是最大的俗手。'
+],
+yqhGuide: [
+'教研审题法：用辩证法分析三个关键词的辩证关系——本手与妙手是"守正与创新"的关系，俗手是"短视"的警示。',
+'教研结构法：用黄金七段式——分论点一（本手是根基）、分论点二（妙手是升华）、分论点三（俗手是警示）、辩证段（仅有本手不够，需在基础上创新）。',
+'教研素材法：用达芬奇画蛋（本手）、乔布斯去键盘（妙手）、应试教育刷题（俗手）作为论据。'
+],
+outlines: [
+{title: '方向一：守正方能出奇', desc: '围绕"本手是妙手的前提"论证，举达芬奇画蛋、苏炳添训练等事例，论证夯实基础的重要性。'},
+{title: '方向二：从本手到妙手', desc: '围绕"在守正的基础上寻求创新"论证，举乔布斯、马斯克等事例，论证创新的正确路径。'},
+{title: '方向三：急功近利是最大的俗手', desc: '围绕"俗手的危害"论证，举应试教育、论文灌水等例子，警示短视行为的代价。'}
+],
+materials: '推荐素材：达芬奇画蛋（本手）；乔布斯/马斯克（妙手）；苏炳添科学训练（本手到妙手）；应试刷题（俗手）。',
+startExample: '围棋中有三个术语：本手、妙手、俗手。三者看似论棋，实则论道——守正、创新、短视，这三种态度不仅决定棋局胜负，也定义了人生格局。'
+},
+{
+grade: '高三',
+title: '2024北京卷：历久弥新',
+type: '命题作文',
+category: '文化传承',
+requirement: '历史上，历经岁月洗礼而历久弥新的事物（如经典作品、古老建筑、传统技艺等）不在少数。请以"历久弥新"为题写一篇议论文。',
+guide: [
+'第一步：理解"历久弥新"——经过时间长河的冲刷，不仅没有衰败，反而焕发新的生机。',
+'第二步：追问原因——为什么有些东西能历久弥新？密码是什么？',
+'第三步：确定立意——历久弥新的密码在于"守正创新"；经典不朽因为触及永恒命题。'
+],
+yqhGuide: [
+'教研审题法：用因果法追问——"历久"是结果，"弥新"也是结果，关键是分析"为什么"能历久弥新。',
+'教研结构法：用并列式分论点——历久弥新源于精神内核的不朽；历久弥新源于表达形式的创新；历久弥新源于代代传承的坚守。',
+'教研素材法：用故宫活化（古老建筑历久弥新）、《只此青绿》（经典作品历久弥新）、敦煌数字化（传统技艺历久弥新）。'
+],
+outlines: [
+{title: '方向一：历久弥新的密码——守正创新', desc: '围绕"守住精神内核，创新表达形式"论证，举故宫、敦煌等事例。'},
+{title: '方向二：经典不朽，因为触及永恒', desc: '围绕"经典作品历久弥新的原因"论证——它们触及了人类永恒的精神命题。'},
+{title: '方向三：在快时代里，历久弥新是最好的反思', desc: '围绕"速食文化"的反思论证——历久弥新提醒我们：不是所有东西都需要更新。'}
+],
+materials: '推荐素材：故宫活化（古老建筑）；《只此青绿》（经典艺术）；敦煌数字化（传统技艺）；"周虽旧邦，其命维新"（《诗经》）。',
+startExample: '六百年的紫禁城依然年轻，千年的敦煌壁画仍在诉说，数百年的昆曲仍在传唱——它们穿越时间的长河，不仅没有衰老，反而焕发出新的生机。这，就是"历久弥新"的力量。'
+},
+{
+grade: '高三',
+title: '2024上海卷：认可度',
+type: '材料作文',
+category: '社会思辨',
+requirement: '生活中，人们常用认可度判别事物，区分高下。请写一篇文章，谈谈你对"认可度"的认识和思考。',
+guide: [
+'第一步：理解"认可度"——它是什么？它如何影响我们的判断？',
+'第二步：辩证思考——认可度高=好吗？认可度低=不好吗？认可度的标准和主体是谁？',
+'第三步：确定立意——认可度不等于价值；别让认可度绑架判断力；真正的价值不需要所有人认可。'
+],
+yqhGuide: [
+'教研审题法：用辩证法分析——认可度是"他者评价"，价值是"内在品质"。二者有时一致，有时背离。',
+'教研结构法：用递进式——认可度是什么→认可度的局限→如何在认可与价值之间找到平衡。',
+'教研素材法：用梵高生前不被认可（认可度低但价值高）、流量明星（认可度高但价值存疑）作为对比论据。'
+],
+outlines: [
+{title: '方向一：认可度不等于价值', desc: '围绕"认可度高不等于有价值"论证，举梵高、流量明星等对比事例。'},
+{title: '方向二：别让认可度绑架判断力', desc: '围绕"在认可度裹挟下保持独立判断"论证，联系信息茧房和从众心理。'},
+{title: '方向三：真正的价值不需要所有人认可', desc: '围绕"坚守自我价值"论证，举张桂梅、樊锦诗等不被当时理解但坚持前行的事例。'}
+],
+materials: '推荐素材：梵高生前不被认可；流量与品质的背离；张桂梅办学初期不被理解；"不畏浮云遮望眼，自缘身在最高层"。',
+startExample: '我们生活在一个追逐"认可"的时代——点赞数衡量价值，排行榜定义高下，流量决定话语权。然而，认可度真的等于价值吗？当所有人都在追逐认可时，也许我们最该追问的是：被谁认可？认可什么？为什么认可？'
+},
+{
+grade: '高二',
+title: '模拟题：科技与人文的平衡',
+type: '材料作文',
+category: '科技人文',
+requirement: '材料：有人说，科技让生活更便捷；有人说，科技让人变得冷漠。请结合材料写一篇文章，谈谈你的思考。',
+guide: [
+'第一步：提取核心矛盾——科技带来便捷，但也可能带来冷漠。',
+'第二步：辩证分析——便捷是事实，冷漠是风险；关键不在于科技本身，而在于人如何使用科技。',
+'第三步：确定立意——科技向善，方能真正造福人类；用人文温度调和科技冰冷。'
+],
+yqhGuide: [
+'教研审题法：用辩证法——科技是中性的，善恶取决于使用者。问题不在科技，在于人。',
+'教研结构法：用让步说理——诚然科技带来便捷（让步），然而便捷背后隐藏着人际疏离的风险（转折），因此需要用人文精神引导科技（合）。',
+'教研素材法：用人工智能替代不了人的情感温度作为论据；用张桂梅的人文关怀作为正面事例。'
+],
+outlines: [
+{title: '方向一：科技向善，方能造福人类', desc: '围绕"科技需要价值引导"论证，举人工智能伦理、基因编辑等事例。'},
+{title: '方向二：用人文温度调和科技冰冷', desc: '围绕"在科技时代守住人文精神"论证，强调情感、审美、道德的不可替代性。'},
+{title: '方向三：科技是工具，人是目的', desc: '围绕"科技服务于人而非人服务于科技"论证，强调人的主体性。'}
+],
+materials: '推荐素材：人工智能可以生成但无法感受；张桂梅的人文关怀；"穷则变，变则通，通则久"（《周易》）。',
+startExample: '科技的巨轮碾过旧时光的辙痕，把生活推入一个又一个未知的航道。我们站在浪尖上，既是被裹挟的旅人，也是掌舵的水手——关键在于，我们用什么来导航？'
+},
+{
+grade: '高二',
+title: '模拟题：文化自信',
+type: '材料作文',
+category: '文化传承',
+requirement: '材料：从汉服热到国货崛起，从《只此青绿》到《长安三万里》，"国潮"成为年轻人的新时尚。请结合材料写一篇文章，谈谈你的思考。',
+guide: [
+'第一步：理解"国潮"——不仅是消费趋势，更是文化自信的体现。',
+'第二步：追问原因——为什么年轻人开始主动拥抱传统文化？',
+'第三步：确定立意——文化自信是民族复兴的精神基石；传承不是守旧，而是让传统"活"在当下。'
+],
+yqhGuide: [
+'教研审题法：用因果法——"国潮热"是结果，原因是文化自信的觉醒和创新表达的成功。',
+'教研结构法：用并列式分论点——文化自信源于文明积淀/彰显于创新实践/指向人类未来。',
+'教研素材法：用《只此青绿》出圈、故宫文创、李子柒传播作为论据。'
+],
+outlines: [
+{title: '方向一：文化自信是民族复兴的精神基石', desc: '围绕"文化自信的重要性"论证，用三个分论点展开：源于积淀、彰显于实践、指向未来。'},
+{title: '方向二：传承不是守旧，而是让传统"活"在当下', desc: '围绕"守正创新"论证，举故宫活化、敦煌数字化等事例。'},
+{title: '方向三：从"国潮"看青年与文化', desc: '围绕"年轻人主动拥抱传统"论证，分析文化自信在青年一代中的觉醒。'}
+],
+materials: '推荐素材：《只此青绿》出圈；故宫文创；李子柒传播；"周虽旧邦，其命维新"（《诗经》）；"各美其美，美美与共"（费孝通）。',
+startExample: '当汉服走上街头，当《只此青绿》登上春晚，当《长安三万里》让唐诗"破圈"——年轻人不再追逐西方潮流，而是主动拥抱中国文化。这不是偶然，而是文化自信在青年一代心中的觉醒。'
+},
+{
+grade: '高二',
+title: '模拟题：青年与时代',
+type: '材料作文',
+category: '时代担当',
+requirement: '材料：青年一代有理想、有本领、有担当，国家就有前途，民族就有希望。请结合材料写一篇文章，谈谈你的思考。',
+guide: [
+'第一步：理解核心——青年的理想、本领、担当三者缺一不可。',
+'第二步：联系现实——当代青年面临什么挑战？应如何回应？',
+'第三步：确定立意——最好的青春是把个人梦想融入时代洪流。'
+],
+yqhGuide: [
+'教研审题法：用递进法分析三个关键词——理想（方向）→本领（能力）→担当（行动），三者递进。',
+'教研结构法：用递进式分论点——理想指引方向→本领支撑行动→担当定义价值。',
+'教研素材法：用航天团队（90后托举大国重器）、黄文秀（青春献扶贫）、张桂梅（教育担当）作为论据。'
+],
+outlines: [
+{title: '方向一：最好的青春是融入时代', desc: '围绕"个人梦想与时代使命的交汇"论证，举航天团队、黄文秀等事例。'},
+{title: '方向二：理想·本领·担当——青年的三重修炼', desc: '用递进式分论点分别论证理想、本领、担当的重要性。'},
+{title: '方向三：在"内卷"与"躺平"之外', desc: '围绕"青年应找到真正值得奋斗的方向"论证，反思内卷和躺平。'}
+],
+materials: '推荐素材：航天团队平均年龄33岁；黄文秀30岁牺牲在扶贫路上；张桂梅办学帮两千女孩走出大山；"士不可以不弘毅，任重而道远"（《论语》）。',
+startExample: '文昌发射场的指挥大厅里坐满了年轻面孔，中国航天团队平均年龄33岁。他们用青春托举大国重器，把个人梦想融入星辰大海——这是最好的青春，不是追逐流量，而是追逐星辰。'
+},
+{
+grade: '高一',
+title: '模拟题：坚持的力量',
+type: '材料作文',
+category: '品格修养',
+requirement: '材料：屠呦呦经历190次失败仍不放弃，终于在第191次实验中发现了青蒿素。请结合材料写一篇文章，谈谈你的思考。',
+guide: [
+'第一步：理解材料核心——坚持是成功的关键，但坚持不是盲目重复。',
+'第二步：辩证思考——坚持需要正确的方向；坚持需要科学的方法；坚持需要内心的信念。',
+'第三步：确定立意——真正的坚持不是不放弃，而是在失败中不断调整方向。'
+],
+yqhGuide: [
+'教研审题法：用条件辩证——"坚持就是胜利"在方向正确时是真理，方向错误时是灾难。',
+'教研结构法：用递进式——坚持需要信念→坚持需要方向→坚持需要方法。',
+'教研素材法：用屠呦呦190次实验（坚持+科学）、苏炳添科学训练（坚持+方法）、南辕北辙（方向错误的坚持）作为论据。'
+],
+outlines: [
+{title: '方向一：坚持是通向成功的桥梁', desc: '围绕"坚持的力量"论证，举屠呦呦、苏炳添等事例。'},
+{title: '方向二：坚持需要正确的方向', desc: '围绕"方向比速度重要"论证，用条件辩证分析法。'},
+{title: '方向三：真正的坚持允许失败', desc: '围绕"在失败中坚持"论证，强调坚持不是不犯错，而是在犯错后继续前行。'}
+],
+materials: '推荐素材：屠呦呦190次实验；苏炳添32岁突破；"锲而不舍，金石可镂"（荀子）；"千磨万击还坚劲，任尔东西南北风"（郑燮）。',
+startExample: '190次失败，190次重新开始。屠呦呦用190次"不放弃"换来了第191次的成功——这不仅是一个关于坚持的故事，更是一个关于信念的传奇。'
+},
+{
+grade: '高一',
+title: '模拟题：成长中的选择',
+type: '材料作文',
+category: '人生选择',
+requirement: '材料：人生的道路上，我们不断面临选择。有人说选择比努力更重要，也有人说没有努力就没有选择的权利。请结合材料写一篇文章，谈谈你的思考。',
+guide: [
+'第一步：理解核心矛盾——选择和努力，哪个更重要？',
+'第二步：辩证分析——选择决定方向，努力决定距离；二者不是对立，而是互补。',
+'第三步：确定立意——选择定义方向，努力定义距离；先选对方向，再全力以赴。'
+],
+yqhGuide: [
+'教研审题法：用辩证法——选择和努力不是"谁比谁重要"的关系，而是"先选择后努力"的顺序关系。',
+'教研结构法：用让步说理——诚然努力很重要（让步），但方向错误的努力是徒劳的（转折），因此选择比努力更优先（合）。',
+'教研素材法：用黄文秀选择回乡（选择定义方向）、樊锦诗选择大漠（选择定义价值）作为论据。'
+],
+outlines: [
+{title: '方向一：选择定义方向，努力定义距离', desc: '围绕"选择和努力的互补关系"论证，强调先选对方向再全力以赴。'},
+{title: '方向二：选择定义人生', desc: '围绕"选择的重要性"论证，举黄文秀、樊锦诗等选择改变人生的事例。'},
+{title: '方向三：没有努力就没有选择的权利', desc: '围绕"努力是选择的前提"论证，强调能力赋予选择的自由。'}
+],
+materials: '推荐素材：黄文秀选择回乡扶贫；樊锦诗选择大漠守护敦煌；"路漫漫其修远兮，吾将上下而求索"（屈原）。',
+startExample: '人生的岔路口，向左还是向右？这个看似简单的选择，往往定义了我们的一生。选择决定方向，努力决定距离——而在错误方向上的努力，不过是南辕北辙。'
+},
+{
+grade: '高三',
+title: '2026预测：词语之变',
+type: '材料作文',
+category: '2026预测',
+requirement: '材料：我们对很多词语的理解，会随着成长和时代的变化而改变。比如"成功"，从"出人头地"到"活出自我"；"奋斗"，从"改变命运"到"实现价值"；"幸福"，从"拥有更多"到"成为更好"。请结合材料写一篇文章，谈谈你的思考。',
+guide: [
+'第一步：理解核心——词语理解的变化，折射的是时代精神和价值观念的变迁。',
+'第二步：多角度思考——个人层面（成长带来的认知变化）、时代层面（社会变迁带来的价值重塑）。',
+'第三步：确定立意——词语之变，是成长印记，也是时代之变；理解的变化，是认知的升级。'
+],
+yqhGuide: [
+'教研审题法：用因果法——词语理解为什么变化？因为人在成长，时代在变迁。变化是结果，成长和时代是原因。',
+'教研结构法：用递进式——词语之变是个人成长的印记→词语之变是时代精神的折射→词语之变是认知升级的体现。',
+'教研素材法：用"成功"含义的变化（从外在到内在）、"奋斗"含义的变化（从改变命运到实现价值）作为论据。'
+],
+outlines: [
+{title: '方向一：词语之变，是成长的印记', desc: '围绕"个人成长带来词语理解的变化"论证，结合自身经历。'},
+{title: '方向二：词语之变，是时代之变', desc: '围绕"社会变迁重塑价值观念"论证，分析时代精神如何影响词语含义。'},
+{title: '方向三：理解的变化，是认知的升级', desc: '围绕"词语理解变化背后的认知提升"论证，强调思辨能力的成长。'}
+],
+materials: '推荐素材：成功含义的变化（出人头地→活出自我）；"内卷"与"躺平"的新解读；"不畏浮云遮望眼，自缘身在最高层"（王安石）。',
+startExample: '小时候，我以为"成功"就是考第一名；长大后，我发现"成功"是找到自己热爱的事并坚持做好。一个词语的理解变了，背后是十年的成长，也是一个时代的变迁。'
+},
+{
+grade: '高三',
+title: '2026预测：科技与人文',
+type: '材料作文',
+category: '2026预测',
+requirement: '材料：当人工智能可以写文章、画画、做决策，有人说"人将被取代"，也有人说"人的价值将更加凸显"。请结合材料写一篇文章，谈谈你的思考。',
+guide: [
+'第一步：提取核心矛盾——人工智能崛起，人被取代还是价值凸显？',
+'第二步：辩证分析——人工智能可以替代"能做的事"，但无法替代"该做的事"；可以生成内容，但无法创造意义。',
+'第三步：确定立意——人工智能时代，人的不可替代性在于情感、价值和创造力。'
+],
+yqhGuide: [
+'教研审题法：用辩证法——不是"取代"或"凸显"的二选一，而是"部分替代+部分凸显"的辩证关系。',
+'教研结构法：用黄金七段式——三个分论点（人的情感不可替代/人的价值判断不可替代/人的创造力不可替代），辩证段让步说理。',
+'教研素材法：用人工智能局限（无法感受情感、无法做价值判断）作为论据；用张桂梅的人文关怀作为正面事例。'
+],
+outlines: [
+{title: '方向一：人工智能时代，人的价值更加凸显', desc: '围绕"人的不可替代性"论证，从情感、价值、创造力三个维度展开。'},
+{title: '方向二：科技是工具，人是目的', desc: '围绕"人机关系"论证，强调科技服务于人而非人服务于科技。'},
+{title: '方向三：在人工智能时代重新定义"学习"', desc: '围绕"教育变革"论证，从记答案转向提问题，从积累信息转向培养判断力。'}
+],
+materials: '推荐素材：人工智能可以生成但无法感受；张桂梅的人文关怀；爱因斯坦"提出问题比解决问题更重要"；"学而不思则罔，思而不学则殆"（孔子）。',
+startExample: '当人工智能可以一键生成文章、画出精美画作、做出复杂决策，"人"的位置在哪里？答案不在于人工智能能做什么，而在于人工智能不能做什么——它不能爱，不能信仰，不能创造意义。而这，恰恰是人的本质。'
+},
+{
+grade: '高二',
+title: '模拟题：平凡与伟大',
+type: '材料作文',
+category: '人生价值',
+requirement: '材料：保洁阿姨每天清晨五点开始工作，环卫工人日复一日清扫街道，快递小哥风雨无阻奔波在路上。他们是平凡的人，却也是城市运转不可或缺的人。请结合材料写一篇文章，谈谈你的思考。',
+guide: [
+'第一步：理解核心——平凡与不平凡不是对立的，平凡中藏着不平凡。',
+'第二步：辩证分析——平凡是底色，不平凡在认真里；平凡是多数人的宿命，不平凡在坚持中。',
+'第三步：确定立意——真正的伟大不是站在山顶，而是在山脚依然仰望星空。'
+],
+yqhGuide: [
+'教研审题法：用辩证法——平凡和不平凡是同一枚硬币的两面，不是对立的两极。',
+'教研结构法：用递进式——平凡是底色（是什么）→不平凡藏在认真里（为什么）→在平凡中追求不平凡（怎么办）。',
+'教研素材法：用苏炳添日复一日的训练（平凡中的坚持）、外婆煲汤（平凡中的极致）作为论据。'
+],
+outlines: [
+{title: '方向一：平凡中的不平凡', desc: '围绕"平凡事做到极致就是不平凡"论证，举苏炳添训练、外婆煲汤等事例。'},
+{title: '方向二：平凡不是平庸', desc: '围绕"承认平凡但拒绝平庸"论证，区分平凡（现实）和平庸（态度）。'},
+{title: '方向三：在平凡的位置上仰望星空', desc: '围绕"在平凡中追求意义"论证，强调每个普通人都有不平凡的可能。'}
+],
+materials: '推荐素材：苏炳添日复一日训练；保洁阿姨、环卫工人、快递小哥；"苔花如米小，也学牡丹开"（袁枚）；"无穷的远方，无数的人们，都和我有关"（鲁迅）。',
+startExample: '保洁阿姨每天清晨五点开始工作，环卫工人日复一日清扫街道——他们是这座城市中最平凡的人，却也是这座城市运转不可或缺的人。平凡与不平凡，从来不是对立的两极，而是同一枚硬币的两面。'
+},
+{
+grade: '高一',
+title: '模拟题：那束光',
+type: '命题作文',
+category: '成长感悟',
+requirement: '以"那束光"为题，写一篇不少于800字的文章。文体自选，立意自定。要求：内容真实，感情真挚。',
+guide: [
+'第一步：理解"光"——可以是具象的（阳光、灯光），也可以是抽象的（希望、温暖、启发、信念）。',
+'第二步：确定"那束"——"那束"说明是特定的、具体的某一束光，不是泛泛而谈。',
+'第三步：写出"光"的意义——这道光照亮了你什么？改变了你什么？'
+],
+yqhGuide: [
+'教研审题法：用联想法拓展"光"——启发之光（某个人/某件事启发了你）、温暖之光（困境中的关爱）、信念之光（内心坚持的力量）。',
+'教研叙事法：若写记叙文，用细节描写法——特写镜头聚焦"光"出现的那个瞬间，放大最具感染力的细节。',
+'教研结构法：若写记叙文，用首尾呼应——开头写"光"的出现，结尾写"光"的延续。'
+],
+outlines: [
+{title: '方向一：记叙——那束光是温暖', desc: '写困境中得到他人帮助的"那束光"——如考试失利后老师的鼓励、生病时同学的关心。'},
+{title: '方向二：记叙——那束光是启发', desc: '写某个人或某件事给你的"那束光"——如读到一本书获得力量、看到某个榜样受到鼓舞。'},
+{title: '方向三：散文——那束光是信念', desc: '以"光"为线索，写内心信念的建立过程，融合多个场景，用递进结构层层深入。'}
+],
+materials: '推荐素材：个人成长经历中的转折点；"星星之火，可以燎原"（毛泽东）；"黑暗无论怎样悠长，白昼总会到来"（莎士比亚）。',
+startExample: '那束光来得突然。不是阳光，不是灯光，而是一个普通人在寒冷的冬天里，不经意间递来的一缕温暖——它照亮了我最暗的日子。'
+},
+{
+grade: '高二',
+title: '模拟题：快与慢',
+type: '材料作文',
+category: '生活思辨',
+requirement: '材料：高铁让千里变为咫尺，外卖让美食即刻送达。有人说"快"是效率，有人说"慢"是品质。请结合材料写一篇文章，谈谈你的思考。',
+guide: [
+'第一步：理解核心矛盾——"快"与"慢"哪个好？',
+'第二步：辩证分析——快是效率，慢是品质；二者不是对立，而是互补。',
+'第三步：确定立意——在快时代里保持慢心态；快慢之间，找到生活的节奏。'
+],
+yqhGuide: [
+'教研审题法：用辩证法——快和慢不是非此即彼，而是"什么该快，什么该慢"的选择。',
+'教研结构法：用让步说理——诚然快是现代社会的法则（让步），然而当效率成为唯一标尺时我们失去了什么（转折），因此需要在快与慢之间找到平衡（合）。',
+'教研素材法：用外婆煲汤（慢的品质）与外卖（快的效率）作为对比论据。'
+],
+outlines: [
+{title: '方向一：在快时代里保持慢心态', desc: '围绕"快与慢的辩证关系"论证，强调在追求效率的同时守住品质。'},
+{title: '方向二：快是效率，慢是品质', desc: '围绕"快慢各有价值"论证，分析什么该快什么该慢。'},
+{title: '方向三：快慢之间，找到生活的节奏', desc: '围绕"生活节奏的把控"论证，强调在快与慢之间找到属于自己的节奏。'}
+],
+materials: '推荐素材：外婆煲汤（慢工出细活）；高铁与外卖（快的便利）；"欲速则不达"（古语）；"行到水穷处，坐看云起时"（王维）。',
+startExample: '高铁让千里变为咫尺，外卖让美食即刻送达。我们活在一个"快"的时代——快到没时间吃一顿饭，快到没耐心读一本书，快到忘了慢下来的滋味。可是，有些东西，急不得。'
+}
+];
+
+var dimScores = {neirong: 0, biaoda: 0, shenke: 0, fengfu: 0, wencai: 0, chuangyi: 0};
+
+var dimSuggestions = {
+neirong: {
+'20': '内容优秀！切合题意，中心突出，内容充实，思想健康，感情真挚。选材典型，论证有力，能充分支撑中心论点。继续保持，在立意深度上精益求精。',
+'16': '内容良好。符合题意，中心明确，内容较充实。建议：1）增加辩证段落，展现全面思考；2）确保每个素材都紧扣中心，删除偏离主题的内容；3）在论述深度上进一步提升。',
+'12': '内容一般。基本符合题意，中心基本明确，内容单薄。建议：1）用多角度立意法选最独特的角度；2）增加新鲜素材，避免陈旧；3）每个素材后必须有分析论证，不只摆素材。',
+'8': '内容需要较大提升。建议：1）先确定一个明确且有深度的中心论点；2）用材料审题五步法确保不偏题；3）增加时代素材，避免空洞说理；4）写出辩证段落，展现思维深度。'
+},
+biaoda: {
+'20': '表达优秀！文体规范，结构严谨，语言流畅，字迹工整。段落分明，过渡自然，首尾呼应。',
+'16': '表达良好。文体明确，结构完整，语言通顺。建议：1）检查段落过渡是否自然；2）善用修辞提升文采；3）开头迅速入题，结尾精炼升华；4）考虑使用黄金七段式优化结构。',
+'12': '表达一般。基本符合文体要求，结构基本完整，语言基本通顺。建议：1）写作前先列提纲；2）每段段首句设为路标；3）检查语句通顺，修改语病；4）段落分明，5-7段为佳。',
+'8': '表达需要系统提升。建议：1）先保证每句话语法正确；2）学习黄金七段式结构；3）多读范文积累好词好句；4）写完后逐句检查，修改不通顺的地方。'
+}
+};
+function scrollToContent() {
+document.getElementById('mainContent').scrollIntoView({behavior: 'smooth'});
+}
+
+function switchTab(idx) {
+var btns = document.querySelectorAll('.tab-btn');
+var mods = document.querySelectorAll('.module');
+var tabModules = ['写作技巧库','范文赏析','素材宝库','实战演练','写作自评','教研写作公式'];
+if (!isModuleAllowed(tabModules[idx])) { alert('您没有使用该板块的权限'); return; }
+for (var i = 0; i < btns.length; i++) {
+btns[i].className = 'tab-btn' + (i === idx ? ' active' : '');
+mods[i].className = 'module' + (i === idx ? ' active' : '');
+}
+}
+
+function switchGrade(modIdx, gradeIdx) {
+var parent = document.getElementById('mod' + modIdx);
+var tabs = parent.querySelectorAll('.grade-tab');
+var contents = parent.querySelectorAll('.grade-content');
+for (var i = 0; i < tabs.length; i++) {
+tabs[i].className = 'grade-tab' + (i === gradeIdx ? ' active' : '');
+contents[i].className = 'grade-content' + (i === gradeIdx ? ' active' : '');
+}
+}
+
+function switchSub(modIdx, subIdx) {
+var parent = document.getElementById('mod' + modIdx);
+var tabs = parent.querySelectorAll('.sub-tab');
+var contents = parent.querySelectorAll('.sub-content');
+for (var i = 0; i < tabs.length; i++) {
+tabs[i].className = 'sub-tab' + (i === subIdx ? ' active' : '');
+contents[i].className = 'sub-content' + (i === subIdx ? ' active' : '');
+}
+}
+
+function renderEssays() {
+var html = '';
+for (var i = 0; i < essays.length; i++) {
+var e = essays[i];
+var hlHtml = '';
+for (var j = 0; j < e.highlights.length; j++) {
+hlHtml += '<span class="hl-tag">' + e.highlights[j] + '</span>';
+}
+var yqhHtml = '';
+if (e.yqhPoints) {
+yqhHtml = '<div class="yqh-point"><strong>教研写作方法论点评：</strong>' + e.yqhPoints + '</div>';
+}
+var scoreClass = e.score >= 55 ? 'hl-tag-gold' : 'hl-tag';
+html += '<div class="essay-card">' +
+'<div class="title-bar">' +
+'<span class="essay-title">' + e.title + '</span>' +
+'<span class="essay-score">' + e.score + '/60</span>' +
+'</div>' +
+'<div class="meta">' + e.grade + ' | ' + e.type + ' | ' + e.category + ' | ' + e.source + '</div>' +
+'<div class="body">' + e.body.replace(/\n/g, '<br>') + '</div>' +
+'<div class="highlights">' + hlHtml + '</div>' +
+'<div class="analysis"><strong>亮点分析：</strong>' + e.analysis + '</div>' +
+yqhHtml +
+'</div>';
+}
+document.getElementById('essayList').innerHTML = html;
+}
+
+function renderPractices() {
+var html = '';
+for (var i = 0; i < practices.length; i++) {
+var p = practices[i];
+var guideHtml = '';
+for (var j = 0; j < p.guide.length; j++) {
+guideHtml += '<div class="guide-step">' + p.guide[j] + '</div>';
+}
+var yqhGuideHtml = '';
+if (p.yqhGuide) {
+yqhGuideHtml = '<h4>教研写作审题指导</h4>';
+for (var m = 0; m < p.yqhGuide.length; m++) {
+yqhGuideHtml += '<div class="yqh-step">' + p.yqhGuide[m] + '</div>';
+}
+}
+var outlineHtml = '';
+for (var k = 0; k < p.outlines.length; k++) {
+outlineHtml += '<div class="outline-item"><div class="oi-title">' + p.outlines[k].title + '</div><p>' + p.outlines[k].desc + '</p></div>';
+}
+html += '<div class="practice-card">' +
+'<div class="pq-title" onclick="togglePractice(this)"><span class="arrow">&#x25B6;</span> ' +
+'<span class="tag" style="margin-right:6px">' + p.grade + '</span>' +
+p.title + '（' + p.type + '·' + p.category + '）</div>' +
+'<div class="pq-body">' +
+'<h4>题目要求</h4>' +
+'<p>' + p.requirement.replace(/\n/g, '<br>') + '</p>' +
+'<h4>审题指导</h4>' +
+guideHtml +
+yqhGuideHtml +
+'<h4>提纲方向</h4>' +
+outlineHtml +
+'<h4>推荐素材</h4>' +
+'<p>' + p.materials + '</p>' +
+'<h4>开头示例</h4>' +
+'<div class="start-example">' + p.startExample + '</div>' +
+'</div></div>';
+}
+document.getElementById('practiceList').innerHTML = html;
+}
+
+function togglePractice(el) {
+var body = el.nextElementSibling;
+var isOpen = body.className.indexOf('open') >= 0;
+if (isOpen) {
+body.className = 'pq-body';
+el.className = 'pq-title';
+} else {
+body.className = 'pq-body open';
+el.className = 'pq-title open';
+}
+}
+
+function analyzeEssay() {
+var text = document.getElementById('essayInput').value.trim();
+var container = document.getElementById('aiAnalysisResult');
+if (!text || text.length < 20) {
+container.className = '';
+container.innerHTML = '<div class="ai-report"><div style="text-align:center;color:#b03830;padding:20px;">请先在上方文本框中输入你的作文（至少20字），再点击分析。</div></div>';
+container.scrollIntoView({behavior:'smooth'});
+return;
+}
+container.className = '';
+container.innerHTML = '<div class="ai-report"><div class="ai-loading">正在智能分析你的作文，请稍候...</div></div>';
+container.scrollIntoView({behavior:'smooth'});
+setTimeout(function() {
+var result = doAnalyzeEssay(text);
+container.innerHTML = result;
+}, 600);
+}
+
+function doAnalyzeEssay(text) {
+var chars = text.replace(/\s/g, '').length;
+var paragraphs = text.split(/\n\s*\n/).filter(function(p){return p.trim().length > 0;});
+var paraCount = paragraphs.length;
+var sentences = text.split(/[。！？；\n]/).filter(function(s){return s.trim().length > 2;});
+var sentenceCount = sentences.length;
+
+var philosophicalWords = ['辩证','本质','规律','矛盾','因果','联系','发展','转化','超越','解构','重构','异化','主体性','价值判断','必然','偶然','现象','内在','外在','统一','对立','否定','扬弃','量变','质变','普遍','特殊','静态','动态','辩证法','认识论','方法论','反思','批判','追问','审视','洞察','揭示','剖析','解构','建构'];
+var eraWords = ['人工智能','算法','科技','创新','传承','文化自信','命运共同体','时代','青年','担当','奉献','坚守','选择','成长','梦想','奋斗','突破','变革','数字','信息','网络','全球化','中国','民族','文明','精神','价值','未来','现实','社会','历史','传统','现代'];
+var academicWords = ['诚然','然而','不可否认','固然','换言之','质言之','综上所述','由此可见','不言而喻','毋庸置疑','值得注意的是','需要指出的是','进一步说','从某种意义上','归根结底','与此相反','不仅如此','更重要的是','问题的核心在于','关键在于','实质上','本质上'];
+var argumentWords = ['首先','其次','再次','此外','另外','反之','相反','同理','进而','因而','因此','所以','因为','由此','可见','显然','显然','不难看出','事实证明','数据显示','研究表明'];
+var rhetoricWords = ['如同','仿佛','犹如','宛如','好似','似的','一般','一样','如同','恰似','恍若','仿佛是'];
+var quoteWords = ['古人云','俗话说','正如','曾说','写道','有言','名言','警句','格言','诗句','所谓','曾言','所言','所谓'];
+var poetryWords = ['春风','明月','青山','绿水','长风','万里','千秋','百代','大漠','孤烟','落霞','孤鹜','长河','落日','江山','天地','苍茫','浩瀚','星辰','大海','远方','归途','炊烟','暮色','晨光','流年','光阴','岁月','时光'];
+var detailWords = ['慢慢地','轻轻地','悄悄地','静静地','缓缓地','默默地','仔细地','认真地','小心翼翼','不知不觉','突然','忽然','猛地','一下子','渐渐','逐渐','一点一点','一丝一丝','猛然','蓦然','霎时','瞬间'];
+var structureWords = ['第一','第二','第三','一方面','另一方面','起初','开始','后来','最终','结果','开头','结尾','以上','以下','总之','综上','归根结底','与此同时','不仅如此'];
+var clicheWords = ['司马迁受宫刑','屈原投江','李白斗酒','苏轼被贬','为中华之崛起','成为祖国栋梁','共创美好明天','携手','感恩的心','泪水模糊','眼眶湿润','光阴似箭','日月如梭'];
+var emptyWords = ['非常','十分','特别','极其','格外','相当','无比','异常'];
+var persuasiveWords = ['应该','必须','要','让我们','我们要','应当','需要','务必','一定要','必须要'];
+var dialecticalWords = ['诚然','然而','但是','不过','反之','另一方面','与此同时','尽管如此','不可否认','固然','虽然','即便','即使','退一步说','从另一个角度看','换一个角度'];
+var parallelWords = ['既是','也是','不仅','更','既','又','一方面','另一方面','不仅...而且','不但...而且','既...又','一方面...另一方面'];
+var evidenceWords = ['屠呦呦','苏炳添','黄文秀','张桂梅','樊锦诗','桂海潮','潘建伟','鲁迅','爱因斯坦','苏轼','孔子','孟子','老子','庄子'];
+var transitionWords = ['然而','但是','不过','因此','所以','因为','虽然','尽管','可是','而且','并且','此外','另外','总之','综上','换句话说','也就是说','与此同时','不仅如此','归根结底','反观','与此相对','相对应的'];
+
+var philosophicalCount = countMatches(text, philosophicalWords);
+var eraCount = countMatches(text, eraWords);
+var academicCount = countMatches(text, academicWords);
+var argumentCount = countMatches(text, argumentWords);
+var rhetoricCount = countMatches(text, rhetoricWords);
+var quoteCount = countMatches(text, quoteWords);
+var poetryCount = countMatches(text, poetryWords);
+var detailCount = countMatches(text, detailWords);
+var structureCount = countMatches(text, structureWords);
+var clicheCount = countMatches(text, clicheWords);
+var emptyCount = countMatches(text, emptyWords);
+var persuasiveCount = countMatches(text, persuasiveWords);
+var dialecticalCount = countMatches(text, dialecticalWords);
+var parallelCount = countMatches(text, parallelWords);
+var evidenceCount = countMatches(text, evidenceWords);
+var transitionCount = countMatches(text, transitionWords);
+
+var firstParaLen = paragraphs.length > 0 ? paragraphs[0].replace(/\s/g,'').length : 0;
+var lastParaLen = paragraphs.length > 1 ? paragraphs[paragraphs.length-1].replace(/\s/g,'').length : 0;
+var avgSentenceLen = sentenceCount > 0 ? Math.round(chars / sentenceCount) : 0;
+var sentenceLens = sentences.map(function(s){return s.replace(/\s/g,'').length;});
+var shortSentences = sentenceLens.filter(function(l){return l > 0 && l <= 15;}).length;
+var longSentences = sentenceLens.filter(function(l){return l > 40;}).length;
+var punctTypes = 0;
+if(/[。]/.test(text)) punctTypes++;
+if(/[！]/.test(text)) punctTypes++;
+if(/[？]/.test(text)) punctTypes++;
+if(/[，]/.test(text)) punctTypes++;
+if(/[、]/.test(text)) punctTypes++;
+if(/[：]/.test(text)) punctTypes++;
+if(/[；]/.test(text)) punctTypes++;
+if(/[——]/.test(text)) punctTypes++;
+if(/["""]/.test(text)) punctTypes++;
+if(/[《》]/.test(text)) punctTypes++;
+if(/[……]/.test(text)) punctTypes++;
+
+var uniqueChars = {};
+for (var i = 0; i < text.length; i++) { uniqueChars[text[i]] = true; }
+var uniqueRatio = chars > 0 ? Object.keys(uniqueChars).length / chars : 0;
+
+var wordPenalty = 0;
+var wordPenaltyNote = '';
+if (chars < 800) {
+var shortage = Math.ceil((800 - chars) / 50);
+wordPenalty = Math.min(shortage, 5);
+wordPenaltyNote = '字数不足800字，每少50字扣1分，共扣' + wordPenalty + '分';
+}
+var severePenalty = false;
+if (chars < 400) { severePenalty = true; wordPenaltyNote = '字数严重不足（不足400字），总分不超过20分'; }
+if (chars < 200) { severePenalty = true; wordPenaltyNote = '字数严重不足（不足200字），总分不超过10分'; }
+
+var contentScore = 0, contentTags = [];
+if (chars >= 800) { contentScore += 6; contentTags.push({t:'字数达标(' + chars + '字)', pos:true}); }
+else if (chars >= 400) { contentScore += 4; contentTags.push({t:'字数偏少(' + chars + '字)', pos:false}); }
+else { contentScore += 1; contentTags.push({t:'字数严重不足(' + chars + '字)', pos:false}); }
+if (evidenceCount >= 3) { contentScore += 5; contentTags.push({t:'论据丰富(' + evidenceCount + '处)', pos:true}); }
+else if (evidenceCount >= 1) { contentScore += 3; contentTags.push({t:'有论据支撑(' + evidenceCount + '处)', pos:true}); }
+else { contentScore += 0; contentTags.push({t:'论据不足(' + evidenceCount + '处)', pos:false}); }
+if (dialecticalCount >= 2) { contentScore += 4; contentTags.push({t:'辩证思维突出(' + dialecticalCount + '处)', pos:true}); }
+else if (dialecticalCount >= 1) { contentScore += 2; contentTags.push({t:'有辩证思考(' + dialecticalCount + '处)', pos:true}); }
+else { contentTags.push({t:'缺少辩证思考', pos:false}); }
+if (philosophicalCount >= 3) { contentScore += 3; contentTags.push({t:'思辨深度突出(' + philosophicalCount + '处)', pos:true}); }
+else if (philosophicalCount >= 1) { contentScore += 1; contentTags.push({t:'有思辨表达(' + philosophicalCount + '处)', pos:true}); }
+if (eraCount >= 3) { contentScore += 2; contentTags.push({t:'时代感强(' + eraCount + '处)', pos:true}); }
+contentScore = Math.min(contentScore, 20);
+if (clicheCount > 0) { contentScore = Math.max(contentScore - 3, 0); contentTags.push({t:'检测到陈旧素材(' + clicheCount + '处)', pos:false}); }
+if (persuasiveCount > 4) { contentScore = Math.max(contentScore - 2, 0); contentTags.push({t:'说教意味偏重(' + persuasiveCount + '处)', pos:false}); }
+var contentLevel = contentScore >= 17 ? 'good' : (contentScore >= 12 ? 'mid' : 'low');
+
+var expressScore = 0, expressTags = [];
+if (paraCount >= 5 && paraCount <= 8) { expressScore += 5; expressTags.push({t:'段落数量合理(' + paraCount + '段)', pos:true}); }
+else if (paraCount >= 3) { expressScore += 3; expressTags.push({t:'段落基本合理(' + paraCount + '段)', pos:true}); }
+else { expressTags.push({t:'段落不足(' + paraCount + '段)', pos:false}); }
+if (avgSentenceLen >= 10 && avgSentenceLen <= 30) { expressScore += 4; expressTags.push({t:'句式长短适中(均' + avgSentenceLen + '字)', pos:true}); }
+else { expressScore += 2; expressTags.push({t:'句式均长' + avgSentenceLen + '字', pos:false}); }
+if (shortSentences > 0 && longSentences > 0) { expressScore += 3; expressTags.push({t:'长短句交替(' + shortSentences + '短/' + longSentences + '长)', pos:true}); }
+else { expressTags.push({t:'句式单一', pos:false}); }
+if (transitionCount >= 3) { expressScore += 4; expressTags.push({t:'过渡衔接丰富(' + transitionCount + '处)', pos:true}); }
+else if (transitionCount >= 1) { expressScore += 2; expressTags.push({t:'有过渡衔接(' + transitionCount + '处)', pos:true}); }
+else { expressTags.push({t:'过渡衔接不足', pos:false}); }
+if (punctTypes >= 5) { expressScore += 2; expressTags.push({t:'标点多样(' + punctTypes + '种)', pos:true}); }
+else { expressTags.push({t:'标点单一(' + punctTypes + '种)', pos:false}); }
+if (firstParaLen > 0 && firstParaLen <= 120) { expressScore += 2; expressTags.push({t:'开头简洁(' + firstParaLen + '字)', pos:true}); }
+else if (firstParaLen > 200) { expressTags.push({t:'开头过长(' + firstParaLen + '字)', pos:false}); }
+expressScore = Math.min(expressScore, 20);
+if (emptyCount >= 5) { expressScore = Math.max(expressScore - 2, 0); expressTags.push({t:'空洞修饰词过多(' + emptyCount + '处)', pos:false}); }
+var expressLevel = expressScore >= 17 ? 'good' : (expressScore >= 12 ? 'mid' : 'low');
+
+var shenkeScore = 0, shenkeTags = [];
+if (dialecticalCount >= 3) { shenkeScore += 2; shenkeTags.push({t:'辩证思维突出(' + dialecticalCount + '处)', pos:true}); }
+else if (dialecticalCount >= 1) { shenkeScore += 1; shenkeTags.push({t:'有辩证思考(' + dialecticalCount + '处)', pos:true}); }
+else { shenkeTags.push({t:'缺少辩证思考', pos:false}); }
+if (philosophicalCount >= 4) { shenkeScore += 2; shenkeTags.push({t:'本质揭示深入(' + philosophicalCount + '处)', pos:true}); }
+else if (philosophicalCount >= 2) { shenkeScore += 1; shenkeTags.push({t:'有本质分析(' + philosophicalCount + '处)', pos:true}); }
+if (academicCount >= 2) { shenkeScore += 1; shenkeTags.push({t:'学术表达运用(' + academicCount + '处)', pos:true}); }
+shenkeScore = Math.min(shenkeScore, 5);
+var shenkeLevel = shenkeScore >= 4 ? 'good' : (shenkeScore >= 3 ? 'mid' : 'low');
+
+var fengfuScore = 0, fengfuTags = [];
+if (evidenceCount >= 4) { fengfuScore += 2; fengfuTags.push({t:'论据充足(' + evidenceCount + '处)', pos:true}); }
+else if (evidenceCount >= 2) { fengfuScore += 1; fengfuTags.push({t:'论据较充足(' + evidenceCount + '处)', pos:true}); }
+else { fengfuTags.push({t:'论据不足(' + evidenceCount + '处)', pos:false}); }
+if (eraCount >= 4) { fengfuScore += 1; fengfuTags.push({t:'素材时代性强(' + eraCount + '处)', pos:true}); }
+if (quoteCount >= 1) { fengfuScore += 1; fengfuTags.push({t:'引用名言(' + quoteCount + '处)', pos:true}); }
+if (poetryCount >= 2) { fengfuScore += 1; fengfuTags.push({t:'古诗词意象(' + poetryCount + '处)', pos:true}); }
+fengfuScore = Math.min(fengfuScore, 5);
+var fengfuLevel = fengfuScore >= 4 ? 'good' : (fengfuScore >= 3 ? 'mid' : 'low');
+
+var wencaiScore = 0, wencaiTags = [];
+if (rhetoricCount >= 3) { wencaiScore += 2; wencaiTags.push({t:'比喻等修辞丰富(' + rhetoricCount + '处)', pos:true}); }
+else if (rhetoricCount >= 1) { wencaiScore += 1; wencaiTags.push({t:'有修辞运用(' + rhetoricCount + '处)', pos:true}); }
+else { wencaiTags.push({t:'修辞手法不足', pos:false}); }
+if (poetryCount >= 2) { wencaiScore += 1; wencaiTags.push({t:'化用诗词(' + poetryCount + '处)', pos:true}); }
+if (shortSentences > 0 && longSentences > 0) { wencaiScore += 1; wencaiTags.push({t:'句式灵活', pos:true}); }
+if (uniqueRatio > 0.5) { wencaiScore += 1; wencaiTags.push({t:'用词丰富度高', pos:true}); }
+else { wencaiTags.push({t:'用词重复率偏高', pos:false}); }
+wencaiScore = Math.min(wencaiScore, 5);
+var wencaiLevel = wencaiScore >= 4 ? 'good' : (wencaiScore >= 3 ? 'mid' : 'low');
+
+var chuangyiScore = 0, chuangyiTags = [];
+if (philosophicalCount >= 5 && academicCount >= 2) { chuangyiScore += 2; chuangyiTags.push({t:'见解新颖有深度', pos:true}); }
+else if (philosophicalCount >= 3) { chuangyiScore += 1; chuangyiTags.push({t:'有独特见解', pos:true}); }
+if (evidenceCount >= 3 && eraCount >= 4) { chuangyiScore += 1; chuangyiTags.push({t:'材料新鲜', pos:true}); }
+if (paraCount >= 6 && dialecticalCount >= 2) { chuangyiScore += 1; chuangyiTags.push({t:'构思精巧', pos:true}); }
+if (academicCount >= 3) { chuangyiScore += 1; chuangyiTags.push({t:'有个性特征', pos:true}); }
+chuangyiScore = Math.min(chuangyiScore, 5);
+var chuangyiLevel = chuangyiScore >= 4 ? 'good' : (chuangyiScore >= 3 ? 'mid' : 'low');
+
+var devMax = Math.max(shenkeScore, fengfuScore, wencaiScore, chuangyiScore);
+var devScores = [shenkeScore, fengfuScore, wencaiScore, chuangyiScore];
+var devCount = devScores.filter(function(s){return s >= 4;}).length;
+if (devCount === 0) {
+devScores.sort(function(a,b){return b-a;});
+if (devScores[0] >= 3) {
+shenkeScore = Math.max(shenkeScore, 5);
+fengfuScore = Math.max(fengfuScore, 5);
+wencaiScore = Math.max(wencaiScore, 5);
+chuangyiScore = Math.max(chuangyiScore, 5);
+devMax = 5;
+}
+}
+
+var rawTotal = contentScore + expressScore + shenkeScore + fengfuScore + wencaiScore + chuangyiScore;
+var totalScore = rawTotal;
+if (wordPenalty > 0) { totalScore = Math.max(totalScore - wordPenalty, 0); }
+if (severePenalty) { totalScore = Math.min(totalScore, 20); }
+
+var grade = '';
+var gradeColor = '';
+if (totalScore >= 55) { grade = '一类文（优秀）'; gradeColor = '#5a8a4a'; }
+else if (totalScore >= 45) { grade = '二类文（良好）'; gradeColor = '#3070a8'; }
+else if (totalScore >= 36) { grade = '三类文（一般）'; gradeColor = '#c87830'; }
+else { grade = '四类文（待提升）'; gradeColor = '#c8504a'; }
+
+var suggestions = [];
+if (chars < 800) suggestions.push('字数不足800字，高考要求不少于800字，每少50字扣1分（最多扣5分）。建议扩充内容，增加具体论证和素材分析。');
+if (chars < 400) suggestions.push('字数严重不足！不足400字总分不超过20分，不足200字不超过10分。务必写够800字以上。');
+if (evidenceCount < 2) suggestions.push('论据不足，建议增加2-3个时代素材（如屠呦呦、苏炳添、黄文秀等），避免使用陈旧素材。');
+if (dialecticalCount < 1) suggestions.push('缺少辩证思考，发展等级"深刻"要求辩证论证。建议用让步说理（诚然...然而...）增加辩证段落。');
+if (rhetoricCount < 1) suggestions.push('缺少修辞手法，建议使用比喻、排比等修辞，提升发展等级"文采"得分。');
+if (paraCount < 5) suggestions.push('段落过少，建议使用黄金七段式（5-7段），开头引题+三个分论点+辩证过渡+联系现实+结尾升华。');
+if (firstParaLen > 200) suggestions.push('开头过长（' + firstParaLen + '字），阅卷老师90秒定生死，建议开头控制在80-120字，迅速亮明观点。');
+if (clicheCount > 0) suggestions.push('检测到陈旧素材，建议更换为时代先锋素材（如桂海潮、张桂梅、樊锦诗等），高考阅卷反模板。');
+if (emptyCount >= 5) suggestions.push('空洞修饰词过多（"非常""十分"等），建议用具体描写替代，如"非常重要"改为"至关重要"。');
+if (transitionCount < 2) suggestions.push('过渡衔接不足，建议使用"然而""不仅如此""反观当下"等过渡词，让文章脉络更清晰。');
+if (quoteCount === 0) suggestions.push('缺少名言引用，建议镶嵌1-2句名言诗词，提升文章文化底蕴和文采分。');
+if (persuasiveCount > 4) suggestions.push('说教意味偏重，建议减少"我们应该""必须"等说教句式，用分析和论证传递道理。');
+if (poetryCount === 0) suggestions.push('缺少古诗词意象，建议化用1-2句古诗词，如"长风破浪会有时"或"不畏浮云遮望眼"，提升文采。');
+if (suggestions.length === 0) suggestions.push('你的作文整体表现优秀！继续保持，可以进一步提升立意深度和语言文采，冲击一类文（55-60分）。');
+if (suggestions.length > 15) suggestions = suggestions.slice(0, 15);
+
+var html = '<div class="ai-report">';
+html += '<div class="ai-report-header">';
+html += '<div class="ai-score-big">' + totalScore + '<span style="font-size:20px;color:#9a8e80;"> / 60分</span></div>';
+html += '<div class="ai-score-label">高考作文智能评分（对标60分制：基础等级40分+发展等级20分）</div>';
+html += '<div class="ai-grade-badge" style="background:' + gradeColor + '20;color:' + gradeColor + ';">' + grade + '</div>';
+if (wordPenaltyNote) {
+html += '<div style="font-size:12px;color:#c8504a;margin-top:6px;">' + wordPenaltyNote + '</div>';
+}
+html += '</div>';
+
+html += '<div class="ai-dim-row ' + contentLevel + '">';
+html += '<div class="ai-dim-name">内容<br><span style="font-size:11px;color:#9a8e80;">/20分</span></div>';
+html += '<div class="ai-dim-score" style="color:' + (contentLevel==='good'?'#5a8a4a':contentLevel==='mid'?'#c87830':'#c8504a') + ';">' + contentScore + '分</div>';
+html += '<div class="ai-dim-detail">';
+contentTags.forEach(function(tag) { html += '<span class="ai-dim-tag ' + (tag.pos?'pos':'neg') + '">' + tag.t + '</span>'; });
+html += '<div style="margin-top:6px;">字数' + chars + ' | 段落' + paraCount + ' | 句子' + sentenceCount + ' | 论据' + evidenceCount + ' | 辩证词' + dialecticalCount + ' | 思辨词' + philosophicalCount + ' | 时代词' + eraCount + '</div>';
+html += '</div></div>';
+
+html += '<div class="ai-dim-row ' + expressLevel + '">';
+html += '<div class="ai-dim-name">表达<br><span style="font-size:11px;color:#9a8e80;">/20分</span></div>';
+html += '<div class="ai-dim-score" style="color:' + (expressLevel==='good'?'#5a8a4a':expressLevel==='mid'?'#c87830':'#c8504a') + ';">' + expressScore + '分</div>';
+html += '<div class="ai-dim-detail">';
+expressTags.forEach(function(tag) { html += '<span class="ai-dim-tag ' + (tag.pos?'pos':'neg') + '">' + tag.t + '</span>'; });
+html += '<div style="margin-top:6px;">均句长' + avgSentenceLen + '字 | 短句' + shortSentences + ' | 长句' + longSentences + ' | 过渡词' + transitionCount + ' | 标点' + punctTypes + '种 | 开头' + firstParaLen + '字</div>';
+html += '</div></div>';
+
+html += '<div class="ai-dim-row ' + shenkeLevel + '">';
+html += '<div class="ai-dim-name">深刻<br><span style="font-size:11px;color:#9a8e80;">/5分</span></div>';
+html += '<div class="ai-dim-score" style="color:' + (shenkeLevel==='good'?'#5a8a4a':shenkeLevel==='mid'?'#c87830':'#c8504a') + ';">' + shenkeScore + '分</div>';
+html += '<div class="ai-dim-detail">';
+shenkeTags.forEach(function(tag) { html += '<span class="ai-dim-tag ' + (tag.pos?'pos':'neg') + '">' + tag.t + '</span>'; });
+html += '<div style="margin-top:6px;">辩证词' + dialecticalCount + ' | 思辨词' + philosophicalCount + ' | 学术词' + academicCount + '</div>';
+html += '</div></div>';
+
+html += '<div class="ai-dim-row ' + fengfuLevel + '">';
+html += '<div class="ai-dim-name">丰富<br><span style="font-size:11px;color:#9a8e80;">/5分</span></div>';
+html += '<div class="ai-dim-score" style="color:' + (fengfuLevel==='good'?'#5a8a4a':fengfuLevel==='mid'?'#c87830':'#c8504a') + ';">' + fengfuScore + '分</div>';
+html += '<div class="ai-dim-detail">';
+fengfuTags.forEach(function(tag) { html += '<span class="ai-dim-tag ' + (tag.pos?'pos':'neg') + '">' + tag.t + '</span>'; });
+html += '<div style="margin-top:6px;">论据' + evidenceCount + ' | 时代词' + eraCount + ' | 名言' + quoteCount + ' | 诗词意象' + poetryCount + '</div>';
+html += '</div></div>';
+
+html += '<div class="ai-dim-row ' + wencaiLevel + '">';
+html += '<div class="ai-dim-name">文采<br><span style="font-size:11px;color:#9a8e80;">/5分</span></div>';
+html += '<div class="ai-dim-score" style="color:' + (wencaiLevel==='good'?'#5a8a4a':wencaiLevel==='mid'?'#c87830':'#c8504a') + ';">' + wencaiScore + '分</div>';
+html += '<div class="ai-dim-detail">';
+wencaiTags.forEach(function(tag) { html += '<span class="ai-dim-tag ' + (tag.pos?'pos':'neg') + '">' + tag.t + '</span>'; });
+html += '<div style="margin-top:6px;">修辞' + rhetoricCount + '处 | 诗词意象' + poetryCount + '处 | 用词丰富度' + (uniqueRatio*100).toFixed(1) + '%</div>';
+html += '</div></div>';
+
+html += '<div class="ai-dim-row ' + chuangyiLevel + '">';
+html += '<div class="ai-dim-name">创意<br><span style="font-size:11px;color:#9a8e80;">/5分</span></div>';
+html += '<div class="ai-dim-score" style="color:' + (chuangyiLevel==='good'?'#5a8a4a':chuangyiLevel==='mid'?'#c87830':'#c8504a') + ';">' + chuangyiScore + '分</div>';
+html += '<div class="ai-dim-detail">';
+chuangyiTags.forEach(function(tag) { html += '<span class="ai-dim-tag ' + (tag.pos?'pos':'neg') + '">' + tag.t + '</span>'; });
+html += '<div style="margin-top:6px;">思辨词' + philosophicalCount + ' | 学术词' + academicCount + ' | 时代词' + eraCount + ' | 段落' + paraCount + '</div>';
+html += '</div></div>';
+
+html += '<div class="ai-suggest">';
+html += '<div class="ai-suggest-title">提升建议（共' + suggestions.length + '条）</div>';
+suggestions.forEach(function(s) { html += '<div style="margin:4px 0;">' + s + '</div>'; });
+html += '</div>';
+
+html += '<div style="text-align:center;margin-top:14px;font-size:12px;color:#9a8e80;">本分析基于文本特征统计与高考60分制评分规则算法生成，仅供参考，实际评分以教师批改为准。发展等级按"一点突出即可给满分"原则评定。</div>';
+html += '</div>';
+
+return html;
+}
+
+function countMatches(text, words) {
+var count = 0;
+for (var i = 0; i < words.length; i++) {
+var idx = text.indexOf(words[i]);
+while (idx !== -1) { count++; idx = text.indexOf(words[i], idx + words[i].length); }
+}
+return count;
+}
+
+function selectDim(btn) {
+var dim = btn.getAttribute('data-dim');
+var score = parseInt(btn.getAttribute('data-score'));
+dimScores[dim] = score;
+var btns = btn.parentNode.querySelectorAll('.dim-btn');
+for (var i = 0; i < btns.length; i++) {
+btns[i].className = 'dim-btn';
+}
+btn.className = 'dim-btn selected';
+updateEvalResult();
+}
+
+function toggleCheck(el) {
+var cb = el.querySelector('input[type="checkbox"]');
+cb.checked = !cb.checked;
+if (cb.checked) {
+el.className = 'checklist-item checked';
+} else {
+el.className = 'checklist-item';
+}
+updateEvalResult();
+}
+
+function flipCard(el) {
+if (el.className.indexOf('flipped') >= 0) {
+el.className = 'formula-card';
+} else {
+el.className = 'formula-card flipped';
+}
+}
+
+function updateEvalResult() {
+var total = dimScores.neirong + dimScores.biaoda + dimScores.shenke + dimScores.fengfu + dimScores.wencai + dimScores.chuangyi;
+var allSelected = dimScores.neirong > 0 && dimScores.biaoda > 0;
+if (!allSelected) {
+document.getElementById('evalResult').className = 'hidden';
+return;
+}
+var grade = '';
+var gradeColor = '';
+if (total >= 55) { grade = '一类文'; gradeColor = 'background:#c9a96e;color:#0d2747;'; }
+else if (total >= 45) { grade = '二类文'; gradeColor = 'background:#5a8a4a;color:#fff;'; }
+else if (total >= 36) { grade = '三类文'; gradeColor = 'background:#3070a8;color:#fff;'; }
+else { grade = '四类文'; gradeColor = 'background:#c8504a;color:#fff;'; }
+
+var sugHtml = '<h4>各维度改进建议</h4>';
+var dimKeys = ['neirong', 'biaoda'];
+var dimNames = ['内容', '表达'];
+var dimMax = [20, 20];
+for (var i = 0; i < dimKeys.length; i++) {
+var d = dimKeys[i];
+var s = dimScores[d].toString();
+var level = '';
+if (dimSuggestions[d]) {
+var keys = Object.keys(dimSuggestions[d]).map(Number).sort(function(a,b){return b-a;});
+for (var k = 0; k < keys.length; k++) {
+if (dimScores[d] >= keys[k]) {
+sugHtml += '<p><strong>' + dimNames[i] + '（' + s + '/' + dimMax[i] + '分）：</strong>' + dimSuggestions[d][keys[k].toString()] + '</p>';
+break;
+}
+}
+}
+}
+
+var devTotal = dimScores.shenke + dimScores.fengfu + dimScores.wencai + dimScores.chuangyi;
+sugHtml += '<p><strong>发展等级（' + devTotal + '/20分）：</strong>深刻' + dimScores.shenke + '分+丰富' + dimScores.fengfu + '分+文采' + dimScores.wencai + '分+创意' + dimScores.chuangyi + '分。发展等级按"不求全面，一点突出即可给满分"原则评定。</p>';
+
+var totalComment = '';
+if (total >= 55) { totalComment = '你的作文已达到一类文水平！立意深刻，结构严谨，文采斐然。继续保持，注意在细节上精益求精，向满分冲击。'; }
+else if (total >= 45) { totalComment = '作文整体良好，有明确中心和较充实内容。重点在发展等级上继续突破——选择一项（深刻/丰富/文采/创意）做到突出，即可冲击一类文。'; }
+else if (total >= 36) { totalComment = '作文基本合格（达到切入分42分附近），但还有较大提升空间。建议：1）用黄金七段式优化结构；2）增加辩证段落提升"深刻"分；3）增加时代素材提升"丰富"分。'; }
+else { totalComment = '作文需要较多改进。建议：1）先确保不偏题——用材料审题五步法；2）用黄金七段式搭建结构；3）增加2-3个时代素材；4）写够800字。先保42分切入分，再谋求发展。'; }
+
+sugHtml += '<h4>总评与改进方向</h4><p>' + totalComment + '</p>';
+
+var checkedCount = 0;
+var checklistItems = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+for (var ci = 0; ci < checklistItems.length; ci++) {
+if (checklistItems[ci].checked) { checkedCount++; }
+}
+var totalChecks = checklistItems.length;
+sugHtml += '<h4>高考评分细则自查结果</h4>';
+sugHtml += '<p class="yqh-check">已达标 ' + checkedCount + '/' + totalChecks + ' 项。';
+if (checkedCount >= 9) {
+sugHtml += ' 自查情况优秀，文章在各维度均有良好支撑，继续保持！</p>';
+} else if (checkedCount >= 6) {
+sugHtml += ' 自查情况良好，但还有提升空间。建议重点补齐未达标的项目。</p>';
+} else {
+sugHtml += ' 自查情况不足。建议优先确保：中心论点明确、结构完整、字数达标、论据新鲜。</p>';
+}
+
+sugHtml += '<h4>高考常见失分警示</h4>';
+sugHtml += '<p class="pitfall-warn">请对照上方"高考常见失分警示"清单，确保没有踩中任何雷区。特别注意：①是否偏离题意（总分不超42分）；②是否字数不足（每少50字扣1分）；③是否只摆素材不分析；④结尾是否喊口号。这四个是最常见的扣分点。</p>';
+
+var resultHtml = '<div class="result-box">' +
+'<div class="total-score">' + total + '</div>' +
+'<div class="total-label">总分（满分60分，对标高考评分标准）</div>' +
+'<span class="grade-badge" style="' + gradeColor + '">' + grade + '</span>' +
+'<div class="suggestions">' + sugHtml + '</div>' +
+'</div>';
+
+document.getElementById('evalResult').innerHTML = resultHtml;
+document.getElementById('evalResult').className = '';
+}
+
+document.getElementById('essayInput').addEventListener('input', function() {
+var len = this.value.replace(/\s/g, '').length;
+var hint = '';
+if (len < 800) {
+var need = 800 - len;
+hint = '（还需' + need + '字达标）';
+} else if (len >= 850 && len <= 950) {
+hint = '（最佳字数区间）';
+} else if (len > 950) {
+hint = '（建议控制在950字以内）';
+}
+document.getElementById('charCount').textContent = '已输入 ' + len + ' 字' + hint;
+});
+
+renderEssays();
+renderPractices();
+</script>
+<script>
+var LOGIN_USER = 'liulaoshi';
+var LOGIN_PASS = 'peiyou2026';
+var ACCT_KEY = 'gaozuowen_accounts';
+var ALL_MODULES = ['写作技巧库','范文赏析','素材宝库','实战演练','写作自评','教研写作公式'];
+var MODULE_LABELS = {
+    '写作技巧库':'写作技巧库','范文赏析':'范文赏析','素材宝库':'素材宝库',
+    '实战演练':'实战演练','写作自评':'写作自评','教研写作公式':'教研写作公式'
+};
+var MODULE_GROUPS = [
+    {label:'板块权限',items:['写作技巧库','范文赏析','素材宝库','实战演练','写作自评','教研写作公式']}
+];
+function getAccounts() {
+    var raw = localStorage.getItem(ACCT_KEY);
+    if (!raw) return [];
+    try { return JSON.parse(raw); } catch (ex) { return []; }
+}
+function saveAccounts(list) {
+    localStorage.setItem(ACCT_KEY, JSON.stringify(list));
+}
+function initAccounts() {
+    if (!localStorage.getItem(ACCT_KEY)) saveAccounts([]);
+}
+function updateLoginUI() {
+    var userType = sessionStorage.getItem('sys_login_type') || 'main';
+    var userName = sessionStorage.getItem('sys_login_user') || '';
+    var nameEl = document.getElementById('currentUserName');
+    var btnEl = document.getElementById('acctMgrBtn');
+    if (userType === 'main') {
+        if (nameEl) nameEl.textContent = '刘老师（管理员）';
+        if (btnEl) btnEl.classList.remove('hidden');
+        applyModuleVisibility(ALL_MODULES);
+    } else {
+        var accounts = getAccounts();
+        var displayName = userName;
+        var userModules = ALL_MODULES;
+        for (var i = 0; i < accounts.length; i++) {
+            if (accounts[i].username === userName) { displayName = accounts[i].displayName || userName; userModules = accounts[i].modules || ALL_MODULES; break; }
+        }
+        if (nameEl) nameEl.textContent = displayName;
+        if (btnEl) btnEl.classList.add('hidden');
+        applyModuleVisibility(userModules);
+    }
+}
+function applyModuleVisibility(modules) {
+    var tabModules = ['写作技巧库','范文赏析','素材宝库','实战演练','写作自评','教研写作公式'];
+    var btns = document.querySelectorAll('.tab-btn');
+    for (var i = 0; i < tabModules.length; i++) {
+        if (btns[i]) {
+            if (modules.indexOf(tabModules[i]) >= 0) { btns[i].style.display = ''; }
+            else { btns[i].style.display = 'none'; }
+        }
+    }
+}
+function getUserModules() {
+    var userType = sessionStorage.getItem('sys_login_type') || 'main';
+    if (userType === 'main') return ALL_MODULES;
+    var userName = sessionStorage.getItem('sys_login_user') || '';
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === userName) return accounts[i].modules || ALL_MODULES;
+    }
+    return ALL_MODULES;
+}
+function isModuleAllowed(mod) {
+    var mods = getUserModules();
+    return mods.indexOf(mod) >= 0;
+}
+function checkLogin() {
+    if (sessionStorage.getItem('sys_login_ok') === '1') {
+        var o = document.getElementById('loginOverlay');
+        if (o) { o.style.display = 'none'; }
+        updateLoginUI();
+    }
+}
+function doLogin() {
+    var u = document.getElementById('loginUser').value.trim();
+    var p = document.getElementById('loginPass').value;
+    var e = document.getElementById('loginError');
+    if (u === LOGIN_USER && p === LOGIN_PASS) {
+        sessionStorage.setItem('sys_login_ok', '1');
+        sessionStorage.setItem('sys_login_user', u);
+        sessionStorage.setItem('sys_login_type', 'main');
+        var o = document.getElementById('loginOverlay');
+        o.style.opacity = '0';
+        setTimeout(function() { o.style.display = 'none'; }, 400);
+        updateLoginUI();
+        return;
+    }
+    var accounts = getAccounts();
+    var found = null;
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === u && accounts[i].password === p) { found = accounts[i]; break; }
+    }
+    if (found) {
+        if (found.disabled) {
+            e.textContent = '该账号已被禁用，请联系老师续期';
+            return;
+        }
+        if (found.expiryDate) {
+            var nowDate = new Date();
+            var nowStr = nowDate.getFullYear() + '-' + ('0' + (nowDate.getMonth() + 1)).slice(-2) + '-' + ('0' + nowDate.getDate()).slice(-2);
+            if (nowStr > found.expiryDate) {
+                e.textContent = '账号已过期，请联系老师续期';
+                return;
+            }
+        }
+        sessionStorage.setItem('sys_login_ok', '1');
+        sessionStorage.setItem('sys_login_user', u);
+        sessionStorage.setItem('sys_login_type', 'sub');
+        var o2 = document.getElementById('loginOverlay');
+        o2.style.opacity = '0';
+        setTimeout(function() { o2.style.display = 'none'; }, 400);
+        updateLoginUI();
+        return;
+    }
+    e.textContent = '账号或密码错误，请重试';
+    document.getElementById('loginUser').value = '';
+    document.getElementById('loginPass').value = '';
+}
+function showAccountPage() {
+    renderAccountList();
+    document.getElementById('accountPage').classList.add('active');
+    document.getElementById('mainContent').style.display = 'none';
+    window.scrollTo(0, 0);
+}
+function showMainContent() {
+    document.getElementById('accountPage').classList.remove('active');
+    document.getElementById('mainContent').style.display = '';
+    window.scrollTo(0, 0);
+}
+function renderAccountList() {
+    var accounts = getAccounts();
+    var wrap = document.getElementById('accountListWrap');
+    if (accounts.length === 0) {
+        wrap.innerHTML = '<div class="acct-empty">暂无子账号，请在上方创建</div>';
+        return;
+    }
+    var html = '<div class="acct-table-wrap"><table class="acct-table"><thead><tr><th>用户名</th><th>显示名</th><th>板块权限</th><th>到期时间</th><th>状态</th><th>操作</th></tr></thead><tbody>';
+    var nowDate = new Date();
+    var nowStr = nowDate.getFullYear() + '-' + ('0' + (nowDate.getMonth() + 1)).slice(-2) + '-' + ('0' + nowDate.getDate()).slice(-2);
+    for (var i = 0; i < accounts.length; i++) {
+        var a = accounts[i];
+        var statusHtml = a.disabled ? '<span class="acct-status-off">已禁用</span>' : '<span class="acct-status-on">正常</span>';
+        var toggleText = a.disabled ? '启用' : '禁用';
+        var modCount = (a.modules || ALL_MODULES).length;
+        var expiryHtml = '—';
+        if (a.expiryDate) {
+            if (nowStr > a.expiryDate) {
+                expiryHtml = '<span class="acct-expired">' + a.expiryDate + '（已过期）</span>';
+                statusHtml = '<span class="acct-status-off">已过期</span>';
+            } else {
+                var diffMs = new Date(a.expiryDate).getTime() - new Date(nowStr).getTime();
+                var diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                var warnClass = diffDays <= 7 ? 'acct-expiry-warn' : '';
+                expiryHtml = '<span class="' + warnClass + '">' + a.expiryDate + '（剩余' + diffDays + '天）</span>';
+            }
+        }
+        html += '<tr>';
+        html += '<td>' + a.username + '</td>';
+        html += '<td>' + (a.displayName || '—') + '</td>';
+        html += '<td><span class="acct-modules-count" onclick="editAccountModules(\'' + a.username + '\')">' + modCount + '/' + ALL_MODULES.length + '</span></td>';
+        html += '<td>' + expiryHtml + '</td>';
+        html += '<td>' + statusHtml + '</td>';
+        html += '<td>';
+        html += '<button class="acct-act-btn acct-act-reset" onclick="resetAccount(\'' + a.username + '\')">重置密码</button>';
+        html += '<button class="acct-act-btn acct-act-modules" onclick="editAccountModules(\'' + a.username + '\')">编辑板块</button>';
+        html += '<button class="acct-act-btn acct-act-expiry" onclick="extendExpiry(\'' + a.username + '\')">延期</button>';
+        html += '<button class="acct-act-btn acct-act-toggle" onclick="toggleAccount(\'' + a.username + '\')">' + toggleText + '</button>';
+        html += '<button class="acct-act-btn acct-act-delete" onclick="deleteAccount(\'' + a.username + '\')">删除</button>';
+        html += '</td>';
+        html += '</tr>';
+    }
+    html += '</tbody></table></div>';
+    wrap.innerHTML = html;
+}
+function createAccount() {
+    var user = document.getElementById('newAcctUser').value.trim();
+    var pass = document.getElementById('newAcctPass').value.trim();
+    var name = document.getElementById('newAcctName').value.trim();
+    if (!user || !pass) { alert('请填写用户名和密码'); return; }
+    if (user === LOGIN_USER) { alert('用户名不能与主账号重复'); return; }
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === user) { alert('该用户名已存在'); return; }
+    }
+    var modules = getCheckedModules('newAcctModules');
+    if (modules.length === 0) { alert('请至少选择一个板块'); return; }
+    var expiryDate = document.getElementById('newAcctExpiry').value || '';
+    var now = new Date();
+    var dateStr = now.getFullYear() + '-' + ('0' + (now.getMonth() + 1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2);
+    accounts.push({ username: user, password: pass, displayName: name || user, createdAt: dateStr, disabled: false, modules: modules, expiryDate: expiryDate });
+    saveAccounts(accounts);
+    document.getElementById('newAcctUser').value = '';
+    document.getElementById('newAcctPass').value = '';
+    document.getElementById('newAcctName').value = '';
+    document.getElementById('newAcctExpiry').value = '';
+    clearExpiryQuickActive();
+    initNewAcctModules();
+    renderAccountList();
+}
+function resetAccount(username) {
+    var newPass = prompt('请输入新的密码：', '123456');
+    if (!newPass) return;
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { accounts[i].password = newPass; break; }
+    }
+    saveAccounts(accounts);
+    alert('密码已重置为：' + newPass);
+}
+function toggleAccount(username) {
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { accounts[i].disabled = !accounts[i].disabled; break; }
+    }
+    saveAccounts(accounts);
+    renderAccountList();
+}
+function deleteAccount(username) {
+    if (!confirm('确定要删除子账号"' + username + '"吗？此操作不可恢复。')) return;
+    var accounts = getAccounts();
+    var newList = [];
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username !== username) newList.push(accounts[i]);
+    }
+    saveAccounts(newList);
+    renderAccountList();
+}
+function buildModuleGridHtml(containerId, checkedModules) {
+    var html = '';
+    for (var g = 0; g < MODULE_GROUPS.length; g++) {
+        var grp = MODULE_GROUPS[g];
+        html += '<div style="font-size:13px;color:#3d3530;margin-bottom:4px;">' + grp.label + '</div>';
+        for (var i = 0; i < grp.items.length; i++) {
+            var mod = grp.items[i];
+            var isChecked = checkedModules.indexOf(mod) >= 0;
+            var checkedAttr = isChecked ? 'checked' : '';
+            var checkedClass = isChecked ? ' checked' : '';
+            html += '<div class="module-grid-item' + checkedClass + '" onclick="toggleModuleItem(this)">';
+            html += '<input type="checkbox" id="' + containerId + '_mod_' + mod + '" ' + checkedAttr + ' onclick="event.stopPropagation()">';
+            html += '<label for="' + containerId + '_mod_' + mod + '">' + MODULE_LABELS[mod] + '</label>';
+            html += '</div>';
+        }
+    }
+    return html;
+}
+function toggleModuleItem(el) {
+    var cb = el.querySelector('input[type=checkbox]');
+    cb.checked = !cb.checked;
+    if (cb.checked) { el.classList.add('checked'); }
+    else { el.classList.remove('checked'); }
+}
+function getCheckedModules(containerId) {
+    var result = [];
+    for (var i = 0; i < ALL_MODULES.length; i++) {
+        var cb = document.getElementById(containerId + '_mod_' + ALL_MODULES[i]);
+        if (cb && cb.checked) result.push(ALL_MODULES[i]);
+    }
+    return result;
+}
+function initNewAcctModules() {
+    var container = document.getElementById('newAcctModules');
+    if (container) container.innerHTML = buildModuleGridHtml('newAcctModules', ALL_MODULES);
+}
+function setExpiryQuick(days, btn) {
+    var now = new Date();
+    now.setDate(now.getDate() + days);
+    var dateStr = now.getFullYear() + '-' + ('0' + (now.getMonth() + 1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2);
+    document.getElementById('newAcctExpiry').value = dateStr;
+    var btns = document.querySelectorAll('.expiry-quick-btn');
+    for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+    if (btn) btn.classList.add('active');
+}
+function clearExpiryQuickActive() {
+    var btns = document.querySelectorAll('.expiry-quick-btn');
+    for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+}
+function editAccountModules(username) {
+    var accounts = getAccounts();
+    var acct = null;
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { acct = accounts[i]; break; }
+    }
+    if (!acct) return;
+    var currentModules = acct.modules || ALL_MODULES;
+    var mask = document.createElement('div');
+    mask.className = 'module-modal-mask';
+    mask.id = 'moduleModalMask';
+    var html = '<div class="module-modal">';
+    html += '<h3>编辑板块权限 — ' + acct.username + '</h3>';
+    html += '<div class="module-grid" id="editModulesGrid"></div>';
+    html += '<div class="modal-actions">';
+    html += '<button class="modal-btn modal-btn-ghost" onclick="closeModuleModal()">取消</button>';
+    html += '<button class="modal-btn modal-btn-primary" onclick="saveAccountModules(\'' + username + '\')">保存</button>';
+    html += '</div>';
+    html += '</div>';
+    mask.innerHTML = html;
+    document.body.appendChild(mask);
+    var grid = document.getElementById('editModulesGrid');
+    grid.innerHTML = buildModuleGridHtml('editModulesGrid', currentModules);
+}
+function closeModuleModal() {
+    var mask = document.getElementById('moduleModalMask');
+    if (mask) mask.parentNode.removeChild(mask);
+}
+function saveAccountModules(username) {
+    var modules = getCheckedModules('editModulesGrid');
+    if (modules.length === 0) { alert('请至少选择一个板块'); return; }
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { accounts[i].modules = modules; break; }
+    }
+    saveAccounts(accounts);
+    closeModuleModal();
+    renderAccountList();
+    alert('板块权限已更新');
+}
+function extendExpiry(username) {
+    var accounts = getAccounts();
+    var acct = null;
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { acct = accounts[i]; break; }
+    }
+    if (!acct) return;
+    var currentExpiry = acct.expiryDate || '';
+    var msg = '请输入新的到期日期（格式：YYYY-MM-DD）：\n\n快捷输入：\n+7  延期7天\n+30 延期30天\n+90 延期90天\n+180 延期180天\n+365 延期365天\n\n当前到期日期：' + (currentExpiry || '未设置');
+    var input = prompt(msg, currentExpiry);
+    if (!input) return;
+    input = input.trim();
+    var newDate = '';
+    if (input.charAt(0) === '+') {
+        var days = parseInt(input.substring(1), 10);
+        if (isNaN(days) || days <= 0) { alert('请输入有效的天数'); return; }
+        var baseDate = currentExpiry ? new Date(currentExpiry) : new Date();
+        baseDate.setDate(baseDate.getDate() + days);
+        newDate = baseDate.getFullYear() + '-' + ('0' + (baseDate.getMonth() + 1)).slice(-2) + '-' + ('0' + baseDate.getDate()).slice(-2);
+    } else {
+        newDate = input;
+    }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(newDate)) { alert('日期格式不正确，请使用 YYYY-MM-DD 格式'); return; }
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { accounts[i].expiryDate = newDate; break; }
+    }
+    saveAccounts(accounts);
+    renderAccountList();
+    alert('到期时间已更新为：' + newDate);
+}
+document.addEventListener('DOMContentLoaded', function() {
+    initAccounts();
+    initNewAcctModules();
+    var u = document.getElementById('loginUser');
+    var p = document.getElementById('loginPass');
+    if (u) { u.addEventListener('keydown', function(e) { if (e.key === 'Enter') { p.focus(); } }); }
+    if (p) { p.addEventListener('keydown', function(e) { if (e.key === 'Enter') { doLogin(); } }); }
+    checkLogin();
+});
+</script>
+</body>
+</html>
