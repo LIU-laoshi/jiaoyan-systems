@@ -200,6 +200,7 @@ canvas{max-width:100%}
     <button class="login-btn" onclick="doLogin()">登 录</button>
     <div class="login-error" id="loginError"></div>
     <div class="login-credits">系统设计制作：刘岳</div>
+    <div id="cloudSyncTip" style="text-align:center;font-size:11px;color:#999;margin-top:4px;display:none;">☁️ 云端同步已开启</div>
   </div>
 </div>
 
@@ -419,7 +420,7 @@ function calculateResult() {
   showResult();
 }
 
-function saveResults() { try { localStorage.setItem("parent_diag_results", JSON.stringify(results)); } catch(e) {} }
+function saveResults() { try { localStorage.setItem("parent_diag_results", JSON.stringify(results)); syncStateToCloud(); } catch(e) {} }
 
 function getInterp(moduleId, dimIdx, percent) {
   var interp = APP_DATA.interpretations[moduleId];
@@ -1082,12 +1083,71 @@ init();
 
 <script>
 // 登录验证
+
+/* === Supabase Cloud Sync === */
+var SUPABASE_URL='https://bmgqtxhbzupaujpzghpq.supabase.co';
+var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtZ3F0eGhienVwYXVqcHpnaHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwMDQxODQsImV4cCI6MjEwMTU4MDE4NH0.JgiQlUopALIDRYxE72oyPC2NoC0L4HrhH2q9cHW01W0';
+
+function getCloudUsername(){
+  var u=document.getElementById('loginUser')?document.getElementById('loginUser').value:'';
+  if(!u){u=sessionStorage.getItem('jz_login_user')||'default';}
+  return 'jz_'+u;
+}
+
+function syncStateToCloud(){
+  var username=getCloudUsername();
+  var stateData={};
+  try{stateData=JSON.parse(localStorage.getItem('parent_diag_results')||'{}');}catch(e){}
+  var body=JSON.stringify({username:username,state_data:JSON.stringify(stateData),updated_at:new Date().toISOString()});
+  fetch(SUPABASE_URL+'/rest/v1/py_user_states?on_conflict=username',{
+    method:'POST',
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
+    body:body
+  }).then(function(resp){
+    if(resp.ok){console.log('[Cloud] Sync to cloud success');}
+  }).catch(function(e){console.error('[Cloud] Sync to cloud failed:',e);});
+}
+
+function syncStateFromCloud(cb){
+  var username=getCloudUsername();
+  fetch(SUPABASE_URL+'/rest/v1/py_user_states?username=eq.'+encodeURIComponent(username)+'&select=state_data',{
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+  }).then(function(resp){return resp.json();})
+  .then(function(rows){
+    if(!rows||rows.length===0){if(cb)cb(false);return;}
+    var cloudState=rows[0].state_data;
+    if(typeof cloudState==='string')cloudState=JSON.parse(cloudState);
+    if(cloudState&&Object.keys(cloudState).length>0){
+      var localState={};
+      try{localState=JSON.parse(localStorage.getItem('parent_diag_results')||'{}');}catch(e){}
+      var changed=false;
+      for(var key in cloudState){
+        if(!localState[key]||(cloudState[key].date||'')>(localState[key].date||'')){
+          localState[key]=cloudState[key];
+          changed=true;
+        }
+      }
+      if(changed){
+        localStorage.setItem('parent_diag_results',JSON.stringify(localState));
+        if(typeof updateProgress==='function')updateProgress();
+      }
+      console.log('[Cloud] Sync from cloud success');
+      if(cb)cb(true);
+    }else{
+      if(cb)cb(false);
+    }
+  }).catch(function(e){console.error('[Cloud] Sync from cloud failed:',e);if(cb)cb(false);});
+}
+
 var LOGIN_USER = 'liulaoshi';
 var LOGIN_PASS = 'peiyou2026';
 function checkLogin(){
   if(sessionStorage.getItem('sys_login_ok')==='1'){
     var o=document.getElementById('loginOverlay');
     if(o){o.style.display='none';}
+    syncStateFromCloud(function(success){
+      if(success&&typeof updateProgress==='function')updateProgress();
+    });
   }
 }
 function doLogin(){
@@ -1096,9 +1156,15 @@ function doLogin(){
   var e=document.getElementById('loginError');
   if(u===LOGIN_USER && p===LOGIN_PASS){
     sessionStorage.setItem('sys_login_ok','1');
+    sessionStorage.setItem('jz_login_user',u);
     var o=document.getElementById('loginOverlay');
     o.style.opacity='0';
-    setTimeout(function(){o.style.display='none';},400);
+    setTimeout(function(){
+      o.style.display='none';
+      syncStateFromCloud(function(success){
+        if(success&&typeof updateProgress==='function')updateProgress();
+      });
+    },400);
   }else{
     e.textContent='账号或密码错误，请重试';
     document.getElementById('loginUser').value='';
@@ -1110,6 +1176,8 @@ document.addEventListener('DOMContentLoaded',function(){
   var p=document.getElementById('loginPass');
   if(u){u.addEventListener('keydown',function(e){if(e.key==='Enter'){p.focus();}});}
   if(p){p.addEventListener('keydown',function(e){if(e.key==='Enter'){doLogin();}});}
+  var tip=document.getElementById('cloudSyncTip');
+  if(tip){tip.style.display='block';}
   checkLogin();
 });
 </script>
