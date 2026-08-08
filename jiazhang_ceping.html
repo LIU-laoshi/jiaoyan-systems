@@ -187,9 +187,120 @@ canvas{max-width:100%}
 .login-error{color:#e74c3c;font-size:13px;text-align:center;min-height:18px;}
 .login-credits{text-align:center;margin-top:16px;font-size:12px;color:#aaa;}
 
+
+/* Account Management */
+.acc-float{position:fixed;bottom:20px;right:16px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;box-shadow:0 4px 12px rgba(102,126,234,0.4);z-index:99;}
+.acc-page{padding:16px;padding-bottom:60px;}
+.acc-page .acc-header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:16px;border-radius:12px;margin-bottom:12px;}
+.acc-page .acc-header h2{font-size:16px;margin-bottom:4px;}
+.acc-page .acc-header p{font-size:12px;opacity:0.85;}
+.acc-card{background:#fff;border-radius:10px;padding:14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.acc-card .acc-name{font-size:15px;font-weight:600;color:#333;}
+.acc-card .acc-info{font-size:12px;color:#999;margin-top:4px;}
+.acc-card .acc-modules{margin-top:8px;}
+.acc-card .acc-modules span{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;background:#e8f0fe;color:#1967d2;margin:2px;}
+.acc-card .acc-actions{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;}
+.acc-card .acc-actions button{padding:5px 12px;border-radius:6px;border:1px solid #667eea;background:#fff;color:#667eea;font-size:12px;cursor:pointer;}
+.acc-card .acc-actions button.danger{border-color:#e53935;color:#e53935;}
+.acc-card .acc-actions button:active{transform:scale(0.96);}
+.acc-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:10000;}
+.acc-modal.show{display:flex;}
+.acc-modal .modal-box{background:#fff;border-radius:14px;padding:20px;width:90%;max-width:380px;max-height:85vh;overflow-y:auto;}
+.acc-modal .modal-box h3{font-size:16px;margin-bottom:14px;color:#333;}
+.acc-modal .modal-box .form-group{margin-bottom:12px;}
+.acc-modal .modal-box .form-group label{display:block;font-size:13px;color:#666;margin-bottom:5px;}
+.acc-modal .modal-box .form-group input{width:100%;padding:8px 10px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:13px;}
+.acc-modal .modal-box .module-checks{display:flex;flex-wrap:wrap;gap:6px;}
+.acc-modal .modal-box .module-checks label{display:flex;align-items:center;gap:4px;font-size:12px;padding:4px 8px;border-radius:4px;background:#f5f5f5;cursor:pointer;}
+.acc-modal .modal-box .expiry-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.acc-modal .modal-box .expiry-btns button{padding:5px 10px;border-radius:6px;border:1px solid #ddd;background:#fff;font-size:12px;cursor:pointer;}
+.acc-modal .modal-box .expiry-btns button.active{background:#667eea;color:#fff;border-color:#667eea;}
+.acc-modal .modal-box .modal-actions{display:flex;gap:10px;margin-top:14px;}
+.acc-modal .modal-box .modal-actions button{flex:1;padding:10px;border-radius:8px;border:none;font-size:14px;cursor:pointer;}
+.acc-modal .modal-box .modal-actions .btn-save{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;}
+.acc-modal .modal-box .modal-actions .btn-cancel{background:#f0f0f0;color:#666;}
+.admin-result-card{background:#fff;border-radius:10px;padding:14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.admin-result-card .ar-name{font-size:14px;font-weight:600;color:#333;}
+.admin-result-card .ar-info{font-size:12px;color:#999;margin-top:4px;}
+.admin-result-card .ar-score{font-size:24px;font-weight:700;color:#667eea;margin-top:6px;}
+.admin-result-card .ar-detail{font-size:12px;color:#666;margin-top:6px;line-height:1.5;}
+.admin-tab-bar{display:flex;gap:8px;margin-bottom:12px;}
+.admin-tab-bar button{padding:8px 16px;border-radius:8px;border:1px solid #ddd;background:#fff;font-size:13px;cursor:pointer;}
+.admin-tab-bar button.active{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-color:transparent;}
+.logout-btn{position:absolute;right:12px;top:14px;color:#fff;border:1px solid rgba(255,255,255,0.5);background:transparent;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer;}
+
 </style>
 </head>
 <body>
+
+
+<!-- Account Management Page -->
+<div id="page-account" class="page">
+  <div class="acc-header">
+    <h2>👥 账号管理</h2>
+    <p>管理子账号、板块权限和使用期限</p>
+  </div>
+  <div id="accountList"></div>
+  <button class="login-btn" style="margin:12px;" onclick="openCreateModal()">➕ 创建新账号</button>
+  <button class="login-btn" style="margin:12px;background:#f0f0f0;color:#667eea;" onclick="showPage('page-home')">返回首页</button>
+</div>
+
+<!-- Admin Data Backend Page -->
+<div id="page-admin" class="page">
+  <div class="acc-header">
+    <h2>📊 数据后台</h2>
+    <p>查看所有子账号的测评结果</p>
+  </div>
+  <div class="admin-tab-bar">
+    <button id="adminTabAll" class="active" onclick="switchAdminTab('all')">全部</button>
+    <button id="adminTabCompleted" onclick="switchAdminTab('completed')">已完成</button>
+    <button id="adminTabPending" onclick="switchAdminTab('pending')">未完成</button>
+  </div>
+  <div id="adminResultList"></div>
+  <button class="login-btn" style="margin:12px;background:#f0f0f0;color:#667eea;" onclick="showPage('page-home')">返回首页</button>
+</div>
+
+<!-- Account Modal -->
+<div id="accountModal" class="acc-modal">
+  <div class="modal-box">
+    <h3 id="modalTitle">创建新账号</h3>
+    <div class="form-group">
+      <label>用户名</label>
+      <input type="text" id="accUsername" placeholder="请输入用户名">
+    </div>
+    <div class="form-group">
+      <label>密码</label>
+      <input type="text" id="accPassword" placeholder="请输入密码">
+    </div>
+    <div class="form-group">
+      <label>显示名称</label>
+      <input type="text" id="accDisplayName" placeholder="请输入显示名称">
+    </div>
+    <div class="form-group">
+      <label>使用期限</label>
+      <div class="expiry-btns" id="expiryBtns">
+        <button onclick="setExpiry(7)">7天</button>
+        <button onclick="setExpiry(30)">30天</button>
+        <button onclick="setExpiry(90)">90天</button>
+        <button onclick="setExpiry(180)">180天</button>
+        <button onclick="setExpiry(365)">365天</button>
+        <button onclick="setExpiry(0)">永久</button>
+      </div>
+      <input type="date" id="accExpiry" style="width:100%;padding:8px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:13px;margin-top:6px;">
+    </div>
+    <div class="form-group">
+      <label>板块权限</label>
+      <div class="module-checks" id="moduleChecks"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeAccountModal()">取消</button>
+      <button class="btn-save" onclick="saveAccount()">保存</button>
+    </div>
+  </div>
+</div>
+
+
+<div id="accFloatBtn" class="acc-float" style="display:none;" onclick="showPage('page-account')" title="账号管理">⚙️</div>
 
 <!-- 登录验证页 -->
 <div class="login-overlay" id="loginOverlay">
@@ -212,7 +323,12 @@ canvas{max-width:100%}
     <div class="sys-logo">📊</div>
     <h1>家长教育测评系统</h1>
     <div class="sys-sub">PROFESSIONAL EDITION V3.0</div>
-    <div class="sys-badges">
+    <button class="logout-btn" onclick="logout()">退出</button>
+    <div style="margin:12px;display:flex;gap:8px;flex-wrap:wrap;" id="adminButtons" style="display:none;">
+  <button onclick="showPage('page-account')" style="padding:8px 16px;border-radius:8px;border:1px solid #667eea;background:#fff;color:#667eea;font-size:13px;cursor:pointer;">👥 账号管理</button>
+  <button onclick="showPage('page-admin')" style="padding:8px 16px;border-radius:8px;border:1px solid #667eea;background:#fff;color:#667eea;font-size:13px;cursor:pointer;">📊 数据后台</button>
+</div>
+<div class="sys-badges">
       <span class="sys-badge">🔬 五大理论模型</span>
       <span class="sys-badge">📋 80题精测</span>
       <span class="sys-badge">📈 多维雷达分析</span>
@@ -1082,23 +1198,52 @@ init();
 </script>
 
 <script>
-// 登录验证
+// 登录验证 + 账号管理 + 云端同步
 
 /* === Supabase Cloud Sync === */
 var SUPABASE_URL='https://bmgqtxhbzupaujpzghpq.supabase.co';
 var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtZ3F0eGhienVwYXVqcHpnaHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwMDQxODQsImV4cCI6MjEwMTU4MDE4NH0.JgiQlUopALIDRYxE72oyPC2NoC0L4HrhH2q9cHW01W0';
 
+/* === Account Management === */
+var ACC_KEY='jiazhang_accounts';
+var ALL_MODULES=['学习风格测评','教育风格测评','性格特点测评','亲子关系测评','学习习惯测评','综合报告'];
+var LOGIN_USER=null;
+var editingAccId=null;
+var selectedExpiry=0;
+var adminTabFilter='all';
+
+function getAccounts(){
+  var raw=localStorage.getItem(ACC_KEY);
+  if(!raw){
+    var admin={username:'liulaoshi',password:'peiyou2026',displayName:'管理员',createdAt:new Date().toISOString(),disabled:false,modules:ALL_MODULES.slice(),expiryDate:null,isAdmin:true};
+    localStorage.setItem(ACC_KEY,JSON.stringify([admin]));
+    return[admin];
+  }
+  try{return JSON.parse(raw);}catch(e){return[];}
+}
+
+function saveAccounts(accs){
+  localStorage.setItem(ACC_KEY,JSON.stringify(accs));
+}
+
 function getCloudUsername(){
-  var u=document.getElementById('loginUser')?document.getElementById('loginUser').value:'';
-  if(!u){u=sessionStorage.getItem('jz_login_user')||'default';}
-  return 'jz_'+u;
+  if(!LOGIN_USER)return 'jz_default';
+  return 'jz_'+LOGIN_USER.username;
 }
 
 function syncStateToCloud(){
   var username=getCloudUsername();
   var stateData={};
   try{stateData=JSON.parse(localStorage.getItem('parent_diag_results')||'{}');}catch(e){}
-  var body=JSON.stringify({username:username,state_data:JSON.stringify(stateData),updated_at:new Date().toISOString()});
+  var body=JSON.stringify({
+    username:username,
+    state_data:JSON.stringify({
+      results:stateData,
+      displayName:LOGIN_USER?LOGIN_USER.displayName:'未知',
+      loginTime:new Date().toISOString()
+    }),
+    updated_at:new Date().toISOString()
+  });
   fetch(SUPABASE_URL+'/rest/v1/py_user_states?on_conflict=username',{
     method:'POST',
     headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
@@ -1115,14 +1260,16 @@ function syncStateFromCloud(cb){
   }).then(function(resp){return resp.json();})
   .then(function(rows){
     if(!rows||rows.length===0){if(cb)cb(false);return;}
-    var cloudState=rows[0].state_data;
-    if(typeof cloudState==='string')cloudState=JSON.parse(cloudState);
+    var cloudRaw=rows[0].state_data;
+    if(typeof cloudRaw==='string')cloudRaw=JSON.parse(cloudRaw);
+    var cloudState=cloudRaw;
+    if(cloudRaw.results)cloudState=cloudRaw.results;
     if(cloudState&&Object.keys(cloudState).length>0){
       var localState={};
       try{localState=JSON.parse(localStorage.getItem('parent_diag_results')||'{}');}catch(e){}
       var changed=false;
       for(var key in cloudState){
-        if(!localState[key]||(cloudState[key].date||'')>(localState[key].date||'')){
+        if(!localState[key]||(cloudState[key].timestamp||'')>(localState[key].timestamp||'')){
           localState[key]=cloudState[key];
           changed=true;
         }
@@ -1130,6 +1277,7 @@ function syncStateFromCloud(cb){
       if(changed){
         localStorage.setItem('parent_diag_results',JSON.stringify(localState));
         if(typeof updateProgress==='function')updateProgress();
+        if(typeof renderModuleList==='function')renderModuleList();
       }
       console.log('[Cloud] Sync from cloud success');
       if(cb)cb(true);
@@ -1139,38 +1287,390 @@ function syncStateFromCloud(cb){
   }).catch(function(e){console.error('[Cloud] Sync from cloud failed:',e);if(cb)cb(false);});
 }
 
-var LOGIN_USER = 'liulaoshi';
-var LOGIN_PASS = 'peiyou2026';
-function checkLogin(){
-  if(sessionStorage.getItem('sys_login_ok')==='1'){
-    var o=document.getElementById('loginOverlay');
-    if(o){o.style.display='none';}
+/* === Admin: Fetch All Sub-Account Results === */
+function fetchAllResults(){
+  fetch(SUPABASE_URL+'/rest/v1/py_user_states?username=like.jz_*&select=username,state_data,updated_at&order=updated_at.desc',{
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
+  }).then(function(resp){return resp.json();})
+  .then(function(rows){
+    renderAdminResults(rows);
+  }).catch(function(e){
+    console.error('[Admin] Fetch all results failed:',e);
+    document.getElementById('adminResultList').innerHTML='<p style="text-align:center;color:#999;padding:20px;">加载失败，请稍后重试</p>';
+  });
+}
+
+function renderAdminResults(rows){
+  var html='';
+  if(!rows||rows.length===0){
+    html='<p style="text-align:center;color:#999;padding:20px;">暂无子账号测评数据</p>';
+    document.getElementById('adminResultList').innerHTML=html;
+    return;
+  }
+  var accs=getAccounts();
+  var accMap={};
+  for(var i=0;i<accs.length;i++){accMap['jz_'+accs[i].username]=accs[i];}
+
+  var filtered=[];
+  for(var i=0;i<rows.length;i++){
+    var r=rows[i];
+    var sd=r.state_data;
+    if(typeof sd==='string')sd=JSON.parse(sd);
+    var results=sd.results||sd;
+    var moduleCount=Object.keys(results).length;
+    var isCompleted=moduleCount>=5;
+    if(adminTabFilter==='completed'&&!isCompleted)continue;
+    if(adminTabFilter==='pending'&&isCompleted)continue;
+    filtered.push({row:r,stateData:sd,results:results,moduleCount:moduleCount,isCompleted:isCompleted});
+  }
+
+  if(filtered.length===0){
+    html='<p style="text-align:center;color:#999;padding:20px;">暂无符合条件的记录</p>';
+    document.getElementById('adminResultList').innerHTML=html;
+    return;
+  }
+
+  for(var i=0;i<filtered.length;i++){
+    var f=filtered[i];
+    var acc=accMap[f.row.username];
+    var displayName=f.stateData.displayName||(acc?acc.displayName:f.row.username.replace('jz_',''));
+    var updatedTime=f.row.updated_at?new Date(f.row.updated_at).toLocaleString('zh-CN'):'未知';
+    var moduleNames={'learning_style':'学习风格','parenting_style':'教育风格','personality':'性格特点','relationship':'亲子关系','study_habits':'学习习惯'};
+    var detailHtml='';
+    var totalScore=0;
+    var scoreCount=0;
+    for(var key in f.results){
+      var r=f.results[key];
+      var mName=moduleNames[key]||key;
+      var avgPct=0;
+      if(r.percents&&r.percents.length>0){
+        var sum=0;
+        for(var p=0;p<r.percents.length;p++){sum+=r.percents[p];}
+        avgPct=Math.round(sum/r.percents.length);
+        totalScore+=avgPct;
+        scoreCount++;
+      }
+      detailHtml+='<div style="margin-top:4px;">'+mName+': '+(avgPct>0?avgPct+'%':'已完成')+'</div>';
+    }
+    var avgScore=scoreCount>0?Math.round(totalScore/scoreCount):0;
+    html+='<div class="admin-result-card">';
+    html+='<div class="ar-name">'+displayName+' <span style="font-size:12px;color:#999;">('+f.row.username.replace('jz_','')+'</span>)</div>';
+    html+='<div class="ar-info">完成模块: '+f.moduleCount+'/5 | 更新时间: '+updatedTime+'</div>';
+    if(avgScore>0){
+      html+='<div class="ar-score">'+avgScore+'分</div>';
+    }
+    if(f.isCompleted){
+      html+='<div style="margin-top:4px;"><span style="color:#137333;font-size:12px;">✅ 全部完成</span></div>';
+    }else{
+      html+='<div style="margin-top:4px;"><span style="color:#b06000;font-size:12px;">⏳ 进行中</span></div>';
+    }
+    html+='<div class="ar-detail">'+detailHtml+'</div>';
+    html+='</div>';
+  }
+  document.getElementById('adminResultList').innerHTML=html;
+}
+
+function switchAdminTab(tab){
+  adminTabFilter=tab;
+  document.getElementById('adminTabAll').classList.remove('active');
+  document.getElementById('adminTabCompleted').classList.remove('active');
+  document.getElementById('adminTabPending').classList.remove('active');
+  if(tab==='all')document.getElementById('adminTabAll').classList.add('active');
+  else if(tab==='completed')document.getElementById('adminTabCompleted').classList.add('active');
+  else document.getElementById('adminTabPending').classList.add('active');
+  fetchAllResults();
+}
+
+/* === Module Visibility === */
+function isModuleAllowed(modName){
+  if(!LOGIN_USER)return false;
+  if(LOGIN_USER.isAdmin)return true;
+  if(!LOGIN_USER.modules)return false;
+  for(var i=0;i<LOGIN_USER.modules.length;i++){
+    if(LOGIN_USER.modules[i]===modName)return true;
+  }
+  return false;
+}
+
+/* === Login === */
+function doLogin(){
+  var u=document.getElementById('loginUser').value.trim();
+  var p=document.getElementById('loginPass').value.trim();
+  var e=document.getElementById('loginError');
+  var accounts=getAccounts();
+  var found=null;
+  for(var i=0;i<accounts.length;i++){
+    if(accounts[i].username===u&&accounts[i].password===p&&!accounts[i].disabled){
+      found=accounts[i];
+      break;
+    }
+  }
+  if(!found){
+    e.textContent='账号或密码错误，或账号已被禁用';
+    return;
+  }
+  if(found.expiryDate){
+    var exp=new Date(found.expiryDate);
+    if(exp<new Date()){
+      e.textContent='账号已过期，请联系管理员';
+      return;
+    }
+  }
+  LOGIN_USER=found;
+  sessionStorage.setItem('jz_login_user',JSON.stringify(found));
+  var o=document.getElementById('loginOverlay');
+  o.style.opacity='0';
+  setTimeout(function(){
+    o.style.display='none';
+    if(LOGIN_USER.isAdmin){
+      var floatBtn=document.getElementById('accFloatBtn');
+      if(floatBtn)floatBtn.style.display='flex';
+      var adminBtns=document.getElementById('adminButtons');
+      if(adminBtns)adminBtns.style.display='flex';
+    }
     syncStateFromCloud(function(success){
       if(success&&typeof updateProgress==='function')updateProgress();
     });
-  }
+  },400);
 }
-function doLogin(){
-  var u=document.getElementById('loginUser').value;
-  var p=document.getElementById('loginPass').value;
-  var e=document.getElementById('loginError');
-  if(u===LOGIN_USER && p===LOGIN_PASS){
-    sessionStorage.setItem('sys_login_ok','1');
-    sessionStorage.setItem('jz_login_user',u);
-    var o=document.getElementById('loginOverlay');
-    o.style.opacity='0';
-    setTimeout(function(){
-      o.style.display='none';
+
+function logout(){
+  sessionStorage.removeItem('jz_login_user');
+  LOGIN_USER=null;
+  var floatBtn=document.getElementById('accFloatBtn');
+  if(floatBtn)floatBtn.style.display='none';
+  var adminBtns=document.getElementById('adminButtons');
+  if(adminBtns)adminBtns.style.display='none';
+  var o=document.getElementById('loginOverlay');
+  o.style.display='flex';
+  o.style.opacity='1';
+  document.getElementById('loginUser').value='';
+  document.getElementById('loginPass').value='';
+  document.getElementById('loginError').textContent='';
+}
+
+function checkLogin(){
+  var saved=sessionStorage.getItem('jz_login_user');
+  if(saved){
+    try{
+      LOGIN_USER=JSON.parse(saved);
+      var o=document.getElementById('loginOverlay');
+      if(o){o.style.display='none';}
+      if(LOGIN_USER.isAdmin){
+        var floatBtn=document.getElementById('accFloatBtn');
+        if(floatBtn)floatBtn.style.display='flex';
+        var adminBtns=document.getElementById('adminButtons');
+        if(adminBtns)adminBtns.style.display='flex';
+      }
       syncStateFromCloud(function(success){
         if(success&&typeof updateProgress==='function')updateProgress();
       });
-    },400);
-  }else{
-    e.textContent='账号或密码错误，请重试';
-    document.getElementById('loginUser').value='';
-    document.getElementById('loginPass').value='';
+    }catch(err){
+      showLoginPage();
+    }
   }
 }
+
+function showLoginPage(){
+  var o=document.getElementById('loginOverlay');
+  if(o){o.style.display='flex';o.style.opacity='1';}
+}
+
+/* === Account Management UI === */
+function renderAccountList(){
+  var accs=getAccounts();
+  var html='';
+  for(var i=0;i<accs.length;i++){
+    var a=accs[i];
+    var expiryText=a.expiryDate?new Date(a.expiryDate).toLocaleDateString():'永久';
+    var statusText=a.disabled?'<span style="color:#e53935;">已禁用</span>':'<span style="color:#137333;">正常</span>';
+    var adminBadge=a.isAdmin?'<span style="color:#667eea;font-weight:600;">管理员</span>':'';
+    html+='<div class="acc-card">';
+    html+='<div class="acc-name">'+a.displayName+' '+adminBadge+'</div>';
+    html+='<div class="acc-info">账号: '+a.username+' | 状态: '+statusText+' | 到期: '+expiryText+'</div>';
+    if(a.modules&&a.modules.length>0){
+      html+='<div class="acc-modules">';
+      for(var j=0;j<a.modules.length;j++){html+='<span>'+a.modules[j]+'</span>';}
+      html+='</div>';
+    }
+    if(!a.isAdmin){
+      html+='<div class="acc-actions">';
+      html+='<button onclick="editAccount('+i+')">编辑</button>';
+      if(a.disabled){
+        html+='<button onclick="toggleDisable('+i+')">启用</button>';
+      }else{
+        html+='<button onclick="toggleDisable('+i+')">禁用</button>';
+      }
+      html+='<button class="danger" onclick="deleteAccount('+i+')">删除</button>';
+      html+='</div>';
+    }
+    html+='</div>';
+  }
+  document.getElementById('accountList').innerHTML=html;
+}
+
+function openCreateModal(){
+  editingAccId=null;
+  document.getElementById('modalTitle').textContent='创建新账号';
+  document.getElementById('accUsername').value='';
+  document.getElementById('accPassword').value='';
+  document.getElementById('accDisplayName').value='';
+  document.getElementById('accExpiry').value='';
+  selectedExpiry=0;
+  updateExpiryBtns();
+  renderModuleChecks([]);
+  document.getElementById('accountModal').classList.add('show');
+}
+
+function editAccount(idx){
+  var accs=getAccounts();
+  var a=accs[idx];
+  editingAccId=idx;
+  document.getElementById('modalTitle').textContent='编辑账号';
+  document.getElementById('accUsername').value=a.username;
+  document.getElementById('accPassword').value=a.password;
+  document.getElementById('accDisplayName').value=a.displayName;
+  if(a.expiryDate){
+    document.getElementById('accExpiry').value=a.expiryDate.split('T')[0];
+    selectedExpiry=-1;
+  }else{
+    document.getElementById('accExpiry').value='';
+    selectedExpiry=0;
+  }
+  updateExpiryBtns();
+  renderModuleChecks(a.modules||[]);
+  document.getElementById('accountModal').classList.add('show');
+}
+
+function closeAccountModal(){
+  document.getElementById('accountModal').classList.remove('show');
+}
+
+function setExpiry(days){
+  selectedExpiry=days;
+  if(days===0){
+    document.getElementById('accExpiry').value='';
+  }else{
+    var d=new Date();
+    d.setDate(d.getDate()+days);
+    var y=d.getFullYear();
+    var m=String(d.getMonth()+1).padStart(2,'0');
+    var dd=String(d.getDate()).padStart(2,'0');
+    document.getElementById('accExpiry').value=y+'-'+m+'-'+dd;
+  }
+  updateExpiryBtns();
+}
+
+function updateExpiryBtns(){
+  var btns=document.querySelectorAll('#expiryBtns button');
+  var daysArr=[7,30,90,180,365,0];
+  for(var i=0;i<btns.length;i++){
+    if(daysArr[i]===selectedExpiry){
+      btns[i].classList.add('active');
+    }else{
+      btns[i].classList.remove('active');
+    }
+  }
+}
+
+function renderModuleChecks(selected){
+  var html='';
+  for(var i=0;i<ALL_MODULES.length;i++){
+    var checked='';
+    for(var j=0;j<selected.length;j++){
+      if(selected[j]===ALL_MODULES[i]){checked='checked';break;}
+    }
+    html+='<label><input type="checkbox" value="'+ALL_MODULES[i]+'" '+checked+'> '+ALL_MODULES[i]+'</label>';
+  }
+  document.getElementById('moduleChecks').innerHTML=html;
+}
+
+function saveAccount(){
+  var username=document.getElementById('accUsername').value.trim();
+  var password=document.getElementById('accPassword').value.trim();
+  var displayName=document.getElementById('accDisplayName').value.trim();
+  var expiryInput=document.getElementById('accExpiry').value;
+  if(!username||!password||!displayName){
+    alert('请填写完整信息');
+    return;
+  }
+  var accs=getAccounts();
+  if(editingAccId===null){
+    for(var i=0;i<accs.length;i++){
+      if(accs[i].username===username){
+        alert('用户名已存在');
+        return;
+      }
+    }
+    var modules=[];
+    var checks=document.querySelectorAll('#moduleChecks input:checked');
+    for(var i=0;i<checks.length;i++){modules.push(checks[i].value);}
+    accs.push({
+      username:username,
+      password:password,
+      displayName:displayName,
+      createdAt:new Date().toISOString(),
+      disabled:false,
+      modules:modules,
+      expiryDate:expiryInput?new Date(expiryInput).toISOString():null
+    });
+  }else{
+    accs[editingAccId].username=username;
+    accs[editingAccId].password=password;
+    accs[editingAccId].displayName=displayName;
+    var modules2=[];
+    var checks2=document.querySelectorAll('#moduleChecks input:checked');
+    for(var i=0;i<checks2.length;i++){modules2.push(checks2[i].value);}
+    accs[editingAccId].modules=modules2;
+    accs[editingAccId].expiryDate=expiryInput?new Date(expiryInput).toISOString():null;
+  }
+  saveAccounts(accs);
+  closeAccountModal();
+  renderAccountList();
+}
+
+function toggleDisable(idx){
+  var accs=getAccounts();
+  accs[idx].disabled=!accs[idx].disabled;
+  saveAccounts(accs);
+  renderAccountList();
+}
+
+function deleteAccount(idx){
+  if(!confirm('确定删除此账号？'))return;
+  var accs=getAccounts();
+  accs.splice(idx,1);
+  saveAccounts(accs);
+  renderAccountList();
+}
+
+/* === Page Navigation Override === */
+var origShowPage=showPage;
+showPage=function(id){
+  origShowPage(id);
+  if(id==='page-account')renderAccountList();
+  if(id==='page-admin')fetchAllResults();
+};
+
+/* === Module Access Control === */
+var origRenderModuleList=renderModuleList;
+renderModuleList=function(){
+  if(LOGIN_USER&&!LOGIN_USER.isAdmin){
+    var origData=APP_DATA.modules;
+    var filtered=[];
+    for(var i=0;i<origData.length;i++){
+      if(isModuleAllowed(origData[i].title)){
+        filtered.push(origData[i]);
+      }
+    }
+    APP_DATA.modules=filtered;
+    origRenderModuleList();
+    APP_DATA.modules=origData;
+  }else{
+    origRenderModuleList();
+  }
+};
+
 document.addEventListener('DOMContentLoaded',function(){
   var u=document.getElementById('loginUser');
   var p=document.getElementById('loginPass');
