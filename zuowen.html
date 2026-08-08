@@ -1,0 +1,2711 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>初中生作文写作助学系统</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:#f5f7fa;color:#2d3748;line-height:1.7;}
+.header{background:linear-gradient(135deg,#1a365d 0%,#2c5282 50%,#1a365d 100%);color:#fff;padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(212,168,67,0.1) 0%,transparent 70%);animation:headerGlow 6s ease-in-out infinite;}
+@keyframes headerGlow{0%,100%{transform:translate(0,0)}50%{transform:translate(5%,5%)}}
+.header h1{font-size:28px;font-weight:700;margin-bottom:8px;position:relative;z-index:1;text-shadow:0 2px 4px rgba(0,0,0,0.3);}
+.header .subtitle{font-size:14px;color:#d4a843;letter-spacing:3px;position:relative;z-index:1;}
+.stats-row{display:flex;justify-content:center;gap:16px;margin:24px auto 0;max-width:600px;position:relative;z-index:1;}
+.stat-card{background:rgba(255,255,255,0.12);border:1px solid rgba(212,168,67,0.3);border-radius:12px;padding:14px 20px;text-align:center;flex:1;backdrop-filter:blur(4px);}
+.stat-card .num{font-size:28px;font-weight:700;color:#d4a843;}
+.stat-card .label{font-size:12px;color:rgba(255,255,255,0.8);margin-top:2px;}
+.tags-row{display:flex;justify-content:center;gap:12px;margin-top:16px;flex-wrap:wrap;position:relative;z-index:1;}
+.tag{background:rgba(212,168,67,0.2);border:1px solid rgba(212,168,67,0.5);border-radius:20px;padding:4px 16px;font-size:12px;color:#d4a843;}
+.start-btn{display:inline-block;margin-top:20px;background:linear-gradient(135deg,#d4a843,#e6c36a);color:#1a365d;border:none;padding:12px 40px;border-radius:30px;font-size:16px;font-weight:700;cursor:pointer;position:relative;z-index:1;transition:all 0.3s;box-shadow:0 4px 15px rgba(212,168,67,0.4);}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(212,168,67,0.5);}
+.container{max-width:900px;margin:0 auto;padding:16px;}
+.tab-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;background:#fff;border-radius:14px;padding:8px;box-shadow:0 2px 10px rgba(0,0,0,0.06);}
+.tab-btn{flex:1;min-width:120px;padding:10px 6px;border:none;border-radius:10px;background:transparent;color:#4a5568;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.3s;text-align:center;}
+.tab-btn.active{background:linear-gradient(135deg,#1a365d,#2c5282);color:#fff;box-shadow:0 3px 12px rgba(26,54,93,0.3);}
+.tab-btn:hover:not(.active){background:#edf2f7;}
+.module{display:none;}
+.module.active{display:block;}
+.card{background:#fff;border-radius:14px;padding:22px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,0.05);border-left:4px solid #1a365d;}
+.card-gold{border-left-color:#d4a843;}
+.card-green{border-left-color:#38a169;}
+.card h3{color:#1a365d;font-size:17px;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.card h3 .icon{font-size:18px;}
+.card h4{color:#2c5282;font-size:15px;margin:12px 0 6px;}
+.card p{font-size:14px;color:#4a5568;margin-bottom:6px;}
+.card .example{background:#f7fafc;border-left:3px solid #d4a843;padding:10px 14px;border-radius:0 8px 8px 0;margin:8px 0;font-size:13px;color:#4a5568;line-height:1.8;}
+.card .method{background:#ebf4ff;border-radius:8px;padding:10px 14px;margin:6px 0;}
+.card .method-green{background:#f0fff4;border-radius:8px;padding:10px 14px;margin:6px 0;border-left:3px solid #38a169;}
+.card .method-title{color:#1a365d;font-weight:600;font-size:14px;margin-bottom:4px;}
+.card .method-tag{display:inline-block;background:#d4a843;color:#1a365d;padding:1px 8px;border-radius:8px;font-size:11px;margin-left:6px;font-weight:600;}
+.card .step-arrow{text-align:center;color:#d4a843;font-size:16px;margin:4px 0;}
+.grade-tab-bar{display:flex;gap:6px;margin-bottom:14px;}
+.grade-tab{padding:6px 16px;border-radius:20px;border:1px solid #cbd5e0;background:#fff;color:#4a5568;font-size:13px;cursor:pointer;transition:all 0.3s;}
+.grade-tab.active{background:#1a365d;color:#fff;border-color:#1a365d;}
+.grade-content{display:none;}
+.grade-content.active{display:block;}
+.essay-card{background:#fff;border-radius:14px;padding:22px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,0.05);}
+.essay-card .title-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.essay-card .essay-title{font-size:17px;color:#1a365d;font-weight:700;}
+.essay-card .essay-score{background:linear-gradient(135deg,#d4a843,#e6c36a);color:#1a365d;padding:3px 12px;border-radius:12px;font-size:13px;font-weight:600;}
+.essay-card .meta{font-size:12px;color:#a0aec0;margin-bottom:10px;}
+.essay-card .body{font-size:14px;color:#2d3748;line-height:2;text-indent:2em;margin-bottom:12px;}
+.essay-card .highlights{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
+.essay-card .hl-tag{background:#ebf4ff;color:#2c5282;padding:3px 10px;border-radius:10px;font-size:12px;}
+.essay-card .hl-tag-gold{background:#fefce8;color:#975a16;padding:3px 10px;border-radius:10px;font-size:12px;}
+.essay-card .analysis{background:#f7fafc;padding:10px 14px;border-radius:8px;font-size:13px;color:#4a5568;line-height:1.8;}
+.essay-card .analysis .yqh-point{background:#f0fff4;border-left:3px solid #38a169;padding:6px 10px;border-radius:0 6px 6px 0;margin:6px 0;font-size:13px;color:#276749;}
+.sub-tab-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.sub-tab{padding:6px 14px;border-radius:20px;border:1px solid #cbd5e0;background:#fff;color:#4a5568;font-size:13px;cursor:pointer;transition:all 0.3s;}
+.sub-tab.active{background:#d4a843;color:#1a365d;border-color:#d4a843;}
+.sub-content{display:none;}
+.sub-content.active{display:block;}
+.material-item{background:#f7fafc;border-radius:10px;padding:14px;margin-bottom:10px;border-left:3px solid #d4a843;}
+.material-item h4{color:#1a365d;font-size:14px;margin-bottom:4px;}
+.material-item p{font-size:13px;color:#4a5568;line-height:1.7;}
+.material-item .theme-tag{display:inline-block;background:#ebf4ff;color:#2c5282;padding:2px 8px;border-radius:8px;font-size:11px;margin-top:4px;}
+.material-item .usage-note{font-size:12px;color:#975a16;margin-top:4px;font-style:italic;}
+.one-example-box{background:#f0fff4;border-radius:10px;padding:14px;margin-bottom:10px;border-left:3px solid #38a169;}
+.one-example-box h4{color:#1a365d;font-size:14px;margin-bottom:6px;}
+.one-example-box .angle-item{background:#fff;border-radius:8px;padding:10px;margin:6px 0;border:1px solid #e2e8f0;}
+.one-example-box .angle-item .angle-title{color:#38a169;font-weight:600;font-size:13px;margin-bottom:2px;}
+.one-example-box .angle-item p{font-size:13px;color:#4a5568;line-height:1.7;}
+.practice-card{background:#fff;border-radius:14px;padding:22px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,0.05);}
+.practice-card .pq-title{font-size:16px;color:#1a365d;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;}
+.practice-card .pq-title .arrow{transition:transform 0.3s;font-size:12px;}
+.practice-card .pq-title.open .arrow{transform:rotate(90deg);}
+.practice-card .pq-body{display:none;margin-top:14px;}
+.practice-card .pq-body.open{display:block;}
+.practice-card h4{color:#2c5282;font-size:14px;margin:10px 0 6px;}
+.practice-card .guide-step{background:#f7fafc;border-radius:8px;padding:10px 14px;margin:4px 0;font-size:13px;color:#4a5568;}
+.practice-card .yqh-step{background:#f0fff4;border-radius:8px;padding:10px 14px;margin:4px 0;font-size:13px;color:#276749;border-left:3px solid #38a169;}
+.practice-card .outline-item{background:#ebf4ff;border-radius:8px;padding:10px 14px;margin:6px 0;}
+.practice-card .outline-item .oi-title{font-weight:600;color:#1a365d;font-size:14px;}
+.practice-card .outline-item p{font-size:13px;color:#4a5568;margin-top:2px;}
+.practice-card .start-example{background:#fefce8;border-left:3px solid #d4a843;padding:10px 14px;border-radius:0 8px 8px 0;font-size:13px;color:#4a5568;line-height:1.8;}
+.trend-card{background:linear-gradient(135deg,#f0fff4,#e6fffa);border-radius:14px;padding:22px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,0.05);border-left:4px solid #38a169;}
+.trend-card h3{color:#1a365d;font-size:17px;margin-bottom:12px;}
+.trend-item{background:#fff;border-radius:10px;padding:14px;margin-bottom:8px;border-left:3px solid #d4a843;}
+.trend-item .trend-year{font-weight:700;color:#1a365d;font-size:14px;}
+.trend-item .trend-desc{font-size:13px;color:#4a5568;margin-top:2px;line-height:1.7;}
+.trend-arrow{text-align:center;color:#38a169;font-size:14px;margin:4px 0;font-weight:600;}
+.eval-section{background:#fff;border-radius:14px;padding:22px;margin-bottom:16px;box-shadow:0 2px 10px rgba(0,0,0,0.05);}
+.eval-section h3{color:#1a365d;font-size:17px;margin-bottom:12px;}
+.eval-textarea{width:100%;min-height:180px;border:1px solid #e2e8f0;border-radius:10px;padding:14px;font-size:14px;line-height:1.8;resize:vertical;font-family:inherit;}
+.eval-textarea:focus{outline:none;border-color:#1a365d;box-shadow:0 0 0 3px rgba(26,54,93,0.1);}
+.char-count{font-size:12px;color:#a0aec0;margin-top:4px;text-align:right;}
+.dim-row{display:flex;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:6px;}
+.dim-label{font-size:14px;font-weight:600;color:#1a365d;width:70px;flex-shrink:0;}
+.dim-btns{display:flex;gap:6px;flex-wrap:wrap;}
+.dim-btn{padding:5px 12px;border-radius:16px;border:1px solid #e2e8f0;background:#fff;color:#4a5568;font-size:12px;cursor:pointer;transition:all 0.3s;}
+.dim-btn.selected{background:#1a365d;color:#fff;border-color:#1a365d;}
+.dim-btn:hover:not(.selected){border-color:#1a365d;color:#1a365d;}
+.dim-max{font-size:11px;color:#a0aec0;margin-left:2px;}
+.checklist-box{background:#f0fff4;border-radius:12px;padding:18px;margin-bottom:16px;border:1px solid #c6f6d5;}
+.checklist-box h3{color:#1a365d;font-size:16px;margin-bottom:10px;}
+.checklist-item{display:flex;align-items:flex-start;gap:8px;margin:8px 0;font-size:13px;color:#2d3748;cursor:pointer;}
+.checklist-item input[type='checkbox']{margin-top:3px;flex-shrink:0;accent-color:#38a169;}
+.checklist-item.checked{color:#38a169;}
+.checklist-item .ci-label{flex:1;}
+.checklist-item .ci-hint{font-size:12px;color:#975a16;display:block;margin-top:2px;}
+.pitfall-box{background:#fff5f5;border-radius:12px;padding:18px;margin-bottom:16px;border:1px solid #fed7d7;}
+.pitfall-box h3{color:#c53030;font-size:16px;margin-bottom:10px;}
+.pitfall-item{display:flex;align-items:flex-start;gap:8px;margin:8px 0;font-size:13px;color:#2d3748;}
+.pitfall-item .pi-num{background:#fc8181;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.result-box{background:linear-gradient(135deg,#1a365d,#2c5282);border-radius:14px;padding:24px;color:#fff;text-align:center;margin-top:16px;}
+.result-box .total-score{font-size:48px;font-weight:700;color:#d4a843;}
+.result-box .total-label{font-size:14px;color:rgba(255,255,255,0.7);}
+.result-box .grade-badge{display:inline-block;margin-top:8px;padding:4px 20px;border-radius:20px;font-size:14px;font-weight:600;}
+.result-box .suggestions{text-align:left;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.2);}
+.result-box .suggestions h4{color:#d4a843;margin-bottom:8px;}
+.result-box .suggestions p{font-size:13px;line-height:1.8;color:rgba(255,255,255,0.9);}
+.result-box .suggestions .yqh-check{color:#9ae6b4;font-size:13px;line-height:1.8;}
+.result-box .suggestions .pitfall-warn{color:#fed7d7;font-size:13px;line-height:1.8;}
+.formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px;margin-bottom:16px;}
+.formula-card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,0.08);overflow:hidden;cursor:pointer;transition:all 0.3s;border:2px solid transparent;}
+.formula-card:hover{box-shadow:0 4px 20px rgba(26,54,93,0.15);}
+.formula-card.flipped{border-color:#38a169;}
+.formula-front{padding:22px;text-align:center;}
+.formula-front .ff-icon{font-size:36px;margin-bottom:8px;}
+.formula-front .ff-title{font-size:16px;font-weight:700;color:#1a365d;margin-bottom:6px;}
+.formula-front .ff-subtitle{font-size:13px;color:#d4a843;font-weight:600;margin-bottom:8px;}
+.formula-front .ff-brief{font-size:13px;color:#4a5568;line-height:1.7;}
+.formula-front .ff-hint{font-size:11px;color:#a0aec0;margin-top:10px;}
+.formula-back{padding:20px;display:none;}
+.formula-card.flipped .formula-front{display:none;}
+.formula-card.flipped .formula-back{display:block;}
+.formula-back .fb-title{font-size:15px;font-weight:700;color:#1a365d;margin-bottom:10px;text-align:center;}
+.formula-back .fb-step{background:#f7fafc;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13px;color:#4a5568;line-height:1.7;}
+.formula-back .fb-step .fb-step-title{font-weight:600;color:#2c5282;}
+.formula-back .fb-example{background:#f0fff4;border-left:3px solid #38a169;padding:8px 12px;border-radius:0 6px 6px 0;margin:6px 0;font-size:12px;color:#276749;line-height:1.7;}
+.formula-back .fb-hint{font-size:11px;color:#a0aec0;margin-top:8px;text-align:center;}
+.hidden{display:none !important;}
+@media(max-width:600px){
+.header h1{font-size:22px;}
+.stats-row{flex-direction:column;align-items:center;}
+.stat-card{width:80%;}
+.tab-btn{min-width:80px;font-size:12px;padding:8px 4px;}
+.card{padding:16px;}
+.formula-grid{grid-template-columns:1fr;}
+}
+/* 登录验证样式 */
+.login-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;z-index:99999;transition:opacity .4s;}
+.login-box{background:#fff;border-radius:16px;padding:36px 32px;width:300px;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.login-box h2{text-align:center;margin:0 0 24px;font-size:20px;color:#333;}
+.login-input{width:100%;padding:12px 16px;margin:10px 0;border:1.5px solid #ddd;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border-color .3s;}
+.login-input:focus{border-color:#667eea;}
+.login-btn{width:100%;padding:12px;margin:16px 0 8px;border:none;border-radius:8px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:16px;cursor:pointer;transition:opacity .3s;}
+.login-btn:hover{opacity:.9;}
+.login-error{color:#e74c3c;font-size:13px;text-align:center;min-height:18px;}
+.login-credits{text-align:center;margin-top:16px;font-size:12px;color:#aaa;}
+/* 账号管理样式 */
+.acct-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding:0 4px;}
+.acct-user{font-size:14px;color:#4a5568;}
+.acct-user .acct-name{color:#1a365d;font-weight:700;}
+.acct-mgr-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border:1.5px solid #1a365d;border-radius:8px;background:transparent;color:#1a365d;font-size:14px;font-weight:600;cursor:pointer;transition:all .25s;}
+.acct-mgr-btn:hover{background:#1a365d;color:#fff;}
+.acct-mgr-btn.hidden{display:none!important;}
+.acct-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.acct-table{width:100%;border-collapse:collapse;margin-top:16px;}
+.acct-table th{text-align:left;padding:10px 12px;background:#edf2f7;color:#2d3748;font-size:13px;font-weight:600;border-bottom:2px solid #cbd5e0;}
+.acct-table td{padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:13px;color:#4a5568;}
+.acct-table tr:hover td{background:#f7fafc;}
+.acct-form{background:#f7fafc;border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin:16px 0;}
+.acct-form-row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;}
+.acct-form-row .acct-field{flex:1;min-width:140px;}
+.acct-form-row .acct-field label{display:block;font-size:13px;color:#4a5568;margin-bottom:4px;}
+.acct-form-row .acct-field input{width:100%;padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:14px;box-sizing:border-box;outline:none;}
+.acct-form-row .acct-field input:focus{border-color:#1a365d;}
+.acct-status-on{color:#38a169;font-weight:600;}
+.acct-status-off{color:#e53e3e;font-weight:600;}
+.acct-expired{color:#e53e3e;font-weight:700;}
+.acct-expiry-warn{color:#d69e2e;font-weight:600;}
+.acct-modules-count{color:#1a365d;font-weight:600;cursor:pointer;text-decoration:underline;}
+.acct-modules-count:hover{color:#2c5282;}
+.acct-act-btn{padding:5px 12px;border:none;border-radius:6px;font-size:12px;cursor:pointer;margin:0 2px;transition:opacity .2s;}
+.acct-act-btn:hover{opacity:.85;}
+.acct-act-reset{background:#3182ce;color:#fff;}
+.acct-act-modules{background:#1a365d;color:#fff;}
+.acct-act-expiry{background:#38a169;color:#fff;}
+.acct-act-toggle{background:#d69e2e;color:#fff;}
+.acct-act-delete{background:#e53e3e;color:#fff;}
+.acct-empty{text-align:center;color:#a0aec0;padding:30px;font-size:14px;}
+.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0;}
+.module-grid-item{display:flex;align-items:center;gap:6px;padding:8px 10px;border:1.5px solid #e2e8f0;border-radius:8px;cursor:pointer;font-size:13px;transition:all .2s;background:#fff;}
+.module-grid-item:hover{border-color:#1a365d;}
+.module-grid-item.checked{border-color:#1a365d;background:rgba(26,54,93,.05);}
+.module-grid-item input{margin:0;cursor:pointer;}
+.module-grid-item label{cursor:pointer;flex:1;}
+.expiry-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px;}
+.expiry-quick-btn{padding:6px 14px;border:1.5px solid #e2e8f0;border-radius:8px;background:#fff;font-size:13px;cursor:pointer;transition:all .2s;color:#4a5568;}
+.expiry-quick-btn:hover{border-color:#1a365d;color:#1a365d;}
+.expiry-quick-btn.active{border-color:#1a365d;background:#1a365d;color:#fff;}
+.expiry-date-input{padding:8px 12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:14px;outline:none;}
+.expiry-date-input:focus{border-color:#1a365d;}
+.module-modal-mask{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.4);z-index:99998;display:flex;align-items:center;justify-content:center;}
+.module-modal{background:#fff;border-radius:14px;padding:24px;width:90%;max-width:500px;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.module-modal h3{color:#1a365d;margin-bottom:12px;font-size:16px;}
+.module-modal .modal-actions{display:flex;gap:10px;margin-top:16px;justify-content:flex-end;}
+.modal-btn{padding:8px 20px;border:none;border-radius:8px;font-size:14px;cursor:pointer;transition:all .2s;}
+.modal-btn-primary{background:#1a365d;color:#fff;}
+.modal-btn-primary:hover{background:#2c5282;}
+.modal-btn-ghost{background:#edf2f7;color:#4a5568;}
+.modal-btn-ghost:hover{background:#e2e8f0;}
+.back-link{display:inline-block;margin-bottom:16px;color:#1a365d;font-size:14px;cursor:pointer;text-decoration:none;}
+.back-link:hover{text-decoration:underline;}
+.acct-page{display:none;}
+.acct-page.active{display:block;}
+@media(max-width:600px){
+.module-grid{grid-template-columns:repeat(2,1fr);}
+.acct-table{font-size:12px;}
+.acct-table th,.acct-table td{padding:6px 8px;}
+}
+</style>
+</head>
+<body>
+
+<!-- 登录验证页 -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <h2>🔒 系统登录</h2>
+    <input type="text" class="login-input" id="loginUser" placeholder="请输入账号" autocomplete="off">
+    <input type="password" class="login-input" id="loginPass" placeholder="请输入密码" autocomplete="off">
+    <button class="login-btn" onclick="doLogin()">登 录</button>
+    <div class="login-error" id="loginError"></div>
+    <div class="login-credits">系统设计制作：刘岳</div>
+  </div>
+</div>
+
+<div class='header'>
+<h1>初中生作文写作助学系统</h1>
+<div class='subtitle'>深度融合教研写作写作方法论 · 对标2026广州中考最新政策</div>
+<div class='stats-row'>
+<div class='stat-card'><div class='num'>50+</div><div class='label'>写作技巧</div></div>
+<div class='stat-card'><div class='num'>19</div><div class='label'>范文篇数</div></div>
+<div class='stat-card'><div class='num'>180+</div><div class='label'>素材条数</div></div>
+</div>
+<div class='tags-row'>
+<span class='tag'>覆盖初一至初三</span>
+<span class='tag'>对标2026广州中考</span>
+<span class='tag'>教研写作写作方法论</span>
+<span class='tag'>广东阅卷偏好</span>
+</div>
+<button class='start-btn' onclick='scrollToContent()'>开始学习</button>
+</div>
+
+<!-- 账号管理页面 -->
+<div class='acct-page' id='accountPage' style='max-width:900px;margin:0 auto;padding:16px;'>
+<div class='back-link' onclick='showMainContent()'>← 返回主页</div>
+<div class='card'>
+<h3 style='color:#1a365d;font-size:18px;margin-bottom:16px;'>&#x2699;&#xFE0F; 账号管理</h3>
+<div class='acct-form'>
+<h4 style='color:#2c5282;font-size:15px;margin-bottom:12px;'>创建子账号</h4>
+<div class='acct-form-row'>
+<div class='acct-field'><label>用户名</label><input type='text' id='newAcctUser' placeholder='请输入用户名' autocomplete='off'></div>
+<div class='acct-field'><label>密码</label><input type='text' id='newAcctPass' placeholder='请输入密码' autocomplete='off'></div>
+<div class='acct-field'><label>显示名</label><input type='text' id='newAcctName' placeholder='如：张三' autocomplete='off'></div>
+</div>
+<div style='margin-top:12px;'>
+<label style='font-size:13px;color:#4a5568;display:block;margin-bottom:6px;'>使用板块设置（默认全选）</label>
+<div class='module-grid' id='newAcctModules'></div>
+</div>
+<div style='margin-top:12px;'>
+<label style='font-size:13px;color:#4a5568;display:block;margin-bottom:4px;'>使用期限设置</label>
+<div class='expiry-row'>
+<button type='button' class='expiry-quick-btn' onclick='setExpiryQuick(7,this)'>7天</button>
+<button type='button' class='expiry-quick-btn' onclick='setExpiryQuick(30,this)'>30天</button>
+<button type='button' class='expiry-quick-btn' onclick='setExpiryQuick(90,this)'>90天</button>
+<button type='button' class='expiry-quick-btn' onclick='setExpiryQuick(180,this)'>180天</button>
+<button type='button' class='expiry-quick-btn' onclick='setExpiryQuick(365,this)'>365天</button>
+<input type='date' class='expiry-date-input' id='newAcctExpiry' onchange='clearExpiryQuickActive()'>
+</div>
+</div>
+<button class='modal-btn modal-btn-primary' onclick='createAccount()' style='margin-top:16px;'>创建子账号</button>
+</div>
+<h4 style='color:#2c5282;font-size:15px;margin-top:20px;margin-bottom:8px;'>子账号列表</h4>
+<div id='accountListWrap'></div>
+</div>
+</div>
+
+<div class='container' id='mainContent'>
+<div class='acct-bar'>
+<div class='acct-user'>当前用户：<span class='acct-name' id='currentUserName'>—</span></div>
+<button class='acct-mgr-btn hidden' id='acctMgrBtn' onclick='showAccountPage()'>&#x2699;&#xFE0F; 账号管理</button>
+</div>
+<div class='tab-bar'>
+<button class='tab-btn active' data-module='写作技巧库' onclick='switchTab(0)'>&#x1F4DA; 写作技巧库</button>
+<button class='tab-btn' data-module='范文赏析' onclick='switchTab(1)'>&#x2728; 范文赏析</button>
+<button class='tab-btn' data-module='素材宝库' onclick='switchTab(2)'>&#x1F4E6; 素材宝库</button>
+<button class='tab-btn' data-module='实战演练' onclick='switchTab(3)'>&#x1F3AF; 实战演练</button>
+<button class='tab-btn' data-module='写作自评' onclick='switchTab(4)'>&#x1F4CA; 写作自评</button>
+<button class='tab-btn' data-module='教研写作公式' onclick='switchTab(5)'>&#x1F9E0; 教研写作公式</button>
+</div>
+
+<!-- Module 1: Writing Techniques -->
+<div class='module active' id='mod0'>
+<div class='grade-tab-bar'>
+<button class='grade-tab active' onclick='switchGrade(0,0)'>初一·记叙文基础</button>
+<button class='grade-tab' onclick='switchGrade(0,1)'>初二·进阶提升</button>
+<button class='grade-tab' onclick='switchGrade(0,2)'>初三·应试冲刺</button>
+</div>
+
+<div class='grade-content active' id='g0_0'>
+<div class='card'>
+<h3><span class='icon'>&#x270F;&#xFE0F;</span>写人技巧：四维度描写法</h3>
+<div class='method'>
+<div class='method-title'>1. 外貌描写——抓住特征</div>
+<p>不要面面俱到，选择最能体现人物性格的2-3个外貌特征重点描写。</p>
+<div class='example'>他并不高大，但那双眼睛格外有神，像是藏着说不完的故事。额头上那道浅浅的疤痕，是他上山采药时留下的印记。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 语言描写——符合身份</div>
+<p>人物的语言要与其年龄、身份、性格相符，避免千人一面。</p>
+<div class='example'>奶奶总是笑眯眯地说：'后生仔，食咗饭未啊？'那带着浓浓粤语味的问候，比任何山珍海味都让人觉得温暖。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 动作描写——动词精准</div>
+<p>用连续的精准动词展现人物动作，让读者如临其境。</p>
+<div class='example'>他猛地弓身，双手紧紧攥住竹竿，脚尖一点，整个人如燕子般掠过水面，稳稳落在对岸的石板上。</div>
+</div>
+<div class='method'>
+<div class='method-title'>4. 心理描写——真实细腻</div>
+<p>直接内心独白或间接通过神态、动作暗示心理活动。</p>
+<div class='example'>我的心像是被什么攥住了，手心沁出细密的汗珠。到底要不要举手呢？如果答错了，同学们会不会笑话我？</div>
+</div>
+</div>
+
+<div class='card card-gold'>
+<h3><span class='icon'>&#x1F4D6;</span>叙事技巧：波澜设置法</h3>
+<div class='method'>
+<div class='method-title'>1. 欲扬先抑法</div>
+<p>先写不好的一面，再写好的一面，形成反转，使文章波澜起伏。</p>
+<div class='example'>起初，我讨厌极了那间破旧的骑楼——阴暗、潮湿，墙皮一块块往下掉。直到那个暴雨天，我在骑楼里避雨，老街坊递来一碗热姜汤，我才懂了这旧屋檐下藏着怎样的温情。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 悬念设置法</div>
+<p>在叙事开头设置疑问或反常之处，吸引读者往下读。</p>
+<div class='example'>那天放学，我远远看见家门口放着一个大纸箱。谁寄来的？我三步并两步跑上前，正要打开，却被妈妈一把拦住了。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 误会法</div>
+<p>利用人物之间的误解制造冲突，解开误会时推动情节发展。</p>
+<div class='example'>我认定是同桌偷了我的笔，整整一周没跟他说一句话。直到打扫卫生时，那支笔从我自己抽屉的缝隙里掉了出来，我才知道错怪了他。</div>
+</div>
+</div>
+
+<div class='card card-green'>
+<h3><span class='icon'>&#x1F3C6;</span>记叙文进阶：无敌四招<span class='method-tag'>教研写作方法</span></h3>
+<p style='font-size:13px;color:#276749;margin-bottom:10px;'>教研写作提出记叙文'无敌四招'，让文章一波三折、引人入胜。这四招可以单独使用，也可以组合运用，形成叙事的'组合拳'。</p>
+<div class='method-green'>
+<div class='method-title'>第一招：设置悬念</div>
+<p>在文章开头或关键节点抛出疑问，吊足读者胃口，让人忍不住往下读。</p>
+<div class='example'>那天放学回家，我发现家门上贴着一张奇怪的纸条，上面只有三个字：'别开门'。我的心猛地一沉，手不自觉地攥紧了书包带。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>第二招：制造冲突</div>
+<p>人物之间、人物与环境之间、人物内心产生对立和矛盾，推动情节发展。</p>
+<div class='example'>我想参加醒狮比赛，可父亲坚决反对：'读书才是正道，舞什么狮子！'那一刻，我第一次觉得父亲不懂我。我们之间的沉默，比任何争吵都沉重。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>第三招：营造反转</div>
+<p>情节发展出乎意料，打破读者预期，制造惊喜或震撼。</p>
+<div class='example'>我以为奶奶忘了我的生日，整天闷闷不乐。直到晚上推开房门——满屋的烛光，桌上是一个歪歪扭扭的蛋糕，全家人笑着唱起生日歌。泪水模糊了我的视线。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>第四招：留有余味</div>
+<p>结尾不把话说尽，留给读者想象和回味的空间，'言有尽而意无穷'。</p>
+<div class='example'>我拿起那支旧毛笔，在宣纸上落下第一笔。窗外，雨停了，天边露出一线微光。有些路，终究要自己走完。</div>
+</div>
+</div>
+
+<div class='card card-green'>
+<h3><span class='icon'>&#x1F500;</span>记叙文进阶：绝杀三线<span class='method-tag'>教研写作方法</span></h3>
+<p style='font-size:13px;color:#276749;margin-bottom:10px;'>教研写作提出记叙文'绝杀三线'——明线、暗线、辅线三线交织，让文章立体丰满、层次分明。三线并行，互相呼应，阅卷老师一眼就能看到文章的'骨架'。</p>
+<div class='method-green'>
+<div class='method-title'>明线：事件发展线</div>
+<p>故事的发生、发展、高潮、结局，是文章的'骨架'，必须清晰完整。</p>
+<div class='example'>学骑自行车的全过程：摔跤→害怕→被父亲扶着骑→父亲悄悄放手→独立骑行。事件线清晰，读者知道'发生了什么'。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>暗线：情感变化线</div>
+<p>人物内心的情感起伏，是文章的'灵魂'，让读者感受到'为什么感人'。</p>
+<div class='example'>同上学骑自行车：恐惧→依赖→紧张→惊喜→自信。情感线暗藏其中，与事件线同步推进，读者体会到'成长的感觉'。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>辅线：环境烘托线</div>
+<p>环境描写配合情感变化，是文章的'背景音乐'，渲染氛围、暗示心情。</p>
+<div class='example'>同上学骑自行车：阴天（烘托恐惧）→风渐起（暗示变化）→阳光穿透云层（象征突破）→晴空万里（呼应成功）。环境线与情感线同频共振。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>三线交织示范</div>
+<p>将三条线融合在同一个段落中，形成立体叙事效果：</p>
+<div class='example'>风更大了，天色暗得像泼了墨（辅线·环境）。我死死攥住车把，膝盖抖得厉害，心里有个声音在喊：'放弃吧，你学不会的。'（暗线·情感）。可父亲的手还稳稳扶着后座，他的声音从风里传来：'别怕，往前看！'（明线·事件）。我咬紧牙关，蹬下了那一脚——车轮转起来了，风从耳边呼啸而过。父亲的手，不知什么时候已经松开了。</div>
+</div>
+</div>
+
+<div class='card'>
+<h3><span class='icon'>&#x1F338;</span>写景状物：五感法（基础）+ 五蕴写作法（进阶）</h3>
+<h4>基础篇：五感联动法</h4>
+<div class='method'>
+<div class='method-title'>1. 五感联动法</div>
+<p>调动视觉、听觉、嗅觉、触觉、味觉，多维度描写场景。</p>
+<div class='example'>清晨的沙面岛，阳光透过榕树洒下碎金（视觉），鸟鸣在枝头此起彼伏（听觉），空气里飘着鸡蛋花的清香（嗅觉），晨风拂面带着微微的凉意（触觉），仿佛连呼吸都染上了花香（味觉联想）。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 情景交融法</div>
+<p>将情感融入景物描写中，做到景中有情、情中有景。</p>
+<div class='example'>珠江的水依旧静静地流，两岸霓虹闪烁如昨，可我知道，有些东西已经回不来了。那江面上的粼粼波光，像是碎了一地的回忆。</div>
+</div>
+
+<h4>进阶篇：五蕴写作法<span class='method-tag'>教研写作方法</span></h4>
+<p style='font-size:13px;color:#276749;margin-bottom:10px;'>教研写作提出用佛家'色受想行识'替代传统五感法，完美适配新课标对'思维层次'的要求。五感法是'看见'，五蕴法是'看透'——从感官到思想，形成阶梯式升华。</p>
+<div class='method-green'>
+<div class='method-title'>色——写外观：描摹事物外在形态、颜色、状态</div>
+<p>不只是看，而是'看见'。用精准的词语描摹事物的形、色、态，让读者仿佛亲眼所见。</p>
+<div class='example'>三月的木棉，红得像燃烧的火焰，花冠硕大如碗，五片花瓣向外翻卷，花蕊金黄挺立，在蓝天映衬下格外夺目。没有一片绿叶，它就那样赤裸裸地开在枝头，热烈而决绝。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>受——写感受：抒发看到/接触事物后的内心感触、情绪体验</div>
+<p>五感法止于'闻到花香'，五蕴法追问'这花香让你心中涌起了什么'。写出真实的情绪波动。</p>
+<div class='example'>我仰头望着这一树红花，心中涌起一股说不出的激动，仿佛有什么沉睡的东西被唤醒了。那一刻，我甚至忘了呼吸。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>想——写联想：由眼前事物联想到人、事、回忆、过往经历</div>
+<p>这是五蕴法最关键的一步——从'物'跳到'人'，从'眼前'跳到'记忆'，让文章有了纵深。</p>
+<div class='example'>这抹红色让我想起爷爷军装上的勋章，想起他讲过的那些战火纷飞的岁月。他说，真正的英雄不怕流血，只怕辜负。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>行——写行动：由感受和联想触发的具体行为、动作</div>
+<p>广东阅卷最看重'行动'——不能只感悟不行动。写出你因为这份感受做了什么。</p>
+<div class='example'>我弯腰拾起一朵落花，小心翼翼地夹进课本里。从那天起，每次经过木棉树下，我都会抬头看一眼，心里默念：要像它一样，活得热烈。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>识——写思想：升华主旨，提炼感悟、道理，拔高作文深度</div>
+<p>这是五蕴法的'点睛之笔'，将前面的色、受、想、行凝结成一句有分量的感悟。</p>
+<div class='example'>木棉不等绿叶便先行绽放，凋落也不萎缩——原来，真正的勇敢不是无所畏惧，而是明知终将凋零，依然选择盛放。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>五蕴法完整示范：写一碗肠粉</div>
+<div class='example'>色：阿叔将米浆均匀浇在蒸屉上，白如雪、薄如纸，蒸汽升腾间，肠粉渐渐变得半透明，隐约可见里面粉红的虾仁和金黄的蛋液。<br><br>受：闻着那股米香，我的肚子不争气地叫了一声，口水在嘴里打转，一种从童年就熟悉的安心感涌上心头。<br><br>想：这味道让我想起小时候，外婆牵着我的手穿过老街，每次路过肠粉店都会停下来买一碟。外婆说：'食肠粉要趁热，人生也要趁早。'<br><br>行：我接过碟子，没有像往常一样急匆匆地吃完，而是慢慢品味每一口，仿佛在咀嚼一段时光。吃完后，我对阿叔说了声'多谢'，声音比平时大了一些。<br><br>识：原来，一碟肠粉的味道，不只是米浆和馅料的组合，更是一个人用几十年守在同一间铺子里，把平凡做到极致的坚持。最深的味道，往往藏在最朴素的日子里。</div>
+</div>
+</div>
+</div>
+
+<div class='grade-content' id='g0_1'>
+<div class='card card-green'>
+<h3><span class='icon'>&#x1F50D;</span>细节描写：慢镜头+特写镜头+慢移镜头<span class='method-tag'>教研写作方法</span></h3>
+<div class='method'>
+<div class='method-title'>1. 慢镜头分解法（基础）</div>
+<p>将一瞬间发生的事拆解为若干个连续动作，像电影慢镜头一样展开。</p>
+<div class='example'>平淡版：他投进了那个球。<br>精彩版：他接球的瞬间，膝盖微弯，重心下沉，双眼紧盯着篮筐。手腕一抖，篮球划出一道完美的弧线，在空中旋转着，旋转着——砰！球空心入网，全场沸腾。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 特写聚焦法（基础）</div>
+<p>聚焦某个关键细节，放大描写，以小见大。</p>
+<div class='example'>奶奶的手，粗糙得像老树皮，指甲缝里还留着泥土。可就是这双手，轻轻一揉，一团面就变成了精致的虾饺，褶子细密得像艺术品。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 对比放大法（基础）</div>
+<p>通过前后对比或人物之间的对比，突出细节效果。</p>
+<div class='example'>修改前：她很开心。<br>修改后：她先是愣住了，眼睛慢慢睁大，嘴角不自觉地上扬，终于忍不住捂住嘴笑了起来，泪水却不知何时流了满脸。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>4. 特写镜头刻画细节（教研写作进阶）</div>
+<p>像电影导演一样，在关键时刻按下'暂停键'，用特写镜头放大最具感染力的瞬间。不是泛泛地写，而是聚焦到一个'点'上，让读者看清每一个细节。</p>
+<div class='example'>父亲签字时，我盯着他的手。那双手曾经有力地托起过我，此刻却微微发抖。笔尖触到纸面的瞬间，他停顿了三秒——那三秒，比三年还漫长。我看见他的喉结上下滚动了一下，最终，笔落下去了。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>5. 慢移镜头写出层次（教研写作进阶）</div>
+<p>镜头不是静止的，而是缓缓移动——由远及近、由外到内、由景到情。这种'推镜头'式的写法，能让读者产生身临其境的沉浸感。</p>
+<div class='example'>远远望去，陈家祠的屋脊上密密麻麻地排列着各色人物——那是灰塑，历经百年风雨依然色彩斑斓（远景·由远望）。走近了看，每一尊人物都有表情：武将怒目圆睁，书生微笑吟诗，仕女衣袂飘飘（近景·由远及近）。再凑近些，我发现一位老匠人正蹲在屋脊旁，手持小刀，小心翼翼地修补着一处剥落的灰塑。他的眼睛已经花了，手却稳得像秤砣（特写·由外到内）。那一刻我忽然懂了：真正的传承，不在博物馆的玻璃柜里，而在这双布满老茧的手上（升华·由景到情）。</div>
+</div>
+</div>
+
+<div class='card card-gold'>
+<h3><span class='icon'>&#x1F4CB;</span>说明文写作：顺序与方法 + 珍珠项链法<span class='method-tag'>教研写作方法</span></h3>
+<div class='method'>
+<div class='method-title'>1. 说明顺序</div>
+<p>时间顺序（事物发展过程）、空间顺序（由外到内/由上到下/由远到近）、逻辑顺序（由总到分/由主到次/由概括到具体）。</p>
+<div class='example'>写广州塔的说明文，可以采用空间顺序：先写塔的整体外观和高度，再由下而上介绍各层功能——底部是观光大厅，中部是旋转餐厅，顶部是摩天轮和天线桅杆。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 说明方法</div>
+<p>举例子（具体说明）、列数字（准确说明）、作比较（突出特征）、打比方（形象说明）。</p>
+<div class='example'>广州塔高600米（列数字），是目前中国第一高塔，比东方明珠高出近200米（作比较）。塔身宛如一位亭亭玉立的少女，腰身纤细，被人们亲切地称为'小蛮腰'（打比方）。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>3. 珍珠项链法（教研写作独创）</div>
+<p>把说明对象比作一颗颗珍珠，用说明顺序的'线'把它们串起来，每颗'珍珠'用说明方法'打磨'光亮。这样写出来的说明文，既有条理又有文采，不会干巴巴地罗列信息。</p>
+<div class='example'><strong>以写广州塔为例：</strong><br><br>第一颗珍珠——外观高度：广州塔高600米，是中国第一高塔，塔身最细处直径仅30多米，腰身纤细如少女，故称'小蛮腰'（列数字+打比方）。<br><br>第二颗珍珠——内部结构：塔内分为多个功能区，底部是宽敞的观光大厅，中部设有全球最高的旋转餐厅，顶部则是横向摩天轮和天线桅杆（空间顺序·由下而上）。<br><br>第三颗珍珠——科技亮点：广州塔采用了世界先进的减振技术，塔顶安装了两个各重500吨的水阻尼器，即使在强台风中也能保持稳定（举例子+列数字）。<br><br>第四颗珍珠——文化意义：广州塔不只是建筑，更是广州城市精神的象征——它用'小蛮腰'的柔美身姿，诠释了广州人外柔内刚的性格（升华）。<br><br>用空间顺序的'线'，把四颗珍珠串成一条完整的项链，每颗珍珠都用说明方法打磨，最后以文化意义收尾，文章既严谨又有温度。</div>
+</div>
+</div>
+
+<div class='card card-green'>
+<h3><span class='icon'>&#x1F4A1;</span>选材与立意：六大方法<span class='method-tag'>教研写作方法</span></h3>
+<div class='method'>
+<div class='method-title'>1. 以小见大法（基础）</div>
+<p>从一件小事入手，挖掘其背后深刻的道理或情感。</p>
+<div class='example'>一碗普通的白切鸡，吃到的是妈妈清晨跑遍三个市场挑选走地鸡的用心，品到的是广州人'食不厌精'的生活态度。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 对比选材法（基础）</div>
+<p>选择两个形成对比的材料，在对比中凸显主题。</p>
+<div class='example'>曾经热闹非凡的老骑楼，如今门可罗雀；而一街之隔的新商场却人潮涌动。这对比之间，让我看到了时光的力量和城市的变迁。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 立意升华三步法（基础）</div>
+<p>第一步：写具体事——第二步：抒真情——第三步：升华到人生哲理或社会思考。</p>
+<div class='example'>写学骑单车的经历（事）→ 感受到父亲放手时的不舍与信任（情）→ 成长就是一次次放手后的远行，而爱是身后永远注视的目光（理）。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>4. 万花筒立意法（教研写作独创）</div>
+<p>同一材料就像万花筒，每旋转一个角度就能看到不同的图案，得到不同的立意。审题时不要急于锁定一个角度，先'转几圈'，看看哪个角度最独特、最有深度。</p>
+<div class='example'><strong>材料：下雨天</strong><br>角度一（温馨）：雨天里的一把伞——亲情的温暖，'雨再大，有你在就不怕'。<br>角度二（成长）：雨中独自奔跑——学会独立面对困难，'原来没有伞的孩子，必须努力奔跑'。<br>角度三（感悟）：雨后彩虹——困境之后的希望，'风雨过后，才知道晴空有多珍贵'。<br>角度四（反思）：暴雨中的城市排水——从个人感悟到社会思考。<br><br>四个角度，同一材料，立意完全不同。选最独特、最适合自己的那个。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>5. 放大镜立意法（教研写作独创）</div>
+<p>不追求大而全，而是聚焦一个小细节，用'放大镜'把它放大、深挖，挖出一个别人看不到的道理。细节越小，挖掘越深，文章越有力量。</p>
+<div class='example'>聚焦奶奶手上的一道老茧——这道茧是几十年劳作的印记，是岁月刻下的勋章，是爱的年轮。从一道茧，写到一代人的付出，写到亲情的厚度。小切口，大纵深。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>6. 倒骑驴立意法（教研写作独创）</div>
+<p>张果老倒骑驴——反过来想，逆向思维。当所有人都从正面立意时，你从反面立意，往往能出奇制胜。但注意：逆向不是抬杠，要有道理、有逻辑。</p>
+<div class='example'>所有人都说'快'好——快节奏、高效率、争第一。可我渐渐发现，慢，也是一种智慧。煲汤要慢火才出味，成长要慢养才扎实，友谊要慢处才长久。在这个人人追求快的时代，'慢'反而成了最稀缺的品质。</div>
+</div>
+</div>
+
+<div class='card card-green'>
+<h3><span class='icon'>&#x1F3D7;&#xFE0F;</span>结构搭建：六大经典写作结构<span class='method-tag'>教研写作方法</span></h3>
+<p style='font-size:13px;color:#276749;margin-bottom:10px;'>教研写作提出六大经典写作结构，掌握这六种'骨架'，写作时就不会'东一榔头西一棒子'。不同文体、不同主题，选择最合适的结构。</p>
+<div class='method-green'>
+<div class='method-title'>1. 结论先行结构</div>
+<p>开头直接亮明观点/结论，然后用事实和论据支撑。适合议论文和考场作文，阅卷老师30秒内就能抓住你的立意。</p>
+<div class='example'>开头：坚持，是通往成功的唯一道路。→ 主体：詹天佑的坚持、苏炳添的坚持、屠呦呦的坚持。→ 结尾：所以，请相信坚持的力量。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>2. 总分总结构</div>
+<p>总述（概括）→分述（展开）→总结（收束），是最经典也最稳妥的结构。适合记叙文和说明文。</p>
+<div class='example'>总：广州的美食文化源远流长。→ 分：早茶文化、煲仔饭的匠心、白切鸡的大道至简。→ 总：食在广州，味在人心。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>3. 并列结构</div>
+<p>几个方面并列展开，地位平等，从不同角度支撑主题。适合写景散文和议论文。</p>
+<div class='example'>主题'广州的美'：美的是骑楼的古朴 / 美的是珠江的流淌 / 美的是花市的绚烂——三个方面并列，共同支撑'广州的美'。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>4. 递进结构</div>
+<p>层层深入，步步推进，像爬楼梯一样，每一层都比上一层更深。适合议论说理和情感升华。</p>
+<div class='example'>第一层：什么是勇敢（行为层面）→ 第二层：为什么需要勇敢（心理层面）→ 第三层：勇敢的真正含义（哲学层面）——层层递进，思想越来越深。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>5. 对比结构</div>
+<p>正反对比，在对比中凸显主题。可以是人物对比、前后对比、虚实对比。</p>
+<div class='example'>曾经的骑楼：热闹、温情、人情味十足。→ 如今的骑楼：冷清、破旧、人去楼空。→ 对比之中，写出时光的力量和变迁的感慨。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>6. 时空结构</div>
+<p>按时间顺序或空间顺序组织全文，适合写景、游记和回忆类文章。</p>
+<div class='example'>时间结构：春的木棉→夏的暴雨→秋的凉风→冬的花市，四季串联写广州。空间结构：从沙面到北京路到天河，由西向东写广州的变迁。</div>
+</div>
+</div>
+
+<div class='card card-green'>
+<h3><span class='icon'>&#x1F3A8;</span>语言升级：五大修辞升级法<span class='method-tag'>教研写作方法</span></h3>
+<p style='font-size:13px;color:#276749;margin-bottom:10px;'>教研写作提出五种语言升级方法，让你的文字从'能读'到'好读'再到'想读'。这五种方法可以叠加使用，效果倍增。</p>
+<div class='method-green'>
+<div class='method-title'>1. 壮士打靶法——精准删除冗余</div>
+<p>语言要像射箭一样直中靶心，删除一切多余的词语。好文章不是写出来的，是改出来的——砍掉废话，只留最精准的表达。</p>
+<div class='example'>修改前：我非常非常开心，心里特别高兴，简直乐开了花，不知道该怎么办才好。<br>修改后：我攥紧拳头，嘴角不自觉地上扬，脚步轻快得像踩在云上。<br><br>点评：删掉了'非常非常'、'特别'、'简直'等空泛的修饰词，换成具体的动作和感受，一句话胜过四句话。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>2. 偷天换日法——把平淡换成生动</div>
+<p>把平淡的表达'偷换'成生动的表达，不动声色地提升语言品质。关键是找到那个'更准确的词'。</p>
+<div class='example'>修改前：太阳落山了。<br>修改后：夕阳将最后一抹橘红涂在天际，缓缓沉入珠江的另一端。<br><br>修改前：风很大。<br>修改后：风裹着江水的腥气，呼啸着穿过骑楼的廊柱，吹得老招牌吱呀作响。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>3. 按图索骥法——按修辞图谱逐一练习</div>
+<p>把比喻、拟人、排比、夸张、对偶、反问等修辞当作一张'图谱'，逐一练习掌握。写完后对照图谱检查：这段话用了哪些修辞？还能不能再加一种？</p>
+<div class='example'>同一段话，用不同修辞升级：<br>原句：珠江很美。<br>+比喻：珠江像一条银色的绸带，轻轻系在广州的腰间。<br>+拟人：珠江哼着古老的歌谣，缓缓流向远方。<br>+排比：珠江的水，流过秦汉的郡治，流过唐宋的商港，流过今天的繁华。<br>+反问：珠江的美，岂是三言两语能说尽的？</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>4. 女娲造人法——赋予无生命物体以生命</div>
+<p>女娲用泥巴造人，赋予了泥巴生命。写作时，给无生命的物体赋予生命——拟人化，让静物动起来，让死物活过来。</p>
+<div class='example'>修改前：广州塔晚上会亮灯，颜色不停变化。<br>修改后：夜幕降临，广州塔伸展着她纤细的腰身，换上一袭霓虹彩衣，与珠江低语着城市的秘密。赤橙黄绿青蓝紫，她换了一身又一身，仿佛在赴一场永不散场的舞会。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>5. 声东击西法——明写此，暗写彼</div>
+<p>表面上写A，实际暗示B。这种'醉翁之意不在酒'的写法，能让文章含蓄隽永，回味悠长。广东阅卷老师特别欣赏这种'有层次'的写法。</p>
+<div class='example'>表面写一碗肠粉的制作过程：阿叔凌晨四点起来磨米浆，五点开始蒸第一碟，一直忙到中午。米浆要调得稀稠得当，火候要拿捏精准，酱油要自己熬制……<br><br>实际暗示：这碗肠粉背后，是一个人几十年如一日的坚守与匠心。表面写'食'，实际写'人'；表面写'技'，实际写'心'。</div>
+</div>
+</div>
+</div>
+
+<div class='grade-content' id='g0_2'>
+<div class='card'>
+<h3><span class='icon'>&#x2696;&#xFE0F;</span>议论文写作：论点·论据·论证</h3>
+<div class='method'>
+<div class='method-title'>1. 亮明论点</div>
+<p>开头明确提出中心论点，语言简洁有力，切忌含糊其辞。</p>
+<div class='example'>坚持，是通往成功的唯一道路。没有坚持，再好的天赋也会在半途荒废；有了坚持，平凡的脚步也能丈量出伟大的距离。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 事实论据+道理论据</div>
+<p>事实论据用具体事例，道理论据用名言警句或普遍道理，二者结合更有说服力。</p>
+<div class='example'>事实论据：詹天佑顶着外国人嘲笑，坚持自主设计京张铁路，最终建成中国人自己的第一条铁路。道理论据：正如荀子所言：'锲而不舍，金石可镂。'成功从来不会眷顾半途而废之人。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 论证方法</div>
+<p>举例论证、道理论证、对比论证、比喻论证，一篇议论文至少运用两种。</p>
+<div class='example'>对比论证：有些人遇到困难便轻言放弃，终身碌碌无为；而有些人咬牙坚持，终成大事。珠玉与顽石，差别只在于是否经得起打磨。</div>
+</div>
+</div>
+
+<div class='card card-green'>
+<h3><span class='icon'>&#x1F9E9;</span>议论文进阶：534结构法 + 金镶玉法<span class='method-tag'>教研写作方法</span></h3>
+<div class='method-green'>
+<div class='method-title'>534结构法：5段·3论点·4步骤</div>
+<p>教研写作提出议论文'534结构法'，让你的议论文结构清晰、论证充分。5段=开头段(观点)+3个主体段(分论点+论据)+结尾段(总结升华)；4步骤=提出观点→分层论证→举例支撑→总结升华。</p>
+<div class='example'><strong>以'坚持的力量'为例：</strong><br><br>第1段（开头·提出观点）：坚持，是通往成功的必由之路。没有坚持，天赋会荒废；有了坚持，平凡能变伟大。<br><br>第2段（主体一·分论点1+论据）：坚持让人突破极限。苏炳添32岁仍坚持高强度训练，跑出9秒83，改写亚洲速度。（举例论证）<br><br>第3段（主体二·分论点2+论据）：坚持让人穿越黑暗。屠呦呦经历190次失败，第191次实验发现青蒿素，拯救百万生命。（举例论证）<br><br>第4段（主体三·分论点3+论据）：坚持让人守护初心。詹天佑顶着嘲笑坚持自主设计京张铁路，证明了中国工程师的能力。（举例论证）<br><br>第5段（结尾·总结升华）：坚持不在于一时的爆发，而在于长久的积累。以坚持为桨，方能抵达理想的彼岸。<br><br>结构一目了然，阅卷老师30秒就能把握全文脉络。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>金镶玉法：在朴素论述中镶嵌金句</div>
+<p>教研写作提出'金镶玉法'——在朴素的论述中镶嵌金句（名言、诗词、警句），如同金镶玉，让文章瞬间闪光。但切记：金句要'镶嵌'得自然，不能生硬堆砌，一篇议论文镶嵌2-3处即可。</p>
+<div class='example'><strong>镶嵌示范：</strong><br><br>论点：坚持需要毅力。<br>朴素版：坚持需要毅力，只有不断努力才能成功。<br>金镶玉版：坚持需要毅力，正如荀子所言'锲而不舍，金石可镂'。每一次咬牙坚持，都是在雕刻更好的自己。<br><br>论点：困境中更要坚持。<br>朴素版：遇到困难不要放弃，要坚持下去。<br>金镶玉版：'千磨万击还坚劲，任尔东西南北风。'困境不是终点，而是磨砺意志的砺石。真正的强者，不是不跌倒，而是跌倒后依然选择站起。<br><br>论点：坚持终有回报。<br>朴素版：只要坚持，最终一定能成功。<br>金镶玉版：'长风破浪会有时，直挂云帆济沧海。'坚持的意义不在于一定能到达彼岸，而在于你始终没有放弃扬帆的勇气。</div>
+</div>
+</div>
+
+<div class='card card-green'>
+<h3><span class='icon'>&#x1F354;</span>段落写作：双层汉堡写作法<span class='method-tag'>教研写作方法</span></h3>
+<p style='font-size:13px;color:#276749;margin-bottom:10px;'>教研写作提出'双层汉堡写作法'，把一个议论文段落比作一个汉堡——层次分明，营养均衡。掌握这个方法，每一段都能写得有骨架、有血肉。</p>
+<div class='method-green'>
+<div class='method-title'>汉堡结构拆解</div>
+<p><strong>顶层面包</strong>：主题句点题——一句话亮明本段核心观点<br><strong>第一层肉饼</strong>：第一个论点/事例——用具体事实支撑<br><strong>第一层芝士</strong>：第一个分析解释——对事例进行分析，说明它如何支撑观点<br><strong>第二层肉饼</strong>：第二个论点/事例——换一个角度或换一个事例<br><strong>第二层芝士</strong>：第二个分析解释——分析第二个事例<br><strong>酸黄瓜</strong>：举例论证——用名言或数据增加说服力（'酸'是点睛之笔）<br><strong>底层面包</strong>：收尾回扣——总结本段，呼应主题句</p>
+<div class='example'><strong>完整示范：以'阅读让人成长'为段落主题</strong><br><br>（顶层面包）阅读，是成长路上最忠实的朋友。<br><br>（第一层肉饼）读《钢铁是怎样炼成的》，保尔·柯察金在病榻上依然坚持写作的身影，让我明白了什么是'不屈服'。<br><br>（第一层芝士）他的故事告诉我，生命的意义不在于长度，而在于厚度。即使身处困境，精神的火焰也不会熄灭。<br><br>（第二层肉饼）读《老人与海》，桑地亚哥在海上与鲨鱼搏斗了三天三夜，最终只带回一副鱼骨。可他说：'人可以被毁灭，但不能被打败。'<br><br>（第二层芝士）这句话像一记重锤，敲碎了我对'失败'的恐惧。原来，真正的胜利不是赢得结果，而是永不放弃的过程。<br><br>（酸黄瓜）正如苏轼所言：'腹有诗书气自华。'每一本好书，都在悄悄改变着我们看世界的眼光。<br><br>（底层面包）所以，翻开一本书吧——你可能无法立刻改变命运，但你的灵魂已经开始成长。</div>
+</div>
+</div>
+
+<div class='card card-green'>
+<h3><span class='icon'>&#x1F4DD;</span>教研写作方法实战案例集<span class='method-tag'>教研写作方法</span></h3>
+<p style='font-size:13px;color:#276749;margin-bottom:10px;'>以下为教研写作各核心方法的学生习作运用示例，每段100-200字，展示方法在实际写作中的效果。</p>
+<div class='method-green'>
+<div class='method-title'>五蕴写作法实战案例</div>
+<p>题目：《外婆的煲汤课》片段——完整运用"色→受→想→行→识"链条</p>
+<div class='example'>砂锅盖一揭开，热气扑面而来，米饭油亮亮的，腊味的汁水渗透每一粒米，锅底那层金黄的锅巴嘎嘣脆。（色——视觉描写）我一口气吃了三碗，胃里暖暖的，满足感从舌尖蔓延到心底。（受——感受描写）忽然想起外婆每天清晨五点出门买食材的背影，想起她说"大颗的看着好看，小颗的才甜"时的认真表情。（想——联想记忆）我也学着外婆的样子，站在灶台前，小心翼翼地调着火，用勺子搅动锅里的汤。（行——具体行动）原来，最好的味道不是食材的堆砌，而是时间的沉淀——外婆煲的不是汤，是用漫长的岁月把爱熬成了一锅温暖。（识——认知升华）</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>无敌四招实战案例</div>
+<p>题目：《书包里的秘密》片段——运用"设置悬念→制造冲突→营造反转→留有余味"</p>
+<div class='example'>我的书包很重，但最重的不是课本。（设置悬念）那天整理书包，我在夹层里摸到一个硬硬的东西——一盒创可贴，上面贴着妈妈的字迹："体育课小心别摔跤。"我愣住了，这盒创可贴是什么时候放进去的？我完全不知道。（制造冲突——内心的惊讶与疑问）继续翻，又摸到一张纸条、一行小字……原来，妈妈每天都在偷偷往我书包里塞东西。（营造反转——从"不知道"到"发现"）我把创可贴放回夹层，把纸条折好塞进口袋。明天上学，书包依然很重，但我知道，那份重量叫被爱。（留有余味——不说透，让读者回味）</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>绝杀三线实战案例</div>
+<p>题目：《学骑自行车》片段——明线、暗线、辅线三线交织</p>
+<div class='example'>风更大了，天色暗得像泼了墨。（辅线·环境烘托恐惧）我死死攥住车把，膝盖抖得厉害，心里有个声音在喊："放弃吧，你学不会的。"（暗线·内心恐惧）可父亲的手还稳稳扶着后座，他的声音从风里传来："别怕，往前看！"（明线·事件推进）我咬紧牙关，蹬下了那一脚——车轮转起来了，风从耳边呼啸而过。父亲的手，不知什么时候已经松开了。阳光穿透云层，洒在我身上，暖洋洋的。（辅线转明——环境变化暗示成功，暗线转喜——内心从恐惧到惊喜）</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>六大结构实战案例</div>
+<p>题目：《骑楼下的时光》片段——运用"对比结构"</p>
+<div class='example'>小时候，骑楼是我的整个世界。楼下是阿叔的肠粉店，隔壁是陈伯的药材铺，转角是林姨的裁缝店。每天放学，一路走一路打招呼，热闹极了。（正面描写——旧骑楼的温暖）后来，我们搬到了天河的新房子。高楼大厦，电梯入户，窗户关上就听不见外面的声音。我有自己的房间了，可总觉得少了点什么。（对比描写——新房子的冷清）直到永庆坊重新开放，我带着奶奶去逛，骑楼的走廊还是那么长，灰塑还是那么精致。奶奶走得很慢，摸着廊柱说："变靓了。"（对比消解——新旧的融合）骑楼还在，只是故事换了主角。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>534结构法实战案例</div>
+<p>题目：《慢，也是一种智慧》片段——5段·3论点·4步骤</p>
+<div class='example'>开头段（提出观点）：在这个万物追求"快"的时代，我想说：慢，也是一种智慧。主体段一（分论点一）：慢，是对品质的坚守。广州人煲一锅老火靓汤，少则三四个小时……主体段二（分论点二）：慢，是对内心的修炼。木心说："从前慢，车、马、邮件都慢……"主体段三（分论点三）：慢，是对过程的尊重。学书法的人知道，一笔一划的练习看似枯燥……结尾段（总结升华）："长风破浪会有时，直挂云帆济沧海。"该快时快，该慢时慢，才是真正的智慧。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>金镶玉法实战案例</div>
+<p>题目：《醒狮少年》片段——在朴素叙述中镶嵌金句</p>
+<div class='example'>朴素版：师傅老了，可醒狮不会老。金镶玉版："桐花万里丹山路，雏凤清于老凤声。"师傅老了，可醒狮不会老——它在每一次鼓点中复活，在每一个少年的肩膀上传承。<br><br>朴素版：遇到困难不要放弃，坚持下去。金镶玉版："千磨万击还坚劲，任尔东西南北风。"困境不是终点，而是磨砺意志的砺石。真正的强者，不是不跌倒，而是跌倒后依然选择站起。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>珍珠项链法实战案例</div>
+<p>题目：《书包里的秘密》片段——多个细节用线索串联</p>
+<div class='example'>创可贴、便利贴、纸条、小字——四个看似无关的物件，用"整理书包"这条线串起来，每颗"珍珠"都是妈妈藏起来的爱：创可贴（体育课小心别摔跤）→便利贴（书包带子快断了）→纸条（别忘了喝水）→小字（妈妈相信你能做出来）。珍珠项链法的关键是：每个细节独立成段（珍珠），但共同服务于一个主题（项链的线），形成"形散神不散"的效果。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>双层汉堡法实战案例</div>
+<p>题目：《阅读让人成长》片段——一个完整段落的双层汉堡结构</p>
+<div class='example'>（顶层面包·主题句）阅读，是成长路上最忠实的朋友。（第一层肉饼·事例一）读《钢铁是怎样炼成的》，保尔在病榻上坚持写作。（第一层芝士·分析一）他的故事告诉我，生命的意义不在于长度，而在于厚度。（第二层肉饼·事例二）读《老人与海》，桑地亚哥与鲨鱼搏斗三天三夜。（第二层芝士·分析二）这句话敲碎了我对"失败"的恐惧。（酸黄瓜·名言）"腹有诗书气自华。"（底层面包·收尾）翻开一本书吧，你的灵魂已经开始成长。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>语言升级五法实战案例</div>
+<p>题目：《广州的清晨》片段——五种方法叠加运用</p>
+<div class='example'>壮士打靶法（删冗余）：原句"早上的时候太阳慢慢升起来了"→升级"晨光初透"。偷天换日法（换生动）：原句"街上有很多人在买早餐"→升级"骑楼下早已人声鼎沸，肠粉的蒸汽混着叫卖声袅袅升起"。按图索骥法（用修辞）：比喻——"阳光像碎金子洒在石板路上"；拟人——"老骑楼伸了个懒腰，迎接新的一天"。女娲造人法（赋生命）："珠江揉了揉惺忪的眼，缓缓流淌"。声东击西法（暗暗示）："阿叔的剪刀咔嚓咔嚓响着，剪出一条条白嫩的肠粉——也剪碎了这座城市的清晨。"</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>特写镜头/慢移镜头实战案例</div>
+<p>题目：《木棉花开》片段——镜头由远及近缓缓推进</p>
+<div class='example'>慢移镜头：（远景）三月的木棉，红得像燃烧的火焰，照亮了整条街。（近景）一朵木棉笔直坠落。（特写）砰的一声砸在地上，却不萎缩、不凋零，依然鲜红如初。花瓣厚实饱满，像一小团凝固的火焰。（升华）那一刻，我忽然明白了为什么广州人叫它"英雄花"。特写镜头：聚焦"用勺子舀起一口，轻轻吹了吹，送到她嘴边"这个关键瞬间——放大动作的每一个细节，让读者"看见"那一刻的温柔。</div>
+</div>
+</div>
+
+<div class='card card-gold'>
+<h3><span class='icon'>&#x1F3AF;</span>材料作文审题：三大方法</h3>
+<div class='method'>
+<div class='method-title'>1. 关键词法</div>
+<p>圈出材料中的关键词语，围绕关键词立意，避免偏题。</p>
+<div class='example'>材料：木棉花开在早春，不待绿叶便先行绽放。关键词：'早春'——逆境中的先行者；'先行绽放'——勇气与担当。立意方向：敢为人先，在逆境中绽放。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 因果分析法</div>
+<p>追问材料中事件的原因和结果，从中提炼观点。</p>
+<div class='example'>材料：木棉花落时不萎靡，整朵坠落依然鲜艳如初。为什么？因为它有尊严。结果：即使凋落也保持壮美。立意：即使面对结束，也要保持尊严和壮美。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 寓意提炼法</div>
+<p>透过材料表象，提炼出具有普遍意义的哲理。</p>
+<div class='example'>木棉花被称为'英雄花'——不是因为它最美丽，而是因为它最刚烈。寓意：真正的英雄不是没有软弱，而是明知艰难仍然挺身而出。</div>
+</div>
+</div>
+
+<div class='card'>
+<h3><span class='icon'>&#x270D;&#xFE0F;</span>开头结尾技巧：5+5</h3>
+<h4>五种开头法</h4>
+<div class='method'>
+<div class='method-title'>1. 设问开头</div>
+<div class='example'>什么是真正的勇敢？是无所畏惧，还是明知恐惧仍选择前行？</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 引用开头</div>
+<div class='example'>'宝剑锋从磨砺出，梅花香自苦寒来。'每一次成长，都离不开磨砺。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 场景开头</div>
+<div class='example'>暴雨如注，珠江水位猛涨。我站在岸边，看浑浊的江水裹挟着枯枝奔涌而去，心中百感交集。</div>
+</div>
+<div class='method'>
+<div class='method-title'>4. 对比开头</div>
+<div class='example'>有人说，成长是一场得到；也有人说，成长是一场失去。而我以为，成长是在得与失之间找到自己的路。</div>
+</div>
+<div class='method'>
+<div class='method-title'>5. 排比开头</div>
+<div class='example'>坚持是一粒种子，在黑暗中默默积蓄力量；坚持是一束光，穿越漫长黑夜照亮前路；坚持是一把钥匙，打开成功的大门。</div>
+</div>
+<h4>五种结尾法</h4>
+<div class='method'>
+<div class='method-title'>1. 呼应结尾</div>
+<div class='example'>（开头写了木棉花开）如今，又见木棉花开。我站在同一棵树下，已不再是那个迷茫的少年。</div>
+</div>
+<div class='method'>
+<div class='method-title'>2. 升华结尾</div>
+<div class='example'>这不只是一碗肠粉的故事，这是千千万万广州人用心生活的缩影——平凡中见真味，简朴中有大美。</div>
+</div>
+<div class='method'>
+<div class='method-title'>3. 留白结尾</div>
+<div class='example'>我拿起笔，在纸上写下了第一行字。窗外的阳光刚好照进来，照亮了那片空白。</div>
+</div>
+<div class='method'>
+<div class='method-title'>4. 哲理结尾</div>
+<div class='example'>原来，有些路注定要一个人走。而孤独，恰恰是成长的必经之路。</div>
+</div>
+<div class='method'>
+<div class='method-title'>5. 抒情结尾</div>
+<div class='example'>啊，珠江！你见证了多少悲欢离合，又承载了多少广州人的梦与歌。今夜，让我也把心事诉与你的波光。</div>
+</div>
+</div>
+
+<div class='card card-gold'>
+<h3><span class='icon'>&#x23F1;&#xFE0F;</span>考场应试策略 + 广东阅卷偏好</h3>
+<div class='method'>
+<div class='method-title'>1. 时间分配（50分钟）</div>
+<p>审题5分钟 → 列提纲5分钟 → 写作35分钟 → 检查5分钟</p>
+</div>
+<div class='method'>
+<div class='method-title'>2. 字数控制</div>
+<p>广州中考作文要求600字以上，建议写到700-800字，不要写到格子外。字迹工整比字数多更重要。</p>
+</div>
+<div class='method'>
+<div class='method-title'>3. 卷面规范</div>
+<p>不要涂大墨团，改错用一条斜线划去即可；段落分明，每段开头空两格；不要用修正液或修正带。</p>
+</div>
+<div class='method-green'>
+<div class='method-title'>4. 前30秒定生死（广东阅卷真相）</div>
+<p>阅卷老师平均30秒看一篇作文，决定分数的关键就在前30秒。他们看什么？看字迹、看开头、看素材、看结尾。这四样决定了你的作文在哪一档。</p>
+<div class='example'><strong>前30秒检查清单：</strong><br>① 字迹——第一印象分，工整即可，不要求书法级<br>② 开头——前3行决定阅卷老师'愿不愿意往下读'，开头要有钩子<br>③ 素材——扫一眼用了什么素材，是'老掉牙'还是'有新意'<br>④ 结尾——最后3行决定'回味'，结尾要有力度</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>5. 广东阅卷'三爱三恨'</div>
+<p><strong>三爱（加分项）：</strong></p>
+<p>① 主角意识——写'我做了什么'，不是'我看到了什么'。要有行动，有参与，有改变。</p>
+<p>② 劳动实践——写真实的劳动体验，如学做肠粉、参加醒狮训练、社区志愿服务等。</p>
+<p>③ 湾区气质——体现岭南精神、广州特色、湾区建设，有地域文化底蕴。</p>
+<p><strong>三恨（扣分项）：</strong></p>
+<p>① 北方素材搬运——写堆雪人、滑冰、北方大雪，明显与广州生活脱节。</p>
+<p>② 只感悟不行动——通篇'我感受到了''我明白了'，没有具体行动。广东阅卷最讨厌'光说不练'。</p>
+<p>③ 假大空口号——'我要为中华之崛起而读书''我要成为祖国的栋梁'等空泛口号，没有真情实感。</p>
+</div>
+<div class='method-green'>
+<div class='method-title'>6. 十大避坑清单</div>
+<p>① 用北方素材（堆雪人、滑冰、北方大雪——与广州生活脱节）</p>
+<p>② 只写感悟不写行动（通篇感悟，没有具体行为）</p>
+<p>③ 一逗到底（整段只有一个逗号，没有句号、问号、感叹号）</p>
+<p>④ 开头太长（开头写了200字还没进入正题）</p>
+<p>⑤ 素材老掉牙（下雨送伞、深夜去医院、扶老奶奶过马路——用烂了）</p>
+<p>⑥ 立意假大空（动不动'人生的意义''宇宙的奥秘'）</p>
+<p>⑦ 没有标题或标题太随意（'记一件小事''我的故事'）</p>
+<p>⑧ 字数不足（低于600字直接扣分，每50字扣1分）</p>
+<p>⑨ 真实校名人名（出现真实学校名、老师名、同学名，扣2-3分）</p>
+<p>⑩ 结尾喊口号（'让我们携手共创美好明天！'——假大空）</p>
+</div>
+</div>
+
+<div class='card'>
+<h3><span class='icon'>&#x2753;</span>写作常见问题解答</h3>
+<div class='method'>
+<div class='method-title'>Q1：考场作文字数总是不够怎么办？</div>
+<p>字数不足的根源不是'写不出'，而是'写不细'。三个解决办法：①用慢镜头分解法把关键动作拆成5-6个连续步骤，一个动作写成一段；②用五蕴法把一个场景从'色'写到'识'，自然扩充内容深度；③在叙事中增加心理描写和环境烘托（绝杀三线的暗线和辅线），让文章更丰满。记住：宁可详写一个场景，也不要泛泛写十件事。</p>
+</div>
+<div class='method'>
+<div class='method-title'>Q2：写出来的文章像流水账怎么办？</div>
+<p>流水账的病因是'没有波澜'。用教研写作的无敌四招来治：①设置悬念——开头不要平铺直叙，先抛出一个疑问或反常现象；②制造冲突——人物之间产生矛盾，推动情节发展；③营造反转——让事情的发展出乎意料；④留有余味——结尾不要把话说尽。哪怕只用其中一招，文章就会立刻'活'起来。</p>
+</div>
+<div class='method'>
+<div class='method-title'>Q3：立意总是太浅，怎么办？</div>
+<p>立意浅是因为'只写到了事，没写到理'。用教研写作的三个方法来深化：①立意升华三步法——事→情→理，每一步都不能少；②放大镜立意法——聚焦一个小细节，往深里挖，小切口大纵深；③倒骑驴立意法——换个角度想，逆向思维往往能挖出别人看不到的深度。另外，多读优秀范文的结尾，学习别人是怎么'升华'的。</p>
+</div>
+<div class='method'>
+<div class='method-title'>Q4：广东阅卷老师到底喜欢什么样的作文？</div>
+<p>记住'三爱三恨'。三爱：①主角意识——写'我做了什么'，要有行动，有参与，有改变；②劳动实践——写真实的劳动体验，如学做肠粉、参加醒狮训练；③湾区气质——体现岭南精神、广州特色。三恨：①北方素材搬运——别写堆雪人、滑冰；②只感悟不行动——别通篇'我感受到了'；③假大空口号——别喊'为中华之崛起而读书'。一句话：写真实的广州生活，写你的真实行动，写你的真实感悟。</p>
+</div>
+<div class='method'>
+<div class='method-title'>Q5：书信体作文怎么写？格式是什么？</div>
+<p>2026年中考考了书信体，必须掌握。格式：①称呼（顶格写，加冒号）；②问候语（空两格，如'你好！'）；③正文（每段空两格）；④祝语（空两格写'祝'，另起一行顶格写'万事如意！'等）；⑤署名（右下角）；⑥日期（署名下方）。内容要点：必须有明确的交际对象（写给谁），必须联系材料内容，必须融入自身经历。不能写成普通记叙文或议论文，要始终以'对话'的姿态写作。</p>
+</div>
+<div class='method'>
+<div class='method-title'>Q6：材料作文怎么审题才不会偏题？</div>
+<p>用教研写作的三步审题法：①关键词法——圈出材料中的关键词，围绕关键词立意；②因果分析法——追问'为什么'，从因果中提炼观点；③万花筒立意法——把材料当万花筒，旋转出3-4个不同角度，选最独特的那个。关键提醒：审题时先写出2-3个立意方向，比较后选最佳，不要想到第一个就动手写。</p>
+</div>
+<div class='method'>
+<div class='method-title'>Q7：作文语言平淡，怎么提升文采？</div>
+<p>用教研写作的语言升级五法：①壮士打靶法——删掉所有冗余词语，只留最精准的表达；②偷天换日法——把平淡的句子换成生动的句子；③按图索骥法——按修辞图谱（比喻、拟人、排比等）逐一练习；④女娲造人法——给无生命物体赋予生命；⑤声东击西法——表面写A，实际暗示B。另外，用金镶玉法在关键处镶嵌1-2句名言诗词，瞬间提升档次。</p>
+</div>
+<div class='method'>
+<div class='method-title'>Q8：考前应该准备什么素材？</div>
+<p>用教研写作的'一例多吃法'准备3-5个万能素材，每个素材想好3个角度。推荐素材：①苏炳添突破9秒83（坚持/突破/自信）；②外婆煲的老火靓汤（亲情/匠心/传承）；③永庆坊的活化改造（创新/城市记忆/成长）；④学做肠粉的经历（劳动/耐心/成长）；⑤醒狮少年的故事（传承/勇气/青春力量）。这样准备，考场上不管出什么题，都能快速匹配。</p>
+</div>
+<div class='method'>
+<div class='method-title'>Q9：如何让阅卷老师前30秒就看好你的作文？</div>
+<p>前30秒看四样：字迹、开头、素材、结尾。①字迹——不要求书法级，但必须工整清晰，一笔一划写；②开头——前3行必须有'钩子'，用设问、悬念、场景或引用开头，让老师想往下读；③素材——扫一眼能看到广州元素或新鲜素材，不用老掉牙的材料；④结尾——最后3行要有力度，用升华结尾或留白结尾，不要喊口号。</p>
+</div>
+<div class='method'>
+<div class='method-title'>Q10：平时怎么练习写作才能快速提升？</div>
+<p>四个建议：①每天写一段话——用双层汉堡法写一个完整的段落，练习段落结构；②每周读一篇范文——重点看别人的开头、结尾和细节描写，用教研写作方法分析'好在哪里'；③准备素材本——按'一例多吃法'整理3-5个万能素材，每个写好3个角度的核心句；④限时训练——每周用50分钟写一篇完整作文，模拟考场节奏。坚持一个月，必有显著提升。</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Module 2: Essay Appreciation -->
+<div class='module' id='mod1'>
+<div id='essayList'></div>
+</div>
+
+<!-- Module 3: Material Treasury -->
+<div class='module' id='mod2'>
+<div class='sub-tab-bar'>
+<button class='sub-tab active' onclick='switchSub(2,0)'>&#x1F33F; 名言警句</button>
+<button class='sub-tab' onclick='switchSub(2,1)'>&#x1F1E8;&#x1F1ED; 广州素材</button>
+<button class='sub-tab' onclick='switchSub(2,2)'>&#x1F4D6; 经典事例</button>
+<button class='sub-tab' onclick='switchSub(2,3)'>&#x1F3AD; 诗词引用</button>
+<button class='sub-tab' onclick='switchSub(2,4)'>&#x1F9E0; 一例多吃</button>
+<button class='sub-tab' onclick='switchSub(2,5)'>&#x1F31F; 2026新素材</button>
+</div>
+
+<div class='sub-content active' id='s2_0'>
+<div class='card'><h3>&#x1F331; 成长类</h3>
+<div class='material-item'><h4>1</h4><p>宝剑锋从磨砺出，梅花香自苦寒来。</p><span class='theme-tag'>适用：磨砺、成长</span></div>
+<div class='material-item'><h4>2</h4><p>路漫漫其修远兮，吾将上下而求索。——屈原</p><span class='theme-tag'>适用：追求、坚持</span></div>
+<div class='material-item'><h4>3</h4><p>不积跬步，无以至千里；不积小流，无以成江海。——荀子</p><span class='theme-tag'>适用：积累、成长</span></div>
+<div class='material-item'><h4>4</h4><p>千磨万击还坚劲，任尔东西南北风。——郑燮</p><span class='theme-tag'>适用：坚韧、不屈</span></div>
+<div class='material-item'><h4>5</h4><p>天将降大任于斯人也，必先苦其心志，劳其筋骨。——孟子</p><span class='theme-tag'>适用：考验、担当</span></div>
+</div>
+<div class='card card-gold'><h3>&#x1F4AA; 坚持/奋斗类</h3>
+<div class='material-item'><h4>1</h4><p>锲而不舍，金石可镂。——荀子</p><span class='theme-tag'>适用：坚持、毅力</span></div>
+<div class='material-item'><h4>2</h4><p>世上无难事，只要肯登攀。——毛泽东</p><span class='theme-tag'>适用：勇气、奋斗</span></div>
+<div class='material-item'><h4>3</h4><p>只要功夫深，铁杵磨成针。</p><span class='theme-tag'>适用：恒心、坚持</span></div>
+<div class='material-item'><h4>4</h4><p>有志者事竟成。——《后汉书》</p><span class='theme-tag'>适用：立志、奋斗</span></div>
+<div class='material-item'><h4>5</h4><p>生活就像海洋，只有意志坚强的人才能到达彼岸。——马克思</p><span class='theme-tag'>适用：坚强、奋斗</span></div>
+</div>
+<div class='card'><h3>&#x2764;&#xFE0F; 亲情/友情类</h3>
+<div class='material-item'><h4>1</h4><p>谁言寸草心，报得三春晖。——孟郊</p><span class='theme-tag'>适用：母爱、感恩</span></div>
+<div class='material-item'><h4>2</h4><p>海内存知己，天涯若比邻。——王勃</p><span class='theme-tag'>适用：友情、离别</span></div>
+<div class='material-item'><h4>3</h4><p>桃花潭水深千尺，不及汪伦送我情。——李白</p><span class='theme-tag'>适用：友情、深情</span></div>
+<div class='material-item'><h4>4</h4><p>独在异乡为异客，每逢佳节倍思亲。——王维</p><span class='theme-tag'>适用：思亲、乡愁</span></div>
+<div class='material-item'><h4>5</h4><p>慈母手中线，游子身上衣。——孟郊</p><span class='theme-tag'>适用：母爱、牵挂</span></div>
+</div>
+<div class='card card-gold'><h3>&#x1F33F; 自然/感悟类</h3>
+<div class='material-item'><h4>1</h4><p>落红不是无情物，化作春泥更护花。——龚自珍</p><span class='theme-tag'>适用：奉献、感悟</span></div>
+<div class='material-item'><h4>2</h4><p>横看成岭侧成峰，远近高低各不同。——苏轼</p><span class='theme-tag'>适用：角度、多元思考</span></div>
+<div class='material-item'><h4>3</h4><p>山重水复疑无路，柳暗花明又一村。——陆游</p><span class='theme-tag'>适用：转机、希望</span></div>
+<div class='material-item'><h4>4</h4><p>会当凌绝顶，一览众山小。——杜甫</p><span class='theme-tag'>适用：志向、境界</span></div>
+<div class='material-item'><h4>5</h4><p>沉舟侧畔千帆过，病树前头万木春。——刘禹锡</p><span class='theme-tag'>适用：更替、新生</span></div>
+</div>
+<div class='card'><h3>&#x1F3EE; 文化/传承类</h3>
+<div class='material-item'><h4>1</h4><p>问渠那得清如许？为有源头活水来。——朱熹</p><span class='theme-tag'>适用：传承、创新</span></div>
+<div class='material-item'><h4>2</h4><p>江山代有才人出，各领风骚数百年。——赵翼</p><span class='theme-tag'>适用：创新、人才</span></div>
+<div class='material-item'><h4>3</h4><p>不忘本来，吸收外来，面向未来。</p><span class='theme-tag'>适用：传承、发展</span></div>
+<div class='material-item'><h4>4</h4><p>越是民族的，越是世界的。——鲁迅</p><span class='theme-tag'>适用：文化自信</span></div>
+<div class='material-item'><h4>5</h4><p>源浚者流长，根深者叶茂。——白居易</p><span class='theme-tag'>适用：根基、传承</span></div>
+</div>
+<div class='card card-gold'><h3>&#x1F4A1; 智慧/思辨类</h3>
+<div class='material-item'><h4>1</h4><p>知之者不如好之者，好之者不如乐之者。——孔子</p><span class='theme-tag'>适用：热爱、兴趣</span></div>
+<div class='material-item'><h4>2</h4><p>纸上得来终觉浅，绝知此事要躬行。——陆游</p><span class='theme-tag'>适用：实践、知行合一</span></div>
+<div class='material-item'><h4>3</h4><p>穷则变，变则通，通则久。——《周易》</p><span class='theme-tag'>适用：变通、创新</span></div>
+<div class='material-item'><h4>4</h4><p>千里之行，始于足下。——老子</p><span class='theme-tag'>适用：起步、积累</span></div>
+<div class='material-item'><h4>5</h4><p>青，取之于蓝，而青于蓝。——荀子</p><span class='theme-tag'>适用：超越、传承</span></div>
+</div>
+<div class='card'><h3>&#x1F31E; 希望/信念类</h3>
+<div class='material-item'><h4>1</h4><p>黑暗无论怎样悠长，白昼总会到来。——莎士比亚</p><span class='theme-tag'>适用：希望、坚持</span></div>
+<div class='material-item'><h4>2</h4><p>星星之火，可以燎原。——毛泽东</p><span class='theme-tag'>适用：微小力量、希望</span></div>
+<div class='material-item'><h4>3</h4><p>希望是附丽于存在的，有存在便有希望，有希望便是光明。——鲁迅</p><span class='theme-tag'>适用：希望、光明</span></div>
+<div class='material-item'><h4>4</h4><p>每一个不曾起舞的日子，都是对生命的辜负。——尼采</p><span class='theme-tag'>适用：珍惜、热爱生活</span></div>
+<div class='material-item'><h4>5</h4><p>你若盛开，蝴蝶自来。</p><span class='theme-tag'>适用：自我提升、自信</span></div>
+<div class='material-item'><h4>6</h4><p>长风破浪会有时，直挂云帆济沧海。——李白</p><span class='theme-tag'>适用：信念、远大志向</span></div>
+<div class='material-item'><h4>7</h4><p>不要因为走得太远，而忘记为什么出发。——纪伯伦</p><span class='theme-tag'>适用：不忘初心、反思</span></div>
+<div class='material-item'><h4>8</h4><p>世界上最快乐的事，莫过于为理想而奋斗。——苏格拉底</p><span class='theme-tag'>适用：理想、奋斗</span></div>
+</div>
+</div>
+
+<div class='sub-content' id='s2_1'>
+<div class='card'><h3>&#x1F3DB;&#xFE0F; 广州地标</h3>
+<div class='material-item'><h4>广州塔</h4><p>矗立于珠江之畔，高600米，形如少女细腰，故称'小蛮腰'。夜幕降临时万灯齐放，流光溢彩，是广州最耀眼的城市名片。</p><span class='theme-tag'>适用：城市之美、现代与传统</span></div>
+<div class='material-item'><h4>陈家祠</h4><p>建于清代的岭南建筑瑰宝，木雕、砖雕、石雕、陶塑无一不精。每一处细节都在诉说着岭南匠人的巧思与坚守。</p><span class='theme-tag'>适用：文化传承、匠心精神</span></div>
+<div class='material-item'><h4>沙面岛</h4><p>珠江边的欧式小岛，百年洋楼掩映在古榕树下，中西文化在此交融。漫步其间，仿佛穿越时光隧道。</p><span class='theme-tag'>适用：历史变迁、文化交融</span></div>
+<div class='material-item'><h4>白云山</h4><p>广州之肺，山上云雾缭绕，古木参天。登顶可俯瞰全城，是广州人登高望远、亲近自然的好去处。</p><span class='theme-tag'>适用：自然之美、登高望远</span></div>
+<div class='material-item'><h4>珠江</h4><p>广州的母亲河，千百年来奔流不息，见证了这座城市的兴衰与繁华。夜游珠江，两岸灯火璀璨，如梦如幻。</p><span class='theme-tag'>适用：城市记忆、时光流淌</span></div>
+<div class='material-item'><h4>永庆坊</h4><p>恩宁路历史文化街区，曾经的危房片区，如今活化成文创地标。青砖灰瓦间藏着新潮的咖啡馆和非遗工坊，是老城市新活力的缩影。</p><span class='theme-tag'>适用：城市更新、文化传承</span></div>
+</div>
+<div class='card card-gold'><h3>&#x1F35C; 广州美食</h3>
+<div class='material-item'><h4>早茶</h4><p>一盅两件，是广州人最悠闲的生活方式。虾饺、烧卖、叉烧包，配上一壶普洱，足以消磨一个美好的上午。</p><span class='theme-tag'>适用：生活态度、慢生活</span></div>
+<div class='material-item'><h4>肠粉</h4><p>白如雪、薄如纸、嫩如玉。一碟肠粉，看似简单，却藏着米浆的讲究和火候的精准，正如广州人的务实与精致。</p><span class='theme-tag'>适用：平凡中的精致、以小见大</span></div>
+<div class='material-item'><h4>白切鸡</h4><p>皮爽肉滑，原汁原味，讲究的是'鸡有鸡味'。大道至简，最朴素的烹饪方式，往往最能体现食材的真味。</p><span class='theme-tag'>适用：返璞归真、大道至简</span></div>
+<div class='material-item'><h4>煲仔饭</h4><p>砂锅慢火细煲，米饭吸饱了肉汁，锅底还有一层焦香的锅巴。急不得，快不来——这碗饭教会我耐心等待的价值。</p><span class='theme-tag'>适用：耐心、等待</span></div>
+<div class='material-item'><h4>双皮奶</h4><p>两层奶皮，一层甘香一层滑嫩。始创于顺德大良，传入广州后成为最受欢迎的甜品之一，温润如广州人的人情味。</p><span class='theme-tag'>适用：温暖、人情味</span></div>
+<div class='material-item'><h4>老火靓汤</h4><p>广州人'无汤不成席'。一锅汤煲四五个小时，食材的精华全部融进汤里。奶奶说：'汤要慢慢煲，人要慢慢品。'这碗汤里，盛的是广州人最深沉的爱。</p><span class='theme-tag'>适用：亲情、耐心、广州生活</span></div>
+<div class='material-item'><h4>萝卜牛杂</h4><p>街头巷尾最接地气的小吃。一锅牛杂咕嘟咕嘟煮着，萝卜吸饱了汤汁，软烂入味。阿叔用剪刀咔嚓咔嚓剪成小块，浇上酱汁，插上竹签。站在街边吃牛杂，是广州人最随性的快乐——不需要餐桌，不需要餐具，一根竹签就是全部仪式。</p><span class='theme-tag'>适用：市井生活、广州味道、平凡中的快乐</span></div>
+<div class='material-item'><h4>艇仔粥</h4><p>源自珠江上的小艇，渔民在船上熬粥卖给岸边的人。一碗艇仔粥里，有鱼片、虾仁、叉烧、花生、油条碎……料多到快溢出来。它像广州这座城市——包容、丰富、不拘一格，什么好东西都往里放，最后熬成一碗让人念想的味道。</p><span class='theme-tag'>适用：包容、丰富、城市性格</span></div>
+<div class='material-item'><h4>姜撞奶</h4><p>把热牛奶倒入姜汁中，牛奶瞬间凝固成嫩滑的布丁状。这碗甜品的关键在于'撞'——温度要够高，动作要够快，才能让姜汁中的酶与牛奶中的蛋白质完美结合。外婆说：'做人也是这样，该冲的时候就要冲，犹豫了就凝不住了。'</p><span class='theme-tag'>适用：果断、行动、亲情</span></div>
+</div>
+<div class='card'><h3>&#x1F3AD; 广州文化</h3>
+<div class='material-item'><h4>粤剧</h4><p>南国红豆，唱腔婉转悠扬，身段优美传神。一桌二椅便能演绎千军万马，这是中国戏曲的写意之美，更是岭南人的浪漫。</p><span class='theme-tag'>适用：文化传承、艺术之美</span></div>
+<div class='material-item'><h4>醒狮</h4><p>锣鼓一响，金狮起舞。采青、上桩、翻跃，每一个动作都需要默契与勇气。醒狮精神，就是广州人敢拼敢闯的精神。</p><span class='theme-tag'>适用：勇气、拼搏精神</span></div>
+<div class='material-item'><h4>骑楼</h4><p>上楼下廊，遮阳避雨，是岭南建筑的智慧。骑楼下曾是街坊邻里聊天纳凉的好去处，承载着老广州最温情的市井记忆。</p><span class='theme-tag'>适用：人情味、城市记忆</span></div>
+<div class='material-item'><h4>木棉花</h4><p>广州的市花，春来先花后叶，花红如血，落而不萎，被称为'英雄花'。木棉精神，象征着广州人的刚烈与担当。</p><span class='theme-tag'>适用：英雄气概、刚烈担当</span></div>
+<div class='material-item'><h4>花市</h4><p>每年除夕前，广州街头摆满鲜花，金桔、桃花、水仙争奇斗艳。逛花市是广州人最独特的年俗，寓意花开富贵、新年大吉。</p><span class='theme-tag'>适用：传统习俗、美好生活</span></div>
+<div class='material-item'><h4>打铜工艺</h4><p>广州老西关的打铜声，叮叮当当响了几百年。一块铜板，经手艺人千万次锤打，变成茶壶、铜盘、铜锣。每一锤都是耐心，每一道锤痕都是匠心。如今打铜铺越来越少，但那叮当声里的坚守，是这座城市最深的底色。</p><span class='theme-tag'>适用：匠心坚守、非遗传承</span></div>
+<div class='material-item'><h4>凉茶</h4><p>广州人的"万能药"。一杯廿四味，苦到皱眉，却清热解毒。小时候生病，妈妈端来一碗凉茶，说"饮完就没事"。那苦味里，藏着最朴素的爱。王老吉、加多宝，都是从广州走向世界的凉茶品牌。</p><span class='theme-tag'>适用：传统文化、亲情记忆</span></div>
+</div>
+<div class='card card-gold'><h3>&#x1F464; 广州名人</h3>
+<div class='material-item'><h4>詹天佑</h4><p>祖籍婺源，生于广州南海，中国铁路之父。顶着外国人嘲笑，坚持自主设计京张铁路，用'人'字形线路征服了陡坡，证明了中国人也能修自己的铁路。</p><span class='theme-tag'>适用：自主创新、坚持、民族自信</span></div>
+<div class='material-item'><h4>陈寅恪</h4><p>曾在广州中山大学任教二十余年，中国现代最负盛名的历史学家。双目失明仍口述著书，留下'独立之精神，自由之思想'的千古名言。</p><span class='theme-tag'>适用：坚守、学术精神、独立思考</span></div>
+<div class='material-item'><h4>高剑父</h4><p>广州番禺人，岭南画派创始人之一。他主张'折中中西、融汇古今'，在传统国画中融入西方技法，开创了现代中国画的新路。</p><span class='theme-tag'>适用：创新、融合、开拓精神</span></div>
+<div class='material-item'><h4>苏炳添</h4><p>中山籍短跑名将，32岁仍坚持训练，在东京奥运会上跑出9秒83，成为首位闯入奥运百米决赛的亚洲人。他用坚持改写了亚洲速度，诠释了'湾区力量'。</p><span class='theme-tag'>适用：坚持、突破自我、湾区气质</span></div>
+<div class='material-item'><h4>红线女</h4><p>粤剧一代宗师，开创'红腔'，将粤剧艺术推向新高度。她一生致力于粤剧传承与创新，即使年过八旬仍登台演出。她说：'戏比天大。'这份对艺术的执着，是岭南文化最珍贵的遗产。</p><span class='theme-tag'>适用：坚守、艺术追求、文化传承</span></div>
+<div class='material-item'><h4>孙中山</h4><p>生于广东香山（今中山市），中国民主革命先行者。他'致力国民革命凡四十年'，屡败屡战，从不放弃。'革命尚未成功，同志仍须努力'——这种百折不挠的精神，正是岭南人敢为人先的写照。</p><span class='theme-tag'>适用：坚持、担当、敢为人先</span></div>
+</div>
+<div class='card'><h3>&#x1F680; 广州新地标</h3>
+<div class='material-item'><h4>海心桥</h4><p>珠江上的首座人行桥，造型如琴弓横跨江面，连接南北两岸。白天是观景平台，夜晚是光影长廊。它不只是桥，更是广州人'慢生活'的象征——在快节奏的城市里，留一处可以慢慢走的地方。</p><span class='theme-tag'>适用：城市之美、慢生活、人与城市</span></div>
+<div class='material-item'><h4>永庆坊</h4><p>恩宁路历史文化街区的活化样本。青砖灰瓦的老骑楼里藏着新潮咖啡馆和非遗工坊，是'老城市新活力'的最佳注脚。漫步其中，每一步都是新旧交融的对话。</p><span class='theme-tag'>适用：城市更新、文化传承、创新</span></div>
+<div class='material-item'><h4>南沙湿地</h4><p>大湾区之肾，候鸟迁徙的重要驿站。每年冬季，黑脸琵鹭、白鹭等珍稀鸟类在此栖息。站在观鸟台上，看落霞与孤鹜齐飞——这片湿地提醒我们：发展与保护可以并行。</p><span class='theme-tag'>适用：生态保护、湾区建设、自然之美</span></div>
+<div class='material-item'><h4>广州大剧院</h4><p>由著名建筑师扎哈·哈迪德设计，形如两块被江水冲刷的砾石，静卧在珠江之畔。它是广州文化新地标，也是城市品味的象征——不仅有早茶和骑楼，也有世界级的艺术殿堂。</p><span class='theme-tag'>适用：文化品位、城市变迁、艺术之美</span></div>
+</div>
+</div>
+
+<div class='sub-content' id='s2_2'>
+<div class='card'><h3>&#x1F525; 拼搏奋斗类</h3>
+<div class='material-item'><h4>1. 詹天佑与京张铁路</h4><p>1905年，外国人断言中国人无法自主修建铁路。詹天佑力排众议，创造性地设计出'人'字形铁路，成功攻克了关沟段的陡坡难题，让世界刮目相看。</p><span class='theme-tag'>适用：自主创新、迎难而上</span></div>
+<div class='material-item'><h4>2. 苏炳添突破百米极限</h4><p>中山籍短跑名将苏炳添，32岁仍坚持训练，在东京奥运会上跑出9秒83，成为首位闯入奥运百米决赛的亚洲人。他用坚持改写了亚洲速度。</p><span class='theme-tag'>适用：坚持、突破自我</span></div>
+<div class='material-item'><h4>3. 屠呦呦与青蒿素</h4><p>经历190次失败仍不放弃，屠呦呦终于在第191次实验中发现了青蒿素，拯救了全球数百万疟疾患者，成为中国首位诺贝尔生理学或医学奖得主。</p><span class='theme-tag'>适用：坚持不懈、造福人类</span></div>
+</div>
+<div class='card card-gold'><h3>&#x1F495; 亲情温暖类</h3>
+<div class='material-item'><h4>1. 一碗面的等待</h4><p>深夜加班的父亲回到家，发现桌上放着一碗用毛巾裹着的面，旁边是孩子歪歪扭扭的字条：'爸爸辛苦了，面还热着。'最朴素的爱，往往最打动人心。</p><span class='theme-tag'>适用：亲情、温暖</span></div>
+<div class='material-item'><h4>2. 奶奶的煲汤</h4><p>广州的奶奶们总爱说'饮汤啦'。那一锅煲了四个小时的老火靓汤，盛满的不是食材，是对家人最深沉的牵挂与守候。</p><span class='theme-tag'>适用：亲情、广州生活</span></div>
+<div class='material-item'><h4>3. 暴雨中的背影</h4><p>那天暴雨，校门口站满了打伞的家长。我一眼就看见了爷爷——他半边身子全湿透了，伞却稳稳地撑在我头顶，没有一丝偏移。</p><span class='theme-tag'>适用：隔代亲情、无言的爱</span></div>
+</div>
+<div class='card'><h3>&#x1F3EE; 文化传承类</h3>
+<div class='material-item'><h4>1. 陈家祠的修复</h4><p>年过七旬的陈师傅，用四十年的手艺修复陈家祠的灰塑。'我修的不是房子，是祖宗留下的根。'匠人之心，在于守得住寂寞，传得下技艺。</p><span class='theme-tag'>适用：匠心、文化传承</span></div>
+<div class='material-item'><h4>2. 醒狮少年</h4><p>黄埔区的一群初中生，每周坚持练习醒狮。教练说：'狮子要舞出精气神，人也是。'他们传承的不只是技艺，更是岭南人不服输的劲头。</p><span class='theme-tag'>适用：传承、青春力量</span></div>
+<div class='material-item'><h4>3. 粤剧进校园</h4><p>当90后粤剧演员走进校园，水袖一甩，婉转唱腔响起，台下的中学生惊讶地发现：原来传统戏曲也可以这么酷。文化传承需要这样的'破圈'。</p><span class='theme-tag'>适用：文化创新、传承</span></div>
+</div>
+<div class='card card-gold'><h3>&#x1F33F; 自然感悟类</h3>
+<div class='material-item'><h4>1. 木棉花的启示</h4><p>木棉花落时不萎缩，整朵坠地，红艳如初。这种'英雄式'的凋落告诉我们：即使面对结束，也要保持尊严和壮美。</p><span class='theme-tag'>适用：尊严、壮美</span></div>
+<div class='material-item'><h4>2. 白云山的日出</h4><p>凌晨四点登摩星岭，黑暗中等了两个小时。当第一缕阳光刺破云层的那一刻，所有的疲惫都值了——最美的风景，永远留给坚持走到最后的人。</p><span class='theme-tag'>适用：坚持、希望</span></div>
+<div class='material-item'><h4>3. 榕树的坚守</h4><p>沙面的古榕树已逾百年，气根垂地成林，独木成景。它不择土壤，不畏风雨，只为在这片土地上扎下最深最牢的根。这份坚守，让人动容。</p><span class='theme-tag'>适用：坚守、扎根</span></div>
+</div>
+<div class='card card-gold'><h3>&#x1F4AA; 勇气/突破类</h3>
+<div class='material-item'><h4>1. 第一次上台演讲</h4><p>初二那年，我被选为代表参加全校演讲比赛。准备了一个月，上台前手抖得拿不住稿子。可当灯光打在身上，我深吸一口气，把稿子放下，看着台下的观众，一个字一个字地说了出来。那一刻，恐惧还在，但我选择了前行。下台时，掌声响起——我知道，我赢了不是比赛，而是自己。</p><span class='theme-tag'>适用：勇气、突破自我、成长</span></div>
+<div class='material-item'><h4>2. 学游泳的那个夏天</h4><p>我怕水怕了十二年。那个暑假，爸爸硬拉着我去了游泳馆。第一次下水，我紧紧抓着池边不肯松手。爸爸没有催我，只是每天陪我在水里泡十分钟。第三周，我松开了池边。第五周，我能游到对岸了。原来，勇气不是不怕，而是怕了还敢迈出那一步。</p><span class='theme-tag'>适用：勇气、坚持、成长</span></div>
+<div class='material-item'><h4>3. 醒狮上桩</h4><p>醒狮训练中最难的是上桩——两米多高的桩阵，狮子要腾跃其间。第一次站上桩顶，我的腿抖得像筛子。教练喊：'别往下看，往前看！'我咬紧牙关，纵身一跃——稳了。那一刻我明白：所有的恐惧，都只在你低头看的时候才可怕。</p><span class='theme-tag'>适用：勇气、岭南文化、成长</span></div>
+</div>
+<div class='card'><h3>&#x1F31F; 传承/创新类</h3>
+<div class='material-item'><h4>1. 广彩的新生</h4><p>广彩（广州彩瓷）曾是外销瓷的明星，如今却面临失传。90后广彩传承人小谭把传统纹样画到了手机壳、帆布包上，让三百年的手艺走进了年轻人的日常生活。她说：'传承不是把老东西供在橱窗里，而是让它活在当下。'</p><span class='theme-tag'>适用：传承、创新、青春力量</span></div>
+<div class='material-item'><h4>2. 粤语童谣的传承</h4><p>'落雨大，水浸街……'这首粤语童谣，我从小听到大。可班上会唱的同学越来越少。音乐课上，老师教我们唱粤语童谣，还让我们用手机录下来发给爷爷奶奶。奶奶听到后笑了：'后生仔仲识唱呢啲歌啊！'那一刻，我觉得传承原来可以这么简单——就是一代人唱给另一代人听。</p><span class='theme-tag'>适用：传承、亲情、广州文化</span></div>
+<div class='material-item'><h4>3. 老西关的新故事</h4><p>西关大屋的门还开着，可住的人换了一茬又一茬。老街坊搬走了，新年轻人搬进来。他们用老屋开书店、办展览、做手作。有人叹息'老西关没了'，可我觉得，老西关没有消失——它只是换了一种方式，继续讲述着属于这片土地的故事。</p><span class='theme-tag'>适用：传承、变迁、城市记忆</span></div>
+</div>
+</div>
+
+<div class='sub-content' id='s2_3'>
+<div class='card'><h3>&#x1F305; 写景类</h3>
+<div class='material-item'><h4>1</h4><p>接天莲叶无穷碧，映日荷花别样红。——杨万里《晓出净慈寺送林子方》</p><span class='theme-tag'>适用：夏日荷花、色彩描写</span></div>
+<div class='material-item'><h4>2</h4><p>大漠孤烟直，长河落日圆。——王维《使至塞上》</p><span class='theme-tag'>适用：壮阔景象、边塞风光</span></div>
+<div class='material-item'><h4>3</h4><p>几处早莺争暖树，谁家新燕啄春泥。——白居易《钱塘湖春行》</p><span class='theme-tag'>适用：早春景色、生机盎然</span></div>
+<div class='material-item'><h4>4</h4><p>停车坐爱枫林晚，霜叶红于二月花。——杜牧《山行》</p><span class='theme-tag'>适用：秋景、感悟</span></div>
+<div class='material-item'><h4>5</h4><p>迟日江山丽，春风花草香。——杜甫《绝句》</p><span class='theme-tag'>适用：春日美景、风和日丽</span></div>
+<div class='material-item'><h4>6</h4><p>明月松间照，清泉石上流。——王维《山居秋暝》</p><span class='theme-tag'>适用：清幽夜景、自然之美</span></div>
+<div class='material-item'><h4>7</h4><p>两个黄鹂鸣翠柳，一行白鹭上青天。——杜甫《绝句》</p><span class='theme-tag'>适用：春日生机、色彩鲜明</span></div>
+</div>
+<div class='card card-gold'><h3>&#x1F4AD; 抒情类</h3>
+<div class='material-item'><h4>1</h4><p>但愿人长久，千里共婵娟。——苏轼《水调歌头》</p><span class='theme-tag'>适用：思念、美好祝愿</span></div>
+<div class='material-item'><h4>2</h4><p>感时花溅泪，恨别鸟惊心。——杜甫《春望》</p><span class='theme-tag'>适用：忧国忧民、情景交融</span></div>
+<div class='material-item'><h4>3</h4><p>何当共剪西窗烛，却话巴山夜雨时。——李商隐《夜雨寄北》</p><span class='theme-tag'>适用：思念、期盼重逢</span></div>
+<div class='material-item'><h4>4</h4><p>春风又绿江南岸，明月何时照我还。——王安石《泊船瓜洲》</p><span class='theme-tag'>适用：思乡、归心似箭</span></div>
+<div class='material-item'><h4>5</h4><p>人生自古谁无死，留取丹心照汗青。——文天祥《过零丁洋》</p><span class='theme-tag'>适用：气节、壮志</span></div>
+<div class='material-item'><h4>6</h4><p>海上生明月，天涯共此时。——张九龄《望月怀远》</p><span class='theme-tag'>适用：思念、共情</span></div>
+</div>
+<div class='card'><h3>&#x1F9E0; 哲理类</h3>
+<div class='material-item'><h4>1</h4><p>山重水复疑无路，柳暗花明又一村。——陆游《游山西村》</p><span class='theme-tag'>适用：困境转机、乐观</span></div>
+<div class='material-item'><h4>2</h4><p>不畏浮云遮望眼，自缘身在最高层。——王安石《登飞来峰》</p><span class='theme-tag'>适用：远见、格局</span></div>
+<div class='material-item'><h4>3</h4><p>问渠那得清如许？为有源头活水来。——朱熹《观书有感》</p><span class='theme-tag'>适用：学习、更新</span></div>
+<div class='material-item'><h4>4</h4><p>沉舟侧畔千帆过，病树前头万木春。——刘禹锡《酬乐天扬州初逢席上见赠》</p><span class='theme-tag'>适用：新旧更替、希望</span></div>
+<div class='material-item'><h4>5</h4><p>长风破浪会有时，直挂云帆济沧海。——李白《行路难》</p><span class='theme-tag'>适用：理想、信念</span></div>
+</div>
+<div class='card card-gold'><h3>&#x1F44B; 送别/友情类</h3>
+<div class='material-item'><h4>1</h4><p>海内存知己，天涯若比邻。——王勃《送杜少府之任蜀州》</p><span class='theme-tag'>适用：友情、离别</span></div>
+<div class='material-item'><h4>2</h4><p>莫愁前路无知己，天下谁人不识君。——高适《别董大》</p><span class='theme-tag'>适用：鼓励、送别</span></div>
+<div class='material-item'><h4>3</h4><p>桃花潭水深千尺，不及汪伦送我情。——李白《赠汪伦》</p><span class='theme-tag'>适用：深厚友情</span></div>
+<div class='material-item'><h4>4</h4><p>劝君更尽一杯酒，西出阳关无故人。——王维《送元二使安西》</p><span class='theme-tag'>适用：惜别、深情</span></div>
+<div class='material-item'><h4>5</h4><p>孤帆远影碧空尽，唯见长江天际流。——李白《黄鹤楼送孟浩然之广陵》</p><span class='theme-tag'>适用：目送、离愁</span></div>
+</div>
+<div class='card'><h3>&#x1F3B5; 励志/立志类</h3>
+<div class='material-item'><h4>1</h4><p>会当凌绝顶，一览众山小。——杜甫《望岳》</p><span class='theme-tag'>适用：志向、格局、登高</span></div>
+<div class='material-item'><h4>2</h4><p>少年心事当拿云，谁念幽寒坐呜呃。——李贺《致酒行》</p><span class='theme-tag'>适用：少年志气、进取</span></div>
+<div class='material-item'><h4>3</h4><p>苔花如米小，也学牡丹开。——袁枚《苔》</p><span class='theme-tag'>适用：平凡与伟大、自信、微小力量</span></div>
+<div class='material-item'><h4>4</h4><p>千淘万漉虽辛苦，吹尽狂沙始到金。——刘禹锡《浪淘沙》</p><span class='theme-tag'>适用：磨砺、坚持、真金不怕火炼</span></div>
+<div class='material-item'><h4>5</h4><p>搏扶摇而上者九万里。——庄子《逍遥游》</p><span class='theme-tag'>适用：志向远大、追求自由</span></div>
+</div>
+<div class='card card-gold'><h3>&#x1F33C; 广州/岭南类</h3>
+<div class='material-item'><h4>1</h4><p>日啖荔枝三百颗，不辞长作岭南人。——苏轼《食荔枝》</p><span class='theme-tag'>适用：岭南风情、热爱生活</span></div>
+<div class='material-item'><h4>2</h4><p>罗浮山下四时春，卢橘杨梅次第新。——苏轼《食荔枝》</p><span class='theme-tag'>适用：岭南物产、四季如春</span></div>
+<div class='material-item'><h4>3</h4><p>海上生明月，天涯共此时。——张九龄《望月怀远》</p><span class='theme-tag'>适用：思乡、团圆、湾区情怀</span></div>
+<div class='material-item'><h4>4</h4><p>草木有本心，何求美人折。——张九龄《感遇》</p><span class='theme-tag'>适用：坚守本心、不慕虚荣</span></div>
+<div class='material-item'><h4>5</h4><p>岭南春色满，不待北风催。</p><span class='theme-tag'>适用：岭南春景、地域特色</span></div>
+</div>
+<div class='card card-green'><h3>&#x1F31F; 教研写作万能十句古诗词<span class='method-tag'>教研写作方法</span></h3>
+<p style='font-size:13px;color:#276749;margin-bottom:10px;'>教研写作精选十句万能古诗词，覆盖作文最常见的十个场景。熟练运用，考场上信手拈来，瞬间提升文章文采。</p>
+<div class='material-item'><h4>1. 开篇写景</h4><p>万里江山凝秀色，五彩云霞映九宫。</p><span class='theme-tag'>适用：开篇写景、铺垫氛围</span><div class='usage-note'>用法：用在文章开头，渲染壮阔背景，引出下文叙事。</div></div>
+<div class='material-item'><h4>2. 抒发喜悦</h4><p>春风得意马蹄疾，一日看尽长安花。——孟郊《登科后》</p><span class='theme-tag'>适用：成功、喜悦、得意</span><div class='usage-note'>用法：写在获得成功或突破后的情感段落，表达欣喜之情。</div></div>
+<div class='material-item'><h4>3. 感悟人生</h4><p>九死南荒吾不恨，兹游奇绝冠平生。——苏轼《六月二十日夜渡海》</p><span class='theme-tag'>适用：逆境感悟、人生态度</span><div class='usage-note'>用法：写在经历挫折后的升华段落，表达'即使历经磨难，也不悔此生'的豁达。</div></div>
+<div class='material-item'><h4>4. 怀古抒怀</h4><p>淮水东边旧时月，夜深还过女墙来。——刘禹锡《石头城》</p><span class='theme-tag'>适用：怀古、时光流逝、历史感悟</span><div class='usage-note'>用法：写在回忆往事或感慨时光的段落，营造沧桑感。</div></div>
+<div class='material-item'><h4>5. 赞美山河</h4><p>岱宗夫如何？齐鲁青未了。——杜甫《望岳》</p><span class='theme-tag'>适用：山河壮美、志向高远</span><div class='usage-note'>用法：写在描写自然景观或表达志向的段落，气势恢宏。</div></div>
+<div class='material-item'><h4>6. 离别思念</h4><p>何当共剪西窗烛，却话巴山夜雨时。——李商隐《夜雨寄北》</p><span class='theme-tag'>适用：离别、思念、期盼重逢</span><div class='usage-note'>用法：写在离别场景或思念段落，含蓄深情，余味悠长。</div></div>
+<div class='material-item'><h4>7. 警示自省</h4><p>山外青山楼外楼，西湖歌舞几时休。——林升《题临安邸》</p><span class='theme-tag'>适用：自省、警醒、居安思危</span><div class='usage-note'>用法：写在反思或自省段落，提醒自己不要沉迷安逸。</div></div>
+<div class='material-item'><h4>8. 胸怀壮志</h4><p>两河锁钥无双地，万里长城第一关。</p><span class='theme-tag'>适用：壮志、担当、家国情怀</span><div class='usage-note'>用法：写在表达志向或家国情怀的段落，气势磅礴。</div></div>
+<div class='material-item'><h4>9. 地域风情</h4><p>楚汉三相接，荆门九派通。</p><span class='theme-tag'>适用：地域文化、风土人情</span><div class='usage-note'>用法：写在描写地方特色或文化交融的段落，有厚重感。</div></div>
+<div class='material-item'><h4>10. 收尾升华</h4><p>桐花万里丹山路，雏凤清于老凤声。——李商隐《韩冬郎即席为诗相送》</p><span class='theme-tag'>适用：收尾升华、青出于蓝、传承超越</span><div class='usage-note'>用法：用在文章结尾，表达'后来者超越前人'的主题，尤其适合写传承、成长类文章的收尾。</div></div>
+</div>
+</div>
+
+<div class='sub-content' id='s2_4'>
+<div class='card card-green'><h3>&#x1F9E0; 一例多吃法：同一素材，多角度运用<span class='method-tag'>教研写作方法</span></h3>
+<p style='font-size:13px;color:#276749;margin-bottom:14px;'>教研写作提出'一例多吃法'——同一个素材从不同角度解读，适配不同主题。考前准备3-5个万能素材，每个素材想好3个角度，考场上就能灵活应对任何题目。下面以三个经典素材为例，演示'一例多吃'的用法。</p>
+
+<div class='one-example-box'>
+<h4>素材一：苏炳添突破9秒83</h4>
+<p style='font-size:13px;color:#4a5568;margin-bottom:8px;'>素材概述：中山籍短跑名将苏炳添，32岁仍坚持高强度训练，在东京奥运会上跑出9秒83，成为首位闯入奥运百米决赛的亚洲人。</p>
+<div class='angle-item'>
+<div class='angle-title'>角度一：坚持（主题：坚持的力量）</div>
+<p>32岁，对短跑运动员来说已是'高龄'。可苏炳添没有退役，而是日复一日地训练、调整、突破。9秒83不是天才的灵光一现，而是十几年汗水的凝结。坚持，让他把'不可能'变成了'可能'。</p>
+</div>
+<div class='angle-item'>
+<div class='angle-title'>角度二：突破（主题：突破自我/打破极限）</div>
+<p>多年来，'亚洲人百米跑不进10秒'像一道无形的墙。苏炳添用9秒83击碎了这堵墙。他突破的不只是数字，更是偏见和自我设限。真正的对手从来不是别人，而是那个告诉自己'你不行'的声音。</p>
+</div>
+<div class='angle-item'>
+<div class='angle-title'>角度三：自信（主题：文化自信/湾区气质）</div>
+<p>苏炳添是中山人，是湾区的儿子。他在世界舞台上展现的不仅是个人实力，更是中国运动员的自信与从容。湾区精神，就是这种敢闯敢拼、永不服输的劲头。</p>
+</div>
+</div>
+
+<div class='one-example-box'>
+<h4>素材二：外婆煲的老火靓汤</h4>
+<p style='font-size:13px;color:#4a5568;margin-bottom:8px;'>素材概述：外婆每天花四五个小时煲一锅老火靓汤，选材讲究、火候精准，几十年如一日。</p>
+<div class='angle-item'>
+<div class='angle-title'>角度一：亲情（主题：爱/亲情温暖）</div>
+<p>那锅汤煲了四个小时，外婆在灶台前守了四个小时。她不说爱，可每一勺汤里都是爱。广州人的爱，不在嘴上，在汤里。</p>
+</div>
+<div class='angle-item'>
+<div class='angle-title'>角度二：匠心（主题：匠心精神/平凡中的不平凡）</div>
+<p>选什么食材、放多少水、大火转小火慢炖多久——外婆的每一个步骤都精准如仪器。几十年下来，她煲的每一锅汤味道都一样好。这不是天赋，是匠心。平凡的事做到极致，就是不平凡。</p>
+</div>
+<div class='angle-item'>
+<div class='angle-title'>角度三：传承（主题：文化传承/广州味道）</div>
+<p>外婆的汤方来自太婆，太婆的来自更早的先辈。这锅汤里，煮着几代人的记忆和智慧。外婆说：'等你长大了，我也教你煲。'那一刻我忽然明白，传承不是博物馆里的陈列品，而是灶台上一锅热气腾腾的汤。</p>
+</div>
+</div>
+
+<div class='one-example-box'>
+<h4>素材三：永庆坊的活化改造</h4>
+<p style='font-size:13px;color:#4a5568;margin-bottom:8px;'>素材概述：恩宁路永庆坊从危房片区改造为文创地标，保留老建筑的同时引入新业态，青砖灰瓦间藏着咖啡馆和非遗工坊。</p>
+<div class='angle-item'>
+<div class='angle-title'>角度一：创新（主题：创新与传承）</div>
+<p>永庆坊没有推倒重建，而是'修旧如旧'后注入新生命。老骑楼里开起了咖啡馆，灰塑工坊旁边是文创小店。创新不是抛弃传统，而是让传统以新的方式活下去。</p>
+</div>
+<div class='angle-item'>
+<div class='angle-title'>角度二：城市记忆（主题：变迁/记忆）</div>
+<p>曾经，永庆坊的老街坊搬走了，老房子空了，连风都懒得从巷子里穿过。如今，人回来了，烟火气也回来了。城市不只有高楼大厦，还需要有人情味的街巷。永庆坊的活化，让城市记住了自己从哪里来。</p>
+</div>
+<div class='angle-item'>
+<div class='angle-title'>角度三：成长（主题：成长/改变）</div>
+<p>我从小在恩宁路长大，亲眼看着永庆坊从破败到重生。它的变化，像极了我自己的成长——有些东西必须经历阵痛才能蜕变，有些根脉必须守住才能走远。</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class='sub-content' id='s2_5'>
+<div class='card card-green'><h3>&#x1F31F; 2026年适用新鲜素材<span class='method-tag'>紧跟命题趋势</span></h3>
+<p style='font-size:13px;color:#276749;margin-bottom:14px;'>根据2026年广州中考命题趋势——真实成长、向内成长、素养立意、读写融合、交际写作，以下新鲜素材紧贴时代脉搏，能让你的作文脱颖而出。</p>
+
+<div class='card'><h3>&#x1F916; AI与成长</h3>
+<div class='material-item'><h4>1. AI帮我写作文？不，AI帮我想清楚自己</h4><p>当AI能一键生成文章，我反而开始思考：什么是AI写不出的？是我的真实经历，是我的独特感受，是我在木棉树下发呆的那个下午。AI替代不了'我'，因为'我'的故事只有'我'能写。真正的成长，是认清什么不可替代。</p><span class='theme-tag'>适用：成长、自我认知、科技与人文</span></div>
+<div class='material-item'><h4>2. 和AI一起学粤语</h4><p>我用AI应用学粤语，它纠正我的声调，教我俚语。可奶奶说：'机器教的是字，人教的是情。'那些粤语里的温度——'饮咗汤未'里的牵挂，'慢慢嚟'里的从容——是AI永远学不会的。</p><span class='theme-tag'>适用：传统与现代、人情味、科技反思</span></div>
+<div class='material-item'><h4>3. 爷爷的'数字鸿沟'</h4><p>爷爷不会用智能手机，去医院挂号要折腾半天。我花了一个暑假教他用手机——从开机到扫码，从视频通话到电子医保卡。他学得慢，却从不放弃，说：'活到老学到老，不能被时代丢下。'那一刻我懂得了：真正的孝心，是陪长辈一起追上时代。</p><span class='theme-tag'>适用：亲情、成长、代际沟通</span></div>
+</div>
+
+<div class='card card-gold'><h3>&#x1F30C; 湾区建设</h3>
+<div class='material-item'><h4>1. 港珠澳大桥上的日出</h4><p>全长55公里的港珠澳大桥，像一条巨龙卧在伶仃洋上。建设者们用了九年时间，攻克了无数世界级难题。当我站在桥上看到日出从海平面升起，忽然觉得：这座桥连接的不只是三座城市，更是无数人的梦想与坚守。</p><span class='theme-tag'>适用：湾区气质、建设精神、梦想</span></div>
+<div class='material-item'><h4>2. 南沙的蜕变</h4><p>曾经偏远的南沙渔村，如今成了大湾区的心脏。高科技企业入驻，年轻人涌入，老渔民的孩子回来创业开咖啡馆。爷爷说：'以前这里只有咸水，现在有了希望的味道。'城市的生长，就像人的成长——需要时间，更需要勇气。</p><span class='theme-tag'>适用：成长、变迁、湾区气质</span></div>
+<div class='material-item'><h4>3. 跨城上学记</h4><p>我的同学小林家住珠海，每天坐城际列车到广州上学。一小时的车程，他用来背单词、看窗外风景。他说：'大湾区把城市拉近了，也把梦想拉近了。'在大湾区，'远方'不再遥远。</p><span class='theme-tag'>适用：湾区生活、成长、机遇</span></div>
+</div>
+
+<div class='card'><h3>&#x1F3AD; 非遗传承新故事</h3>
+<div class='material-item'><h4>1. 醒狮少年的短视频</h4><p>黄埔区的醒狮队把训练视频发到网上，一夜之间百万点赞。评论区里有人说：'原来醒狮这么酷！'教练说：'狮子上了网，精气神不能下网。'他们用新媒介传播老手艺，让传统文化'破圈'生长。</p><span class='theme-tag'>适用：文化传承、创新、青春力量</span></div>
+<div class='material-item'><h4>2. 广绣少女的直播间</h4><p>90后女孩小陈在直播间教广绣，一针一线，从荔枝绣到木棉花。观众从几人到几万人，有人说：'看你绣花，比刷短视频治愈多了。'她把非遗搬进了直播间，让一根绣花针串起了传统与潮流。</p><span class='theme-tag'>适用：文化创新、传承、坚持</span></div>
+<div class='material-item'><h4>3. 爷爷的牙雕与我的3D打印</h4><p>爷爷是牙雕艺人，一辈子用刻刀在象牙上雕花。我学的是3D建模，用打印机'打印'出各种造型。爷爷看了我的作品说：'机器刻得准，但手刻的有温度。'后来我们一起合作——爷爷设计，我建模，传统工艺和现代科技在一张工作台上握手了。</p><span class='theme-tag'>适用：传承与创新、代际融合、科技与人文</span></div>
+</div>
+
+<div class='card card-gold'><h3>&#x1F331; 真实成长类</h3>
+<div class='material-item'><h4>1. 第一次独自坐地铁</h4><p>初一那年，妈妈第一次让我独自坐地铁上学。三号线人山人海，我被挤得东倒西歪，到站时差点忘了下车。可当我走出地铁站，看到学校大门的那一刻，心里涌起一种从未有过的成就感——我做到了。</p><span class='theme-tag'>适用：独立、成长、突破</span></div>
+<div class='material-item'><h4>2. 学做肠粉的那个暑假</h4><p>暑假在阿叔的肠粉店帮忙，从磨米浆到蒸肠粉，我学了整整一个月。第一天蒸出来的肠粉又厚又黏，阿叔笑着说：'急唔嚟，慢慢嚟。'一个月后，我终于蒸出了一碟合格的肠粉。原来，'慢'才是最快的捷径。</p><span class='theme-tag'>适用：劳动实践、耐心、成长</span></div>
+<div class='material-item'><h4>3. 社区志愿者的那个冬天</h4><p>寒假参加社区志愿服务，帮独居老人打扫卫生。李奶奶拉着我的手说了很久的话，最后塞给我两个橘子。那两个橘子特别甜——不是因为品种好，而是因为被需要的感觉，比任何橘子都甜。</p><span class='theme-tag'>适用：劳动实践、温暖、成长</span></div>
+</div>
+
+<div class='card card-green'><h3>&#x1F4D8; 读写融合专项素材</h3>
+<p style='font-size:13px;color:#276749;margin-bottom:10px;'>2026年中考强调'读写融合'——先读懂材料，再联系自身经历写作。以下素材专为读写融合训练设计，每个素材都附带了'材料解读'和'联系自身'两个维度。</p>
+<div class='material-item'><h4>1. 材料关于'种子破土'</h4><p>材料：一颗种子埋在黑暗的泥土里，它不知道外面有没有阳光，不知道自己能不能长成大树。但它选择了向上生长。终于有一天，它顶破了泥土，看到了第一缕阳光。</p><div class='usage-note'>材料解读：种子的'黑暗'象征困境，'选择向上'象征勇气和坚持，'第一缕阳光'象征希望和突破。</div><div class='usage-note'>联系自身：写你某次'在黑暗中选择向上'的经历——如成绩低谷时选择坚持、被误解时选择用行动证明。</div><span class='theme-tag'>适用：突破、坚持、勇气</span></div>
+<div class='material-item'><h4>2. 材料关于'老手艺人的手'</h4><p>材料：一位老木匠的手上布满了老茧和伤疤。有人问他疼不疼，他笑着说：'这些疤是时间盖的章，每一道都是一件作品留下的印记。'</p><div class='usage-note'>材料解读：'老茧和伤疤'象征岁月的付出，'时间盖的章'象征坚守的价值，'每一道都是印记'象征每段经历都有意义。</div><div class='usage-note'>联系自身：写你身边一个'手上布满印记'的人——如外婆的手、修车师傅的手，通过手的细节写人的故事。</div><span class='theme-tag'>适用：坚守、匠心、以小见大</span></div>
+<div class='material-item'><h4>3. 材料关于'桥的两端'</h4><p>材料：港珠澳大桥连接着三座城市。有人说，桥的意义不在于它有多长，而在于它让原本遥远的人变得亲近了。</p><div class='usage-note'>材料解读：'桥'象征连接和沟通，'让遥远的人变亲近'象征理解和包容。</div><div class='usage-note'>联系自身：写一座你生活中的'桥'——如一次化解误会的对话、一个连接两代人的习惯（如一起煲汤、一起看粤剧）。</div><span class='theme-tag'>适用：连接、理解、湾区气质</span></div>
+</div>
+
+<div class='card'><h3>&#x1F9D1; 劳动实践类</h3>
+<div class='material-item'><h4>1. 跟阿叔学做肠粉</h4><p>暑假在阿叔的肠粉店帮忙，从磨米浆到蒸肠粉，我学了整整一个月。第一天蒸出来的肠粉又厚又黏，阿叔笑着说：'急唔嚟，慢慢嚟。'一个月后，我终于蒸出了一碟合格的肠粉。原来，'慢'才是最快的捷径。</p><span class='theme-tag'>适用：劳动实践、耐心、成长</span></div>
+<div class='material-item'><h4>2. 种一盆花的过程</h4><p>生物课布置了种花作业。我选了一盆茉莉花，每天浇水、晒太阳、松土。第一周什么变化都没有，我差点放弃。第二周，冒出了一个小芽。第三周，长出了叶子。一个月后，它开花了——那朵小小的白花，比任何买来的花都让我骄傲。原来，等待是最值得的付出。</p><span class='theme-tag'>适用：劳动实践、耐心、成长</span></div>
+<div class='material-item'><h4>3. 社区大扫除</h4><p>周末参加社区大扫除，负责清理楼道里的小广告。撕了两个小时，手指都磨红了。一位老奶奶端来水说：'后生仔，辛苦啦。'那一刻，所有的累都值了——劳动不全是付出，它也会给你意想不到的回报。</p><span class='theme-tag'>适用：劳动实践、奉献、温暖</span></div>
+<div class='material-item'><h4>4. 学包粽子</h4><p>端午节，外婆教我包粽子。粽叶怎么折、糯米放多少、绳子怎么绕——每一步都有讲究。我包了十几个，只有三个没漏米。外婆说：'第一次包成这样已经很好了。'我看着那三个歪歪扭扭的粽子，忽然明白：完美不是一次到位，而是在不完美中不断尝试。</p><span class='theme-tag'>适用：劳动实践、传统习俗、成长</span></div>
+<div class='material-item'><h4>5. 跟爷爷学写毛笔字</h4><p>寒假回老家，爷爷拿出文房四宝要教我写毛笔字。我迫不及待地拿起笔，蘸满墨汁就写，结果'一'字写成了墨团。爷爷不急不慢地说：'执笔要指实掌虚，运笔要中锋行笔。'他握着我的手，一笔一划地教我写'永'字。永字八法，点横竖撇捺折钩提，一个字包含了所有基本笔画。写了整整一下午，我终于写出了一个勉强能看的'永'字。爷爷摸着我的头说：'慢慢来，快不了。'写字如此，做人亦然——急不得，躁不得，静下心来才能写出好字，活出好人。</p><span class='theme-tag'>适用：劳动实践、传统文化、耐心、传承</span></div>
+<div class='material-item'><h4>6. 第一次做番茄炒蛋</h4><p>劳动课上，老师要求每人学会做一道家常菜。我选了最简单的番茄炒蛋。切番茄时，汁水溅了一案板；打鸡蛋时，蛋壳掉进了碗里；炒的时候油花四溅，我吓得躲到一边。老师走过来，帮我把火调小，说：'炒蛋要用中火，翻炒要快，番茄要后放盐。'第二次做，我按照老师的指导，小心翼翼地操作。端上桌时，虽然卖相一般，但那是我第一次亲手做的菜。同学们尝了一口说：'还不错嘛！'那一刻，我明白了——所谓成长，就是从不会到会，从手忙脚乱到从容不迫的过程。</p><span class='theme-tag'>适用：劳动实践、成长、坚持</span></div>
+</div>
+<div class='card'><h3>&#x1F3AF; 考场应急万能素材包</h3>
+<p style='font-size:13px;color:#666;margin-bottom:10px;'>以下素材均可'一例多吃'，考场临时调用，适配多种主题。建议考前背熟2-3个，灵活变换角度。</p>
+<div class='material-item'><h4>万能素材一：奶奶的煲汤哲学</h4><p>奶奶煲汤有三大原则：一是文火慢炖，急不得；二是食材搭配，乱不得；三是适时调味，早不得。她常说：'煲汤如做人，急了不香，乱了不纯，早了不入味。'奶奶煲了四十年的汤，每一碗都是时间的味道。</p><span class='theme-tag'>适配主题：耐心与等待（写慢工出细活）、传承与创新（写传统智慧）、成长与蜕变（写时间沉淀）、劳动实践（写亲手操作）、家庭温暖（写亲情关爱）</span></div>
+<div class='material-item'><h4>万能素材二：珠江边的跑步者</h4><p>每天清晨五点半，珠江边总有一位老人在跑步。风雨无阻，二十年如一日。有人问他为什么坚持，他说：'跑步不是为了快，而是为了不停下来。'他的身影从壮年到暮年，珠江的水从清晨到黄昏，变的是风景，不变的是脚步。</p><span class='theme-tag'>适配主题：坚持与毅力（写日复一日的坚持）、成长与蜕变（写时间的力量）、超越自我（写与自己的较量）、广州/岭南（写珠江元素）、生命与时间（写恒心与岁月）</span></div>
+<div class='material-item'><h4>万能素材三：骑楼下的棋局</h4><p>骑楼下，两位老人下棋。围观的人比下棋的人还紧张，七嘴八舌地支招。下棋的老人却不慌不忙，每一步都想很久。有人催他快走，他笑着说：'棋如人生，一步错步步错。急什么？'那一刻我忽然明白：人生就像一盘棋，重要的不是走得快，而是走得对。</p><span class='theme-tag'>适配主题：智慧与思辨（写慢思考的力量）、耐心与冷静（写不急不躁）、成长与选择（写人生抉择）、广州/岭南（写骑楼文化）、传承（写老一辈智慧）</span></div>
+<div class='material-item'><h4>万能素材四：木棉树下的约定</h4><p>小学毕业那天，我和好朋友在木棉树下约定：十年后，我们在原地重聚。如今六年过去了，木棉树还在，花每年照开，只是我们早已各奔东西。有时我想，约定也许不是为了兑现，而是为了让回忆有一个安放的地方。就像木棉花，年年盛开年年落，但它开过的每一个春天，都是真实的。</p><span class='theme-tag'>适配主题：友情与约定（写记忆与思念）、成长与时光（写时间流逝）、希望与信念（写约定的力量）、广州/岭南（写木棉元素）、真实成长（写内心感受）</span></div>
+<div class='material-item'><h4>万能素材五：城中村的灯光</h4><p>我家住在城中村，巷子很窄，路灯很暗。但每天晚上，巷口卖糖水的阿姨总会亮起一盏小灯。那盏灯不亮，只够照亮她的小摊，却恰好照亮了回家的路。我问她为什么不换个大灯泡，她说：'太亮了反而刺眼，刚刚好就好。'后来我才懂，人生也一样——不需要光芒万丈，刚刚好照亮身边的人，就够了。</p><span class='theme-tag'>适配主题：温暖与善良（写微小的善意）、平凡与伟大（写普通人力量）、成长与感悟（写生活启示）、广州/岭南（写城中村生活）、劳动实践（写小摊贩的辛劳）</span></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Module 4: Practice -->
+<div class='module' id='mod3'>
+<div id='practiceList'></div>
+<div class='trend-card'>
+<h3>&#x1F4C8; 广州中考作文命题趋势分析（2024—2026）</h3>
+<div class='trend-item'>
+<div class='trend-year'>2024年 · 半命题作文</div>
+<div class='trend-desc'>《那个教会我_______的人》（半命题，三选一填空）。特点：关注'人'的力量，强调'教会'的过程，适合写记叙文。入手门槛低，但高分需要写出'教会'的深层意义。</div>
+</div>
+<div class='trend-arrow'>&#x2193; 趋势演变 &#x2193;</div>
+<div class='trend-item'>
+<div class='trend-year'>2026年 · 书信体材料作文</div>
+<div class='trend-desc'>《给多吉的一封信》（书信体，材料作文）。特点：素养立意、读写融合、交际写作、真实成长。要求先读懂材料，再以书信形式写作，考查综合素养。入手门槛降低，但区分度藏在思维层次。</div>
+</div>
+<div class='trend-arrow'>&#x2193; 核心趋势 &#x2193;</div>
+<div class='trend-item'>
+<div class='trend-year'>五大命题趋势</div>
+<div class='trend-desc'><strong>① 真实成长：</strong>写自己真实经历过的事，拒绝编造。<br><strong>② 向内成长：</strong>不只写外在变化，更写内心蜕变。<br><strong>③ 素养立意：</strong>考查综合语文素养，不是套路。<br><strong>④ 读写融合：</strong>先读材料再写作，阅读理解能力也是考查重点。<br><strong>⑤ 交际写作：</strong>书信、演讲等实用文体，有明确的交际对象和目的。</div>
+</div>
+<div class='trend-item'>
+<div class='trend-year'>备考建议</div>
+<div class='trend-desc'>1. 练习书信体写作格式（称呼、正文、祝语、署名、日期）；2. 多练习'读材料→提炼观点→联系自身→写作表达'的完整流程；3. 准备3-5个真实成长素材，用'一例多吃法'适配不同主题；4. 关注湾区建设、非遗传承、科技与人文等热点话题。</div>
+</div>
+</div>
+</div>
+
+<!-- Module 5: Self-evaluation -->
+<div class='module' id='mod4'>
+<div class='eval-section'>
+<h3>&#x1F4DD; 粘贴或输入你的作文</h3>
+<textarea class='eval-textarea' id='essayInput' placeholder='在此输入你的作文全文，建议300字以上...'></textarea>
+<div class='char-count' id='charCount'>已输入 0 字</div>
+</div>
+
+<div class='eval-section'>
+<h3>&#x1F4CA; 2026最新评分标准（50分制）</h3>
+<p style='font-size:13px;color:#718096;margin-bottom:14px;'>对标2026年广州中考作文评分标准：内容25分 + 语言16分 + 结构5分 + 文面4分 = 50分，另设加分项1-3分。</p>
+
+<div class='dim-row'>
+<span class='dim-label'>内容<span class='dim-max'>/25</span></span>
+<div class='dim-btns'>
+<button class='dim-btn' data-dim='neirong' data-score='25' onclick='selectDim(this)'>优秀(25分)</button>
+<button class='dim-btn' data-dim='neirong' data-score='22' onclick='selectDim(this)'>良好(22分)</button>
+<button class='dim-btn' data-dim='neirong' data-score='18' onclick='selectDim(this)'>一般(18分)</button>
+<button class='dim-btn' data-dim='neirong' data-score='14' onclick='selectDim(this)'>待提升(14分)</button>
+</div>
+</div>
+<div class='dim-row'>
+<span class='dim-label'>语言<span class='dim-max'>/16</span></span>
+<div class='dim-btns'>
+<button class='dim-btn' data-dim='yuyan' data-score='16' onclick='selectDim(this)'>优秀(16分)</button>
+<button class='dim-btn' data-dim='yuyan' data-score='14' onclick='selectDim(this)'>良好(14分)</button>
+<button class='dim-btn' data-dim='yuyan' data-score='12' onclick='selectDim(this)'>一般(12分)</button>
+<button class='dim-btn' data-dim='yuyan' data-score='8' onclick='selectDim(this)'>待提升(8分)</button>
+</div>
+</div>
+<div class='dim-row'>
+<span class='dim-label'>结构<span class='dim-max'>/5</span></span>
+<div class='dim-btns'>
+<button class='dim-btn' data-dim='jiegou' data-score='5' onclick='selectDim(this)'>优秀(5分)</button>
+<button class='dim-btn' data-dim='jiegou' data-score='4' onclick='selectDim(this)'>良好(4分)</button>
+<button class='dim-btn' data-dim='jiegou' data-score='3' onclick='selectDim(this)'>一般(3分)</button>
+<button class='dim-btn' data-dim='jiegou' data-score='2' onclick='selectDim(this)'>待提升(2分)</button>
+</div>
+</div>
+<div class='dim-row'>
+<span class='dim-label'>文面<span class='dim-max'>/4</span></span>
+<div class='dim-btns'>
+<button class='dim-btn' data-dim='wenmian' data-score='4' onclick='selectDim(this)'>优秀(4分)</button>
+<button class='dim-btn' data-dim='wenmian' data-score='3' onclick='selectDim(this)'>良好(3分)</button>
+<button class='dim-btn' data-dim='wenmian' data-score='2' onclick='selectDim(this)'>一般(2分)</button>
+<button class='dim-btn' data-dim='wenmian' data-score='1' onclick='selectDim(this)'>待提升(1分)</button>
+</div>
+</div>
+<div class='dim-row'>
+<span class='dim-label'>加分<span class='dim-max'>/3</span></span>
+<div class='dim-btns'>
+<button class='dim-btn' data-dim='jiafen' data-score='3' onclick='selectDim(this)'>突出(3分)</button>
+<button class='dim-btn' data-dim='jiafen' data-score='2' onclick='selectDim(this)'>较好(2分)</button>
+<button class='dim-btn' data-dim='jiafen' data-score='1' onclick='selectDim(this)'>一般(1分)</button>
+<button class='dim-btn' data-dim='jiafen' data-score='0' onclick='selectDim(this)'>无(0分)</button>
+</div>
+</div>
+<p style='font-size:12px;color:#975a16;margin-top:8px;'>加分项标准：立意深刻、构思独特、语言优美，满足任意一项可加1分，满足多项最多加3分。</p>
+<p style='font-size:12px;color:#c53030;margin-top:4px;'>扣分项提醒：无标题扣2分 | 字数不足每50字扣1分 | 错别字每3个扣1分（重复不计） | 出现真实校名人名扣2-3分</p>
+</div>
+
+<div class='checklist-box'>
+<h3>&#x1F9E0; 教研写作方法论自查清单</h3>
+<p style='font-size:12px;color:#276749;margin-bottom:10px;'>逐项检查你的作文是否运用了教研写作写作方法。打勾越多，方法论运用越充分。</p>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>是否运用了五蕴写作法（色→受→想→行→识）？<span class='ci-hint'>不只是五感描写，还要有联想、行动和思想升华</span></span></div>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>是否有明确的行动线（广东阅卷'三爱'之首）？<span class='ci-hint'>写'我做了什么'，不是只写'我感受到了什么'</span></span></div>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>是否运用了无敌四招中的至少一招（悬念/冲突/反转/余味）？<span class='ci-hint'>让文章有波澜，不平铺直叙</span></span></div>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>是否有三线交织（明线事件+暗线情感+辅线环境）？<span class='ci-hint'>让文章立体丰满，有层次感</span></span></div>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>立意是否用了万花筒/放大镜/倒骑驴法？<span class='ci-hint'>多角度思考，或聚焦细节深挖，或逆向思维</span></span></div>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>语言是否用了偷天换日法升级？<span class='ci-hint'>把平淡表达换成生动表达，删除冗余</span></span></div>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>是否运用了金镶玉法镶嵌金句？<span class='ci-hint'>在论述中自然嵌入名言诗词，2-3处为宜</span></span></div>
+<div class='checklist-item' onclick='toggleCheck(this)'><input type='checkbox'><span class='ci-label'>细节描写是否用了特写镜头或慢移镜头？<span class='ci-hint'>聚焦关键瞬间放大，或由远及近缓缓推进</span></span></div>
+</div>
+
+<div class='pitfall-box'>
+<h3>&#x26A0;&#xFE0F; 广东阅卷避坑检查</h3>
+<p style='font-size:12px;color:#c53030;margin-bottom:10px;'>逐项检查你的作文是否踩中了广东阅卷的'雷区'。打勾越多，越危险！</p>
+<div class='pitfall-item'><span class='pi-num'>1</span><span>是否使用了北方素材？（堆雪人、滑冰、北方大雪——与广州生活脱节）</span></div>
+<div class='pitfall-item'><span class='pi-num'>2</span><span>是否只写感悟不写行动？（通篇'我感受到''我明白了'，没有具体行为）</span></div>
+<div class='pitfall-item'><span class='pi-num'>3</span><span>是否一逗到底？（整段只有一个逗号，没有句号、问号、感叹号）</span></div>
+<div class='pitfall-item'><span class='pi-num'>4</span><span>开头是否太长？（超过200字还没进入正题）</span></div>
+<div class='pitfall-item'><span class='pi-num'>5</span><span>素材是否老掉牙？（下雨送伞、深夜去医院、扶老奶奶过马路）</span></div>
+<div class='pitfall-item'><span class='pi-num'>6</span><span>立意是否假大空？（'为中华之崛起''成为祖国栋梁'等空泛口号）</span></div>
+<div class='pitfall-item'><span class='pi-num'>7</span><span>是否有标题？标题是否太随意？（'记一件小事''我的故事'）</span></div>
+<div class='pitfall-item'><span class='pi-num'>8</span><span>字数是否不足600字？（每少50字扣1分）</span></div>
+<div class='pitfall-item'><span class='pi-num'>9</span><span>是否出现了真实校名、人名？（扣2-3分）</span></div>
+<div class='pitfall-item'><span class='pi-num'>10</span><span>结尾是否喊口号？（'让我们携手共创美好明天！'——假大空）</span></div>
+</div>
+
+<div id='evalResult' class='hidden'></div>
+</div>
+
+<!-- Module 6: Yang Qihan Formula Cards -->
+<div class='module' id='mod5'>
+<div class='card card-green'>
+<h3><span class='icon'>&#x1F9E0;</span>教研写作写作公式卡<span class='method-tag'>点击卡片翻转查看详情</span></h3>
+<p style='font-size:14px;color:#4a5568;margin-bottom:16px;line-height:1.8;'>教研写作写作方法论五大核心公式，涵盖写景、议论、段落、素材、引用五大维度。点击任意卡片，翻转查看详细步骤和示范。建议反复练习，内化为自己的写作本能。</p>
+</div>
+
+<div class='formula-grid'>
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>&#x1F338;</div>
+<div class='ff-title'>公式一：五蕴写作法</div>
+<div class='ff-subtitle'>色 &#x2192; 受 &#x2192; 想 &#x2192; 行 &#x2192; 识</div>
+<div class='ff-brief'>用佛家'色受想行识'替代传统五感法，从感官到思想，阶梯式升华写景状物的深度。</div>
+<div class='ff-hint'>&#x1F449; 点击翻转查看详细步骤</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>五蕴写作法 · 详细步骤</div>
+<div class='fb-step'><span class='fb-step-title'>色——写外观</span><br>描摹事物外在形态、颜色、状态。不只是'看'，而是'看见'。</div>
+<div class='fb-step'><span class='fb-step-title'>受——写感受</span><br>抒发看到/接触事物后的内心感触、情绪体验。</div>
+<div class='fb-step'><span class='fb-step-title'>想——写联想</span><br>由眼前事物联想到人、事、回忆。这是最关键的一步——从'物'跳到'人'。</div>
+<div class='fb-step'><span class='fb-step-title'>行——写行动</span><br>由感受和联想触发的具体行为。广东阅卷最看重'行动'。</div>
+<div class='fb-step'><span class='fb-step-title'>识——写思想</span><br>升华主旨，提炼感悟。将前四蕴凝结成一句有分量的感悟。</div>
+<div class='fb-example'>示范（写木棉）：色——红花如火焰/受——心中涌起激动/想——想起爷爷的勋章/行——拾起落花夹进课本/识——真正的勇敢是明知凋零依然盛放</div>
+<div class='fb-hint'>&#x1F449; 再次点击返回</div>
+</div>
+</div>
+
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>&#x1F9E9;</div>
+<div class='ff-title'>公式二：534议论文结构</div>
+<div class='ff-subtitle'>5段 · 3论点 · 4步骤</div>
+<div class='ff-brief'>5段=开头段(观点)+3个主体段(分论点+论据)+结尾段(总结升华)；4步骤=提出→分层→举例→总结。</div>
+<div class='ff-hint'>&#x1F449; 点击翻转查看详细步骤</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>534议论文结构 · 详细步骤</div>
+<div class='fb-step'><span class='fb-step-title'>第1段·开头（提出观点）</span><br>一句话亮明中心论点，简洁有力，不绕弯子。</div>
+<div class='fb-step'><span class='fb-step-title'>第2段·主体一（分论点1+论据）</span><br>第一个分论点+一个具体事例。如：坚持让人突破极限（苏炳添）。</div>
+<div class='fb-step'><span class='fb-step-title'>第3段·主体二（分论点2+论据）</span><br>第二个分论点+另一个事例。如：坚持让人穿越黑暗（屠呦呦）。</div>
+<div class='fb-step'><span class='fb-step-title'>第4段·主体三（分论点3+论据）</span><br>第三个分论点+第三个事例。如：坚持让人守护初心（詹天佑）。</div>
+<div class='fb-step'><span class='fb-step-title'>第5段·结尾（总结升华）</span><br>总结全文，升华到人生态度。可用金镶玉法镶嵌金句。</div>
+<div class='fb-example'>4步骤：提出观点（第1段）→分层论证（第2-4段每段一个分论点）→举例支撑（每段配事例）→总结升华（第5段）。结构一目了然，阅卷老师30秒抓住脉络。</div>
+<div class='fb-hint'>&#x1F449; 再次点击返回</div>
+</div>
+</div>
+
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>&#x1F354;</div>
+<div class='ff-title'>公式三：双层汉堡段落法</div>
+<div class='ff-subtitle'>面包-肉饼-芝士-黄瓜-面包</div>
+<div class='ff-brief'>把一个议论文段落比作汉堡：主题句点题+两个论点事例+两个分析+金句+收尾回扣。</div>
+<div class='ff-hint'>&#x1F449; 点击翻转查看详细步骤</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>双层汉堡段落法 · 详细步骤</div>
+<div class='fb-step'><span class='fb-step-title'>顶层面包：主题句点题</span><br>一句话亮明本段核心观点。</div>
+<div class='fb-step'><span class='fb-step-title'>第一层肉饼：第一个论点/事例</span><br>用具体事实支撑观点。</div>
+<div class='fb-step'><span class='fb-step-title'>第一层芝士：第一个分析解释</span><br>分析事例如何支撑观点。</div>
+<div class='fb-step'><span class='fb-step-title'>第二层肉饼：第二个论点/事例</span><br>换一个角度或事例。</div>
+<div class='fb-step'><span class='fb-step-title'>第二层芝士：第二个分析解释</span><br>分析第二个事例。</div>
+<div class='fb-step'><span class='fb-step-title'>酸黄瓜：举例论证（金句）</span><br>用名言或数据增加说服力，'酸'是点睛之笔。</div>
+<div class='fb-step'><span class='fb-step-title'>底层面包：收尾回扣</span><br>总结本段，呼应主题句。</div>
+<div class='fb-example'>示范（主题：阅读让人成长）：面包：阅读是成长最忠实的朋友/肉饼1：读《钢铁是怎样炼成的》/芝士1：生命的意义在于厚度/肉饼2：读《老人与海》/芝士2：真正的胜利是永不放弃/酸黄瓜：'腹有诗书气自华'/面包：翻开一本书，灵魂开始成长</div>
+<div class='fb-hint'>&#x1F449; 再次点击返回</div>
+</div>
+</div>
+
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>&#x1F501;</div>
+<div class='ff-title'>公式四：一例多吃法</div>
+<div class='ff-subtitle'>同一素材 · 3个角度</div>
+<div class='ff-brief'>同一个素材从不同角度解读，适配不同主题。考前准备3-5个万能素材，每个想好3个角度。</div>
+<div class='ff-hint'>&#x1F449; 点击翻转查看详细步骤</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>一例多吃法 · 详细步骤</div>
+<div class='fb-step'><span class='fb-step-title'>第一步：选万能素材</span><br>选择内涵丰富、可多角度解读的素材。推荐：苏炳添、外婆煲汤、永庆坊活化。</div>
+<div class='fb-step'><span class='fb-step-title'>第二步：想3个角度</span><br>每个素材至少想好3个不同主题的切入角度。</div>
+<div class='fb-step'><span class='fb-step-title'>第三步：写出每个角度的核心句</span><br>用一句话概括每个角度的立意方向。</div>
+<div class='fb-step'><span class='fb-step-title'>第四步：考场灵活调用</span><br>看到题目后，快速匹配最适合的角度，不用临时编素材。</div>
+<div class='fb-example'>示范（素材：苏炳添9秒83）<br>角度一·坚持：32岁仍训练，坚持改写不可能<br>角度二·突破：击碎'亚洲人跑不进10秒'的偏见<br>角度三·自信：湾区儿子在世界舞台展现中国自信</div>
+<div class='fb-hint'>&#x1F449; 再次点击返回</div>
+</div>
+</div>
+
+<div class='formula-card' onclick='flipCard(this)'>
+<div class='formula-front'>
+<div class='ff-icon'>&#x1F4D6;</div>
+<div class='ff-title'>公式五：万能十句古诗词</div>
+<div class='ff-subtitle'>10个场景 · 10句诗</div>
+<div class='ff-brief'>覆盖作文最常见的十个场景：写景、喜悦、感悟、怀古、山河、离别、自省、壮志、风情、升华。</div>
+<div class='ff-hint'>&#x1F449; 点击翻转查看详细步骤</div>
+</div>
+<div class='formula-back'>
+<div class='fb-title'>万能十句古诗词 · 场景对照</div>
+<div class='fb-step'><span class='fb-step-title'>1. 开篇写景</span><br>万里江山凝秀色，五彩云霞映九宫。</div>
+<div class='fb-step'><span class='fb-step-title'>2. 抒发喜悦</span><br>春风得意马蹄疾，一日看尽长安花。</div>
+<div class='fb-step'><span class='fb-step-title'>3. 感悟人生</span><br>九死南荒吾不恨，兹游奇绝冠平生。</div>
+<div class='fb-step'><span class='fb-step-title'>4. 怀古抒怀</span><br>淮水东边旧时月，夜深还过女墙来。</div>
+<div class='fb-step'><span class='fb-step-title'>5. 赞美山河</span><br>岱宗夫如何？齐鲁青未了。</div>
+<div class='fb-step'><span class='fb-step-title'>6. 离别思念</span><br>何当共剪西窗烛，却话巴山夜雨时。</div>
+<div class='fb-step'><span class='fb-step-title'>7. 警示自省</span><br>山外青山楼外楼，西湖歌舞几时休。</div>
+<div class='fb-step'><span class='fb-step-title'>8. 胸怀壮志</span><br>两河锁钥无双地，万里长城第一关。</div>
+<div class='fb-step'><span class='fb-step-title'>9. 地域风情</span><br>楚汉三相接，荆门九派通。</div>
+<div class='fb-step'><span class='fb-step-title'>10. 收尾升华</span><br>桐花万里丹山路，雏凤清于老凤声。</div>
+<div class='fb-example'>用法提醒：金句要'镶嵌'得自然，不能生硬堆砌。一篇文章用2-3处即可，多了反而显刻意。</div>
+<div class='fb-hint'>&#x1F449; 再次点击返回</div>
+</div>
+</div>
+</div>
+
+<div class='card card-green' style='margin-top:16px;'>
+<h3><span class='icon'>&#x1F4A1;</span>教研写作方法论运用总攻略</h3>
+<p style='font-size:14px;color:#4a5568;margin-bottom:14px;line-height:1.8;'>五大公式不是孤立的，而是可以组合使用的'写作武器库'。下面是不同文体和场景的推荐组合：</p>
+<div class='method-green'>
+<div class='method-title'>记叙文推荐组合</div>
+<p>五蕴写作法（写景状物）+ 无敌四招（设置波澜）+ 绝杀三线（立体叙事）+ 特写镜头/慢移镜头（细节描写）</p>
+<div class='example'>写作流程：先用五蕴法搭建核心场景的'色受想行识'链条，再用无敌四招在关键节点设置悬念或反转，用绝杀三线让明线（事件）、暗线（情感）、辅线（环境）交织推进，关键时刻用特写镜头放大细节。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>议论文推荐组合</div>
+<p>534结构法（整体框架）+ 双层汉堡段落法（每个主体段）+ 金镶玉法（镶嵌金句）+ 万能十句古诗词（引用素材）</p>
+<div class='example'>写作流程：先用534结构法搭好5段3论点的骨架，每个主体段用双层汉堡法写出'面包-肉饼-芝士-黄瓜-面包'的完整段落，在关键处用金镶玉法镶嵌1-2句名言诗词（可从万能十句中选取），让文章既有骨架又有文采。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>材料作文/读写融合推荐组合</div>
+<p>万花筒立意法（审题选角度）+ 一例多吃法（素材准备）+ 五蕴法/534结构法（根据文体展开）+ 金镶玉法（收尾升华）</p>
+<div class='example'>写作流程：先用万花筒立意法从材料中旋转出3-4个角度，选最独特的；再用一例多吃法快速匹配准备好的万能素材；根据文体选择五蕴法（记叙文）或534结构法（议论文）展开；最后用金镶玉法收尾升华。</div>
+</div>
+<div class='method-green'>
+<div class='method-title'>考场速用口诀</div>
+<p>审题用万花筒，选材用一例多吃；写景用五蕴法，叙事用无敌四招；议论用534，段落用双层汉堡；语言用偷天换日，收尾用金镶玉。考前背熟这八句口诀，考场上自然调用。</p>
+</div>
+<div class='method-green'>
+<div class='method-title'>广东阅卷加分秘籍</div>
+<p>① 五蕴法的'行'——确保有行动线，不只感悟（满足'三爱'之主角意识）；② 选用广州/湾区素材——老火靓汤、骑楼、醒狮、木棉（满足'三爱'之湾区气质）；③ 写劳动实践——学做肠粉、学煲汤、社区服务（满足'三爱'之劳动实践）；④ 用万能十句中的诗词收尾——尤其是'桐花万里丹山路，雏凤清于老凤声'（传承超越，最契合中考主题）；⑤ 避免十大避坑清单中的任何一项。</p>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+var essays = [
+{
+title: '那一刻，我长大了',
+source: '原创范文',
+type: '记叙文',
+grade: '初一',
+category: '成长感悟类',
+score: 46,
+highlights: ['巧用心理描写', '细节生动', '立意升华自然'],
+body: '那天，妈妈生病了。\n\n我端着一碗白粥走进房间，妈妈靠在床头，脸色苍白。她看见我，勉强挤出一丝笑容：\'我自己来就好。\'我没有说话，只是小心地把粥放在床头柜上，用勺子舀起一口，轻轻吹了吹，送到她嘴边。\n\n妈妈愣了一下，眼眶突然红了。她低头喝了一口粥，声音有些发颤：\'什么时候学会照顾人了？\'\n\n我不知道该怎么回答。那一刻，我忽然想起小时候生病，妈妈也是这样一勺一勺地喂我。原来，照顾与被照顾之间的距离，就是一个长大的转身。\n\n窗外，广州的阳光透过木棉花的枝桠洒进来，暖暖的。我忽然觉得，自己好像真的不一样了。',
+analysis: '本文选取日常生活中的小事——照顾生病的妈妈，通过细腻的动作描写和心理刻画，自然地完成了\'长大\'这一主题的升华。',
+yqhPoints: '运用了五蕴法的\'行\'——由感受触发了具体行动（端粥、吹凉、喂妈妈）；运用了特写镜头法——聚焦\'用勺子舀起一口，轻轻吹了吹\'这个关键瞬间放大；结尾\'照顾与被照顾之间的距离，就是一个长大的转身\'体现了立意升华三步法（事→情→理）。'
+},
+{
+title: '我的广州故事',
+source: '原创范文',
+type: '记叙文',
+grade: '初一',
+category: '广州生活类',
+score: 45,
+highlights: ['广州元素丰富', '五感描写细腻', '首尾呼应'],
+body: '清晨六点，骑楼下已经飘来了肠粉的米香。\n\n我背着书包，穿过老街的石板路，空气里混着鸡蛋花的甜香和早餐铺的烟火气。\'靓仔，要乜肠粉啊？\'阿叔一边刷油一边问我。\'叉烧肠，加蛋！\'我熟练地用广州话应道。\n\n这条街我走了三年。路过的骑楼老了，墙壁上的灰塑斑驳了，可阿叔的肠粉味道从未变过。下雨天，骑楼的走廊替我遮风挡雨；放学后，便利店的阿姨总会多给我一颗糖。这些细碎的温暖，构成了我关于广州最深的记忆。\n\n珠江的水还在流，我的广州故事也还在继续。每一个清晨的肠粉香里，都藏着这座城市给我的爱。',
+analysis: '本文以日常上学路上的场景切入，运用五感描写营造浓厚的广州生活气息。粤语对话自然贴切，骑楼、灰塑等岭南元素增添了地域特色。',
+yqhPoints: '运用了五蕴法的\'色\'和\'受\'——色（米香、鸡蛋花香、烟火气）到受（细碎的温暖涌上心头）；运用了声东击西法——表面写上学路上的美食和街景，实际暗示广州这座城市给予\'我\'的爱与归属感；符合广东阅卷\'三爱\'中的湾区气质。'
+},
+{
+title: '这就是广州味道',
+source: '原创范文',
+type: '记叙文',
+grade: '初二',
+category: '美食文化类',
+score: 47,
+highlights: ['以小见大', '对比手法', '语言生动'],
+body: '外婆常说：\'食在广州，味在人心。\'\n\n小时候我不懂。外婆做的煲仔饭，不就是米饭加腊味嘛，有什么稀奇？直到那年在北京待了一个月，吃了各种精致的饭菜，心里却总惦记着外婆那锅滋滋作响的煲仔饭。\n\n回到广州的那天，外婆已经煲好了饭。砂锅盖一揭开，热气扑面而来，米饭油亮亮的，腊味的汁水渗透每一粒米，锅底那层金黄的锅巴嘎嘣脆。我一口气吃了三碗。\n\n外婆笑着说：\'知道挂住啦？\'我使劲点头，眼泪差点掉进碗里。\n\n原来，广州味道不只是味蕾上的鲜香，更是一个人用漫长的时光守在灶台前，只为等你回家。最深的味道，从来都不是舌尖上的，而是心里的。',
+analysis: '本文采用欲扬先抑的手法，先写不理解煲仔饭的珍贵，再通过\'离开后思念\'形成反转。对外婆煲仔饭的描写调动了视觉、嗅觉、味觉和听觉，生动传神。',
+yqhPoints: '运用了无敌四招中的\'制造冲突\'（不理解→离开后思念）和\'营造反转\'（从嫌弃到珍惜）；运用了五蕴法完整链条——色（砂锅盖揭开热气扑面）→受（一口气吃三碗的满足）→想（想起外婆守在灶台的时光）→识（最深的味道在心里）；符合广东阅卷\'三爱\'中的主角意识（\'我一口气吃了三碗\'是行动）。'
+},
+{
+title: '木棉花开',
+source: '原创范文',
+type: '记叙文/散文',
+grade: '初二',
+category: '借物抒情类',
+score: 48,
+highlights: ['借物抒情', '语言优美', '立意深刻'],
+body: '三月，木棉开了。\n\n没有绿叶的衬托，没有蜂蝶的围绕，木棉就那样孤傲地开在枝头，红得炽烈，红得决绝，像一把把燃烧的火炬照亮了整条街。\n\n我站在树下仰望，忽然一阵风来，一朵木棉笔直坠落，砰的一声砸在地上，却不萎缩、不凋零，依然鲜红如初。那一刻，我忽然明白了为什么广州人叫它\'英雄花\'——不是因为它的美丽，而是因为它的刚烈。它活着就要开到最盛，凋落也要保持壮美。\n\n我想起爷爷说过的话：\'做人就要像木棉，挺直腰板，活出精气神。\'那年他查出重病，却从不怨天尤人，依然每天早起去公园打太极，笑呵呵地和街坊打招呼。\n\n木棉花又开了。我仰头看着那一树红花，心里默默地说：爷爷，我会像您一样，像这木棉一样，活得刚烈，活得坦荡。',
+analysis: '本文以木棉花为线索，借物写人、借物抒情，将木棉的刚烈与爷爷的坚韧品质巧妙融合。\'砰的一声坠落，却不萎缩\'这一细节描写极具力量感。',
+yqhPoints: '完美运用了五蕴写作法全链条——色（红花如火炬）→受（仰望时心中涌起激动）→想（想起爷爷的话和爷爷的坚强）→行（仰头看着红花，默默立誓）→识（真正的勇敢是明知凋零依然盛放）；运用了特写镜头法——聚焦\'砰的一声坠落\'这个瞬间；运用了慢移镜头法——由远景（整条街的木棉）到近景（一朵坠落的木棉）到特写（不萎缩的花瓣）到升华（爷爷的精神）。'
+},
+{
+title: '粤剧之美',
+source: '原创范文',
+type: '说明文',
+grade: '初二',
+category: '广州非遗文化',
+score: 44,
+highlights: ['说明方法多样', '条理清晰', '文化内涵丰富'],
+body: '粤剧，被誉为\'南国红豆\'，是岭南文化的瑰宝，2009年入选联合国教科文组织人类非物质文化遗产代表作名录。\n\n粤剧之美，美在唱腔。它以梆子、二黄为基本声腔，融合了广东民间音乐，唱来婉转悠扬、韵味悠长。一句\'落花满天蔽月光\'，足以让人沉醉半日。\n\n粤剧之美，美在表演。一桌二椅，便可演绎千军万马；一根马鞭，便能策马奔腾。演员的水袖一甩，身段一转，喜怒哀乐尽在举手投足间。这种写意式的表演，是中国戏曲独有的美学。\n\n粤剧之美，更美在精神。它从农村草台到都市舞台，从传统剧目到创新改编，始终保持着旺盛的生命力。如今，粤剧走进校园，越来越多年轻人开始了解并爱上这门古老的艺术。\n\n粤剧，不只是戏台上的表演，更是广州人血液里的文化基因。',
+analysis: '本文采用逻辑顺序，从唱腔、表演、精神三个层面说明粤剧之美，条理清晰。运用了打比方、举例子、作比较等说明方法。语言兼顾准确性与文学性。',
+yqhPoints: '运用了珍珠项链法——以\'粤剧之美\'为线，串起三颗珍珠（唱腔之美、表演之美、精神之美），每颗珍珠用不同说明方法打磨（打比方\'南国红豆\'、举例子\'落花满天蔽月光\'、作比较\'写意与写实\'）；运用了并列结构——三个\'粤剧之美，美在……\'并列展开，层次分明。'
+},
+{
+title: '这也是一种力量',
+source: '原创范文',
+type: '记叙文',
+grade: '初三',
+category: '哲理感悟类',
+score: 47,
+highlights: ['立意新颖', '对比鲜明', '以小见大'],
+body: '人们总说，力量是震天动地的呐喊，是一往无前的冲刺。可我渐渐发现，沉默，也是一种力量。\n\n初三开学，我的成绩跌到了班级倒数。同学们的目光、老师的叹气、父母的沉默，像三座大山压得我喘不过气。我无数次想大声反驳，想摔门而去，但最终什么都没说。\n\n我只是每天早起半小时，在台灯下多做一道题；课间不再嬉闹，而是追着老师问不懂的地方；晚自习后，在宿舍被窝里再背十个单词。没有人注意到我的改变，我也不需要谁注意到。\n\n期中考试，我进步了二十名。班主任在班会上念到我的名字时，我没有激动，只是平静地低下了头。那一刻我终于明白——真正的力量，不需要呐喊，不需要证明，它藏在日复一日的坚持里，藏在默默无闻的付出中。\n\n沉默，也是一种力量。一种不动声色却足以改变一切的力量。',
+analysis: '本文立意新颖，从\'沉默也是一种力量\'这一反常规视角切入，以初三学习困境为素材，通过\'不说话，只做事\'的行为描写展现内在力量。',
+yqhPoints: '运用了倒骑驴立意法——所有人都说\'力量是呐喊和冲刺\'，逆向思考\'沉默也是力量\'；运用了绝杀三线——明线（成绩进步的过程）+暗线（从压抑到平静的心理变化）+辅线（无声的台灯、被窝等安静环境烘托）；完美符合广东阅卷\'三爱\'——主角意识（\'我只是每天早起半小时\'是行动）、真实成长（写真实的初三经历）。'
+},
+{
+title: '坚持的力量',
+source: '原创范文',
+type: '议论文',
+grade: '初三',
+category: '广州中考真题风格',
+score: 46,
+highlights: ['论点鲜明', '论据充实', '论证有力'],
+body: '坚持，是通往成功的必由之路。\n\n古语有云：\'锲而不舍，金石可镂。\'坚持，能让平凡的人做出不平凡的事。詹天佑顶着外国人的嘲笑，坚持自主设计京张铁路，最终让世界对中国工程师刮目相看；苏炳添32岁仍坚持高强度训练，在东京奥运会上跑出9秒83，成为首位闯入奥运百米决赛的亚洲人。无数事实证明，坚持的力量不可小觑。\n\n然而，坚持并非易事。它意味着在无人喝彩时继续前行，在无数次失败后依然站起。正如屠呦呦经历了190次失败，才在第191次实验中发现了青蒿素。如果她在第190次放弃，世界将失去一种拯救百万生命的良药。\n\n坚持的力量，不在于一时的爆发，而在于长久的积累。它是一种信念，一种选择，一种在黑暗中依然相信光明的人生态度。\n\n让我们以坚持为桨，在人生的长河中乘风破浪，抵达理想的彼岸。',
+analysis: '本文论点鲜明，开篇即亮明观点。运用了举例论证和道理论证，论据充实。第3段从反面论证坚持的不易，增加了论证的深度。',
+yqhPoints: '完美运用了534结构法——第1段提出观点（坚持是必由之路），第2-4段三个分论点（坚持让平凡变不平凡/坚持需要穿越失败/坚持在于长久积累），第5段总结升华；运用了金镶玉法——\'锲而不舍，金石可镂\'镶嵌在论述中，自然有力；论据选取了詹天佑、苏炳添（湾区气质）、屠呦呦，符合广东阅卷偏好。'
+},
+{
+title: '珠江夜色',
+source: '原创范文',
+type: '记叙文',
+grade: '初三',
+category: '广州地标类',
+score: 45,
+highlights: ['五感描写', '情景交融', '首尾呼应'],
+body: '夜幕降临，珠江两岸灯火次第亮起，我站在海心桥上，看这座城市的另一面。\n\n广州塔变换着色彩，赤橙黄绿，像一位换装起舞的少女；对岸的利通大厦灯光流转，倒映在珠江里，碎成满河星光。江风裹着水汽拂过脸庞，带着一丝咸湿的温柔。远处传来游船的汽笛声，悠长而安宁。\n\n我忽然想起小时候，爷爷牵着我的手在这条江边散步。他说：\'珠江啊，看遍了广州几千年的起起落落。\'那时我不懂，只顾着数江面上闪烁的灯光。如今站在这里，我终于有些明白了——这条江，见证了秦汉的南海郡治，唐宋的蕃坊商港，近代的革命风潮，以及今天的繁华似锦。它不急不缓地流着，像广州人的性格：沉稳、包容、不张扬。\n\n珠江的夜色真美。而我更爱的，是这夜色下流淌的时光与故事。',
+analysis: '本文以珠江夜景为背景，运用五感描写营造沉浸式体验。从写景自然过渡到回忆与感悟，情景交融。将珠江的\'不急不缓\'与广州人的性格关联，以物喻人。',
+yqhPoints: '运用了五蕴法——色（灯火色彩、倒映星光）→受（咸湿的温柔拂过脸庞）→想（想起爷爷的话和珠江的历史）→识（像广州人的性格：沉稳、包容、不张扬）；运用了女娲造人法——\'广州塔像一位换装起舞的少女\'赋予建筑以生命；运用了慢移镜头法——由远景（两岸灯火）到近景（江风拂面）到回忆（爷爷的话）到升华（广州人的性格）。'
+},
+{
+title: '给多吉的一封信',
+source: '2026广州中考真题范文',
+type: '书信体·材料作文',
+grade: '初三',
+category: '2026中考真题',
+score: 48,
+highlights: ['书信格式规范', '读写融合紧密', '真实成长感悟'],
+body: '亲爱的多吉：\n\n你好！\n\n读完你的故事，我的心里像是被一束微光照亮了。在海拔四千多米的高原上，你用体温孵着那颗小小的鹤蛋，等待一个小生命的到来。那一刻，我想起了自己生命中那些微小却闪光的坚守。\n\n去年暑假，我跟奶奶学煲汤。第一次煲出来的汤寡淡无味，我沮丧地想放弃。奶奶却说：\'急唔嚟，慢慢嚟。\'于是，我每天清晨五点起床，跟着奶奶去市场选食材，回来后守在灶台前，看着火苗舔舐砂锅底部，一守就是四个小时。\n\n一周后，我煲出的汤终于有了奶奶说的\'家的味道\'。那碗汤端上桌时，爸爸喝了一口，愣了几秒，然后笑着说：\'后生仔，有进步啊！\'\n\n多吉，你孵的是鹤蛋，我煲的是老火汤，看起来毫不相干。可我发现，我们做的是同一件事——用耐心和坚持，守护一个微小的希望，直到它破壳而出。\n\n小黑颈鹤破壳的那一刻，一定很美吧？就像我第一次煲出好汤时的那种惊喜。奶奶的呵护、你的坚守、小鹤的破壳——这三个画面叠在一起，让我明白了一个道理：成长，不一定惊天动地。有时候，它就是安安静静地守在灶台前、守在鹤蛋旁，等一个微小的奇迹发生。\n\n谢谢你，多吉。是你让我知道，微小的坚守，也能孵出光来。\n\n祝\n万事如意！\n\n你的广州朋友\n2026年6月',
+analysis: '本文紧扣2026年广州中考真题要求，采用书信体格式（称呼、正文、祝语、署名、日期齐全），围绕材料中三个触发点（小黑颈鹤破壳、奶奶呵护、多吉孵光）展开。将多吉孵蛋与\'我\'学煲汤进行类比，体现读写融合。立意落在\'微小的坚守也能孵出光\'，切合\'真实成长\'命题方向。',
+yqhPoints: '运用了万花筒立意法——从材料中提取\'破壳（突破成长）\'\'呵护（温情治愈）\'\'孵光（微小坚守）\'三个角度，最终选择\'微小坚守\'这个最独特的角度立意；运用了五蕴法——色（火苗舔舐砂锅）→受（沮丧到惊喜的情绪变化）→想（从煲汤联想到多吉孵蛋）→行（每天五点起床守灶台）→识（微小的坚守也能孵出光）；完美符合广东阅卷\'三爱\'——主角意识（写\'我\'学煲汤的行动）、劳动实践（跟奶奶学煲汤）、湾区气质（广州老火靓汤）。'
+},
+{
+title: '那束光，照进了我心里',
+source: '原创范文',
+type: '记叙文',
+grade: '初三',
+category: '成长感悟类',
+score: 46,
+highlights: ['情感真挚', '细节动人', '立意升华自然'],
+body: '初三那年，我迷上了书法。\n\n起因很简单——爷爷留下一支旧毛笔和一本泛黄的字帖。妈妈说，爷爷写了一辈子的字，哪怕后来眼睛看不清了，每天也要摸着笔写几行。\n\n我开始临帖。可书法远没有我想象中那么浪漫。横不平、竖不直，写出来的字歪歪扭扭，像喝醉了酒的蚯蚓。我气得把笔一摔：\'不写了！\'\n\n那天晚上，我翻开了爷爷的字帖。最后一页，有一行小字，是爷爷颤抖着手写的：\'慢慢来，不急。一笔一画，皆是修行。\'\n\n我的眼泪突然就掉了下来。\n\n从那天起，我重新拿起笔。每天写一百个字，不多不少。横要平，竖要直，每一笔都要呼吸均匀、心无旁骛。写累的时候，就看看窗外的木棉树——它也不急，慢慢长，每年春天准时开花。\n\n三个月后，我的字终于有了些许章法。语文老师看了，说：\'有进步，有筋骨了。\'我笑了，心想：哪有什么天赋，不过是每天一百个字的笨功夫。\n\n如今，那支旧毛笔已经被我握得光滑发亮。每当我心浮气躁的时候，就写几个字，心就静下来了。爷爷说得对，一笔一画，皆是修行。而那束照进我心里的光，不是天才的灵光，是日复一日坚持的温度。',
+analysis: '本文以学书法为线索，通过爷爷留下的字帖和遗言作为转折点，将\'坚持\'与\'传承\'两个主题自然融合。\'慢慢来，不急\'这句话既是爷爷的教诲，也是文章的情感核心。',
+yqhPoints: '运用了无敌四招中的\'设置悬念\'（爷爷的旧毛笔和字帖引发好奇）和\'留有余味\'（结尾\'那束光...是日复一日坚持的温度\'）；运用了放大镜立意法——聚焦\'一支旧毛笔\'和\'一行小字\'这两个微小细节，放大深挖出传承与坚持的主题；运用了绝杀三线——明线（学书法的过程）+暗线（从急躁到平静的心理变化）+辅线（窗外的木棉树\'也不急，慢慢长\'环境烘托）；运用了金镶玉法——爷爷的\'一笔一画，皆是修行\'镶嵌在叙事中，既是情节又是金句。'
+},
+{
+title: '慢，也是一种智慧',
+source: '原创范文',
+type: '议论文',
+grade: '初三',
+category: '哲理思辨类',
+score: 47,
+highlights: ['立意新颖', '论证充分', '语言有文采'],
+body: '在这个人人追求快的时代，我却想说：慢，也是一种智慧。\n\n快，当然有快的好处。高铁缩短了城市的距离，外卖省去了做饭的时间，AI一秒生成千字文章。可是，当一切都快起来的时候，我们是不是丢掉了什么？\n\n慢，是匠人的坚守。广州陈家祠的灰塑，匠人用小刀一刀一刀地雕，一件作品往往要数月才能完成。如果用机器压制，一天能做几十件，可那还叫灰塑吗？正是那些\'慢\'出来的纹路，才有了机器无法复制的温度。\n\n慢，是成长的节奏。煲一锅老火靓汤要四个小时，急不得；学一门手艺要数年，快不来。广州人说\'慢工出细活\'，不是偷懒，是懂得有些东西必须用时间去酿造。\n\n慢，更是生活的态度。\'九死南荒吾不恨，兹游奇绝冠平生。\'苏轼被贬海南，走得很慢，却把沿途的风景看成了人生最奇绝的旅行。如果他也追求\'快\'，恐怕就写不出那些传世诗篇了。\n\n我不是说快不好，而是说，该快的时候快，该慢的时候慢，才是真正的智慧。正如煲汤——大火烧开是快，小火慢炖是慢，缺了哪一步，汤都不够味。\n\n所以，偶尔放慢脚步吧。你会发现，那些被速度忽略的风景，才是人生最好的味道。',
+analysis: '本文立意新颖，运用逆向思维为\'慢\'正名。论证层次分明，从匠人、成长、生活三个维度展开，既有事例论证又有道理论证。',
+yqhPoints: '运用了倒骑驴立意法——所有人都追求\'快\'，逆向提出\'慢也是智慧\'；运用了534结构法——第1段提出观点，第2-5段四个分论点（快的反思/慢是匠人坚守/慢是成长节奏/慢是生活态度），第6-7段总结升华；运用了金镶玉法——镶嵌苏轼\'九死南荒吾不恨，兹游奇绝冠平生\'（教研写作万能十句之感悟人生），自然贴切；论据选用陈家祠灰塑、老火靓汤，体现湾区气质，符合广东阅卷偏好。'
+},
+{
+title: '外婆的煲汤课',
+source: '原创范文',
+type: '记叙文',
+grade: '初二',
+category: '亲情成长类',
+score: 47,
+highlights: ['五蕴法运用完整', '细节动人', '立意升华自然'],
+body: '外婆煲汤，从来不说秘诀。\n\n我只知道她每天清晨五点就出门了，挎着竹篮去市场。她挑食材有讲究：猪骨要带髓的，莲藕要粉的，红枣要小颗的。我问她为什么，她说：\'大颗的看着好看，小颗的才甜。\'\n\n回来后，她把食材洗净，放进砂锅，加满水，大火烧开。等水咕嘟咕嘟冒泡了，她就把火拧到最小，盖上盖子，然后坐在灶台旁的小板凳上，开始等。\n\n这一等，就是四个小时。\n\n我曾经试图帮她看火，可每次不是火大了就是水少了。外婆笑着把我赶到一边：\'煲汤急唔嚟。火大了，汤就浊了；火小了，味就淡了。要刚刚好。\'\n\n我蹲在外婆身边，看她守着那口砂锅。灶台的火光映在她布满皱纹的脸上，她的眼睛微微眯着，嘴角带着浅浅的笑。那一刻，我忽然觉得，她煲的不只是汤——她在用四个小时的时间，把对家人的爱一点一点地熬进去。\n\n汤端上桌，爸爸喝了一口，什么也没说，只是又盛了一碗。妈妈笑着说：\'姆妈煲的汤，就是好饮。\'外婆摆摆手：\'冇咩特别，就是花了点时间。\'\n\n\'花了点时间。\'这四个字，轻飘飘的，可我知道它有多重。那是外婆每天少睡两个小时的坚持，是几十年如一日的用心，是把最朴素的爱熬成最浓的汤。\n\n后来，我也学会了煲汤。第一次煲出来的汤，外婆尝了一口，点点头说：\'有七分味道了。\'我问：\'还差三分呢？\'她笑了：\'差的是时间。\'\n\n我懂了。那三分，不是技巧，是岁月。是日复一日守在灶台前的耐心，是对家人不求回报的付出。原来，最好的味道，从来不是食材的堆砌，而是时间的沉淀。\n\n\'桐花万里丹山路，雏凤清于老凤声。\'外婆，总有一天，我煲的汤会像您的一样好喝。但我知道，无论我煲得多好，那锅汤里永远有一样东西是学不来的——那就是您给这个家的爱。',
+analysis: '本文以学煲汤为线索，将亲情、匠心、成长三个主题自然融合。对外婆煲汤过程的描写细腻生动，从选材、看火到等待，每一步都有细节。结尾以教研写作万能十句之\'桐花万里丹山路，雏凤清于老凤声\'收尾，表达传承与超越，文采斐然。',
+yqhPoints: '完美运用五蕴写作法全链条——色（灶台火光映在皱纹上）→受（忽然觉得她在用时间熬爱）→想（想起外婆每天少睡两小时的坚持）→行（我也学会了煲汤）→识（最好的味道是时间的沉淀）；运用了特写镜头法——聚焦\'灶台火光映在布满皱纹的脸上\'这个瞬间；运用了金镶玉法——结尾镶嵌\'桐花万里丹山路，雏凤清于老凤声\'（收尾升华）；完美符合广东阅卷三爱——主角意识（我学煲汤的行动）、劳动实践（煲汤过程）、湾区气质（广州老火靓汤、粤语对话）。'
+},
+{
+title: '骑楼下的时光',
+source: '原创范文',
+type: '记叙文',
+grade: '初一',
+category: '城市记忆类',
+score: 45,
+highlights: ['广州元素丰富', '对比手法', '情感真挚'],
+body: '小时候，骑楼是我的整个世界。\n\n那时候，爷爷奶奶还住在恩宁路的老骑楼里。楼下是阿叔的肠粉店，隔壁是陈伯的药材铺，转角是林姨的裁缝店。每天放学，我穿过骑楼的长廊，一路走一路打招呼：\'陈伯好！\'\'林姨好！\'\'阿叔，要叉烧肠！\'\n\n骑楼的走廊又长又深，夏天遮阳，雨天挡雨。我最喜欢下雨天，坐在走廊的小板凳上，看雨帘从屋檐垂下来，听雨滴打在石板路上的声音。奶奶会端一碗绿豆沙出来，说：\'食完再做功课。\'\n\n后来，我们搬到了天河的新房子。高楼大厦，电梯入户，窗户关上就听不见外面的声音。我有自己的房间了，可总觉得少了点什么。\n\n再后来，爷爷奶奶也搬了。老骑楼被围起来施工，听说要改造。我路过的时候，透过围挡的缝隙往里看——骑楼还在，只是静悄悄的，像一个睡着的人。\n\n直到去年，永庆坊重新开放了。我带着奶奶去逛，骑楼的走廊还是那么长，灰塑还是那么精致，只是楼下换成了咖啡馆和文创店。奶奶走得很慢，摸着廊柱说：\'变靓了。\'\n\n我看着奶奶的背影，忽然明白了我少了什么——不是新房子不够好，而是骑楼下的那种人情味，那种整条街都认识你、你也认识整条街的温暖，搬不进高楼里。\n\n骑楼还在，只是故事换了主角。而我关于骑楼的记忆，会一直留在心里，像石板路上的雨痕，干了也看得见。',
+analysis: '本文以骑楼为线索，写城市变迁中的人情味。采用对比结构——老骑楼的热闹与新居的冷清对比，搬迁后的失落与永庆坊重开后的欣慰对比。粤语对话和广州元素自然贴切。',
+yqhPoints: '运用了对比结构——老骑楼的热闹vs新居的安静，搬迁的失落vs重开的欣慰；运用了五蕴法——色（雨帘从屋檐垂下）→受（总觉得少了点什么）→想（想起骑楼下的人情味）→识（人情味搬不进高楼里）；运用了声东击西法——表面写骑楼的变化，实际写人情味的珍贵；符合广东阅卷湾区气质要求。'
+},
+{
+title: '醒狮少年',
+source: '原创范文',
+type: '记叙文',
+grade: '初三',
+category: '非遗传承类',
+score: 48,
+highlights: ['岭南文化元素', '细节描写生动', '立意升华深刻'],
+body: '鼓点骤然炸响，像惊雷滚过祠堂前的广场。\n\n我举起狮头，沉甸甸的竹篾压在肩上，汗水瞬间湿透了背心。师傅说，醒狮讲究"精气神"——眼要有神，步要有劲，尾要活灵活现。可我第一次举狮头，连站稳都难。\n\n"马步！再低！"师傅的竹棍敲在我膝弯上，疼得我龇牙。他说："你连马步都扎不稳，怎么扎出狮子的威风？"\n\n那年我十二岁，觉得醒狮又苦又累，差点放弃。直到春节，我跟着师傅去村里表演。锣鼓一响，我举起狮头，忽然感觉有什么东西从心底涌上来——是血液里的节奏，是骨子里的热血。我跳、我扑、我眨眼、我抖毛，狮子在我手中活了。\n\n人群欢呼的那一刻，我终于明白了师傅的话：醒狮不是表演，是唤醒——唤醒沉睡的勇气，唤醒血脉中的文化记忆。\n\n如今，我已经是队里的主力。每次举起新做的狮头，那股樟木和彩绘的气味扑面而来，我就知道，有些东西不会断。它会在每一次鼓点中复活，在每一个少年的肩膀上传承。\n\n"桐花万里丹山路，雏凤清于老凤声。"师傅老了，可醒狮不会老。',
+analysis: '本文以学醒狮为线索，将非遗传承与少年成长紧密结合。对醒狮动作的描写精准有力，"跳、扑、眨眼、抖毛"等动词节奏感强。结尾引用教研写作万能十句之"桐花万里丹山路，雏凤清于老凤声"，表达传承与超越，升华自然。',
+yqhPoints: '完美运用五蕴写作法——色（狮头沉甸甸的竹篾压在肩上）→受（有什么东西从心底涌上来）→想（唤醒血脉中的文化记忆）→行（跳、扑、眨眼、抖毛）→识（醒狮不是表演，是唤醒）；运用了特写镜头法——聚焦"竹棍敲在膝弯上"的瞬间；运用了金镶玉法——结尾镶嵌"桐花万里丹山路，雏凤清于老凤声"；符合广东阅卷"三爱"——主角意识（我学醒狮的行动）、劳动实践（醒狮训练过程）、湾区气质（岭南非遗文化）。'
+},
+{
+title: '原来，我也拥有',
+source: '原创范文',
+type: '记叙文',
+grade: '初二',
+category: '成长感悟类',
+score: 46,
+highlights: ['欲扬先抑', '心理描写细腻', '立意自然升华'],
+body: '我一直觉得自己是个"没有"的人。\n\n没有出众的成绩，没有拿得出手的才艺，没有令人羡慕的家庭条件。同桌会弹钢琴，前座会画画，后座拿了全市奥数一等奖。而我，似乎什么都没有。\n\n那天学校组织义卖活动，每个班要摆摊。大家纷纷报名负责设计海报、策划游戏、表演节目，我站在旁边，不知道自己能做什么。\n\n"你帮忙搬东西吧。"班长随口说了一句。\n\n于是那天，我成了一个搬运工。搬桌子、搬椅子、搬水、搬纸箱。来来回回跑了一下午，汗流浃背。可奇怪的是，每搬一趟，心里就踏实一点。\n\n义卖开始后，海报组的海报被风吹倒了，游戏组的道具散了一地，表演组的音响突然没电了——场面一度混乱。而我，不知道为什么，第一时间冲上去扶起海报、捡起道具、跑到后勤处借来备用音箱。一切都收拾好之后，班长拍着我的肩膀说："今天多亏了你。"\n\n那一刻，我愣住了。原来，我拥有的不是聚光灯下的才艺，而是在别人慌乱时，默默把事情做好的踏实。这种"不起眼"的力量，也是拥有。\n\n回家的路上，夕阳把影子拉得很长。我忽然觉得，"没有"也没什么不好。因为"没有"，所以什么都愿意做；因为什么都愿意做，所以什么都拥有了。',
+analysis: '本文采用欲扬先抑手法，先写"我什么都没有"，再通过义卖活动中的"搬运"经历，发现"不起眼的力量也是拥有"。心理变化层次分明，从自卑到踏实再到释然，过渡自然。',
+yqhPoints: '运用了无敌四招中的"制造冲突"（别人的才艺vs我的平凡）和"营造反转"（从"没有"到"拥有"）；运用了五蕴法——色（搬桌椅水纸箱）→受（心里踏实一点）→想（原来不起眼的力量也是拥有）→识（因为"没有"，所以什么都拥有）；运用了声东击西法——表面写搬运东西，实际写发现自己价值的过程。'
+},
+{
+title: '慢，也是一种智慧',
+source: '原创范文',
+type: '议论文',
+grade: '初三',
+category: '思辨类',
+score: 47,
+highlights: ['论证有力', '结构清晰', '金句运用自然'],
+body: '在这个万物追求"快"的时代，我想说：慢，也是一种智慧。\n\n快，固然有快的效率。高铁缩短了城市的距离，外卖节省了做饭的时间，短视频浓缩了信息获取的过程。然而，当一切都在加速时，我们是否丢失了什么？\n\n慢，是对品质的坚守。广州人煲一锅老火靓汤，少则三四个小时，多则大半天。为什么不高压锅二十分钟搞定？因为有些味道，急不来。汤要慢慢熬，米要慢慢煲，精华才能一点一点地渗透出来。煲汤如此，做事亦然。屠呦呦历经数百次实验才提取出青蒿素，不是因为她慢，而是因为她懂得——真正的突破，需要时间的沉淀。\n\n慢，是对内心的修炼。木心说："从前慢，车、马、邮件都慢，一生只够爱一个人。"慢不是懒惰，而是一种从容。在快节奏中保持内心的节奏，不随波逐流，不急功近利，这需要更大的勇气和定力。\n\n慢，是对过程的尊重。我们总是急于到达终点，却忘了沿途的风景。学书法的人知道，一笔一划的练习看似枯燥，但正是这些"慢功夫"塑造了手腕的记忆和心性的沉稳。跳过过程直达结果，得到的是技巧，失去的是境界。\n\n"长风破浪会有时，直挂云帆济沧海。"快与慢不是对立的，而是互补的。该快时快，该慢时慢，才是真正的智慧。愿我们都能在快时代里，找到属于自己的慢节奏。',
+analysis: '本文围绕"慢也是一种智慧"展开论述，分论点清晰——慢是对品质的坚守、对内心的修炼、对过程的尊重。论证方法多样，举例论证（煲汤、屠呦呦、学书法）和引用论证（木心、李白）交替使用，逻辑严密。',
+yqhPoints: '完美运用534结构法——开头段提出观点（慢也是一种智慧），三个主体段分别论证三个分论点（品质/内心/过程），结尾段总结升华；运用了金镶玉法——镶嵌木心名言（"从前慢"）和李白的"长风破浪会有时，直挂云帆济沧海"；运用了双层汉堡法——每个主体段都是"分论点+论据+小结"的完整结构；符合广东阅卷"三爱"——湾区气质（广州煲汤文化）、主角意识（对快时代的独立思考）。'
+},
+{
+title: '书包里的秘密',
+source: '原创范文',
+type: '记叙文',
+grade: '初一',
+category: '亲情类',
+score: 45,
+highlights: ['细节描写', '情感真挚', '以小见大'],
+body: '我的书包很重，但最重的不是课本。\n\n那天整理书包，我在夹层里摸到一个硬硬的东西。掏出来一看，是一盒小小的创可贴，上面贴着一张便利贴，妈妈的字迹："体育课小心别摔跤。"\n\n我愣了一下。这盒创可贴是什么时候放进去的？我完全不知道。\n\n翻着翻着，又摸到一张折叠的纸条。打开，是妈妈写的一段话："今天看你出门时书包带子快断了，放学回来妈妈帮你缝。别忘了喝水。"纸条下面的日期是一个月前——那天我出门太急，根本没注意到书包带子的问题。可妈妈注意到了。\n\n继续翻，在数学课本的封面内侧，发现了一行小字："这道题妈妈也不会，但妈妈相信你能做出来。"我记起来了，那是期中考试前，我趴在桌上对着一道几何题发呆，妈妈走过来看了看，什么也没说就走了。原来她不是不关心，而是不知道怎么帮我，只能悄悄写下一句鼓励。\n\n我把这些东西一一摆在桌上：创可贴、便利贴、纸条、小字。它们那么小、那么轻，藏在书包的各个角落，像妈妈那些不说出口的爱。\n\n原来，我的书包里不只有课本和作业，还有一个人每天偷偷塞进去的牵挂。这些东西加起来，比所有课本都重。\n\n我把创可贴放回夹层，把纸条折好塞进口袋。明天上学，书包依然很重，但我知道，那份重量叫被爱。',
+analysis: '本文以"整理书包"为线索，通过发现妈妈藏在书包里的创可贴、便利贴、纸条等小物件，展现了母爱的细腻与无声。选材角度新颖，以小见大，情感真挚动人。',
+yqhPoints: '运用了五蕴法——色（创可贴、便利贴、纸条、小字）→受（愣了一下）→想（想起妈妈走过来又走开的场景）→识（那份重量叫被爱）；运用了特写镜头法——聚焦"翻开夹层发现创可贴"的瞬间；运用了珍珠项链法——创可贴、便利贴、纸条、小字四颗"珍珠"用"整理书包"的线串起来，每颗珍珠都是独立的小故事；运用了无敌四招中的"设置悬念"（书包里最重的是什么？）和"留有余味"（那份重量叫被爱）。'
+},
+{
+title: '窗外的木棉',
+source: '原创范文',
+type: '散文',
+grade: '初二',
+category: '借物抒情类',
+score: 46,
+highlights: ['语言优美', '意境深远', '结构精巧'],
+body: '教室窗外有一棵木棉树。\n\n春天来的时候，它忽然就红了。没有预告，没有过渡，一夜之间，满树的花像被谁点燃了似的，烧得热烈而壮观。我从窗口望出去，蓝天做底，红花满枝，像一幅浓墨重彩的国画。\n\n上课走神的时候，我就看窗外的木棉。它不管教室里的喧嚣，不理走廊上的打闹，只顾自地开着，开得理直气壮，开得旁若无人。那种不管不顾的姿态，莫名让我心安。\n\n有一天下暴雨，风裹着雨抽打窗玻璃。我担心地望向木棉——花还在。不是残存几朵的那种"还在"，而是依然满树红火、纹丝不动的那种"还在"。雨过天晴，花瓣上挂着水珠，在阳光下闪闪发亮，比晴天时更精神了。\n\n后来花谢了。木棉的凋落和其他花不同，它不是一片一片飘落，而是整朵坠落，砰的一声砸在地上，花形完整，色彩不减。我蹲下来捡起一朵，花瓣厚实饱满，像一小团凝固的火焰。这哪里是凋落？分明是以另一种方式盛放。\n\n我想起语文老师说过的一句话："木棉是英雄花，活着要热烈，凋落也要壮烈。"忽然觉得，这棵窗外的木棉，不只是一种植物，它是一种活法——不等待春天来招呼，自己就是春天；不畏惧暴风雨的洗礼，风雨过后更加鲜艳；不害怕凋落，因为即使坠落，也要保持盛放的姿态。\n\n明年春天，窗外的木棉还会红。而我，也会记得它教给我的：活，就要活得像木棉一样，热烈而坦荡。',
+analysis: '本文以窗外的木棉树为描写对象，运用借物抒情手法，将木棉的盛开、风雨中的坚守、凋落的壮美，与人生哲理巧妙融合。语言优美，意境深远，结构精巧——以时间为线串联四季变化，以感悟为魂贯穿全文。',
+yqhPoints: '完美运用五蕴写作法——色（满树红花像被点燃）→受（莫名让我心安）→想（想起老师说的"英雄花"）→行（蹲下来捡起一朵）→识（不等待春天，自己就是春天）；运用了慢移镜头法——由远景（满树红花）到近景（暴雨中的花）到特写（捡起一朵花瓣）到升华（一种活法）；运用了情景交融法——每个景物的描写都融入了"我"的情感变化；符合广东阅卷湾区气质要求（木棉花是广州市花）。'
+},
+{
+title: '那一刻，我懂得了敬畏',
+source: '原创范文',
+type: '记叙文',
+grade: '初三',
+category: '成长感悟类',
+score: 47,
+highlights: ['立意深刻', '叙事紧凑', '结尾升华有力'],
+body: '暑假回乡下，爷爷带我去山里采草药。\n\n我对采药毫无兴趣，一路走走停停，嫌路远山高、蚊虫多。爷爷不说话，只是走在前面，背着一个旧竹篓，脚步稳而快。\n\n到了半山腰，爷爷停在一棵老松树前，弯腰查看树根处的泥土。他蹲下来，用手轻轻拨开落叶，露出一株不起眼的小草。"看到了吗？这是金银花，开的花能清热解毒。"他小心翼翼地连根带土挖出来，放进竹篓里，又把周围的落叶重新盖好，拍平泥土。\n\n"为什么要盖回去？"我问。\n\n爷爷说："山是有灵的。你取了它的东西，要帮它恢复原样，不能贪，不能破坏。"\n\n我没当回事。后来在一处崖壁边，我发现了一丛漂亮的野花，红艳艳的，开得正好。我伸手就拔，想带回家插花瓶。\n\n"别动！"爷爷的声音突然严厉起来，我吓得缩回手。\n\n"那是长在石缝里的，根扎得很深，你拔了它，这面崖壁就少了一抹颜色。山上的每一棵草、每一朵花，都有它的位置和用处。你拔了它，不是带回家那么简单——你是破坏了一个小小的世界。"\n\n我站在那里，手里空空的，心里却沉甸甸的。那一刻，我忽然懂得了什么叫"敬畏"——不是害怕，而是尊重。尊重每一株草木的生长，尊重每一片土地的馈赠，尊重自然给予我们的一切。\n\n回家的路上，夕阳把山路染成了金色。我跟在爷爷身后，脚步也变得稳而慢。竹篓里的草药散发着淡淡的清香，那味道，是山给我们的礼物，我们带走了清香，留下了敬畏。',
+analysis: '本文以采草药为叙事线索，通过"我"的随意与爷爷的谨慎形成对比，在"拔花被制止"的关键瞬间完成主题升华。叙事紧凑，情感真实，结尾以"带走了清香，留下了敬畏"收束，余味悠长。',
+yqhPoints: '运用了无敌四招中的"制造冲突"（我的随意vs爷爷的谨慎）和"营造反转"（从满不在乎到懂得敬畏）；运用了五蕴法——色（红艳艳的野花）→受（心里沉甸甸的）→想（想起爷爷说的"山是有灵的"）→识（敬畏不是害怕，而是尊重）；运用了特写镜头法——聚焦"爷爷突然严厉地说别动"的瞬间；运用了绝杀三线——明线（采药过程）、暗线（我的心理变化）、辅线（山路夕阳的环境烘托）。'
+}
+];
+
+var practices = [
+{
+grade: '初一',
+title: '那个让我____的瞬间',
+type: '半命题',
+category: '成长/感悟',
+requirement: '请将题目补充完整，写一篇不少于600字的记叙文。要求：内容真实，感情真挚，不得抄袭。',
+guide: [
+'第一步：补题。横线上可填\'感动\'、\'成长\'、\'释然\'、\'警醒\'等词语，选择自己最有感触的词语。',
+'第二步：选材。回忆生活中一个具体的瞬间，要有场景、有细节、有心理变化。',
+'第三步：立意。这个瞬间为什么让你有如此感受？它改变了你什么？'
+],
+yqhGuide: [
+'教研写作审题法：用万花筒立意法旋转材料——\'感动\'可写亲情温暖，\'成长\'可写独立完成某事，\'警醒\'可写因失误而醒悟。选择最独特、最真实的角度。',
+'教研写作结构法：运用无敌四招——开头设置悬念（\'那个瞬间来得毫无预兆』），中间制造冲突或营造反转，结尾留有余味。',
+'教研写作细节法：用特写镜头法聚焦那个关键瞬间，放大细节，让读者\'看见』那一刻。'
+],
+outlines: [
+{title: '方向一：那个让我成长的瞬间', desc: '写一次独立完成某事的经历，如第一次独自坐地铁、第一次给家人做饭，通过具体细节展现\'成长\'的主题。'},
+{title: '方向二：那个让我感动的瞬间', desc: '写一个被他人行为感动的瞬间，如雨中送伞、默默帮助等，通过动作和神态描写展现\'感动\'。'},
+{title: '方向三：那个让我警醒的瞬间', desc: '写一个因失误或旁观而猛然醒悟的瞬间，如考试作弊被抓、看到他人困境等，侧重心理描写。'}
+],
+materials: '推荐素材：广州素材中的\'暴雨中的背影』（亲情类）、\'榕树的坚守』（感悟类）；名言警句中的成长类：\'不积跬步，无以至千里』。教研写作万能十句：\'九死南荒吾不恨，兹游奇绝冠平生』（感悟人生）。',
+startExample: '那个瞬间来得毫无预兆。就像珠江上忽然翻涌的一朵浪花，虽小，却在我心里掀起了波澜。'
+},
+{
+grade: '初一',
+title: '广州的四季',
+type: '命题',
+category: '写景/抒情',
+requirement: '以\'广州的四季\'为题，写一篇不少于600字的写景散文。要求：抓住广州四季的特色，运用多种感官描写，做到情景交融。',
+guide: [
+'第一步：把握特色。广州四季不分明，但各有特点——春有木棉、夏有暴雨、秋有凉风、冬有花市，要写出\'广州特色\'。',
+'第二步：选择重点。不必四季均等，可详写1-2个季节，略写其他，详略得当。',
+'第三步：融入情感。每个季节不只是写景，更要写出你的感受、联想和思考。'
+],
+yqhGuide: [
+'教研写作写景法：将五感法升级为五蕴写作法——不只写\'看到什么』，还要写\'感受到什么』（受）、\'联想到什么』（想）、\'做了什么』（行）、\'悟到什么』（识）。',
+'教研写作结构法：运用时空结构——按四季时间顺序组织全文，每个季节是一个独立的\'珍珠』，用时间的\'线』串起来（珍珠项链法变体）。',
+'教研写作语言法：运用女娲造人法——给广州的四季赋予生命，如\'春天迈着轻盈的脚步来了』\'夏天是个急性子的少年』。'
+],
+outlines: [
+{title: '方向一：四季各一景', desc: '春写木棉、夏写暴雨、秋写凉风、冬写花市，每个季节选一个代表性场景详写，结尾总括感悟。'},
+{title: '方向二：重点写春与冬', desc: '详写春天的木棉花（象征生机）和冬天的花市（象征希望），略写夏秋，突出广州\'花城\'特色。'},
+{title: '方向三：以珠江为线索', desc: '珠江在四季中的不同面貌串联全文：春天江畔木棉、夏天暴雨涨水、秋天江风送爽、冬天夜游珠江。'}
+],
+materials: '推荐素材：广州素材中的木棉花、花市、珠江；五蕴法写景技巧；教研写作万能十句：\'万里江山凝秀色，五彩云霞映九宫』（开篇写景）、\'岱宗夫如何？齐鲁青未了』（赞美山河）。',
+startExample: '广州的四季，像是珠江的水——没有北方四季分明的棱角，却有自己不动声色的温柔。'
+},
+{
+grade: '初二',
+title: '原来，我一直拥有',
+type: '命题',
+category: '记叙/感悟',
+requirement: '以\'原来，我一直拥有\'为题，写一篇不少于600字的记叙文。要求：有波澜，有感悟，感情真挚。',
+guide: [
+'第一步：理解题意。\'原来\'表示之前没发现，\'一直拥有\'说明某样东西其实一直都在。核心是\'发现\'的过程。',
+'第二步：设置波澜。先写\'以为失去/缺少\'的困扰，再写\'原来一直拥有\'的顿悟，形成转折。',
+'第三步：深化立意。这份\'拥有\'不是物质的，而是精神的——如爱、勇气、陪伴、自由等。'
+],
+yqhGuide: [
+'教研写作审题法：用倒骑驴立意法——多数人会写\'发现自己拥有爱』，你可以逆向思考\'原来一直拥有的，是被我忽视的某种品质』（如倔强、善良、勇气）。',
+'教研写作叙事法：运用无敌四招——开头设置悬念（\'我总觉得自己缺了点什么』），中间营造反转（发现原来一直拥有），结尾留有余味。',
+'教研写作细节法：用放大镜立意法——聚焦一个微小细节（如一张旧纸条、一道老茧、一个习惯性动作），放大深挖，发现\'一直拥有』的真相。'
+],
+outlines: [
+{title: '方向一：亲情主题', desc: '误以为父母不理解自己，某个瞬间发现他们的爱一直都在——如翻到日记本里夹的妈妈写的纸条。'},
+{title: '方向二：友情主题', desc: '以为朋友疏远了自己，却在最需要帮助时发现他们一直在身边守候。'},
+{title: '方向三：内在力量主题', desc: '总觉得自己不够好、缺乏勇气，经历某次挑战后发现，那份勇气和力量其实一直深藏心中。'}
+],
+materials: '推荐素材：广州素材中的\'奶奶的煲汤』（亲情类）、\'醒狮少年』（勇气类）；教研写作万能十句：\'何当共剪西窗烛，却话巴山夜雨时』（离别思念，可反衬拥有的珍贵）。',
+startExample: '我总觉得自己缺了点什么。直到那个雨天，我才恍然大悟——原来，我一直拥有的，比我想象的多得多。'
+},
+{
+grade: '初二',
+title: '广州老街新貌',
+type: '命题/半命题',
+category: '记叙/说明',
+requirement: '以\'广州老街新貌\'为题，或自拟相关题目，写一篇不少于600字的文章。可以记叙，也可以说明，要求：有广州特色，有时代感。',
+guide: [
+'第一步：选街。选择一条你熟悉的老街，如永庆坊、北京路、上下九、恩宁路等，要有新旧对比的素材。',
+'第二步：确定文体。记叙文侧重个人经历和感受；说明文侧重老街变化的客观介绍。',
+'第三步：明确立意。老街新貌不只是\'变美了\'，更要思考：如何在现代化进程中保留文化根脉？'
+],
+yqhGuide: [
+'教研写作说明法：若写说明文，运用珍珠项链法——把老街的各个特色比作珍珠，用空间顺序的\'线』串起来，每颗珍珠用说明方法\'打磨』。',
+'教研写作结构法：运用对比结构——旧貌与新貌对比，在对比中凸显主题。或运用时空结构——按时间顺序写老街的变迁。',
+'教研写作语言法：运用声东击西法——表面写老街的建筑变化，实际暗示城市发展中\'人与记忆』的关系。'
+],
+outlines: [
+{title: '方向一：记叙——我与老街的故事', desc: '以个人成长经历为线索，写老街从旧到新的变化，穿插童年记忆和当下感受，突出情感纽带。'},
+{title: '方向二：说明——永庆坊的活化之路', desc: '介绍永庆坊从危房片区到文创地标的变化过程，运用时间顺序和多种说明方法。'},
+{title: '方向三：夹叙夹议——老街不老', desc: '先叙老街旧貌，再写改造后的新貌，夹叙夹议，探讨传统与现代的关系。'}
+],
+materials: '推荐素材：广州素材中的骑楼、陈家祠、永庆坊；2026新素材中的\'永庆坊的活化改造』（一例多吃法）；名言中的文化传承类。',
+startExample: '恩宁路的骑楼还是那排骑楼，可门后的人间烟火已经换了模样。变的是砖瓦，不变的是根脉。'
+},
+{
+grade: '初三',
+title: '这也是一种答案',
+type: '命题',
+category: '记叙/议论',
+requirement: '以\'这也是一种答案\'为题，写一篇不少于600字的文章。可以记叙经历，也可以发表议论，要求：立意自定，文体自选。',
+guide: [
+'第一步：理解\'答案\'。人生中很多问题没有标准答案，沉默是答案，放手是答案，失败也是答案——要写出\'也\'字的转折意味。',
+'第二步：确定\'答案\'是什么。它应该是一个出人意料或容易被忽视的答案，如\'不选择也是一种选择\'、\'等待也是一种行动\'。',
+'第三步：升华立意。这个答案为什么有意义？它揭示了怎样的人生道理？'
+],
+yqhGuide: [
+'教研写作审题法：用倒骑驴立意法——所有人都追求\'标准答案』，你逆向思考\'非标准答案也是答案』。核心是\'也』字，要有转折和意外。',
+'教研写作结构法：若写议论文，运用534结构法——开头提出\'这也是一种答案』的观点，三个主体段分别论证三种\'非标准答案』，结尾总结升华。',
+'教研写作语言法：运用金镶玉法——镶嵌\'横看成岭侧成峰，远近高低各不同』或\'山重水复疑无路，柳暗花明又一村』，增添文采。'
+],
+outlines: [
+{title: '方向一：记叙——沉默是答案', desc: '面对误解选择沉默，用行动证明自己。先写被误解的委屈，再写默默努力的过程，最后用成果回应。'},
+{title: '方向二：记叙——放手是答案', desc: '紧抓不放却适得其反，放手后反而收获了更好的结果。可以写学书法/画画/乐器时\'越刻意越写不好，放松了反而进步』的经历。'},
+{title: '方向三：议论——多元答案的价值', desc: '议论文：论述面对人生问题，不只有一种标准答案。举不同人物面对同一问题给出不同答案的例子。'}
+],
+materials: '推荐素材：广州素材中的\'白切鸡』（返璞归真）、木棉花（壮烈也是答案）；教研写作万能十句：\'横看成岭侧成峰，远近高低各不同』（多元思考）、\'山重水复疑无路，柳暗花明又一村』（转机）。',
+startExample: '所有人都告诉我，答案是争取。可我渐渐发现，有时候，退一步，这也是一种答案。'
+},
+{
+grade: '初三',
+title: '材料作文：木棉花的寓意',
+type: '材料作文',
+category: '材料作文',
+requirement: '阅读下面的材料，按要求作文。\n\n材料：木棉花是广州的市花。它早春先花后叶，花红如血，盛开时满树红火。木棉花凋落时不萎缩，整朵坠地依然鲜艳如初，因此被称为\'英雄花\'。\n\n请根据你对材料的理解和感悟，写一篇不少于600字的文章。自选角度，自定立意，自拟题目。',
+guide: [
+'第一步：关键词法——圈出\'先花后叶\'、\'红如血\'、\'不萎缩\'、\'英雄花\'，思考每个关键词的象征意义。',
+'第二步：因果分析——木棉为什么被称为英雄花？因为它\'不萎缩\'，即使凋落也保持壮美。这象征着什么品质？',
+'第三步：立意提炼——从材料中提炼出具有普遍意义的观点，如\'活出尊严\'、\'逆境中绽放\'、\'壮美地面对结局\'。'
+],
+yqhGuide: [
+'教研写作审题法：用万花筒立意法旋转材料——角度一（先花后叶=逆境中先行），角度二（红如血=热烈与刚烈），角度三（不萎缩=面对结局的尊严），角度四（英雄花=平凡中的伟大）。选最独特的角度。',
+'教研写作写法融合：若写记叙文，运用五蕴法写木棉（色→受→想→行→识）；若写议论文，运用534结构法+金镶玉法。',
+'教研写作素材法：可用一例多吃法——同一材料（木棉）适配不同主题（坚持/尊严/勇气/传承），考前想好3个角度。'
+],
+outlines: [
+{title: '方向一：记叙——英雄花与英雄人', desc: '以木棉花为线索，写身边一个具有\'木棉精神\'的人——如生重病仍乐观的爷爷、坚持非遗传承的手艺人，结尾点明木棉的象征意义。'},
+{title: '方向二：议论文——论逆境中的绽放', desc: '围绕\'先花后叶——在条件不成熟时仍然勇敢绽放\'立论，举詹天佑、屠呦呦等事例论证，结尾呼应材料。'},
+{title: '方向三：散文——落花亦有壮美', desc: '以\'不萎缩的凋落\'为核心意象，写面对结束和失去时的态度——不是消沉，而是保持尊严和壮美。可以融合个人经历与感悟。'}
+],
+materials: '推荐素材：广州素材中的木棉花、醒狮精神；经典事例中的\'木棉花的启示』；教研写作万能十句：\'千磨万击还坚劲，任尔东西南北风』（坚韧不屈）、\'桐花万里丹山路，雏凤清于老凤声』（收尾升华，传承超越）。',
+startExample: '三月的风裹着木棉的清香，我站在树下，看一朵红花义无反顾地坠落。砰。它落地的声音，比盛开时更响。'
+},
+{
+grade: '初三',
+title: '2026广州中考真题：给多吉的一封信',
+type: '书信体·材料作文',
+category: '2026中考真题',
+requirement: '阅读下面的材料，按要求作文。\n\n材料：在西藏高原上，少年多吉发现了一枚被遗弃的小黑颈鹤蛋。他没有放弃，而是用体温孵化它，最终小鹤破壳而出。多吉的奶奶一直呵护着这个小小的生命，给予温暖和关爱。\n\n请以\'给多吉的一封信\'为题，写一篇不少于600字的书信体作文。要求：结合材料内容，联系自身经历，表达真实感悟。',
+guide: [
+'第一步：读懂材料。提取三个触发点：①小黑颈鹤的破壳——突破与成长；②奶奶的呵护——温情与治愈；③多吉的孵光——微小坚守的力量。',
+'第二步：确定立意角度。从三个触发点中选择一个最触动你的，联系自身经历展开。',
+'第三步：注意书信格式。称呼、问候语、正文、祝语、署名、日期，缺一不可。',
+'第四步：读写融合。不能只复述材料，必须联系自己的真实经历和感悟。'
+],
+yqhGuide: [
+'教研写作审题法：用万花筒立意法旋转材料——角度一（破壳=突破成长），角度二（呵护=温情治愈），角度三（孵光=微小坚守）。三个角度都可行，选最贴合自己经历的那个。2026年真题降低入手门槛，但区分度藏在思维层次——选\'微小坚守』角度最容易出彩。',
+'教研写作结构法：书信体可用总分总结构——开头引出材料感悟，中间联系自身经历（用五蕴法展开），结尾回扣材料升华。',
+'教研写作素材法：用一例多吃法准备素材——\'学煲汤』\'学书法』\'学做肠粉』等劳动实践素材，都可以从\'微小坚守』角度切入，适配本题。',
+'广东阅卷提醒：本题考查交际写作（书信体），必须有明确的交际对象（多吉）。不能写成普通议论文或记叙文，必须以书信形式与多吉对话。符合\'三爱\'：主角意识（写我做了什么）、劳动实践（真实经历）、湾区气质（广州元素）。'
+],
+outlines: [
+{title: '方向一：微小坚守（推荐）', desc: '将多吉孵蛋与自己的某段\'微小坚守』经历类比——如学煲汤、学书法、练习醒狮等。核心立意：微小的坚持也能孵出光来。'},
+{title: '方向二：温情治愈', desc: '从奶奶的呵护切入，联系自己被家人呵护的经历。核心立意：最温暖的光，来自身边人的默默守护。'},
+{title: '方向三：突破成长', desc: '从小黑颈鹤破壳切入，写自己某次\'破壳』般的突破经历。核心立意：每一次成长，都是一次勇敢的破壳。'}
+],
+materials: '推荐素材：2026新素材中的\'学做肠粉的那个暑假』（劳动实践+微小坚守）、\'爷爷的牙雕与我的3D打印』（传承+坚守）；教研写作万能十句：\'桐花万里丹山路，雏凤清于老凤声』（收尾升华，传承超越）、\'九死南荒吾不恨，兹游奇绝冠平生』（感悟人生，坚守不悔）。',
+startExample: '亲爱的多吉：你好！读完你的故事，我的心里像是被一束微光照亮了。你用体温孵着那颗小小的鹤蛋，而我，也想告诉你一个关于\'守候』的故事。'
+},
+{
+grade: '初三',
+title: '预测题：写给未来自己的一封信',
+type: '书信体·预测题',
+category: '2027预测',
+requirement: '请以\'写给未来自己的一封信\'为题，写一篇不少于600字的书信体作文。要求：回顾当下的成长感悟，展望未来的自己，表达真实情感。',
+guide: [
+'第一步：确定时间节点。写给三年后的自己（中考后的自己），还是写给成年后的自己？建议写三年后，更有真实感。',
+'第二步：回顾当下。你现在最大的困惑、收获、感悟是什么？写信的过程也是自我梳理的过程。',
+'第三步：展望未来。你希望未来的自己成为什么样的人？不要空喊口号，要有具体期待。'
+],
+yqhGuide: [
+'教研写作审题法：这是交际写作+真实成长的组合题。用万花筒立意法——角度一（写给更勇敢的自己），角度二（写给更从容的自己），角度三（写给不忘初心的自己）。',
+'教研写作结构法：书信体+总分总结构。开头点明写信缘由，中间回顾当下经历（用五蕴法展开一段核心记忆），结尾展望未来并回扣当下。',
+'广东阅卷提醒：2026年考了书信体，2027年可能延续。注意书信格式完整，内容要真实（不能编造未来），情感要真挚（不说假大空口号）。'
+],
+outlines: [
+{title: '方向一：写给更勇敢的自己', desc: '回顾当下因怯懦而错过的经历，表达对未来自己的期待——更勇敢地面对挑战。可以写学醒狮、参加比赛等经历。'},
+{title: '方向二：写给不忘初心的自己', desc: '回顾当下坚持某件事的经历（如学书法、练粤剧），提醒未来的自己不要忘记这份热爱和坚持。'},
+{title: '方向三：写给更从容的自己', desc: '回顾当下因急躁而失败的经历，期待未来学会\'慢』的智慧。可以结合煲汤、种花等需要耐心的经历。'}
+],
+materials: '推荐素材：教研写作万能十句：\'九死南荒吾不恨，兹游奇绝冠平生』（感悟人生）、\'桐花万里丹山路，雏凤清于老凤声』（收尾升华）；广州素材中的醒狮少年、粤剧进校园。',
+startExample: '亲爱的未来的我：你好！当你拆开这封信的时候，不知道你变成了什么样的人。但我希望，你还记得现在的我——一个正在努力长大的初三学生。'
+},
+{
+grade: '初三',
+title: '预测题：那道光',
+type: '命题·预测题',
+category: '2027预测',
+requirement: '以\'那道光\'为题，写一篇不少于600字的文章。文体自选，立意自定。要求：内容真实，感情真挚。',
+guide: [
+'第一步：理解\'光\'。光可以是具象的（阳光、灯光、月光），也可以是抽象的（希望、温暖、启发、信念）。',
+'第二步：确定\'那道\'。\'那道\'说明是特定的、具体的某一道光，不是泛泛而谈。',
+'第三步：写出\'光\'的意义。这道光照亮了你什么？改变了你什么？'
+],
+yqhGuide: [
+'教研写作审题法：用万花筒立意法——角度一（光=启发，某个人/某件事启发了你），角度二（光=温暖，困境中得到的关爱），角度三（光=信念，内心坚持的力量）。用放大镜立意法聚焦一个具体瞬间。',
+'教研写作叙事法：运用五蕴法——色（看到那道光）→受（内心的触动）→想（联想到的人或事）→行（因光而做出的改变）→识（光的意义升华）。',
+'教研写作结构法：若写记叙文，用绝杀三线——明线（寻找光的过程）+暗线（从迷茫到明朗的心理变化）+辅线（光线变化暗示心情转变）。'
+],
+outlines: [
+{title: '方向一：记叙——那道光是温暖', desc: '写在困境中得到他人帮助的\'那道光』——如生病时同学的关心、失败时老师的鼓励。用五蕴法展开核心场景。'},
+{title: '方向二：记叙——那道光是启发', desc: '写某个人或某件事给你的\'那道光』——如看到醒狮表演受到鼓舞、读到一本书获得力量。侧重\'想』和\'识』。'},
+{title: '方向三：散文——那道光是信念', desc: '以\'光』为线索，写内心信念的建立过程。可以融合多个场景，用递进结构层层深入。'}
+],
+materials: '推荐素材：教研写作万能十句：\'春风得意马蹄疾，一日看尽长安花』（喜悦，找到光后的欣喜）、\'长风破浪会有时，直挂云帆济沧海』（信念之光）；广州素材中的白云山日出（希望之光）。',
+startExample: '那道光来得突然。不是阳光，不是灯光，而是一个人眼神里不经意流露的温暖——就在我快要放弃的时候。'
+},
+{
+grade: '初二',
+title: '藏在____里的爱',
+type: '半命题',
+category: '亲情/感悟',
+requirement: '请将题目补充完整，写一篇不少于600字的记叙文。要求：内容真实，感情真挚，有细节描写。',
+guide: [
+'第一步：补题。横线上可填\'一碗汤\'、\'一道疤\'、\'一双鞋\'、\'一盏灯\'等具体事物，避免填抽象词。',
+'第二步：挖掘细节。这个事物背后藏着怎样的故事？通过细节描写展现爱的具体形态。',
+'第三步：升华立意。从具体事物上升到对亲情、爱的感悟。'
+],
+yqhGuide: [
+'教研写作审题法：用放大镜立意法——聚焦一个小事物（一碗汤、一道疤），放大深挖，从小切口写出大情感。',
+'教研写作写法：运用五蕴法完整展开——色（事物的外观）→受（看到时的感受）→想（联想到的人或事）→行（你因此做了什么）→识（对爱的感悟）。',
+'广东阅卷提醒：要有行动线——不只写\'我感受到了爱』，要写\'因为这份爱，我做了什么』。'
+],
+outlines: [
+{title: '方向一：藏在一碗汤里的爱', desc: '写外婆/妈妈煲汤的过程，从选材到火候，展现藏在汤里的爱。可用五蕴法展开。'},
+{title: '方向二：藏在一双手里的爱', desc: '写长辈那双粗糙的手，通过手的变化展现岁月和爱的痕迹。可用特写镜头法聚焦手部细节。'},
+{title: '方向三：藏在一盏灯里的爱', desc: '写每晚为你留灯的人，从灯光的变化写出等待与守候的爱。可用声东击西法——表面写灯，实际写人。'}
+],
+materials: '推荐素材：广州素材中的\'老火靓汤』、\'奶奶的煲汤』；教研写作万能十句：\'何当共剪西窗烛，却话巴山夜雨时』（思念与陪伴）；经典事例中的\'一碗面的等待』。',
+startExample: '那碗汤端上桌的时候，热气模糊了我的视线。我不知道是蒸汽，还是别的什么。'
+},
+{
+grade: '初三',
+title: '材料作文：一棵树的启示',
+type: '材料作文',
+category: '材料作文',
+requirement: '阅读下面的材料，按要求作文。\n\n材料：沙面岛上有一棵百年古榕，它的气根垂地成林，独木成景。它经历了无数次台风暴雨，却越扎越深，越长越大。有人说，榕树之所以能活百年，不是因为它的枝叶茂盛，而是因为它的根扎得够深。\n\n请根据你对材料的理解和感悟，写一篇不少于600字的文章。自选角度，自定立意，自拟题目。',
+guide: [
+'第一步：关键词法——圈出\'气根垂地成林\'、\'台风暴雨\'、\'越扎越深\'、\'根扎得够深\'，思考象征意义。',
+'第二步：因果分析——榕树为什么能活百年？因为根深。根深意味着什么？根基、底蕴、坚持。',
+'第三步：立意提炼——从榕树提炼出具有普遍意义的观点，如\'扎根才能生长\'、\'外表的光鲜不如内在的深厚\'。'
+],
+yqhGuide: [
+'教研写作审题法：用万花筒立意法——角度一（根深=扎根坚守），角度二（气根垂地=传承延续），角度三（台风暴雨中的坚守=逆境中的韧性），角度四（独木成林=个人的影响力）。选最独特的角度。',
+'教研写作结构法：若写议论文，用534结构法+金镶玉法；若写记叙文，用五蕴法+绝杀三线。',
+'教研写作素材法：可用一例多吃法——榕树素材适配\'坚守\'\'传承\'\'韧性\'\'根基\'等主题。'
+],
+outlines: [
+{title: '方向一：记叙——榕树与爷爷', desc: '以沙面榕树为线索，写一个像榕树一样扎根坚守的人——如在同一间铺子守了四十年的手艺人。'},
+{title: '方向二：议论——论扎根的力量', desc: '围绕\'根深才能叶茂\'立论，举詹天佑、陈寅恪等广州名人事例，论证扎根的重要性。'},
+{title: '方向三：散文——独木亦可成林', desc: '以榕树\'独木成林\'为核心意象，写一个人如何通过深耕细作，最终影响一片天地。'}
+],
+materials: '推荐素材：广州素材中的\'榕树的坚守』；经典事例中的\'陈家祠的修复』；教研写作万能十句：\'千磨万击还坚劲，任尔东西南北风』（坚韧）、\'源浚者流长，根深者叶茂』（根基）。',
+startExample: '沙面的榕树又添了一根新气根。它不急不缓地向下延伸，朝着大地，朝着深处——仿佛知道，只有扎得够深，才能站得够稳。'
+},
+{
+grade: '初一',
+title: '藏在____里的爱',
+type: '半命题',
+category: '亲情/感恩',
+requirement: '请将题目补充完整（如"藏在书包里的爱"、"藏在早餐里的爱"、"藏在沉默里的爱"等），写一篇不少于600字的记叙文。要求：内容真实，感情真挚，通过具体细节展现主题。',
+guide: [
+'第一步：补题。"藏"字是关键——这种爱不是直白的表达，而是隐含在某个物件、某个动作、某句话语中的。选择一个你真正感受到的"藏"。',
+'第二步：选材。回忆生活中那些容易被忽略的细节——妈妈悄悄塞进书包的创可贴、爸爸默默修好的台灯、外婆故意多煮的那碗饭。',
+'第三步：立意。"藏"不是不爱，而是爱的另一种方式——含蓄、深沉、不善言辞却无处不在。'
+],
+yqhGuide: [
+'教研写作审题法：用放大镜立意法——聚焦一个具体的"藏"的物件或场景，深挖其中的情感层次。不要面面俱到，一个"藏"写透就够。',
+'教研写作结构法：运用无敌四招——开头设置悬念（"我从来没发现，原来爱一直藏在我看不见的地方"），中间制造冲突或营造反转，结尾留有余味。',
+'教研写作细节法：用特写镜头法聚焦发现"藏"的那个瞬间，放大细节，让读者跟着你一起"发现"。'
+],
+outlines: [
+{title: '方向一：藏在早餐里的爱', desc: '写每天早上妈妈做的早餐，看似普通，直到某天发现妈妈为了做早餐每天都早起一个小时。通过"发现"的过程完成情感升华。'},
+{title: '方向二：藏在沉默里的爱', desc: '写父亲不善言辞，从不表达爱，但通过某个细节（如默默修好你的自行车、雨天悄悄来接你）发现沉默也是一种深沉的爱。'},
+{title: '方向三：藏在旧物里的爱', desc: '整理旧物时发现爷爷/奶奶留下的某样东西（旧信件、旧照片、旧物件），从中读懂了上一代人的爱。'}
+],
+materials: '推荐素材：广州素材中的老火靓汤（藏在汤里的爱）、骑楼（藏在旧街巷里的温暖）；教研写作万能十句：\'谁言寸草心，报得三春晖』（母爱）、\'慈母手中线，游子身上衣』（牵挂）。',
+startExample: '我从来不知道，那碗每天早上的白粥里，藏着妈妈五点起床的秘密。'
+},
+{
+grade: '初二',
+title: '我心中的那座桥',
+type: '命题',
+category: '成长/感悟',
+requirement: '以"我心中的那座桥"为题，写一篇不少于600字的文章。文体自选，立意自定。要求：内容真实，感情真挚。',
+guide: [
+'第一步：理解"桥"。"桥"可以是具象的（海珠桥、猎德大桥、人行天桥），也可以是抽象的（沟通的桥梁、理解的桥梁、成长的桥梁）。',
+'第二步：确定"心中"。为什么这座桥在你心中？它对你有什么特殊意义？',
+'第三步：写出故事。围绕这座桥展开一个具体的叙事或论述，不能空泛地谈"桥的象征意义"。'
+],
+yqhGuide: [
+'教研写作审题法：用万花筒立意法旋转"桥"——角度一（桥=连接，人与人之间的理解），角度二（桥=跨越，克服困难的成长），角度三（桥=告别，从一端走向另一端的转身），角度四（桥=记忆，承载童年回忆的具象物）。选最独特的角度。',
+'教研写作结构法：若写记叙文，运用绝杀三线——明线（桥上的故事）、暗线（情感的变化）、辅线（桥在不同时间的面貌变化）。',
+'教研写作语言法：运用五蕴法写桥——色（桥的外观）→受（站在桥上的感受）→想（桥引发的记忆和联想）→行（在桥上做的事）→识（桥的意义升华）。'
+],
+outlines: [
+{title: '方向一：记叙——海珠桥上的童年', desc: '以海珠桥为线索，写小时候爷爷带你在桥上看珠江、讲故事的记忆，如今爷爷老了，你带爷爷重走海珠桥。桥连接了过去与现在。'},
+{title: '方向二：议论——沟通之桥', desc: '围绕"人与人之间需要架起沟通的桥梁"立论，举例论证倾听、理解、包容是建桥的材料。'},
+{title: '方向三：散文——人生的桥', desc: '以"桥"为核心意象，写人生中经历的几座"桥"——从小学到初中的桥、从依赖到独立的桥、从误解到理解的桥。'}
+],
+materials: '推荐素材：广州素材中的海珠桥、猎德大桥、人行天桥；教研写作万能十句：\'千里之行，始于足下』（起步）、\'长风破浪会有时，直挂云帆济沧海』（跨越）。',
+startExample: '海珠桥老了，桥面的钢板被岁月磨得发亮。可每次走在上面，我总觉得它在轻轻地说着什么——关于江水，关于光阴，关于那些走过它的人。'
+},
+{
+grade: '初二',
+title: '原来____这么美',
+type: '半命题',
+category: '发现/感悟',
+requirement: '请将题目补充完整（如"原来清晨这么美"、"原来平凡这么美"、"原来沉默这么美"等），写一篇不少于600字的文章。文体自选，立意自定。',
+guide: [
+'第一步：补题。"原来"暗示了一个"发现"的过程——之前没注意到，现在突然发现了。',
+'第二步：写出"发现"的过程。是什么让你突然发现了这个美？要有一个具体的触发点。',
+'第三步：写出"美"在哪里。不只是描述美，更要写出这种美为什么打动你。'
+],
+yqhGuide: [
+'教研写作审题法：用倒骑驴立意法——别人觉得不美的，你发现美；别人忽略的，你看见价值。"原来"是转折，要有意外感。',
+'教研写作结构法：运用欲扬先抑法——先写"不美"的一面（不以为然、忽略），再写"发现美"的转折，最后写"美"的升华。',
+'教研写作细节法：用慢移镜头法——由远及近、由大到小，缓缓推进到"发现美"的那个关键瞬间。'
+],
+outlines: [
+{title: '方向一：原来清晨这么美', desc: '一直讨厌早起，直到某天因为赶车被迫早起，发现清晨的广州有着别样的美——骑楼下的晨光、早餐铺的烟火气、珠江上的薄雾。'},
+{title: '方向二：原来平凡这么美', desc: '一直追求"特别"，直到看到身边普通人默默付出的日常——环卫工、早餐铺阿姨、公交司机——发现平凡中也藏着动人的美。'},
+{title: '方向三：原来沉默这么美', desc: '一直觉得爸爸不爱说话是冷漠，直到某个瞬间读懂了沉默背后的深情——沉默也是一种美，是爱的另一种语言。'}
+],
+materials: '推荐素材：广州素材中的清晨骑楼、珠江晨雾、早餐铺烟火气；教研写作万能十句：\'横看成岭侧成峰，远近高低各不同』（角度）、\'落红不是无情物，化作春泥更护花』（平凡中的美）。',
+startExample: '我从来不喜欢早起。直到那个赶校车的清晨，我推开家门，一整条骑楼被金色的晨光笼罩——原来，我错过了这么久的美。'
+},
+{
+grade: '初三',
+title: '材料作文：茶与人生',
+type: '材料作文',
+category: '材料作文',
+requirement: '阅读下面的材料，按要求作文。\n\n材料：广州人爱饮茶。一壶好茶，需要好茶叶、好水和恰当的火候。茶叶在沸水中翻滚沉浮，最终释放出清香。有人说，人生如茶——不经沸水煎熬，哪来满室清香？也有人说，茶要慢慢品，急不得。\n\n请根据你对材料的理解和感悟，写一篇不少于600字的文章。自选角度，自定立意，自拟题目。',
+guide: [
+'第一步：提取材料关键词——"沸水"、"翻滚沉浮"、"释放清香"、"慢慢品"、"急不得"。每个关键词都暗示一个立意方向。',
+'第二步：确定立意角度。可从"磨难成就人生"、"过程比结果重要"、"从容面对困境"等角度切入。',
+'第三步：联系实际。结合自身经历或所见所闻，不能空泛说理。'
+],
+yqhGuide: [
+'教研写作审题法：用万花筒立意法旋转材料——角度一（沸水=磨难，清香=成长），角度二（翻滚沉浮=人生起伏），角度三（慢慢品=从容心态），角度四（好茶好水好火候=天时地利人和）。选最独特的角度。',
+'教研写作写法融合：若写议论文，运用534结构法——开头提出观点，三个主体段分别从不同角度论证，结尾总结升华；若写记叙文，运用五蕴法写一次"如茶"的经历。',
+'教研写作素材法：用金镶玉法——在论述中镶嵌\'不积跬步，无以至千里』（积累）或\'千磨万击还坚劲，任尔东西南北风』（磨砺），提升文采。'
+],
+outlines: [
+{title: '方向一：议论文——磨难造就清香', desc: '围绕"不经沸水煎熬，哪来满室清香"立论，举屠呦呦、苏轼等人物事例，论证磨难对成长的意义。'},
+{title: '方向二：记叙文——我的人生"茶"', desc: '写自己经历的一次"沸水煎熬"——如考试失利后重新振作、学某项技能时的艰难过程——最终"释放清香"的经历。'},
+{title: '方向三：散文——品茶品人生', desc: '以品茶为线索，将茶的冲泡过程与人生阶段对应——少年如新茶、中年如浓茶、老年如淡茶，表达对不同人生阶段的感悟。'}
+],
+materials: '推荐素材：广州素材中的早茶文化、老火靓汤（同样需要"慢火"）；教研写作万能十句：\'千磨万击还坚劲，任尔东西南北风』（磨砺）、\'九死南荒吾不恨，兹游奇绝冠平生』（感悟人生）。',
+startExample: '爷爷泡茶从不急。水烧开了，他不忙倒，等水稍稍凉一凉，才缓缓注入茶壶。"急出来的茶是苦的，等出来的茶才是香的。"人生，又何尝不是如此？'
+},
+{
+grade: '初三',
+title: '预测题：声音的故事',
+type: '命题·预测题',
+category: '2027预测',
+requirement: '以"声音的故事"为题，写一篇不少于600字的文章。文体自选，立意自定。要求：内容真实，感情真挚。',
+guide: [
+'第一步：理解"声音"。声音可以是具体的（雨声、鼓声、粤语叫卖声），也可以是抽象的（内心的声音、时代的声音、文化的声音）。',
+'第二步：确定"故事"。不能只描写声音，必须围绕声音展开一个叙事——这个声音背后有什么故事？',
+'第三步：写出意义。这个声音为什么值得写？它触动了你什么？改变了你什么？'
+],
+yqhGuide: [
+'教研写作审题法：用万花筒立意法——角度一（声音=记忆，某个声音唤起童年记忆），角度二（声音=文化，粤剧唱腔/醒狮鼓点承载的文化记忆），角度三（声音=成长，从害怕某个声音到理解它），角度四（声音=告别，某个声音消失代表一个时代的结束）。',
+'教研写作叙事法：运用五蕴法——色（听到声音时看到的场景）→受（声音带来的感受）→想（声音引发的记忆）→行（因声音而做的事）→识（声音的意义升华）。',
+'广东阅卷提醒：本题考查叙事能力和感官描写能力。如果选择广州特色的声音（粤剧、醒狮鼓、早茶叫卖声），更符合"湾区气质"要求。'
+],
+outlines: [
+{title: '方向一：醒狮鼓声的故事', desc: '以醒狮鼓点为线索，写从听到鼓声的好奇→学习打鼓的艰辛→登台表演的激动。鼓声串联起成长的故事，也串联起非遗传承的文化记忆。'},
+{title: '方向二：外婆的歌声', desc: '写外婆哼的粤曲小调，小时候觉得土气，长大后某天突然听懂了歌词里的情感，发现那歌声里藏着外婆的一生。'},
+{title: '方向三：消失的声音', desc: '写一个正在消失的广州声音——如骑楼下的叫卖声、老街的缝纫机声、码头的汽笛声——探讨城市变迁中文化记忆的传承。'}
+],
+materials: '推荐素材：广州素材中的醒狮鼓点、粤剧唱腔、早茶叫卖声、珠江汽笛声；教研写作万能十句：\'桐花万里丹山路，雏凤清于老凤声』（传承）、\'九死南荒吾不恨，兹游奇绝冠平生』（感悟）。',
+startExample: '鼓点又响了。咚咚咚——先是试探性的轻敲，然后骤然炸开，像惊雷滚过祠堂前的广场。每次听到这个声音，我的手就不自觉地握紧，仿佛又举起了那颗沉甸甸的狮头。'
+},
+{
+grade: '初三',
+title: '预测题：走自己的路',
+type: '命题·预测题',
+category: '2027预测',
+requirement: '以"走自己的路"为题，写一篇不少于600字的文章。文体自选，立意自定。要求：内容真实，感情真挚。',
+guide: [
+'第一步：理解"自己的路"。"自己的路"意味着不随波逐流、不盲从他人、有独立的选择和坚持。',
+'第二步：写出"为什么"。为什么选择走自己的路？是经历了什么才做出这个选择？',
+'第三步：写出"怎么走"。走自己的路不是一句口号，要有具体的行动和坚持的过程。'
+],
+yqhGuide: [
+'教研写作审题法：用倒骑驴立意法——别人都走捷径，你选择走远路；别人都追热门，你选择冷门。核心是"自己的"三个字——要有独立思考和勇气。',
+'教研写作结构法：若写议论文，运用534结构法——开头提出"走自己的路"的观点，三个主体段分别论证"为什么走自己的路"、"走自己的路需要什么"、"走自己的路的收获"，结尾总结升华。',
+'教研写作语言法：运用金镶玉法——镶嵌\'千里之行，始于足下』（起步）或\'长风破浪会有时，直挂云帆济沧海』（信念），增添文采。',
+'广东阅卷提醒：本题考查思辨能力和真实经历。不能空喊"走自己的路"的口号，必须结合自己的真实选择和经历来写。符合"三爱"中的主角意识——写"我"做了什么选择。'
+],
+outlines: [
+{title: '方向一：记叙——我选择的路', desc: '写一次独立选择的经历——如放弃培训班选择自学、选择学习冷门的非遗技艺、在众人反对中坚持自己的兴趣——通过具体事件展现"走自己的路"的勇气和收获。'},
+{title: '方向二：议论——为何走自己的路', desc: '围绕"走自己的路"立论，举詹天佑（自主修铁路）、屠呦呦（不走常规科研路）等事例，论证独立思考和坚持自我的价值。'},
+{title: '方向三：夹叙夹议——路与人生', desc: '先叙述自己走某条"不同的路"的经历，再由此生发议论，探讨"走自己的路"对人生的意义。叙议结合，以叙带议。'}
+],
+materials: '推荐素材：经典事例中的詹天佑（自主修京张铁路）、屠呦呦（不走常规科研路）；教研写作万能十句：\'千里之行，始于足下』（起步）、\'长风破浪会有时，直挂云帆济沧海』（信念）、\'不积跬步，无以至千里』（积累）。',
+startExample: '所有人都在往那条路上挤。我站在岔路口，看了看人声鼎沸的大路，又看了看那条安静的小路，深吸一口气，转身走了另一条路。'
+}
+];
+
+var dimScores = {neirong: 0, yuyan: 0, jiegou: 0, wenmian: 0, jiafen: 0};
+
+var dimSuggestions = {
+neirong: {
+'25': '内容优秀！切合题意，中心突出，内容充实，情感真挚。选材典型，细节生动，能充分支撑主题。继续保持，在立意深度上精益求精。',
+'22': '内容良好。基本切合题意，中心明确，内容较充实。建议：1）运用五蕴法\'想』和\'识』深化立意；2）增加一个更能打动人的核心细节；3）确保每个材料都紧扣中心，删除偏离主题的内容。',
+'18': '内容一般。立意基本清晰但略显平淡，选材和细节有待加强。建议：1）运用万花筒立意法多角度思考，选最独特的角度；2）用特写镜头法聚焦关键细节；3）运用五蕴法从\'色』到\'识』完整展开核心场景。',
+'14': '内容需要较大提升。建议：1）先确定一个明确且有深度的中心；2）用放大镜立意法聚焦一个小细节深挖；3）运用五蕴法\'行』——写出你的行动，不能只感悟；4）避免假大空，写真实经历。'
+},
+yuyan: {
+'16': '语言优秀！准确流畅生动，用词精准，句式灵活，有文采。修辞运用得当，读来赏心悦目。',
+'14': '语言良好，通顺流畅，但缺少亮点。建议：1）运用偷天换日法，把平淡表达换成生动表达；2）在关键处运用比喻、排比等修辞；3）运用金镶玉法镶嵌1-2句名言诗词；4）注意句式长短搭配。',
+'12': '语言基本通顺，但较平淡，部分语句不够精练。建议：1）运用壮士打靶法删除冗余词语；2）将\'很好』\'很美』等模糊词替换为具体描写；3）运用女娲造人法给无生命物体赋予生命；4）朗读一遍，修改拗口的句子。',
+'8': '语言需要系统提升。建议：1）先保证每句话语法正确、意思清楚；2）运用按图索骥法逐一练习比喻、拟人、排比等修辞；3）多读范文，积累好词好句；4）写完后逐句检查，修改不通顺的地方。'
+},
+jiegou: {
+'5': '结构优秀！严谨清晰，详略得当，首尾呼应，过渡自然。文章骨架分明，阅卷老师一目了然。',
+'4': '结构良好，层次较清晰。建议：1）检查段落过渡是否自然；2）关键段落详写，过渡段落简练；3）开头和结尾注意呼应；4）考虑运用六大经典结构中的某一种来优化整体框架。',
+'3': '结构一般，段落安排有待优化。建议：1）写作前先列提纲，确定每段写什么；2）记叙文按\'起因-经过-高潮-结局』组织，可用绝杀三线；3）议论文用534结构法；4）每段只表达一个核心意思。',
+'2': '结构需要重点改进。建议：1）花5分钟列提纲再动笔；2）运用总分总或结论先行结构；3）开头明确点题，结尾总结升华；4）段落分明，每段开头空两格。'
+},
+wenmian: {
+'4': '文面优秀！卷面整洁，书写美观，标点规范。第一印象分满分。',
+'3': '文面良好，基本整洁。建议：保持字间距均匀，每段开头空两格，改错用一条斜线划去，不用修正液。',
+'2': '文面一般，字迹不够工整。建议：1）放慢书写速度，一笔一划写清楚；2）不要涂大墨团；3）段落分明，每段不要写太长；4）标点符号要规范，不要一逗到底。',
+'1': '文面需要重点改进。建议：1）坚持每天练字15分钟；2）考试时先在草稿纸上列提纲再写；3）保持心态平稳，不急躁；4）注意标点规范，句号、问号、感叹号要正确使用。'
+}
+};
+
+function scrollToContent() {
+document.getElementById('mainContent').scrollIntoView({behavior: 'smooth'});
+}
+
+function switchTab(idx) {
+var btns = document.querySelectorAll('.tab-btn');
+var mods = document.querySelectorAll('.module');
+var tabModules = ['写作技巧库','范文赏析','素材宝库','实战演练','写作自评','教研写作公式'];
+if (!isModuleAllowed(tabModules[idx])) { alert('您没有使用该板块的权限'); return; }
+for (var i = 0; i < btns.length; i++) {
+btns[i].className = 'tab-btn' + (i === idx ? ' active' : '');
+mods[i].className = 'module' + (i === idx ? ' active' : '');
+}
+}
+
+function switchGrade(modIdx, gradeIdx) {
+var parent = document.getElementById('mod' + modIdx);
+var tabs = parent.querySelectorAll('.grade-tab');
+var contents = parent.querySelectorAll('.grade-content');
+for (var i = 0; i < tabs.length; i++) {
+tabs[i].className = 'grade-tab' + (i === gradeIdx ? ' active' : '');
+contents[i].className = 'grade-content' + (i === gradeIdx ? ' active' : '');
+}
+}
+
+function switchSub(modIdx, subIdx) {
+var parent = document.getElementById('mod' + modIdx);
+var tabs = parent.querySelectorAll('.sub-tab');
+var contents = parent.querySelectorAll('.sub-content');
+for (var i = 0; i < tabs.length; i++) {
+tabs[i].className = 'sub-tab' + (i === subIdx ? ' active' : '');
+contents[i].className = 'sub-content' + (i === subIdx ? ' active' : '');
+}
+}
+
+function renderEssays() {
+var html = '';
+for (var i = 0; i < essays.length; i++) {
+var e = essays[i];
+var hlHtml = '';
+for (var j = 0; j < e.highlights.length; j++) {
+hlHtml += '<span class="hl-tag">' + e.highlights[j] + '</span>';
+}
+var yqhHtml = '';
+if (e.yqhPoints) {
+yqhHtml = '<div class="yqh-point"><strong>&#x1F9E0; 教研写作方法论点评：</strong>' + e.yqhPoints + '</div>';
+}
+html += '<div class="essay-card">' +
+'<div class="title-bar">' +
+'<span class="essay-title">' + e.title + '</span>' +
+'<span class="essay-score">' + e.score + '/50</span>' +
+'</div>' +
+'<div class="meta">' + e.grade + ' | ' + e.type + ' | ' + e.category + ' | ' + e.source + '</div>' +
+'<div class="body">' + e.body.replace(/\n/g, '<br>') + '</div>' +
+'<div class="highlights">' + hlHtml + '</div>' +
+'<div class="analysis"><strong>&#x1F4A1; 亮点分析：</strong>' + e.analysis + '</div>' +
+yqhHtml +
+'</div>';
+}
+document.getElementById('essayList').innerHTML = html;
+}
+
+function renderPractices() {
+var html = '';
+for (var i = 0; i < practices.length; i++) {
+var p = practices[i];
+var guideHtml = '';
+for (var j = 0; j < p.guide.length; j++) {
+guideHtml += '<div class="guide-step">' + p.guide[j] + '</div>';
+}
+var yqhGuideHtml = '';
+if (p.yqhGuide) {
+yqhGuideHtml = '<h4>&#x1F9E0; 教研写作审题指导</h4>';
+for (var m = 0; m < p.yqhGuide.length; m++) {
+yqhGuideHtml += '<div class="yqh-step">' + p.yqhGuide[m] + '</div>';
+}
+}
+var outlineHtml = '';
+for (var k = 0; k < p.outlines.length; k++) {
+outlineHtml += '<div class="outline-item"><div class="oi-title">' + p.outlines[k].title + '</div><p>' + p.outlines[k].desc + '</p></div>';
+}
+html += '<div class="practice-card">' +
+'<div class="pq-title" onclick="togglePractice(this)"><span class="arrow">&#x25B6;</span> ' +
+'<span class="tag" style="margin-right:6px">' + p.grade + '</span>' +
+p.title + '（' + p.type + '·' + p.category + '）</div>' +
+'<div class="pq-body">' +
+'<h4>题目要求</h4>' +
+'<p>' + p.requirement.replace(/\n/g, '<br>') + '</p>' +
+'<h4>审题指导</h4>' +
+guideHtml +
+yqhGuideHtml +
+'<h4>提纲方向</h4>' +
+outlineHtml +
+'<h4>推荐素材</h4>' +
+'<p>' + p.materials + '</p>' +
+'<h4>开头示例</h4>' +
+'<div class="start-example">' + p.startExample + '</div>' +
+'</div></div>';
+}
+document.getElementById('practiceList').innerHTML = html;
+}
+
+function togglePractice(el) {
+var body = el.nextElementSibling;
+var isOpen = body.className.indexOf('open') >= 0;
+if (isOpen) {
+body.className = 'pq-body';
+el.className = 'pq-title';
+} else {
+body.className = 'pq-body open';
+el.className = 'pq-title open';
+}
+}
+
+function selectDim(btn) {
+var dim = btn.getAttribute('data-dim');
+var score = parseInt(btn.getAttribute('data-score'));
+dimScores[dim] = score;
+var btns = btn.parentNode.querySelectorAll('.dim-btn');
+for (var i = 0; i < btns.length; i++) {
+btns[i].className = 'dim-btn';
+}
+btn.className = 'dim-btn selected';
+updateEvalResult();
+}
+
+function toggleCheck(el) {
+var cb = el.querySelector('input[type="checkbox"]');
+cb.checked = !cb.checked;
+if (cb.checked) {
+el.className = 'checklist-item checked';
+} else {
+el.className = 'checklist-item';
+}
+updateEvalResult();
+}
+
+function flipCard(el) {
+if (el.className.indexOf('flipped') >= 0) {
+el.className = 'formula-card';
+} else {
+el.className = 'formula-card flipped';
+}
+}
+
+function updateEvalResult() {
+var baseTotal = dimScores.neirong + dimScores.yuyan + dimScores.jiegou + dimScores.wenmian;
+var bonus = dimScores.jiafen;
+var total = baseTotal + bonus;
+if (total > 50) { total = 50; }
+var allSelected = dimScores.neirong > 0 && dimScores.yuyan > 0 && dimScores.jiegou > 0 && dimScores.wenmian > 0;
+if (!allSelected) {
+document.getElementById('evalResult').className = 'hidden';
+return;
+}
+var grade = '';
+var gradeColor = '';
+if (total >= 45) { grade = '一类文'; gradeColor = 'background:#d4a843;color:#1a365d;'; }
+else if (total >= 40) { grade = '二类文'; gradeColor = 'background:#48bb78;color:#fff;'; }
+else if (total >= 35) { grade = '三类文'; gradeColor = 'background:#4299e1;color:#fff;'; }
+else if (total >= 30) { grade = '四类文'; gradeColor = 'background:#ed8936;color:#fff;'; }
+else { grade = '五类文'; gradeColor = 'background:#e53e3e;color:#fff;'; }
+
+var sugHtml = '<h4>各维度改进建议（2026标准）</h4>';
+var dims = ['neirong', 'yuyan', 'jiegou', 'wenmian'];
+var dimNames = ['内容', '语言', '结构', '文面'];
+var dimMax = [25, 16, 5, 4];
+for (var i = 0; i < dims.length; i++) {
+var d = dims[i];
+var s = dimScores[d].toString();
+if (dimSuggestions[d][s]) {
+sugHtml += '<p><strong>' + dimNames[i] + '（' + s + '/' + dimMax[i] + '分）：</strong>' + dimSuggestions[d][s] + '</p>';
+}
+}
+if (bonus > 0) {
+sugHtml += '<p><strong>加分项（' + bonus + '/3分）：</strong>你的作文在立意、构思或语言上有突出表现，获得加分。继续保持这种深度和独特性。</p>';
+}
+
+var totalComment = '';
+if (total >= 45) { totalComment = '你的作文已经达到优秀水平！继续保持，注意在细节上精益求精，向满分冲击。建议检查教研写作方法论自查清单，确保方法运用到位。'; }
+else if (total >= 40) { totalComment = '作文整体良好，有明确的中心和较充实的内容。重点在立意深度和语言文采上继续提升，争取进入一类文行列。建议运用五蕴法和金镶玉法提升文章层次。'; }
+else if (total >= 35) { totalComment = '作文基本合格，但还有较大提升空间。建议重点加强选材和细节描写，让内容更充实、更打动人。运用无敌四招让叙事更有波澜。'; }
+else if (total >= 30) { totalComment = '作文需要较多改进。建议从审题立意入手，确保不偏题；再从结构安排和语言表达上下功夫，逐步提高。先用534结构法或总分总结构搭建骨架。'; }
+else { totalComment = '作文基础较弱，需要系统提升。建议：1）多读范文，学习优秀写法；2）每次写作前先列提纲；3）从写好一段话开始练习，运用双层汉堡法写好每个段落。'; }
+
+sugHtml += '<h4>总评与改进方向</h4><p>' + totalComment + '</p>';
+
+var checkedCount = 0;
+var checklistItems = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+for (var ci = 0; ci < checklistItems.length; ci++) {
+if (checklistItems[ci].checked) { checkedCount++; }
+}
+var totalChecks = checklistItems.length;
+sugHtml += '<h4>&#x1F9E0; 教研写作方法论自查结果</h4>';
+sugHtml += '<p class="yqh-check">已运用 ' + checkedCount + '/' + totalChecks + ' 项教研写作方法。';
+if (checkedCount >= 6) {
+sugHtml += ' 方法论运用充分，文章有明显的技巧支撑，继续保持！</p>';
+} else if (checkedCount >= 3) {
+sugHtml += ' 方法论运用较好，但还有提升空间。建议重点补齐未运用的方法。</p>';
+} else {
+sugHtml += ' 方法论运用不足。建议优先掌握五蕴法和无敌四招，这两招对提升作文质量效果最显著。</p>';
+}
+
+sugHtml += '<h4>&#x26A0;&#xFE0F; 广东阅卷避坑提醒</h4>';
+sugHtml += '<p class="pitfall-warn">请对照上方\'广东阅卷避坑检查』清单，确保没有踩中任何\'雷区』。特别注意：①是否使用了北方素材；②是否只写感悟不写行动；③是否一逗到底；④结尾是否喊口号。这四个是最常见的扣分点。</p>';
+
+var scoreDisplay = total;
+if (bonus > 0) {
+scoreDisplay = total + '（含加分' + bonus + '分）';
+}
+
+var resultHtml = '<div class="result-box">' +
+'<div class="total-score">' + scoreDisplay + '</div>' +
+'<div class="total-label">总分（满分50分，对标2026广州中考）</div>' +
+'<span class="grade-badge" style="' + gradeColor + '">' + grade + '</span>' +
+'<div class="suggestions">' + sugHtml + '</div>' +
+'</div>';
+
+document.getElementById('evalResult').innerHTML = resultHtml;
+document.getElementById('evalResult').className = '';
+}
+
+document.getElementById('essayInput').addEventListener('input', function() {
+var len = this.value.length;
+var hint = len < 300 ? '（建议300字以上）' : '';
+document.getElementById('charCount').textContent = '已输入 ' + len + ' 字' + hint;
+});
+
+renderEssays();
+renderPractices();
+</script>
+
+<script>
+// 登录验证 + 账号管理
+var LOGIN_USER = 'liulaoshi';
+var LOGIN_PASS = 'peiyou2026';
+var ACCT_KEY = 'zuowen_accounts';
+var ALL_MODULES = ['写作技巧库','范文赏析','素材宝库','实战演练','写作自评','教研写作公式'];
+var MODULE_LABELS = {
+    '写作技巧库':'写作技巧库','范文赏析':'范文赏析','素材宝库':'素材宝库',
+    '实战演练':'实战演练','写作自评':'写作自评','教研写作公式':'教研写作公式'
+};
+var MODULE_GROUPS = [
+    {label:'板块权限',items:['写作技巧库','范文赏析','素材宝库','实战演练','写作自评','教研写作公式']}
+];
+function getAccounts() {
+    var raw = localStorage.getItem(ACCT_KEY);
+    if (!raw) return [];
+    try { return JSON.parse(raw); } catch (ex) { return []; }
+}
+function saveAccounts(list) {
+    localStorage.setItem(ACCT_KEY, JSON.stringify(list));
+}
+function initAccounts() {
+    if (!localStorage.getItem(ACCT_KEY)) saveAccounts([]);
+}
+function updateLoginUI() {
+    var userType = sessionStorage.getItem('sys_login_type') || 'main';
+    var userName = sessionStorage.getItem('sys_login_user') || '';
+    var nameEl = document.getElementById('currentUserName');
+    var btnEl = document.getElementById('acctMgrBtn');
+    if (userType === 'main') {
+        if (nameEl) nameEl.textContent = '刘老师（管理员）';
+        if (btnEl) btnEl.classList.remove('hidden');
+        applyModuleVisibility(ALL_MODULES);
+    } else {
+        var accounts = getAccounts();
+        var displayName = userName;
+        var userModules = ALL_MODULES;
+        for (var i = 0; i < accounts.length; i++) {
+            if (accounts[i].username === userName) { displayName = accounts[i].displayName || userName; userModules = accounts[i].modules || ALL_MODULES; break; }
+        }
+        if (nameEl) nameEl.textContent = displayName;
+        if (btnEl) btnEl.classList.add('hidden');
+        applyModuleVisibility(userModules);
+    }
+}
+function applyModuleVisibility(modules) {
+    var tabModules = ['写作技巧库','范文赏析','素材宝库','实战演练','写作自评','教研写作公式'];
+    var btns = document.querySelectorAll('.tab-btn');
+    for (var i = 0; i < tabModules.length; i++) {
+        if (btns[i]) {
+            if (modules.indexOf(tabModules[i]) >= 0) { btns[i].style.display = ''; }
+            else { btns[i].style.display = 'none'; }
+        }
+    }
+}
+function getUserModules() {
+    var userType = sessionStorage.getItem('sys_login_type') || 'main';
+    if (userType === 'main') return ALL_MODULES;
+    var userName = sessionStorage.getItem('sys_login_user') || '';
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === userName) return accounts[i].modules || ALL_MODULES;
+    }
+    return ALL_MODULES;
+}
+function isModuleAllowed(mod) {
+    var mods = getUserModules();
+    return mods.indexOf(mod) >= 0;
+}
+function checkLogin() {
+    if (sessionStorage.getItem('sys_login_ok') === '1') {
+        var o = document.getElementById('loginOverlay');
+        if (o) { o.style.display = 'none'; }
+        updateLoginUI();
+    }
+}
+function doLogin() {
+    var u = document.getElementById('loginUser').value.trim();
+    var p = document.getElementById('loginPass').value;
+    var e = document.getElementById('loginError');
+    if (u === LOGIN_USER && p === LOGIN_PASS) {
+        sessionStorage.setItem('sys_login_ok', '1');
+        sessionStorage.setItem('sys_login_user', u);
+        sessionStorage.setItem('sys_login_type', 'main');
+        var o = document.getElementById('loginOverlay');
+        o.style.opacity = '0';
+        setTimeout(function() { o.style.display = 'none'; }, 400);
+        updateLoginUI();
+        return;
+    }
+    var accounts = getAccounts();
+    var found = null;
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === u && accounts[i].password === p) { found = accounts[i]; break; }
+    }
+    if (found) {
+        if (found.disabled) {
+            e.textContent = '该账号已被禁用，请联系老师续期';
+            return;
+        }
+        if (found.expiryDate) {
+            var nowDate = new Date();
+            var nowStr = nowDate.getFullYear() + '-' + ('0' + (nowDate.getMonth() + 1)).slice(-2) + '-' + ('0' + nowDate.getDate()).slice(-2);
+            if (nowStr > found.expiryDate) {
+                e.textContent = '账号已过期，请联系老师续期';
+                return;
+            }
+        }
+        sessionStorage.setItem('sys_login_ok', '1');
+        sessionStorage.setItem('sys_login_user', u);
+        sessionStorage.setItem('sys_login_type', 'sub');
+        var o2 = document.getElementById('loginOverlay');
+        o2.style.opacity = '0';
+        setTimeout(function() { o2.style.display = 'none'; }, 400);
+        updateLoginUI();
+        return;
+    }
+    e.textContent = '账号或密码错误，请重试';
+    document.getElementById('loginUser').value = '';
+    document.getElementById('loginPass').value = '';
+}
+function showAccountPage() {
+    renderAccountList();
+    document.getElementById('accountPage').classList.add('active');
+    document.getElementById('mainContent').style.display = 'none';
+    window.scrollTo(0, 0);
+}
+function showMainContent() {
+    document.getElementById('accountPage').classList.remove('active');
+    document.getElementById('mainContent').style.display = '';
+    window.scrollTo(0, 0);
+}
+function renderAccountList() {
+    var accounts = getAccounts();
+    var wrap = document.getElementById('accountListWrap');
+    if (accounts.length === 0) {
+        wrap.innerHTML = '<div class="acct-empty">暂无子账号，请在上方创建</div>';
+        return;
+    }
+    var html = '<div class="acct-table-wrap"><table class="acct-table"><thead><tr><th>用户名</th><th>显示名</th><th>板块权限</th><th>到期时间</th><th>状态</th><th>操作</th></tr></thead><tbody>';
+    var nowDate = new Date();
+    var nowStr = nowDate.getFullYear() + '-' + ('0' + (nowDate.getMonth() + 1)).slice(-2) + '-' + ('0' + nowDate.getDate()).slice(-2);
+    for (var i = 0; i < accounts.length; i++) {
+        var a = accounts[i];
+        var statusHtml = a.disabled ? '<span class="acct-status-off">已禁用</span>' : '<span class="acct-status-on">正常</span>';
+        var toggleText = a.disabled ? '启用' : '禁用';
+        var modCount = (a.modules || ALL_MODULES).length;
+        var expiryHtml = '—';
+        if (a.expiryDate) {
+            if (nowStr > a.expiryDate) {
+                expiryHtml = '<span class="acct-expired">' + a.expiryDate + '（已过期）</span>';
+                statusHtml = '<span class="acct-status-off">已过期</span>';
+            } else {
+                var diffMs = new Date(a.expiryDate).getTime() - new Date(nowStr).getTime();
+                var diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                var warnClass = diffDays <= 7 ? 'acct-expiry-warn' : '';
+                expiryHtml = '<span class="' + warnClass + '">' + a.expiryDate + '（剩余' + diffDays + '天）</span>';
+            }
+        }
+        html += '<tr>';
+        html += '<td>' + a.username + '</td>';
+        html += '<td>' + (a.displayName || '—') + '</td>';
+        html += '<td><span class="acct-modules-count" onclick="editAccountModules(\'' + a.username + '\')">' + modCount + '/' + ALL_MODULES.length + '</span></td>';
+        html += '<td>' + expiryHtml + '</td>';
+        html += '<td>' + statusHtml + '</td>';
+        html += '<td>';
+        html += '<button class="acct-act-btn acct-act-reset" onclick="resetAccount(\'' + a.username + '\')">重置密码</button>';
+        html += '<button class="acct-act-btn acct-act-modules" onclick="editAccountModules(\'' + a.username + '\')">编辑板块</button>';
+        html += '<button class="acct-act-btn acct-act-expiry" onclick="extendExpiry(\'' + a.username + '\')">延期</button>';
+        html += '<button class="acct-act-btn acct-act-toggle" onclick="toggleAccount(\'' + a.username + '\')">' + toggleText + '</button>';
+        html += '<button class="acct-act-btn acct-act-delete" onclick="deleteAccount(\'' + a.username + '\')">删除</button>';
+        html += '</td>';
+        html += '</tr>';
+    }
+    html += '</tbody></table></div>';
+    wrap.innerHTML = html;
+}
+function createAccount() {
+    var user = document.getElementById('newAcctUser').value.trim();
+    var pass = document.getElementById('newAcctPass').value.trim();
+    var name = document.getElementById('newAcctName').value.trim();
+    if (!user || !pass) { alert('请填写用户名和密码'); return; }
+    if (user === LOGIN_USER) { alert('用户名不能与主账号重复'); return; }
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === user) { alert('该用户名已存在'); return; }
+    }
+    var modules = getCheckedModules('newAcctModules');
+    if (modules.length === 0) { alert('请至少选择一个板块'); return; }
+    var expiryDate = document.getElementById('newAcctExpiry').value || '';
+    var now = new Date();
+    var dateStr = now.getFullYear() + '-' + ('0' + (now.getMonth() + 1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2);
+    accounts.push({ username: user, password: pass, displayName: name || user, createdAt: dateStr, disabled: false, modules: modules, expiryDate: expiryDate });
+    saveAccounts(accounts);
+    document.getElementById('newAcctUser').value = '';
+    document.getElementById('newAcctPass').value = '';
+    document.getElementById('newAcctName').value = '';
+    document.getElementById('newAcctExpiry').value = '';
+    clearExpiryQuickActive();
+    initNewAcctModules();
+    renderAccountList();
+}
+function resetAccount(username) {
+    var newPass = prompt('请输入新的密码：', '123456');
+    if (!newPass) return;
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { accounts[i].password = newPass; break; }
+    }
+    saveAccounts(accounts);
+    alert('密码已重置为：' + newPass);
+}
+function toggleAccount(username) {
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { accounts[i].disabled = !accounts[i].disabled; break; }
+    }
+    saveAccounts(accounts);
+    renderAccountList();
+}
+function deleteAccount(username) {
+    if (!confirm('确定要删除子账号"' + username + '"吗？此操作不可恢复。')) return;
+    var accounts = getAccounts();
+    var newList = [];
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username !== username) newList.push(accounts[i]);
+    }
+    saveAccounts(newList);
+    renderAccountList();
+}
+function buildModuleGridHtml(containerId, checkedModules) {
+    var html = '';
+    for (var g = 0; g < MODULE_GROUPS.length; g++) {
+        var grp = MODULE_GROUPS[g];
+        html += '<div style="font-size:13px;color:#4a5568;margin-bottom:4px;">' + grp.label + '</div>';
+        for (var i = 0; i < grp.items.length; i++) {
+            var mod = grp.items[i];
+            var isChecked = checkedModules.indexOf(mod) >= 0;
+            var checkedAttr = isChecked ? 'checked' : '';
+            var checkedClass = isChecked ? ' checked' : '';
+            html += '<div class="module-grid-item' + checkedClass + '" onclick="toggleModuleItem(this)">';
+            html += '<input type="checkbox" id="' + containerId + '_mod_' + mod + '" ' + checkedAttr + ' onclick="event.stopPropagation()">';
+            html += '<label for="' + containerId + '_mod_' + mod + '">' + MODULE_LABELS[mod] + '</label>';
+            html += '</div>';
+        }
+    }
+    return html;
+}
+function toggleModuleItem(el) {
+    var cb = el.querySelector('input[type=checkbox]');
+    cb.checked = !cb.checked;
+    if (cb.checked) { el.classList.add('checked'); }
+    else { el.classList.remove('checked'); }
+}
+function getCheckedModules(containerId) {
+    var result = [];
+    for (var i = 0; i < ALL_MODULES.length; i++) {
+        var cb = document.getElementById(containerId + '_mod_' + ALL_MODULES[i]);
+        if (cb && cb.checked) result.push(ALL_MODULES[i]);
+    }
+    return result;
+}
+function initNewAcctModules() {
+    var container = document.getElementById('newAcctModules');
+    if (container) container.innerHTML = buildModuleGridHtml('newAcctModules', ALL_MODULES);
+}
+function setExpiryQuick(days, btn) {
+    var now = new Date();
+    now.setDate(now.getDate() + days);
+    var dateStr = now.getFullYear() + '-' + ('0' + (now.getMonth() + 1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2);
+    document.getElementById('newAcctExpiry').value = dateStr;
+    var btns = document.querySelectorAll('.expiry-quick-btn');
+    for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+    if (btn) btn.classList.add('active');
+}
+function clearExpiryQuickActive() {
+    var btns = document.querySelectorAll('.expiry-quick-btn');
+    for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+}
+function editAccountModules(username) {
+    var accounts = getAccounts();
+    var acct = null;
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { acct = accounts[i]; break; }
+    }
+    if (!acct) return;
+    var currentModules = acct.modules || ALL_MODULES;
+    var mask = document.createElement('div');
+    mask.className = 'module-modal-mask';
+    mask.id = 'moduleModalMask';
+    var html = '<div class="module-modal">';
+    html += '<h3>编辑板块权限 — ' + acct.username + '</h3>';
+    html += '<div class="module-grid" id="editModulesGrid"></div>';
+    html += '<div class="modal-actions">';
+    html += '<button class="modal-btn modal-btn-ghost" onclick="closeModuleModal()">取消</button>';
+    html += '<button class="modal-btn modal-btn-primary" onclick="saveAccountModules(\'' + username + '\')">保存</button>';
+    html += '</div>';
+    html += '</div>';
+    mask.innerHTML = html;
+    document.body.appendChild(mask);
+    var grid = document.getElementById('editModulesGrid');
+    grid.innerHTML = buildModuleGridHtml('editModulesGrid', currentModules);
+}
+function closeModuleModal() {
+    var mask = document.getElementById('moduleModalMask');
+    if (mask) mask.parentNode.removeChild(mask);
+}
+function saveAccountModules(username) {
+    var modules = getCheckedModules('editModulesGrid');
+    if (modules.length === 0) { alert('请至少选择一个板块'); return; }
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { accounts[i].modules = modules; break; }
+    }
+    saveAccounts(accounts);
+    closeModuleModal();
+    renderAccountList();
+    alert('板块权限已更新');
+}
+function extendExpiry(username) {
+    var accounts = getAccounts();
+    var acct = null;
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { acct = accounts[i]; break; }
+    }
+    if (!acct) return;
+    var currentExpiry = acct.expiryDate || '';
+    var msg = '请输入新的到期日期（格式：YYYY-MM-DD）：\n\n快捷输入：\n+7  延期7天\n+30 延期30天\n+90 延期90天\n+180 延期180天\n+365 延期365天\n\n当前到期日期：' + (currentExpiry || '未设置');
+    var input = prompt(msg, currentExpiry);
+    if (!input) return;
+    input = input.trim();
+    var newDate = '';
+    if (input.charAt(0) === '+') {
+        var days = parseInt(input.substring(1), 10);
+        if (isNaN(days) || days <= 0) { alert('请输入有效的天数'); return; }
+        var baseDate = currentExpiry ? new Date(currentExpiry) : new Date();
+        baseDate.setDate(baseDate.getDate() + days);
+        newDate = baseDate.getFullYear() + '-' + ('0' + (baseDate.getMonth() + 1)).slice(-2) + '-' + ('0' + baseDate.getDate()).slice(-2);
+    } else {
+        newDate = input;
+    }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(newDate)) { alert('日期格式不正确，请使用 YYYY-MM-DD 格式'); return; }
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { accounts[i].expiryDate = newDate; break; }
+    }
+    saveAccounts(accounts);
+    renderAccountList();
+    alert('到期时间已更新为：' + newDate);
+}
+document.addEventListener('DOMContentLoaded', function() {
+    initAccounts();
+    initNewAcctModules();
+    var u = document.getElementById('loginUser');
+    var p = document.getElementById('loginPass');
+    if (u) { u.addEventListener('keydown', function(e) { if (e.key === 'Enter') { p.focus(); } }); }
+    if (p) { p.addEventListener('keydown', function(e) { if (e.key === 'Enter') { doLogin(); } }); }
+    checkLogin();
+});
+</script>
+</body>
+</html>
