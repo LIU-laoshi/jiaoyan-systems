@@ -289,8 +289,8 @@ canvas{max-width:100%}
     <h3>📋 生成测评报告</h3>
     <p style="font-size:12px;color:#999;margin-bottom:12px;">请填写以下信息以生成个性化报告</p>
     <div class="form-group">
-      <label>孩子姓名</label>
-      <input type="text" id="shareChildName" placeholder="请输入孩子姓名">
+      <label>孩子昵称</label>
+      <input type="text" id="shareChildName" placeholder="请输入孩子昵称">
     </div>
     <div class="form-group">
       <label>年级</label>
@@ -640,7 +640,7 @@ function calculateResult() {
 
 function saveResults() { try { localStorage.setItem("parent_diag_results", JSON.stringify(results)); syncStateToCloud(); } catch(e) {} }
 function syncShareInfoToCloud(){
-  if(!SHARE_MODE||!SHARE_INFO.childName)return;
+  if(!SHARE_INFO.childName)return;
   syncStateToCloud();
 }
 
@@ -986,7 +986,7 @@ function showReport() {
   html += '<div class="summary-box">';
   html += '<h2>📊 综合教育测评报告</h2>';
   html += '<p>基于五大维度测评结果，以下为您孩子的综合教育测评画像和个性化行动建议。</p>';
-  if(SHARE_MODE && SHARE_INFO.childName){
+  if(SHARE_INFO.childName){
     html += '<div class="share-report-info"><h3>👶 '+SHARE_INFO.childName+' | '+SHARE_INFO.grade+'</h3><p>需提升科目：'+SHARE_INFO.subjects.join('、')+'</p></div>';
   }
   html += '<div style="margin-top:10px;font-size:11px;color:rgba(255,255,255,.5)">报告编号：' + reportId + ' | 生成时间：' + now.toLocaleString("zh-CN") + '</div>';
@@ -1152,6 +1152,10 @@ function showReport() {
   html += '</div>';
 
   // 13. Disclaimer
+  html += '<div style="text-align:center;padding:16px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;margin-bottom:16px;color:#fff;">';
+  html += '<div style="font-size:18px;font-weight:800;">📞 1V1咨询：17875314336</div>';
+  html += '<div style="font-size:13px;margin-top:4px;opacity:0.9;">专业教育规划师为您一对一解答</div>';
+  html += '</div>';
   html += '<div class="report-disclaimer">';
   html += '⚠️ 本报告基于家长自评问卷生成，仅供家庭教育参考，不替代专业心理评估<br>';
   html += '如涉及学习障碍、情绪障碍、发育迟缓等专业问题，请咨询教育心理学家或儿童精神科医生<br>';
@@ -1842,16 +1846,36 @@ function copyShareLink(){
   document.body.removeChild(ta);
 }
 
-/* Override showReport for share mode */
+/* Override showResult - require child info before showing any sub-module result */
+var origShowResult=showResult;
+var PENDING_AFTER_INFO=null;
+showResult=function(){
+  if(!SHARE_INFO.childName){
+    PENDING_AFTER_INFO='showResult';
+    document.getElementById('shareInfoModal').classList.add('show');
+    return;
+  }
+  origShowResult();
+  setTimeout(function(){
+    var rc=document.getElementById('result-content');
+    if(rc&&SHARE_INFO.childName){
+      var infoBar=document.createElement('div');
+      infoBar.style.cssText='text-align:center;padding:8px 12px;background:linear-gradient(135deg,#667eea22,#764ba222);border-radius:8px;margin-bottom:8px;font-size:13px;color:#333;';
+      infoBar.innerHTML='\u00a0\u00a0👶 '+SHARE_INFO.childName+' | '+SHARE_INFO.grade+' | 需提升：'+SHARE_INFO.subjects.join('、');
+      rc.insertBefore(infoBar,rc.firstChild);
+    }
+  },50);
+};
+
+/* Override showReport - require child info in all modes */
 var origShowReport=showReport;
 var LAST_REPORT_HTML='';
 var LAST_REPORT_SCORE=0;
 showReport=function(){
-  if(SHARE_MODE){
-    if(!SHARE_INFO.childName){
-      document.getElementById('shareInfoModal').classList.add('show');
-      return;
-    }
+  if(!SHARE_INFO.childName){
+    PENDING_AFTER_INFO='showReport';
+    document.getElementById('shareInfoModal').classList.add('show');
+    return;
   }
   origShowReport();
   setTimeout(function(){
@@ -1860,7 +1884,7 @@ showReport=function(){
       LAST_REPORT_HTML=rc.innerHTML;
       var scoreMatch=LAST_REPORT_HTML.match(/(\d+)分/);
       if(scoreMatch)LAST_REPORT_SCORE=parseInt(scoreMatch[1]);
-      if(SHARE_MODE&&SHARE_INFO.childName){
+      if(SHARE_INFO.childName){
         syncReportToCloud();
       }
     }
@@ -1877,19 +1901,45 @@ function submitShareInfo(){
   var subjects=[];
   var checks=document.querySelectorAll('#shareSubjects input:checked');
   for(var i=0;i<checks.length;i++){subjects.push(checks[i].value);}
-  if(!name){alert('请输入孩子姓名');return;}
+  if(!name){alert('请输入孩子昵称');return;}
   if(!grade){alert('请选择年级');return;}
   if(subjects.length===0){alert('请至少选择一个需要提升的科目');return;}
   SHARE_INFO={childName:name,grade:grade,subjects:subjects};
   closeShareInfo();
   syncStateToCloud();
-  origShowReport();
+  var action=PENDING_AFTER_INFO;
+  PENDING_AFTER_INFO=null;
+  if(action==='showResult'){
+    origShowResult();
+    setTimeout(function(){
+      var rc=document.getElementById('result-content');
+      if(rc&&SHARE_INFO.childName){
+        var infoBar=document.createElement('div');
+        infoBar.style.cssText='text-align:center;padding:8px 12px;background:linear-gradient(135deg,#667eea22,#764ba222);border-radius:8px;margin-bottom:8px;font-size:13px;color:#333;';
+        infoBar.innerHTML='\u00a0\u00a0👶 '+SHARE_INFO.childName+' | '+SHARE_INFO.grade+' | 需提升：'+SHARE_INFO.subjects.join('、');
+        rc.insertBefore(infoBar,rc.firstChild);
+      }
+    },50);
+  }else{
+    origShowReport();
+    setTimeout(function(){
+      var rc=document.getElementById('report-content');
+      if(rc){
+        LAST_REPORT_HTML=rc.innerHTML;
+        var scoreMatch=LAST_REPORT_HTML.match(/(\d+)分/);
+        if(scoreMatch)LAST_REPORT_SCORE=parseInt(scoreMatch[1]);
+        if(SHARE_INFO.childName){
+          syncReportToCloud();
+        }
+      }
+    },200);
+  }
 }
 
 /* Sync full report HTML to cloud for admin viewing */
 function syncReportToCloud(){
   if(!SHARE_MODE||!SHARE_INFO.childName)return;
-  var username='jz_report_'+SHARE_INFO.childName;
+  var username=SHARE_MODE?('jz_report_'+SHARE_INFO.childName):('jz_report_'+LOGIN_USER.username+'_'+SHARE_INFO.childName);
   var bodyData={
     results:{},
     displayName:SHARE_INFO.childName,
@@ -1933,7 +1983,7 @@ syncStateToCloud=function(){
   var stateData={};
   try{stateData=JSON.parse(localStorage.getItem('parent_diag_results')||'{}');}catch(e){}
   var bodyData={results:stateData};
-  if(SHARE_MODE&&SHARE_INFO.childName){
+  if(SHARE_INFO.childName){
     bodyData.displayName=SHARE_INFO.childName;
     bodyData.grade=SHARE_INFO.grade;
     bodyData.subjects=SHARE_INFO.subjects;
