@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>广州中考志愿填报智能系统</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:#f0f2f5;color:#333;line-height:1.6;}
+:root{--primary:#667eea;--secondary:#764ba2;--accent:#5b6ef5;--bg:#f0f2f5;--card:#fff;--text:#333;--light:#999;}
+.gradient-bg{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);}
+.page{display:none;min-height:100vh;padding-bottom:60px;}
+.page.active{display:block;}
+.header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:16px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.15);}
+.header h1{font-size:18px;font-weight:600;}
+.header .sub{font-size:12px;opacity:0.85;margin-top:2px;}
+.card{background:#fff;border-radius:12px;padding:16px;margin:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.card-title{font-size:16px;font-weight:600;color:#333;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #667eea;}
+.btn{display:inline-block;padding:10px 24px;border-radius:8px;border:none;font-size:14px;font-weight:500;cursor:pointer;text-align:center;text-decoration:none;transition:all 0.3s;}
+.btn-primary{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;}
+.btn-primary:active{transform:scale(0.97);}
+.btn-outline{background:#fff;color:#667eea;border:1.5px solid #667eea;}
+.btn-block{display:block;width:100%;}
+.btn-sm{padding:6px 14px;font-size:12px;border-radius:6px;}
+.form-group{margin-bottom:14px;}
+.form-group label{display:block;font-size:13px;color:#666;margin-bottom:6px;font-weight:500;}
+.form-group select,.form-group input{width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;background:#fff;color:#333;}
+.form-group select:focus,.form-group input:focus{border-color:#667eea;outline:none;}
+.form-row{display:flex;gap:10px;}
+.form-row .form-group{flex:1;}
+.nav-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e0e0e0;display:flex;z-index:100;max-width:600px;margin:0 auto;}
+.nav-item{flex:1;text-align:center;padding:8px 0;cursor:pointer;color:#999;font-size:11px;transition:color 0.3s;}
+.nav-item.active{color:#667eea;}
+.nav-item .icon{font-size:20px;display:block;margin-bottom:2px;}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500;}
+.tag-blue{background:#e8f0fe;color:#1967d2;}
+.tag-green{background:#e6f4ea;color:#137333;}
+.tag-orange{background:#fef7e0;color:#b06000;}
+.tag-red{background:#fce8e6;color:#c5221f;}
+.tag-purple{background:#f3e8fd;color:#8430ce;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;}
+.school-card{background:#fff;border-radius:10px;padding:12px;border:1px solid #eee;cursor:pointer;transition:all 0.3s;}
+.school-card:active{transform:scale(0.97);border-color:#667eea;}
+.school-card .name{font-size:14px;font-weight:600;color:#333;margin-bottom:4px;}
+.school-card .score{font-size:18px;font-weight:700;color:#667eea;}
+.school-card .info{font-size:11px;color:#999;margin-top:4px;}
+.match-group{margin-bottom:16px;}
+.match-group-title{padding:8px 12px;border-radius:8px;font-size:14px;font-weight:600;margin-bottom:8px;}
+.group-chong{background:#fce8e6;color:#c5221f;}
+.group-wen{background:#e8f0fe;color:#1967d2;}
+.group-bao{background:#e6f4ea;color:#137333;}
+.group-shou{background:#fef7e0;color:#b06000;}
+.section{margin-bottom:16px;}
+.section h3{font-size:15px;color:#333;margin-bottom:8px;padding-left:4px;border-left:3px solid #667eea;}
+.info-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0;font-size:13px;}
+.info-item .label{color:#999;}
+.info-item .value{color:#333;font-weight:500;}
+.search-box{padding:12px;background:#fff;border-bottom:1px solid #eee;}
+.search-box input{width:100%;padding:8px 12px;border:1.5px solid #e0e0e0;border-radius:20px;font-size:13px;}
+.filter-row{display:flex;gap:8px;padding:8px 12px;background:#fff;overflow-x:auto;}
+.filter-chip{padding:4px 12px;border-radius:16px;font-size:12px;white-space:nowrap;cursor:pointer;border:1px solid #e0e0e0;color:#666;}
+.filter-chip.active{background:#667eea;color:#fff;border-color:#667eea;}
+.policy-block{background:#fff;border-radius:10px;padding:14px;margin:10px 12px;border-left:3px solid #667eea;}
+.policy-block h3{font-size:15px;color:#333;margin-bottom:8px;}
+.policy-block p{font-size:13px;color:#666;line-height:1.8;margin-bottom:6px;}
+.policy-block ul{padding-left:18px;font-size:13px;color:#666;line-height:1.8;}
+.tool-item{background:#fff;border-radius:10px;padding:14px;margin:10px 12px;display:flex;align-items:center;cursor:pointer;}
+.tool-item:active{background:#f5f5f5;}
+.tool-item .icon{font-size:28px;margin-right:14px;}
+.tool-item .info h4{font-size:14px;color:#333;}
+.tool-item .info p{font-size:12px;color:#999;}
+.volunteer-table{width:100%;border-collapse:collapse;font-size:12px;}
+.volunteer-table th{background:#667eea;color:#fff;padding:8px;text-align:center;font-weight:500;}
+.volunteer-table td{padding:8px;text-align:center;border:1px solid #eee;}
+.volunteer-table tr:nth-child(even){background:#f9f9f9;}
+.batch-header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:10px 14px;border-radius:8px;font-size:14px;font-weight:600;margin:12px 12px 8px;}
+.risk-item{display:flex;align-items:flex-start;padding:10px 0;border-bottom:1px solid #f0f0f0;}
+.risk-item .level{width:6px;height:6px;border-radius:50%;margin:6px 8px 0 0;flex-shrink:0;}
+.risk-high{background:#ea4335;}
+.risk-mid{background:#fbbc04;}
+.risk-low{background:#34a853;}
+.score-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;}
+.footer{text-align:center;padding:16px;font-size:12px;color:#999;}
+.empty-state{text-align:center;padding:40px 20px;color:#999;font-size:14px;}
+#loginPage.active,#loadingPage.active{display:flex;}
+#loginPage,#loadingPage{min-height:100vh;align-items:center;justify-content:center;flex-direction:column;}
+.login-box{background:#fff;border-radius:16px;padding:30px 24px;margin:20px;box-shadow:0 4px 20px rgba(0,0,0,0.1);width:90%;max-width:360px;}
+.login-box .logo{font-size:32px;text-align:center;margin-bottom:8px;}
+.login-box h2{text-align:center;font-size:20px;color:#333;margin-bottom:20px;}
+.loading-text{text-align:center;color:#fff;font-size:16px;}
+.detail-section{margin-bottom:16px;}
+.detail-section h4{font-size:14px;color:#667eea;margin-bottom:6px;font-weight:600;}
+.detail-section p{font-size:13px;color:#666;line-height:1.8;}
+.tab-bar{display:flex;border-bottom:2px solid #eee;margin-bottom:12px;}
+.tab-btn{padding:8px 16px;font-size:13px;cursor:pointer;color:#999;border-bottom:2px solid transparent;margin-bottom:-2px;}
+.tab-btn.active{color:#667eea;border-bottom-color:#667eea;font-weight:600;}
+.gauge{width:120px;height:120px;border-radius:50%;background:conic-gradient(#667eea 0deg,#764ba2 360deg);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;position:relative;}
+.gauge-inner{width:90px;height:90px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex-direction:column;}
+.gauge-score{font-size:24px;font-weight:700;color:#667eea;}
+.gauge-label{font-size:10px;color:#999;}
+
+/* Login Overlay & Account Management */
+.login-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;align-items:center;justify-content:center;z-index:9999;}
+.login-overlay.hidden{display:none;}
+.login-box{background:#fff;border-radius:16px;padding:32px 28px;width:88%;max-width:340px;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+.login-box .logo{font-size:48px;text-align:center;margin-bottom:8px;}
+.login-box h2{text-align:center;font-size:18px;color:#333;margin-bottom:20px;}
+.login-box .form-group{margin-bottom:14px;}
+.login-box .form-group label{display:block;font-size:13px;color:#666;margin-bottom:6px;}
+.login-box .form-group input{width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;}
+.login-box .btn{display:block;width:100%;padding:12px;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;}
+.login-box .btn:active{transform:scale(0.98);}
+.login-box .tip{text-align:center;margin-top:12px;font-size:12px;color:#999;}
+.account-page{padding:16px;padding-bottom:60px;}
+.account-page .acc-header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:16px;border-radius:12px;margin-bottom:12px;}
+.account-page .acc-header h2{font-size:16px;margin-bottom:4px;}
+.account-page .acc-header p{font-size:12px;opacity:0.85;}
+.acc-card{background:#fff;border-radius:10px;padding:14px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.acc-card .acc-name{font-size:15px;font-weight:600;color:#333;}
+.acc-card .acc-info{font-size:12px;color:#999;margin-top:4px;}
+.acc-card .acc-modules{margin-top:8px;}
+.acc-card .acc-modules span{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;background:#e8f0fe;color:#1967d2;margin:2px;}
+.acc-card .acc-actions{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;}
+.acc-card .acc-actions button{padding:5px 12px;border-radius:6px;border:1px solid #667eea;background:#fff;color:#667eea;font-size:12px;cursor:pointer;}
+.acc-card .acc-actions button.danger{border-color:#e53935;color:#e53935;}
+.acc-card .acc-actions button:active{transform:scale(0.96);}
+.acc-modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:10000;}
+.acc-modal.show{display:flex;}
+.acc-modal .modal-box{background:#fff;border-radius:14px;padding:20px;width:90%;max-width:380px;max-height:85vh;overflow-y:auto;}
+.acc-modal .modal-box h3{font-size:16px;margin-bottom:14px;color:#333;}
+.acc-modal .modal-box .form-group{margin-bottom:12px;}
+.acc-modal .modal-box .form-group label{display:block;font-size:13px;color:#666;margin-bottom:5px;}
+.acc-modal .modal-box .form-group input{width:100%;padding:8px 10px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:13px;}
+.acc-modal .modal-box .module-checks{display:flex;flex-wrap:wrap;gap:6px;}
+.acc-modal .modal-box .module-checks label{display:flex;align-items:center;gap:4px;font-size:12px;padding:4px 8px;border-radius:4px;background:#f5f5f5;cursor:pointer;}
+.acc-modal .modal-box .expiry-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.acc-modal .modal-box .expiry-btns button{padding:5px 10px;border-radius:6px;border:1px solid #ddd;background:#fff;font-size:12px;cursor:pointer;}
+.acc-modal .modal-box .expiry-btns button.active{background:#667eea;color:#fff;border-color:#667eea;}
+.acc-modal .modal-box .modal-actions{display:flex;gap:10px;margin-top:14px;}
+.acc-modal .modal-box .modal-actions button{flex:1;padding:10px;border-radius:8px;border:none;font-size:14px;cursor:pointer;}
+.acc-modal .modal-box .modal-actions .btn-save{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;}
+.acc-modal .modal-box .modal-actions .btn-cancel{background:#f0f0f0;color:#666;}
+.acc-nav-item{position:fixed;bottom:60px;right:16px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;box-shadow:0 4px 12px rgba(102,126,234,0.4);z-index:99;}
+
+</style>
+</head>
+<body>
+
+<!-- Login Overlay -->
+<div id="loginOverlay" class="login-overlay">
+<div class="login-box">
+<div class="logo">📚</div>
+<h2>广州中考志愿填报智能系统</h2>
+<div class="form-group">
+<label>账号</label>
+<input type="text" id="loginUser" placeholder="请输入账号" value="">
+</div>
+<div class="form-group">
+<label>密码</label>
+<input type="password" id="loginPass" placeholder="请输入密码" value="">
+</div>
+<button class="btn" onclick="doLogin()">登录系统</button>
+<p class="tip">系统设计制作：刘岳</p>
+</div>
+</div>
+
+<!-- Loading Page -->
+<div id="loadingPage" class="page gradient-bg">
+<p class="loading-text">⏳ 系统加载中...</p>
+</div>
+
+<!-- Home Page -->
+<div id="homePage" class="page">
+<div class="header">
+<h1>🏠 广州中考志愿填报</h1>
+<div class="sub">2026最新政策·170+所高中·智能匹配</div>
+<button class="btn btn-sm btn-outline" style="position:absolute;right:12px;top:14px;color:#fff;border-color:#fff;" onclick="logout()">退出</button>
+</div>
+<div class="card">
+<div class="card-title">📊 快速导航</div>
+<div class="grid">
+<div class="school-card" onclick="showPage('studentPage')" style="text-align:center;">
+<div class="name">📝</div>
+<div style="font-size:13px;color:#666;">学生信息</div>
+</div>
+<div class="school-card" onclick="showPage('matchPage')" style="text-align:center;">
+<div class="name">🎯</div>
+<div style="font-size:13px;color:#666;">智能匹配</div>
+</div>
+<div class="school-card" onclick="showPage('schoolPage')" style="text-align:center;">
+<div class="name">🏫</div>
+<div style="font-size:13px;color:#666;">高中数据库</div>
+</div>
+<div class="school-card" onclick="showPage('volunteerPage')" style="text-align:center;">
+<div class="name">📋</div>
+<div style="font-size:13px;color:#666;">志愿表</div>
+</div>
+<div class="school-card" onclick="showPage('riskPage')" style="text-align:center;">
+<div class="name">⚠️</div>
+<div style="font-size:13px;color:#666;">风险评估</div>
+</div>
+<div class="school-card" onclick="showPage('policyPage')" style="text-align:center;">
+<div class="name">📖</div>
+<div style="font-size:13px;color:#666;">政策中心</div>
+</div>
+<div class="school-card" onclick="showPage('toolPage')" style="text-align:center;">
+<div class="name">🛠️</div>
+<div style="font-size:13px;color:#666;">工具箱</div>
+</div>
+<div class="school-card" onclick="showPage('reportPage')" style="text-align:center;">
+<div class="name">📄</div>
+<div style="font-size:13px;color:#666;">生成报告</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">📈 2026中考关键数据</div>
+<div class="info-item"><span class="label">中考总分</span><span class="value">810分</span></div>
+<div class="info-item"><span class="label">考试科目</span><span class="value">语140·数150·英140·物100·化70·道法70·史70·体70</span></div>
+<div class="info-item"><span class="label">第一梯度线</span><span class="value" style="color:#c5221f;font-weight:700;">712分</span></div>
+<div class="info-item"><span class="label">公办普高最低控制线</span><span class="value" style="color:#667eea;font-weight:700;">492分</span></div>
+<div class="info-item"><span class="label">民办普高最低控制线</span><span class="value" style="color:#764ba2;font-weight:700;">412分（比公办低80分）</span></div>
+<div class="info-item"><span class="label">志愿填报时间</span><span class="value">2026年6月1日-6月5日</span></div>
+</div>
+<div class="card">
+<div class="card-title">🏆 名校速览（2026第三批户籍生分数线）</div>
+<div class="info-item"><span class="label">省实(荔湾)</span><span class="score-badge tag-red">740</span></div>
+<div class="info-item"><span class="label">华附(石牌)</span><span class="score-badge tag-red">739</span></div>
+<div class="info-item"><span class="label">广大附中</span><span class="score-badge tag-red">738</span></div>
+<div class="info-item"><span class="label">广州二中</span><span class="score-badge tag-red">737</span></div>
+<div class="info-item"><span class="label">华附(知识城)</span><span class="score-badge tag-red">735</span></div>
+<div class="info-item"><span class="label">广雅(荔湾)</span><span class="score-badge tag-red">733</span></div>
+<div class="info-item"><span class="label">执信(执信路)</span><span class="score-badge tag-red">732</span></div>
+<div class="info-item"><span class="label">执信(天河)</span><span class="score-badge tag-red">731</span></div>
+</div>
+<div class="footer">刘岳 · 广州教研</div>
+</div>
+
+<!-- Student Page -->
+<div id="studentPage" class="page">
+<div class="header">
+<h1>📝 学生信息</h1>
+<button class="btn btn-sm btn-outline" style="position:absolute;right:12px;top:14px;color:#fff;border-color:#fff;" onclick="showPage('homePage')">返回</button>
+</div>
+<div class="card">
+<div class="card-title">中考成绩</div>
+<div class="form-group">
+<label>中考总分（满分810）</label>
+<input type="number" id="stuScore" placeholder="如：680" min="0" max="810">
+</div>
+<div class="form-row">
+<div class="form-group">
+<label>语文（140）</label>
+<input type="number" id="stuChinese" placeholder="分数" min="0" max="140">
+</div>
+<div class="form-group">
+<label>数学（150）</label>
+<input type="number" id="stuMath" placeholder="分数" min="0" max="150">
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label>英语（140）</label>
+<input type="number" id="stuEnglish" placeholder="分数" min="0" max="140">
+</div>
+<div class="form-group">
+<label>物理（100）</label>
+<input type="number" id="stuPhysics" placeholder="分数" min="0" max="100">
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label>化学（70）</label>
+<input type="number" id="stuChemistry" placeholder="分数" min="0" max="70">
+</div>
+<div class="form-group">
+<label>道法（70）</label>
+<input type="number" id="stuPolitics" placeholder="分数" min="0" max="70">
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label>历史（70）</label>
+<input type="number" id="stuHistory" placeholder="分数" min="0" max="70">
+</div>
+<div class="form-group">
+<label>体育（70）</label>
+<input type="number" id="stuPE" placeholder="分数" min="0" max="70">
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">考生信息</div>
+<div class="form-group">
+<label>考生类型</label>
+<select id="stuType">
+<option value="户籍生">户籍生</option>
+<option value="非户籍生">非户籍生（随迁子女）</option>
+</select>
+</div>
+<div class="form-group">
+<label>学籍所在区</label>
+<select id="stuDistrict">
+<option value="越秀">越秀区</option>
+<option value="海珠">海珠区</option>
+<option value="荔湾">荔湾区</option>
+<option value="天河">天河区</option>
+<option value="白云">白云区</option>
+<option value="黄埔">黄埔区</option>
+<option value="番禺">番禺区</option>
+<option value="花都">花都区</option>
+<option value="南沙">南沙区</option>
+<option value="从化">从化区</option>
+<option value="增城">增城区</option>
+</select>
+</div>
+<div class="form-group">
+<label>是否跨区生</label>
+<select id="stuCrossDistrict">
+<option value="否">否</option>
+<option value="是">是（回户籍区报考）</option>
+</select>
+</div>
+<div class="form-group">
+<label>名额分配资格</label>
+<select id="stuQuota">
+<option value="有">有资格</option>
+<option value="无">无资格</option>
+</select>
+</div>
+<div class="form-group">
+<label>意向方向</label>
+<select id="stuDirection">
+<option value="公办普高">公办普通高中</option>
+<option value="民办普高">民办普通高中</option>
+<option value="中外合作">中外合作办学</option>
+<option value="中职">中职学校</option>
+</select>
+</div>
+</div>
+<div style="padding:0 12px 16px;">
+<button class="btn btn-primary btn-block" onclick="saveStudent()">💾 保存信息</button>
+</div>
+<div class="footer">刘岳 · 广州教研</div>
+</div>
+
+<!-- Match Page -->
+<div id="matchPage" class="page">
+<div class="header">
+<h1>🎯 智能匹配</h1>
+<button class="btn btn-sm btn-outline" style="position:absolute;right:12px;top:14px;color:#fff;border-color:#fff;" onclick="showPage('homePage')">返回</button>
+</div>
+<div class="card">
+<div class="card-title">智能志愿匹配</div>
+<p style="font-size:13px;color:#999;margin-bottom:12px;">基于历年录取分数线，采用梯度分析法，将学校分为冲刺、稳妥、保底、守卫四档推荐。请先在"学生信息"页填写成绩。</p>
+<button class="btn btn-primary btn-block" onclick="runMatch()">🚀 开始智能匹配</button>
+</div>
+<div id="matchResults" style="display:none;"></div>
+<div class="footer">刘岳 · 广州教研</div>
+</div>
+
+<!-- School Database Page -->
+<div id="schoolPage" class="page">
+<div class="header">
+<h1>🏫 高中数据库</h1>
+<button class="btn btn-sm btn-outline" style="position:absolute;right:12px;top:14px;color:#fff;border-color:#fff;" onclick="showPage('homePage')">返回</button>
+</div>
+<div class="search-box">
+<input type="text" id="schoolSearch" placeholder="搜索学校名称..." oninput="searchSchool()">
+</div>
+<div class="filter-row" id="schoolFilters">
+<div class="filter-chip active" onclick="filterSchool('all',this)">全部</div>
+<div class="filter-chip" onclick="filterSchool('公办',this)">公办</div>
+<div class="filter-chip" onclick="filterSchool('民办',this)">民办</div>
+<div class="filter-chip" onclick="filterSchool('中外合作',this)">中外合作</div>
+<div class="filter-chip" onclick="filterSchool('国家级示范性',this)">国家级示范性</div>
+<div class="filter-chip" onclick="filterSchool('市示范性',this)">市示范性</div>
+</div>
+<div id="schoolList" class="grid" style="padding:12px;"></div>
+<div id="schoolDetail" style="display:none;"></div>
+<div class="footer">刘岳 · 广州教研</div>
+</div>
+
+<!-- Volunteer Page -->
+<div id="volunteerPage" class="page">
+<div class="header">
+<h1>📋 志愿表</h1>
+<button class="btn btn-sm btn-outline" style="position:absolute;right:12px;top:14px;color:#fff;border-color:#fff;" onclick="showPage('homePage')">返回</button>
+</div>
+<div class="card">
+<p style="font-size:13px;color:#999;">基于智能匹配结果，按批次生成志愿表。请先完成智能匹配。</p>
+<button class="btn btn-primary btn-block" onclick="genVolunteer()">📋 生成志愿表</button>
+</div>
+<div id="volunteerContent" style="display:none;"></div>
+<div class="footer">刘岳 · 广州教研</div>
+</div>
+
+<!-- Risk Page -->
+<div id="riskPage" class="page">
+<div class="header">
+<h1>⚠️ 风险评估</h1>
+<button class="btn btn-sm btn-outline" style="position:absolute;right:12px;top:14px;color:#fff;border-color:#fff;" onclick="showPage('homePage')">返回</button>
+</div>
+<div class="card">
+<p style="font-size:13px;color:#999;">分析志愿表风险，包括滑档风险、梯度合理性、批次覆盖等。请先生成志愿表。</p>
+<button class="btn btn-primary btn-block" onclick="runRisk()">🔍 开始评估</button>
+</div>
+<div id="riskContent" style="display:none;"></div>
+<div class="footer">刘岳 · 广州教研</div>
+</div>
+
+<!-- Policy Page -->
+<div id="policyPage" class="page">
+<div class="header">
+<h1>📖 政策中心</h1>
+<button class="btn btn-sm btn-outline" style="position:absolute;right:12px;top:14px;color:#fff;border-color:#fff;" onclick="showPage('homePage')">返回</button>
+</div>
+<div id="policyContent"></div>
+<div class="footer">刘岳 · 广州教研</div>
+</div>
+
+<!-- Tool Page -->
+<div id="toolPage" class="page">
+<div class="header">
+<h1>🛠️ 工具箱</h1>
+<button class="btn btn-sm btn-outline" style="position:absolute;right:12px;top:14px;color:#fff;border-color:#fff;" onclick="showPage('homePage')">返回</button>
+</div>
+<div class="tool-item" onclick="showTool('gradient')">
+<div class="icon">📊</div>
+<div class="info"><h4>梯度线查询</h4><p>查看各梯度投档控制线及所处位置</p></div>
+</div>
+<div class="tool-item" onclick="showTool('scorecalc')">
+<div class="icon">🧮</div>
+<div class="info"><h4>中考分数计算器</h4><p>输入各科成绩自动计算总分</p></div>
+</div>
+<div class="tool-item" onclick="showTool('compare')">
+<div class="icon">⚖️</div>
+<div class="info"><h4>学校对比</h4><p>对比多所学校的分数线和特色</p></div>
+</div>
+<div class="tool-item" onclick="showTool('quota')">
+<div class="icon">🎯</div>
+<div class="info"><h4>名额分配查询</h4><p>查询名额分配政策和录取规则</p></div>
+</div>
+<div id="toolContent" style="display:none;"></div>
+<div class="footer">刘岳 · 广州教研</div>
+</div>
+
+<!-- Report Page -->
+<div id="reportPage" class="page">
+<div class="header">
+<h1>📄 填报方案报告</h1>
+<button class="btn btn-sm btn-outline" style="position:absolute;right:12px;top:14px;color:#fff;border-color:#fff;" onclick="showPage('homePage')">返回</button>
+</div>
+<div class="card">
+<p style="font-size:13px;color:#999;">一键生成完整的志愿填报方案报告，含学生分析、匹配结果、志愿表、风险评估和政策建议。</p>
+<button class="btn btn-primary btn-block" onclick="genReport()">📄 生成完整报告</button>
+</div>
+<div id="reportContent" style="display:none;"></div>
+<div class="footer">刘岳 · 广州教研</div>
+</div>
+
+<!-- School Detail Page -->
+<div id="schoolDetailPage" class="page">
+<div class="header">
+<h1 id="sdTitle">学校详情</h1>
+<button class="btn btn-sm btn-outline" style="position:absolute;right:12px;top:14px;color:#fff;border-color:#fff;" onclick="showPage('schoolPage')">返回</button>
+</div>
+<div id="sdContent" style="padding:0 0 20px;"></div>
+<div class="footer">刘岳 · 广州教研</div>
+</div>
+
+
+<!-- Account Management Page -->
+<div id="accountPage" class="page">
+<div class="acc-header">
+<h2>👥 账号管理</h2>
+<p>管理子账号、板块权限和使用期限</p>
+</div>
+<div id="accountList"></div>
+<button class="btn btn-primary btn-block" style="margin:12px;" onclick="openCreateModal()">➕ 创建新账号</button>
+</div>
+
+<!-- Account Modal -->
+<div id="accountModal" class="acc-modal">
+<div class="modal-box">
+<h3 id="modalTitle">创建新账号</h3>
+<div class="form-group">
+<label>用户名</label>
+<input type="text" id="accUsername" placeholder="请输入用户名">
+</div>
+<div class="form-group">
+<label>密码</label>
+<input type="text" id="accPassword" placeholder="请输入密码">
+</div>
+<div class="form-group">
+<label>显示名称</label>
+<input type="text" id="accDisplayName" placeholder="请输入显示名称">
+</div>
+<div class="form-group">
+<label>使用期限</label>
+<div class="expiry-btns" id="expiryBtns">
+<button onclick="setExpiry(7)">7天</button>
+<button onclick="setExpiry(30)">30天</button>
+<button onclick="setExpiry(90)">90天</button>
+<button onclick="setExpiry(180)">180天</button>
+<button onclick="setExpiry(365)">365天</button>
+<button onclick="setExpiry(0)">永久</button>
+</div>
+<input type="date" id="accExpiry" style="width:100%;padding:8px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:13px;margin-top:6px;">
+</div>
+<div class="form-group">
+<label>板块权限</label>
+<div class="module-checks" id="moduleChecks"></div>
+</div>
+<div class="modal-actions">
+<button class="btn-cancel" onclick="closeAccountModal()">取消</button>
+<button class="btn-save" onclick="saveAccount()">保存</button>
+</div>
+</div>
+</div>
+
+<!-- Nav Bar -->
+<div class="nav-bar">
+<div class="nav-item active" onclick="showPage('homePage')"><span class="icon">🏠</span>首页</div>
+<div class="nav-item" onclick="showPage('matchPage')"><span class="icon">🎯</span>匹配</div>
+<div class="nav-item" onclick="showPage('schoolPage')"><span class="icon">🏫</span>学校</div>
+<div class="nav-item" onclick="showPage('volunteerPage')"><span class="icon">📋</span>志愿</div>
+<div class="nav-item" onclick="showPage('policyPage')"><span class="icon">📖</span>政策</div>
+</div>
+
+<div class="acc-nav-item" onclick="showPage('accountPage')" title="账号管理">⚙️</div>
+
+<script>
+// ============ SCHOOL DATA ============
+var schools = [
+// 公办高中 - 第三批次
+{name:'华南师范大学附属中学（石牌校区）',code:'P001',type:'公办',level:'国家级示范性',district:'天河',scope:'全市',score2026_hu:739,score2026_fei:741,score2025_hu:736,score2024_hu:728,web:'https://www.hsfz.net.cn',feature:'省属顶尖名校，华附石牌校区，全省招生',desc:'华南师范大学附属中学是广东省教育厅直属的国家级示范性普通高中，被誉为"广东第一校"。石牌校区位于天河区，创建于1952年，师资力量雄厚，高考成绩长期稳居全省前列，历年考入清华北大人数居广东之首。学校以"进德修业"为校训，注重拔尖创新人才培养，开设大学先修课程和竞赛课程。'},
+{name:'华南师范大学附属中学（知识城校区）',code:'P002',type:'公办',level:'国家级示范性',district:'黄埔',scope:'全市',score2026_hu:735,score2026_fei:735,score2025_hu:730,score2024_hu:0,web:'https://www.hsfz.net.cn',feature:'华附新校区，黄埔知识城',desc:'华附知识城校区是华南师范大学附属中学教育集团的新成员，位于黄埔区中新知识城，2022年首届招生。延续华附优质教育品牌，校园设施现代化，实行与石牌校区一体化管理，师资共享，课程同步，为黄埔区带来顶尖教育资源。'},
+{name:'广东实验中学（荔湾校区）',code:'P003',type:'公办',level:'国家级示范性',district:'荔湾',scope:'全市',score2026_hu:740,score2026_fei:740,score2025_hu:750,score2024_hu:735,web:'https://www.gdsyzx.edu.cn',feature:'省属顶尖名校，荔湾校区',desc:'广东实验中学（省实）是广东省教育厅直属的国家级示范性普通高中，首批广东省一级学校。荔湾校区为本部，创建于1872年，历史悠久。教学质量和学科竞赛成绩全省领先，尤其在科技创新、艺术教育方面特色鲜明，开设南山班、格致班等拔尖人才培养项目。'},
+{name:'广东实验中学（白云校区）',code:'P004',type:'公办',level:'国家级示范性',district:'白云',scope:'全市',score2026_hu:720,score2026_fei:721,score2025_hu:717,score2024_hu:0,web:'https://www.gdsyzx.edu.cn',feature:'省实白云校区，新兴优质学位',desc:'省实白云校区于2024年首届招生，位于白云区，是广东实验中学教育集团的重要组成部分。延续省实教育品牌，实行与本部一体化管理，师资由本部统筹调配，课程体系一致，为白云区带来优质教育资源，填补白云区顶尖学位空白。'},
+{name:'广东广雅中学（荔湾校区）',code:'P005',type:'公办',level:'国家级示范性',district:'荔湾',scope:'全市',score2026_hu:733,score2026_fei:733,score2025_hu:731,score2024_hu:731,web:'https://www.gyzx.edu.cn',feature:'百年名校，荔湾本部',desc:'广东广雅中学创建于1888年，是岭南百年名校，国家级示范性普通高中，首批广东省一级学校。荔湾校区为本部，由晚清名臣张之洞创办，文化底蕴深厚。学校以"务本求实"为校训，高考成绩优异，图书馆藏书丰富，校园环境古雅幽美，是广州市标志性文化校园。'},
+{name:'广东广雅中学（花都校区）',code:'P006',type:'公办',level:'国家级示范性',district:'花都',scope:'全市',score2026_hu:717,score2026_fei:718,score2025_hu:718,score2024_hu:0,web:'https://www.gyzx.edu.cn',feature:'广雅花都校区，优质新校',desc:'广雅花都校区于2022年首届招生，延续广雅百年教育品牌，为花都区带来优质教育资源。校园设施现代化，实行与荔湾本部一体化管理，课程同步、师资共享，开设广雅特色课程体系，致力打造花都教育新高地。'},
+{name:'广州市执信中学（执信路校区）',code:'P007',type:'公办',level:'国家级示范性',district:'越秀',scope:'全市',score2026_hu:732,score2026_fei:733,score2025_hu:730,score2024_hu:724,web:'https://www.zxhs.net',feature:'百年名校，越秀本部',desc:'执信中学是孙中山先生于1921年为纪念朱执信先生而创办的国家级示范性普通高中，首批广东省一级学校。越秀本部校区位于执信南路，历史底蕴深厚，以"崇德瀹智"为校训，高考成绩稳居广州市前列，艺术教育和学生社团活动丰富多彩。'},
+{name:'广州市执信中学（天河校区）',code:'P008',type:'公办',level:'国家级示范性',district:'天河',scope:'全市',score2026_hu:731,score2026_fei:731,score2025_hu:719,score2024_hu:0,web:'https://www.zxhs.net',feature:'执信天河校区',desc:'执信天河校区位于天河区，是执信中学教育集团的重要成员。校园设施现代化，实行与越秀本部一体化管理，师资共享、课程同步。延续执信优质教育品牌，为天河区增加优质高中学位，近年高考成绩持续攀升。'},
+{name:'广州市第二中学',code:'P009',type:'公办',level:'国家级示范性',district:'越秀',scope:'全市',score2026_hu:737,score2026_fei:738,score2025_hu:730,score2024_hu:730,web:'https://www.gdgzez.com.cn',feature:'越秀本部，理科强校',desc:'广州市第二中学是国家级示范性普通高中，首批广东省一级学校，创建于1930年。越秀本部校区位于应元路，理科教学突出，学科竞赛成绩优异，尤其在数学、物理、信息学竞赛中屡获国家级奖项。以"元元传承、厚德格物"为校训，是广州老牌理科强校。'},
+{name:'广州市第六中学（海珠校区）',code:'P010',type:'公办',level:'国家级示范性',district:'海珠',scope:'全市',score2026_hu:726,score2026_fei:727,score2025_hu:721,score2024_hu:721,web:'https://www.gz6hs.com',feature:'海珠本部，科技特色',desc:'广州市第六中学是国家级示范性普通高中，首批广东省一级学校，创建于1937年。海珠校区为本部，以科技教育特色鲜明闻名，开设航空特色班、科技创新实验班。学校以"亲爱精诚"为校训，高考成绩稳居广州市前列，科技发明和创新竞赛成果丰硕。'},
+{name:'广州市第六中学（从化校区）',code:'P011',type:'公办',level:'国家级示范性',district:'从化',scope:'全市',score2026_hu:674,score2026_fei:680,score2025_hu:0,score2024_hu:0,web:'https://www.gz6hs.com',feature:'六中从化校区',desc:'六中从化校区于2023年首届招生，位于从化区，是广州市第六中学教育集团成员。延续六中优质教育品牌和科技教育特色，实行与本部一体化管理，为从化区带来主城区优质教育资源，提升从化教育整体水平。'},
+{name:'广州市第六中学（花都校区）',code:'P012',type:'公办',level:'国家级示范性',district:'花都',scope:'全市',score2026_hu:698,score2026_fei:698,score2025_hu:0,score2024_hu:0,web:'https://www.gz6hs.com',feature:'六中花都校区',desc:'六中花都校区位于花都区，是广州市第六中学教育集团新校区。延续六中教育品牌和科技特色，校园设施现代化，师资由本部统筹调配，为花都区增加优质高中学位，服务花都教育高质量发展。'},
+{name:'广州大学附属中学',code:'P013',type:'公办',level:'国家级示范性',district:'番禺',scope:'全市',score2026_hu:738,score2026_fei:738,score2025_hu:736,score2024_hu:730,web:'https://www.gdfz.com',feature:'大学城校区，国防特色',desc:'广州大学附属中学（广大附中）是国家级示范性普通高中，广东省一级学校，创建于1948年。番禺校区为本部，以国防教育特色闻名，开设国防班乃广东省首创。学校以"以生为本，与时俱进"为办学理念，高考成绩和学科竞赛双丰收，近年发展势头强劲。'},
+{name:'广州市铁一中学（越秀校区）',code:'P014',type:'公办',level:'国家级示范性',district:'越秀',scope:'全市',score2026_hu:638,score2026_fei:696,score2025_hu:724,score2024_hu:717,web:'https://www.gtyz.com',feature:'越秀本部，2026爆冷',desc:'广州市铁一中学（广铁一中）是国家级示范性普通高中，首批广东省一级学校，创建于1952年。越秀校区为本部，以"开发潜能、促进发展"为办学理念，高考成绩稳居广州市前列，艺术教育（合唱、管乐）特色突出，是越秀区优质名校。'},
+{name:'广州市铁一中学（番禺校区）',code:'P015',type:'公办',level:'国家级示范性',district:'番禺',scope:'全市',score2026_hu:710,score2026_fei:710,score2025_hu:708,score2024_hu:705,web:'https://www.gtyz.com',feature:'番禺校区',desc:'广铁一中番禺校区位于番禺区，是铁一中学教育集团重要成员。实行与越秀本部一体化管理，师资共享、课程同步，延续铁一优质教育品牌，为番禺区带来主城区优质教育资源，高考成绩持续提升。'},
+{name:'广州市铁一中学（白云校区）',code:'P016',type:'公办',level:'国家级示范性',district:'白云',scope:'全市',score2026_hu:712,score2026_fei:712,score2025_hu:711,score2024_hu:716,web:'https://www.gtyz.com',feature:'白云校区',desc:'广铁一中白云校区位于白云区，是铁一中学教育集团新成员。校园设施现代化，实行与本部一体化管理，延续铁一教育品牌和艺术教育特色，为白云区增加优质高中学位，近年招生热度持续攀升。'},
+{name:'广州外国语学校',code:'P017',type:'公办',level:'市示范性',district:'南沙',scope:'全市',score2026_hu:712,score2026_fei:713,score2025_hu:700,score2024_hu:0,web:'https://www.gzfls.com',feature:'外语特色，南沙',desc:'广州外国语学校是广州市教育局直属的公办外国语学校，位于南沙区，是广州市唯一一所市属公办外国语学校。学校以外语教学为特色，开设多语种课程（英语、法语、德语、日语、西班牙语等），国际交流活跃，AP课程和A-Level课程项目成熟。'},
+{name:'清华附中湾区学校（智谷校区）',code:'P018',type:'公办',level:'市示范性',district:'天河',scope:'全市',score2026_hu:712,score2026_fei:714,score2025_hu:702,score2024_hu:680,web:'https://www.qhfzgz.cn',feature:'清华附中品牌，天河',desc:'清华附中湾区学校（智谷校区）是广州市与清华大学附属中学合作创办的公办学校，位于天河区。引入清华附中优质教育资源和先进办学理念，以科技创新教育为特色，致力打造广州基础教育新高地，2024年首届招生。'},
+{name:'清华附中湾区学校（智慧城校区）',code:'P019',type:'公办',level:'市示范性',district:'天河',scope:'全市',score2026_hu:710,score2026_fei:712,score2025_hu:0,score2024_hu:0,web:'https://www.qhfzgz.cn',feature:'清华附中新校区',desc:'清华附中湾区学校（智慧城校区）位于天河区智慧城板块，是清华附中湾区学校的重要组成部分。延续清华附中教育品牌，校园设计现代化，以科技创新和人文素养并重为特色，为天河区带来顶尖教育资源。'},
+{name:'广州市第七中学（校本部）',code:'P020',type:'公办',level:'国家级示范性',district:'越秀',scope:'全市',score2026_hu:712,score2026_fei:713,score2025_hu:668,score2024_hu:0,web:'http://www.gzqz.com/',feature:'越秀名校，历史悠久',desc:'广州市第七中学是国家级示范性普通高中，首批广东省一级学校，创建于1888年，前身为培道中学。校本部位于越秀区寺贝通津，以"爱诚真毅"为校训，高考成绩稳居广州市前列，红楼文化底蕴深厚，是广州百年名校之一。'},
+{name:'广州市第十六中学（校本部）',code:'P021',type:'公办',level:'国家级示范性',district:'越秀',scope:'全市',score2026_hu:712,score2026_fei:713,score2025_hu:0,score2024_hu:0,web:'http://www.gz16.com/',feature:'越秀名校',desc:'广州市第十六中学是国家级示范性普通高中，首批广东省一级学校，创建于1934年。校本部位于越秀区中山二路，以"至真"为办学理念，教学质量优异，高考成绩稳居越秀区前列。学校注重学生综合素质培养，开设科技创新实验班。'},
+{name:'广州市天河外国语学校（智慧城校区）',code:'P022',type:'公办',level:'市示范性',district:'天河',scope:'全市',score2026_hu:712,score2026_fei:713,score2025_hu:705,score2024_hu:0,web:'http://www.thfls.com/',feature:'外语特色，天河',desc:'广州市天河外国语学校是天河区政府着力打造的公办外国语完全中学，创建于2012年。智慧城校区设施现代化，以外语教学为特色，开设多语种课程，小班化教学，师资优异，质量超群，是天河区优质教育名片。'},
+{name:'广州市培英中学（白云新城校区）',code:'P023',type:'公办',level:'国家级示范性',district:'白云',scope:'全市',score2026_hu:712,score2026_fei:712,score2025_hu:707,score2024_hu:686,web:'https://www.pyzx.edu.cn',feature:'白云名校，新校区',desc:'广州市培英中学创建于1879年，是羊城百年教育典范，国家级示范性普通高中。白云新城校区设施现代化，以"信、望、爱"为校训，历经世纪沉淀，办学传统底蕴深厚，教育特色独树一帜。近年来高考成绩持续提升，是白云区骨干高中。'},
+{name:'广州市玉岩中学',code:'P024',type:'公办',level:'国家级示范性',district:'黄埔',scope:'全市',score2026_hu:712,score2026_fei:712,score2025_hu:705,score2024_hu:0,web:'http://www.gzyyzx.cn/',feature:'黄埔名校',desc:'广州市玉岩中学是广州开发区按国家级示范性高中标准兴建的公办完全中学，位于黄埔区。学校设施一流，以"明德惟馨、笃行致远"为校训，注重科技创新教育，开设科技创新实验班，近年高考成绩稳步提升，是黄埔区优质学位代表。'},
+{name:'广东仲元中学',code:'P025',type:'公办',level:'国家级示范性',district:'番禺',scope:'全市',score2026_hu:709,score2026_fei:709,score2025_hu:702,score2024_hu:713,web:'http://www.gdzyzx.cn/',feature:'番禺名校，历史悠久',desc:'广东仲元中学创建于1934年，是纪念中国民主革命元勋邓仲元将军的名校，首批国家级示范性高中，中国百强中学。位于番禺区市桥，以"养浩然之气、扬君子之风"为办学理念，高考成绩稳居番禺区前列，是番禺老牌名校。'},
+{name:'广州中学',code:'P026',type:'公办',level:'市示范性',district:'天河',scope:'全市',score2026_hu:708,score2026_fei:708,score2025_hu:719,score2024_hu:0,web:'https://www.guangzhouzx.cn/',feature:'天河名校',desc:'广州中学是天河区重点打造的公办完全中学，2017年整合组建。以"激扬生命、成就未来"为办学理念，依托大数据中心构建"智意成长档案系统"，实现数字化育人。师资力量雄厚，高级教师占比高，是天河区教育创新标杆。'},
+{name:'广州市天河外国语学校（珠江新城校区）',code:'P027',type:'公办',level:'市示范性',district:'天河',scope:'全市',score2026_hu:708,score2026_fei:732,score2025_hu:749,score2024_hu:0,web:'http://www.thfls.com/',feature:'外语特色，珠江新城',desc:'广州市天河外国语学校（珠江新城校区）位于天河区珠江新城板块，是天外的另一校区。延续天外外语教学特色和小班化教学模式，师资共享，课程同步，为珠江新城地区提供优质公办外国语教育资源。'},
+{name:'广州市第八十六中学',code:'P028',type:'公办',level:'国家级示范性',district:'黄埔',scope:'全市',score2026_hu:698,score2026_fei:700,score2025_hu:697,score2024_hu:0,web:'http://www.gz86zhong.net/',feature:'黄埔名校',desc:'广州市第八十六中学是国家级示范性普通高中，广东省一级学校，创建于1956年。位于黄埔区大沙地，以海洋教育特色鲜明闻名，开设海洋文化课程。学校设施先进，高考成绩稳居黄埔区前列，是黄埔区老牌优质高中。'},
+{name:'广州大学附属中学南沙实验学校',code:'P029',type:'公办',level:'市示范性',district:'南沙',scope:'全市',score2026_hu:697,score2026_fei:698,score2025_hu:0,score2024_hu:0,web:'',feature:'广大附中南沙',desc:'广州大学附属中学南沙实验学校是广大附中教育集团成员，位于南沙区。延续广大附中优质教育品牌和国防教育特色，实行与本部一体化管理，为南沙区带来优质教育资源，近年发展势头良好。'},
+{name:'广州市第六中学（花都校区）',code:'P030',type:'公办',level:'国家级示范性',district:'花都',scope:'全市',score2026_hu:698,score2026_fei:698,score2025_hu:0,score2024_hu:0,web:'https://www.gz6hs.com',feature:'六中花都新校区',desc:'六中花都校区位于花都区，是广州市第六中学教育集团新校区。延续六中教育品牌和科技特色，校园设施现代化，师资由本部统筹调配，为花都区增加优质高中学位。'},
+{name:'广州协和学校',code:'P031',type:'公办',level:'国家级示范性',district:'荔湾',scope:'全市',score2026_hu:685,score2026_fei:686,score2025_hu:676,score2024_hu:675,web:'https://www.gzxhhs.edu.cn',feature:'荔湾名校',desc:'广州协和学校是广州市教育局直属公办学校，广东省国家级示范性普通高中，创建于1911年。位于荔湾区，学段涵盖小学、初中和高中，双地铁途经交通便利。以"协力和衷、作育英才"为办学理念，校园环境优美，是荔湾区优质学位。'},
+{name:'广州实验中学',code:'P032',type:'公办',level:'市示范性',district:'黄埔',scope:'全市',score2026_hu:682,score2026_fei:682,score2025_hu:672,score2024_hu:0,web:'',feature:'黄埔新校',desc:'广州实验中学位于中新广州知识城，是广州市教育局与黄埔区政府共建、广州市教育研究院与黄埔区教育局共管的全寄宿公办完全中学，2021年正式开学。总投资超15亿元，占地约154亩，设置90个教学班，定位为国家级示范性高中。'},
+{name:'广州市真光中学（校本部）',code:'P033',type:'公办',level:'国家级示范性',district:'荔湾',scope:'全市',score2026_hu:690,score2026_fei:690,score2025_hu:689,score2024_hu:0,web:'http://www.truelightms.com/',feature:'荔湾名校',desc:'广州市真光中学创建于1872年，是岭南最早开办的女子学校之一，国家级示范性普通高中。校本部位于荔湾区白鹤洞，以"尔乃世之光"为校训，文化底蕴深厚。高考成绩优异，英语教学特色鲜明，是荔湾区老牌名校。'},
+{name:'广州市培正中学',code:'P034',type:'公办',level:'国家级示范性',district:'越秀',scope:'全市',score2026_hu:690,score2026_fei:691,score2025_hu:0,score2024_hu:0,web:'http://www.pzms.com/',feature:'越秀名校',desc:'广州市培正中学创建于1889年，是广州百年名校之一，国家级示范性普通高中。位于越秀区培正路，以"至善至正"为校训，红楼文化深厚。学校教学质量优异，校友遍布全球，是广州最具历史底蕴的中学之一。'},
+{name:'广州市第五中学（校本部）',code:'P035',type:'公办',level:'国家级示范性',district:'海珠',scope:'全市',score2026_hu:705,score2026_fei:705,score2025_hu:699,score2024_hu:0,web:'http://www.gz5zx.com/',feature:'海珠名校',desc:'广州市第五中学创建于1951年，是国家级示范性普通高中，广东省一级学校。校本部位于海珠区南村路，以"严格、勤奋、求实、创新"为校训，科技教育特色鲜明，开设STEM创新课程，是海珠区骨干优质高中。'},
+{name:'广州市南武中学（校本部）',code:'P036',type:'公办',level:'国家级示范性',district:'海珠',scope:'全市',score2026_hu:683,score2026_fei:684,score2025_hu:0,score2024_hu:0,web:'http://www.gznanwu.com/',feature:'海珠名校',desc:'广州市南武中学创建于1905年，是广东省国家级示范性普通高中，岭南百年名校。校本部位于海珠区同福中路，以"笃学、力行、敬业、乐群"为校训，文化底蕴深厚。学校注重人文教育，开设"古风蓝韵"特色课程，是海珠区老牌名校。'},
+{name:'广州市增城区增城中学',code:'P037',type:'公办',level:'国家级示范性',district:'增城',scope:'全市',score2026_hu:672,score2026_fei:672,score2025_hu:665,score2024_hu:0,web:'http://www.zcms.cn/',feature:'增城名校',desc:'广州市增城区增城中学创建于1928年，在宋代学宫旧址兴办，是增城第一所官办新式学校。2008年被评为广东省国家级示范性普通高中，以"尚德求真"为校训，传承增城千年文脉，是增城区龙头高中，高考成绩稳居增城前列。'},
+{name:'广大附中增城实验中学',code:'P038',type:'公办',level:'市示范性',district:'增城',scope:'全市',score2026_hu:672,score2026_fei:672,score2025_hu:660,score2024_hu:0,web:'',feature:'增城新校',desc:'广大附中增城实验中学是广大附中教育集团成员，位于增城区。延续广大附中优质教育品牌和国防教育特色，实行与本部一体化管理，为增城区带来优质教育资源。'},
+{name:'华南师范大学附属南沙中学',code:'P039',type:'公办',level:'市示范性',district:'南沙',scope:'全市',score2026_hu:672,score2026_fei:672,score2025_hu:651,score2024_hu:0,web:'http://www.hsdez.com/',feature:'南沙名校',desc:'华南师范大学附属南沙中学是南沙区与华南师范大学合力重点打造的区属公办完全中学，创建于2015年。广州市示范性普通高中，依托华师大教育资源，师资力量雄厚，是南沙区优质学位代表。'},
+{name:'广州市第二中学南沙天元学校',code:'P040',type:'公办',level:'市示范性',district:'南沙',scope:'全市',score2026_hu:672,score2026_fei:672,score2025_hu:663,score2024_hu:0,web:'',feature:'南沙新校',desc:'广州市第二中学南沙天元学校是广州二中教育集团成员，位于南沙区。延续二中"元元传承、厚德格物"办学理念和理科教学优势，实行与本部一体化管理，为南沙区带来优质教育资源。'},
+{name:'广州市花都区秀全中学',code:'P041',type:'公办',level:'国家级示范性',district:'花都',scope:'全市',score2026_hu:672,score2026_fei:672,score2025_hu:668,score2024_hu:675,web:'http://www.hdxqzx.com/',feature:'花都名校',desc:'广州市花都区秀全中学创建于1970年，前身为五七中学，1978年更名。是国家级示范性普通高中，广东省一级学校。位于花都区，以"明敏自强"为校训，高考成绩稳居花都区前列，是花都区龙头高中。'},
+{name:'广东番禺中学',code:'P042',type:'公办',level:'国家级示范性',district:'番禺',scope:'全市',score2026_hu:672,score2026_fei:679,score2025_hu:677,score2024_hu:683,web:'http://www.pyms.net.cn/',feature:'番禺名校',desc:'广东番禺中学创建于1988年，由全国政协副主席霍英东先生倡议支持、政府投资兴建。是广东省首批国家级示范性普通高中，全国现代教育技术实验学校。位于番禺区桥南街，以"以人为本、博雅创新"为校训，高考成绩稳居番禺区前列。'},
+{name:'广州市玉岩中学',code:'P043',type:'公办',level:'国家级示范性',district:'黄埔',scope:'全市',score2026_hu:712,score2026_fei:712,score2025_hu:705,score2024_hu:0,web:'http://www.gzyyzx.cn/',feature:'黄埔名校',desc:'广州市玉岩中学是广州开发区按国家级示范性高中标准兴建的公办完全中学，位于黄埔区。学校设施一流，以科技创新教育为特色，近年高考成绩稳步提升，是黄埔区优质学位代表。'},
+{name:'广州市培英中学（鹤洞校区）',code:'P044',type:'公办',level:'国家级示范性',district:'荔湾',scope:'全市',score2026_hu:673,score2026_fei:673,score2025_hu:667,score2024_hu:0,web:'https://www.pyzx.edu.cn',feature:'荔湾校区',desc:'广州市培英中学（鹤洞校区）位于荔湾区白鹤洞，是培英中学的传统校区。以"信、望、爱"为校训，百年办学传统深厚，校园环境古雅，是荔湾区优质高中学位。'},
+{name:'广州市第六十五中学（江高校区）',code:'P045',type:'公办',level:'国家级示范性',district:'白云',scope:'全市',score2026_hu:672,score2026_fei:687,score2025_hu:667,score2024_hu:0,web:'http://www.gz65.com/',feature:'白云名校',desc:'广州市第六十五中学创建于1946年，为纪念抗日爱国将领伍庸伯先生而建，是广州市示范性普通高中。江高校区位于白云区，现集团下辖10所成员校，以"道致广大、学尽精微"为书院文化理念，是白云区骨干高中。'},
+{name:'广州市执信中学（天河校区）',code:'P046',type:'公办',level:'国家级示范性',district:'天河',scope:'全市',score2026_hu:731,score2026_fei:731,score2025_hu:719,score2024_hu:0,web:'https://www.zxhs.net',feature:'天河校区',desc:'执信中学天河校区，延续执信优质教育品牌。'},
+{name:'广州市番禺区象贤中学',code:'P047',type:'公办',level:'省一级',district:'番禺',scope:'全市',score2026_hu:666,score2026_fei:666,score2025_hu:651,score2024_hu:675,web:'http://gzxxjy.pyedu.cn/',feature:'番禺名校',desc:'广州市番禺区象贤中学是广东省一级学校，位于番禺区沙湾古镇，办学历史可追溯至清代。学校以"贤"文化为办学特色，注重传统文化教育，开设国际部，中外合作办学项目成熟，是番禺区老牌优质高中。'},
+{name:'广州市育才中学',code:'P048',type:'公办',level:'国家级示范性',district:'越秀',scope:'全市',score2026_hu:661,score2026_fei:662,score2025_hu:0,score2024_hu:0,web:'http://www.gzyucai.net/',feature:'越秀名校',desc:'广州市育才中学是广东省一级学校，创建于1951年。高中部位于越秀区福今路，以"育德启智"为办学宗旨，是广州颇具口碑的优质学府。学校特色鲜明，培养了大批优秀学子，是越秀区骨干高中。'},
+{name:'广州市第三中学',code:'P049',type:'公办',level:'国家级示范性',district:'越秀',scope:'全市',score2026_hu:677,score2026_fei:678,score2025_hu:0,score2024_hu:0,web:'https://www.gz3z.com/',feature:'越秀名校',desc:'广州市第三中学创建于1863年，是广东省一级学校，前身为圣心中学。位于越秀区大新路，以"勤俭、仁爱、敏毅、忠诚"为校训，办学历史逾160年。学校教学设施完善，是越秀区优质高中学位。'},
+{name:'广州市第四中学',code:'P050',type:'公办',level:'国家级示范性',district:'荔湾',scope:'全市',score2026_hu:667,score2026_fei:667,score2025_hu:0,score2024_hu:0,web:'http://www.gz4z.cn/',feature:'荔湾名校',desc:'广州市第四中学创建于1917年，是广东省国家级示范性普通高中，广东省一级学校。位于荔湾区康王北路，以"锐志四方"为精神，百年办学历史。学校是广东省科学教育特色学校、广州市首批艺术重点基地学校。'},
+{name:'广州市天河中学',code:'P051',type:'公办',level:'省一级',district:'天河',scope:'全市',score2026_hu:676,score2026_fei:676,score2025_hu:0,score2024_hu:0,web:'http://www.thzx.org:81/',feature:'天河名校',desc:'广州市天河中学是国家级示范性普通高中，广东省一级学校。高中部位于天河区珠江新城华成路，以"成长教育、成就未来"为办学理念。师资雄厚，高级教师占比37.3%，硕士以上学历占40%，是天河区优质高中。'},
+{name:'广州市第一一三中学（金融城校区）',code:'P052',type:'公办',level:'省一级',district:'天河',scope:'全市',score2026_hu:672,score2026_fei:673,score2025_hu:0,score2024_hu:0,web:'http://www.113school.net/',feature:'天河名校',desc:'广州市第一一三中学是广东省一级学校，创建于1978年。金融城校区位于天河区，以"为学生终身发展奠基"为办学理念，是天河区优质完全中学。学校注重信息化教学和科技创新教育。'},
+{name:'广州市增城区应元学校',code:'P053',type:'公办',level:'市示范性',district:'增城',scope:'全市',score2026_hu:663,score2026_fei:667,score2025_hu:627,score2024_hu:0,web:'',feature:'增城新校',desc:'广州市增城区应元学校是由增城区教育局与广州二中教育集团合作创建的公办完全中学。秉承二中"元元传承、厚德格物"办学理念，是增城区引入的优质教育资源，位于永宁街。'},
+{name:'广州市第七中学（麓湖校区）',code:'P054',type:'公办',level:'国家级示范性',district:'越秀',scope:'全市',score2026_hu:666,score2026_fei:668,score2025_hu:0,score2024_hu:0,web:'http://www.gzqz.com/',feature:'越秀校区',desc:'广州市第七中学（麓湖校区）位于越秀区麓湖畔，是七中教育集团成员。延续七中"爱诚真毅"校训和百年办学传统，实行与校本部一体化管理，为越秀区增加优质高中学位。'},
+{name:'广州市第六十五中学（江府校区）',code:'P055',type:'公办',level:'省一级',district:'白云',scope:'全市',score2026_hu:646,score2026_fei:668,score2025_hu:0,score2024_hu:0,web:'http://www.gz65.com/',feature:'白云校区',desc:'广州市第六十五中学（江府校区）是六十五中教育集团新校区，位于白云区。延续"道致广大、学尽精微"书院文化理念，实行与江高校区一体化管理，为白云区增加优质学位。'},
+{name:'广州市番禺区实验中学',code:'P056',type:'公办',level:'省一级',district:'番禺',scope:'全市',score2026_hu:633,score2026_fei:649,score2025_hu:0,score2024_hu:0,web:'',feature:'番禺名校',desc:'广州市番禺区实验中学是番禺区属公办高中，广东省一级学校。注重实验教学和科技创新教育，是番禺区骨干高中之一。'},
+{name:'广州大同中学',code:'P057',type:'公办',level:'省一级',district:'白云',scope:'全市',score2026_hu:635,score2026_fei:637,score2025_hu:0,score2024_hu:0,web:'',feature:'白云名校',desc:'广州大同中学（原广州市第八十中学）创建于1947年，是广东省国家级示范性普通高中。位于白云区广从五路，校名源于《礼记·礼运·大同篇》。以"自主、合作、探究"为课堂教学特色，校园设计为江南小景风格，环境幽雅。'},
+{name:'广州市第八十九中学',code:'P058',type:'公办',level:'省一级',district:'天河',scope:'全市',score2026_hu:645,score2026_fei:645,score2025_hu:0,score2024_hu:0,web:'http://www.gz89.net/',feature:'天河名校',desc:'广州市第八十九中学是国家级示范性高中，广东省一级学校，位于天河区天源路。学校占地108亩，地处天河区东北部龙洞，毗邻中国科学院、广东工业大学等科研院所。以"尚学至德、敏行致远"为校训，科技教育特色鲜明。'},
+{name:'广州市第九十七中学（校本部）',code:'P059',type:'公办',level:'省一级',district:'海珠',scope:'全市',score2026_hu:645,score2026_fei:646,score2025_hu:0,score2024_hu:0,web:'http://www.97ms.com/',feature:'海珠名校',desc:'广州市第九十七中学是首批广州市示范性普通高中，广东省一级学校。校本部位于海珠区晓港中马路，以"爱、健、勤、实"为校训。学校是广州市STEM课程实施试点校、首批智慧校园实验校，以"生态型学校"为办学目标。'},
+{name:'广州市花都区邝维煜纪念中学（校本部）',code:'P060',type:'公办',level:'省一级',district:'花都',scope:'全市',score2026_hu:640,score2026_fei:661,score2025_hu:0,score2024_hu:647,web:'http://www.hdqkwyjnzx.com/',feature:'花都名校',desc:'广州市花都区邝维煜纪念中学创建于1994年，由香港爱国同胞郭邝肖卿女士捐资3800万港元与花都区政府共同兴建。校本部位于花都区，是国家级示范性高中，2014年与广雅中学合作共建。以"向美而行·激扬生命"为办学理念。'},
+{name:'广州市增城区郑中钧中学',code:'P061',type:'公办',level:'省一级',district:'增城',scope:'全市',score2026_hu:636,score2026_fei:651,score2025_hu:0,score2024_hu:0,web:'http://www.zhengzhongjun.com/',feature:'增城名校',desc:'广州市增城区郑中钧中学毗邻增江河岸，立于松岭之巅，是旅港同胞郑黄月芳女士于1988年为纪念先夫回乡捐资兴建的教育局直属公办高级中学。以"中正、钧衡"为校训，是增城区优质高中。'},
+{name:'广州市第一中学',code:'P062',type:'公办',level:'国家级示范性',district:'荔湾',scope:'全市',score2026_hu:655,score2026_fei:656,score2025_hu:0,score2024_hu:0,web:'http://www.gzsyz.com/',feature:'荔湾名校',desc:'广州市第一中学始建于1928年，是民国时期广州国民政府举办的第一所公立中学。位于荔湾区大坦沙岛，以"勤、诚、勇、毅"为校训，是广东省一级学校。高中部设施现代化，是荔湾区骨干高中。'},
+{name:'广州彭加木纪念中学',code:'P063',type:'公办',level:'省一级',district:'白云',scope:'全市',score2026_hu:592,score2026_fei:599,score2025_hu:601,score2024_hu:0,web:'',feature:'白云',desc:'广州彭加木纪念中学（原广州市第六十三中学）创办于1958年，是广州市示范性普通高中。位于白云区石井庆槎路，以伟大科学家彭加木先生名字命名。以"加木铺路"文化为办学特色，弘扬科学探索精神。'},
+{name:'广州市从化区从化中学',code:'P064',type:'公办',level:'省一级',district:'从化',scope:'全市',score2026_hu:604,score2026_fei:617,score2025_hu:609,score2024_hu:0,web:'',feature:'从化名校',desc:'广州市从化区从化中学始建于1926年，前身为明代从化学宫，是从化基础教育的"窗口"学校。1978年定为从化区重点中学，1995年被评为广东省一级学校。2026年正式纳入华师附中教育集团，由华附全面托管，迈入新发展阶段。'},
+{name:'广东华侨中学',code:'P065',type:'公办',level:'省一级',district:'越秀',scope:'全市',score2026_hu:637,score2026_fei:672,score2025_hu:0,score2024_hu:0,web:'http://www.gdqz.com',feature:'越秀名校',desc:'广东华侨中学是广东省一级学校，创建于1955年。高中校区位于白云区金沙洲，以"爱国、正直、奋发、图强"为校训。学校是广州市唯一以"华侨"命名的省一级学校，开设国际课程，中外合作办学项目成熟。'},
+{name:'广州市南海中学',code:'P066',type:'公办',level:'省一级',district:'荔湾',scope:'全市',score2026_hu:606,score2026_fei:607,score2025_hu:0,score2024_hu:0,web:'http://www.gznhzx.com/',feature:'荔湾',desc:'广州市南海中学创办于1904年，是广东省一级公办完全中学，广州市示范性普通高中。位于荔湾区南岸路，以"任重致远"为校训，是荔湾区老牌优质高中，办学历史逾120年。'},
+{name:'广州市西关外国语学校',code:'P067',type:'公办',level:'省一级',district:'荔湾',scope:'全市',score2026_hu:632,score2026_fei:632,score2025_hu:0,score2024_hu:0,web:'http://gzxw.lwedu.com/',feature:'荔湾外语特色',desc:'广州市西关外国语学校是广州市第一所省一级公办外国语完全中学，创建于1948年。位于荔湾区中山八路，坐落在荔湾湖畔。学校以外语教学为特色，开设多语种课程，是荔湾区外语教育品牌。'},
+{name:'广州市真光中学（汾水校区）',code:'P068',type:'公办',level:'省一级',district:'荔湾',scope:'全市',score2026_hu:592,score2026_fei:610,score2025_hu:0,score2024_hu:0,web:'http://www.truelightms.com/',feature:'荔湾校区',desc:'广州市真光中学（汾水校区）位于荔湾区，是真光中学的校区之一。延续真光"尔乃世之光"校训和百年办学传统，实行一体化管理，为荔湾区提供优质学位。'},
+{name:'广州市真光中学（广钢校区）',code:'P069',type:'公办',level:'省一级',district:'荔湾',scope:'全市',score2026_hu:672,score2026_fei:672,score2025_hu:667,score2024_hu:0,web:'http://www.truelightms.com/',feature:'荔湾校区',desc:'广州市真光中学（广钢校区）位于荔湾区广钢新城，是真光中学的新校区。延续真光百年教育品牌，校园设施现代化，为广钢新城片区提供优质教育资源。'},
+{name:'广州市第五中学（金碧校区）',code:'P070',type:'公办',level:'省一级',district:'海珠',scope:'全市',score2026_hu:637,score2026_fei:634,score2025_hu:0,score2024_hu:0,web:'http://www.gz5zx.com/',feature:'海珠校区',desc:'广州市第五中学（金碧校区）位于海珠区，是五中教育集团成员。延续五中"严格、勤奋、求实、创新"校训和科技教育特色，实行与校本部一体化管理。'},
+{name:'广州市第十六中学（水荫校区）',code:'P071',type:'公办',level:'省一级',district:'越秀',scope:'全市',score2026_hu:632,score2026_fei:642,score2025_hu:0,score2024_hu:0,web:'http://www.gz16.com/',feature:'越秀校区',desc:'广州市第十六中学（水荫校区）位于越秀区水荫路，是十六中教育集团成员。延续"至真"办学理念，实行与校本部一体化管理，师资共享、课程同步。'},
+{name:'广州市第十七中学',code:'P072',type:'公办',level:'省一级',district:'越秀',scope:'全市',score2026_hu:632,score2026_fei:632,score2025_hu:0,score2024_hu:0,web:'',feature:'越秀',desc:'广州市第十七中学创建于1929年，由大中、嘉应中学两校合并而成，2019年被认定为广州市示范性高中。位于越秀区小北路，有近百年办学历史，已形成一校两区格局。'},
+{name:'广东实验中学越秀学校',code:'P073',type:'公办',level:'省一级',district:'越秀',scope:'全市',score2026_hu:632,score2026_fei:632,score2025_hu:0,score2024_hu:0,web:'http://www.gdsyzx.edu.cn',feature:'越秀',desc:'广东实验中学越秀学校是省实教育集团成员，位于越秀区。依托广东实验中学优质教育资源，实行集团化管理，是越秀区优质公办完全中学。'},
+{name:'广州市第四十一中学',code:'P074',type:'公办',level:'省一级',district:'海珠',scope:'全市',score2026_hu:621,score2026_fei:629,score2025_hu:0,score2024_hu:0,web:'',feature:'海珠',desc:'广州市第四十一中学创办于1958年，位于海珠区工业大道北。是广州市示范性普通高中，校园网光纤主干、千兆到桌面，信息化设施完善，是海珠区骨干高中。'},
+{name:'广州市第九十七中学（江南新苑校区）',code:'P075',type:'公办',level:'省一级',district:'海珠',scope:'全市',score2026_hu:615,score2026_fei:637,score2025_hu:0,score2024_hu:0,web:'http://www.97ms.com/',feature:'海珠校区',desc:'广州市第九十七中学（江南新苑校区）位于海珠区，是九十七中教育集团成员。延续"生态型学校"办学理念和STEM课程特色，实行与校本部一体化管理。'},
+{name:'广州市白云中学',code:'P076',type:'公办',level:'省一级',district:'白云',scope:'全市',score2026_hu:619,score2026_fei:632,score2025_hu:0,score2024_hu:0,web:'http://www.byzx.edu.cn',feature:'白云',desc:'广州市白云中学前身为白云师范学校，创办于1960年，1999年转制办高中。是广东省一级学校、广州市示范性普通高中，白云区四所骨干高中之一。位于白云区新市街，以信息化教学为特色。'},
+{name:'广州市番禺区禺山高级中学',code:'P077',type:'公办',level:'省一级',district:'番禺',scope:'全市',score2026_hu:632,score2026_fei:635,score2025_hu:0,score2024_hu:0,web:'http://ysgz.pyedu.cn/',feature:'番禺',desc:'广州市番禺区禺山高级中学是广东省一级学校，办学历史可追溯至百年前。位于番禺区，是番禺区老牌优质高中，校园环境优美，注重传统文化与现代教育融合。'},
+{name:'广州市番禺区大龙中学',code:'P078',type:'公办',level:'省一级',district:'番禺',scope:'全市',score2026_hu:593,score2026_fei:631,score2025_hu:0,score2024_hu:0,web:'',feature:'番禺',desc:'广州市番禺区大龙中学（原石碁第三中学）创建于1996年，是广东省一级学校、广州市示范性普通高中。校园独具岭南特色，是广州市高水平体育美育团队（排球项目），广东省绿色学校、全国中小学智慧校园示范校。'},
+{name:'广东第二师范学院番禺附属中学',code:'P079',type:'公办',level:'省一级',district:'番禺',scope:'全市',score2026_hu:596,score2026_fei:628,score2025_hu:0,score2024_hu:0,web:'http://www.gdesfz.org/',feature:'番禺',desc:'广东第二师范学院番禺附属中学（原市桥二中）创办于1996年，2010年更名改制。是番禺区人民政府和广东第二师范学院共建的国家级示范性普通高中。位于番禺区东环街，师资依托高校资源，办学水平持续提升。'},
+{name:'广州市番禺区洛溪新城中学',code:'P080',type:'公办',level:'省一级',district:'番禺',scope:'全市',score2026_hu:592,score2026_fei:596,score2025_hu:0,score2024_hu:0,web:'',feature:'番禺',desc:'广州市番禺区洛溪新城中学创办于1993年，是广东省一级学校、广州市示范性普通高中。位于番禺区洛溪新城，占地80亩，是地区最大的完全中学之一，以"立德树人、五育并举"为办学理念。'},
+{name:'广州市花都区新华中学',code:'P081',type:'公办',level:'省一级',district:'花都',scope:'全市',score2026_hu:592,score2026_fei:656,score2025_hu:0,score2024_hu:0,web:'',feature:'花都',desc:'广州市花都区新华中学创建于1956年，是全日制高级中学。先后获得广东省一级学校、广东省国家级示范性普通高中殊荣。位于花都新华街商业大道，以艺术教育和足球、篮球特色项目闻名。'},
+{name:'广州市花都区圆玄中学',code:'P082',type:'公办',level:'省一级',district:'花都',scope:'全市',score2026_hu:590,score2026_fei:632,score2025_hu:0,score2024_hu:0,web:'http://www.gzhdyxzx.com/',feature:'花都',desc:'广州市花都区圆玄中学创办于2005年9月，是花都区教育局直属公办完全中学。位于花城街梅花路，按省一级学校标准建设。以"玄之声、圆之梦"文艺汇演和科技创新活动为特色，近年高考成绩持续提升。'},
+{name:'广州市花都区邝维煜纪念中学（雅正校区）',code:'P083',type:'公办',level:'省一级',district:'花都',scope:'全市',score2026_hu:632,score2026_fei:632,score2025_hu:0,score2024_hu:0,web:'http://www.hdqkwyjnzx.com/',feature:'花都校区',desc:'广州市花都区邝维煜纪念中学（雅正校区）是邝中2022年增设的新校区，与校本部实行一体化管理，课程和师资共享。位于花都区政府附近，地理位置优越。'},
+{name:'广东实验中学花都学校',code:'P084',type:'公办',level:'市示范性',district:'花都',scope:'全市',score2026_hu:632,score2026_fei:636,score2025_hu:0,score2024_hu:0,web:'http://www.gdsyzx.edu.cn',feature:'花都新校',desc:'广东实验中学花都学校是省实教育集团成员，位于花都区。依托广东实验中学优质教育资源，实行集团化管理，为花都区带来省实品牌优质教育。'},
+{name:'广州市南沙第一中学',code:'P085',type:'公办',level:'省一级',district:'南沙',scope:'全市',score2026_hu:632,score2026_fei:638,score2025_hu:0,score2024_hu:0,web:'http://nsyz.gznsjy.net/',feature:'南沙',desc:'广州市南沙第一中学是南沙区属公办完全中学，位于南沙区丰泽东路。学校设施现代化，是南沙区骨干高中之一，为南沙区提供优质公办高中学位。'},
+{name:'广州市南沙东涌中学',code:'P086',type:'公办',level:'省一级',district:'南沙',scope:'全市',score2026_hu:608,score2026_fei:632,score2025_hu:0,score2024_hu:0,web:'',feature:'南沙',desc:'广州市南沙东涌中学是南沙区属公办完全中学，位于东涌镇。服务南沙区东部地区，是南沙区骨干高中之一。'},
+{name:'广州市白云区广州空港实验中学',code:'P087',type:'公办',level:'省一级',district:'白云',scope:'全市',score2026_hu:599,score2026_fei:630,score2025_hu:0,score2024_hu:0,web:'',feature:'白云',desc:'广州市白云区广州空港实验中学位于白云区，服务空港经济区，是白云区公办高中。'},
+{name:'广州市白云区颜乐天纪念中学',code:'P088',type:'公办',level:'省一级',district:'白云',scope:'全市',score2026_hu:578,score2026_fei:617,score2025_hu:0,score2024_hu:0,web:'',feature:'白云',desc:'广州市白云区颜乐天纪念中学位于白云区，是白云区公办完全中学。'},
+{name:'广州市白云区培英实验学校（同和校区）',code:'P089',type:'公办',level:'省一级',district:'白云',scope:'全市',score2026_hu:592,score2026_fei:634,score2025_hu:0,score2024_hu:0,web:'',feature:'白云',desc:'广州市白云区培英实验学校（同和校区）是培英教育集团成员，位于白云区同和。延续培英"信、望、爱"校训，实行集团化管理。'},
+{name:'广州市第六十五中学（同德校区）',code:'P090',type:'公办',level:'省一级',district:'白云',scope:'全市',score2026_hu:632,score2026_fei:672,score2025_hu:0,score2024_hu:0,web:'http://www.gz65.com/',feature:'白云校区',desc:'广州市第六十五中学（同德校区）是六十五中教育集团成员，位于白云区同德围。延续"道致广大、学尽精微"书院文化理念，实行一体化管理。'},
+{name:'广州科学城中学',code:'P091',type:'公办',level:'省一级',district:'黄埔',scope:'全市',score2026_hu:672,score2026_fei:672,score2025_hu:645,score2024_hu:0,web:'',feature:'黄埔',desc:'广州科学城中学位于黄埔区科学城开创大道，是黄埔区公办完全中学。毗邻科学城高新技术产业区，以科技创新教育为特色，是黄埔区骨干高中。'},
+{name:'北京师范大学广州实验学校',code:'P092',type:'公办',level:'省一级',district:'黄埔',scope:'全市',score2026_hu:672,score2026_fei:672,score2025_hu:667,score2024_hu:0,web:'',feature:'黄埔',desc:'北京师范大学广州实验学校位于黄埔区，是黄埔区与北京师范大学合作共建的公办学校。依托北师大教育资源，以教育科研为引领，是黄埔区优质学位。'},
+{name:'广州市黄埔区开元学校',code:'P093',type:'公办',level:'市示范性',district:'黄埔',scope:'全市',score2026_hu:672,score2026_fei:672,score2025_hu:652,score2024_hu:0,web:'',feature:'黄埔新校',desc:'广州市黄埔区开元学校位于黄埔区，是黄埔区公办完全中学。以"开新培元"为办学理念，服务黄埔区经济社会发展。'},
+{name:'广州市黄埔区苏元学校',code:'P094',type:'公办',level:'市示范性',district:'黄埔',scope:'全市',score2026_hu:672,score2026_fei:672,score2025_hu:667,score2024_hu:0,web:'',feature:'黄埔新校',desc:'广州市黄埔区苏元学校位于黄埔区，是黄埔区公办完全中学。延续黄埔教育优质传统，服务黄埔区居民。'},
+{name:'广州市增城区第一中学',code:'P095',type:'公办',level:'省一级',district:'增城',scope:'全市',score2026_hu:632,score2026_fei:632,score2025_hu:0,score2024_hu:0,web:'',feature:'增城',desc:'广州市增城区第一中学位于增城区荔湖街，2012年搬迁至荔湖新校区。校园占地147308平方米，建筑面积66037平方米，设施完善，是增城区骨干高中。'},
+{name:'广州市增城区新塘中学',code:'P096',type:'公办',level:'省一级',district:'增城',scope:'全市',score2026_hu:632,score2026_fei:632,score2025_hu:0,score2024_hu:0,web:'http://www.zcxtzx.com/',feature:'增城',desc:'广州市增城区新塘中学位于增城区新塘镇港口大道，是增城区公办高级中学。服务增城区南部地区，是增城区骨干高中之一。'},
+{name:'广州市增城区高级中学',code:'P097',type:'公办',level:'省一级',district:'增城',scope:'全市',score2026_hu:592,score2026_fei:592,score2025_hu:0,score2024_hu:0,web:'http://www.gaojizx.com/',feature:'增城',desc:'广州市增城区高级中学位于增城区增江街，是增城区公办高级中学。以"高质量、有特色"为办学目标，是增城区骨干高中。'},
+{name:'广州市增城区荔城中学',code:'P098',type:'公办',level:'省一级',district:'增城',scope:'全市',score2026_hu:592,score2026_fei:595,score2025_hu:0,score2024_hu:0,web:'',feature:'增城',desc:'广州市增城区荔城中学位于增城区荔城街，是增城区公办高级中学。服务增城中心城区，是增城区骨干高中之一。'},
+{name:'广州市从化区第五中学',code:'P099',type:'公办',level:'省一级',district:'从化',scope:'全市',score2026_hu:564,score2026_fei:563,score2025_hu:0,score2024_hu:0,web:'',feature:'从化',desc:'广州市从化区第五中学位于从化区，是从化区公办完全中学。服务从化区，是从化区骨干高中之一。'},
+{name:'广州市从化区流溪中学',code:'P100',type:'公办',level:'省一级',district:'从化',scope:'全市',score2026_hu:592,score2026_fei:592,score2025_hu:0,score2024_hu:0,web:'',feature:'从化',desc:'广州市从化区流溪中学位于从化区，是从化区公办完全中学。以流溪河文化为校园特色，服务从化区。'},
+{name:'广州市第七十五中学',code:'P101',type:'公办',level:'省一级',district:'天河',scope:'全市',score2026_hu:632,score2026_fei:633,score2025_hu:0,score2024_hu:0,web:'',feature:'天河',desc:'广州市第七十五中学创建于1956年，是广东省一级学校、广州市示范性公办高中。位于天河区燕岭路，以"责行天下"为校训，设凤凰班、重点班、平行班三级分层教学，是天河区老牌优质高中，也是天河首办新疆内高班的学校。'},
+{name:'广州市第一一三中学（元岗校区）',code:'P102',type:'公办',level:'省一级',district:'天河',scope:'全市',score2026_hu:633,score2026_fei:637,score2025_hu:0,score2024_hu:0,web:'http://www.113school.net/',feature:'天河校区',desc:'广州市第一一三中学（元岗校区）位于天河区元岗，是一一三中教育集团成员。延续"为学生终身发展奠基"办学理念，实行一体化管理。'},
+{name:'广州奥林匹克中学',code:'P103',type:'公办',level:'省一级',district:'天河',scope:'全市',score2026_hu:632,score2026_fei:632,score2025_hu:0,score2024_hu:0,web:'http://www.gzdpzx.cn/',feature:'天河',desc:'广州奥林匹克中学（原东圃中学）是广东省首家以奥林匹克命名的公办中学，位于天河区黄村西路。依托广东奥林匹克体育中心，是天河区重点打造的自主教育品牌，以体育和科创教育为特色。'},
+{name:'广东外语外贸大学实验中学',code:'P104',type:'公办',level:'省一级',district:'白云',scope:'全市',score2026_hu:632,score2026_fei:632,score2025_hu:0,score2024_hu:0,web:'',feature:'白云外语特色',desc:'广东外语外贸大学实验中学（原广州市第二外国语学校）是由白云区人民政府与广东外语外贸大学合作共建的十二年制公办学校。以"信雅教育"为特色，外语教学优势突出，高考成绩持续优异。'},
+// 民办高中（含公费班）
+{name:'广州市黄广中学（公费班）',code:'M001',type:'民办',level:'民办',district:'花都',scope:'全市',score2026_hu:749,score2026_fei:749,score2025_hu:733,score2024_hu:0,web:'http://www.hgzxgz.net/',feature:'花都民办，公费班第一',desc:'广州市黄广中学（原黄冈中学广州学校）是花都区知名民办高中，创建于2011年。以"高分数、高素质、高品位"为办学目标，引入黄冈教育模式，高考成绩在民办高中中名列前茅，公费班更是备受追捧。'},
+{name:'广州市黄广中学',code:'M002',type:'民办',level:'民办',district:'花都',scope:'全市',score2026_hu:694,score2026_fei:694,score2025_hu:0,score2024_hu:0,web:'http://www.hgzxgz.net/',feature:'花都民办',desc:'广州市黄广中学是花都区知名民办高中，创建于2011年。以"高分数、高素质、高品位"为办学目标，引入黄冈教育模式，高考成绩在民办高中中名列前茅。'},
+{name:'广州市新侨学校（公费班）',code:'M003',type:'民办',level:'民办',district:'黄埔',scope:'全市',score2026_hu:724,score2026_fei:724,score2025_hu:0,score2024_hu:0,web:'',feature:'黄埔民办',desc:'广州市新侨学校位于黄埔区，是民办高中。引进新加坡教育资源和国际化课程体系，以中西融合教育为特色，公费班面向全市招生。'},
+{name:'广州市黄广附属学校（公费班）',code:'M004',type:'民办',level:'民办',district:'增城',scope:'全市',score2026_hu:723,score2026_fei:723,score2025_hu:0,score2024_hu:0,web:'',feature:'增城民办',desc:'广州市黄广附属学校（公费班）位于增城区，是黄广教育集团成员。延续黄广教育品牌和教学模式，为增城区带来优质民办教育资源。'},
+{name:'广州市爱莎文华高中有限公司（公费班）',code:'M005',type:'民办',level:'民办',district:'黄埔',scope:'全市',score2026_hu:718,score2026_fei:718,score2025_hu:0,score2024_hu:0,web:'',feature:'黄埔民办',desc:'广州市爱莎文华高中有限公司位于黄埔区，是爱莎教育集团旗下民办高中。以国际化和多元化教育为特色，公费班提供优质普惠性学位。'},
+{name:'广州天省实验学校（公费班）',code:'M006',type:'民办',level:'民办',district:'天河',scope:'全市',score2026_hu:716,score2026_fei:718,score2025_hu:0,score2024_hu:0,web:'http://www.gdems.cn',feature:'天河民办',desc:'广州天省实验学校（原广东实验中学附属天河学校）创建于2005年，位于天河区天源路。是广东省一级学校，依托省实优质教育资源，以"传承、创新、共筑未来"为办学理念，公费班备受家长青睐。'},
+{name:'广州市源雅学校（公费班）',code:'M007',type:'民办',level:'民办',district:'黄埔',scope:'全市',score2026_hu:713,score2026_fei:713,score2025_hu:0,score2024_hu:0,web:'',feature:'黄埔民办',desc:'广州市源雅学校（公费班）位于黄埔区，是民办高中。以"溯源求真、文雅致远"为办学理念，公费班面向全市招生。'},
+{name:'广州天省实验学校',code:'M008',type:'民办',level:'民办',district:'天河',scope:'全市',score2026_hu:664,score2026_fei:664,score2025_hu:0,score2024_hu:0,web:'http://www.gdems.cn',feature:'天河民办',desc:'广州天省实验学校（原广东实验中学附属天河学校）创建于2005年，位于天河区天源路。是广东省一级学校，依托省实优质教育资源，开设国际课程中心，办学20年成绩斐然。'},
+{name:'广州市东江外语实验学校（公费班）',code:'M009',type:'民办',level:'民办',district:'增城',scope:'全市',score2026_hu:710,score2026_fei:710,score2025_hu:0,score2024_hu:0,web:'',feature:'增城民办',desc:'广州市东江外语实验学校（公费班）位于增城区，是民办高中。以外语教学为特色，公费班面向全市招生。'},
+{name:'广州市华万高中有限公司（公费班）',code:'M010',type:'民办',level:'民办',district:'从化',scope:'全市',score2026_hu:699,score2026_fei:699,score2025_hu:0,score2024_hu:0,web:'',feature:'从化民办',desc:'广州市华万高中有限公司（公费班）位于从化区，是民办高中。公费班面向全市招生，提供优质普惠性学位。'},
+{name:'广州理工实验学校（公费班）',code:'M011',type:'民办',level:'民办',district:'黄埔',scope:'全市',score2026_hu:685,score2026_fei:685,score2025_hu:0,score2024_hu:0,web:'',feature:'黄埔民办',desc:'广州理工实验学校（公费班）位于黄埔区，是民办高中。以理工科教育为特色，公费班面向全市招生。'},
+{name:'广州市海华高级中学（公费班）',code:'M012',type:'民办',level:'民办',district:'海珠',scope:'全市',score2026_hu:669,score2026_fei:669,score2025_hu:0,score2024_hu:0,web:'',feature:'海珠民办',desc:'广州市海华高级中学（公费班）位于海珠区，是民办高中。公费班面向全市招生，提供优质普惠性学位。'},
+{name:'广州市耀华学校（公费班）',code:'M013',type:'民办',level:'民办',district:'花都',scope:'全市',score2026_hu:669,score2026_fei:669,score2025_hu:0,score2024_hu:0,web:'',feature:'花都民办',desc:'广州市耀华学校（公费班）位于花都区，是民办高中。引入国际化教育理念，公费班面向全市招生。'},
+{name:'广州市珠江高级中学（公费班）',code:'M014',type:'民办',level:'民办',district:'从化',scope:'全市',score2026_hu:662,score2026_fei:662,score2025_hu:0,score2024_hu:0,web:'',feature:'从化民办',desc:'广州市珠江高级中学（公费班）位于从化区，是民办高中。公费班面向全市招生，提供优质普惠性学位。'},
+{name:'广州市华美英语实验学校（公费班）',code:'M015',type:'民办',level:'民办',district:'天河',scope:'全市',score2026_hu:658,score2026_fei:658,score2025_hu:0,score2024_hu:0,web:'https://www.huameischool.com/',feature:'天河民办',desc:'广州市华美英语实验学校创建于1993年，是改革开放后全国最早由归国留学生群体创办的国际化学校。位于天河区华美路，占地16万余平方米，是广东省一级学校、IB世界会员学校、广州市示范性高中，2023年福布斯中国国际化学校排名全国第八。'},
+{name:'广州市为明学校（光大校区）（公费班）',code:'M016',type:'民办',level:'民办',district:'海珠',scope:'全市',score2026_hu:651,score2026_fei:651,score2025_hu:0,score2024_hu:0,web:'http://www.wmxxgz.com/',feature:'海珠民办',desc:'广州市为明学校（光大校区）创办于2002年，位于海珠区光大花园。是集小学、初中、高中十二年一贯制的高品质民办寄宿学校，以"发展个性、涵养人格"为育人宗旨，践行"兼容特色教育"。'},
+{name:'广州市星执学校（公费班）',code:'M017',type:'民办',level:'民办',district:'番禺',scope:'全市',score2026_hu:673,score2026_fei:673,score2025_hu:0,score2024_hu:0,web:'http://www.pyzx.net/',feature:'番禺民办',desc:'广州市星执学校（原番禺执信中学）创建于2002年，位于番禺区星河湾。是全国优秀民办中小学、广东省一级学校，由广州市执信中学指导办学，是十二年一贯制民办学校。'},
+{name:'广州市新亚高级中学（公费班）',code:'M018',type:'民办',level:'民办',district:'从化',scope:'全市',score2026_hu:673,score2026_fei:673,score2025_hu:0,score2024_hu:0,web:'',feature:'从化民办',desc:'广州市新亚高级中学（公费班）位于从化区，是民办高中。公费班面向全市招生，提供优质普惠性学位。'},
+{name:'广州市华文高级中学（公费班）',code:'M019',type:'民办',level:'民办',district:'从化',scope:'全市',score2026_hu:672,score2026_fei:672,score2025_hu:0,score2024_hu:0,web:'',feature:'从化民办',desc:'广州市华文高级中学（公费班）位于从化区，是民办高中。公费班面向全市招生。'},
+{name:'广州市龙外实验学校（公费班）',code:'M020',type:'民办',level:'民办',district:'从化',scope:'全市',score2026_hu:672,score2026_fei:672,score2025_hu:0,score2024_hu:0,web:'',feature:'从化民办',desc:'广州市龙外实验学校（公费班）位于从化区，是民办高中。公费班面向全市招生。'},
+{name:'广州市南外实验学校（公费班）',code:'M021',type:'民办',level:'民办',district:'从化',scope:'全市',score2026_hu:671,score2026_fei:671,score2025_hu:0,score2024_hu:0,web:'',feature:'从化民办',desc:'广州市南外实验学校（公费班）位于从化区，是民办高中。以外语教学为特色，公费班面向全市招生。'},
+{name:'广州市华商外语实验高级中学（公费班）',code:'M022',type:'民办',level:'民办',district:'增城',scope:'全市',score2026_hu:672,score2026_fei:672,score2025_hu:0,score2024_hu:0,web:'',feature:'增城民办',desc:'广州市华商外语实验高级中学（公费班）位于增城区，是民办高中。以外语教学为特色，公费班面向全市招生。'},
+{name:'广州南方学院番禺附属中学（公费班）',code:'M023',type:'民办',level:'民办',district:'番禺',scope:'全市',score2026_hu:640,score2026_fei:640,score2025_hu:0,score2024_hu:0,web:'',feature:'番禺民办',desc:'广州南方学院番禺附属中学（公费班）位于番禺区，是民办高中。依托高校资源，公费班面向全市招生。'},
+{name:'广州市庆丰实验学校（公费班）',code:'M024',type:'民办',level:'民办',district:'白云',scope:'全市',score2026_hu:643,score2026_fei:643,score2025_hu:0,score2024_hu:0,web:'',feature:'白云民办',desc:'广州市庆丰实验学校（公费班）位于白云区，是民办高中。公费班面向全市招生，提供优质普惠性学位。'},
+{name:'广州市明珠高级中学（公费班）',code:'M025',type:'民办',level:'民办',district:'从化',scope:'全市',score2026_hu:644,score2026_fei:644,score2025_hu:0,score2024_hu:0,web:'',feature:'从化民办',desc:'广州市明珠高级中学（公费班）位于从化区，是民办高中。公费班面向全市招生。'},
+{name:'广州市衡美高级中学（公费班）',code:'M026',type:'民办',level:'民办',district:'从化',scope:'全市',score2026_hu:607,score2026_fei:607,score2025_hu:0,score2024_hu:0,web:'',feature:'从化民办',desc:'广州市衡美高级中学（公费班）位于从化区，是民办高中。公费班面向全市招生。'},
+{name:'广州市香江中学（公费班）',code:'M027',type:'民办',level:'民办',district:'增城',scope:'全市',score2026_hu:633,score2026_fei:633,score2025_hu:0,score2024_hu:0,web:'',feature:'增城民办',desc:'广州市香江中学（公费班）位于增城区，是民办高中。公费班面向全市招生。'},
+{name:'广州市为明学校（盛景校区）（公费班）',code:'M028',type:'民办',level:'民办',district:'海珠',scope:'全市',score2026_hu:633,score2026_fei:634,score2025_hu:0,score2024_hu:0,web:'http://www.wmxxgz.com/',feature:'海珠民办',desc:'广州市为明学校（盛景校区）位于海珠区罗马家园，是为明学校另一校区。延续"发展个性、涵养人格"育人宗旨和"兼容特色教育"，实行集团化管理。'},
+{name:'广州市培才高级中学（公费班）',code:'M029',type:'民办',level:'民办',district:'海珠',scope:'全市',score2026_hu:635,score2026_fei:635,score2025_hu:0,score2024_hu:0,web:'',feature:'海珠民办',desc:'广州市培才高级中学（公费班）位于海珠区，是民办高中。公费班面向全市招生。'},
+{name:'广州龙涛外国语学校（公费班）',code:'M030',type:'民办',level:'民办',district:'从化',scope:'全市',score2026_hu:634,score2026_fei:634,score2025_hu:0,score2024_hu:0,web:'',feature:'从化民办',desc:'广州龙涛外国语学校（公费班）位于从化区，是民办高中。公费班面向全市招生。'},
+{name:'广州市天健学校（公费班）',code:'M031',type:'民办',level:'民办',district:'白云',scope:'全市',score2026_hu:632,score2026_fei:632,score2025_hu:0,score2024_hu:0,web:'',feature:'白云民办',desc:'广州市天健学校（公费班）位于白云区，是民办高中。以"天行健、君子以自强不息"为办学理念，公费班面向全市招生。'},
+{name:'广州市华德高级中学（公费班）',code:'M032',type:'民办',level:'民办',district:'从化',scope:'全市',score2026_hu:632,score2026_fei:632,score2025_hu:0,score2024_hu:0,web:'',feature:'从化民办',desc:'广州市华德高级中学（公费班）位于从化区，是民办高中。公费班面向全市招生。'},
+{name:'广州市明贤实验高级中学（公费班）',code:'M033',type:'民办',level:'民办',district:'从化',scope:'全市',score2026_hu:632,score2026_fei:632,score2025_hu:0,score2024_hu:0,web:'',feature:'从化民办',desc:'广州市明贤实验高级中学（公费班）位于从化区，是民办高中。公费班面向全市招生。'},
+{name:'广州市华汇高级中学（公费班）',code:'M034',type:'民办',level:'民办',district:'从化',scope:'全市',score2026_hu:626,score2026_fei:626,score2025_hu:0,score2024_hu:0,web:'',feature:'从化民办',desc:'广州市华汇高级中学（公费班）位于从化区，是民办高中。公费班面向全市招生。'},
+{name:'广州市海珠中学（公费班）',code:'M035',type:'民办',level:'民办',district:'海珠',scope:'全市',score2026_hu:625,score2026_fei:625,score2025_hu:0,score2024_hu:0,web:'',feature:'海珠民办',desc:'广州市海珠中学（公费班）位于海珠区，是民办高中。公费班面向全市招生。'},
+{name:'广州市维港青藤中学（公费班）',code:'M036',type:'民办',level:'民办',district:'从化',scope:'全市',score2026_hu:601,score2026_fei:601,score2025_hu:0,score2024_hu:0,web:'',feature:'从化民办',desc:'广州市维港青藤中学（公费班）位于从化区，是民办高中。公费班面向全市招生。'},
+{name:'广州英豪学校（公费班）',code:'M037',type:'民办',level:'民办',district:'从化',scope:'全市',score2026_hu:600,score2026_fei:600,score2025_hu:0,score2024_hu:0,web:'',feature:'从化民办',desc:'广州英豪学校（公费班）位于从化区，是民办高中。公费班面向全市招生。'},
+{name:'广州市实验外语学校',code:'M038',type:'民办',level:'民办',district:'花都',scope:'全市',score2026_hu:592,score2026_fei:592,score2025_hu:0,score2024_hu:0,web:'',feature:'花都民办',desc:'广州市实验外语学校位于花都区，是民办高中。以外语教学为特色，开设多语种课程。'},
+{name:'广州思源学校（公费班）',code:'M039',type:'民办',level:'民办',district:'天河',scope:'全市',score2026_hu:592,score2026_fei:592,score2025_hu:0,score2024_hu:0,web:'',feature:'天河民办',desc:'广州思源学校（公费班）位于天河区，是民办高中。公费班面向全市招生。'},
+{name:'广州市亚加达外国语高级中学（公费班）',code:'M040',type:'民办',level:'民办',district:'白云',scope:'全市',score2026_hu:592,score2026_fei:592,score2025_hu:0,score2024_hu:0,web:'',feature:'白云民办',desc:'广州市亚加达外国语高级中学（公费班）位于白云区，是民办高中。以外语教学为特色，公费班面向全市招生。'},
+{name:'广州市朝晖高级中学（公费班）',code:'M041',type:'民办',level:'民办',district:'从化',scope:'全市',score2026_hu:592,score2026_fei:592,score2025_hu:0,score2024_hu:0,web:'',feature:'从化民办',desc:'广州市朝晖高级中学（公费班）位于从化区，是民办高中。公费班面向全市招生。'},
+{name:'广州市南郡高级中学（公费班）',code:'M042',type:'民办',level:'民办',district:'从化',scope:'全市',score2026_hu:614,score2026_fei:614,score2025_hu:0,score2024_hu:0,web:'',feature:'从化民办',desc:'广州市南郡高级中学（公费班）位于从化区，是民办高中。公费班面向全市招生。'},
+{name:'广州市华美英语实验学校（普通高中）',code:'M043',type:'民办',level:'民办',district:'天河',scope:'全市',score2026_hu:412,score2026_fei:412,score2025_hu:0,score2024_hu:0,web:'https://www.huameischool.com/',feature:'天河民办',desc:'广州市华美英语实验学校（普通高中部）创建于1993年，位于天河区华美路。是广东省一级学校、广州市示范性高中，集幼儿园至国际高中于一体的全日制寄宿制国际化学校，在校生超4000人。'},
+{name:'广州市庆丰实验学校',code:'M044',type:'民办',level:'民办',district:'白云',scope:'全市',score2026_hu:459,score2026_fei:459,score2025_hu:0,score2024_hu:0,web:'',feature:'白云民办',desc:'广州市庆丰实验学校位于白云区，是民办高中。提供普通高中教育，面向全市招生。'},
+// 中外合作办学项目
+{name:'广州外国语学校（中外合作·AP课程）',code:'C001',type:'中外合作',level:'中外合作',district:'南沙',scope:'全市',score2026_hu:636,score2026_fei:636,score2025_hu:0,score2024_hu:0,web:'https://www.gzfls.com',feature:'南沙·AP课程',desc:'广州外国语学校（中外合作·AP课程）是广州外国语学校开设的美国大学先修课程项目。引入美国AP课程体系，小班化教学，外教授课，毕业生主要赴美英加等国名校深造，是广州最成熟的AP课程项目之一。'},
+{name:'广州外国语学校（中外合作·A-Level课程）',code:'C002',type:'中外合作',level:'中外合作',district:'南沙',scope:'全市',score2026_hu:672,score2026_fei:672,score2025_hu:0,score2024_hu:0,web:'https://www.gzfls.com',feature:'南沙·A-Level课程',desc:'广州外国语学校（中外合作·A-Level课程）是广州外国语学校开设的英国A-Level课程项目。引入剑桥大学国际考试委员会A-Level课程体系，学术严谨，毕业生主要赴英国、澳洲等国名校深造。'},
+{name:'广州外国语学校（中外合作·IB-DP课程）',code:'C003',type:'中外合作',level:'中外合作',district:'南沙',scope:'全市',score2026_hu:502,score2026_fei:502,score2025_hu:0,score2024_hu:0,web:'https://www.gzfls.com',feature:'南沙·IB课程',desc:'广州外国语学校（中外合作·IB-DP课程）是广州外国语学校开设的国际文凭课程项目。引入IB国际文凭组织DP课程体系，注重全人教育，全球认可度高，毕业生可申请全球各国顶尖大学。'},
+{name:'广东实验中学（荔湾校区·中美AP课程）',code:'C004',type:'中外合作',level:'中外合作',district:'荔湾',scope:'全市',score2026_hu:555,score2026_fei:555,score2025_hu:0,score2024_hu:0,web:'https://www.gdsyzx.edu.cn',feature:'荔湾·AP课程',desc:'广东实验中学（荔湾校区·中美AP课程）是省实开设的美国大学先修课程项目。依托省实优质教育资源，引入美国AP课程体系，中外教联合授课，毕业生赴美英名校比例高。'},
+{name:'广东实验中学（白云校区·A-Level课程）',code:'C005',type:'中外合作',level:'中外合作',district:'白云',scope:'全市',score2026_hu:466,score2026_fei:466,score2025_hu:0,score2024_hu:0,web:'https://www.gdsyzx.edu.cn',feature:'白云·A-Level课程',desc:'广东实验中学（白云校区·A-Level课程）是省实白云校区开设的英国A-Level课程项目。引入剑桥A-Level课程体系，学术要求严格，为白云校区增添国际化教育选择。'},
+{name:'广东实验中学（白云校区·艺术设计班）',code:'C006',type:'中外合作',level:'中外合作',district:'白云',scope:'全市',score2026_hu:415,score2026_fei:415,score2025_hu:0,score2024_hu:0,web:'https://www.gdsyzx.edu.cn',feature:'白云·艺术设计',desc:'广东实验中学（白云校区·艺术设计班）是省实开设的艺术设计特色国际课程项目。融合中外艺术教育理念，注重作品集创作和艺术素养培养，毕业生主要申请海外艺术院校。'},
+{name:'广东广雅中学（荔湾校区·中外合作）',code:'C007',type:'中外合作',level:'中外合作',district:'荔湾',scope:'全市',score2026_hu:439,score2026_fei:439,score2025_hu:0,score2024_hu:0,web:'https://www.gyzx.edu.cn',feature:'荔湾·中外合作',desc:'广东广雅中学（荔湾校区·中外合作）是广雅中学开设的中外合作办学项目。依托广雅百年教育底蕴，引入国际课程体系，培养具有国际视野的复合型人才。'},
+{name:'广州市执信中学（二沙岛·AP课程）',code:'C008',type:'中外合作',level:'中外合作',district:'越秀',scope:'全市',score2026_hu:471,score2026_fei:471,score2025_hu:0,score2024_hu:0,web:'https://www.zxhs.net',feature:'越秀·AP课程',desc:'广州市执信中学（二沙岛·AP课程）是执信中学开设的美国大学先修课程项目。位于二二沙岛校区，引入美国AP课程体系，中外教联合授课，毕业生赴海外名校比例高。'},
+{name:'广州市执信中学（二沙岛·A-Level课程）',code:'C009',type:'中外合作',level:'中外合作',district:'越秀',scope:'全市',score2026_hu:459,score2026_fei:459,score2025_hu:0,score2024_hu:0,web:'https://www.zxhs.net',feature:'越秀·A-Level课程',desc:'广州市执信中学（二沙岛·A-Level课程）是执信中学开设的英国A-Level课程项目。位于二沙岛校区，引入剑桥A-Level课程体系，学术严谨，是执信国际化教育的重要组成部分。'},
+{name:'广州市番禺区象贤中学（中外合作）',code:'C010',type:'中外合作',level:'中外合作',district:'番禺',scope:'全市',score2026_hu:551,score2026_fei:551,score2025_hu:0,score2024_hu:0,web:'http://gzxxjy.pyedu.cn/',feature:'番禺·中外合作',desc:'广州市番禺区象贤中学（中外合作）是象贤中学开设的中外合作办学项目。创办于2013年，引入国际课程体系，注重中西文化融合，毕业生可申请海外大学。'},
+{name:'广州市黄广中学（中外合作）',code:'C011',type:'中外合作',level:'中外合作',district:'花都',scope:'全市',score2026_hu:497,score2026_fei:497,score2025_hu:0,score2024_hu:0,web:'http://www.hgzxgz.net/',feature:'花都·中外合作',desc:'广州市黄广中学（中外合作）是黄广中学开设的中外合作办学项目。依托黄广教育品牌，引入国际课程体系，为有意向出国深造的学生提供国际化教育路径。'},
+{name:'广州市实验外语学校（中外合作·日语）',code:'C012',type:'中外合作',level:'中外合作',district:'花都',scope:'全市',score2026_hu:467,score2026_fei:467,score2025_hu:0,score2024_hu:0,web:'',feature:'花都·日语',desc:'广州市实验外语学校（中外合作·日语）是实验外语学校开设的日语方向中外合作项目。以日语教学为核心，对接日本大学入学要求，毕业生可申请日本大学。'},
+{name:'广州市实验外语学校（中外合作·英语）',code:'C013',type:'中外合作',level:'中外合作',district:'花都',scope:'全市',score2026_hu:469,score2026_fei:469,score2025_hu:0,score2024_hu:0,web:'',feature:'花都·英语',desc:'广州市实验外语学校（中外合作·英语）是实验外语学校开设的英语方向中外合作项目。以英语教学为核心，对接英美大学入学要求，毕业生可申请英语国家大学。'},
+{name:'广东华侨中学（中外合作）',code:'C014',type:'中外合作',level:'中外合作',district:'越秀',scope:'全市',score2026_hu:417,score2026_fei:417,score2025_hu:0,score2024_hu:0,web:'http://www.gdqz.com',feature:'越秀·中外合作',desc:'广东华侨中学（中外合作）是广东华侨中学开设的中外合作办学项目。依托侨中国际化教育传统，引入国际课程体系，国际课程升学指导办公室为学生提供专业升学规划。'},
+{name:'广州市西关外国语学校（中外合作）',code:'C015',type:'中外合作',level:'中外合作',district:'荔湾',scope:'全市',score2026_hu:412,score2026_fei:412,score2025_hu:0,score2024_hu:0,web:'http://gzxw.lwedu.com/',feature:'荔湾·中外合作',desc:'广州市西关外国语学校（中外合作）是西关外国语学校开设的中外合作办学项目。依托学校外语教学优势，引入国际课程体系，培养具有国际视野的外语人才。'},
+{name:'广州市华美英语实验学校（中外合作）',code:'C016',type:'中外合作',level:'中外合作',district:'天河',scope:'全市',score2026_hu:412,score2026_fei:412,score2025_hu:0,score2024_hu:0,web:'https://www.huameischool.com/',feature:'天河·中外合作',desc:'广州市华美英语实验学校（中外合作）是华美开设的中加国际高中项目。由中加方校长共同管理，引入国际先进课程体系，是广州办学历史最长、规模最大的国际高中之一。'},
+{name:'广州天省实验学校（中外合作）',code:'C017',type:'中外合作',level:'中外合作',district:'天河',scope:'全市',score2026_hu:458,score2026_fei:458,score2025_hu:0,score2024_hu:0,web:'http://www.gdems.cn',feature:'天河·中外合作',desc:'广州天省实验学校（中外合作）是天省实验开设的中外合作办学项目。依托省实教育资源，引入国际课程体系，开设国际课程中心，为学生提供多元化升学路径。'},
+{name:'广州市培英中学（鹤洞校区·中外合作）',code:'C018',type:'中外合作',level:'中外合作',district:'荔湾',scope:'全市',score2026_hu:424,score2026_fei:424,score2025_hu:0,score2024_hu:0,web:'https://www.pyzx.edu.cn',feature:'荔湾·中外合作',desc:'广州市培英中学（鹤洞校区·中外合作）是培英中学开设的中外合作办学项目。依托培英百年教育底蕴，引入国际课程体系，为学生提供国际化教育选择。'}
+];
+
+// ============ CORE FUNCTIONS ============
+function doLogin(){
+var u=document.getElementById('loginUser').value;
+var p=document.getElementById('loginPass').value;
+var accounts=getAccounts();
+var found=null;
+for(var i=0;i<accounts.length;i++){
+if(accounts[i].username===u&&accounts[i].password===p&&!accounts[i].disabled){
+found=accounts[i];
+break;
+}
+}
+if(!found){
+alert('账号或密码错误！');
+return;
+}
+if(found.expiryDate){
+var exp=new Date(found.expiryDate);
+if(exp<new Date()){
+alert('账号已过期，请联系管理员！');
+return;
+}
+}
+LOGIN_USER=found;
+sessionStorage.setItem('sys_login_user',JSON.stringify(found));
+document.getElementById('loginOverlay').classList.add('hidden');
+document.getElementById('loadingPage').classList.add('active');
+setTimeout(function(){
+document.getElementById('loadingPage').classList.remove('active');
+document.getElementById('homePage').classList.add('active');
+initApp();
+applyModuleVisibility();
+},800);
+}
+
+function showPage(id){
+var pages=document.querySelectorAll('.page');
+for(var i=0;i<pages.length;i++){pages[i].classList.remove('active');}
+document.getElementById(id).classList.add('active');
+window.scrollTo(0,0);
+// Update nav
+var navItems=document.querySelectorAll('.nav-item');
+for(var i=0;i<navItems.length;i++){navItems[i].classList.remove('active');}
+if(id==='homePage')navItems[0].classList.add('active');
+else if(id==='matchPage')navItems[1].classList.add('active');
+else if(id==='schoolPage'){navItems[2].classList.add('active');renderSchoolList();}
+else if(id==='volunteerPage')navItems[3].classList.add('active');
+else if(id==='policyPage'){navItems[4].classList.add('active');renderPolicy();}
+if(id==='accountPage')renderAccountList();
+}
+
+function initApp(){
+renderSchoolList();
+// Load saved student info
+loadStudent();
+}
+
+function saveStudent(){
+var data={
+score:document.getElementById('stuScore').value,
+chinese:document.getElementById('stuChinese').value,
+math:document.getElementById('stuMath').value,
+english:document.getElementById('stuEnglish').value,
+physics:document.getElementById('stuPhysics').value,
+chemistry:document.getElementById('stuChemistry').value,
+politics:document.getElementById('stuPolitics').value,
+history:document.getElementById('stuHistory').value,
+pe:document.getElementById('stuPE').value,
+type:document.getElementById('stuType').value,
+district:document.getElementById('stuDistrict').value,
+crossDistrict:document.getElementById('stuCrossDistrict').value,
+quota:document.getElementById('stuQuota').value,
+direction:document.getElementById('stuDirection').value
+};
+sessionStorage.setItem('stu_info',JSON.stringify(data));
+alert('信息已保存！');
+}
+
+function loadStudent(){
+var saved=sessionStorage.getItem('stu_info');
+if(saved){
+var data=JSON.parse(saved);
+if(document.getElementById('stuScore')){
+document.getElementById('stuScore').value=data.score||'';
+document.getElementById('stuType').value=data.type||'户籍生';
+document.getElementById('stuDistrict').value=data.district||'越秀';
+document.getElementById('stuCrossDistrict').value=data.crossDistrict||'否';
+document.getElementById('stuQuota').value=data.quota||'有';
+document.getElementById('stuDirection').value=data.direction||'公办普高';
+}
+}
+}
+
+function getStudentScore(){
+var saved=sessionStorage.getItem('stu_info');
+if(!saved)return null;
+var data=JSON.parse(saved);
+return parseInt(data.score)||0;
+}
+
+function getStudentType(){
+var saved=sessionStorage.getItem('stu_info');
+if(!saved)return '户籍生';
+var data=JSON.parse(saved);
+return data.type||'户籍生';
+}
+
+// ============ SCHOOL DATABASE ============
+var schoolFilter='all';
+
+function renderSchoolList(){
+var list=document.getElementById('schoolList');
+if(!list)return;
+var html='';
+var count=0;
+for(var i=0;i<schools.length;i++){
+var s=schools[i];
+if(schoolFilter!=='all'){
+if(schoolFilter==='公办'&&s.type!=='公办')continue;
+if(schoolFilter==='民办'&&s.type!=='民办')continue;
+if(schoolFilter==='中外合作'&&s.type!=='中外合作')continue;
+if(schoolFilter==='国家级示范性'&&s.level!=='国家级示范性')continue;
+if(schoolFilter==='市示范性'&&s.level!=='市示范性')continue;
+}
+var score=s.score2026_hu||0;
+var scoreText=score>0?score:'-';
+var tagClass=s.type==='公办'?'tag-blue':(s.type==='民办'?'tag-purple':'tag-orange');
+html+='<div class="school-card" onclick="showSchoolDetail('+i+')">';
+html+='<div class="name">'+s.name+'</div>';
+html+='<div class="score">'+scoreText+'</div>';
+html+='<div class="info"><span class="tag '+tagClass+'">'+s.type+'</span> '+s.district+'</div>';
+html+='</div>';
+count++;
+}
+if(count===0)html='<div class="empty-state">未找到匹配的学校</div>';
+list.innerHTML=html;
+}
+
+function searchSchool(){
+var kw=document.getElementById('schoolSearch').value.toLowerCase();
+var list=document.getElementById('schoolList');
+var html='';
+var count=0;
+for(var i=0;i<schools.length;i++){
+var s=schools[i];
+if(kw&&s.name.toLowerCase().indexOf(kw)===-1)continue;
+if(schoolFilter!=='all'){
+if(schoolFilter==='公办'&&s.type!=='公办')continue;
+if(schoolFilter==='民办'&&s.type!=='民办')continue;
+if(schoolFilter==='中外合作'&&s.type!=='中外合作')continue;
+if(schoolFilter==='国家级示范性'&&s.level!=='国家级示范性')continue;
+if(schoolFilter==='市示范性'&&s.level!=='市示范性')continue;
+}
+var score=s.score2026_hu||0;
+var scoreText=score>0?score:'-';
+var tagClass=s.type==='公办'?'tag-blue':(s.type==='民办'?'tag-purple':'tag-orange');
+html+='<div class="school-card" onclick="showSchoolDetail('+i+')">';
+html+='<div class="name">'+s.name+'</div>';
+html+='<div class="score">'+scoreText+'</div>';
+html+='<div class="info"><span class="tag '+tagClass+'">'+s.type+'</span> '+s.district+'</div>';
+html+='</div>';
+count++;
+}
+if(count===0)html='<div class="empty-state">未找到匹配的学校</div>';
+list.innerHTML=html;
+}
+
+function filterSchool(type,el){
+schoolFilter=type;
+var chips=document.querySelectorAll('.filter-chip');
+for(var i=0;i<chips.length;i++){chips[i].classList.remove('active');}
+el.classList.add('active');
+searchSchool();
+}
+
+function showSchoolDetail(idx){
+var s=schools[idx];
+document.getElementById('sdTitle').textContent=s.name;
+var stuType=getStudentType();
+var scoreKey=stuType==='户籍生'?'score2026_hu':'score2026_fei';
+var score=s[scoreKey]||0;
+var html='<div class="card">';
+html+='<div class="card-title">📊 基本信息</div>';
+html+='<div class="info-item"><span class="label">学校代码</span><span class="value">'+s.code+'</span></div>';
+html+='<div class="info-item"><span class="label">学校性质</span><span class="value">'+s.type+'</span></div>';
+html+='<div class="info-item"><span class="label">学校等级</span><span class="value">'+s.level+'</span></div>';
+html+='<div class="info-item"><span class="label">所在区域</span><span class="value">'+s.district+'区</span></div>';
+html+='<div class="info-item"><span class="label">招生范围</span><span class="value">'+s.scope+'</span></div>';
+html+='<div class="info-item"><span class="label">学校特色</span><span class="value">'+s.feature+'</span></div>';
+if(s.web)html+='<div class="info-item"><span class="label">官网</span><span class="value"><a href="'+s.web+'" target="_blank" style="color:#667eea;text-decoration:underline;">'+s.web+'</a></span></div>';
+html+='</div>';
+html+='<div class="card">';
+html+='<div class="card-title">📈 录取分数线</div>';
+html+='<table class="volunteer-table"><thead><tr><th>年份</th><th>户籍生</th><th>非户籍生</th></tr></thead><tbody>';
+html+='<tr><td>2026</td><td>'+(s.score2026_hu||'-')+'</td><td>'+(s.score2026_fei||'-')+'</td></tr>';
+html+='<tr><td>2025</td><td>'+(s.score2025_hu||'-')+'</td><td>-</td></tr>';
+html+='<tr><td>2024</td><td>'+(s.score2024_hu||'-')+'</td><td>-</td></tr>';
+html+='</tbody></table>';
+// 梯度分析
+if(score>0){
+var gradient=getGradient(score);
+html+='<p style="margin-top:10px;font-size:13px;color:#666;">'+stuType+'录取分'+score+'分，处于<strong style="color:#667eea;">'+gradient+'</strong></p>';
+}
+html+='</div>';
+html+='<div class="card">';
+html+='<div class="card-title">📝 学校介绍</div>';
+html+='<p style="font-size:13px;color:#666;line-height:1.8;">'+s.desc+'</p>';
+html+='</div>';
+// 与考生分数对比
+var stuScore=getStudentScore();
+if(stuScore>0&&score>0){
+html+='<div class="card">';
+html+='<div class="card-title">⚖️ 与您的对比</div>';
+var diff=stuScore-score;
+var diffText=diff>=0?('超出'+diff+'分，录取概率较高'):('低于'+Math.abs(diff)+'分，录取有难度');
+var diffColor=diff>=0?'#137333':'#c5221f';
+html+='<div class="info-item"><span class="label">您的分数</span><span class="value">'+stuScore+'分</span></div>';
+html+='<div class="info-item"><span class="label">该校'+stuType+'线</span><span class="value">'+score+'分</span></div>';
+html+='<div class="info-item"><span class="label">分差</span><span class="value" style="color:'+diffColor+';font-weight:700;">'+diffText+'</span></div>';
+html+='</div>';
+}
+document.getElementById('sdContent').innerHTML=html;
+showPage('schoolDetailPage');
+}
+
+function getGradient(score){
+if(score>=712)return '第一梯度（712分以上）';
+if(score>=672)return '第二梯度（672-711分）';
+if(score>=632)return '第三梯度（632-671分）';
+if(score>=592)return '第四梯度（592-631分）';
+if(score>=552)return '第五梯度（552-591分）';
+if(score>=492)return '第六梯度（492-551分）';
+if(score>=412)return '民办普高控制线区域（412-491分）';
+return '控制线以下';
+}
+
+// ============ SMART MATCHING ============
+var matchResults=null;
+
+function runMatch(){
+var score=getStudentScore();
+if(!score||score<1){
+alert('请先在"学生信息"页填写中考总分！');
+showPage('studentPage');
+return;
+}
+var stuType=getStudentType();
+var scoreKey=stuType==='户籍生'?'score2026_hu':'score2026_fei';
+// Filter schools by type preference
+var saved=JSON.parse(sessionStorage.getItem('stu_info')||'{}');
+var direction=saved.direction||'公办普高';
+var pool=[];
+for(var i=0;i<schools.length;i++){
+var s=schools[i];
+var sScore=s[scoreKey]||0;
+if(sScore<1)continue;
+if(direction==='公办普高'&&s.type!=='公办')continue;
+if(direction==='民办普高'&&s.type!=='民办')continue;
+if(direction==='中外合作'&&s.type!=='中外合作')continue;
+pool.push({idx:i,score:sScore,name:s.name,type:s.type,district:s.district,level:s.level});
+}
+// Sort by score descending
+pool.sort(function(a,b){return b.score-a.score;});
+// Classify into 4 tiers
+var chong=[],wen=[],bao=[],shou=[];
+for(var i=0;i<pool.length;i++){
+var diff=score-pool[i].score;
+if(diff<-20){chong.push(pool[i]);}
+else if(diff>=-20&&diff<0){wen.push(pool[i]);}
+else if(diff>=0&&diff<30){bao.push(pool[i]);}
+else{shou.push(pool[i]);}
+}
+matchResults={chong:chong,wen:wen,bao:bao,shou:shou,score:score,stuType:stuType};
+renderMatchResults();
+}
+
+function renderMatchResults(){
+if(!matchResults){return;}
+var r=matchResults;
+var html='<div class="card"><div class="card-title">📊 匹配结果</div>';
+html+='<p style="font-size:13px;color:#666;margin-bottom:8px;">中考总分：<strong>'+r.score+'</strong>分 | 考生类型：'+r.stuType+'</p>';
+var groups=[
+{title:'冲刺院校',cls:'group-chong',items:r.chong,desc:'低于该校分数线20分以上'},
+{title:'稳妥院校',cls:'group-wen',items:r.wen,desc:'低于该校分数线0-20分'},
+{title:'保底院校',cls:'group-bao',items:r.bao,desc:'达到或超出该校分数线0-30分'},
+{title:'守卫院校',cls:'group-shou',items:r.shou,desc:'超出该校分数线30分以上'}
+];
+for(var g=0;g<groups.length;g++){
+if(groups[g].items.length===0)continue;
+html+='<div class="match-group">';
+html+='<div class="match-group-title '+groups[g].cls+'">'+groups[g].title+' ('+groups[g].items.length+'所) - '+groups[g].desc+'</div>';
+html+='<div class="grid">';
+for(var i=0;i<Math.min(15,groups[g].items.length);i++){
+var item=groups[g].items[i];
+html+='<div class="school-card" onclick="showSchoolDetail('+item.idx+')">';
+html+='<div class="name">'+item.name.substring(0,12)+'</div>';
+html+='<div class="score">'+item.score+'</div>';
+html+='<div class="info">'+item.district+'区</div>';
+html+='</div>';
+}
+html+='</div></div>';
+}
+html+='</div>';
+document.getElementById('matchResults').innerHTML=html;
+document.getElementById('matchResults').style.display='block';
+}
+
+// ============ VOLUNTEER TABLE ============
+var volunteerList=[];
+
+function genVolunteer(){
+if(!matchResults){
+alert('请先完成智能匹配！');
+showPage('matchPage');
+return;
+}
+var r=matchResults;
+volunteerList=[];
+// 第三批次：6个志愿 - 冲2+稳2+保2
+var pick=function(arr,n){
+var result=[];
+for(var i=0;i<Math.min(n,arr.length);i++){result.push(arr[i]);}
+return result;
+};
+var batch3=pick(r.chong,2).concat(pick(r.wen,2)).concat(pick(r.bao,2));
+var batch4=pick(r.bao,2).concat(pick(r.shou,4));
+volunteerList={batch3:batch3,batch4:batch4};
+renderVolunteer();
+}
+
+function renderVolunteer(){
+if(!volunteerList||!volunteerList.batch3){return;}
+var v=volunteerList;
+var html='';
+// 第二批次：名额分配
+html+='<div class="batch-header">第二批：名额分配（3个志愿）</div>';
+html+='<div class="card"><p style="font-size:13px;color:#999;">名额分配志愿需根据学籍所在初中学校分得的名额填报，请在广州招考网查询本校名额分配结果。建议第一志愿填报目标高中，第二、三志愿适当保底。</p></div>';
+// 第三批次
+html+='<div class="batch-header">第三批：示范性普通高中（6个志愿）</div>';
+html+='<div class="card"><table class="volunteer-table"><thead><tr><th>志愿</th><th>学校</th><th>2026分数线</th><th>策略</th></tr></thead><tbody>';
+var strategies=['冲','冲','稳','稳','保','保'];
+for(var i=0;i<v.batch3.length;i++){
+var s=v.batch3[i];
+html+='<tr><td>第'+(i+1)+'志愿</td><td>'+s.name.substring(0,16)+'</td><td>'+s.score+'</td><td><span class="tag ';
+html+=(i<2?'tag-red':(i<4?'tag-blue':'tag-green'))+'">'+strategies[i]+'</span></td></tr>';
+}
+html+='</tbody></table></div>';
+// 第四批次
+html+='<div class="batch-header">第四批：普通高中（6个志愿）</div>';
+html+='<div class="card"><table class="volunteer-table"><thead><tr><th>志愿</th><th>学校</th><th>2026分数线</th><th>策略</th></tr></thead><tbody>';
+var st4=['保','保','守','守','守','守'];
+for(var i=0;i<v.batch4.length;i++){
+var s=v.batch4[i];
+html+='<tr><td>第'+(i+1)+'志愿</td><td>'+s.name.substring(0,16)+'</td><td>'+s.score+'</td><td><span class="tag ';
+html+=(i<2?'tag-green':'tag-orange')+'">'+st4[i]+'</span></td></tr>';
+}
+html+='</tbody></table></div>';
+// 志愿填报建议
+html+='<div class="card"><div class="card-title">💡 填报建议</div>';
+html+='<ul style="font-size:13px;color:#666;line-height:1.8;padding-left:18px;">';
+html+='<li>志愿表应形成合理梯度，避免全部"冲"导致滑档</li>';
+html+='<li>第三批次6个志愿建议按"冲2+稳2+保2"分配</li>';
+html+='<li>名额分配批次（第二批）是户籍生的重要录取途径，建议充分利用</li>';
+html+='<li>第四批次作为兜底，确保有学可上</li>';
+html+='<li>注意各批次录取控制线：公办普高492分、民办普高412分</li>';
+html+='<li>录取参考科目（地理、生物、信息科技、艺术）等级要求：示范性高中C级及以上，非示范性高中D级及以上</li>';
+html+='</ul></div>';
+document.getElementById('volunteerContent').innerHTML=html;
+document.getElementById('volunteerContent').style.display='block';
+}
+
+// ============ RISK ASSESSMENT ============
+function runRisk(){
+if(!volunteerList||!volunteerList.batch3){
+alert('请先生成志愿表！');
+showPage('volunteerPage');
+return;
+}
+var score=getStudentScore();
+var v=volunteerList;
+var risks=[];
+var score=getStudentScore();
+// Check gradient
+var allSchools=v.batch3.concat(v.batch4);
+if(allSchools.length<8){
+risks.push({level:'high',text:'志愿数量不足，建议填满各批次志愿容量，增加录取机会'});
+}
+// Check if all schools are too high
+var allHigh=true;
+for(var i=0;i<allSchools.length;i++){
+if(allSchools[i].score<=score){allHigh=false;break;}
+}
+if(allHigh){
+risks.push({level:'high',text:'所有志愿学校分数线均高于考生分数，存在滑档风险。建议增加保底学校'});
+}
+// Check gradient gaps
+for(var i=1;i<v.batch3.length;i++){
+var gap=v.batch3[i-1].score-v.batch3[i].score;
+if(gap>40){
+risks.push({level:'mid',text:'第'+i+'志愿与第'+(i+1)+'志愿分差过大（'+gap+'分），梯度不合理'});
+}
+}
+// Check if has enough bottom schools
+var bottomCount=0;
+for(var i=0;i<allSchools.length;i++){
+if(allSchools[i].score<score-20)bottomCount++;
+}
+if(bottomCount<2){
+risks.push({level:'mid',text:'保底学校不足2所，建议增加分数线低于考生成绩20分以上的学校'});
+}
+// Check batch coverage
+if(!v.batch4||v.batch4.length===0){
+risks.push({level:'mid',text:'未填写第四批次志愿，建议填写作为兜底'});
+}
+// Positive checks
+if(!allHigh&&bottomCount>=2){
+risks.push({level:'low',text:'志愿梯度合理，有冲有保，录取概率较高'});
+}
+var html='<div class="card"><div class="card-title">⚠️ 风险评估结果</div>';
+html+='<div style="text-align:center;margin-bottom:16px;">';
+var riskLevel=risks.filter(function(r){return r.level==='high';}).length>0?'高风险':(risks.filter(function(r){return r.level==='mid';}).length>0?'中等风险':'低风险');
+var riskColor=riskLevel==='高风险'?'#c5221f':(riskLevel==='中等风险'?'#fbbc04':'#34a853');
+html+='<div style="font-size:28px;font-weight:700;color:'+riskColor+';">'+riskLevel+'</div>';
+html+='<p style="font-size:13px;color:#999;margin-top:4px;">基于志愿表分析</p>';
+html+='</div>';
+for(var i=0;i<risks.length;i++){
+var r=risks[i];
+var lc=r.level==='high'?'risk-high':(r.level==='mid'?'risk-mid':'risk-low');
+html+='<div class="risk-item"><div class="level '+lc+'"></div><div style="font-size:13px;color:#666;flex:1;">'+r.text+'</div></div>';
+}
+html+='</div>';
+// 建议
+html+='<div class="card"><div class="card-title">💡 改进建议</div>';
+html+='<ul style="font-size:13px;color:#666;line-height:1.8;padding-left:18px;">';
+html+='<li>确保每个批次都有"冲稳保守"四档合理分布</li>';
+html+='<li>第三批次6个志愿建议梯度差控制在10-30分</li>';
+html+='<li>第四批次至少有2-3所学校分数线低于考生成绩</li>';
+html+='<li>关注名额分配批次，这是户籍生的重要录取途径</li>';
+html+='<li>了解补录政策，作为最后保障</li>';
+html+='</ul></div>';
+document.getElementById('riskContent').innerHTML=html;
+document.getElementById('riskContent').style.display='block';
+}
+
+// ============ POLICY CENTER ============
+function renderPolicy(){
+var html='';
+var blocks=[
+{title:'一、2026广州中考总分与科目',content:'<p>中考总分<b>810分</b>。各科分值：语文140分、数学150分、英语140分（听说30+笔试110）、物理100分、化学70分、道法70分、历史70分、体育70分。</p><p>录取参考科目：地理、生物学、信息科技、艺术，按等级计入录取参考。示范性普通高中要求4门均达到C级及以上，非示范性普通高中要求4门均达到D级及以上。</p>'},
+{title:'二、招生录取批次及顺序',content:'<p><b>第一批次</b>：特长生(1个)、自主招生(1个)、外语艺术类(1个)、港澳子弟班(2个)、中本贯通(3个)、中职三二分段(4校*4专业)。</p><p><b>第二批次</b>：名额分配，3个学校志愿。</p><p><b>第三批次</b>：示范性普通高中其他招生计划，6个学校志愿。</p><p><b>第四批次</b>：普通高中6个志愿 + 中职学校6校*6专业。</p><p>各批次按顺序依次投档录取，考生一旦被前面的志愿录取，不再参加后续投档。</p>'},
+{title:'三、梯度投档控制线',content:'<p>2026年各梯度投档控制线：</p><ul><li>第一梯度：<b>712分</b>（前10%考生成绩）</li><li>第二梯度：672分</li><li>第三梯度：632分</li><li>第四梯度：592分</li><li>第五梯度：552分</li><li>公办普高最低控制线：<b>492分</b></li><li>民办普高最低控制线：<b>412分</b>（比公办低80分）</li></ul><p><b>2026年重大变化</b>：首次分设公办、民办普高录取最低控制线，民办比公办低80分（2个梯度）。</p>'},
+{title:'四、多梯度投档录取规则',content:'<p>采用"梯度控制线上志愿优先"投档方式。具体规则：</p><ul><li>首先在第一梯度投档控制线（712分）上，按志愿优先从高分到低分投档</li><li>第一梯度录完后，在第二梯度线上按同样方式投档</li><li>依此类推，直至所有梯度投档结束</li><li>每个梯度内，先投第一志愿，再投第二志愿……依此类推</li><li>同分情况下，按"同分序号"排位</li></ul><p><b>关键点</b>：志愿优先意味着第一志愿非常重要，特别是在同一梯度内竞争激烈时。</p>'},
+{title:'五、名额分配政策',content:'<p><b>什么是名额分配</b>：将优质普通高中部分招生计划分配到初中学校，比例为学校招生总计划的50%。</p><p><b>招生学校</b>：公办示范性普通高中（国家级+市示范性）、省一级普通高中、经审批的优质普通高中。2026年共86所、109个校区，名额分配计划31858个。</p><p><b>报考条件</b>：①初中应届毕业生；②具有广州市户籍（含政策性照顾）；③具有广州市同一初中学校三年完整学籍并在该校就读到毕业。</p><p><b>录取控制线</b>：该校近三年统招首批次户籍生录取最低分的平均值下降40分，且不低于公办普高最低控制线。</p><p><b>注意</b>：名额分配是校内竞争，与考生所在初中的其他考生志愿和成绩密切相关。不同初中学校同一高中的名额分配录取分数可能差异很大。</p>'},
+{title:'六、户籍生与非户籍生政策',content:'<p><b>户籍生</b>：广州市户籍考生，政策性照顾学生享受同等待遇。可填报全部批次志愿。</p><p><b>非户籍生</b>：符合公办普高报考条件的随迁子女。公办普通高中招收随迁子女的最大计划比例在"8%至18%"区间内设定。</p><p>2026年继续实行"并轨录取"，随迁子女与户籍生在同一批次、同一志愿中按分数从高到低统一投档录取。</p><p><b>注意</b>：非户籍生竞争通常更激烈，部分学校非户籍生录取分数线明显高于户籍生。</p>'},
+{title:'七、补录政策',content:'<p>普通高中未录满的招生计划或因学生未按规定时间到校注册而空余的计划，统一安排补录。</p><p><b>2026年补录顺序变化</b>：先中本贯通补录→再普通高中和综合高中补录→最后中职三二分段补录。</p><p><b>补录规则</b>：</p><ul><li>公办普高和综合高中补录计划不再区分户籍生和随迁子女</li><li>凡未被录取、符合补录范围且成绩达到补录最低控制线的考生均可参加</li><li>补录志愿填报时间通常在7月下旬</li></ul>'},
+{title:'八、2026年政策重大变化',content:'<ul><li><b>变化一</b>：首次分设公办、民办普高录取最低控制线，民办比公办低80分</li><li><b>变化二</b>：中本贯通志愿从2个增加到3个，招生专业从2个增至11个</li><li><b>变化三</b>：补录时先中本贯通再普高，强化"职教也是优质升学路"</li><li><b>变化四</b>：民办综合高中公费班在第三批次招生</li><li><b>变化五</b>：新增7所名额分配招生学校</li></ul>'},
+{title:'九、志愿填报核心原则',content:'<ul><li><b>原则一：充分利用志愿容量</b>。各批次志愿尽量填满，增加录取机会</li><li><b>原则二：形成合理梯度</b>。冲稳保守四档分布，避免全部"冲"导致滑档</li><li><b>原则三：重视第一志愿</b>。梯度投档中，第一志愿录取概率最高</li><li><b>原则四：用好名额分配</b>。户籍生应充分利用名额分配批次</li><li><b>原则五：兜底保安全</b>。第四批次确保有学可上</li><li><b>原则六：了解补录</b>。补录是最后保障，但不应作为主要策略</li></ul>'}
+];
+for(var i=0;i<blocks.length;i++){
+html+='<div class="policy-block"><h3>'+blocks[i].title+'</h3>'+blocks[i].content+'</div>';
+}
+document.getElementById('policyContent').innerHTML=html;
+}
+
+// ============ TOOLS ============
+function showTool(type){
+var html='';
+if(type==='gradient'){
+html='<div class="card"><div class="card-title">📊 2026梯度投档控制线</div>';
+var lines=[
+{name:'第一梯度',score:712,color:'#c5221f',desc:'前10%考生成绩'},
+{name:'第二梯度',score:672,color:'#ea4335',desc:''},
+{name:'第三梯度',score:632,color:'#fbbc04',desc:''},
+{name:'第四梯度',score:592,color:'#34a853',desc:''},
+{name:'第五梯度',score:552,color:'#4285f4',desc:''},
+{name:'公办普高最低控制线',score:492,color:'#667eea',desc:'公办高中录取底线'},
+{name:'民办普高最低控制线',score:412,color:'#764ba2',desc:'比公办低80分'}
+];
+for(var i=0;i<lines.length;i++){
+var l=lines[i];
+var stuScore=getStudentScore();
+var marker=stuScore>0&&stuScore>=l.score?' ← 您在此线以上':'';
+html+='<div class="info-item"><span class="label">'+l.name+'</span><span class="value" style="color:'+l.color+';font-weight:700;">'+l.score+'分'+marker+'</span></div>';
+}
+html+='</div>';
+}else if(type==='scorecalc'){
+html='<div class="card"><div class="card-title">🧮 中考分数计算器</div>';
+html+='<div class="form-group"><label>语文（满分140）</label><input type="number" id="calcCN" placeholder="0-140" max="140"></div>';
+html+='<div class="form-group"><label>数学（满分150）</label><input type="number" id="calcMT" placeholder="0-150" max="150"></div>';
+html+='<div class="form-group"><label>英语（满分140）</label><input type="number" id="calcEN" placeholder="0-140" max="140"></div>';
+html+='<div class="form-group"><label>物理（满分100）</label><input type="number" id="calcPH" placeholder="0-100" max="100"></div>';
+html+='<div class="form-group"><label>化学（满分70）</label><input type="number" id="calcCH" placeholder="0-70" max="70"></div>';
+html+='<div class="form-group"><label>道法（满分70）</label><input type="number" id="calcPL" placeholder="0-70" max="70"></div>';
+html+='<div class="form-group"><label>历史（满分70）</label><input type="number" id="calcHS" placeholder="0-70" max="70"></div>';
+html+='<div class="form-group"><label>体育（满分70）</label><input type="number" id="calcPE" placeholder="0-70" max="70"></div>';
+html+='<button class="btn btn-primary btn-block" onclick="calcScore()">计算总分</button>';
+html+='<div id="calcResult" style="text-align:center;margin-top:16px;"></div>';
+html+='</div>';
+}else if(type==='compare'){
+html='<div class="card"><div class="card-title">⚖️ 学校对比</div>';
+html+='<p style="font-size:13px;color:#999;">选择2-3所学校进行对比：</p>';
+html+='<div class="form-group"><label>学校1</label><select id="cmp1">'+getSchoolOptions()+'</select></div>';
+html+='<div class="form-group"><label>学校2</label><select id="cmp2">'+getSchoolOptions()+'</select></div>';
+html+='<div class="form-group"><label>学校3</label><select id="cmp3"><option value="">不选</option>'+getSchoolOptions()+'</select></div>';
+html+='<button class="btn btn-primary btn-block" onclick="compareSchools()">开始对比</button>';
+html+='<div id="cmpResult" style="margin-top:16px;"></div>';
+html+='</div>';
+}else if(type==='quota'){
+html='<div class="card"><div class="card-title">🎯 名额分配查询</div>';
+html+='<p style="font-size:13px;color:#666;line-height:1.8;">名额分配（原"指标到校"）是将优质普通高中50%的招生计划分配到初中学校的政策。</p>';
+html+='<div class="info-item"><span class="label">2026年招生学校</span><span class="value">86所、109个校区</span></div>';
+html+='<div class="info-item"><span class="label">名额分配计划</span><span class="value">31,858个</span></div>';
+html+='<div class="info-item"><span class="label">符合资格考生</span><span class="value">115,739人</span></div>';
+html+='<div class="info-item"><span class="label">平均竞争比</span><span class="value">约3.6:1</span></div>';
+html+='<div class="info-item"><span class="label">录取控制线</span><span class="value">近三年统招户籍生均分降40分</span></div>';
+html+='<div class="info-item"><span class="label">批次安排</span><span class="value">第二批次，3个志愿</span></div>';
+html+='<p style="margin-top:12px;font-size:13px;color:#999;">具体名额分配结果请查询广州招考网（gzzk.gz.gov.cn）</p>';
+html+='</div>';
+}
+document.getElementById('toolContent').innerHTML=html;
+document.getElementById('toolContent').style.display='block';
+}
+
+function getSchoolOptions(){
+var html='';
+for(var i=0;i<schools.length;i++){
+html+='<option value="'+i+'">'+schools[i].name+'</option>';
+}
+return html;
+}
+
+function calcScore(){
+var cn=parseInt(document.getElementById('calcCN').value)||0;
+var mt=parseInt(document.getElementById('calcMT').value)||0;
+var en=parseInt(document.getElementById('calcEN').value)||0;
+var ph=parseInt(document.getElementById('calcPH').value)||0;
+var ch=parseInt(document.getElementById('calcCH').value)||0;
+var pl=parseInt(document.getElementById('calcPL').value)||0;
+var hs=parseInt(document.getElementById('calcHS').value)||0;
+var pe=parseInt(document.getElementById('calcPE').value)||0;
+var total=cn+mt+en+ph+ch+pl+hs+pe;
+var grad=getGradient(total);
+var html='<div style="font-size:36px;font-weight:700;color:#667eea;">'+total+'</div>';
+html+='<div style="font-size:14px;color:#999;">总分（满分810）</div>';
+html+='<div style="margin-top:8px;font-size:13px;color:#667eea;font-weight:600;">'+grad+'</div>';
+document.getElementById('calcResult').innerHTML=html;
+}
+
+function compareSchools(){
+var idx1=parseInt(document.getElementById('cmp1').value);
+var idx2=parseInt(document.getElementById('cmp2').value);
+var idx3=parseInt(document.getElementById('cmp3').value);
+var indices=[idx1,idx2,idx3].filter(function(v){return!isNaN(v)&&v>=0;});
+if(indices.length<2){alert('请至少选择2所学校');return;}
+var html='<table class="volunteer-table"><thead><tr><th>项目</th>';
+for(var i=0;i<indices.length;i++){html+='<th>'+schools[indices[i]].name.substring(0,10)+'</th>';}
+html+='</tr></thead><tbody>';
+var rows=[['学校性质','type'],['学校等级','level'],['所在区域','district'],['2026户籍生','score2026_hu'],['2026非户籍生','score2026_fei'],['2025户籍生','score2025_hu'],['2024户籍生','score2024_hu']];
+for(var r=0;r<rows.length;r++){
+html+='<tr><td>'+rows[r][0]+'</td>';
+for(var i=0;i<indices.length;i++){
+var val=schools[indices[i]][rows[r][1]];
+html+='<td>'+(val||'-')+'</td>';
+}
+html+='</tr>';
+}
+html+='</tbody></table>';
+document.getElementById('cmpResult').innerHTML=html;
+}
+
+// ============ REPORT ============
+function genReport(){
+var score=getStudentScore();
+if(!score){
+alert('请先在"学生信息"页填写中考总分！');
+showPage('studentPage');
+return;
+}
+if(!matchResults){
+alert('请先完成智能匹配！');
+showPage('matchPage');
+return;
+}
+var saved=JSON.parse(sessionStorage.getItem('stu_info')||'{}');
+var r=matchResults;
+var grad=getGradient(score);
+var html='<div class="card" style="text-align:center;">';
+html+='<h2 style="font-size:20px;color:#333;margin-bottom:8px;">广州中考志愿填报方案报告</h2>';
+html+='<p style="font-size:12px;color:#999;">生成时间：'+new Date().toLocaleString()+'</p>';
+html+='</div>';
+// 一、学生分析
+html+='<div class="card"><div class="card-title">一、考生信息</div>';
+html+='<div class="info-item"><span class="label">中考总分</span><span class="value" style="font-size:18px;color:#667eea;font-weight:700;">'+score+'分</span></div>';
+html+='<div class="info-item"><span class="label">所处梯度</span><span class="value">'+grad+'</span></div>';
+html+='<div class="info-item"><span class="label">考生类型</span><span class="value">'+(saved.type||'户籍生')+'</span></div>';
+html+='<div class="info-item"><span class="label">学籍所在区</span><span class="value">'+(saved.district||'未填写')+'区</span></div>';
+html+='<div class="info-item"><span class="label">名额分配资格</span><span class="value">'+(saved.quota||'未填写')+'</span></div>';
+html+='<div class="info-item"><span class="label">意向方向</span><span class="value">'+(saved.direction||'公办普高')+'</span></div>';
+html+='</div>';
+// 二、匹配结果
+html+='<div class="card"><div class="card-title">二、智能匹配结果</div>';
+html+='<table class="volunteer-table"><thead><tr><th>类型</th><th>数量</th><th>说明</th></tr></thead><tbody>';
+html+='<tr><td>冲刺</td><td>'+r.chong.length+'</td><td>低于分数线20分以上</td></tr>';
+html+='<tr><td>稳妥</td><td>'+r.wen.length+'</td><td>低于分数线0-20分</td></tr>';
+html+='<tr><td>保底</td><td>'+r.bao.length+'</td><td>达到或超出0-30分</td></tr>';
+html+='<tr><td>守卫</td><td>'+r.shou.length+'</td><td>超出30分以上</td></tr>';
+html+='</tbody></table></div>';
+// 三、志愿表
+if(volunteerList&&volunteerList.batch3){
+html+='<div class="card"><div class="card-title">三、推荐志愿表</div>';
+html+='<p style="font-size:13px;color:#667eea;font-weight:600;margin-bottom:8px;">第三批次（6个志愿）</p>';
+html+='<table class="volunteer-table"><thead><tr><th>志愿</th><th>学校</th><th>分数线</th></tr></thead><tbody>';
+for(var i=0;i<volunteerList.batch3.length;i++){
+var s=volunteerList.batch3[i];
+html+='<tr><td>第'+(i+1)+'志愿</td><td>'+s.name.substring(0,16)+'</td><td>'+s.score+'</td></tr>';
+}
+html+='</tbody></table>';
+html+='<p style="font-size:13px;color:#667eea;font-weight:600;margin:12px 0 8px;">第四批次（6个志愿）</p>';
+html+='<table class="volunteer-table"><thead><tr><th>志愿</th><th>学校</th><th>分数线</th></tr></thead><tbody>';
+for(var i=0;i<volunteerList.batch4.length;i++){
+var s=volunteerList.batch4[i];
+html+='<tr><td>第'+(i+1)+'志愿</td><td>'+s.name.substring(0,16)+'</td><td>'+s.score+'</td></tr>';
+}
+html+='</tbody></table></div>';
+}
+// 四、政策建议
+html+='<div class="card"><div class="card-title">四、填报建议</div>';
+html+='<ul style="font-size:13px;color:#666;line-height:1.8;padding-left:18px;">';
+html+='<li>所处梯度：'+grad+'，建议以同梯度及下一梯度学校为主要目标</li>';
+html+='<li>名额分配批次（第二批）是户籍生重要途径，建议充分利用</li>';
+html+='<li>第三批次6个志愿按"冲2+稳2+保2"分配</li>';
+html+='<li>第四批次作为兜底，确保有学可上</li>';
+html+='<li>关注补录信息，作为最后保障</li>';
+if(score<492){
+html+='<li style="color:#c5221f;">注意：您的分数低于公办普高最低控制线(492分)，可考虑民办普高(412分以上)或中职三二分段</li>';
+}else if(score<552){
+html+='<li>注意：您的分数在第五梯度区间，建议关注第四批次普通高中和民办高中公费班</li>';
+}else if(score<632){
+html+='<li>建议：您的分数在第三-四梯度区间，可关注区属普通高中和部分示范性高中</li>';
+}else if(score<672){
+html+='<li>建议：您的分数在第二梯度，可冲击部分示范性高中</li>';
+}else if(score<712){
+html+='<li>建议：您的分数在第一-二梯度，可冲击优质示范性高中</li>';
+}else{
+html+='<li>恭喜：您的分数在第一梯度以上，可冲击省市属顶尖名校</li>';
+}
+html+='</ul></div>';
+html+='<div class="footer"><p>本报告基于2026年广州中考官方录取数据生成，仅供参考。</p><p>刘岳 · 广州教研</p></div>';
+document.getElementById('reportContent').innerHTML=html;
+document.getElementById('reportContent').style.display='block';
+}
+
+
+// ============ ACCOUNT MANAGEMENT ============
+var LOGIN_USER=null;
+var ALL_MODULES=['首页仪表盘','学生信息录入','智能匹配','高中数据库','志愿表生成','风险评估','政策中心','工具箱','报告生成'];
+var ACC_KEY='zhongkao_zhiyuan_accounts';
+var editingAccId=null;
+var selectedExpiry=0;
+
+function getAccounts(){
+var raw=localStorage.getItem(ACC_KEY);
+if(!raw){
+var admin={username:'liulaoshi',password:'peiyou2026',displayName:'管理员',createdAt:new Date().toISOString(),disabled:false,modules:ALL_MODULES.slice(),expiryDate:null,isAdmin:true};
+localStorage.setItem(ACC_KEY,JSON.stringify([admin]));
+return[admin];
+}
+try{return JSON.parse(raw);}catch(e){return[];}
+}
+
+function saveAccounts(accs){
+localStorage.setItem(ACC_KEY,JSON.stringify(accs));
+}
+
+function isModuleAllowed(modName){
+if(!LOGIN_USER)return false;
+if(LOGIN_USER.isAdmin)return true;
+if(!LOGIN_USER.modules)return false;
+for(var i=0;i<LOGIN_USER.modules.length;i++){
+if(LOGIN_USER.modules[i]===modName)return true;
+}
+return false;
+}
+
+function applyModuleVisibility(){
+if(!LOGIN_USER||!LOGIN_USER.isAdmin){
+var navItems=document.querySelectorAll('.nav-item');
+var navMap={'homePage':'首页仪表盘','matchPage':'智能匹配','schoolPage':'高中数据库','volunteerPage':'志愿表生成','riskPage':'风险评估','policyPage':'政策中心','toolPage':'工具箱','reportPage':'报告生成','studentPage':'学生信息录入'};
+var pageToNav={homePage:0,matchPage:1,schoolPage:2,volunteerPage:3,policyPage:4};
+for(var i=0;i<navItems.length;i++){
+var onclick=navItems[i].getAttribute('onclick')||'';
+var m=onclick.match(/showPage\('([^']+)'\)/);
+if(m){
+var mod=navMap[m[1]];
+if(mod&&!isModuleAllowed(mod)){
+navItems[i].style.display='none';
+}else{
+navItems[i].style.display='';
+}
+}
+}
+var cards=document.querySelectorAll('#homePage .school-card');
+for(var i=0;i<cards.length;i++){
+var oc=cards[i].getAttribute('onclick')||'';
+var m2=oc.match(/showPage\('([^']+)'\)/);
+if(m2){
+var mod2=navMap[m2[1]];
+if(mod2&&!isModuleAllowed(mod2)){
+cards[i].style.display='none';
+}else{
+cards[i].style.display='';
+}
+}
+}
+}
+}
+
+function renderAccountList(){
+var accs=getAccounts();
+var html='';
+for(var i=0;i<accs.length;i++){
+var a=accs[i];
+var expiryText=a.expiryDate?new Date(a.expiryDate).toLocaleDateString():'永久';
+var statusText=a.disabled?'<span style="color:#e53935;">已禁用</span>':'<span style="color:#137333;">正常</span>';
+var adminBadge=a.isAdmin?'<span style="color:#667eea;font-weight:600;">管理员</span>':'';
+html+='<div class="acc-card">';
+html+='<div class="acc-name">'+a.displayName+' '+adminBadge+'</div>';
+html+='<div class="acc-info">账号：'+a.username+' | 状态：'+statusText+' | 到期：'+expiryText+'</div>';
+if(a.modules&&a.modules.length>0){
+html+='<div class="acc-modules">';
+for(var j=0;j<a.modules.length;j++){html+='<span>'+a.modules[j]+'</span>';}
+html+='</div>';
+}
+if(!a.isAdmin){
+html+='<div class="acc-actions">';
+html+='<button onclick="editAccount('+i+')">编辑</button>';
+if(a.disabled){
+html+='<button onclick="toggleDisable('+i+')">启用</button>';
+}else{
+html+='<button onclick="toggleDisable('+i+')">禁用</button>';
+}
+html+='<button class="danger" onclick="deleteAccount('+i+')">删除</button>';
+html+='</div>';
+}
+html+='</div>';
+}
+document.getElementById('accountList').innerHTML=html;
+}
+
+function openCreateModal(){
+editingAccId=null;
+document.getElementById('modalTitle').textContent='创建新账号';
+document.getElementById('accUsername').value='';
+document.getElementById('accPassword').value='';
+document.getElementById('accDisplayName').value='';
+document.getElementById('accExpiry').value='';
+selectedExpiry=0;
+updateExpiryBtns();
+renderModuleChecks([]);
+document.getElementById('accountModal').classList.add('show');
+}
+
+function editAccount(idx){
+var accs=getAccounts();
+var a=accs[idx];
+editingAccId=idx;
+document.getElementById('modalTitle').textContent='编辑账号';
+document.getElementById('accUsername').value=a.username;
+document.getElementById('accPassword').value=a.password;
+document.getElementById('accDisplayName').value=a.displayName;
+if(a.expiryDate){
+document.getElementById('accExpiry').value=a.expiryDate.split('T')[0];
+selectedExpiry=-1;
+}else{
+document.getElementById('accExpiry').value='';
+selectedExpiry=0;
+}
+updateExpiryBtns();
+renderModuleChecks(a.modules||[]);
+document.getElementById('accountModal').classList.add('show');
+}
+
+function closeAccountModal(){
+document.getElementById('accountModal').classList.remove('show');
+}
+
+function setExpiry(days){
+selectedExpiry=days;
+if(days===0){
+document.getElementById('accExpiry').value='';
+}else{
+var d=new Date();
+d.setDate(d.getDate()+days);
+var y=d.getFullYear();
+var m=String(d.getMonth()+1).padStart(2,'0');
+var dd=String(d.getDate()).padStart(2,'0');
+document.getElementById('accExpiry').value=y+'-'+m+'-'+dd;
+}
+updateExpiryBtns();
+}
+
+function updateExpiryBtns(){
+var btns=document.querySelectorAll('#expiryBtns button');
+var daysArr=[7,30,90,180,365,0];
+for(var i=0;i<btns.length;i++){
+if(daysArr[i]===selectedExpiry){
+btns[i].classList.add('active');
+}else{
+btns[i].classList.remove('active');
+}
+}
+}
+
+function renderModuleChecks(selected){
+var html='';
+for(var i=0;i<ALL_MODULES.length;i++){
+var checked='';
+for(var j=0;j<selected.length;j++){
+if(selected[j]===ALL_MODULES[i]){checked='checked';break;}
+}
+html+='<label><input type="checkbox" value="'+ALL_MODULES[i]+'" '+checked+'> '+ALL_MODULES[i]+'</label>';
+}
+document.getElementById('moduleChecks').innerHTML=html;
+}
+
+function saveAccount(){
+var username=document.getElementById('accUsername').value.trim();
+var password=document.getElementById('accPassword').value.trim();
+var displayName=document.getElementById('accDisplayName').value.trim();
+var expiryInput=document.getElementById('accExpiry').value;
+if(!username||!password||!displayName){
+alert('请填写完整信息！');
+return;
+}
+var accs=getAccounts();
+if(editingAccId===null){
+for(var i=0;i<accs.length;i++){
+if(accs[i].username===username){
+alert('用户名已存在！');
+return;
+}
+}
+var modules=[];
+var checks=document.querySelectorAll('#moduleChecks input:checked');
+for(var i=0;i<checks.length;i++){modules.push(checks[i].value);}
+accs.push({
+username:username,
+password:password,
+displayName:displayName,
+createdAt:new Date().toISOString(),
+disabled:false,
+modules:modules,
+expiryDate:expiryInput?new Date(expiryInput).toISOString():null
+});
+}else{
+accs[editingAccId].username=username;
+accs[editingAccId].password=password;
+accs[editingAccId].displayName=displayName;
+var modules2=[];
+var checks2=document.querySelectorAll('#moduleChecks input:checked');
+for(var i=0;i<checks2.length;i++){modules2.push(checks2[i].value);}
+accs[editingAccId].modules=modules2;
+accs[editingAccId].expiryDate=expiryInput?new Date(expiryInput).toISOString():null;
+}
+saveAccounts(accs);
+closeAccountModal();
+renderAccountList();
+}
+
+function toggleDisable(idx){
+var accs=getAccounts();
+accs[idx].disabled=!accs[idx].disabled;
+saveAccounts(accs);
+renderAccountList();
+}
+
+function deleteAccount(idx){
+if(!confirm('确定删除此账号？'))return;
+var accs=getAccounts();
+accs.splice(idx,1);
+saveAccounts(accs);
+renderAccountList();
+}
+
+function logout(){
+sessionStorage.removeItem('sys_login_user');
+LOGIN_USER=null;
+location.reload();
+}
+
+
+// ============ INIT ============
+window.onload=function(){
+var saved=sessionStorage.getItem('sys_login_user');
+if(saved){
+try{
+LOGIN_USER=JSON.parse(saved);
+document.getElementById('loginOverlay').classList.add('hidden');
+showPage('homePage');
+initApp();
+applyModuleVisibility();
+}catch(e){
+showPage('loginPage');
+}
+}else{
+showPage('loginPage');
+}
+};
+</script>
+</body>
+</html>
