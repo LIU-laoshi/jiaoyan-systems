@@ -1,0 +1,3311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>初中生古文助学系统</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#faf6f0;--card:#fff;--primary:#8b2500;--primary-l:#c0392b;--accent:#d4a574;--accent-l:#f0dcc8;--text:#2c1810;--text-l:#5c4033;--text-m:#8b7355;--success:#27ae60;--danger:#c0392b;--info:#2980b9;--warn:#f39c12;--border:#e8ddd0;--shadow:0 2px 12px rgba(44,24,16,.08)}
+body{font-family:'PingFang SC','Microsoft YaHei','Noto Serif SC',serif;background:var(--bg);min-height:100vh;color:var(--text)}
+.container{max-width:800px;margin:0 auto;padding:16px}
+.page{display:none;animation:fadeIn .4s ease}.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:28px;margin-bottom:20px;border:1px solid var(--border)}
+.title-xl{font-size:2.2em;text-align:center;color:var(--primary);margin-bottom:8px;font-weight:700}
+.subtitle{text-align:center;color:var(--text-m);font-size:1.05em;margin-bottom:24px;line-height:1.7}
+.title-lg{font-size:1.5em;color:var(--primary);margin-bottom:16px;font-weight:700}
+.title-md{font-size:1.2em;color:var(--text);margin-bottom:12px;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 28px;border:none;border-radius:10px;font-size:1em;font-weight:600;cursor:pointer;transition:all .25s}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-l);transform:translateY(-2px)}
+.btn-outline{background:transparent;border:2px solid var(--primary);color:var(--primary)}.btn-outline:hover{background:var(--primary);color:#fff}
+.btn-ghost{background:var(--accent-l);color:var(--text)}.btn-ghost:hover{background:var(--accent);color:#fff}
+.btn-sm{padding:8px 16px;font-size:.9em;border-radius:8px}
+.btn-block{width:100%;margin-top:16px;padding:16px;font-size:1.1em}
+.btn-nav{flex:1}.btn-back{background:#f0e8df;color:var(--text-l)}.btn-back:hover{background:#e0d4c4}
+.nav-row{display:flex;gap:12px;margin-top:20px}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.8em;font-weight:600}
+.badge-grade{background:var(--accent-l);color:var(--text-l)}
+.badge-tag{background:#fef3e2;color:#b7791f}
+.hidden{display:none!important}
+
+/* Welcome */
+.welcome-icon{width:100px;height:100px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:3.5em;background:linear-gradient(135deg,var(--accent-l),#fff);border-radius:50%;border:3px solid var(--accent)}
+.grade-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+.grade-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:24px 16px;text-align:center;cursor:pointer;transition:all .25s}
+.grade-card:hover{border-color:var(--primary);transform:translateY(-3px);box-shadow:0 8px 20px rgba(139,37,0,.12)}
+.grade-card .icon{font-size:2.2em;margin-bottom:10px}
+.grade-card .name{font-weight:700;color:var(--text);font-size:1.1em}
+.grade-card .desc{color:var(--text-m);font-size:.85em;margin-top:4px}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.stat-box{background:var(--accent-l);border-radius:12px;padding:16px;text-align:center}
+.stat-num{font-size:1.8em;font-weight:700;color:var(--primary)}
+.stat-label{font-size:.85em;color:var(--text-m);margin-top:4px}
+
+/* Text List */
+.text-list{display:grid;gap:14px}
+.text-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;cursor:pointer;transition:all .25s;display:flex;gap:16px;align-items:flex-start}
+.text-card:hover{border-color:var(--primary);box-shadow:0 4px 16px rgba(139,37,0,.1);transform:translateY(-2px)}
+.text-card .text-icon{width:50px;height:50px;border-radius:12px;background:var(--accent-l);display:flex;align-items:center;justify-content:center;font-size:1.6em;flex-shrink:0}
+.text-card .text-info{flex:1}
+.text-card .text-title{font-weight:700;color:var(--text);font-size:1.1em;margin-bottom:4px}
+.text-card .text-meta{color:var(--text-m);font-size:.85em}
+.text-card .text-tags{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--text-m);font-size:.95em;cursor:pointer;margin-bottom:16px;padding:6px 0;transition:color .2s}
+.back-link:hover{color:var(--primary)}
+
+/* Text Study */
+.text-header{text-align:center;margin-bottom:24px;padding-bottom:20px;border-bottom:2px solid var(--border)}
+.text-header h2{font-size:1.6em;color:var(--primary);margin-bottom:6px}
+.text-header .meta{color:var(--text-m);font-size:.95em}
+.tab-bar{display:flex;flex-wrap:wrap;border-bottom:2px solid var(--border);margin-bottom:20px}
+.tab-item{padding:10px 16px;font-size:.95em;font-weight:600;color:var(--text-m);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;flex:1 1 auto;text-align:center}
+.tab-item:hover{color:var(--primary)}
+.tab-item.active{color:var(--primary);border-bottom-color:var(--primary)}
+.tab-pane{display:none}.tab-pane.active{display:block}
+
+/* Original Text */
+.orig-text{font-size:1.15em;line-height:2.2;color:var(--text);padding:20px;background:linear-gradient(135deg,#fdfbf7,#f8f2ea);border-radius:12px;border:1px solid var(--border);margin-bottom:16px}
+.orig-text .sentence{cursor:pointer;border-bottom:1px dashed var(--accent);transition:all .2s;padding:2px 0}
+.orig-text .sentence:hover{color:var(--primary);border-bottom-color:var(--primary)}
+.orig-text .sentence.highlighted{background:rgba(139,37,0,.08);border-radius:4px;border-bottom-color:var(--primary)}
+.trans-box{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:12px}
+.trans-box .trans-row{padding:12px 0;border-bottom:1px solid #f0ebe4}
+.trans-box .trans-row:last-child{border-bottom:none}
+.trans-box .orig{color:var(--text);font-weight:600;margin-bottom:4px;font-size:1.05em}
+.trans-box .trans{color:var(--text-l);line-height:1.7}
+
+/* Vocab */
+.vocab-list{display:grid;gap:12px}
+.vocab-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;transition:all .25s}
+.vocab-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.vocab-word{font-size:1.3em;font-weight:700;color:var(--primary);margin-bottom:6px;display:inline-block}
+.vocab-type{font-size:.8em;padding:2px 8px;border-radius:8px;margin-left:8px}
+.type-shi{background:#fef3e2;color:#b7791f}
+.type-xu{background:#e8f4fd;color:#2980b9}
+.type-tong{background:#fde8e8;color:#c0392b}
+.type-yi{background:#e8fde8;color:#27ae60}
+.vocab-def{color:var(--text-l);line-height:1.6;margin-top:4px}
+.vocab-eg{color:var(--text-m);font-size:.9em;margin-top:6px;padding-left:12px;border-left:3px solid var(--accent-l)}
+
+/* Grammar */
+.grammar-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:14px}
+.grammar-type{display:inline-block;background:var(--primary);color:#fff;padding:4px 12px;border-radius:8px;font-size:.85em;font-weight:600;margin-bottom:10px}
+.grammar-example{background:#fdfbf7;padding:12px;border-radius:8px;margin:10px 0;font-size:1.05em;line-height:1.8}
+.grammar-note{color:var(--text-l);font-size:.95em;line-height:1.7}
+
+/* Quiz */
+.quiz-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.quiz-progress{flex:1;margin-right:16px}
+.quiz-progress-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-top:8px}
+.quiz-progress-fill{height:100%;background:var(--primary);border-radius:4px;transition:width .4s}
+.quiz-q-num{font-size:.9em;color:var(--text-m);font-weight:600}
+.quiz-question{font-size:1.1em;color:var(--text);line-height:1.7;margin-bottom:20px;padding:20px;background:#fdfbf7;border-radius:12px;border:1px solid var(--border)}
+.quiz-hint{font-size:.9em;color:var(--text-m);margin-top:8px;font-style:italic}
+.quiz-options{display:grid;gap:10px}
+.quiz-opt{display:flex;align-items:center;gap:12px;padding:14px 18px;background:var(--card);border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:all .2s;font-size:1em}
+.quiz-opt:hover{border-color:var(--primary);background:#fef9f5}
+.quiz-opt.selected{border-color:var(--primary);background:rgba(139,37,0,.05)}
+.quiz-opt.correct{border-color:var(--success);background:rgba(39,174,96,.08)}
+.quiz-opt.wrong{border-color:var(--danger);background:rgba(192,57,43,.05)}
+.quiz-opt .opt-letter{width:30px;height:30px;border-radius:50%;background:var(--accent-l);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--text-l);flex-shrink:0;font-size:.9em}
+.quiz-opt.selected .opt-letter{background:var(--primary);color:#fff}
+.quiz-opt.correct .opt-letter{background:var(--success);color:#fff}
+.quiz-opt.wrong .opt-letter{background:var(--danger);color:#fff}
+.quiz-explain{margin-top:16px;padding:16px;border-radius:12px;font-size:.95em;line-height:1.7;display:none}
+.quiz-explain.show{display:block}
+.quiz-explain.correct-explain{background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.3)}
+.quiz-explain.wrong-explain{background:rgba(192,57,43,.05);border:1px solid rgba(192,57,43,.2)}
+.quiz-input{width:100%;padding:14px 18px;border:2px solid var(--border);border-radius:10px;font-size:1em;margin:12px 0;outline:none;transition:border-color .2s;box-sizing:border-box}
+.quiz-input:focus{border-color:var(--primary)}
+.quiz-textarea{width:100%;padding:14px 18px;border:2px solid var(--border);border-radius:10px;font-size:1em;margin:12px 0;outline:none;transition:border-color .2s;resize:vertical;font-family:inherit;line-height:1.7;box-sizing:border-box}
+.quiz-textarea:focus{border-color:var(--primary)}
+.quiz-type-tag{display:inline-block;padding:3px 10px;border-radius:10px;font-size:.8em;background:var(--accent-l);color:var(--text-l);margin-bottom:8px}
+
+/* Result */
+.result-score{text-align:center;margin:30px 0}
+.score-circle{width:140px;height:140px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:2.8em;font-weight:700;color:#fff}
+.score-high{background:linear-gradient(135deg,var(--success),#2ecc71)}
+.score-mid{background:linear-gradient(135deg,var(--warn),#e67e22)}
+.score-low{background:linear-gradient(135deg,var(--danger),#e74c3c)}
+.result-detail{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.result-item{text-align:center;padding:16px;background:var(--accent-l);border-radius:12px}
+.result-item .num{font-size:1.5em;font-weight:700;color:var(--primary)}
+.result-item .label{font-size:.85em;color:var(--text-m);margin-top:4px}
+.review-list{margin-top:20px}
+.review-item{padding:16px;border-radius:12px;margin-bottom:12px;border:1px solid var(--border)}
+.review-item.review-correct{border-left:4px solid var(--success)}
+.review-item.review-wrong{border-left:4px solid var(--danger)}
+.review-item .review-q{font-weight:600;margin-bottom:6px}
+.review-item .review-ans{font-size:.9em;color:var(--text-l)}
+
+/* Flashcard */
+.flashcard{perspective:1000px;width:100%;height:180px;margin:16px 0;cursor:pointer}
+.flashcard-inner{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.flashcard.flipped .flashcard-inner{transform:rotateY(180deg)}
+.flashcard-front,.flashcard-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+.flashcard-front{background:linear-gradient(135deg,var(--primary),var(--primary-l));color:#fff}
+.flashcard-front .fc-word{font-size:2em;font-weight:700;margin-bottom:8px}
+.flashcard-front .fc-hint{font-size:.9em;opacity:.8}
+.flashcard-back{background:var(--card);border:2px solid var(--primary);transform:rotateY(180deg)}
+.flashcard-back .fc-def{font-size:1.1em;color:var(--text);text-align:center;line-height:1.6}
+.flashcard-back .fc-eg{font-size:.9em;color:var(--text-m);margin-top:10px}
+.flashcard-nav{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.fc-counter{font-size:.9em;color:var(--text-m)}
+
+@media(max-width:600px){
+.container{padding:12px}
+.card{padding:20px}
+.title-xl{font-size:1.7em}
+.grade-grid{grid-template-columns:1fr;gap:10px}
+.stats-row{grid-template-columns:repeat(3,1fr);gap:8px}
+.tab-item{padding:8px 4px;font-size:.72em;flex:1 1 0;min-width:0}
+.result-detail{grid-template-columns:1fr}
+.special-grid{grid-template-columns:1fr}
+.guide-table{font-size:.85em}
+.quiz-input,.quiz-textarea{font-size:16px}
+}
+
+/* Special Modules & Guide Pages */
+.special-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}
+.special-card{background:linear-gradient(135deg,var(--accent-l),#fff);border:2px solid var(--border);border-radius:14px;padding:24px 16px;text-align:center;cursor:pointer;transition:all .25s}
+.special-card:hover{border-color:var(--primary);transform:translateY(-3px);box-shadow:0 8px 20px rgba(139,37,0,.12)}
+.special-card .icon{font-size:2.2em;margin-bottom:10px}
+.special-card .name{font-weight:700;color:var(--text);font-size:1.05em;margin-bottom:4px}
+.special-card .desc{color:var(--text-m);font-size:.82em}
+.guide-card{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:14px;overflow:hidden}
+.guide-card-header{padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .2s}
+.guide-card-header:hover{background:#fdfbf7}
+.guide-card-title{font-weight:700;color:var(--primary);font-size:1.05em}
+.guide-card-toggle{color:var(--text-m);transition:transform .3s}
+.guide-card.expanded .guide-card-toggle{transform:rotate(180deg)}
+.guide-card-body{display:none;padding:0 20px 20px;line-height:1.8;color:var(--text-l)}
+.guide-card.expanded .guide-card-body{display:block}
+.guide-example{background:#fdfbf7;border-radius:8px;padding:12px;margin:8px 0;font-size:.95em;border-left:3px solid var(--accent)}
+.guide-formula{background:linear-gradient(135deg,#fef3e2,#f0dcc8);border-radius:10px;padding:14px 18px;margin:10px 0;text-align:center;font-weight:600;color:var(--primary);font-size:1em}
+.guide-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92em}
+.guide-table th{background:var(--accent-l);padding:10px;text-align:left;font-weight:600;color:var(--text);border-radius:6px 6px 0 0}
+.guide-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text-l)}
+
+/* 登录验证样式 */
+.login-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;z-index:99999;transition:opacity .4s;}
+.login-box{background:#fff;border-radius:16px;padding:36px 32px;width:300px;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.login-box h2{text-align:center;margin:0 0 24px;font-size:20px;color:#333;}
+.login-input{width:100%;padding:12px 16px;margin:10px 0;border:1.5px solid #ddd;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border-color .3s;}
+.login-input:focus{border-color:#667eea;}
+.login-btn{width:100%;padding:12px;margin:16px 0 8px;border:none;border-radius:8px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:16px;cursor:pointer;transition:opacity .3s;}
+.login-btn:hover{opacity:.9;}
+.login-error{color:#e74c3c;font-size:13px;text-align:center;min-height:18px;}
+.login-credits{text-align:center;margin-top:16px;font-size:12px;color:#aaa;}
+
+/* Account Management */
+.acct-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.acct-user{font-size:.9em;color:var(--text-m)}
+.acct-user .acct-name{color:var(--primary);font-weight:700}
+.acct-mgr-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border:1.5px solid var(--primary);border-radius:8px;background:transparent;color:var(--primary);font-size:.9em;font-weight:600;cursor:pointer;transition:all .25s}
+.acct-mgr-btn:hover{background:var(--primary);color:#fff}
+.acct-table{width:100%;border-collapse:collapse;margin-top:16px}
+.acct-table th{text-align:left;padding:10px 12px;background:var(--accent-l);color:var(--text-l);font-size:.85em;font-weight:600;border-bottom:2px solid var(--border)}
+.acct-table td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:.9em;color:var(--text)}
+.acct-table tr:hover td{background:#fdfbf7}
+.acct-form{background:#fdfbf7;border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0}
+.acct-form-row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+.acct-form-row .acct-field{flex:1;min-width:140px}
+.acct-form-row .acct-field label{display:block;font-size:.85em;color:var(--text-m);margin-bottom:4px}
+.acct-form-row .acct-field input{width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:.95em;box-sizing:border-box;outline:none}
+.acct-form-row .acct-field input:focus{border-color:var(--primary)}
+.acct-status-on{color:var(--success);font-weight:600}
+.acct-status-off{color:var(--danger);font-weight:600}
+.acct-act-btn{padding:5px 12px;border:none;border-radius:6px;font-size:.82em;cursor:pointer;margin:0 2px;transition:opacity .2s}
+.acct-act-btn:hover{opacity:.85}
+.acct-act-reset{background:var(--info);color:#fff}
+.acct-act-toggle{background:var(--warn);color:#fff}
+.acct-act-delete{background:var(--danger);color:#fff}
+.acct-act-confirm{background:var(--success);color:#fff}
+.acct-empty{text-align:center;color:var(--text-m);padding:30px;font-size:.95em}
+
+/* Guide */
+.guide-section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
+.guide-title{font-size:1.15em;color:var(--primary);margin-bottom:10px;font-weight:700}
+.guide-content{color:var(--text-l);line-height:1.8;font-size:1em}
+
+/* Exam */
+.exam-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
+.exam-q-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.exam-num{font-weight:700;color:var(--primary);font-size:1.05em}
+.exam-type{font-size:.8em;padding:3px 10px;border-radius:10px;background:var(--accent-l);color:var(--text-l)}
+.exam-q{color:var(--text);line-height:1.8;margin-bottom:12px;font-size:1.02em}
+.exam-a{background:#fdfbf7;border-radius:10px;padding:16px;border-left:4px solid var(--primary)}
+.exam-a-label{font-weight:700;color:var(--primary);margin-bottom:8px;font-size:.9em}
+.exam-a-text{color:var(--text-l);line-height:1.9}
+
+/* Module & Expiry Settings */
+.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.module-item{display:flex;align-items:center;gap:6px;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;font-size:.85em;transition:all .2s;background:#fff}
+.module-item:hover{border-color:var(--primary)}
+.module-item.checked{border-color:var(--primary);background:rgba(139,37,0,.05)}
+.module-item input{margin:0;cursor:pointer}
+.module-item label{cursor:pointer;flex:1}
+.module-item .mod-group{font-size:.75em;color:var(--text-m);margin-left:4px}
+.expiry-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.expiry-quick-btn{padding:6px 14px;border:1.5px solid var(--border);border-radius:8px;background:#fff;font-size:.85em;cursor:pointer;transition:all .2s;color:var(--text-l)}
+.expiry-quick-btn:hover{border-color:var(--primary);color:var(--primary)}
+.expiry-quick-btn.active{border-color:var(--primary);background:var(--primary);color:#fff}
+.expiry-date-input{padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:.9em;outline:none}
+.expiry-date-input:focus{border-color:var(--primary)}
+.acct-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.acct-expired{color:var(--danger);font-weight:700}
+.acct-expiry-warn{color:var(--warn);font-weight:600}
+.acct-modules-count{color:var(--primary);font-weight:600;cursor:pointer;text-decoration:underline}
+.acct-modules-count:hover{color:var(--primary-l)}
+.module-modal-mask{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.4);z-index:99998;display:flex;align-items:center;justify-content:center}
+.module-modal{background:#fff;border-radius:14px;padding:24px;width:90%;max-width:500px;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.module-modal h3{color:var(--primary);margin-bottom:12px;font-size:1.1em}
+.module-modal .modal-actions{display:flex;gap:10px;margin-top:16px;justify-content:flex-end}
+.module-group-label{font-size:.8em;color:var(--text-m);font-weight:600;margin:8px 0 4px;padding-bottom:4px;border-bottom:1px solid var(--border)}
+.acct-act-modules{background:var(--primary);color:#fff}
+.acct-act-expiry{background:var(--success);color:#fff}
+@media(max-width:600px){
+.module-grid{grid-template-columns:repeat(2,1fr)}
+.acct-table{font-size:.8em}
+.acct-table th,.acct-table td{padding:6px 8px}
+}
+
+</style>
+</head>
+<body>
+
+<!-- 登录验证页 -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <h2>🔒 系统登录</h2>
+    <input type="text" class="login-input" id="loginUser" placeholder="请输入账号" autocomplete="off">
+    <input type="password" class="login-input" id="loginPass" placeholder="请输入密码" autocomplete="off">
+    <button class="login-btn" onclick="doLogin()">登 录</button>
+    <div class="login-error" id="loginError"></div>
+    <div class="login-credits">系统设计制作：刘岳</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- Welcome Page -->
+<div class="page active" id="welcomePage">
+<div class="card">
+<div class="acct-bar">
+  <div class="acct-user">当前用户：<span class="acct-name" id="currentUserName">—</span></div>
+  <button class="acct-mgr-btn hidden" id="acctMgrBtn" onclick="showAccountPage()">⚙️ 账号管理</button>
+</div>
+<div class="welcome-icon">📜</div>
+<h1 class="title-xl">初中生古文助学系统</h1>
+<p class="subtitle">涵盖初中三年古文篇目（课本必读+课外拓展）<br>逐句翻译 · 重点词汇 · 特殊句式 · 名家导读 · 中考精练 · 在线练习</p>
+<div class="stats-row">
+<div class="stat-box"><div class="stat-num" id="statTexts">12</div><div class="stat-label">助学篇目</div></div>
+<div class="stat-box"><div class="stat-num" id="statVocab">100+</div><div class="stat-label">重点词汇</div></div>
+<div class="stat-box"><div class="stat-num" id="statQuiz">120+</div><div class="stat-label">练习题目</div></div>
+</div>
+<p class="title-md" style="margin-top:20px;text-align:center">选择年级开始学习</p>
+<div class="grade-grid">
+<div class="grade-card" id="gradeCard-初一" onclick="showTextList('初一')"><div class="icon">🌱</div><div class="name">初一</div><div class="desc">9篇古文（4课本+5课外）</div></div>
+<div class="grade-card" id="gradeCard-初二" onclick="showTextList('初二')"><div class="icon">🌿</div><div class="name">初二</div><div class="desc">9篇古文（4课本+5课外）</div></div>
+<div class="grade-card" id="gradeCard-初三" onclick="showTextList('初三')"><div class="icon">🌳</div><div class="name">初三</div><div class="desc">9篇古文（4课本+5课外）</div></div>
+</div>
+<p class="title-md" style="margin-top:20px;text-align:center">专题学习模块</p>
+<div class="special-grid">
+<div class="special-card" id="specialCard-翻译方法" onclick="goToTranslateGuide()"><div class="icon">📖</div><div class="name">古诗文翻译方法汇总</div><div class="desc">翻译六字法·特殊句式·常见错误</div></div>
+<div class="special-card" id="specialCard-考试指南" onclick="goToExamGuide()"><div class="icon">📝</div><div class="name">中考古文阅读考试指南</div><div class="desc">各题型答题技巧·评分标准·时间分配</div></div>
+</div>
+</div>
+</div>
+
+<!-- Text List Page -->
+<div class="page" id="textListPage">
+<div class="back-link" onclick="goToPage('welcomePage')">← 返回首页</div>
+<div class="card">
+<h2 class="title-lg" id="listTitle">古文篇目</h2>
+<div class="text-list" id="textList"></div>
+</div>
+</div>
+
+<!-- Text Study Page -->
+<div class="page" id="textStudyPage">
+<div class="back-link" onclick="backToList()">← 返回篇目列表</div>
+<div class="card">
+<div class="text-header">
+<h2 id="studyTitle"></h2>
+<div class="meta" id="studyMeta"></div>
+</div>
+<div class="tab-bar">
+<div class="tab-item active" data-tab="original" onclick="switchTab('original')">📖 原文译注</div>
+<div class="tab-item" data-tab="guide" onclick="switchTab('guide')">📜 名家导读</div>
+<div class="tab-item" data-tab="vocab" onclick="switchTab('vocab')">📝 重点词汇</div>
+<div class="tab-item" data-tab="grammar" onclick="switchTab('grammar')">📐 特殊句式</div>
+<div class="tab-item" data-tab="flashcard" onclick="switchTab('flashcard')">🃏 词汇卡片</div>
+<div class="tab-item" data-tab="quiz" onclick="switchTab('quiz')">🎯 在线练习</div>
+<div class="tab-item" data-tab="exam" onclick="switchTab('exam')">📝 中考精练</div>
+</div>
+<div class="tab-pane active" id="tab-original"></div>
+<div class="tab-pane" id="tab-guide"></div>
+<div class="tab-pane" id="tab-vocab"></div>
+<div class="tab-pane" id="tab-grammar"></div>
+<div class="tab-pane" id="tab-flashcard"></div>
+<div class="tab-pane" id="tab-quiz"></div>
+<div class="tab-pane" id="tab-exam"></div>
+</div>
+</div>
+
+<!-- Account Management Page -->
+<div class="page" id="accountPage">
+<div class="back-link" onclick="goToPage('welcomePage')">← 返回首页</div>
+<div class="card">
+<h2 class="title-lg">⚙️ 账号管理</h2>
+<div class="acct-form">
+  <h3 class="title-md">创建子账号</h3>
+  <div class="acct-form-row">
+    <div class="acct-field"><label>用户名</label><input type="text" id="newAcctUser" placeholder="请输入用户名" autocomplete="off"></div>
+    <div class="acct-field"><label>密码</label><input type="text" id="newAcctPass" placeholder="请输入密码" autocomplete="off"></div>
+    <div class="acct-field"><label>显示名</label><input type="text" id="newAcctName" placeholder="如：张三" autocomplete="off"></div>
+  </div>
+  <div style="margin-top:12px">
+    <label style="font-size:.85em;color:var(--text-m);display:block;margin-bottom:6px">使用板块设置（默认全选）</label>
+    <div class="module-grid" id="newAcctModules"></div>
+  </div>
+  <div style="margin-top:12px">
+    <label style="font-size:.85em;color:var(--text-m);display:block;margin-bottom:4px">使用期限设置</label>
+    <div class="expiry-row">
+      <button type="button" class="expiry-quick-btn" onclick="setExpiryQuick(7,this)">7天</button>
+      <button type="button" class="expiry-quick-btn" onclick="setExpiryQuick(30,this)">30天</button>
+      <button type="button" class="expiry-quick-btn" onclick="setExpiryQuick(90,this)">90天</button>
+      <button type="button" class="expiry-quick-btn" onclick="setExpiryQuick(180,this)">180天</button>
+      <button type="button" class="expiry-quick-btn" onclick="setExpiryQuick(365,this)">365天</button>
+      <input type="date" class="expiry-date-input" id="newAcctExpiry" onchange="clearExpiryQuickActive()">
+    </div>
+  </div>
+  <button class="btn btn-primary btn-sm" onclick="createAccount()" style="margin-top:16px">创建子账号</button>
+</div>
+<h3 class="title-md" style="margin-top:20px">子账号列表</h3>
+<div id="accountListWrap"></div>
+</div>
+</div>
+
+<!-- Translate Guide Page -->
+<div class="page" id="translateGuidePage">
+<div class="back-link" onclick="goToPage('welcomePage')">← 返回首页</div>
+<div class="card">
+<h2 class="title-lg">📖 古诗文翻译方法汇总</h2>
+<p class="subtitle" style="text-align:left;margin-bottom:20px">掌握翻译要领，攻克中考古文翻译题</p>
+<div id="translateGuideContent"></div>
+</div>
+</div>
+
+<!-- Exam Guide Page -->
+<div class="page" id="examGuidePage">
+<div class="back-link" onclick="goToPage('welcomePage')">← 返回首页</div>
+<div class="card">
+<h2 class="title-lg">📝 中考古文阅读考试指南</h2>
+<p class="subtitle" style="text-align:left;margin-bottom:20px">各题型答题技巧 · 评分标准 · 时间分配建议</p>
+<div id="examGuideContent"></div>
+</div>
+</div>
+
+</div>
+
+<script>
+/* ========== DATA ========== */
+var TEXTS = [
+/* ===== 初一 ===== */
+{
+id:'chuzhong_1',title:'咏雪',author:'刘义庆',dynasty:'南朝宋',source:'《世说新语》',grade:'初一',tags:['咏雪','比喻','世说新语'],
+fullText:'谢太傅寒雪日内集，与儿女讲论文义。俄而雪骤，公欣然曰："白雪纷纷何所似？"兄子胡儿曰："撒盐空中差可拟。"兄女曰："未若柳絮因风起。"公大笑乐。即公大兄无奕女，左将军王凝之妻也。',
+sentences:[
+{orig:'谢太傅寒雪日内集，与儿女讲论文义。',trans:'谢安在寒冷的雪天把家人聚在一起，和子侄辈们讲解讨论文章的义理。'},
+{orig:'俄而雪骤，公欣然曰："白雪纷纷何所似？"',trans:'不久雪下得急了，谢安高兴地说："这纷纷扬扬的白雪像什么呢？"'},
+{orig:'兄子胡儿曰："撒盐空中差可拟。"',trans:'他哥哥的儿子胡儿说："把盐撒在空中差不多可以相比。"'},
+{orig:'兄女曰："未若柳絮因风起。"',trans:'他哥哥的女儿（谢道韫）说："不如比作风吹柳絮漫天飞舞。"'},
+{orig:'公大笑乐。',trans:'谢安高兴得大笑起来。'},
+{orig:'即公大兄无奕女，左将军王凝之妻也。',trans:'（谢道韫）就是谢安大哥谢无奕的女儿，左将军王凝之的妻子。'}
+],
+vocab:[
+{word:'内集',def:'把家人聚集在一起',type:'实词',eg:'寒雪日内集'},
+{word:'儿女',def:'子侄辈，泛指小辈',type:'实词',eg:'与儿女讲论文义'},
+{word:'文义',def:'文章的义理',type:'实词',eg:'讲论文义'},
+{word:'俄而',def:'不久，一会儿',type:'实词',eg:'俄而雪骤'},
+{word:'骤',def:'急，紧（这里指雪下得大）',type:'实词',eg:'雪骤'},
+{word:'欣然',def:'高兴的样子',type:'实词',eg:'公欣然曰'},
+{word:'何所似',def:'像什么。"何"是疑问代词前置',type:'句式',eg:'白雪纷纷何所似'},
+{word:'差可拟',def:'差不多可以相比',type:'实词',eg:'撒盐空中差可拟'},
+{word:'差',def:'大致，差不多',type:'实词',eg:'差可拟'},
+{word:'拟',def:'相比，比拟',type:'实词',eg:'差可拟'},
+{word:'未若',def:'不如，不及',type:'实词',eg:'未若柳絮因风起'},
+{word:'因',def:'趁，乘，凭借',type:'虚词',eg:'未若柳絮因风起'},
+{word:'即',def:'是，就是',type:'虚词',eg:'即公大兄无奕女'}
+],
+grammar:[
+{type:'反问句/疑问句',example:'白雪纷纷何所似？',note:'"何所似"即"所似何"，像什么。疑问代词"何"前置。'},
+{type:'判断句',example:'即公大兄无奕女，左将军王凝之妻也。',note:'以"……也"结尾表判断，"即"表示"就是"。'}
+],
+authorIntro:'刘义庆（403—444），南朝宋宗室，袭封临川王。他广招文人学士，编纂了笔记小说集《世说新语》，记载汉末至东晋士族阶层人物的言谈轶事。全书分德行、言语、政事等三十六门，语言精练生动，对后世笔记文学影响深远。刘义庆虽贵为藩王，但性好文学，幕下聚集了袁淑、鲍照等文士，共同编撰著述，在南北朝文学史上占有重要地位。',
+dynastyIntro:'南朝宋（420—479）是南北朝时期南朝第一个朝代，由刘裕建立。这一时期政权更迭频繁，但文化艺术相对繁荣。魏晋玄学余韵犹存，士族阶层崇尚清谈、注重风度，文人雅士追求精神自由和个性表达。笔记小说在这一时期兴起，以记录人物言行、品评人物风度为特色，反映了当时社会的文化风貌和审美趣味。',
+writingIntent:'本文出自《世说新语·言语》篇，记录东晋名相谢安家族一次寒雪日的家庭聚会。谢安借咏雪之事考察晚辈的文学才华和联想能力，通过"撒盐空中"与"柳絮因风起"两个比喻的对比，展现谢朗的质朴直率与谢道韫的才思敏捷。作者意图不在咏雪本身，而是通过生活片段刻画魏晋名士家族的文化氛围和人物风采，体现当时社会对才情与风雅的推崇。写作上采用白描手法，以对话推动叙事，以对比凸显人物，简洁而意味深长。',
+literaryValue:'本文是《世说新语》中最负盛名的篇章之一，"咏絮之才"由此成为后世形容女子文学才华的典故。文章篇幅短小却生动传神，展现了笔记小说"记言则玄远冷隽，记行则高简瑰奇"的艺术特色。谢道韫以柳絮喻雪的比喻，化静为动、轻盈灵动，被历代文论家赞为神来之笔。本文对后世文学创作和人物品评影响深远，是初中生学习文言文的经典入门篇目。',
+examQuestions:[
+{q:'翻译下面的句子：兄女曰："未若柳絮因风起。"',a:'哥哥的女儿（谢道韫）说："不如比作风吹柳絮漫天飞舞。"（关键词："未若"译为"不如"，"因"译为"趁、乘、凭借"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）俄而雪骤（2）公欣然曰（3）未若柳絮因风起',a:'（1）骤：急，紧，指雪下得大。（2）欣然：高兴的样子。（3）因：趁，乘，凭借。',type:'实词题'},
+{q:'"撒盐空中差可拟"与"未若柳絮因风起"两个比喻，哪个更好？请简要分析。',a:'谢道韫的"柳絮因风起"更好。盐是沉重的颗粒，撒在空中很快落下，与雪花轻盈飘舞的姿态不符；柳絮则轻盈洁白，随风飘扬，与雪花纷纷扬扬的形态高度契合，且"因风起"写出了雪随风飘动的动态美，意境优美，联想自然，富有诗意。',type:'赏析题'},
+{q:'谢安"大笑乐"反映了他怎样的心情？这一细节在文中有何作用？',a:'谢安"大笑乐"反映了他对谢道韫精妙比喻的赞赏和欣慰，也体现了家庭聚会的温馨氛围。这一细节既照应了前文"讲论文义"的雅趣，又通过谢安的反应暗示了两个比喻的高下之分，含蓄地表达了对谢道韫才情的肯定，起到画龙点睛的作用。',type:'理解题'},
+{q:'本文通过咏雪这一家庭活动，表现了怎样的家庭氛围和文化追求？',a:'本文表现了谢安家族融洽温馨、充满文化气息的家庭氛围。寒雪日内集讲论，说明这是一个重视文化教育的家庭；以咏雪为乐，体现了魏晋名士家族追求风雅、崇尚才情的文化传统。文章也暗示了当时社会对女性才情的认可和赞赏。',type:'主旨题'}
+]
+},
+{
+id:'chuzhong_2',title:'陈太丘与友期行',author:'刘义庆',dynasty:'南朝宋',source:'《世说新语》',grade:'初一',tags:['诚信','礼貌','世说新语'],
+fullText:'陈太丘与友期行，期日中。过中不至，太丘舍去，去后乃至。元方时年七岁，门外戏。客问元方："尊君在不？"答曰："待君久不至，已去。"友人便怒曰："非人哉！与人期行，相委而去。"元方曰："君与家君期日中。日中不至，则是无信；对子骂父，则是无礼。"友人惭，下车引之。元方入门不顾。',
+sentences:[
+{orig:'陈太丘与友期行，期日中。',trans:'陈太丘和朋友相约同行，约定的时间是正午。'},
+{orig:'过中不至，太丘舍去，去后乃至。',trans:'过了正午朋友还没到，陈太丘不再等候离开了，（太丘）走后那人才到。'},
+{orig:'元方时年七岁，门外戏。',trans:'元方当时七岁，在门外玩耍。'},
+{orig:'客问元方："尊君在不？"',trans:'客人问元方："你父亲在吗？"'},
+{orig:'答曰："待君久不至，已去。"',trans:'元方回答说："等您很久您没到，已经走了。"'},
+{orig:'友人便怒曰："非人哉！与人期行，相委而去。"',trans:'友人便生气地说："真不是人啊！和别人约好同行，却丢下别人自己走了。"'},
+{orig:'元方曰："君与家君期日中。日中不至，则是无信；对子骂父，则是无礼。"',trans:'元方说："您和我父亲约在正午。正午您没到，就是不讲信用；对着人家的儿子骂他的父亲，就是没有礼貌。"'},
+{orig:'友人惭，下车引之。',trans:'友人感到惭愧，下车去拉元方（表示好感）。'},
+{orig:'元方入门不顾。',trans:'元方走进家门，头也不回。'}
+],
+vocab:[
+{word:'期',def:'约定',type:'实词',eg:'与友期行 / 期日中'},
+{word:'行',def:'出行，同行',type:'实词',eg:'期行'},
+{word:'日中',def:'正午',type:'实词',eg:'期日中'},
+{word:'至',def:'到',type:'实词',eg:'过中不至'},
+{word:'舍去',def:'不再等候而离开',type:'实词',eg:'太丘舍去'},
+{word:'乃',def:'才',type:'虚词',eg:'去后乃至'},
+{word:'时',def:'当时',type:'实词',eg:'元方时年七岁'},
+{word:'戏',def:'玩耍',type:'实词',eg:'门外戏'},
+{word:'尊君',def:'对您父亲的尊称',type:'敬辞',eg:'尊君在不'},
+{word:'不',def:'通"否"，用于句末表疑问',type:'通假字',eg:'尊君在不'},
+{word:'非人哉',def:'真不是人啊！表示愤怒的感叹',type:'实词',eg:'非人哉'},
+{word:'相委',def:'丢下别人。"委"：丢下，舍弃',type:'实词',eg:'相委而去'},
+{word:'家君',def:'对自己父亲的谦称',type:'谦辞',eg:'君与家君期日中'},
+{word:'引',def:'拉，牵引',type:'实词',eg:'下车引之'},
+{word:'顾',def:'回头看',type:'实词',eg:'入门不顾'}
+],
+grammar:[
+{type:'判断句',example:'日中不至，则是无信；对子骂父，则是无礼。',note:'用"则是"表示判断，相当于"就是"。'},
+{type:'通假字',example:'尊君在不',note:'"不"通"否"，用在疑问句末表询问。'},
+{type:'省略句',example:'去后乃至',note:'省略主语"友"，完整应为"（友）去后乃（友）至"。'}
+],
+authorIntro:'刘义庆（403—444），南朝宋宗室，袭封临川王，性好文学，广招文士，主编笔记小说集《世说新语》。该书分三十六门，记载汉末至东晋士族人物的言谈轶事，语言精练隽永，被誉为"志人小说"的代表作，对后世小说、戏曲影响深远。',
+dynastyIntro:'南朝宋时期，士族门阀制度盛行，社会重门第、重家风。儒家伦理道德仍是社会主流价值，诚信、礼义被视为立身之本。《世说新语》中"方正""德行"等门类大量记录了士族人物以道德品行著称的故事，反映了当时社会对品行操守的重视。',
+writingIntent:'本文出自《世说新语·方正》篇，讲述陈元方七岁时面对父亲友人失信且无礼的行为，以"无信""无礼"据理力争的故事。作者意在通过这一生活小事，赞扬陈元方聪敏机智、懂得维护尊严的品格，同时批评友人不守信约、不知自省的行为。文章以对话为主，语言简洁，通过友人的"怒—惭—引"和元方的"辩—顾"等动作变化，生动展现人物性格，体现了《世说新语》以小见大、以言行写人的艺术特色。',
+literaryValue:'本文是初中生学习文言文的经典篇目，篇幅短小、情节完整、人物鲜明。文章以"信"和"礼"为核心，将抽象的道德观念融入生动的故事中，对学生理解诚信和礼貌的品格教育意义深远。"入门不顾"的结尾余味悠长，体现了笔记小说言简意丰的特点，也是中考文言文阅读的常考篇目。',
+examQuestions:[
+{q:'翻译下面的句子：日中不至，则是无信；对子骂父，则是无礼。',a:'正午您没到，就是不讲信用；对着人家的儿子骂他的父亲，就是没有礼貌。（关键词："则是"译为"就是"，"信"译为"守信、信用"，"礼"译为"礼貌"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）太丘舍去（2）相委而去（3）下车引之（4）入门不顾',a:'（1）舍去：不再等候而离开。（2）委：丢下，舍弃。（3）引：拉，牵引（表示好感）。（4）顾：回头看。',type:'实词题'},
+{q:'友人为什么感到"惭"？元方"入门不顾"表现了怎样的态度？',a:'友人感到"惭"是因为他被一个七岁孩子指出自己既"无信"（不守约定）又"无礼"（对子骂父），认识到自己的错误而羞愧。元方"入门不顾"表现了他对友人不守信用的不满和轻视，维护了自己和父亲的尊严，也体现了他虽年幼却刚直不阿、不卑不亢的性格。',type:'理解题'},
+{q:'文中友人的态度发生了怎样的变化？这些变化说明了什么？',a:'友人态度经历了"怒—惭—引"的变化：先因被丢下而"怒"，说明他不知自省、迁怒他人；被元方指出"无信""无礼"后感到"惭"，说明他尚知是非；"下车引之"表示他想拉拢和解。这些变化从反面衬托了元方的义正词严、据理力争，也说明友人虽有缺点但并非不可理喻，人物形象真实可信。',type:'赏析题'},
+{q:'本文告诉了我们什么道理？请联系生活实际简要谈谈你的理解。',a:'本文告诉我们：做人要讲诚信、懂礼貌，要知错能改。友人相约却不守时，是"无信"；对子骂父，是"无礼"。元方虽然年幼，却能以"信"和"礼"据理力争，维护尊严。在生活中，我们也应守时守信、以礼待人，犯了错要勇于承认和改正，这样才能赢得他人的尊重。',type:'主旨题'}
+]
+},
+{
+id:'chuzhong_3',title:'《论语》十二章（节选）',author:'孔子及其弟子',dynasty:'春秋',source:'《论语》',grade:'初一',tags:['学习方法','修身','论语'],
+fullText:'子曰："学而时习之，不亦说乎？有朋自远方来，不亦乐乎？人不知而不愠，不亦君子乎？"\n曾子曰："吾日三省吾身：为人谋而不忠乎？与朋友交而不信乎？传不习乎？"\n子曰："温故而知新，可以为师矣。"\n子曰："学而不思则罔，思而不学则殆。"\n子曰："知之者不如好之者，好之者不如乐之者。"\n子曰："三人行，必有我师焉。择其善者而从之，其不善者而改之。"',
+sentences:[
+{orig:'子曰："学而时习之，不亦说乎？"',trans:'孔子说："学了知识然后按时温习，不也是很愉快的吗？"'},
+{orig:'有朋自远方来，不亦乐乎？',trans:'有志同道合的朋友从远方来，不也是很快乐的吗？'},
+{orig:'人不知而不愠，不亦君子乎？',trans:'别人不了解自己却不生气，不也是道德上有修养的人吗？'},
+{orig:'曾子曰："吾日三省吾身：为人谋而不忠乎？与朋友交而不信乎？传不习乎？"',trans:'曾子说："我每天多次反省自己：替别人办事是否尽心竭力了？同朋友交往是否诚实了？老师传授的知识是否复习了？"'},
+{orig:'子曰："温故而知新，可以为师矣。"',trans:'孔子说："温习学过的知识，可以得到新的理解和体会，就可以凭借这一点做老师了。"'},
+{orig:'子曰："学而不思则罔，思而不学则殆。"',trans:'孔子说："只学习不思考就会迷惑而无所得，只空想不学习就会疑惑而危险。"'},
+{orig:'子曰："知之者不如好之者，好之者不如乐之者。"',trans:'孔子说："对于学习，了解怎么学习的人不如喜爱学习的人，喜爱学习的人不如以学习为快乐的人。"'},
+{orig:'子曰："三人行，必有我师焉。择其善者而从之，其不善者而改之。"',trans:'孔子说："几个人一起走路，其中必定有可以做我老师的人。选取他们的优点来学习，看到他们的缺点就对照自己加以改正。"'}
+],
+vocab:[
+{word:'时',def:'按时，按一定的时间',type:'实词',eg:'学而时习之'},
+{word:'习',def:'温习，复习',type:'实词',eg:'时习之'},
+{word:'说',def:'通"悦"，愉快，高兴',type:'通假字',eg:'不亦说乎'},
+{word:'乐',def:'快乐',type:'实词',eg:'不亦乐乎'},
+{word:'愠',def:'生气，恼怒',type:'实词',eg:'人不知而不愠'},
+{word:'日',def:'每天',type:'实词',eg:'吾日三省吾身'},
+{word:'三',def:'泛指多次，不是确指"三"',type:'实词',eg:'三省吾身'},
+{word:'省',def:'自我检查，反省',type:'实词',eg:'三省吾身'},
+{word:'忠',def:'竭尽自己的心力',type:'实词',eg:'为人谋而不忠乎'},
+{word:'信',def:'真诚，诚实',type:'实词',eg:'与朋友交而不信乎'},
+{word:'传',def:'老师传授的知识',type:'实词',eg:'传不习乎'},
+{word:'故',def:'学过的知识，旧知识',type:'实词',eg:'温故而知新'},
+{word:'罔',def:'迷惑，意思是感到迷茫而无所适从',type:'实词',eg:'学而不思则罔'},
+{word:'殆',def:'疑惑',type:'实词',eg:'思而不学则殆'},
+{word:'好',def:'喜欢，爱好（读hào）',type:'实词',eg:'好之者'},
+{word:'乐',def:'以……为快乐（意动用法）',type:'实词',eg:'乐之者'},
+{word:'焉',def:'于此，在其中',type:'虚词',eg:'必有我师焉'},
+{word:'而',def:'连词，表转折（却）/ 表承接（然后）',type:'虚词',eg:'学而不思则罔 / 温故而知新'}
+],
+grammar:[
+{type:'通假字',example:'不亦说乎',note:'"说"通"悦"，愉快。古汉语中常用通假字代替本字。'},
+{type:'反问句',example:'不亦……乎？',note:'固定句式，"不也是很……吗？"表委婉反问。'},
+{type:'省略句',example:'可以为师矣',note:'"以"后省略"之"，完整为"可以（之）为师矣"，即"可以凭（这一点）做老师了"。'},
+{type:'意动用法',example:'好之者不如乐之者',note:'"乐"本为形容词，这里活用为动词，"以……为快乐"。'}
+],
+authorIntro:'孔子（前551—前479），名丘，字仲尼，春秋末期鲁国人，中国古代伟大的思想家、教育家，儒家学派创始人。他开创私人讲学之风，相传有弟子三千、贤人七十二。孔子整理《诗》《书》《礼》《乐》等典籍，其思想核心是"仁"和"礼"。《论语》是孔子及其弟子言行的记录，由孔子弟子及再传弟子编纂而成，共二十篇，语言简练含蓄，是儒家经典"四书"之一，对中国文化影响深远。',
+dynastyIntro:'春秋时期（前770—前476）是中国历史上的大变革时代。周王室衰微，诸侯争霸，礼崩乐坏，社会动荡。但这一时期也是思想文化空前活跃的时代，出现了"百家争鸣"的局面。儒家、道家、法家等学派纷纷提出治国安民的主张，私学兴起，士阶层活跃，文化教育从贵族垄断走向平民化，为后世中华文明奠定了思想基础。',
+writingIntent:'《论语》十二章节选了孔子及其弟子关于学习态度、学习方法和修身养性的论述。内容涵盖"学而时习"的快乐、"温故知新"的方法、"学思结合"的辩证、"三人行必有我师"的谦逊等，集中体现了儒家重视学习、注重自省、追求道德完善的教育思想。编者意图在于引导学习者以正确的方法和态度对待学习与修身，将学习与做人统一。语言简练，多为格言式语句，说理透彻，启人深思。',
+literaryValue:'《论语》是中国儒家思想的根基性经典，与《大学》《中庸》《孟子》合称"四书"，两千多年来被奉为读书人的必读之书。其语言简练隽永，言简意丰，许多语句已成为成语格言，如"温故知新""三人行必有我师""不亦乐乎"等，深刻影响了中国人的思维方式和价值观念。作为初中生接触儒学的第一课，本章具有启蒙意义。',
+examQuestions:[
+{q:'翻译下面的句子：学而不思则罔，思而不学则殆。',a:'只学习不思考就会迷惑而无所得，只空想不学习就会疑惑而危险。（关键词："罔"译为"迷惑而无所得"，"殆"译为"疑惑"。需准确译出"而"表转折关系。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）不亦说乎（2）人不知而不愠（3）温故而知新（4）传不习乎',a:'（1）说：通"悦"，愉快，高兴。（2）愠：生气，恼怒。（3）故：学过的知识。（4）传：老师传授的知识。',type:'实词题'},
+{q:'"温故而知新，可以为师矣"体现了怎样的学习方法？',a:'体现了"温故知新"的学习方法，即在温习旧知识的过程中获得新的理解和体会。这种方法强调学习要注重复习巩固，在已有知识基础上深入思考、融会贯通，从而获得新的认识。只有能够从旧知识中发掘新见解的人，才有资格做老师。',type:'理解题'},
+{q:'请简要分析"知之者不如好之者，好之者不如乐之者"的含义。',a:'这句话将学习者分为三个层次："知之者"是了解怎么学习的人，"好之者"是喜爱学习的人，"乐之者"是以学习为快乐的人。孔子认为学习的最高境界是以学习为乐，因为只有发自内心的热爱才能持久深入。这体现了孔子重视学习兴趣和内在动力的教育理念。',type:'赏析题'},
+{q:'从《论语》十二章中，你获得了哪些学习方面的启示？请结合至少两则内容谈谈。',a:'示例：①从"学而时习之"得到启示：学了知识要按时温习，才能巩固掌握。②从"学而不思则罔，思而不学则殆"得到启示：学习和思考必须结合，缺一不可。③从"三人行，必有我师焉"得到启示：要善于向他人学习，取长补短。这些启示告诉我们要端正学习态度、掌握科学方法、保持谦虚好学的精神。',type:'主旨题'}
+]
+},
+{
+id:'chuzhong_4',title:'诫子书',author:'诸葛亮',dynasty:'三国',source:'《诸葛亮集》',grade:'初一',tags:['修身','立志','家书'],
+fullText:'夫君子之行，静以修身，俭以养德。非淡泊无以明志，非宁静无以致远。夫学须静也，才须学也，非学无以广才，非志无以成学。淫慢则不能励精，险躁则不能治性。年与时驰，意与日去，遂成枯落，多不接世，悲守穷庐，将复何及！',
+sentences:[
+{orig:'夫君子之行，静以修身，俭以养德。',trans:'有道德修养的人的行为操守，以宁静来修养身心，以节俭来培养品德。'},
+{orig:'非淡泊无以明志，非宁静无以致远。',trans:'不能淡泊自守就无法明确志向，不能宁静心神就无法达到远大目标。'},
+{orig:'夫学须静也，才须学也，非学无以广才，非志无以成学。',trans:'学习必须静心专一，才干必须通过学习来获得，不学习就无法增长才干，没有志向就无法成就学业。'},
+{orig:'淫慢则不能励精，险躁则不能治性。',trans:'放纵懈怠就无法振奋精神，轻薄浮躁就不能修养性情。'},
+{orig:'年与时驰，意与日去，遂成枯落，多不接世，悲守穷庐，将复何及！',trans:'年纪随时光飞驰而去，意志随岁月逐渐消逝，最终像枯枝败叶般凋落，大多对社会没有任何贡献，悲伤地困守在自己的穷舍里，（到那时）再后悔又怎么来得及！'}
+],
+vocab:[
+{word:'夫',def:'句首发语词，无实义，引出下文议论',type:'虚词',eg:'夫君子之行 / 夫学须静也'},
+{word:'行',def:'行为，操守',type:'实词',eg:'君子之行'},
+{word:'静',def:'屏除杂念和干扰，宁静专一',type:'实词',eg:'静以修身'},
+{word:'以',def:'连词，表目的，用来',type:'虚词',eg:'静以修身 / 俭以养德'},
+{word:'淡泊',def:'内心恬淡，不慕名利',type:'实词',eg:'非淡泊无以明志'},
+{word:'无以',def:'没有什么可以用来，无法',type:'虚词',eg:'无以明志 / 无以致远'},
+{word:'明志',def:'明确志向。"明"：使……明确',type:'实词',eg:'非淡泊无以明志'},
+{word:'致远',def:'达到远大目标。"致"：达到',type:'实词',eg:'非宁静无以致远'},
+{word:'广才',def:'增长才干。"广"：使……广，增长',type:'实词',eg:'非学无以广才'},
+{word:'淫慢',def:'放纵懈怠',type:'实词',eg:'淫慢则不能励精'},
+{word:'励精',def:'振奋精神',type:'实词',eg:'不能励精'},
+{word:'险躁',def:'轻薄浮躁',type:'实词',eg:'险躁则不能治性'},
+{word:'治性',def:'修养性情',type:'实词',eg:'不能治性'},
+{word:'驰',def:'疾行，指迅速消逝',type:'实词',eg:'年与时驰'},
+{word:'枯落',def:'枯枝败叶，比喻人年老志衰，没有用处',type:'实词',eg:'遂成枯落'}
+],
+grammar:[
+{type:'双重否定句',example:'非淡泊无以明志，非宁静无以致远。',note:'"非……无以……"表示"如果不……就无法……"，双重否定加强语气。'},
+{type:'对偶句',example:'静以修身，俭以养德。',note:'上下句结构相同，字数相等，意思相关，增强说理力度。'},
+{type:'正反对比',example:'淫慢则不能励精，险躁则不能治性。',note:'从反面论述，与上文"静""俭"形成正反对比，论证更加有力。'}
+],
+authorIntro:'诸葛亮（181—234），字孔明，号卧龙，琅琊阳都（今山东沂南）人，三国时期蜀汉丞相，杰出的政治家、军事家、文学家。他辅佐刘备建立蜀汉，刘备去世后受托孤之重，鞠躬尽瘁，死而后已。诸葛亮不仅是忠臣楷模，其文章亦气象宏大、情真意切，代表作有《出师表》《诫子书》等。他一生以"宁静""淡泊"自勉，其人格风范为后世所景仰。',
+dynastyIntro:'三国时期（220—280）是中国历史上群雄割据、战乱频仍的时代。魏、蜀、吴三足鼎立，各方势力招揽人才、发展生产。在动荡的社会环境中，士人更加重视道德修养和家风传承，家训文学在这一时期得到发展。诸葛亮的《诫子书》正是这一背景下产生的家书名篇，体现了乱世中智者对修身养性的深刻思考。',
+writingIntent:'本文是诸葛亮写给儿子诸葛瞻的家书，旨在告诫儿子如何修身养性、治学做人。文章以"静"和"俭"为核心，阐述"淡泊明志、宁静致远"的道理，从正面论述修身治学之道，又从反面指出"淫慢""险躁"的危害，正反对比，论证有力。最后以时光易逝、年华不待作结，语重心长地勉励儿子珍惜光阴、立志向学。全文虽仅八十余字，却凝聚了诸葛亮毕生的人生智慧和对后辈的殷切期望。',
+literaryValue:'《诫子书》是古代家训中的千古名篇，虽短小精悍却内涵丰富。"淡泊以明志，宁静以致远"已成为传世格言，广为传诵。文章说理透彻、对偶工整、骈散结合，既有理性之思又有慈父之情，是初中生学习文言说理文的典范，也是品格教育的重要素材。',
+examQuestions:[
+{q:'翻译下面的句子：非淡泊无以明志，非宁静无以致远。',a:'不能淡泊自守就无法明确志向，不能宁静心神就无法达到远大目标。（关键词："淡泊"译为"内心恬淡，不慕名利"，"无以"译为"没有什么可以用来，无法"，"明志"译为"明确志向"，"致远"译为"达到远大目标"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）静以修身（2）非学无以广才（3）淫慢则不能励精（4）年与时驰',a:'（1）静：屏除杂念和干扰，宁静专一。（2）广：增长，使……广。（3）淫慢：放纵懈怠。（4）驰：疾行，指迅速消逝。',type:'实词题'},
+{q:'"静"在文中多次出现，请分析"静"在诸葛亮论述中的重要性。',a:'"静"是全文的核心概念。诸葛亮认为"静以修身""学须静也"，"静"既是修身养性的前提，也是治学成才的基础。只有内心宁静专一，才能淡泊明志、宁静致远；反之，"险躁"则不能治性。诸葛亮以"静"贯穿全文，正面强调其重要性，反面指出不"静"的危害，层次分明，说理深刻。',type:'理解题'},
+{q:'文章最后一句"年与时驰，意与日去，遂成枯落，多不接世，悲守穷庐，将复何及"用了什么表达方式？有何表达效果？',a:'运用了对比和比喻的表达方式。将时光飞逝与意志消磨对比，以"枯落"比喻人年老志衰、无所作为，以"穷庐"比喻困顿潦倒的处境。这些手法增强了警示效果，使道理更加形象可感，语重心长地告诫儿子如果不珍惜时光、努力修身治学，到老来后悔也来不及了。',type:'赏析题'},
+{q:'结合本文，谈谈你对"淡泊以明志，宁静以致远"的理解及其现实意义。',a:'"淡泊以明志"指不慕名利才能明确志向，"宁静以致远"指心境宁静才能达到远大目标。诸葛亮认为修身治学必须摒弃浮躁、专注内心。在现实生活中，面对各种诱惑和干扰，我们也应保持内心的宁静与专注，不因外界名利而迷失方向，脚踏实地追求自己的目标。这一思想对当代青少年的成长仍具有重要的指导意义。',type:'主旨题'}
+]
+},
+/* ===== 初二 ===== */
+{
+id:'chuer_1',title:'桃花源记',author:'陶渊明',dynasty:'东晋',source:'《陶渊明集》',grade:'初二',tags:['理想社会','叙事','桃花源'],
+fullText:'晋太元中，武陵人捕鱼为业。缘溪行，忘路之远近。忽逢桃花林，夹岸数百步，中无杂树，芳草鲜美，落英缤纷。渔人甚异之，复前行，欲穷其林。\n林尽水源，便得一山，山有小口，仿佛若有光。便舍船，从口入。初极狭，才通人。复行数十步，豁然开朗。\n土地平旷，屋舍俨然，有良田、美池、桑竹之属。阡陌交通，鸡犬相闻。其中往来种作，男女衣着，悉如外人。黄发垂髫，并怡然自乐。',
+sentences:[
+{orig:'晋太元中，武陵人捕鱼为业。',trans:'东晋太元年间，武陵有个人以捕鱼为生。'},
+{orig:'缘溪行，忘路之远近。',trans:'（有一天）他顺着溪水划船前行，忘记了路程的远近。'},
+{orig:'忽逢桃花林，夹岸数百步，中无杂树，芳草鲜美，落英缤纷。',trans:'忽然遇到一片桃花林，生长在溪水两岸，方圆几百步，中间没有别的树，花草鲜嫩美丽，落花纷纷散乱。'},
+{orig:'渔人甚异之，复前行，欲穷其林。',trans:'渔人对此感到非常诧异，继续往前划船，想要走到那片林子的尽头。'},
+{orig:'林尽水源，便得一山，山有小口，仿佛若有光。',trans:'桃花林的尽头就是溪水的源头，（渔人）便看到了一座山，山上有个小洞口，隐隐约约好像有光。'},
+{orig:'便舍船，从口入。初极狭，才通人。',trans:'（渔人）就下了船，从洞口进去。起初洞口很狭窄，仅容一个人通过。'},
+{orig:'复行数十步，豁然开朗。',trans:'又走了几十步，突然变得开阔敞亮了。'},
+{orig:'土地平旷，屋舍俨然，有良田、美池、桑竹之属。',trans:'土地平坦宽广，房屋排列得整整齐齐，有肥沃的田地、美丽的池塘、桑树竹林之类。'},
+{orig:'阡陌交通，鸡犬相闻。',trans:'田间小路交错相通，（村落间）鸡鸣狗叫的声音能互相听到。'},
+{orig:'其中往来种作，男女衣着，悉如外人。黄发垂髫，并怡然自乐。',trans:'那里面的人来来往往耕种劳作，男女的穿戴全都和桃花源外面的人一样。老人和小孩们，都安闲快乐、自得其乐。'}
+],
+vocab:[
+{word:'缘',def:'沿着，顺着',type:'实词',eg:'缘溪行'},
+{word:'为业',def:'以……为职业，作为谋生手段',type:'实词',eg:'捕鱼为业'},
+{word:'远近',def:'偏义复词，偏指"远"',type:'实词',eg:'忘路之远近'},
+{word:'逢',def:'遇到',type:'实词',eg:'忽逢桃花林'},
+{word:'夹岸',def:'溪水的两岸',type:'实词',eg:'夹岸数百步'},
+{word:'落英',def:'落花。一说初开的花',type:'实词',eg:'落英缤纷'},
+{word:'缤纷',def:'繁多的样子',type:'实词',eg:'落英缤纷'},
+{word:'异',def:'对……感到惊异（形容词意动用法）',type:'实词',eg:'渔人甚异之'},
+{word:'穷',def:'走到……的尽头（形容词作动词）',type:'实词',eg:'欲穷其林'},
+{word:'仿佛',def:'隐隐约约，形容看得不真切',type:'实词',eg:'仿佛若有光'},
+{word:'俨然',def:'整齐的样子',type:'实词',eg:'屋舍俨然'},
+{word:'属',def:'类',type:'实词',eg:'有良田美池桑竹之属'},
+{word:'阡陌',def:'田间小路',type:'实词',eg:'阡陌交通'},
+{word:'交通',def:'交错相通（古今异义）',type:'古今异义',eg:'阡陌交通'},
+{word:'悉',def:'全，都',type:'虚词',eg:'悉如外人'},
+{word:'黄发垂髫',def:'老人和小孩。"黄发"指老人，"垂髫"指小孩',type:'实词',eg:'黄发垂髫'},
+{word:'之',def:'代词，指桃花林 / 结构助词"的"',type:'虚词',eg:'忘路之远近 / 渔人甚异之'}
+],
+grammar:[
+{type:'古今异义',example:'阡陌交通',note:'古义：交错相通。今义：运输和邮电事业的总称。'},
+{type:'古今异义',example:'率妻子邑人来此绝境',note:'"妻子"古义：妻子和儿女。今义：男子的配偶。"绝境"古义：与人世隔绝的地方。今义：没有出路的境地。'},
+{type:'意动用法',example:'渔人甚异之',note:'"异"本是形容词，这里活用为动词，"以……为异"，对……感到诧异。'},
+{type:'词类活用',example:'欲穷其林',note:'"穷"本是形容词，这里活用为动词，"走到……尽头"。'}
+],
+authorIntro:'陶渊明（约365—427），一名潜，字元亮，浔阳柴桑（今江西九江）人，东晋著名诗人、文学家。他曾任江州祭酒、彭泽令等职，因不满官场黑暗，四十一岁时辞官归隐，躬耕自给。陶渊明是中国田园诗的开创者，其作品描写田园风光和隐居生活，语言朴素自然、意境深远。代表作有《桃花源记》《归去来兮辞》《饮酒》《归园田居》等，被后世尊为"隐逸诗人之宗"。',
+dynastyIntro:'东晋（317—420）是西晋灭亡后司马睿在建康建立的偏安政权。当时北方战乱不断，士族南渡，门阀制度森严，社会矛盾尖锐。许多文人不满现实政治，寄情山水，追求精神自由。隐逸思想在士人中广泛流行，田园文学应运而生。陶渊明的《桃花源记》正是这一时代背景下对理想社会的向往与追求。',
+writingIntent:'本文写于陶渊明辞官归隐之后。作者借武陵渔人偶然发现桃花源的故事，虚构了一个与世隔绝、没有压迫、人人平等安乐的理想社会。这一构想既是对当时黑暗现实的无声批判，也寄托了作者对和平安宁生活的向往。文章以渔人的行踪为线索，从"发现—进入—离开—再寻不得"层层推进，虚实相生，亦真亦幻，使桃花源既似实有其地又终不可寻，增强了理想难以实现的惆怅感。',
+literaryValue:'《桃花源记》是中国文学史上最著名的乌托邦篇章，"世外桃源"成为后世形容理想世界的代名词。文章叙事完整、描写细腻、构思精巧，将叙事、写景、抒情融为一体，语言朴素而意境深远。桃花源所寄托的对和平、平等、自由生活的追求，至今仍具有深刻的思想价值和艺术感染力，是中考文言文阅读的重点篇目。',
+examQuestions:[
+{q:'翻译下面的句子：黄发垂髫，并怡然自乐。',a:'老人和小孩们，都安闲快乐、自得其乐。（关键词："黄发"指老人，"垂髫"指小孩，"并"译为"都"，"怡然"译为"安闲快乐的样子"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）渔人甚异之（2）欲穷其林（3）阡陌交通（4）悉如外人',a:'（1）异：对……感到惊异（意动用法）。（2）穷：走到……尽头。（3）交通：交错相通（古今异义）。（4）悉：全，都。',type:'实词题'},
+{q:'桃花源中的生活环境有怎样的特点？请结合文中语句简要概括。',a:'桃花源环境优美（"芳草鲜美，落英缤纷"）、土地平坦宽广（"土地平旷，屋舍俨然"）、物产丰富（"有良田、美池、桑竹之属"）、宁静祥和（"阡陌交通，鸡犬相闻"）、人人安居乐业（"黄发垂髫，并怡然自乐"）。这是一个没有压迫、人人平等、自给自足的理想社会。',type:'理解题'},
+{q:'文章结尾写渔人"处处志之"却"遂迷，不复得路"，刘子骥"欣然规往"却"未果"，这样写有何用意？',a:'这样写意在表明桃花源是一个虚构的理想世界，现实中并不存在。渔人做了标记却再也找不到路，高士刘子骥寻访也未果，暗示了这种理想社会在当时现实中无法实现。以"寻而不得"结尾，既增添了文章的神秘色彩，又含蓄地表达了作者对理想难以实现的遗憾和对现实的无奈。',type:'赏析题'},
+{q:'比较阅读：桃花源中的生活与陶渊明在《归园田居》中描写的田园生活有何异同？',a:'相同点：两者都追求远离官场、回归自然的生活方式，体现了陶渊明对淳朴宁静生活的向往。不同点：桃花源是一个虚构的理想社会，人人平等、没有剥削，是社会层面的乌托邦；而《归园田居》描写的是作者真实的隐居生活，虽然也宁静自然，但需要躬耕劳作，面对生活的艰辛。前者是对理想社会的憧憬，后者是对个人生活方式的选择。',type:'比较阅读题'}
+]
+},
+{
+id:'chuer_2',title:'小石潭记',author:'柳宗元',dynasty:'唐',source:'《柳河东集》',grade:'初二',tags:['游记','写景','借景抒情'],
+fullText:'从小丘西行百二十步，隔篁竹，闻水声，如鸣珮环，心乐之。伐竹取道，下见小潭，水尤清冽。全石以为底，近岸，卷石底以出，为坻，为屿，为嵁，为岩。青树翠蔓，蒙络摇缀，参差披拂。\n潭中鱼可百许头，皆若空游无所依，日光下澈，影布石上。佁然不动，俶尔远逝，往来翕忽，似与游者相乐。\n潭西南而望，斗折蛇行，明灭可见。其岸势犬牙差互，不可知其源。\n坐潭上，四面竹树环合，寂寥无人，凄神寒骨，悄怆幽邃。以其境过清，不可久居，乃记之而去。',
+sentences:[
+{orig:'从小丘西行百二十步，隔篁竹，闻水声，如鸣珮环，心乐之。',trans:'从小丘向西走一百二十步，隔着竹林，就能听到水声，好像（人身上）佩带的珮环相互碰击发出的声音，（我的）心里为之高兴。'},
+{orig:'伐竹取道，下见小潭，水尤清冽。',trans:'砍倒竹子，开辟出一条道路，（沿此路）走下去便看见一个小潭，潭水格外清凉。'},
+{orig:'全石以为底，近岸，卷石底以出，为坻，为屿，为嵁，为岩。',trans:'（潭）以整块石头为底，靠近岸边，石底有些部分翻卷过来露出水面，成为坻、屿、嵁、岩等不同的形状。'},
+{orig:'青树翠蔓，蒙络摇缀，参差披拂。',trans:'青葱的树木，翠绿的藤蔓，遮盖缠绕，摇动下垂，参差不齐，随风飘拂。'},
+{orig:'潭中鱼可百许头，皆若空游无所依，日光下澈，影布石上。',trans:'潭中的鱼大约有一百来条，都好像在空中游动，没有什么依靠，阳光直照到水底，鱼的影子映在石头上。'},
+{orig:'佁然不动，俶尔远逝，往来翕忽，似与游者相乐。',trans:'（鱼儿）呆呆地一动不动，忽然又向远处游去，来来往往轻快敏捷，好像在与游人互相逗乐。'},
+{orig:'潭西南而望，斗折蛇行，明灭可见。',trans:'向潭的西南方向望去，（溪水）像北斗星那样曲折，像蛇那样蜿蜒前行，时隐时现。'},
+{orig:'其岸势犬牙差互，不可知其源。',trans:'溪岸的形状像狗的牙齿那样交错不齐，不知道它的源泉在哪里。'},
+{orig:'坐潭上，四面竹树环合，寂寥无人，凄神寒骨，悄怆幽邃。',trans:'坐在潭边，四周被竹子和树木环绕，寂静寥落没有旁人，（那种气氛）让人感到心神凄凉，寒气透骨，幽静深远，弥漫着忧伤的气息。'},
+{orig:'以其境过清，不可久居，乃记之而去。',trans:'因为这里的环境太过凄清，不能长时间停留，于是记下这番情景便离开了。'}
+],
+vocab:[
+{word:'西',def:'向西（名词作状语）',type:'实词',eg:'从小丘西行百二十步'},
+{word:'篁竹',def:'竹林',type:'实词',eg:'隔篁竹'},
+{word:'珮环',def:'古代系在腰带上的玉制装饰品',type:'实词',eg:'如鸣珮环'},
+{word:'乐',def:'以……为乐（形容词意动用法）',type:'实词',eg:'心乐之'},
+{word:'清冽',def:'清凉',type:'实词',eg:'水尤清冽'},
+{word:'尤',def:'格外，特别',type:'虚词',eg:'水尤清冽'},
+{word:'可',def:'大约',type:'虚词',eg:'潭中鱼可百许头'},
+{word:'许',def:'表示约数，相当于"来""左右"',type:'虚词',eg:'百许头'},
+{word:'澈',def:'穿透，透射',type:'实词',eg:'日光下澈'},
+{word:'佁然',def:'呆呆的样子',type:'实词',eg:'佁然不动'},
+{word:'俶尔',def:'忽然',type:'实词',eg:'俶尔远逝'},
+{word:'翕忽',def:'轻快敏捷的样子',type:'实词',eg:'往来翕忽'},
+{word:'斗',def:'像北斗星一样（名词作状语）',type:'实词',eg:'斗折蛇行'},
+{word:'蛇',def:'像蛇一样（名词作状语）',type:'实词',eg:'斗折蛇行'},
+{word:'犬牙',def:'像狗的牙齿一样（名词作状语）',type:'实词',eg:'犬牙差互'},
+{word:'凄',def:'使……凄凉（使动用法）',type:'实词',eg:'凄神寒骨'},
+{word:'寒',def:'使……寒冷（使动用法）',type:'实词',eg:'凄神寒骨'},
+{word:'悄怆',def:'忧伤的样子',type:'实词',eg:'悄怆幽邃'},
+{word:'以',def:'因为',type:'虚词',eg:'以其境过清'},
+{word:'居',def:'停留',type:'实词',eg:'不可久居'}
+],
+grammar:[
+{type:'名词作状语',example:'从小丘西行百二十步',note:'"西"是方位名词，这里作状语，表示"向西"。类似的：斗折蛇行（像北斗星、像蛇）、犬牙差互（像狗的牙齿）。'},
+{type:'意动用法',example:'心乐之',note:'"乐"本是形容词，这里活用为动词，"以……为乐"，对……感到快乐。'},
+{type:'使动用法',example:'凄神寒骨',note:'"凄"使……凄凉，"寒"使……寒冷，使动用法。'},
+{type:'省略句',example:'日光下澈，影布石上',note:'"影布（于）石上"，省略介词"于"。'}
+],
+authorIntro:'柳宗元（773—819），字子厚，河东（今山西永济）人，唐代杰出文学家、思想家，"唐宋八大家"之一。他二十一岁中进士，参与王叔文政治革新，革新失败后被贬为永州司马、柳州刺史。在永州十年间，他寄情山水，写下著名的"永州八记"，《小石潭记》为其中之一。柳宗元与韩愈共同倡导古文运动，散文雄深雅健，寓言尖锐深刻，在文学史上地位崇高。',
+dynastyIntro:'唐代中后期（安史之乱后），藩镇割据，宦官专权，政治腐败。永贞元年（805年），王叔文等人发起政治革新，试图革除弊政，但很快失败。参与革新的柳宗元等人被贬边远地区，史称"二王八司马"事件。永州地处偏远，环境恶劣，但柳宗元在谪居中以山水自遣，将政治失意的苦闷寄寓于山水游记之中，成就了不朽的文学篇章。',
+writingIntent:'本文是柳宗元贬谪永州期间所作"永州八记"之一。作者以发现小石潭的经过为线索，描绘了石潭的清幽景色和潭中游鱼的怡然之态，但最终因"凄神寒骨，悄怆幽邃"的感受而离去。文章表面写景，实则寓情：前期对清冽潭水和灵动游鱼的描写，透露出暂得山水之乐的欣慰；后期"凄神寒骨"的感受，则折射出作者被贬谪后孤寂悲凉的心境。以乐写哀、情景交融，是本文最突出的艺术特色。',
+literaryValue:'《小石潭记》是古代山水游记的巅峰之作，代表了柳宗元"永州八记"的最高成就。文章写景精细入微、语言清丽流畅，名词作状语、移步换景等手法运用精妙。尤其是写鱼"佁然不动，俶尔远逝"的动态描写，被誉为传神之笔。本文是中考文言文必考篇目，对学习写景抒情散文具有典范意义。',
+examQuestions:[
+{q:'翻译下面的句子：凄神寒骨，悄怆幽邃。',a:'（那种气氛）让人感到心神凄凉，寒气透骨，幽静深远，弥漫着忧伤的气息。（关键词："凄"使动用法"使……凄凉"，"寒"使动用法"使……寒冷"，"悄怆"译为"忧伤的样子"，"幽邃"译为"幽静深远"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）从小丘西行百二十步（2）水尤清冽（3）潭中鱼可百许头（4）以其境过清',a:'（1）西：向西（名词作状语）。（2）尤：格外，特别。（3）可：大约。（4）以：因为。',type:'实词题'},
+{q:'文中写游鱼"皆若空游无所依""佁然不动""俶尔远逝"，这些描写有什么作用？',a:'这些描写既写出了游鱼的灵动可爱，又巧妙地烘托了潭水的清澈——鱼儿"若空游"说明水清得几乎看不见，日光"下澈"照出鱼影更衬水之透明。同时，鱼儿的自由自在与作者被贬后的孤寂形成对比，"似与游者相乐"以物我交融的方式含蓄表达了作者暂得山水之乐的心情。',type:'赏析题'},
+{q:'作者游览小石潭的心情发生了怎样的变化？请结合文章内容分析原因。',a:'作者心情从"心乐之"（听到水声感到高兴）到"似与游者相乐"（看游鱼感到愉悦），再到"凄神寒骨，悄怆幽邃"（感到凄凉忧伤），最终"不可久居，乃记之而去"。变化原因：初见小石潭的清幽美景让作者暂忘贬谪之苦；但小潭"四面竹树环合，寂寥无人"的幽寂环境触发了作者被贬后孤寂悲凉的心境，景物之清冷与内心之凄凉相互感应，乐极生悲。',type:'理解题'},
+{q:'比较阅读：《小石潭记》与《岳阳楼记》都写到贬谪之情，两文在情感表达上有何不同？',a:'《小石潭记》以景寓情，将贬谪的孤寂悲凉寄寓于清幽凄冷的景物之中，情感含蓄内敛，侧重个人感受；《岳阳楼记》则由景入理，从"迁客骚人"的悲喜之情升华到"不以物喜，不以己悲"的古仁人之心，最终提出"先天下之忧而忧，后天下之乐而乐"的政治抱负，情感宏大开阔，侧重家国情怀。两文一内敛一豪迈，各具特色。',type:'比较阅读题'}
+]
+},
+{
+id:'chuer_3',title:'北冥有鱼',author:'庄子',dynasty:'战国',source:'《庄子·逍遥游》',grade:'初二',tags:['寓言','道家','鹏鸟'],
+fullText:'北冥有鱼，其名为鲲。鲲之大，不知其几千里也。化而为鸟，其名为鹏。鹏之背，不知其几千里也；怒而飞，其翼若垂天之云。是鸟也，海运则将徙于南冥。南冥者，天池也。\n《齐谐》者，志怪者也。《谐》之言曰："鹏之徙于南冥也，水击三千里，抟扶摇而上者九万里，去以六月息者也。"',
+sentences:[
+{orig:'北冥有鱼，其名为鲲。',trans:'北方的大海里有一条鱼，它的名字叫做鲲。'},
+{orig:'鲲之大，不知其几千里也。',trans:'鲲的身体巨大，不知道有几千里。'},
+{orig:'化而为鸟，其名为鹏。',trans:'（鲲）变化成为鸟，它的名字就叫鹏。'},
+{orig:'鹏之背，不知其几千里也。',trans:'鹏的脊背，不知道有几千里。'},
+{orig:'怒而飞，其翼若垂天之云。',trans:'（鹏）振翅奋飞的时候，那展开的双翅就像悬挂在天边的云。'},
+{orig:'是鸟也，海运则将徙于南冥。',trans:'这只鸟，在海潮运动的时候就要迁徙到南方的大海。'},
+{orig:'南冥者，天池也。',trans:'南海，是天然形成的池（大海）。'},
+{orig:'《齐谐》者，志怪者也。',trans:'《齐谐》是一部记载怪异事物的书。'},
+{orig:'鹏之徙于南冥也，水击三千里，抟扶摇而上者九万里，去以六月息者也。',trans:'大鹏迁徙到南海的时候，翅膀击水而行三千里，乘着旋风盘旋飞上九万里的高空，它是凭借着六月的大风离去的。'}
+],
+vocab:[
+{word:'冥',def:'通"溟"，海',type:'通假字',eg:'北冥有鱼'},
+{word:'名',def:'命名，叫做',type:'实词',eg:'其名为鲲'},
+{word:'之',def:'结构助词，用在主谓之间取消句子独立性，不译',type:'虚词',eg:'鲲之大 / 鹏之背'},
+{word:'化',def:'变化',type:'实词',eg:'化而为鸟'},
+{word:'怒',def:'振奋，这里指鼓起翅膀',type:'实词',eg:'怒而飞'},
+{word:'垂',def:'悬挂',type:'实词',eg:'若垂天之云'},
+{word:'是',def:'这（代词）',type:'虚词',eg:'是鸟也'},
+{word:'海运',def:'海潮运动。一说大海的运转',type:'实词',eg:'海运则将徙于南冥'},
+{word:'徙',def:'迁移',type:'实词',eg:'将徙于南冥'},
+{word:'天池',def:'天然形成的水池（天然大池，指大海）',type:'实词',eg:'天池也'},
+{word:'志',def:'记载',type:'实词',eg:'志怪者也'},
+{word:'怪',def:'怪异的事物',type:'实词',eg:'志怪者也'},
+{word:'击',def:'拍打，击打',type:'实词',eg:'水击三千里'},
+{word:'抟',def:'盘旋飞翔',type:'实词',eg:'抟扶摇而上者九万里'},
+{word:'扶摇',def:'旋风',type:'实词',eg:'抟扶摇而上'},
+{word:'去',def:'离开',type:'实词',eg:'去以六月息者也'},
+{word:'息',def:'风。一说气息，这里指大风',type:'实词',eg:'六月息'}
+],
+grammar:[
+{type:'判断句',example:'南冥者，天池也。',note:'"……者，……也"是文言判断句的标志格式。'},
+{type:'判断句',example:'《齐谐》者，志怪者也。',note:'"……者，……者也"表示判断。'},
+{type:'通假字',example:'北冥有鱼',note:'"冥"通"溟"，海。'},
+{type:'特殊用法',example:'鲲之大',note:'"之"用在主语和谓语之间，取消句子的独立性，使主谓结构变成名词性短语，不译。'}
+],
+authorIntro:'庄子（约前369—前286），名周，宋国蒙（今河南商丘）人，战国时期道家学派代表人物，与老子并称"老庄"。庄子曾为漆园吏，一生清贫却拒楚威王之聘，追求精神自由。其著作《庄子》现存三十三篇，文章想象奇特、气势磅礴、寓言丰富，充满浪漫主义色彩，在中国哲学史和文学史上均有极高地位。',
+dynastyIntro:'战国时期（前475—前221）是中国历史上诸侯兼并、战乱频仍的时代。各诸侯国变法图强，百家争鸣达到高潮。道家学派主张顺应自然、无为而治，与儒家积极入世、法家严刑峻法形成对照。庄子继承和发展了老子的思想，以寓言和奇想来表达哲学理念，为乱世中的人们提供了一条精神解脱之路。',
+writingIntent:'本文节选自《庄子·逍遥游》开篇，通过鲲化为鹏、鹏徙南冥的宏伟想象，展现了庄子对"逍遥"境界的追求。鲲鹏之大、飞之高远，象征着超越世俗束缚、追求精神自由的理想。文章以夸张的数字和奇特的想象构建出壮阔的画面，意在说明真正的自由需要凭借宏大的力量和超越的视野，为后文论述"有所待"与"无所待"的逍遥之境做铺垫。',
+literaryValue:'《逍遥游》是《庄子》的开篇之作，也是中国浪漫主义文学的源头之一。文章想象雄奇、语言汪洋恣肆，"鹏程万里"的意象深入人心，成为后世常用的典故。庄子寓言"以大写意"的手法对后世文学影响深远，李白、苏轼等大家均深受其启发。本文是初中生了解道家思想和浪漫主义文学的重要篇目。',
+examQuestions:[
+{q:'翻译下面的句子：怒而飞，其翼若垂天之云。',a:'（鹏）振翅奋飞的时候，那展开的双翅就像悬挂在天边的云。（关键词："怒"译为"振奋，这里指鼓起翅膀"，"垂"译为"悬挂"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）北冥有鱼（2）怒而飞（3）志怪者也（4）去以六月息者也',a:'（1）冥：通"溟"，海。（2）怒：振奋，这里指鼓起翅膀。（3）志：记载。（4）息：风，大风。',type:'通假字/实词题'},
+{q:'文章开篇描写鲲和鹏的巨大，用了哪些手法？有何表达效果？',a:'文章运用了夸张和比喻的手法。夸张如"不知其几千里也""水击三千里""抟扶摇而上者九万里"，以极大的数字营造壮阔的画面；比喻如"其翼若垂天之云"，形象地写出鹏翼的巨大。这些手法突出了鲲鹏的宏伟气象，为后文论述逍遥之境做铺垫，也体现了庄子想象奇特、气势磅礴的文风。',type:'赏析题'},
+{q:'"南冥者，天池也"和"《齐谐》者，志怪者也"是什么句式？请简要说明。',a:'都是判断句。"南冥者，天池也"意为"南海是天然形成的大池"，"《齐谐》者，志怪者也"意为"《齐谐》是一部记载怪异事物的书"。"……者，……也"和"……者，……者也"是文言判断句的典型格式，用"者"提示主语，"也"表判断语气。',type:'句式题'},
+{q:'庄子借鲲鹏的形象寄寓了怎样的哲学思想？请结合"逍遥游"的题旨谈谈你的理解。',a:'庄子借鲲鹏徙于南冥的壮举，寄寓了对精神自由的追求。鲲鹏虽大，但仍需"去以六月息"（凭借六月大风），说明它仍"有所待"，并非真正的逍遥。庄子以此暗示：世间万物皆有所待，唯有超越一切凭借、"无所待"的精神境界才是真正的"逍遥游"。这体现了道家追求绝对精神自由的哲学理想。',type:'主旨题'}
+]
+},
+{
+id:'chuer_4',title:'马说',author:'韩愈',dynasty:'唐',source:'《韩昌黎文集》',grade:'初二',tags:['议论','人才','托物寓意'],
+fullText:'世有伯乐，然后有千里马。千里马常有，而伯乐不常有。故虽有名马，祇辱于奴隶人之手，骈死于槽枥之间，不以千里称也。\n马之千里者，一食或尽粟一石。食马者不知其能千里而食也。是马也，虽有千里之能，食不饱，力不足，才美不外见，且欲与常马等不可得，安求其能千里也？\n策之不以其道，食之不能尽其材，鸣之而不能通其意，执策而临之，曰："天下无马！"呜呼！其真无马邪？其真不知马也！',
+sentences:[
+{orig:'世有伯乐，然后有千里马。',trans:'世上先有伯乐，然后才有千里马。'},
+{orig:'千里马常有，而伯乐不常有。',trans:'千里马是常有的，可是伯乐却不常有。'},
+{orig:'故虽有名马，祇辱于奴隶人之手，骈死于槽枥之间，不以千里称也。',trans:'所以即使有名贵的马，也只是辱没在仆役的手里，（和普通马）一同死在马槽之间，不因日行千里而著称。'},
+{orig:'马之千里者，一食或尽粟一石。',trans:'日行千里的马，吃一顿有时能吃完一石粮食。'},
+{orig:'食马者不知其能千里而食也。',trans:'喂马的人不懂得要根据它能日行千里的本领来喂养它。'},
+{orig:'是马也，虽有千里之能，食不饱，力不足，才美不外见，且欲与常马等不可得，安求其能千里也？',trans:'这样的马，即使有日行千里的才能，却吃不饱，力气不足，它的才能和美好的素质不能表现在外面，想要和普通的马一样尚且办不到，又怎么能要求它日行千里呢？'},
+{orig:'策之不以其道，食之不能尽其材，鸣之而不能通其意。',trans:'驱策它不按照（驱策千里马的）正确方法，喂养它不能让它竭尽才能，它嘶鸣又不能通晓它的意思。'},
+{orig:'执策而临之，曰："天下无马！"',trans:'拿着鞭子面对它，说："天下没有好马！"'},
+{orig:'呜呼！其真无马邪？其真不知马也！',trans:'唉！难道真的没有（千里）马吗？恐怕是真的不认识（千里）马啊！'}
+],
+vocab:[
+{word:'伯乐',def:'本名孙阳，春秋时秦国人，善相马。后比喻善于发现人才的人',type:'实词',eg:'世有伯乐'},
+{word:'然后',def:'这样以后（古今异义）',type:'古今异义',eg:'然后有千里马'},
+{word:'故',def:'所以，因此',type:'虚词',eg:'故虽有名马'},
+{word:'虽',def:'即使',type:'虚词',eg:'故虽有名马'},
+{word:'祇',def:'只是，仅',type:'虚词',eg:'祇辱于奴隶人之手'},
+{word:'骈死',def:'（和普通马）一同死。"骈"：并列',type:'实词',eg:'骈死于槽枥之间'},
+{word:'槽枥',def:'喂牲口用的食槽',type:'实词',eg:'槽枥之间'},
+{word:'或',def:'有时',type:'虚词',eg:'一食或尽粟一石'},
+{word:'食',def:'通"饲"，喂（读sì）',type:'通假字',eg:'食马者不知其能千里而食也'},
+{word:'见',def:'通"现"，表现，显露（读xiàn）',type:'通假字',eg:'才美不外见'},
+{word:'等',def:'一样，同等',type:'实词',eg:'且欲与常马等不可得'},
+{word:'安',def:'怎么，哪里（疑问代词）',type:'虚词',eg:'安求其能千里也'},
+{word:'策',def:'马鞭，这里作动词，用马鞭驱赶',type:'实词',eg:'策之不以其道'},
+{word:'材',def:'通"才"，才能',type:'通假字',eg:'不能尽其材'},
+{word:'其',def:'表反问语气，难道 / 表推测语气，恐怕',type:'虚词',eg:'其真无马邪 / 其真不知马也'}
+],
+grammar:[
+{type:'通假字',example:'食马者 / 才美不外见 / 不能尽其材',note:'"食"通"饲"，喂；"见"通"现"，表现；"材"通"才"，才能。'},
+{type:'反问句',example:'安求其能千里也？',note:'"安……也？"表反问，"怎么能……呢？"。'},
+{type:'选择疑问',example:'其真无马邪？其真不知马也！',note:'前句"其"表反问语气"难道"；后句"其"表推测语气"恐怕"。'},
+{type:'词类活用',example:'策之不以其道',note:'"策"本是名词（马鞭），这里活用为动词，"用鞭子打、驱策"。'},
+{type:'倒装句',example:'马之千里者',note:'定语后置，"千里之马"，"之"是定语后置的标志。'}
+],
+authorIntro:'韩愈（768—824），字退之，河阳（今河南孟州）人，自谓郡望昌黎，世称"韩昌黎"。唐代著名文学家、思想家，"唐宋八大家"之首。他倡导古文运动，反对六朝以来浮靡的骈体文风，主张"文以载道""辞必己出"。韩愈散文气势雄健、说理透辟，被苏轼誉为"文起八代之衰"。代表作有《马说》《师说》《进学解》等。',
+dynastyIntro:'唐代中后期，科举制度虽已确立，但门阀势力仍影响人才选拔，许多有才华的庶族文人得不到重用。韩愈本人科举之路坎坷，三次落第后才中进士，又多次因直言进谏被贬。当时社会"伯乐不常有"的现象普遍存在，怀才不遇是许多文人的共同感受。韩愈以"马"为喻，正是这一时代背景下的产物。',
+writingIntent:'本文采用托物寓意的写法，以"千里马"比喻人才，以"伯乐"比喻识才之人，以"食马者"比喻愚妄的统治者。文章通过千里马"祇辱于奴隶人之手，骈死于槽枥之间"的不幸遭遇，揭露了当时社会埋没人才、摧残人才的现象，表达了对统治者不能识别人才、不善待人才的愤懑，也含蓄地抒发了作者自己怀才不遇的感慨。结尾"其真无马邪？其真不知马也"以反问作结，发人深省。',
+literaryValue:'《马说》是古代托物寓意散文的经典名篇，篇幅短小却寄寓深远。"世有伯乐，然后有千里马"已成为广为传诵的名句。文章以马喻人，层层递进，说理形象而深刻，语言犀利而含蓄，是初中生学习议论性文言文的重要篇目，也是中考常考内容。',
+examQuestions:[
+{q:'翻译下面的句子：其真无马邪？其真不知马也！',a:'难道真的没有（千里）马吗？恐怕是真的不认识（千里）马啊！（关键词：第一个"其"表反问语气"难道"，第二个"其"表推测语气"恐怕"，"邪"通"耶"表疑问。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）祇辱于奴隶人之手（2）一食或尽粟一石（3）且欲与常马等不可得（4）策之不以其道',a:'（1）祇：只是，仅。（2）或：有时。（3）等：一样，同等。（4）策：用马鞭驱赶（名词作动词）。',type:'实词题'},
+{q:'文中"世有伯乐，然后有千里马"一句有何深刻含义？',a:'这句话揭示了人才与识才者的关系：千里马（人才）虽然常有，但只有遇到伯乐（识才之人）才能被发现和重用。作者以此暗喻当时社会缺乏善于发现人才的统治者，导致许多人才被埋没。这句话也是全文的论点，为下文论述千里马的不幸遭遇奠定基础。',type:'理解题'},
+{q:'文章结尾连用两个"其"字，分别表达什么语气？这样写有何效果？',a:'第一个"其"表反问语气，"难道真的没有千里马吗？"第二个"其"表推测语气，"恐怕是真的不认识千里马吧！"以反问引出推测，先设疑后作答，语气由激愤转为沉痛，强烈谴责了"不知马"的愚妄之辈，既含蓄又有力量，发人深省，余味无穷。',type:'赏析题'},
+{q:'本文采用"托物寓意"的写法，请分析文中"千里马""伯乐""食马者"分别比喻什么，并谈谈这一写法的好处。',a:'"千里马"比喻有才能的人，"伯乐"比喻善于识别人才的人，"食马者"比喻不识人才、摧残人才的愚妄统治者。托物寓意的好处是：以马说人，使抽象的人才问题变得具体形象；言在此而意在彼，既能尖锐批评社会现实，又可避免直接指斥带来的风险；增强了文章的文学性和可读性。',type:'主旨题'}
+]
+},
+/* ===== 初三 ===== */
+{
+id:'chusan_1',title:'岳阳楼记（节选）',author:'范仲淹',dynasty:'北宋',source:'《范文正公集》',grade:'初三',tags:['写景','议论','忧乐观'],
+fullText:'庆历四年春，滕子京谪守巴陵郡。越明年，政通人和，百废具兴。乃重修岳阳楼，增其旧制，刻唐贤今人诗赋于其上。属予作文以记之。\n予观夫巴陵胜状，在洞庭一湖。衔远山，吞长江，浩浩汤汤，横无际涯；朝晖夕阴，气象万千。此则岳阳楼之大观也，前人之述备矣。然则北通巫峡，南极潇湘，迁客骚人，多会于此，览物之情，得无异乎？\n嗟夫！予尝求古仁人之心，或异二者之为，何哉？不以物喜，不以己悲；居庙堂之高则忧其民；处江湖之远则忧其君。是进亦忧，退亦忧。然则何时而乐耶？其必曰"先天下之忧而忧，后天下之乐而乐"乎。噫！微斯人，吾谁与归？',
+sentences:[
+{orig:'庆历四年春，滕子京谪守巴陵郡。',trans:'庆历四年的春天，滕子京被贬官到巴陵郡做太守。'},
+{orig:'越明年，政通人和，百废具兴。',trans:'到了第二年，政事顺利，百姓和乐，各种荒废的事业都兴办起来了。'},
+{orig:'乃重修岳阳楼，增其旧制，刻唐贤今人诗赋于其上。属予作文以记之。',trans:'于是重新修建岳阳楼，扩大它旧时的规模，把唐代名家和当代人的诗赋刻在上面。（滕子京）嘱托我写一篇文章来记述这件事。'},
+{orig:'予观夫巴陵胜状，在洞庭一湖。',trans:'我看那巴陵郡的美景，全在这洞庭湖上。'},
+{orig:'衔远山，吞长江，浩浩汤汤，横无际涯。',trans:'（洞庭湖）衔接远处的山峦，吞吐长江的流水，水势浩大，宽阔无边。'},
+{orig:'朝晖夕阴，气象万千。',trans:'早晨的光辉和傍晚的阴暗，景象变化无穷。'},
+{orig:'此则岳阳楼之大观也，前人之述备矣。',trans:'这就是岳阳楼的雄伟景象，前人的记述已经很详尽了。'},
+{orig:'迁客骚人，多会于此，览物之情，得无异乎？',trans:'被贬谪的官员和诗人，大多在这里聚会，他们观赏自然景物而触发的感情，怎能不有所不同呢？'},
+{orig:'不以物喜，不以己悲。',trans:'不因外物（好坏）和自己（得失）而或喜或悲。'},
+{orig:'居庙堂之高则忧其民；处江湖之远则忧其君。',trans:'在朝廷做高官就为百姓担忧；处在偏远的江湖就为国君担忧。'},
+{orig:'其必曰"先天下之忧而忧，后天下之乐而乐"乎。',trans:'他们一定会说"在天下人忧愁之前先忧愁，在天下人快乐之后才快乐"吧。'},
+{orig:'微斯人，吾谁与归？',trans:'如果没有这样的人，我和谁一道呢？'}
+],
+vocab:[
+{word:'谪守',def:'被贬官到外地做地方官',type:'实词',eg:'谪守巴陵郡'},
+{word:'越',def:'到了，及',type:'实词',eg:'越明年'},
+{word:'具',def:'通"俱"，全，皆',type:'通假字',eg:'百废具兴'},
+{word:'制',def:'规模',type:'实词',eg:'增其旧制'},
+{word:'属',def:'通"嘱"，嘱托',type:'通假字',eg:'属予作文以记之'},
+{word:'夫',def:'那（指示代词，读fú）',type:'虚词',eg:'予观夫巴陵胜状'},
+{word:'胜状',def:'美景，壮丽的景色',type:'实词',eg:'巴陵胜状'},
+{word:'汤汤',def:'水流大而急的样子（读shāng）',type:'实词',eg:'浩浩汤汤'},
+{word:'涯',def:'边',type:'实词',eg:'横无际涯'},
+{word:'大观',def:'雄伟壮丽的景象',type:'实词',eg:'岳阳楼之大观'},
+{word:'备',def:'详尽，完备',type:'实词',eg:'前人之述备矣'},
+{word:'然则',def:'既然这样，那么……',type:'虚词',eg:'然则北通巫峡'},
+{word:'极',def:'直达，到达尽头',type:'实词',eg:'南极潇湘'},
+{word:'迁客',def:'被贬谪的官员',type:'实词',eg:'迁客骚人'},
+{word:'骚人',def:'诗人。源自屈原作《离骚》，后称诗人为骚人',type:'实词',eg:'迁客骚人'},
+{word:'或',def:'或许，也许',type:'虚词',eg:'或异二者之为'},
+{word:'为',def:'表现，行为（名词）',type:'实词',eg:'或异二者之为'},
+{word:'微',def:'如果没有（否定副词）',type:'虚词',eg:'微斯人'},
+{word:'谁与归',def:'即"与谁归"，和谁一道',type:'句式',eg:'吾谁与归'}
+],
+grammar:[
+{type:'倒装句',example:'吾谁与归',note:'"谁与归"即"与谁归"，疑问代词"谁"作介词"与"的宾语，前置。'},
+{type:'判断句',example:'此则岳阳楼之大观也',note:'用"……也"表示判断语气。'},
+{type:'通假字',example:'百废具兴 / 属予作文以记之',note:'"具"通"俱"，全、皆；"属"通"嘱"，嘱托。'},
+{type:'互文',example:'不以物喜，不以己悲',note:'即"不以物和己而喜悲"，不因外物和自身境遇而或喜或悲。上下两句互相补充。'},
+{type:'词类活用',example:'先天下之忧而忧，后天下之乐而乐',note:'"先"在……之前，"后"在……之后，方位名词作状语。'}
+],
+authorIntro:'范仲淹（989—1052），字希文，苏州吴县人，北宋杰出的政治家、军事家、文学家。他幼年丧父，刻苦读书，大中祥符八年中进士。范仲淹一生仕途坎坷，曾多次被贬，但始终以天下为己任。他主持"庆历新政"，力图改革弊政；戍边西夏，军纪严明，西夏人称为"小范老子腹中有数万甲兵"。其文章气势宏大，忧国忧民之情溢于言表，谥号"文正"。',
+dynastyIntro:'北宋（960—1127）是中国历史上重文轻武的朝代，士大夫阶层活跃，政治改革此起彼伏。庆历年间，范仲淹、富弼等人推行"庆历新政"，试图改革吏治、加强边防，但因保守势力反对而失败。许多支持改革的官员被贬外放，滕子京即在其列。在这一背景下，文人群体中形成了以天下为己任的政治情怀，"先忧后乐"成为宋代士大夫的精神标志。',
+writingIntent:'本文是范仲淹应好友滕子京之请为重修岳阳楼所作的记文。文章先叙重修之事，再写洞庭湖壮景，然后通过"迁客骚人"因景而生的"悲"与"喜"两种情感，引出"古仁人之心"——"不以物喜，不以己悲"的超然境界。最终以"先天下之忧而忧，后天下之乐而乐"作结，表达了作者远大的政治抱负和以天下为己任的崇高情怀，也以此勉励被贬的滕子京。',
+literaryValue:'《岳阳楼记》是中国古代散文的不朽名篇，"先天下之忧而忧，后天下之乐而乐"成为千古传诵的名言。文章叙事、写景、抒情、议论融为一体，骈散结合，对偶工整，气势恢宏。由景入情、由情入理的构思精妙绝伦，是中考文言文阅读的重中之重。',
+examQuestions:[
+{q:'翻译下面的句子：不以物喜，不以己悲。',a:'不因外物（好坏）和自己（得失）而或喜或悲。（关键词：此句为互文，应合译为"不以物和己而喜悲"，"以"译为"因为"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）百废具兴（2）属予作文以记之（3）前人之述备矣（4）微斯人，吾谁与归',a:'（1）具：通"俱"，全，皆。（2）属：通"嘱"，嘱托。（3）备：详尽，完备。（4）微：如果没有。',type:'通假字/实词题'},
+{q:'"迁客骚人"面对洞庭湖的不同景色产生了怎样的情感？作者为什么要写这些？',a:'面对阴雨连绵的景色，"迁客骚人"感到"去国怀乡，忧谗畏讥"的悲；面对春和景明的景色，则感到"心旷神怡，宠辱偕忘"的喜。作者写这些是为了与"古仁人之心"形成对比：迁客骚人因景而悲喜，古仁人则"不以物喜，不以己悲"，境界更高。以此引出全文主旨，层层铺垫。',type:'理解题'},
+{q:'"先天下之忧而忧，后天下之乐而乐"体现了作者怎样的思想境界？',a:'这句话体现了范仲淹以天下为己任、吃苦在前享乐在后的崇高思想境界。他将个人的忧乐置于天下人之后，把国家和百姓的利益放在首位。这种"先忧后乐"的精神超越了个人得失，成为中国历代志士仁人的精神标杆，至今仍有深刻的教育意义。',type:'主旨题'},
+{q:'比较阅读：本文与《醉翁亭记》同为宋代贬谪文学，两文在思想情感上有何异同？',a:'相同点：两文都作于作者被贬期间，都表达了超然旷达的情怀，都写到"乐"。不同点：范仲淹的"乐"是"后天下之乐而乐"，侧重忧国忧民的政治抱负，境界宏大；欧阳修的"乐"是"与民同乐"，侧重地方治理中与百姓同享山水之乐，情感亲切。前者理性崇高，后者感性温厚，各具特色。',type:'比较阅读题'}
+]
+},
+{
+id:'chusan_2',title:'醉翁亭记（节选）',author:'欧阳修',dynasty:'北宋',source:'《欧阳文忠公文集》',grade:'初三',tags:['游记','写景','与民同乐'],
+fullText:'环滁皆山也。其西南诸峰，林壑尤美，望之蔚然而深秀者，琅琊也。山行六七里，渐闻水声潺潺，而泻出于两峰之间者，酿泉也。峰回路转，有亭翼然临于泉上者，醉翁亭也。作亭者谁？山之僧智仙也。名之者谁？太守自谓也。太守与客来饮于此，饮少辄醉，而年又最高，故自号曰醉翁也。醉翁之意不在酒，在乎山水之间也。山水之乐，得之心而寓之酒也。',
+sentences:[
+{orig:'环滁皆山也。',trans:'环绕着滁州城的都是山。'},
+{orig:'其西南诸峰，林壑尤美，望之蔚然而深秀者，琅琊也。',trans:'它西南方向的几座山峰，树林和山谷尤其美丽，看上去树木茂盛、幽深秀丽的，是琅琊山。'},
+{orig:'山行六七里，渐闻水声潺潺，而泻出于两峰之间者，酿泉也。',trans:'沿着山路走六七里，渐渐听到潺潺的水声，（看到一股泉水）从两座山峰之间倾泻而出的，是酿泉。'},
+{orig:'峰回路转，有亭翼然临于泉上者，醉翁亭也。',trans:'山势回环，路也跟着拐弯，有一座亭子，（亭角翘起）像鸟张开翅膀一样，高踞在泉水之上的，是醉翁亭。'},
+{orig:'作亭者谁？山之僧智仙也。',trans:'建造亭子的人是谁？是山上的和尚智仙。'},
+{orig:'名之者谁？太守自谓也。',trans:'给它命名的人是谁？是太守用自己的别号（醉翁）来命名的。'},
+{orig:'太守与客来饮于此，饮少辄醉，而年又最高，故自号曰醉翁也。',trans:'太守和宾客来这里饮酒，喝一点就醉了，而且年纪又最大，所以给自己起了个别号叫"醉翁"。'},
+{orig:'醉翁之意不在酒，在乎山水之间也。',trans:'醉翁的情趣不在于（喝酒），而在于山水之间。'},
+{orig:'山水之乐，得之心而寓之酒也。',trans:'欣赏山水的乐趣，领会在心里，寄托在喝酒上。'}
+],
+vocab:[
+{word:'环',def:'环绕',type:'实词',eg:'环滁皆山也'},
+{word:'壑',def:'山谷',type:'实词',eg:'林壑尤美'},
+{word:'尤',def:'格外，特别',type:'虚词',eg:'林壑尤美'},
+{word:'蔚然',def:'茂盛的样子',type:'实词',eg:'望之蔚然而深秀者'},
+{word:'峰回路转',def:'山势回环，路也跟着拐弯。比喻事情经历曲折后出现转机',type:'实词',eg:'峰回路转'},
+{word:'翼然',def:'像鸟展翅的样子（名词作状语）',type:'实词',eg:'有亭翼然临于泉上者'},
+{word:'临',def:'居高面下，靠近',type:'实词',eg:'临于泉上'},
+{word:'名',def:'命名（名词作动词）',type:'实词',eg:'名之者谁'},
+{word:'辄',def:'就',type:'虚词',eg:'饮少辄醉'},
+{word:'意',def:'情趣，心意',type:'实词',eg:'醉翁之意不在酒'},
+{word:'乎',def:'于，在',type:'虚词',eg:'在乎山水之间也'},
+{word:'得',def:'领会',type:'实词',eg:'得之心而寓之酒也'},
+{word:'寓',def:'寄托',type:'实词',eg:'寓之酒也'},
+{word:'而',def:'表承接 / 表并列 / 表转折',type:'虚词',eg:'而泻出于两峰之间 / 而年又最高 / 得之心而寓之酒'}
+],
+grammar:[
+{type:'判断句',example:'……者，……也',note:'文中多处使用"……者，……也"格式，如"望之蔚然而深秀者，琅琊也""有亭翼然临于泉上者，醉翁亭也"。'},
+{type:'词类活用',example:'山行六七里',note:'"山"是名词，这里作状语，"沿着山路"。'},
+{type:'词类活用',example:'名之者谁',note:'"名"是名词，这里活用为动词，"命名"。'},
+{type:'词类活用',example:'有亭翼然临于泉上者',note:'"翼"是名词，这里作状语，"像鸟的翅膀一样"。'}
+],
+authorIntro:'欧阳修（1007—1072），字永叔，号醉翁、六一居士，吉州吉水（今江西吉安）人，北宋著名文学家、史学家，"唐宋八大家"之一。他天圣八年中进士，官至参知政事，是北宋诗文革新运动的领袖，提携了苏轼、曾巩等文学大家。欧阳修散文平易自然、流畅婉转，诗词亦清新隽永。代表作有《醉翁亭记》《丰乐亭记》《秋声赋》等，谥号"文忠"。',
+dynastyIntro:'北宋中期，国家承平日久，但内忧外患渐显。庆历新政失败后，支持改革的欧阳修于庆历五年（1045年）被贬为滁州知州。滁州地处偏僻，但山水秀丽，民风淳朴。欧阳修在滁州期间治理有方，与民休息，常游山水，写下了《醉翁亭记》等名篇。北宋文人在贬谪中寄情山水、与民同乐，成为一时风气。',
+writingIntent:'本文作于欧阳修贬谪滁州期间。文章以"醉翁"自号，看似沉醉于山水之乐，实则寄托了被贬后的旷达情怀和"与民同乐"的政治理想。文章围绕"乐"字展开：山水之乐、宴酣之乐、滁人之乐，层层递进，最终归结为"太守之乐其乐"——以百姓之乐为乐。作者以"醉"写"醒"，以"乐"写"忧"，在寄情山水中表达了对治理滁州的自慰和对百姓安居乐业的欣慰。',
+literaryValue:'《醉翁亭记》是古代山水游记的名篇，艺术特色鲜明。全文用了二十一个"也"字，形成一唱三叹的韵律之美；骈散结合，对偶工整而不板滞；移步换景，层次分明。本文是中考文言文阅读的重点篇目，"醉翁之意不在酒"已成为常用成语。',
+examQuestions:[
+{q:'翻译下面的句子：醉翁之意不在酒，在乎山水之间也。',a:'醉翁的情趣不在于（喝酒），而在于山水之间。（关键词："意"译为"情趣，心意"，"乎"译为"于，在"，注意"在乎"是两个词。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）望之蔚然而深秀者（2）名之者谁（3）饮少辄醉（4）得之心而寓之酒也',a:'（1）蔚然：茂盛的样子。（2）名：命名（名词作动词）。（3）辄：就。（4）寓：寄托。',type:'实词题'},
+{q:'文章连用多个"……者，……也"的判断句式，有何表达效果？',a:'文章大量使用"……者，……也"判断句式，如"望之蔚然而深秀者，琅琊也""有亭翼然临于泉上者，醉翁亭也"等，形成了一唱三叹的韵律美。这种句式使文章节奏舒缓悠长，与醉翁悠然自得的心境相协调，也增强了文章的抒情性和音乐感，体现了欧阳修散文平易自然、流畅婉转的风格。',type:'赏析题'},
+{q:'"山水之乐，得之心而寓之酒也"一句在文中有何作用？',a:'这句话承上启下：既总结了前文写山水之乐的内容，又点明了"醉翁"之"醉"的本质——醉不在酒，而在山水之乐，为下文写宴酣之乐和与民同乐做铺垫。同时，这句话揭示了"乐"与"醉"的关系：山水之乐是实质，饮酒是寄托方式，含蓄地表达了作者以山水自遣、以酒寄情的旷达情怀。',type:'理解题'},
+{q:'本文的"乐"包含哪几个层次？请结合文章内容简要分析。',a:'本文的"乐"包含三个层次：①山水之乐——陶醉于琅琊山、酿泉的自然美景；②宴酣之乐——与宾客宴饮，"饮少辄醉"而自得其乐；③与民同乐——滁人游玩、太守宴客，百姓安居乐业，太守以百姓之乐为乐。三个层次由己及人、由浅入深，最终归于"与民同乐"的主旨，体现了欧阳修的政治理想和旷达胸襟。',type:'主旨题'}
+]
+},
+{
+id:'chusan_3',title:'湖心亭看雪',author:'张岱',dynasty:'明末清初',source:'《陶庵梦忆》',grade:'初三',tags:['写景','白描','故国之思'],
+fullText:'崇祯五年十二月，余住西湖。大雪三日，湖中人鸟声俱绝。是日更定矣，余拏一小舟，拥毳衣炉火，独往湖心亭看雪。雾凇沆砀，天与云与山与水，上下一白。湖上影子，惟长堤一痕、湖心亭一点、与余舟一芥、舟中人两三粒而已。\n到亭上，有两人铺毡对坐，一童子烧酒炉正沸。见余大喜曰："湖中焉得更有此人！"拉余同饮。余强饮三大白而别。问其姓氏，是金陵人，客此。及下船，舟子喃喃曰："莫说相公痴，更有痴似相公者。"',
+sentences:[
+{orig:'崇祯五年十二月，余住西湖。',trans:'崇祯五年十二月，我住在西湖边。'},
+{orig:'大雪三日，湖中人鸟声俱绝。',trans:'大雪接连下了三天，湖中行人、飞鸟的声音都消失了。'},
+{orig:'是日更定矣，余拏一小舟，拥毳衣炉火，独往湖心亭看雪。',trans:'这一天晚上初更以后，我撑着一叶小舟，穿着毛皮衣，带着火炉，独自前往湖心亭看雪。'},
+{orig:'雾凇沆砀，天与云与山与水，上下一白。',trans:'（湖上）弥漫着水气凝成的冰花，天与云与山与水，浑然一体，白茫茫一片。'},
+{orig:'湖上影子，惟长堤一痕、湖心亭一点、与余舟一芥、舟中人两三粒而已。',trans:'湖上（比较清晰的）影子，只有（西湖）长堤上一道痕迹、湖心亭的一个轮廓点、我的像一只小草那么小的船、和船上的两三个人影罢了。'},
+{orig:'到亭上，有两人铺毡对坐，一童子烧酒炉正沸。',trans:'到了亭子上，看见有两个人已铺好毡子相对而坐，一个童子正把酒炉里的酒烧得滚沸。'},
+{orig:'见余大喜曰："湖中焉得更有此人！"',trans:'（那两个人）看见我，非常高兴地说："湖中哪能还有这样的人！"'},
+{orig:'拉余同饮。余强饮三大白而别。',trans:'（他们）拉着我一同饮酒。我尽力喝了三大杯酒然后告别。'},
+{orig:'问其姓氏，是金陵人，客此。',trans:'（我）问他们的姓氏，（得知）他们是金陵人，在此地客居。'},
+{orig:'及下船，舟子喃喃曰："莫说相公痴，更有痴似相公者。"',trans:'等到下了船，船夫嘟囔着说："不要说相公您痴，还有像您一样痴的人呢。"'}
+],
+vocab:[
+{word:'俱',def:'全，都',type:'虚词',eg:'人鸟声俱绝'},
+{word:'绝',def:'消失，断绝',type:'实词',eg:'湖中人鸟声俱绝'},
+{word:'更定',def:'晚上八点左右。更，古代夜间计时单位',type:'实词',eg:'是日更定矣'},
+{word:'拏',def:'撑（船）',type:'实词',eg:'余拏一小舟'},
+{word:'毳衣',def:'毛皮衣',type:'实词',eg:'拥毳衣炉火'},
+{word:'雾凇',def:'水气凝成的冰花',type:'实词',eg:'雾凇沆砀'},
+{word:'沆砀',def:'白气弥漫的样子',type:'实词',eg:'雾凇沆砀'},
+{word:'一',def:'全，满',type:'虚词',eg:'上下一白'},
+{word:'芥',def:'小草，比喻微小的东西',type:'实词',eg:'余舟一芥'},
+{word:'粒',def:'米粒，比喻微小',type:'实词',eg:'舟中人两三粒'},
+{word:'而已',def:'罢了（语气词）',type:'虚词',eg:'两三粒而已'},
+{word:'焉得',def:'哪能',type:'虚词',eg:'湖中焉得更有此人'},
+{word:'更',def:'还',type:'虚词',eg:'焉得更有此人'},
+{word:'大白',def:'大酒杯',type:'实词',eg:'余强饮三大白而别'},
+{word:'强',def:'尽力，勉强',type:'实词',eg:'强饮三大白'},
+{word:'客',def:'客居（名词作动词）',type:'实词',eg:'客此'},
+{word:'痴',def:'痴迷，对某事物特别热爱',type:'实词',eg:'莫说相公痴'}
+],
+grammar:[
+{type:'白描手法',example:'天与云与山与水，上下一白。',note:'不用华丽辞藻，以最朴素简练的笔墨勾勒景物，连用三个"与"字，营造出天地浑然一体的境界。'},
+{type:'量词妙用',example:'一痕、一点、一芥、两三粒',note:'用极小的量词描写景物，突出雪中景物的渺小和天地之大，形成强烈的对比。'},
+{type:'词类活用',example:'客此',note:'"客"本是名词（旅客），这里活用为动词，"客居、旅居"。'},
+{type:'词类活用',example:'余拏一小舟',note:'"拏"名词作动词，"撑（船）"。'}
+],
+authorIntro:'张岱（1597—1689），字宗子，号陶庵，山阴（今浙江绍兴）人，明末清初文学家。他出身书香世家，前半生过着优裕的公子生活，精于茶道、音乐、戏曲，酷爱山水。明亡后隐居山中，穷困潦倒，以笔墨寄情，追忆往昔繁华。代表作《陶庵梦忆》《西湖梦寻》以清新淡雅的笔触记录明末江南风物，是晚明小品的代表作家，其文风对后世影响深远。',
+dynastyIntro:'明末清初是一个天翻地覆的时代。明朝覆灭，满清入主中原，许多汉族文人心怀故国之思，隐居不仕。他们以文字追忆旧日繁华，寄托亡国之痛和身世之感。小品文在这一时期达到高峰，风格趋向清新自然、性灵抒发。张岱的文章正是这一时代风气的典型代表，表面写景叙事，实则寄托深沉的故国之思和人生感慨。',
+writingIntent:'本文写于明亡之后，表面记述冬日独往湖心亭看雪的经历，实则寄托了作者对故国的追思和孤高脱俗的精神追求。文中大雪三日、人鸟声俱绝的空寂，天与云与山与水上下一白的混沌，以及"独往""痴"等字眼，无不透露出作者遗世独立的心境和故国之思。偶遇金陵客的惊喜和舟子"痴"的评价，则以旁人之口映衬作者超凡脱俗的情怀。',
+literaryValue:'《湖心亭看雪》是晚明小品的代表作，以白描手法著称。"一痕""一点""一芥""两三粒"等极小量词的妙用，与天地的浩渺形成强烈对比，营造出空灵绝妙的意境。本文是中考文言文阅读常考篇目，对学习白描手法和体会情景交融具有重要价值。',
+examQuestions:[
+{q:'翻译下面的句子：雾凇沆砀，天与云与山与水，上下一白。',a:'（湖上）弥漫着水气凝成的冰花，天与云与山与水，浑然一体，白茫茫一片。（关键词："雾凇"译为"水气凝成的冰花"，"沆砀"译为"白气弥漫的样子"，"一"译为"全，满"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）湖中人鸟声俱绝（2）是日更定矣（3）余强饮三大白而别（4）客此',a:'（1）俱：全，都。（2）更定：晚上八点左右（初更以后）。（3）大白：大酒杯。（4）客：客居（名词作动词）。',type:'实词题'},
+{q:'文中"惟长堤一痕、湖心亭一点、与余舟一芥、舟中人两三粒而已"运用了什么写作手法？有何表达效果？',a:'运用了白描手法和以小衬大的对比手法。用"一痕""一点""一芥""两三粒"等极小的量词描写景物，将长堤、亭子、小舟、人物极度缩小，与天地的浩渺广阔形成强烈对比，突出了人在自然中的渺小和天地浑然一体的空灵意境，也映射出作者孤独超然的心境。',type:'赏析题'},
+{q:'舟子说"莫说相公痴，更有痴似相公者"，文中"痴"的含义是什么？',a:'"痴"在此意为"痴迷"，指对山水雪景的极度热爱和执着。舟子用"痴"评价张岱大雪天独自看雪的行为，又用"更有痴似相公者"点出亭中两人同样"痴"。这个"痴"字表面是船夫的不解，实则以俗人之见反衬作者超凡脱俗的精神追求，是全篇的点睛之笔。',type:'理解题'},
+{q:'本文写于明亡之后，联系时代背景，分析文中的"故国之思"体现在哪些地方。',a:'①开篇"崇祯五年"使用明朝年号，在清初仍坚持用明纪年，暗含故国之思。②"是金陵人，客此"点出相遇者是金陵（明朝故都南京）人，以"客"暗示漂泊异乡的身世之感。③大雪独往的孤寂、"痴"的执着，折射了明遗民孤高不屈的精神。这些细节含蓄地表达了作者对故国的追念和遗民的孤独心境。',type:'主旨题'}
+]
+},
+{
+id:'chusan_4',title:'送东阳马生序（节选）',author:'宋濂',dynasty:'明',source:'《宋学士文集》',grade:'初三',tags:['求学','勤学','赠序'],
+fullText:'余幼时即嗜学。家贫，无从致书以观，每假借于藏书之家，手自笔录，计日以还。天大寒，砚冰坚，手指不可屈伸，弗之怠。录毕，走送之，不敢稍逾约。以是人多以书假余，余因得遍观群书。\n既加冠，益慕圣贤之道。又患无硕师名人与游，尝趋百里外，从乡之先达执经叩问。先达德隆望尊，门人弟子填其室，未尝稍降辞色。余立侍左右，援疑质理，俯身倾耳以请；或遇其叱咄，色愈恭，礼愈至，不敢出一言以复；俟其欣悦，则又请焉。故余虽愚，卒获有所闻。',
+sentences:[
+{orig:'余幼时即嗜学。',trans:'我小时候就特别爱好学习。'},
+{orig:'家贫，无从致书以观，每假借于藏书之家，手自笔录，计日以还。',trans:'家里贫穷，没有办法买书来读，经常向藏书的人家去借，（借来）亲手抄写，计算着日子按时归还。'},
+{orig:'天大寒，砚冰坚，手指不可屈伸，弗之怠。',trans:'天气非常寒冷，砚台里的墨汁冻成了坚冰，手指不能弯曲伸直，（我）也不因此懈怠。'},
+{orig:'录毕，走送之，不敢稍逾约。',trans:'抄写完毕，跑着把书送还，不敢稍有超过约定的期限。'},
+{orig:'以是人多以书假余，余因得遍观群书。',trans:'因此别人大多愿意把书借给我，我因此能够广泛地阅读各种书籍。'},
+{orig:'既加冠，益慕圣贤之道。',trans:'成年以后，更加仰慕古代圣贤的学说。'},
+{orig:'又患无硕师名人与游，尝趋百里外，从乡之先达执经叩问。',trans:'又苦闷没有大师、名人与自己交游，曾经跑到百里之外，拿着经书向当地有道德学问的前辈请教。'},
+{orig:'先达德隆望尊，门人弟子填其室，未尝稍降辞色。',trans:'前辈德高望重，门人弟子挤满了他的屋子，（他）从来没有稍微把言辞放委婉些、把脸色放温和些。'},
+{orig:'余立侍左右，援疑质理，俯身倾耳以请。',trans:'我站立在旁边侍候着，提出疑难，询问道理，弯下身子、侧着耳朵来请教。'},
+{orig:'或遇其叱咄，色愈恭，礼愈至，不敢出一言以复。',trans:'有时遇到他训斥，（我的）态度更加恭敬，礼节更加周到，不敢说一句话来辩解。'},
+{orig:'俟其欣悦，则又请焉。',trans:'等到他高兴了，就又去请教。'},
+{orig:'故余虽愚，卒获有所闻。',trans:'所以我虽然愚笨，最终也获得了不少教益。'}
+],
+vocab:[
+{word:'嗜',def:'特别爱好',type:'实词',eg:'余幼时即嗜学'},
+{word:'致',def:'取得，得到。这里指买',type:'实词',eg:'无从致书以观'},
+{word:'假借',def:'借。"假"和"借"是同义词连用',type:'实词',eg:'每假借于藏书之家'},
+{word:'手自笔录',def:'亲手抄写。"手""笔"都是名词作状语',type:'实词',eg:'手自笔录'},
+{word:'弗之怠',def:'不因此懈怠。"弗之怠"即"弗怠之"，否定句中代词宾语前置',type:'句式',eg:'弗之怠'},
+{word:'走',def:'跑（古今异义）',type:'古今异义',eg:'走送之'},
+{word:'逾约',def:'超过约定的期限',type:'实词',eg:'不敢稍逾约'},
+{word:'以是',def:'因此',type:'虚词',eg:'以是人多以书假余'},
+{word:'加冠',def:'男子二十岁成年，行加冠礼',type:'实词',eg:'既加冠'},
+{word:'硕师',def:'大师，学问渊博的老师',type:'实词',eg:'无硕师名人与游'},
+{word:'趋',def:'快步走，赶往',type:'实词',eg:'尝趋百里外'},
+{word:'先达',def:'有道德学问的前辈',type:'实词',eg:'从乡之先达'},
+{word:'执经叩问',def:'拿着经书去请教',type:'实词',eg:'执经叩问'},
+{word:'援',def:'提出，引',type:'实词',eg:'援疑质理'},
+{word:'质',def:'询问',type:'实词',eg:'援疑质理'},
+{word:'叱咄',def:'训斥，呵责',type:'实词',eg:'或遇其叱咄'},
+{word:'至',def:'周到',type:'实词',eg:'礼愈至'},
+{word:'俟',def:'等待',type:'实词',eg:'俟其欣悦'},
+{word:'卒',def:'最终',type:'虚词',eg:'卒获有所闻'}
+],
+grammar:[
+{type:'宾语前置',example:'弗之怠',note:'"弗之怠"即"弗怠之"。在否定句中，代词"之"作宾语要前置。'},
+{type:'古今异义',example:'走送之',note:'"走"古义：跑。今义：步行。'},
+{type:'词类活用',example:'手自笔录',note:'"手"和"笔"都是名词作状语，"亲手""用笔"。'},
+{type:'状语后置',example:'每假借于藏书之家',note:'"于藏书之家"是介宾短语作状语，放在动词"假借"后面，即"于藏书之家假借"。'}
+],
+authorIntro:'宋濂（1310—1381），字景濂，号潜溪，浦江（今浙江义乌）人，明初著名文学家、史学家，被朱元璋誉为"开国文臣之首"。他幼年家贫，借书苦读，后师从元末大儒柳贯、黄溍。明朝建立后任翰林学士，主编《元史》，参与制定明朝典章制度。晚年因孙子牵涉胡惟庸案被贬，死于夔州。宋濂散文质朴醇厚，长于叙事说理，与刘基、高启并称"明初诗文三大家"。',
+dynastyIntro:'明初（1368年后），朱元璋建立明朝，百废待兴，急需人才。朝廷重视教育，设国子监培养人才。但当时社会尚未完全安定，许多贫寒子弟求学之路仍十分艰辛。宋濂作为从贫寒中走出的文臣领袖，对求学之苦有切身感受，其赠序既是对后学的勉励，也是对勤学精神的弘扬。',
+writingIntent:'本文是宋濂写给同乡晚辈马生的赠序。文章以自身求学经历为例，详述幼时家贫借书抄录、成年后负笈从师的艰辛历程，与当时太学生优越的学习条件形成鲜明对比。作者意图在于以亲身经历勉励马生珍惜学习机会、刻苦攻读，说明"业精于勤"的道理。文章叙事真切、说理自然，不空洞说教而以情感人，体现了赠序文"以己之经历励人之志"的写作特色。',
+literaryValue:'《送东阳马生序》是古代赠序文的典范之作，以真切的个人经历和朴实的语言打动读者。文章对比鲜明、叙事生动，将抽象的勤学道理化为具体的生活细节，具有极强的说服力和感染力，是中考文言文阅读的重点篇目。',
+examQuestions:[
+{q:'翻译下面的句子：以是人多以书假余，余因得遍观群书。',a:'因此别人大多愿意把书借给我，我因此能够广泛地阅读各种书籍。（关键词："以是"译为"因此"，"假"译为"借"，"因"译为"因此，于是"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）无从致书以观（2）弗之怠（3）走送之（4）俟其欣悦',a:'（1）致：取得，得到，这里指买。（2）怠：懈怠。（3）走：跑（古今异义）。（4）俟：等待。',type:'实词题'},
+{q:'"弗之怠"是什么特殊句式？请分析并翻译。',a:'是宾语前置句。"弗之怠"即"弗怠之"，在否定句中，代词"之"作宾语要前置。翻译为"不因此懈怠"，"之"指代抄书这件事。',type:'句式题'},
+{q:'作者从哪几个方面对比了自己求学时的艰辛和太学生的优越条件？这样写有什么作用？',a:'作者从三个方面对比：①书籍——自己"无从致书以观"需借书抄录 对比太生"坐大厦之下而诵诗书"；②请教——自己"趋百里外"求师、遭遇叱咤仍恭敬请教 对比太学生"有司业、博士为之师"；③生活——自己"日再食""缊袍敝衣" 对比太学生"廪稍之供""葛裘之遗"。对比的作用是以自身艰辛反衬太学生条件优越，说明勤学不在条件而在态度，增强说服力。',type:'理解题'},
+{q:'结合文章内容，谈谈你对"勤学"的理解。',a:'宋濂幼时家贫，借书手录、砚冰坚而手指不可屈伸仍不怠，趋百里外从师叩问、遇叱咤而色愈恭，这些经历说明勤学贵在意志坚定、不怕吃苦。学习条件优越并不等于学业有成，关键在于个人的主观努力。宋濂"故余虽愚，卒获有所闻"的自谦之语更说明勤能补拙。这对我们今天的学习仍有重要启示：端正态度、珍惜条件、刻苦努力才是求学成功之道。',type:'主旨题'}
+]
+},
+/* ===== 课外拓展 ===== */
+/* ----- 初一课外 ----- */
+{
+id:'ketang_chu1_1',title:'管宁割席',author:'刘义庆',dynasty:'南朝宋',source:'《世说新语》',grade:'初一',tags:['品德','交友','世说新语'],isExtracurricular:true,
+fullText:'管宁、华歆共园中锄菜，见地有片金，管挥锄与瓦石不异，华捉而掷去之。又尝同席读书，有乘轩冕过门者，宁读如故，歆废书出看。宁割席分坐曰："子非吾友也。"',
+sentences:[
+{orig:'管宁、华歆共园中锄菜，见地有片金，管挥锄与瓦石不异，华捉而掷去之。',trans:'管宁和华歆一起在园中锄菜，看见地上有一片金子，管宁挥动锄头和锄瓦石没有区别，华歆捡起来又扔掉了。'},
+{orig:'又尝同席读书，有乘轩冕过门者，宁读如故，歆废书出看。',trans:'（两人）又曾同坐一张席子读书，有坐着华贵马车经过门前的人，管宁照旧读书，华歆却放下书跑出去看。'},
+{orig:'宁割席分坐曰："子非吾友也。"',trans:'管宁割断席子分开坐着说："你不再是我的朋友了。"'}
+],
+vocab:[
+{word:'共',def:'一起，一同',type:'虚词',eg:'共园中锄菜'},
+{word:'锄',def:'用锄头松土除草',type:'实词',eg:'锄菜'},
+{word:'异',def:'不同',type:'实词',eg:'与瓦石不异'},
+{word:'捉',def:'握住，拿起',type:'实词',eg:'华捉而掷去之'},
+{word:'掷',def:'扔，抛',type:'实词',eg:'掷去之'},
+{word:'尝',def:'曾经',type:'虚词',eg:'又尝同席读书'},
+{word:'席',def:'席子，用草或竹编的坐垫',type:'实词',eg:'同席读书'},
+{word:'轩冕',def:'大夫以上的车乘，这里指达官贵人的车',type:'实词',eg:'有乘轩冕过门者'},
+{word:'故',def:'原来那样，照旧',type:'实词',eg:'宁读如故'},
+{word:'废',def:'放下，放弃',type:'实词',eg:'歆废书出看'},
+{word:'割',def:'割断，截断',type:'实词',eg:'割席分坐'}
+],
+grammar:[
+{type:'判断句',example:'子非吾友也',note:'"非……也"表示否定判断，"你不是我的朋友了"。'},
+{type:'省略句',example:'又尝同席读书',note:'省略主语"管宁、华歆"，完整应为"（管宁、华歆）又尝同席读书"。'}
+],
+authorIntro:'刘义庆（403—444），南朝宋宗室，袭封临川王，主编笔记小说集《世说新语》。该书分三十六门，记载汉末至东晋士族人物的言谈轶事，语言精练隽永，是中国"志人小说"的代表作，对后世笔记文学影响深远。',
+dynastyIntro:'南朝宋时期，士族阶层重视人物品评和道德操守，"德行"是《世说新语》开篇第一门。当时社会以品行高下论人交友，管宁割席的故事正是在这一文化背景下流传。',
+writingIntent:'本文出自《世说新语·德行》篇，通过管宁与华歆面对金子和达官车乘的不同态度，展现了两人品格境界的差异。管宁视金如瓦石、读书不为外物所动，体现淡泊专一的品格；华歆捉金又掷、废书出看，暴露了内心的动摇和功利。管宁"割席分坐"的决绝之举，表明了他对交友之道的严正态度——交友须以品德为重，道不同不相为谋。',
+literaryValue:'本文是《世说新语》中的经典篇章，"割席断交"由此成为后世形容因志不同道不合而绝交的成语。文章仅三句话，通过两个对比场景便鲜明地刻画出人物性格，体现了笔记小说以小见大、以行写人的艺术特色。',
+examQuestions:[
+{q:'翻译下面的句子：宁割席分坐曰："子非吾友也。"',a:'管宁割断席子分开坐着说："你不再是我的朋友了。"（关键词："割"译为"割断"，"席"指席子，"子"译为"你"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）管挥锄与瓦石不异（2）华捉而掷去之（3）宁读如故（4）歆废书出看',a:'（1）异：不同。（2）捉：握住，拿起。（3）故：原来那样，照旧。（4）废：放下。',type:'实词题'},
+{q:'管宁为什么要"割席分坐"？请结合文章内容分析。',a:'管宁割席分坐是因为他与华歆在品格志趣上存在根本差异。面对金子，管宁视如瓦石，华歆却拿起又扔掉，说明华歆内心仍受诱惑；面对达官车乘，管宁读书如故，华歆却废书出看，说明华歆羡慕功名。管宁认为两人道不同，不宜为友，所以果断割席。',type:'理解题'},
+{q:'文章用了什么写作手法来表现管宁和华歆的不同品格？',a:'文章运用了对比手法。将管宁和华歆面对同一事物（金子、轩冕）的不同反应进行对比：管宁"挥锄与瓦石不异"对比华歆"捉而掷去"，管宁"读如故"对比华歆"废书出看"。通过鲜明对比，管宁的淡泊专一与华歆的功利动摇形成强烈反差，人物性格跃然纸上。',type:'赏析题'},
+{q:'管宁"割席断交"的做法对你交友有什么启示？',a:'管宁的做法启示我们：交友应以品德和志趣为重，真正的朋友应在价值观和人生态度上相互认同。同时我们应学习管宁淡泊名利、专注学问的品格。当然，交友中也应有一定的包容度，不可因小事轻易断交，但当原则性的品格差异明显时，则应慎重选择朋友。',type:'主旨题'}
+]
+},
+{
+id:'ketang_chu1_2',title:'卖油翁',author:'欧阳修',dynasty:'北宋',source:'《欧阳文忠公文集》',grade:'初一',tags:['熟能生巧','寓言','谦虚'],isExtracurricular:true,
+fullText:'陈康肃公尧咨善射，当世无双，公亦以此自矜。尝射于家圃，有卖油翁释担而立，睨之，久而不去。见其发矢十中八九，但微颔之。康肃问曰："汝亦知射乎？吾射不亦精乎？"翁曰："无他，但手熟尔。"康肃忿然曰："尔安敢轻吾射！"翁曰："以我酌油知之。"乃取一葫芦置于地，以钱覆其口，徐以杓酌油沥之，自钱孔入，而钱不湿。因曰："我亦无他，惟手熟尔。"康肃笑而遣之。',
+sentences:[
+{orig:'陈康肃公尧咨善射，当世无双，公亦以此自矜。',trans:'陈康肃公尧咨擅长射箭，当时世上没有第二人可比，他也因此自夸。'},
+{orig:'尝射于家圃，有卖油翁释担而立，睨之，久而不去。',trans:'（有一次）他在自家的菜园子里射箭，有个卖油翁放下担子站在那里，斜着眼看他，很久不离开。'},
+{orig:'见其发矢十中八九，但微颔之。',trans:'看到他射出的箭十枝能中八九枝，只是微微点了点头。'},
+{orig:'康肃问曰："汝亦知射乎？吾射不亦精乎？"',trans:'康肃问道："你也懂射箭吗？我射箭的本领难道不精湛吗？"'},
+{orig:'翁曰："无他，但手熟尔。"',trans:'老翁说："没有别的奥妙，只是手法熟练罢了。"'},
+{orig:'康肃忿然曰："尔安敢轻吾射！"',trans:'康肃气愤地说："你怎么敢轻视我射箭的本领！"'},
+{orig:'翁曰："以我酌油知之。"',trans:'老翁说："凭我酌油的经验知道这个道理。"'},
+{orig:'乃取一葫芦置于地，以钱覆其口，徐以杓酌油沥之，自钱孔入，而钱不湿。',trans:'于是拿出一个葫芦放在地上，用一枚铜钱盖住葫芦口，慢慢地用勺子舀油注入，油从铜钱的孔中注入，而铜钱没有沾湿。'},
+{orig:'因曰："我亦无他，惟手熟尔。"',trans:'于是说："我也没有别的奥妙，只是手法熟练罢了。"'},
+{orig:'康肃笑而遣之。',trans:'康肃笑着打发他走了。'}
+],
+vocab:[
+{word:'善',def:'擅长，善于',type:'实词',eg:'善射'},
+{word:'自矜',def:'自夸，自傲',type:'实词',eg:'以此自矜'},
+{word:'圃',def:'菜园，园子',type:'实词',eg:'射于家圃'},
+{word:'释',def:'放下',type:'实词',eg:'释担而立'},
+{word:'睨',def:'斜着眼看，形容不在意的样子',type:'实词',eg:'睨之'},
+{word:'矢',def:'箭',type:'实词',eg:'发矢十中八九'},
+{word:'但',def:'只，只是',type:'虚词',eg:'但微颔之'},
+{word:'颔',def:'点头（名词作动词）',type:'实词',eg:'微颔之'},
+{word:'尔',def:'同"耳"，罢了',type:'虚词',eg:'但手熟尔'},
+{word:'忿然',def:'气愤的样子',type:'实词',eg:'忿然曰'},
+{word:'安',def:'怎么，哪里（疑问代词）',type:'虚词',eg:'尔安敢轻吾射'},
+{word:'轻',def:'轻视，看不起（形容词作动词）',type:'实词',eg:'轻吾射'},
+{word:'遣',def:'打发',type:'实词',eg:'笑而遣之'}
+],
+grammar:[
+{type:'反问句',example:'汝亦知射乎？吾射不亦精乎？',note:'"不亦……乎"固定句式，表委婉反问，"不也……吗？"。'},
+{type:'词类活用',example:'但微颔之',note:'"颔"本是名词（下巴），这里活用为动词，"点头"。'},
+{type:'省略句',example:'以钱覆其口',note:'省略介词宾语，"以（其）钱覆其口"。'}
+],
+authorIntro:'欧阳修（1007—1072），字永叔，号醉翁，北宋文坛领袖，"唐宋八大家"之一。他倡导诗文革新运动，散文平易自然。本文是一则寓言故事，通过卖油翁酌油的故事说明熟能生巧的道理。',
+dynastyIntro:'北宋重文轻武，士大夫阶层活跃。射箭作为"六艺"之一，仍受士人重视。陈尧咨是北宋状元，以善射闻名。当时社会崇尚技艺精湛，但也提倡谦虚内敛，反对恃才自傲。',
+writingIntent:'本文通过卖油翁酌油不湿铜钱的故事，阐明了"熟能生巧"的道理。作者以陈尧咨善射自矜与卖油翁酌油精熟形成对照，说明任何高超的技艺都不过是反复练习的结果，没有值得自夸的理由。文章也含蓄地批评了恃才自傲的态度，倡导谦虚务实的精神。',
+literaryValue:'《卖油翁》是古代寓言的名篇，"熟能生巧"由此成为常用成语。文章叙事简洁生动，人物对话传神，以小故事寓大道理，是初中生学习寓言体文言文的优秀课外读物。',
+examQuestions:[
+{q:'翻译下面的句子：无他，但手熟尔。',a:'没有别的奥妙，只是手法熟练罢了。（关键词："无他"译为"没有别的"，"但"译为"只，只是"，"尔"同"耳"译为"罢了"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）公亦以此自矜（2）释担而立（3）但微颔之（4）尔安敢轻吾射',a:'（1）自矜：自夸，自傲。（2）释：放下。（3）颔：点头（名词作动词）。（4）安：怎么，哪里。',type:'实词题'},
+{q:'卖油翁"但微颔之"的动作反映了他怎样的态度？',a:'卖油翁"微颔之"表示他对陈尧咨的射箭技艺并不特别赞赏，只是微微点头。这一动作反映了他认为射箭十中八九不过是"手熟"的结果，没什么了不起，体现了他见多识广、不以为然的态度，也为下文揭示"熟能生巧"的道理做铺垫。',type:'理解题'},
+{q:'文章结尾"康肃笑而遣之"中的"笑"反映了陈尧咨怎样的心理变化？',a:'陈尧咨从一开始的"忿然"（气愤卖油翁轻视自己）到最后的"笑"（释然），说明他看到卖油翁酌油的绝技后，理解了"熟能生巧"的道理，认识到自己的射箭技艺确实只是"手熟"而已，不再自负。这个"笑"既包含了对卖油翁的佩服，也有自嘲的意味，表明他接受了这个道理。',type:'赏析题'},
+{q:'本文告诉了我们什么道理？对你有什么启发？',a:'本文告诉我们：任何精湛的技艺都是反复练习的结果，即"熟能生巧"；有了本事不应自矜自傲。启发：在学习中，我们要通过反复练习来掌握知识和技能，不因一时的成绩而骄傲自满，要保持谦虚的态度，脚踏实地不断进步。',type:'主旨题'}
+]
+},
+{
+id:'ketang_chu1_3',title:'杯弓蛇影',author:'房玄龄',dynasty:'唐',source:'《晋书·乐广传》',grade:'初一',tags:['成语典故','心理','疑心'],isExtracurricular:true,
+fullText:'尝有亲客，久阔不复来，广问其故。答曰："前在坐，蒙赐酒，方欲饮，见杯中有蛇，意甚恶之，既饮而疾。"于时河南听事壁上有角，漆画作蛇，广意杯中蛇即角影也。复置酒于前处，谓客曰："酒中复有蛇不？"答曰："所见如初。"广乃告其所以，客豁然意解，沉疴顿愈。',
+sentences:[
+{orig:'尝有亲客，久阔不复来，广问其故。',trans:'（乐广）曾经有位亲近的客人，很久没来了，乐广问他原因。'},
+{orig:'答曰："前在坐，蒙赐酒，方欲饮，见杯中有蛇，意甚恶之，既饮而疾。"',trans:'客人回答说："上次在座时，承蒙赐酒，正要喝时，看见杯中有蛇，心里很厌恶，喝下去后就病了。"'},
+{orig:'于时河南听事壁上有角，漆画作蛇，广意杯中蛇即角影也。',trans:'当时河南郡办事厅的墙壁上挂着一把角弓，上面漆画着蛇的图案，乐广猜想杯中的蛇就是角弓的倒影。'},
+{orig:'复置酒于前处，谓客曰："酒中复有蛇不？"',trans:'（乐广）又在原来坐的位置摆上酒，对客人说："酒中还有蛇吗？"'},
+{orig:'答曰："所见如初。"',trans:'客人回答说："看到的和上次一样。"'},
+{orig:'广乃告其所以，客豁然意解，沉疴顿愈。',trans:'乐广于是告诉他原因，客人恍然大悟，重病顿时痊愈了。'}
+],
+vocab:[
+{word:'尝',def:'曾经',type:'虚词',eg:'尝有亲客'},
+{word:'阔',def:'久，指分别时间长',type:'实词',eg:'久阔不复来'},
+{word:'故',def:'原因，缘故',type:'实词',eg:'问其故'},
+{word:'蒙',def:'承蒙，受到（敬辞）',type:'实词',eg:'蒙赐酒'},
+{word:'方',def:'正，正当',type:'虚词',eg:'方欲饮'},
+{word:'恶',def:'厌恶，讨厌（读wù）',type:'实词',eg:'意甚恶之'},
+{word:'既',def:'已经，之后',type:'虚词',eg:'既饮而疾'},
+{word:'疾',def:'病，生病',type:'实词',eg:'既饮而疾'},
+{word:'听事',def:'办事厅堂',type:'实词',eg:'河南听事壁上'},
+{word:'意',def:'猜想，料想',type:'实词',eg:'广意杯中蛇即角影也'},
+{word:'豁然',def:'一下子明白的样子',type:'实词',eg:'豁然意解'},
+{word:'沉疴',def:'重病',type:'实词',eg:'沉疴顿愈'}
+],
+grammar:[
+{type:'判断句',example:'杯中蛇即角影也',note:'"即……也"表判断，"就是"。'},
+{type:'省略句',example:'复置酒于前处',note:'省略主语"乐广"，完整为"（乐广）复置酒于前处"。'}
+],
+authorIntro:'房玄龄（579—648），唐代名相，辅佐李世民开创"贞观之治"。他奉命主编《晋书》，记载西晋、东晋历史。《杯弓蛇影》出自《晋书·乐广传》，乐广是西晋名士，以善解人意著称。',
+dynastyIntro:'西晋时期，士族阶层讲究清谈风雅，重视人际交往。当时医学尚不发达，人们常将心理因素导致的疾病视为实疾。乐广通过理性分析解开客人心中疑团的故事，体现了魏晋士人的智慧与理性精神。',
+writingIntent:'本文记载了乐广通过调查发现"杯中蛇"实为角弓倒影、从而治愈客人心病的经过。故事意在说明：许多恐惧和疾病源于心理暗示和误解，只有查明真相、消除疑虑，才能从根本上解决问题。文章也赞扬了乐广善于观察、理性思考的智慧。',
+literaryValue:'"杯弓蛇影"由此成为著名成语，形容因虚幻的疑虑而自相惊扰。文章叙事简明、因果清晰，将心理作用导致疾病的现象以生动故事呈现，具有很强的说服力和教育意义。',
+examQuestions:[
+{q:'翻译下面的句子：广乃告其所以，客豁然意解，沉疴顿愈。',a:'乐广于是告诉他（杯中有蛇的）原因，客人恍然大悟，重病顿时痊愈了。（关键词："乃"译为"于是"，"所以"译为"……的原因"，"豁然"译为"一下子明白的样子"，"沉疴"译为"重病"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）久阔不复来（2）方欲饮（3）意甚恶之（4）广意杯中蛇即角影也',a:'（1）阔：久，分别时间长。（2）方：正，正当。（3）恶：厌恶（读wù）。（4）意：猜想，料想。',type:'实词题'},
+{q:'客人为什么会生病？乐广是怎样找到原因的？',a:'客人因喝酒时看到杯中有"蛇"（实为角弓倒影），心中厌恶恐惧，喝下后心理暗示导致生病。乐广通过观察发现厅堂墙壁上挂着漆画蛇纹的角弓，推测杯中蛇就是角弓的倒影，然后让客人在原位再饮酒验证，确认了"蛇"就是弓影，从而解开了客人的疑团。',type:'理解题'},
+{q:'"杯弓蛇影"这个成语现在比喻什么？请结合文章谈谈你的理解。',a:'"杯弓蛇影"现在比喻因虚幻的疑虑而自相惊扰。文章中客人因看到杯中角弓倒影误以为是蛇，因恐惧而致病，说明人的心理暗示可以严重影响身心健康。这个故事告诉我们：遇到问题要冷静分析、查明真相，不要被表象迷惑而产生不必要的恐惧。',type:'主旨题'}
+]
+},
+{
+id:'ketang_chu1_4',title:'邴原泣学',author:'裴松之',dynasty:'南朝宋',source:'《三国志·魏书》注引',grade:'初一',tags:['勤学','求学','励志'],isExtracurricular:true,
+fullText:'邴原少孤，数岁时，过书舍而泣。师曰："童子何泣？"原曰："孤者易伤，贫者易感。夫书者，必皆具有父兄者，一则羡其不孤，二则羡其得学，中心伤感，故泣耳。"师恻然曰："欲书可耳。"原曰："无钱资。"师曰："童子苟有志，我徒相教，不求资也。"于是遂就书。一冬之间，诵《孝经》《论语》。',
+sentences:[
+{orig:'邴原少孤，数岁时，过书舍而泣。',trans:'邴原小时候就失去了父亲，几岁时，经过学堂就哭了起来。'},
+{orig:'师曰："童子何泣？"',trans:'老师说："小孩子为什么哭？"'},
+{orig:'原曰："孤者易伤，贫者易感。"',trans:'邴原说："失去父亲的人容易伤感，贫穷的人容易感慨。'},
+{orig:'夫书者，必皆具有父兄者，一则羡其不孤，二则羡其得学，中心伤感，故泣耳。"',trans:'那些来上学的人，一定都是有父亲兄长的，我一是羡慕他们不孤单，二是羡慕他们能上学，内心伤感，所以哭了。"'},
+{orig:'师恻然曰："欲书可耳。"',trans:'老师同情地说："想读书是可以的。"'},
+{orig:'原曰："无钱资。"',trans:'邴原说："没有钱做学费。"'},
+{orig:'师曰："童子苟有志，我徒相教，不求资也。"',trans:'老师说："你如果真有志向，我免费教你，不收学费。"'},
+{orig:'于是遂就书。一冬之间，诵《孝经》《论语》。',trans:'于是邴原就开始上学了。一个冬天的时间，就能背诵《孝经》和《论语》。'}
+],
+vocab:[
+{word:'孤',def:'年幼丧父',type:'实词',eg:'邴原少孤'},
+{word:'泣',def:'哭泣',type:'实词',eg:'过书舍而泣'},
+{word:'伤',def:'伤感，悲伤',type:'实词',eg:'孤者易伤'},
+{word:'感',def:'感慨，感触',type:'实词',eg:'贫者易感'},
+{word:'夫',def:'发语词，引出议论，无实义',type:'虚词',eg:'夫书者'},
+{word:'羡',def:'羡慕',type:'实词',eg:'一则羡其不孤'},
+{word:'恻然',def:'同情的样子',type:'实词',eg:'师恻然曰'},
+{word:'苟',def:'如果，假如',type:'虚词',eg:'童子苟有志'},
+{word:'徒',def:'白白地，这里指免费',type:'虚词',eg:'我徒相教'},
+{word:'资',def:'钱财，费用',type:'实词',eg:'不求资也'},
+{word:'遂',def:'于是，就',type:'虚词',eg:'于是遂就书'}
+],
+grammar:[
+{type:'判断句',example:'孤者易伤，贫者易感',note:'"……者"表判断，"失去父亲的人容易伤感，贫穷的人容易感慨"。'},
+{type:'省略句',example:'过书舍而泣',note:'省略主语"邴原"，完整为"（邴原）过书舍而泣"。'}
+],
+authorIntro:'裴松之（372—451），南朝宋史学家，奉宋文帝之命为《三国志》作注，引书一百五十余种，大大丰富了《三国志》的内容。邴原是汉末三国时期名士，与管宁、华歆并称"一龙"，以好学和品行著称。',
+dynastyIntro:'汉末三国时期，战乱频繁，百姓流离失所，许多儿童失去父母。当时私学兴起，但学费对于贫寒家庭而言是沉重负担。邴原"少孤"且贫，求学之路格外艰辛，其求学故事在当时具有典型意义。',
+writingIntent:'本文通过邴原幼年路过学堂而泣、终获老师免费教导的故事，表现了邴原好学的志向和老师仁爱无私的品格。文章意在说明：求学贵在立志，贫寒不能阻挡有志之人；同时赞美了不收学费、无私育人的高尚师德。',
+literaryValue:'本文是一则感人的勤学故事，"邴原泣学"与"囊萤映雪""凿壁偷光"等故事并列为古代勤学典故。文章语言质朴、情感真挚，对激励青少年刻苦求学具有积极的教育意义。',
+examQuestions:[
+{q:'翻译下面的句子：童子苟有志，我徒相教，不求资也。',a:'你如果真有志向，我免费教你，不收学费。（关键词："苟"译为"如果"，"徒"译为"白白地，免费"，"资"译为"钱财，费用"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）邴原少孤（2）过书舍而泣（3）师恻然曰（4）童子苟有志',a:'（1）孤：年幼丧父。（2）泣：哭泣。（3）恻然：同情的样子。（4）苟：如果，假如。',type:'实词题'},
+{q:'邴原"过书舍而泣"的原因是什么？',a:'邴原哭泣有两个原因：一是他幼年丧父，看到学堂里的学生都有父兄陪伴，羡慕他们不孤单；二是他出身贫寒，羡慕那些学生有机会上学读书。他因为自己既孤且贫、求学无门而伤感落泪，体现了他对读书的强烈渴望。',type:'理解题'},
+{q:'文章中的老师是一个怎样的人？请结合内容分析。',a:'老师是一个富有同情心、无私奉献的教育者。他听到邴原哭泣的原因后"恻然"（同情），主动提出"欲书可耳"（可以来读书）；当邴原说没钱时，老师说"苟有志，我徒相教，不求资也"，表示只要有志向就免费教导。老师不以钱财为重，以培养人才为己任，品德高尚。',type:'赏析题'},
+{q:'邴原的求学经历对你有什么启发？',a:'邴原幼年丧父、家境贫寒，却因对知识的渴望而感动老师获得求学机会，一个冬天就背完了《孝经》《论语》，说明求学贵在立志和刻苦。这启发我们：学习的动力来自内心的渴望，条件艰苦不应成为放弃学习的理由。我们今天拥有优越的学习条件，更应珍惜机会、努力学习。',type:'主旨题'}
+]
+},
+{
+id:'ketang_chu1_5',title:'刻舟求剑',author:'吕不韦',dynasty:'战国',source:'《吕氏春秋》',grade:'初一',tags:['寓言','变通','讽刺'],isExtracurricular:true,
+fullText:'楚人有涉江者，其剑自舟中坠于水，遽契其舟，曰："是吾剑之所从坠。"舟止，从其所契者入水求之。舟已行矣，而剑不行，求剑若此，不亦惑乎？',
+sentences:[
+{orig:'楚人有涉江者，其剑自舟中坠于水，遽契其舟，',trans:'楚国有个渡江的人，他的剑从船中掉到水里，他急忙在船边刻上记号，'},
+{orig:'曰："是吾剑之所从坠。"',trans:'说："这里是我的剑掉下去的地方。"'},
+{orig:'舟止，从其所契者入水求之。',trans:'船停了，他就从刻记号的地方下水去找剑。'},
+{orig:'舟已行矣，而剑不行，求剑若此，不亦惑乎？',trans:'船已经走了，而剑不会走，像这样找剑，不也太糊涂了吗？'}
+],
+vocab:[
+{word:'涉',def:'渡过',type:'实词',eg:'涉江'},
+{word:'坠',def:'掉落',type:'实词',eg:'坠于水'},
+{word:'遽',def:'急忙，立刻',type:'虚词',eg:'遽契其舟'},
+{word:'契',def:'刻（通"锲"）',type:'通假字',eg:'遽契其舟'},
+{word:'是',def:'这（指示代词）',type:'虚词',eg:'是吾剑之所从坠'},
+{word:'所从',def:'从哪里，表示处所',type:'虚词',eg:'所从坠'},
+{word:'止',def:'停止',type:'实词',eg:'舟止'},
+{word:'行',def:'行驶，前行',type:'实词',eg:'舟已行矣'},
+{word:'惑',def:'糊涂，迷惑',type:'实词',eg:'不亦惑乎'}
+],
+grammar:[
+{type:'反问句',example:'不亦惑乎',note:'"不亦……乎"固定句式，表委婉反问，"不也太……了吗？"。'},
+{type:'通假字',example:'遽契其舟',note:'"契"通"锲"，刻。'},
+{type:'判断句',example:'是吾剑之所从坠',note:'"是"表判断，"这里是我的剑掉下去的地方"。'}
+],
+authorIntro:'吕不韦（？—前235），战国末期卫国濮阳人，秦国丞相。他召集门客编撰《吕氏春秋》，汇合先秦各派学说，号为"杂家"。该书兼收并蓄、内容宏富，保存了大量先秦思想史料和寓言故事。',
+dynastyIntro:'战国末期，秦国即将统一六国。社会剧烈变革，旧制度旧观念与新形势之间的矛盾突出。许多人不思变通、墨守成规，不能适应时代变化。《吕氏春秋》以寓言讽喻此类现象，具有深刻的现实针对性。',
+writingIntent:'本文通过楚人刻舟求剑的荒唐行为，讽刺了那些不知变通、用静止的眼光看问题的人。剑掉入水中后船已前行，而楚人仍在船上的记号处下水寻找，其错误在于将运动中的船与静止的剑混为一谈。作者以此寓言说明：事物是发展变化的，处理问题必须根据实际情况灵活变通，不能刻板教条。',
+literaryValue:'"刻舟求剑"成为千古流传的成语，比喻拘泥成法、不知变通。本文语言简练、寓理于事，是先秦寓言的代表作之一，对培养辩证思维和变通意识具有深刻的教育意义。',
+examQuestions:[
+{q:'翻译下面的句子：舟已行矣，而剑不行，求剑若此，不亦惑乎？',a:'船已经走了，而剑不会走，像这样找剑，不也太糊涂了吗？（关键词："行"译为"行驶"，"惑"译为"糊涂，迷惑"，"不亦……乎"译为"不也太……了吗"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）楚人有涉江者（2）遽契其舟（3）是吾剑之所从坠（4）不亦惑乎',a:'（1）涉：渡过。（2）契：通"锲"，刻。（3）是：这（指示代词）。（4）惑：糊涂，迷惑。',type:'实词题'},
+{q:'楚人"刻舟求剑"的错误在哪里？',a:'楚人的错误在于用静止的眼光看待运动的事物。剑掉入水中后，船继续前行，剑沉在水底不动，两者位置关系已发生变化。但楚人以为在船上刻个记号就能标记剑的位置，忽略了船在运动这一关键因素。他的思维方式是刻板的、静止的，不懂得事物是运动变化的。',type:'理解题'},
+{q:'"刻舟求剑"这个成语在今天有什么现实意义？',a:'"刻舟求剑"比喻拘泥成法、不知变通。在现实生活中，情况不断变化，如果仍用过时的方法解决问题，就会像楚人一样徒劳无功。这启示我们：要用发展的眼光看问题，根据实际情况灵活调整策略，不能墨守成规、刻板教条。',type:'主旨题'}
+]
+},
+/* ===== 课外初二标记 ===== */
+/* ----- 初二课外 ----- */
+{
+id:'ketang_chu2_1',title:'陋室铭',author:'刘禹锡',dynasty:'唐',source:'《全唐文》',grade:'初二',tags:['托物言志','铭文','品格'],isExtracurricular:true,
+fullText:'山不在高，有仙则名。水不在深，有龙则灵。斯是陋室，惟吾德馨。苔痕上阶绿，草色入帘青。谈笑有鸿儒，往来无白丁。可以调素琴，阅金经。无丝竹之乱耳，无案牍之劳形。南阳诸葛庐，西蜀子云亭。孔子云：何陋之有？',
+sentences:[
+{orig:'山不在高，有仙则名。水不在深，有龙则灵。',trans:'山不在于高，有了仙人就出名了。水不在于深，有了龙就灵异了。'},
+{orig:'斯是陋室，惟吾德馨。',trans:'这是简陋的屋子，只因我的品德好（就不感到简陋了）。'},
+{orig:'苔痕上阶绿，草色入帘青。',trans:'苔藓痕迹碧绿，长到台阶上；草色青葱，映入竹帘里。'},
+{orig:'谈笑有鸿儒，往来无白丁。',trans:'在一起谈笑的都是渊博的学者，交往的没有浅薄的人。'},
+{orig:'可以调素琴，阅金经。',trans:'可以弹奏朴素的古琴，阅读佛经。'},
+{orig:'无丝竹之乱耳，无案牍之劳形。',trans:'没有嘈杂的音乐扰乱耳朵，没有官府的公文使身体劳累。'},
+{orig:'南阳诸葛庐，西蜀子云亭。',trans:'南阳有诸葛亮的草庐，西蜀有扬子云的亭子。'},
+{orig:'孔子云：何陋之有？',trans:'孔子说："有什么简陋的呢？"'}
+],
+vocab:[
+{word:'名',def:'出名，有名（名词作动词）',type:'实词',eg:'有仙则名'},
+{word:'灵',def:'灵异，神奇',type:'实词',eg:'有龙则灵'},
+{word:'斯',def:'这（指示代词）',type:'虚词',eg:'斯是陋室'},
+{word:'馨',def:'散布得很远的香气，这里指品德高尚',type:'实词',eg:'惟吾德馨'},
+{word:'鸿儒',def:'博学的人。"鸿"：大',type:'实词',eg:'谈笑有鸿儒'},
+{word:'白丁',def:'平民，这里指没有什么学问的人',type:'实词',eg:'往来无白丁'},
+{word:'调',def:'调弄，弹奏',type:'实词',eg:'调素琴'},
+{word:'素琴',def:'不加装饰的琴',type:'实词',eg:'调素琴'},
+{word:'金经',def:'指佛经（用泥金书写）',type:'实词',eg:'阅金经'},
+{word:'丝竹',def:'琴瑟箫笛等乐器，这里指奏乐的声音',type:'实词',eg:'丝竹之乱耳'},
+{word:'案牍',def:'官府的公文',type:'实词',eg:'案牍之劳形'},
+{word:'劳',def:'使……劳累（使动用法）',type:'实词',eg:'案牍之劳形'}
+],
+grammar:[
+{type:'倒装句',example:'何陋之有',note:'宾语前置，"有何陋"，"之"是宾语前置的标志。'},
+{type:'词类活用',example:'有仙则名',note:'"名"本是名词，这里活用为动词，"出名"。'}
+],
+authorIntro:'刘禹锡（772—842），字梦得，洛阳人，唐代著名文学家、哲学家。他与柳宗元并称"刘柳"，与白居易合称"刘白"。刘禹锡因参与政治革新被贬二十余年，但始终不屈，诗文刚健豪迈、乐观旷达。代表作有《陋室铭》《竹枝词》《秋词》等。',
+dynastyIntro:'唐代中后期，政治腐败，藩镇割据。刘禹锡因参与王叔文政治革新被贬至朗州、连州等地。在贬谪期间，他居住在简陋的屋子里，但不以简陋为意，写下了《陋室铭》以明志，体现了古代士人安贫乐道、坚守节操的精神传统。',
+writingIntent:'本文采用托物言志的手法，以"陋室"为寄托，表达作者安贫乐道、高洁傲岸的品格。文章开头以山水起兴，引出"惟吾德馨"的主旨；中间描写陋室环境之雅、交往之雅、情趣之雅，从不同角度展示陋室不陋；结尾以诸葛庐、子云亭作类比，引用孔子语作结，强调"君子居之，何陋之有"。全文紧扣"德馨"二字，以陋室衬托品德，言简意丰。',
+literaryValue:'《陋室铭》是古代铭文的经典之作，全文仅八十一字，却骈散结合、对偶工整、音韵和谐，被誉为铭文典范。"山不在高，有仙则名"成为传世名句。本文是初中生学习托物言志手法的重要课外读物。',
+examQuestions:[
+{q:'翻译下面的句子：斯是陋室，惟吾德馨。',a:'这是简陋的屋子，只因我的品德好（就不感到简陋了）。（关键词："斯"译为"这"，"惟"译为"只"，"馨"译为"散布得远的香气，这里指品德高尚"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）有仙则名（2）谈笑有鸿儒（3）可以调素琴（4）无案牍之劳形',a:'（1）名：出名，有名（名词作动词）。（2）鸿儒：博学的人。（3）素琴：不加装饰的琴。（4）劳：使……劳累（使动用法）。',type:'实词题'},
+{q:'"何陋之有"是什么句式？请分析并翻译。',a:'是宾语前置句。"何陋之有"即"有何陋"，疑问代词"何陋"作宾语前置，"之"是宾语前置的标志。翻译为"有什么简陋的呢？"',type:'句式题'},
+{q:'文章从哪几个方面描写了"陋室不陋"？',a:'文章从三个方面描写"陋室不陋"：①环境之雅——"苔痕上阶绿，草色入帘青"，景色清幽；②交往之雅——"谈笑有鸿儒，往来无白丁"，来往的都是博学之士；③情趣之雅——"可以调素琴，阅金经。无丝竹之乱耳，无案牍之劳形"，生活高雅闲适。三个方面层层递进，以"不陋"衬"德馨"。',type:'理解题'},
+{q:'本文采用了什么写法？请结合内容分析其作用。',a:'本文采用托物言志的写法。作者以"陋室"为寄托物，通过描写陋室的环境、交往和情趣，表达自己安贫乐道、高洁傲岸的志向。开头以山水起兴引出"惟吾德馨"的主旨，结尾以诸葛庐、子云亭类比并以孔子语作结，既强调陋室不陋，又含蓄地表达了以古代贤人自比的志向。托物言志使抽象的品格追求变得具体可感，增强了文章的文学感染力。',type:'主旨题'}
+]
+},
+{
+id:'ketang_chu2_2',title:'爱莲说',author:'周敦颐',dynasty:'北宋',source:'《周元公集》',grade:'初二',tags:['托物言志','君子','莲花'],isExtracurricular:true,
+fullText:'水陆草木之花，可爱者甚蕃。晋陶渊明独爱菊。自李唐来，世人甚爱牡丹。予独爱莲之出淤泥而不染，濯清涟而不妖，中通外直，不蔓不枝，香远益清，亭亭净植，可远观而不可亵玩焉。予谓菊，花之隐逸者也；牡丹，花之富贵者也；莲，花之君子者也。噫！菊之爱，陶后鲜有闻。莲之爱，同予者何人？牡丹之爱，宜乎众矣！',
+sentences:[
+{orig:'水陆草木之花，可爱者甚蕃。',trans:'水中和陆地上草本木本的花，值得喜爱的很多。'},
+{orig:'晋陶渊明独爱菊。自李唐来，世人甚爱牡丹。',trans:'晋代的陶渊明唯独喜爱菊花。从唐代以来，世上的人非常喜爱牡丹。'},
+{orig:'予独爱莲之出淤泥而不染，濯清涟而不妖，',trans:'我唯独喜爱莲花从淤泥中长出来却不被污染，在清水里洗涤过却不显得妖媚，'},
+{orig:'中通外直，不蔓不枝，香远益清，亭亭净植，可远观而不可亵玩焉。',trans:'中间贯通外表笔直，不生蔓不长枝，香气传播得越远越清幽，洁净地挺立在水上，只能在远处观赏却不能靠近轻慢地把玩。'},
+{orig:'予谓菊，花之隐逸者也；牡丹，花之富贵者也；莲，花之君子者也。',trans:'我认为菊花，是花中的隐士；牡丹，是花中的富贵者；莲花，是花中的君子。'},
+{orig:'噫！菊之爱，陶后鲜有闻。莲之爱，同予者何人？牡丹之爱，宜乎众矣！',trans:'唉！对菊花的喜爱，陶渊明以后很少听到了。对莲花的喜爱，和我一样的还有谁呢？对牡丹的喜爱，当然人很多了！'}
+],
+vocab:[
+{word:'蕃',def:'多',type:'实词',eg:'可爱者甚蕃'},
+{word:'独',def:'唯独，只',type:'虚词',eg:'予独爱莲之'},
+{word:'淤泥',def:'河沟、池塘里积存的污泥',type:'实词',eg:'出淤泥而不染'},
+{word:'染',def:'沾染（污秽）',type:'实词',eg:'出淤泥而不染'},
+{word:'濯',def:'洗',type:'实词',eg:'濯清涟而不妖'},
+{word:'涟',def:'水波，这里指清水',type:'实词',eg:'濯清涟而不妖'},
+{word:'妖',def:'艳丽而不端正',type:'实词',eg:'濯清涟而不妖'},
+{word:'蔓',def:'生蔓（名词作动词）',type:'实词',eg:'不蔓不枝'},
+{word:'益',def:'更加',type:'虚词',eg:'香远益清'},
+{word:'亭亭',def:'耸立的样子',type:'实词',eg:'亭亭净植'},
+{word:'亵玩',def:'亲近而不庄重地玩弄',type:'实词',eg:'不可亵玩焉'},
+{word:'鲜',def:'少（读xiǎn）',type:'实词',eg:'陶后鲜有闻'},
+{word:'宜',def:'应当，当然',type:'虚词',eg:'宜乎众矣'}
+],
+grammar:[
+{type:'判断句',example:'莲，花之君子者也',note:'"……，……者也"表判断，"莲花是花中的君子"。'},
+{type:'词类活用',example:'不蔓不枝',note:'"蔓""枝"本是名词，这里活用为动词，"生蔓""长枝"。'}
+],
+authorIntro:'周敦颐（1017—1073），字茂叔，道州营道（今湖南道县）人，北宋著名哲学家，理学开山鼻祖。他提出"太极""无极"等哲学概念，著《太极图说》《通书》，被朱熹尊为理学宗师。周敦颐为人清廉正直，酷爱莲花，撰《爱莲说》以明志。',
+dynastyIntro:'北宋时期，理学兴起，士人注重道德修养和人格完善。周敦颐作为理学先驱，提倡"君子"品格。当时社会上流行赏牡丹之风，以牡丹为富贵象征，追慕功名利禄者众。周敦颐以莲自喻，倡导洁身自好的君子风范，具有针砭时风的意义。',
+writingIntent:'本文采用托物言志的手法，以莲花为寄托，通过对莲花"出淤泥而不染"等品格的赞美，表达作者不慕名利、洁身自好的君子追求。文章将菊、牡丹、莲三种花并列比较：菊花喻隐士、牡丹喻富贵者、莲花喻君子，通过对三种花的评价表达不同的人生态度。作者对世人争相追逐牡丹的风气暗含讽刺，对莲花般的君子品格表达了向往和坚守。',
+literaryValue:'《爱莲说》是古代说体散文的名篇，"出淤泥而不染"成为流传千古的名句，莲花自此成为君子的象征。文章语言精练、比喻精当、对比鲜明，是初中生学习托物言志和类比手法的经典课外读物。',
+examQuestions:[
+{q:'翻译下面的句子：予独爱莲之出淤泥而不染，濯清涟而不妖。',a:'我唯独喜爱莲花从淤泥中长出来却不被污染，在清水里洗涤过却不显得妖媚。（关键词："独"译为"唯独"，"染"译为"沾染"，"濯"译为"洗"，"妖"译为"艳丽而不端正"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）可爱者甚蕃（2）濯清涟而不妖（3）香远益清（4）陶后鲜有闻',a:'（1）蕃：多。（2）濯：洗。（3）益：更加。（4）鲜：少（读xiǎn）。',type:'实词题'},
+{q:'文章写莲的哪些特点？这些特点分别比喻君子的什么品格？',a:'①"出淤泥而不染"——比喻君子不与世俗同流合污；②"濯清涟而不妖"——比喻君子庄重质朴、不媚俗；③"中通外直"——比喻君子内心通达、行为正直；④"不蔓不枝"——比喻君子不攀附权贵；⑤"香远益清"——比喻君子美名远扬；⑥"亭亭净植"——比喻君子高洁独立；⑦"可远观而不可亵玩"——比喻君子令人敬重、不可轻侮。',type:'理解题'},
+{q:'文章将菊、牡丹、莲三种花并列，有何用意？',a:'文章将三种花分别比喻三种人：菊花喻隐士（避世之人），牡丹喻富贵者（追名逐利之人），莲花喻君子（洁身自好之人）。通过三者的对比，既衬托了莲花（君子）品格的高尚，又暗含对世人争慕牡丹（富贵）的讽刺，表达了作者不慕荣利、坚守君子之道的志向。',type:'赏析题'},
+{q:'"出淤泥而不染"在今天对你有什么启示？',a:'这句话启示我们：在复杂的社会环境中，要保持自身的高洁品格，不被外界的不良风气所影响。就像莲花从污泥中生长却不被污染一样，我们应在纷繁的世界中坚守道德底线，不随波逐流、不同流合污，做一个正直、清白、有担当的人。',type:'主旨题'}
+]
+},
+{
+id:'ketang_chu2_3',title:'河中石兽',author:'纪昀',dynasty:'清',source:'《阅微草堂笔记》',grade:'初二',tags:['推理','思辨','实践'],isExtracurricular:true,
+fullText:'沧州南一寺临河干，山门圮于河，二石兽并沉焉。阅十余岁，僧募金重修，求二石兽于水中，竟不可得，以为顺流下矣。棹数小舟，曳铁钯，寻十余里无迹。一讲学家设帐寺中，闻之笑曰："尔辈不能究物理。是非木杮，岂能为暴涨携之去？乃石性坚重，沙性松浮，湮于沙上，渐沉渐深耳。沿河求之，不亦颠乎？"众服为确论。一老河兵闻之，又笑曰："凡河中失石，当求之于上流。盖石性坚重，沙性松浮，水不能冲石，其反激之力，必于石下迎水处啮沙为坎穴。渐激渐深，至石之半，石必倒掷坎穴中。如是再啮，石又再转。转转不已，遂反溯流逆上矣。求之下流，固颠；求之地中，不更颠乎？"如其言，果得于数里外。然则天下之事，但知其一，不知其二者多矣，可据理臆断欤？',
+sentences:[
+{orig:'沧州南一寺临河干，山门圮于河，二石兽并沉焉。',trans:'沧州南面一座寺庙靠近河岸，山门倒塌在河里，两个石兽一起沉没在河中。'},
+{orig:'阅十余岁，僧募金重修，求二石兽于水中，竟不可得，以为顺流下矣。',trans:'过了十多年，和尚募集资金重修寺庙，在水中寻找两个石兽，竟然找不到，以为石兽顺流而下了。'},
+{orig:'棹数小舟，曳铁钯，寻十余里无迹。',trans:'划着几只小船，拖着铁钯，寻找了十多里也没有踪迹。'},
+{orig:'一讲学家设帐寺中，闻之笑曰："尔辈不能究物理。是非木杮，岂能为暴涨携之去？乃石性坚重，沙性松浮，湮于沙上，渐沉渐深耳。沿河求之，不亦颠乎？"',trans:'一位讲学家在寺中讲学，听了笑着说："你们这些人不能探求事物的道理。这不是木片，怎么能被暴涨的河水携带而去呢？石头性质坚硬沉重，沙子性质松散轻浮，埋没在沙上，越沉越深罢了。沿河寻找，不也太荒唐了吗？"'},
+{orig:'众服为确论。',trans:'众人信服地认为是正确的论断。'},
+{orig:'一老河兵闻之，又笑曰："凡河中失石，当求之于上流。"',trans:'一位老河兵听了，又笑着说："凡是在河中丢失的石头，应当到上游去寻找。"'},
+{orig:'盖石性坚重，沙性松浮，水不能冲石，其反激之力，必于石下迎水处啮沙为坎穴。渐激渐深，至石之半，石必倒掷坎穴中。如是再啮，石又再转。转转不已，遂反溯流逆上矣。',trans:'因为石头性质坚硬沉重，沙子性质松散轻浮，水不能冲走石头，水的反激力，一定在石头下方迎水的地方冲刷沙子形成坑穴。越冲越深，到石头的一半时，石头必定翻倒在坑穴中。像这样再冲刷，石头再翻转。翻转不停，于是反而逆流而上了。'},
+{orig:'求之下流，固颠；求之地中，不更颠乎？"',trans:'到下游去找，固然荒唐；到地下去找，不是更荒唐吗？"'},
+{orig:'如其言，果得于数里外。',trans:'按照他的话去找，果然在数里之外找到了。'},
+{orig:'然则天下之事，但知其一，不知其二者多矣，可据理臆断欤？',trans:'既然如此，那么天下的事，只知其一、不知其二的太多了，怎能仅凭道理就主观臆断呢？'}
+],
+vocab:[
+{word:'圮',def:'倒塌',type:'实词',eg:'山门圮于河'},
+{word:'并',def:'一起',type:'虚词',eg:'二石兽并沉焉'},
+{word:'阅',def:'经过，过了',type:'实词',eg:'阅十余岁'},
+{word:'竟',def:'竟然，终了',type:'虚词',eg:'竟不可得'},
+{word:'棹',def:'划（船）（名词作动词）',type:'实词',eg:'棹数小舟'},
+{word:'曳',def:'拖，拉',type:'实词',eg:'曳铁钯'},
+{word:'物理',def:'事物的道理（古今异义）',type:'古今异义',eg:'不能究物理'},
+{word:'杮',def:'削下的木片',type:'实词',eg:'是非木杮'},
+{word:'颠',def:'颠倒，荒唐',type:'实词',eg:'不亦颠乎'},
+{word:'啮',def:'冲刷，侵蚀',type:'实词',eg:'啮沙为坎穴'},
+{word:'已',def:'停止',type:'虚词',eg:'转转不已'},
+{word:'溯',def:'逆流而上',type:'实词',eg:'反溯流逆上'},
+{word:'臆断',def:'凭主观推测判断',type:'实词',eg:'可据理臆断欤'}
+],
+grammar:[
+{type:'反问句',example:'岂能为暴涨携之去？',note:'"岂……？"表反问，"怎么能……呢？"。'},
+{type:'古今异义',example:'不能究物理',note:'"物理"古义：事物的道理。今义：一门学科。'},
+{type:'词类活用',example:'棹数小舟',note:'"棹"本是名词（船桨），这里活用为动词，"划（船）"。'}
+],
+authorIntro:'纪昀（1724—1805），字晓岚，直隶献县（今河北）人，清代著名学者、文学家。他官至礼部尚书，主编《四库全书》，著有《阅微草堂笔记》。该书以笔记体记录奇闻异事，寓理于事，语言简洁，思想深刻。',
+dynastyIntro:'清代乾隆时期，考据学盛行，学者重书本知识而轻实践经验。许多读书人"只知其一，不知其二"，据理臆断而不重实际考察。纪昀借河中石兽的故事，讽刺这种脱离实际的学风，倡导实事求是的精神。',
+writingIntent:'本文通过寻找河中石兽的故事，说明了一个深刻的道理：天下之事不可仅凭一知半解就主观臆断。寺僧凭经验到下游找，讲学家凭理论到深处找，都错了；只有老河兵凭实际经验到上游找到了。作者意在告诫人们：认识事物不能片面，既要懂理论又要重实践，不能"据理臆断"。',
+literaryValue:'《河中石兽》是一篇寓理于事的笔记小说，叙事完整、说理深刻。文章通过三种人（寺僧、讲学家、老河兵）的不同判断形成对比，层层推进，最终揭示"不可据理臆断"的主题。语言简练生动，是初中生课外阅读的优秀篇目。',
+examQuestions:[
+{q:'翻译下面的句子：然则天下之事，但知其一，不知其二者多矣，可据理臆断欤？',a:'既然如此，那么天下的事，只知其一、不知其二的太多了，怎能仅凭道理就主观臆断呢？（关键词："然则"译为"既然如此，那么"，"但"译为"只"，"臆断"译为"凭主观推测判断"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）山门圮于河（2）阅十余岁（3）不能究物理（4）可据理臆断欤',a:'（1）圮：倒塌。（2）阅：经过，过了。（3）物理：事物的道理（古今异义）。（4）臆断：凭主观推测判断。',type:'实词题'},
+{q:'寺僧、讲学家、老河兵三人找石兽的思路分别是什么？谁是对的？',a:'寺僧凭经验以为石兽被水冲到下游，到下游寻找；讲学家凭理论认为石头沉重会沉入沙中，到原地深处寻找；老河兵凭实际经验分析水流冲刷沙子的规律，判断石兽会被反激力推到上游，到上游寻找。老河兵是对的，最终在上游数里外找到了石兽。',type:'理解题'},
+{q:'老河兵的分析与讲学家的分析有什么不同？这说明了什么道理？',a:'讲学家只考虑石头"坚重"和沙子"松浮"的性质，得出石头会"渐沉渐深"的结论，但忽略了水流的动态作用。老河兵不仅考虑石头和沙子的性质，还考虑到水不能冲走石头时产生的反激力会冲刷沙子、形成坑穴、导致石头翻转上移。这说明：认识事物不能片面，必须全面考虑各种因素的相互作用，理论必须结合实践经验。',type:'赏析题'},
+{q:'本文最后一句"可据理臆断欤"有何深刻含义？对你有什么启发？',a:'这句话意思是"怎能仅凭道理就主观臆断呢"，是对全文故事的总结和升华。启发我们：认识事物不能只凭理论推理或一知半解就下结论，必须深入实际、全面考察。在学习中，既要有扎实的理论基础，又要注重实践验证，避免"只知其一，不知其二"的片面性。',type:'主旨题'}
+]
+},
+{
+id:'ketang_chu2_4',title:'核舟记（节选）',author:'魏学洢',dynasty:'明',source:'《虞初新志》',grade:'初二',tags:['工艺描写','说明','微雕'],isExtracurricular:true,
+fullText:'明有奇巧人曰王叔远，能以径寸之木，为宫室、器皿、人物，以至鸟兽、木石，罔不因势象形，各具情态。尝贻余核舟一，盖大苏泛赤壁云。舟首尾长约八分有奇，高可二黍许。中轩敞者为舱，箬篷覆之。旁开小窗，左右各四，共八扇。启窗而观，雕栏相望焉。闭之，则右刻"山高月小，水落石出"，左刻"清风徐来，水波不兴"，石青糁之。',
+sentences:[
+{orig:'明有奇巧人曰王叔远，能以径寸之木，为宫室、器皿、人物，以至鸟兽、木石，罔不因势象形，各具情态。',trans:'明朝有个手艺奇妙精巧的人叫王叔远，能够用直径一寸的木头，雕刻成宫殿、器具、人物，以及鸟兽、木石，没有不顺着木头原来的样子模拟那些东西的形状，各有各的情态。'},
+{orig:'尝贻余核舟一，盖大苏泛赤壁云。',trans:'（他）曾经送给我一个果核雕成的船，刻的是苏东坡游赤壁（的情景）。'},
+{orig:'舟首尾长约八分有奇，高可二黍许。',trans:'船从头到尾大约长八分多一点，大约有两个黄米粒那么高。'},
+{orig:'中轩敞者为舱，箬篷覆之。',trans:'中间高起而宽敞的部分是船舱，用篛竹叶做成的船篷覆盖着它。'},
+{orig:'旁开小窗，左右各四，共八扇。',trans:'旁边开着小窗户，左右各有四扇，共八扇。'},
+{orig:'启窗而观，雕栏相望焉。',trans:'打开窗看，雕刻着花纹的栏杆左右相对。'},
+{orig:'闭之，则右刻"山高月小，水落石出"，左刻"清风徐来，水波不兴"，石青糁之。',trans:'关上窗，就看到右边刻着"山高月小，水落石出"，左边刻着"清风徐来，水波不兴"，用石青涂在刻字的凹处。'}
+],
+vocab:[
+{word:'奇巧',def:'奇妙精巧',type:'实词',eg:'奇巧人'},
+{word:'径寸',def:'直径一寸',type:'实词',eg:'径寸之木'},
+{word:'为',def:'做，这里指雕刻成',type:'实词',eg:'为宫室'},
+{word:'罔不',def:'无不，全都',type:'虚词',eg:'罔不因势象形'},
+{word:'因',def:'顺着，就着',type:'虚词',eg:'因势象形'},
+{word:'象',def:'模拟',type:'实词',eg:'因势象形'},
+{word:'贻',def:'赠',type:'实词',eg:'尝贻余核舟一'},
+{word:'有奇',def:'有零，有余（"有"通"又"）',type:'通假字',eg:'八分有奇'},
+{word:'轩敞',def:'高起而宽敞',type:'实词',eg:'中轩敞者'},
+{word:'箬篷',def:'用篛竹叶做成的船篷',type:'实词',eg:'箬篷覆之'},
+{word:'糁',def:'涂',type:'实词',eg:'石青糁之'}
+],
+grammar:[
+{type:'通假字',example:'八分有奇',note:'"有"通"又"，表示有零。'},
+{type:'判断句',example:'中轩敞者为舱',note:'"……者……也"格式，"……的（部分）是船舱"。'},
+{type:'词类活用',example:'箬篷覆之',note:'"箬篷"本是名词，这里作状语，"用箬篷"。'}
+],
+authorIntro:'魏学洢（约1596—1625），字子敬，明末浙江嘉善人。其父魏大中因弹劾魏忠贤被迫害致死，魏学洢悲愤而亡。《核舟记》是其代表作，以细腻的笔触记录了微雕艺人王叔远的精湛技艺，是古代说明文的经典。',
+dynastyIntro:'明代中后期，手工业和商业高度发达，民间工艺水平精湛。微雕作为一门独特的技艺，体现了中国古代工匠的智慧和创造力。同时，文人士大夫开始关注民间技艺，以文学形式记录和赞美工匠精神，体现了明代文化的新趋向。',
+writingIntent:'本文通过描写一枚核舟的精巧构造，赞美了微雕艺人王叔远的精湛技艺和中国古代工匠的智慧。文章从核舟的整体到局部，从船舱到窗户到刻字，有条不紊地介绍了核舟的细节，体现了说明文的条理性和准确性。作者意在以文字再现核舟之巧，让读者感受工艺之美。',
+literaryValue:'《核舟记》是古代说明文的经典名篇，描写细致入微、条理清晰、语言准确。文章从整体到局部、从正面到侧面，层次分明地展现了核舟的精巧，是初中生学习说明文写作的典范。',
+examQuestions:[
+{q:'翻译下面的句子：罔不因势象形，各具情态。',a:'没有不顺着木头原来的样子模拟那些东西的形状，各有各的情态。（关键词："罔不"译为"无不，全都"，"因"译为"顺着，就着"，"象"译为"模拟"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）径寸之木（2）尝贻余核舟一（3）八分有奇（4）石青糁之',a:'（1）径寸：直径一寸。（2）贻：赠。（3）有奇：有零，有余（"有"通"又"）。（4）糁：涂。',type:'实词题'},
+{q:'文章是怎样介绍核舟的？按什么顺序来写的？',a:'文章按照空间顺序介绍核舟：先整体概述核舟的长度和高度（"舟首尾长约八分有奇，高可二黍许"），再介绍中间的船舱（"中轩敞者为舱"），然后介绍船舱旁的小窗（"旁开小窗"），最后写窗上的刻字（"右刻……左刻……"）。从整体到局部、从中间到两侧，条理清晰。',type:'理解题'},
+{q:'核舟上刻"山高月小，水落石出"和"清风徐来，水波不兴"有什么用意？',a:'这两句话分别出自苏轼的《后赤壁赋》和《赤壁赋》，核舟的主题是"大苏泛赤壁"（苏东坡游赤壁），刻这两句赋中的名句既点明了核舟的主题，又增添了文化内涵和诗意，体现了王叔远雕刻技艺的精巧——不仅雕刻了船的形象，还融入了文学意境，使核舟成为一件兼具工艺美和文化美的艺术品。',type:'赏析题'},
+{q:'本文赞美了王叔远怎样的技艺？对你有什么启发？',a:'本文赞美了王叔远"罔不因势象形，各具情态"的微雕技艺——在径寸之木上雕刻出丰富细致的形象。这启发我们：任何精湛的技艺都源于长期的练习和专注的投入；工匠精神值得尊重和学习。在学习中，我们也应像王叔远那样精益求精、追求卓越。',type:'主旨题'}
+]
+},
+{
+id:'ketang_chu2_5',title:'大道之行也',author:'佚名',dynasty:'西汉',source:'《礼记·礼运》',grade:'初二',tags:['儒家','理想社会','大同'],isExtracurricular:true,
+fullText:'大道之行也，天下为公。选贤与能，讲信修睦。故人不独亲其亲，不独子其子，使老有所终，壮有所用，幼有所长，矜、寡、孤、独、废疾者皆有所养，男有分，女有归。货恶其弃于地也，不必藏于己；力恶其不出于身也，不必为己。是故谋闭而不兴，盗窃乱贼而不作，故外户而不闭。是谓大同。',
+sentences:[
+{orig:'大道之行也，天下为公。',trans:'大道施行的时候，天下是人们共有的。'},
+{orig:'选贤与能，讲信修睦。',trans:'把有贤德、有才能的人选出来（给大家办事），人人讲求诚信，培养和睦（气氛）。'},
+{orig:'故人不独亲其亲，不独子其子，',trans:'所以人们不单奉养自己的父母，不单抚育自己的子女，'},
+{orig:'使老有所终，壮有所用，幼有所长，矜、寡、孤、独、废疾者皆有所养，男有分，女有归。',trans:'使老年人能安度晚年，使壮年人能为社会效力，使孩子健康成长，使老而无妻、老而无夫、幼而无父、老而无子、残疾的人都能得到供养，男子有职业，女子有归宿。'},
+{orig:'货恶其弃于地也，不必藏于己；力恶其不出于身也，不必为己。',trans:'对于财货，人们憎恨把它扔在地上的行为，却不一定要自己私藏；对于力气，人们憎恨不肯出自自己身上的行为，却不一定为了自己。'},
+{orig:'是故谋闭而不兴，盗窃乱贼而不作，故外户而不闭。',trans:'因此奸邪之谋不会发生，盗窃、造反和害人的事情不会发生，所以大门不用关。'},
+{orig:'是谓大同。',trans:'这就是"大同"社会。'}
+],
+vocab:[
+{word:'大道',def:'指儒家推崇的最高政治原则和理想',type:'实词',eg:'大道之行也'},
+{word:'公',def:'共有的，公共的',type:'实词',eg:'天下为公'},
+{word:'与',def:'通"举"，推举，选拔',type:'通假字',eg:'选贤与能'},
+{word:'修',def:'培养',type:'实词',eg:'讲信修睦'},
+{word:'睦',def:'和睦',type:'实词',eg:'讲信修睦'},
+{word:'亲',def:'以……为亲（意动用法）',type:'实词',eg:'不独亲其亲'},
+{word:'子',def:'以……为子（意动用法）',type:'实词',eg:'不独子其子'},
+{word:'矜',def:'通"鳏"，老而无妻',type:'通假字',eg:'矜寡孤独'},
+{word:'分',def:'职分，指正当的职业',type:'实词',eg:'男有分'},
+{word:'归',def:'女子出嫁，这里指归宿',type:'实词',eg:'女有归'},
+{word:'恶',def:'憎恶（读wù）',type:'实词',eg:'货恶其弃于地也'},
+{word:'作',def:'兴起',type:'实词',eg:'而不作'}
+],
+grammar:[
+{type:'通假字',example:'选贤与能 / 矜寡孤独',note:'"与"通"举"，推举；"矜"通"鳏"，老而无妻。'},
+{type:'意动用法',example:'不独亲其亲，不独子其子',note:'"亲""子"本是名词，这里活用为动词并表意动，"以……为亲""以……为子"。'},
+{type:'判断句',example:'是谓大同',note:'"是谓……"表判断，"这就叫做大同"。'}
+],
+authorIntro:'本文出自《礼记·礼运》，《礼记》是儒家经典"五经"之一，由西汉戴圣编定，记载先秦儒家礼仪制度和哲学思想。"大同"社会是儒家描绘的最高政治理想，对后世产生了深远影响。',
+dynastyIntro:'西汉时期（前202—公元8年），国家统一，社会安定。汉武帝"罢黜百家，独尊儒术"后，儒家思想成为正统。《礼记》在此背景下整理成书，追述先秦儒家的社会理想。"大同"思想既是对上古禅让时代的美化，也是对现实社会的理想化反思。',
+writingIntent:'本文描绘了儒家理想中的"大同"社会蓝图。文章从政治制度（"天下为公""选贤与能"）、社会关系（"不独亲其亲，不独子其子"）、民生保障（"老有所终"等）、财富观念（"不必藏于己"）和社会治安（"外户而不闭"）等方面全面阐述了大同社会的特征。作者意在以理想社会的描绘，为现实社会提供参照和追求目标。',
+literaryValue:'《大道之行也》是中国古代政治哲学的经典篇章，"天下为公""大同社会"成为两千年来中华民族追求的理想社会蓝图。文章骈散结合、排比工整，气势恢宏，对后世政治思想影响深远，孙中山曾以"天下为公"为座右铭。',
+examQuestions:[
+{q:'翻译下面的句子：故人不独亲其亲，不独子其子。',a:'所以人们不单奉养自己的父母，不单抚育自己的子女。（关键词："亲"和"子"都是意动用法，"以……为亲""以……为子"，第一个"亲""子"是动词，第二个是名词。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）选贤与能（2）讲信修睦（3）矜寡孤独（4）男有分',a:'（1）与：通"举"，推举。（2）修：培养。（3）矜：通"鳏"，老而无妻。（4）分：职分，指正当的职业。',type:'通假字/实词题'},
+{q:'"大同"社会有哪些基本特征？请分条概括。',a:'①政治上"天下为公"，以贤能为标准选拔人才；②社会关系上人们不独亲其亲、不独子其子，关爱他人；③民生保障上老有所终、壮有所用、幼有所长，弱势群体皆有所养；④分配上不私藏财物，出力不必为己；⑤治安上谋闭不兴、盗贼不作，夜不闭户。',type:'理解题'},
+{q:'"货恶其弃于地也，不必藏于己"反映了怎样的社会观念？',a:'这句话反映了大同社会中人们对财富的观念：憎恨浪费（把财物扔在地上），但不贪图私藏。这说明大同社会中人们不追求个人占有财富，而是珍惜资源、共享财物。这种观念体现了儒家"天下为公"的理想，与私有制社会的利己观念形成鲜明对比。',type:'赏析题'},
+{q:'比较阅读：《大道之行也》中的"大同"社会与《桃花源记》中的桃花源有何异同？',a:'相同点：两者都描绘了理想社会，都追求人人平等、安宁和谐的生活。不同点：①"大同"社会是儒家从政治制度层面提出的理想蓝图，强调"天下为公"、选贤与能、社会保障等，具有理论性和系统性；桃花源是陶渊明虚构的具体场景，侧重生活图景的描绘，具有文学性和感性色彩。②"大同"社会是面向全社会的政治理想，桃花源是与世隔绝的小社区。③"大同"更具社会改革的指向性，桃花源更含对现实的逃避色彩。',type:'比较阅读题'}
+]
+},
+/* ===== 课外初三标记 ===== */
+/* ----- 初三课外 ----- */
+{
+id:'ketang_chu3_1',title:'记承天寺夜游',author:'苏轼',dynasty:'北宋',source:'《东坡志林》',grade:'初三',tags:['贬谪','旷达','月景'],isExtracurricular:true,
+fullText:'元丰六年十月十二日夜，解衣欲睡，月色入户，欣然起行。念无与为乐者，遂至承天寺寻张怀民。怀民亦未寝，相与步于中庭。庭下如积水空明，水中藻、荇交横，盖竹柏影也。何夜无月？何处无竹柏？但少闲人如吾两人者耳。',
+sentences:[
+{orig:'元丰六年十月十二日夜，解衣欲睡，月色入户，欣然起行。',trans:'元丰六年十月十二日夜晚，（我）脱了衣服想要睡觉，月光照进门里，高兴地起来走到户外。'},
+{orig:'念无与为乐者，遂至承天寺寻张怀民。',trans:'想到没有可以共同取乐的人，于是到承天寺寻找张怀民。'},
+{orig:'怀民亦未寝，相与步于中庭。',trans:'怀民也没有睡，（我们）便一起在庭院中散步。'},
+{orig:'庭下如积水空明，水中藻、荇交横，盖竹柏影也。',trans:'庭院里宛如积满了空明澄澈的水，水中有藻、荇交错纵横，原来那是竹子、柏树的影子。'},
+{orig:'何夜无月？何处无竹柏？但少闲人如吾两人者耳。',trans:'哪一夜没有月光？哪里没有竹子和柏树？只是缺少像我们两个这样清闲的人罢了。'}
+],
+vocab:[
+{word:'户',def:'门',type:'实词',eg:'月色入户'},
+{word:'欣然',def:'高兴的样子',type:'实词',eg:'欣然起行'},
+{word:'念',def:'想到',type:'实词',eg:'念无与为乐者'},
+{word:'遂',def:'于是，就',type:'虚词',eg:'遂至承天寺'},
+{word:'寝',def:'睡，卧',type:'实词',eg:'亦未寝'},
+{word:'相与',def:'共同，一起',type:'虚词',eg:'相与步于中庭'},
+{word:'空明',def:'澄澈明亮的样子',type:'实词',eg:'如积水空明'},
+{word:'藻荇',def:'泛指水生植物',type:'实词',eg:'藻荇交横'},
+{word:'交横',def:'交错纵横',type:'实词',eg:'藻荇交横'},
+{word:'盖',def:'原来是',type:'虚词',eg:'盖竹柏影也'},
+{word:'但',def:'只是',type:'虚词',eg:'但少闲人'},
+{word:'闲人',def:'清闲的人',type:'实词',eg:'闲人如吾两人者'}
+],
+grammar:[
+{type:'判断句',example:'盖竹柏影也',note:'"……也"表判断语气，"原来是竹柏的影子"。'},
+{type:'省略句',example:'解衣欲睡',note:'省略主语"余"（我），完整为"（余）解衣欲睡"。'},
+{type:'倒装句',example:'相与步于中庭',note:'状语后置，"于中庭相与步"，在庭院中一起散步。'}
+],
+authorIntro:'苏轼（1037—1101），字子瞻，号东坡居士，眉州眉山（今四川眉山）人，北宋大文学家、书画家，"唐宋八大家"之一。他才华横溢，诗、词、文、书、画均臻一流，但一生仕途坎坷，屡遭贬谪。代表作有《赤壁赋》《念奴娇·赤壁怀古》《水调歌头·明月几时有》等。苏轼为人旷达乐观，在逆境中依然寄情山水、超然物外，其人格和文章对后世影响深远。',
+dynastyIntro:'北宋元丰年间，苏轼因"乌台诗案"被贬黄州，充团练副使，不得签书公事。黄州时期是苏轼人生最低谷，但也是其文学创作的高峰期。在黄州，他远离政治中心，以山水为友，以诗文自遣，写下了大量旷达超逸的作品，《记承天寺夜游》即作于此期间。',
+writingIntent:'本文写于苏轼贬谪黄州期间。文章以月夜寻友散步为线索，描绘了月光下庭院空灵澄澈的美景，表达了作者在贬谪中虽处逆境却依然能欣赏自然之美、保持旷达乐观的人生态度。结尾"但少闲人如吾两人者耳"既自嘲又自得——"闲人"既指被贬后无事可做的无奈，又包含能以闲适之心赏月观景的超然，体现了苏轼随遇而安的豁达胸襟。',
+literaryValue:'《记承天寺夜游》仅八十四字，却情景交融、意境空灵，被誉为古代小品文的极品。"庭下如积水空明"的比喻新奇绝妙，将月色之美写到了极致。本文是中考课外文言文的常考篇目。',
+examQuestions:[
+{q:'翻译下面的句子：庭下如积水空明，水中藻、荇交横，盖竹柏影也。',a:'庭院里宛如积满了空明澄澈的水，水中有藻、荇交错纵横，原来那是竹子、柏树的影子。（关键词："空明"译为"澄澈明亮"，"交横"译为"交错纵横"，"盖"译为"原来是"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）月色入户（2）念无与为乐者（3）怀民亦未寝（4）但少闲人如吾两人者耳',a:'（1）户：门。（2）念：想到。（3）寝：睡，卧。（4）但：只是。',type:'实词题'},
+{q:'"庭下如积水空明，水中藻、荇交横"用了什么修辞手法？有何表达效果？',a:'用了比喻的手法。将月光下庭院的空明比作积满清水的样子，将竹柏的影子比作水中的藻荇。这个比喻化静为动、虚实相生，将无形的月光写得有形有质、澄澈灵动，营造出空灵朦胧的意境，生动地再现了月夜庭院的美景。',type:'赏析题'},
+{q:'如何理解"闲人"一词在文中的含义？',a:'"闲人"在文中有多重含义：①表层指被贬后无事可做的清闲之人；②深层含有自嘲——才华横溢却被闲置不用，暗示了被贬的无奈；③也含自得——能以闲适之心欣赏月色之美，体现了超然物外的旷达情怀。"闲"既是现实处境，也是精神境界，耐人寻味。',type:'理解题'},
+{q:'本文体现了苏轼怎样的人生态度？对你有什么启发？',a:'本文体现了苏轼在贬谪逆境中随遇而安、旷达乐观的人生态度。他虽被贬黄州、无事可做，却能欣赏月夜美景、与友共赏，不以个人得失为忧。启发我们：面对生活中的困难和挫折，不应消沉抱怨，而应学会在逆境中寻找美好、保持乐观豁达的心态。这种旷达精神至今仍值得我们学习。',type:'主旨题'}
+]
+},
+{
+id:'ketang_chu3_2',title:'与朱元思书',author:'吴均',dynasty:'南朝梁',source:'《艺文类聚》',grade:'初三',tags:['山水','书信','骈文'],isExtracurricular:true,
+fullText:'风烟俱净，天山共色。从流飘荡，任意东西。自富阳至桐庐一百许里，奇山异水，天下独绝。水皆缥碧，千丈见底。游鱼细石，直视无碍。急湍甚箭，猛浪若奔。夹岸高山，皆生寒树，负势竞上，互相轩邈，争高直指，千百成峰。泉水激石，泠泠作响；好鸟相鸣，嘤嘤成韵。蝉则千转不穷，猿则百叫无绝。鸢飞戾天者，望峰息心；经纶世务者，窥谷忘反。横柯上蔽，在昼犹昏；疏条交映，有时见日。',
+sentences:[
+{orig:'风烟俱净，天山共色。从流飘荡，任意东西。',trans:'风和烟都消散了，天和山变成相同的颜色。（我乘船）随着江流飘荡，任凭它向东或向西。'},
+{orig:'自富阳至桐庐一百许里，奇山异水，天下独绝。',trans:'从富阳到桐庐一百来里，奇山异水，天下独一无二。'},
+{orig:'水皆缥碧，千丈见底。游鱼细石，直视无碍。',trans:'水都是青绿色，千丈深也能见到水底。水中的游鱼和细小的石子，一直看下去毫无障碍。'},
+{orig:'急湍甚箭，猛浪若奔。',trans:'湍急的水流比飞箭还快，汹涌的波浪像奔马一样。'},
+{orig:'夹岸高山，皆生寒树，负势竞上，互相轩邈，争高直指，千百成峰。',trans:'江两岸的高山上，都生长着耐寒的树，山凭借（高峻的）地势争着向上，互相比高比远，争着向高处和远处伸展，形成千百座山峰。'},
+{orig:'泉水激石，泠泠作响；好鸟相鸣，嘤嘤成韵。',trans:'泉水冲激着石头，发出泠泠的声响；美丽的鸟儿互相和鸣，嘤嘤的声音和谐动听。'},
+{orig:'蝉则千转不穷，猿则百叫无绝。',trans:'蝉长久不断地鸣叫，猿猴也连续不断地啼叫。'},
+{orig:'鸢飞戾天者，望峰息心；经纶世务者，窥谷忘反。',trans:'（那些像）鸢鸟一样极力攀高追求名利的人，看到这些雄奇的山峰就会平息热衷功名的心；办理政务的人，看到这些幽美的山谷就会流连忘返。'},
+{orig:'横柯上蔽，在昼犹昏；疏条交映，有时见日。',trans:'横斜的树枝在上边遮蔽着，在白天也像黄昏时那样昏暗；稀疏的枝条互相掩映，有时还能见到阳光。'}
+],
+vocab:[
+{word:'共色',def:'相同的颜色',type:'实词',eg:'天山共色'},
+{word:'从流',def:'顺着水流',type:'实词',eg:'从流飘荡'},
+{word:'许',def:'表示约数，相当于"来""左右"',type:'虚词',eg:'一百许里'},
+{word:'独绝',def:'独一无二',type:'实词',eg:'天下独绝'},
+{word:'缥碧',def:'青绿色',type:'实词',eg:'水皆缥碧'},
+{word:'甚',def:'超过，比……更',type:'虚词',eg:'急湍甚箭'},
+{word:'奔',def:'飞奔的马（动词作名词）',type:'实词',eg:'猛浪若奔'},
+{word:'负',def:'凭借',type:'实词',eg:'负势竞上'},
+{word:'轩邈',def:'轩：高；邈：远。这里作动词，争高争远',type:'实词',eg:'互相轩邈'},
+{word:'戾',def:'至，到达',type:'实词',eg:'鸢飞戾天'},
+{word:'息心',def:'平息（热衷功名的）心',type:'实词',eg:'望峰息心'},
+{word:'反',def:'通"返"，返回',type:'通假字',eg:'窥谷忘反'}
+],
+grammar:[
+{type:'通假字',example:'窥谷忘反',note:'"反"通"返"，返回。'},
+{type:'词类活用',example:'猛浪若奔',note:'"奔"本是动词（奔跑），这里活用为名词，"飞奔的马"。'},
+{type:'词类活用',example:'互相轩邈',note:'"轩""邈"本是形容词（高、远），这里活用为动词，"争高""争远"。'}
+],
+authorIntro:'吴均（469—520），字叔庠，吴兴故鄣（今浙江安吉）人，南朝梁代文学家、史学家。他文章清拔有古气，时人效之，号称"吴均体"。吴均善写山水书信，文笔清丽自然，对后世山水文学有重要影响。',
+dynastyIntro:'南朝梁（502—557）时期，江南经济开发，山水秀美。骈文在这一时期达到鼎盛，文人们讲究对仗工整、辞藻华丽。但吴均的山水书信在骈体中融入清新自然之风，以白描见长，在六朝骈文中独树一帜。',
+writingIntent:'本文是作者写给友人朱元思的一封书信节选，描绘了富春江沿岸"奇山异水"的壮丽景色。文章通过写景寄寓情怀：以山水之美反衬世俗之浊，"鸢飞戾天者，望峰息心"含蓄地表达了作者厌倦功名、寄情山水、追求精神自由的情怀。文章以骈文写山水，骈散结合，声韵和谐，是南朝山水文学的佳作。',
+literaryValue:'《与朱元思书》是古代山水骈文的代表作，以清丽的笔触描绘了富春江的奇山异水。文章对仗工整、声韵和谐、动静相宜、视听结合，被誉为"骈文中的山水画"，是初中生课外文言文的经典篇目。',
+examQuestions:[
+{q:'翻译下面的句子：鸢飞戾天者，望峰息心；经纶世务者，窥谷忘反。',a:'（那些像鸢鸟一样）极力攀高追求名利的人，看到这些雄奇的山峰就会平息热衷功名的心；办理政务的人，看到这些幽美的山谷就会流连忘返。（关键词："戾"译为"至，到达"，"息心"译为"平息热衷功名的心"，"反"通"返"译为"返回"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）一百许里（2）急湍甚箭（3）负势竞上（4）窥谷忘反',a:'（1）许：表示约数，"来""左右"。（2）甚：超过，比……更。（3）负：凭借。（4）反：通"返"，返回。',type:'实词题'},
+{q:'文章写"水"和"山"分别抓住了什么特点？用了什么手法？',a:'写"水"：抓住"清"（缥碧、千丈见底、游鱼细石直视无碍）和"急"（急湍甚箭、猛浪若奔）的特点，用了比喻（"甚箭""若奔"）和夸张（"千丈见底"）手法。写"山"：抓住"高"和"势"（负势竞上、争高直指）的特点，用了拟人手法（"竞""争"将山拟人化，写出山的生命力），化静为动，生动形象。',type:'赏析题'},
+{q:'"鸢飞戾天者，望峰息心；经纶世务者，窥谷忘反"表达了作者怎样的情感？',a:'这句话表达了作者厌倦功名利禄、寄情山水的情怀。作者说追求高官厚禄的人看到山峰就会平息争名之心，忙于政务的人看到山谷就会流连忘返，实则是以他人映衬自己——作者也正是在这山水之美中找到了精神的归宿，表达了对世俗功名的厌弃和对自然之美的热爱。',type:'理解题'},
+{q:'比较阅读：《与朱元思书》与《小石潭记》都是山水名篇，两文在写景和抒情上有何异同？',a:'相同点：都善于以精练的语言描绘自然景色，都借景抒情。不同点：①写景——吴均写的是富春江的大山大水，视野开阔，气势雄壮；柳宗元写的是小石潭的小景，细致入微，清幽冷寂。②抒情——吴均在山水之美中表达的是厌弃功名的旷达，情感平和；柳宗元由乐转悲，"凄神寒骨"含蓄地表达了贬谪的孤寂悲凉。③文体——吴均用骈文，对仗工整；柳宗元用散文，自由灵活。',type:'比较阅读题'}
+]
+},
+{
+id:'ketang_chu3_3',title:'出师表（节选）',author:'诸葛亮',dynasty:'三国',source:'《诸葛亮集》',grade:'初三',tags:['忠诚','责任','奏表'],isExtracurricular:true,
+fullText:'先帝创业未半而中道崩殂，今天下三分，益州疲弊，此诚危急存亡之秋也。然侍卫之臣不懈于内，忠志之士忘身于外者，盖追先帝之殊遇，欲报之于陛下也。诚宜开张圣听，以光先帝遗德，恢弘志士之气，不宜妄自菲薄，引喻失义，以塞忠谏之路也。亲贤臣，远小人，此先汉所以兴隆也；亲小人，远贤臣，此后汉所以倾颓也。',
+sentences:[
+{orig:'先帝创业未半而中道崩殂，今天下三分，益州疲弊，此诚危急存亡之秋也。',trans:'先帝（刘备）开创统一天下的大业还没完成一半就中途去世了，现在天下分为三国，益州疲困衰弱，这实在是危急存亡的时候啊。'},
+{orig:'然侍卫之臣不懈于内，忠志之士忘身于外者，盖追先帝之殊遇，欲报之于陛下也。',trans:'然而侍卫之臣在朝廷内毫不懈怠，忠诚有志的将士在疆场上奋不顾身，都是因为追念先帝的特殊恩遇，想要报答给陛下。'},
+{orig:'诚宜开张圣听，以光先帝遗德，恢弘志士之气，不宜妄自菲薄，引喻失义，以塞忠谏之路也。',trans:'（陛下）确实应该广泛听取臣下的意见，来发扬先帝遗留的美德，振奋有志之士的士气，不应该随便看轻自己，说一些不恰当的话，以致堵塞了忠臣进谏的道路。'},
+{orig:'亲贤臣，远小人，此先汉所以兴隆也；亲小人，远贤臣，此后汉所以倾颓也。',trans:'亲近贤臣，疏远小人，这是前汉兴盛的原因；亲近小人，疏远贤臣，这是后汉衰败的原因。'}
+],
+vocab:[
+{word:'崩殂',def:'死。古代帝王死亡的委婉说法',type:'实词',eg:'中道崩殂'},
+{word:'疲弊',def:'人力疲困，物力缺乏',type:'实词',eg:'益州疲弊'},
+{word:'诚',def:'确实，实在',type:'虚词',eg:'此诚危急存亡之秋也'},
+{word:'秋',def:'时候，时期',type:'实词',eg:'危急存亡之秋'},
+{word:'殊遇',def:'特殊待遇，厚遇',type:'实词',eg:'先帝之殊遇'},
+{word:'宜',def:'应该，应当',type:'虚词',eg:'诚宜开张圣听'},
+{word:'光',def:'发扬光大（名词作动词）',type:'实词',eg:'以光先帝遗德'},
+{word:'恢弘',def:'振奋，扩大（形容词作动词）',type:'实词',eg:'恢弘志士之气'},
+{word:'妄自菲薄',def:'过分看轻自己',type:'实词',eg:'不宜妄自菲薄'},
+{word:'引喻',def:'引用譬喻，指说话',type:'实词',eg:'引喻失义'},
+{word:'义',def:'恰当，适宜',type:'实词',eg:'引喻失义'},
+{word:'所以',def:'……的原因',type:'虚词',eg:'此先汉所以兴隆也'}
+],
+grammar:[
+{type:'判断句',example:'此先汉所以兴隆也',note:'"……也"表判断，"这就是前汉兴盛的原因"。'},
+{type:'词类活用',example:'以光先帝遗德',note:'"光"本是名词（光辉），这里活用为动词，"发扬光大"。'},
+{type:'词类活用',example:'恢弘志士之气',note:'"恢弘"本是形容词（宽广），这里活用为动词，"振奋、扩大"。'}
+],
+authorIntro:'诸葛亮（181—234），字孔明，号卧龙，三国蜀汉丞相，杰出的政治家、军事家、文学家。他辅佐刘备建立蜀汉，刘备去世后受托孤之重，六出祁山北伐，最终病逝于五丈原。诸葛亮忠贞不渝、鞠躬尽瘁，是中国历史上忠臣与智者的典范，其《出师表》被后世奉为奏表典范。',
+dynastyIntro:'三国时期，蜀汉偏居西南，国力最弱。刘备去世后，后主刘禅年幼暗弱，朝政全赖诸葛亮主持。诸葛亮准备北伐曹魏，但忧虑后方不稳，临行前上《出师表》向后主进言，以告先帝之恩、尽托孤之责。',
+writingIntent:'本文节选自《出师表》开篇，是诸葛亮北伐前上呈后主刘禅的奏表。文章开篇即指出蜀汉"危急存亡"的严峻形势，以此引起刘禅重视；继而分析朝臣将士忠心耿耿的原因，勉励刘禅"开张圣听""亲贤远佞"。文章字字恳切、句句肺腑，既体现了一位老臣对国家的忠诚与责任，也饱含着对后主的殷切期望，是忠臣之表、慈父之言。',
+literaryValue:'《出师表》是中国古代奏表文的巅峰之作，"鞠躬尽瘁，死而后已"成为千古名言。文章以情感人、以理服人，不事雕饰而感人至深。本文是中考课外文言文的重要篇目，对理解古代忠臣精神和奏表文体具有典范意义。',
+examQuestions:[
+{q:'翻译下面的句子：此诚危急存亡之秋也。',a:'这实在是危急存亡的时候啊。（关键词："诚"译为"确实，实在"，"秋"译为"时候，时期"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）中道崩殂（2）益州疲弊（3）以光先帝遗德（4）亲贤臣，远小人',a:'（1）崩殂：死（帝王死亡的委婉说法）。（2）疲弊：人力疲困，物力缺乏。（3）光：发扬光大（名词作动词）。（4）远：疏远（形容词作动词）。',type:'实词题'},
+{q:'诸葛亮在文中提出了哪些建议？这些建议的出发点是什么？',a:'诸葛亮提出了两条建议：①"开张圣听"——广泛听取臣下意见，发扬先帝遗德，振奋士气，不宜妄自菲薄；②"亲贤臣，远小人"——亲近贤臣、疏远小人。这些建议的出发点是蜀汉正处于"危急存亡之秋"，后主应广开言路、任用贤能，以巩固蜀汉政权，不辜负先帝遗志。',type:'理解题'},
+{q:'"亲贤臣，远小人，此先汉所以兴隆也；亲小人，远贤臣，此后汉所以倾颓也"用了什么论证方法？有何作用？',a:'用了对比论证的方法。将前汉（西汉）亲贤臣而兴隆与后汉（东汉）亲小人而倾颓进行对比，从正反两方面论证了"亲贤远佞"对国家兴亡的重要性。这种论证方法使道理鲜明突出，增强了说服力，也借历史教训警示后主刘禅。',type:'赏析题'},
+{q:'从本文可以看出诸葛亮怎样的品格？请结合内容分析。',a:'从本文可以看出诸葛亮忠诚报国、尽职尽责的品格。①他以"危急存亡之秋"提醒后主，表现出对国家局势的清醒认识和忧国之心；②他"追先帝之殊遇，欲报之于陛下"，体现了感恩图报的忠义；③他直言进谏，劝后主"开张圣听""亲贤远佞"，体现了以天下为己任的责任感。全文恳切诚挚，是一位老臣对国家和后主的赤诚之心。',type:'主旨题'}
+]
+},
+{
+id:'ketang_chu3_4',title:'捕蛇者说（节选）',author:'柳宗元',dynasty:'唐',source:'《柳河东集》',grade:'初三',tags:['民生','赋税','说'],isExtracurricular:true,
+fullText:'永州之野产异蛇，黑质而白章，触草木，尽死，以啮人，无御之者。然得而腊之以为饵，可以已大风、挛踠、瘘、疠，去死肌，杀三虫。其始，太医以王命聚之，岁赋其二。募有能捕之者，当其租入。永之人争奔走焉。有蒋氏者，专其利三世矣。问之，则曰："吾祖死于是，吾父死于是，今吾嗣为之十二年，几死者数矣。"言之，貌若甚戚者。',
+sentences:[
+{orig:'永州之野产异蛇，黑质而白章，触草木，尽死，以啮人，无御之者。',trans:'永州的野外出产一种奇异的蛇，黑色的底子白色的花纹，它碰到草木，草木全枯死，如果咬了人，没有能够抵御它的毒性的。'},
+{orig:'然得而腊之以为饵，可以已大风、挛踠、瘘、疠，去死肌，杀三虫。',trans:'然而捉到它把它晾干制成药饵，可以用来治愈大风、挛踠、瘘、疠等疾病，去除坏死的肌肉，杀死人体内的寄生虫。'},
+{orig:'其始，太医以王命聚之，岁赋其二。',trans:'起初，太医用皇帝的命令征集这种蛇，每年征收两次。'},
+{orig:'募有能捕之者，当其租入。',trans:'招募有能力捕蛇的人，用蛇抵他的赋税。'},
+{orig:'永之人争奔走焉。',trans:'永州的人争着去做这件事。'},
+{orig:'有蒋氏者，专其利三世矣。',trans:'有个姓蒋的人，独享这种（捕蛇抵税的）好处已经三代了。'},
+{orig:'问之，则曰："吾祖死于是，吾父死于是，今吾嗣为之十二年，几死者数矣。"',trans:'问他（这件事），就说："我祖父死在捕蛇这件事上，我父亲死在捕蛇这件事上，现在我接着干这件事已经十二年了，差点死了好几次。"'},
+{orig:'言之，貌若甚戚者。',trans:'说这些话时，面容好像很悲伤的样子。'}
+],
+vocab:[
+{word:'质',def:'底子，质地',type:'实词',eg:'黑质而白章'},
+{word:'章',def:'花纹',type:'实词',eg:'黑质而白章'},
+{word:'啮',def:'咬',type:'实词',eg:'以啮人'},
+{word:'御',def:'抵御',type:'实词',eg:'无御之者'},
+{word:'腊',def:'把肉晾干（读xī，名词作动词）',type:'实词',eg:'得而腊之'},
+{word:'饵',def:'药饵，药丸',type:'实词',eg:'以为饵'},
+{word:'已',def:'止，治愈',type:'实词',eg:'可以已大风'},
+{word:'赋',def:'征收，敛取',type:'实词',eg:'岁赋其二'},
+{word:'当',def:'抵，抵充',type:'实词',eg:'当其租入'},
+{word:'嗣',def:'继承，接续',type:'实词',eg:'今吾嗣为之'},
+{word:'几',def:'几乎，差点',type:'虚词',eg:'几死者数矣'},
+{word:'数',def:'多次，屡次（读shuò）',type:'实词',eg:'几死者数矣'},
+{word:'戚',def:'悲伤',type:'实词',eg:'貌若甚戚者'}
+],
+grammar:[
+{type:'词类活用',example:'得而腊之',note:'"腊"本是名词（干肉），这里活用为动词，"把肉晾干"。'},
+{type:'省略句',example:'然得而腊之以为饵',note:'省略宾语，"以（之）为饵"，用（它）制成药饵。'},
+{type:'判断句',example:'貌若甚戚者',note:'"……者"表判断，"面容好像很悲伤的样子"。'}
+],
+authorIntro:'柳宗元（773—819），字子厚，唐代文学家、思想家，"唐宋八大家"之一。他参与王叔文政治革新失败后被贬永州，在永州期间写下大量反映民生疾苦的文章。《捕蛇者说》是其代表作之一，以蒋氏三代捕蛇的悲惨遭遇揭露苛政之害。',
+dynastyIntro:'唐代中后期，安史之乱后藩镇割据，朝廷赋税沉重。永州地处偏远，百姓生活困苦。柳宗元贬谪永州期间，亲眼目睹了民间疾苦，对苛政重赋给百姓带来的苦难有深刻感受，写下了《捕蛇者说》等反映社会现实的作品。',
+writingIntent:'本文通过蒋氏三代以捕蛇抵税、祖父和父亲均死于捕蛇的悲惨遭遇，揭露了唐代赋税之重甚于毒蛇的社会现实。作者以"异蛇"之毒衬托"赋敛"之毒更甚，表达了对劳动人民深重苦难的同情，以及对苛政的强烈批判。文章以叙事引出议论，为后文"苛政猛于虎"的结论做铺垫。',
+literaryValue:'《捕蛇者说》是古代"说"体散文的名篇，以"毒蛇"与"苛政"对比立意，深刻揭露社会现实。文章叙事与议论结合，以小见大，是柳宗元反映民生疾苦的代表作，也是中考课外文言文的常考篇目。',
+examQuestions:[
+{q:'翻译下面的句子：吾祖死于是，吾父死于是，今吾嗣为之十二年，几死者数矣。',a:'我祖父死在捕蛇这件事上，我父亲死在捕蛇这件事上，现在我接着干这件事已经十二年了，差点死了好几次。（关键词："是"指代捕蛇这件事，"嗣"译为"继承，接续"，"几"译为"几乎，差点"，"数"译为"多次（读shuò）"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）黑质而白章（2）可以已大风（3）当其租入（4）几死者数矣',a:'（1）质：底子，质地。（2）已：止，治愈。（3）当：抵，抵充。（4）几：几乎，差点。',type:'实词题'},
+{q:'永州人为什么"争奔走焉"去捕蛇？这说明什么？',a:'永州人争着捕蛇是因为捕蛇可以"当其租入"——用蛇抵充赋税。这说明当时的赋税极其沉重，百姓宁可冒被毒蛇咬死的风险去捕蛇，也不愿承受正常的赋税负担，从侧面揭示了赋税比毒蛇还要可怕的社会现实。',type:'理解题'},
+{q:'文章开头详细描写"异蛇"之毒有什么作用？',a:'文章开头详细描写异蛇"触草木尽死""以啮人无御之者"的剧毒，有三个作用：①设置悬念——如此剧毒之蛇为什么人们还"争奔走焉"去捕？引出下文；②为下文"吾祖死于是，吾父死于是"的悲惨遭遇做铺垫；③以蛇之毒衬托赋税之毒更甚——毒蛇虽毒，但百姓宁愿冒死捕蛇也不愿交税，说明苛政比毒蛇更可怕，为全文"苛政猛于虎"的主旨做铺垫。',type:'赏析题'},
+{q:'蒋氏"貌若甚戚者"却不愿放弃捕蛇，这反映了怎样的社会现实？',a:'蒋氏虽然因捕蛇丧失了祖父和父亲，自己也多次差点死去，面容悲伤，却仍不愿放弃捕蛇。这是因为捕蛇虽然危险，但可以抵充更沉重的赋税，放弃捕蛇意味着要承受比毒蛇更可怕的苛政重赋。这反映了唐代中后期赋税极其沉重、民不聊生的社会现实，也深刻揭示了"苛政猛于虎"的主题。',type:'主旨题'}
+]
+},
+{
+id:'ketang_chu3_5',title:'秋水（节选）',author:'庄子',dynasty:'战国',source:'《庄子·秋水》',grade:'初三',tags:['哲理','寓言','认识局限'],isExtracurricular:true,
+fullText:'秋水时至，百川灌河。泾流之大，两涘渚崖之间，不辩牛马。于是焉，河伯欣然自喜，以天下之美为尽在己。顺流而东行，至于北海，东面而视，不见水端。于是焉河伯始旋其面目，望洋向若而叹曰："野语有之曰：闻道百，以为莫己若者，我之谓也。"',
+sentences:[
+{orig:'秋水时至，百川灌河。',trans:'秋天的洪水按时到来，众多河流的水注入黄河。'},
+{orig:'泾流之大，两涘渚崖之间，不辩牛马。',trans:'水流这样大，两岸和沙洲之间（白茫茫一片），分不清是牛是马。'},
+{orig:'于是焉，河伯欣然自喜，以天下之美为尽在己。',trans:'在这种情况下，河伯（黄河之神）欣喜地自我陶醉，认为天下之美全都集中在自己这里。'},
+{orig:'顺流而东行，至于北海，东面而视，不见水端。',trans:'（他）顺流向东行，到了北海，面向东看去，看不到水的尽头。'},
+{orig:'于是焉河伯始旋其面目，望洋向若而叹曰：',trans:'在这种情况下，河伯才改变了自己（得意）的面容，仰望海神而感叹说：'},
+{orig:'野语有之曰：闻道百，以为莫己若者，我之谓也。',trans:'俗语有这样的话："听到了很多道理，就以为没有谁能比得上自己"，说的就是我啊。'}
+],
+vocab:[
+{word:'时',def:'按时，按季节',type:'实词',eg:'秋水时至'},
+{word:'灌',def:'注入',type:'实词',eg:'百川灌河'},
+{word:'泾流',def:'水流',type:'实词',eg:'泾流之大'},
+{word:'涘',def:'水边，岸',type:'实词',eg:'两涘渚崖之间'},
+{word:'渚',def:'水中的小洲',type:'实词',eg:'两涘渚崖之间'},
+{word:'辩',def:'通"辨"，辨别，分辨',type:'通假字',eg:'不辩牛马'},
+{word:'焉',def:'语气词，用于句中表停顿',type:'虚词',eg:'于是焉'},
+{word:'河伯',def:'黄河之神',type:'实词',eg:'河伯欣然自喜'},
+{word:'以',def:'认为',type:'虚词',eg:'以天下之美为尽在己'},
+{word:'端',def:'尽头',type:'实词',eg:'不见水端'},
+{word:'旋',def:'改变，掉转',type:'实词',eg:'始旋其面目'},
+{word:'望洋',def:'仰视的样子',type:'实词',eg:'望洋向若而叹'},
+{word:'若',def:'海神的名字（海若）',type:'实词',eg:'望洋向若'},
+{word:'莫己若',def:'即"莫若己"，没有谁比得上自己（宾语前置）',type:'句式',eg:'以为莫己若者'}
+],
+grammar:[
+{type:'通假字',example:'不辩牛马',note:'"辩"通"辨"，辨别，分辨。'},
+{type:'宾语前置',example:'以为莫己若',note:'"莫己若"即"莫若己"，否定句中代词"己"作宾语前置，"没有谁比得上自己"。'},
+{type:'判断句',example:'我之谓也',note:'"……之谓也"表判断，"说的就是我啊"。"之"是宾语前置的标志。'}
+],
+authorIntro:'庄子（约前369—前286），名周，战国时期道家学派代表人物，与老子并称"老庄"。其著作《庄子》想象奇特、寓言丰富、语言汪洋恣肆，充满浪漫主义色彩。《秋水》是《庄子》外篇之一，以寓言阐明哲学道理。',
+dynastyIntro:'战国时期，百家争鸣，各家学派争相发表主张。许多人学了一点知识就自以为是，不知天外有天。庄子以河伯与北海的寓言，讽刺见识浅薄却自满自大的人，倡导谦虚自省、认识到个人认识的局限性。',
+writingIntent:'本文通过河伯"欣然自喜"到"望洋兴叹"的转变，阐明了个人认识局限性的道理。河伯初见黄河之大便以为天下之美尽在己，及至见到北海之浩瀚才知自身渺小。作者以此寓言告诉人们：见识越少越容易自满，见识越广越能认识到自己的不足。文章意在告诫人们不要以有限的认知去判断无限的世界，要保持谦虚、不断开拓视野。',
+literaryValue:'《秋水》是《庄子》中最著名的篇章之一，"望洋兴叹"由此成为常用成语。文章以寓言说理，想象奇特、对比鲜明、寓意深刻，是先秦哲理寓言的代表作，对培养辩证思维和谦虚品格具有深刻的教育意义。',
+examQuestions:[
+{q:'翻译下面的句子：闻道百，以为莫己若者，我之谓也。',a:'听到了很多道理，就以为没有谁能比得上自己——说的就是我啊。（关键词："莫己若"是宾语前置即"莫若己"，"之谓"表判断，"……说的就是……"。）',type:'翻译题'},
+{q:'解释下列句中加点的词语。（1）秋水时至（2）不辩牛马（3）以天下之美为尽在己（4）始旋其面目',a:'（1）时：按时，按季节。（2）辩：通"辨"，辨别。（3）以：认为。（4）旋：改变，掉转。',type:'实词题'},
+{q:'河伯的态度发生了怎样的变化？变化的原因是什么？',a:'河伯态度从"欣然自喜"（自满得意）变为"望洋向若而叹"（感叹自愧）。变化原因是：他最初看到黄河"泾流之大"，以为"天下之美尽在己"；顺流东行见到北海"不见水端"后，才意识到黄河与北海相比微不足道，自己的自满是多么可笑。',type:'理解题'},
+{q:'"望洋兴叹"这个成语现在的含义是什么？与本文中的含义有何联系？',a:'"望洋兴叹"现在比喻在伟大的事物面前感到自己力量不足而发出感叹，或表示要做某事而力量不够、无可奈何。在本文中，河伯望洋兴叹是因为见到北海的浩瀚而认识到自己的渺小和浅薄。两者都包含面对更广阔、更伟大事物时的感叹，但本文更侧重于认识自身局限、由自满转向自省的哲学含义。',type:'赏析题'},
+{q:'本文告诉了我们什么道理？对你有什么启发？',a:'本文告诉我们：人的认识是有限的，见识越少越容易自满，见识越广越能认识自身不足。启发我们：在学习中要保持谦虚的态度，不断拓展视野、深入学习，不能因为掌握了一点知识就沾沾自喜。学无止境，只有认识到自己的不足，才能不断进步。正如河伯见到北海才知自身渺小，我们也应在更广阔的视野中审视自己，保持谦虚好学的心态。',type:'主旨题'}
+]
+}
+];
+
+/* ========== GLOBAL POOLS ========== */
+var globalVocabPool = null;
+var globalTransPool = null;
+var globalGrammarTypes = null;
+var globalFuncWords = null;
+
+function buildGlobalPools() {
+    globalVocabPool = {};
+    globalTransPool = [];
+    globalGrammarTypes = [];
+    globalFuncWords = {};
+    var typeSeen = {};
+    for (var i = 0; i < TEXTS.length; i++) {
+        var t = TEXTS[i];
+        var vocab = t.vocab || [];
+        for (var j = 0; j < vocab.length; j++) {
+            var v = vocab[j];
+            var tp = v.type || '其他';
+            if (!globalVocabPool[tp]) globalVocabPool[tp] = [];
+            globalVocabPool[tp].push({word: v.word, def: v.def, type: tp, eg: v.eg, textId: t.id});
+            // Collect function words (虚词) by word
+            if (tp === '虚词') {
+                if (!globalFuncWords[v.word]) globalFuncWords[v.word] = [];
+                globalFuncWords[v.word].push({def: v.def, eg: v.eg, textId: t.id});
+            }
+        }
+        var sentences = t.sentences || [];
+        for (var j = 0; j < sentences.length; j++) {
+            globalTransPool.push({orig: sentences[j].orig, trans: sentences[j].trans, textId: t.id, len: sentences[j].trans.length});
+        }
+        var grammar = t.grammar || [];
+        for (var j = 0; j < grammar.length; j++) {
+            var gt = grammar[j].type;
+            if (!typeSeen[gt]) { typeSeen[gt] = true; globalGrammarTypes.push(gt); }
+        }
+    }
+}
+
+function shuffleArr(arr) {
+    for (var k = arr.length - 1; k > 0; k--) {
+        var r = Math.floor(Math.random() * (k + 1));
+        var tmp = arr[k]; arr[k] = arr[r]; arr[r] = tmp;
+    }
+    return arr;
+}
+
+function pickDistractors(correctVal, pool, count, excludeVals) {
+    var candidates = [];
+    for (var i = 0; i < pool.length; i++) {
+        if (pool[i] === correctVal) continue;
+        var isExcluded = false;
+        for (var e = 0; e < excludeVals.length; e++) {
+            if (pool[i] === excludeVals[e]) { isExcluded = true; break; }
+        }
+        if (!isExcluded) candidates.push(pool[i]);
+    }
+    shuffleArr(candidates);
+    return candidates.slice(0, count);
+}
+
+// Extract keywords from a translation for matching
+function extractKeywords(trans) {
+    var stopWords = ['的','了','是','在','着','过','和','与','及','或','也','都','就','还','又','把','被','为','所','以','于','其','之','而','乃','则','即','此','彼','何','者','也','矣','乎','哉','焉','耳','夫','盖','惟','唯','凡','苟','虽','若','如','则','故','遂','乃','焉','然','则'];
+    var cleaned = trans.replace(/[，。？！；：""''（）《》、—…\s]/g, ' ');
+    var parts = cleaned.split(/\s+/);
+    var keywords = [];
+    for (var i = 0; i < parts.length; i++) {
+        if (parts[i].length >= 2 && stopWords.indexOf(parts[i]) === -1) {
+            keywords.push(parts[i]);
+        }
+    }
+    if (keywords.length === 0) {
+        // fallback: use all non-punctuation chars
+        var chars = trans.replace(/[，。？！；：""''（）《》、—…\s]/g, '');
+        for (var c = 0; c < chars.length; c++) {
+            if (stopWords.indexOf(chars[c]) === -1) keywords.push(chars[c]);
+        }
+    }
+    return keywords;
+}
+
+// Build the 4-option "which is wrong" style for vocab (中考模式)
+function buildVocabChoiceQ(v, allDefs, textId) {
+    // Pick 3 other vocab entries from global pool (same type preferred)
+    var tp = v.type || '实词';
+    var candidates = [];
+    if (globalVocabPool[tp]) {
+        for (var j = 0; j < globalVocabPool[tp].length; j++) {
+            var gv = globalVocabPool[tp][j];
+            if (gv.def !== v.def) candidates.push({word: gv.word, def: gv.def, eg: gv.eg});
+        }
+    }
+    // Fallback: any type
+    if (candidates.length < 3) {
+        for (var key in globalVocabPool) {
+            if (key === tp) continue;
+            for (var j = 0; j < globalVocabPool[key].length && candidates.length < 6; j++) {
+                var rv = globalVocabPool[key][j];
+                if (rv.def !== v.def && candidates.some(function(c){return c.def===rv.def;}) === false) {
+                    candidates.push({word: rv.word, def: rv.def, eg: rv.eg});
+                }
+            }
+        }
+    }
+    shuffleArr(candidates);
+    var picked = candidates.slice(0, 3);
+    while (picked.length < 3) {
+        picked.push({word: '—', def: '（暂无）', eg: ''});
+    }
+    // Build 4 items: 3 correct + 1 wrong (swap one def)
+    var items = [
+        {word: v.word, def: v.def, correct: true},
+        {word: picked[0].word, def: picked[0].def, correct: true},
+        {word: picked[1].word, def: picked[1].def, correct: true},
+        {word: picked[2].word, def: picked[2].def, correct: true}
+    ];
+    // Make one wrong: replace the last item's def with v.def (so it pairs wrong word with wrong def)
+    items[3].def = v.def;
+    items[3].correct = false;
+    shuffleArr(items);
+    var opts = [];
+    var ansIdx = 0;
+    for (var k = 0; k < items.length; k++) {
+        opts.push(items[k].word + '（' + items[k].def + '）');
+        if (!items[k].correct) ansIdx = k;
+    }
+    return {
+        type: 'vocab_choice',
+        question: '下列加点词语的解释，有误的一项是？',
+        hint: '',
+        options: opts,
+        answer: ansIdx,
+        explain: '「' + items[ansIdx].word + '」的解释有误，该词的解释被张冠李戴。正确词义应结合语境理解。'
+    };
+}
+
+// Build function word discrimination question (虚词辨析)
+function buildFuncWordQ(text) {
+    // Collect function words from this text
+    var localFuncWords = [];
+    var vocab = text.vocab || [];
+    for (var i = 0; i < vocab.length; i++) {
+        if (vocab[i].type === '虚词') localFuncWords.push(vocab[i]);
+    }
+    if (localFuncWords.length === 0) return null;
+    var fw = localFuncWords[Math.floor(Math.random() * localFuncWords.length)];
+    var word = fw.word;
+    var correctDef = fw.def;
+    var correctEg = fw.eg;
+    // Find other usages of same word across global pool
+    var allUsages = globalFuncWords[word] || [{def: correctDef, eg: correctEg, textId: text.id}];
+    // Find different defs for same word
+    var otherDefs = [];
+    for (var i = 0; i < allUsages.length; i++) {
+        if (allUsages[i].def !== correctDef && otherDefs.indexOf(allUsages[i].def) === -1) {
+            otherDefs.push(allUsages[i].def);
+        }
+    }
+    // Build options: correct def + 3 distractors
+    // If we have different usages of same word, use those as distractors
+    var wrongDefs = [];
+    for (var i = 0; i < otherDefs.length && wrongDefs.length < 3; i++) {
+        wrongDefs.push(otherDefs[i]);
+    }
+    // Fill from other function words' defs
+    if (wrongDefs.length < 3) {
+        var allFuncDefs = [];
+        for (var key in globalFuncWords) {
+            for (var j = 0; j < globalFuncWords[key].length; j++) {
+                if (globalFuncWords[key][j].def !== correctDef && allFuncDefs.indexOf(globalFuncWords[key][j].def) === -1) {
+                    allFuncDefs.push(globalFuncWords[key][j].def);
+                }
+            }
+        }
+        shuffleArr(allFuncDefs);
+        for (var i = 0; i < allFuncDefs.length && wrongDefs.length < 3; i++) {
+            if (wrongDefs.indexOf(allFuncDefs[i]) === -1) wrongDefs.push(allFuncDefs[i]);
+        }
+    }
+    while (wrongDefs.length < 3) wrongDefs.push('（暂无）');
+    var opts = [correctDef].concat(wrongDefs);
+    shuffleArr(opts);
+    var ansIdx = 0;
+    for (var k = 0; k < opts.length; k++) { if (opts[k] === correctDef) { ansIdx = k; break; } }
+    var desc = '在"' + correctEg + '"中，「' + word + '」的用法/意思是？';
+    return {
+        type: 'func_word',
+        question: desc,
+        hint: '提示：注意一词多义现象',
+        options: opts,
+        answer: ansIdx,
+        explain: '「' + word + '」在此处意为：' + correctDef + '。文言虚词常有一词多义，需结合语境判断。'
+    };
+}
+
+/* ========== QUIZ DATA GENERATION ========== */
+function buildQuizPool(text) {
+    if (!globalVocabPool) buildGlobalPools();
+    var pool = [];
+    var vocab = text.vocab || [];
+    var grammar = text.grammar || [];
+    var sentences = text.sentences || [];
+    var examQs = text.examQuestions || [];
+
+    var typeOrder = ['实词','虚词','通假字','古今异义','句式','词类活用','敬辞','谦辞','其他'];
+
+    // ===== 1. 实词解释选择题（中考模式：选出解释有误的一项）=====
+    for (var i = 0; i < vocab.length; i++) {
+        var v = vocab[i];
+        if (v.type === '虚词') continue; // 虚词单独出题
+        var q = buildVocabChoiceQ(v, [], text.id);
+        pool.push(q);
+    }
+
+    // ===== 2. 实词解释填空题（直接写出解释）=====
+    for (var i = 0; i < vocab.length; i++) {
+        var v2 = vocab[i];
+        if (v2.type === '虚词') continue;
+        var acceptAnswers = [v2.def];
+        // Add partial matches as acceptable
+        var shortDef = v2.def.replace(/[（(].*?[)）]/g, '').trim();
+        if (shortDef && shortDef !== v2.def) acceptAnswers.push(shortDef);
+        pool.push({
+            type: 'fill_blank',
+            subtype: 'meaning',
+            question: '"<u>' + v2.eg + '</u>"中「' + v2.word + '」的意思是：',
+            answer: v2.def,
+            acceptAnswers: acceptAnswers,
+            explain: '「' + v2.word + '」：' + v2.def
+        });
+    }
+
+    // ===== 3. 虚词辨析题 =====
+    var fwQ = buildFuncWordQ(text);
+    if (fwQ) pool.push(fwQ);
+
+    // ===== 4. 翻译选择题（4选1）=====
+    for (var i = 0; i < sentences.length; i++) {
+        var s = sentences[i];
+        var wrongTrans = [];
+        var isShort = s.trans.length < 15;
+        var globalCandidates = [];
+        for (var j = 0; j < globalTransPool.length; j++) {
+            var gt2 = globalTransPool[j];
+            if (gt2.trans === s.trans) continue;
+            if (gt2.textId === text.id) continue;
+            if (isShort) {
+                if (Math.abs(gt2.len - s.trans.length) <= 8) globalCandidates.push(gt2.trans);
+            } else {
+                globalCandidates.push(gt2.trans);
+            }
+        }
+        if (isShort && globalCandidates.length < 3) {
+            for (var j = 0; j < globalTransPool.length; j++) {
+                var gt3 = globalTransPool[j];
+                if (gt3.trans === s.trans || gt3.textId === text.id) continue;
+                if (globalCandidates.indexOf(gt3.trans) === -1) globalCandidates.push(gt3.trans);
+            }
+        }
+        shuffleArr(globalCandidates);
+        wrongTrans = globalCandidates.slice(0, 3);
+        if (wrongTrans.length < 3) {
+            for (var j = 0; j < sentences.length && wrongTrans.length < 3; j++) {
+                if (j === i) continue;
+                if (wrongTrans.indexOf(sentences[j].trans) === -1) wrongTrans.push(sentences[j].trans);
+            }
+        }
+        while (wrongTrans.length < 3) wrongTrans.push('（暂无干扰项）');
+        var opts = [s.trans].concat(wrongTrans);
+        shuffleArr(opts);
+        var ansIdx = 0;
+        for (var k = 0; k < opts.length; k++) { if (opts[k] === s.trans) { ansIdx = k; break; } }
+        pool.push({
+            type: 'translate',
+            question: '下列对「' + s.orig + '」的翻译，最准确的一项是？',
+            hint: '',
+            options: opts,
+            answer: ansIdx,
+            explain: '正确翻译：' + s.trans
+        });
+    }
+
+    // ===== 5. 翻译开放题（输入翻译，关键词匹配）=====
+    for (var i = 0; i < sentences.length; i++) {
+        var s5 = sentences[i];
+        var kws = extractKeywords(s5.trans);
+        pool.push({
+            type: 'translate_open',
+            question: '请用现代汉语翻译下面的句子：\n' + s5.orig,
+            answer: s5.trans,
+            keywords: kws,
+            explain: '参考翻译：' + s5.trans
+        });
+    }
+
+    // ===== 6. 内容理解选择题 =====
+    // Generate from grammar + text metadata
+    if (grammar.length > 0) {
+        var gIdx = Math.floor(Math.random() * Math.min(grammar.length, 2));
+        var g = grammar[gIdx];
+        var fixedTypes = ['判断句','省略句','倒装句','被动句','反问句','通假字','词类活用','古今异义','宾语前置','状语后置','定语后置','互文','对偶句','白描手法','量词妙用','选择疑问','双重否定句','正反对比','特殊用法','意动用法','使动用法','名词作状语'];
+        var combinedTypes = globalGrammarTypes.slice();
+        for (var fi = 0; fi < fixedTypes.length; fi++) {
+            if (combinedTypes.indexOf(fixedTypes[fi]) === -1) combinedTypes.push(fixedTypes[fi]);
+        }
+        var wrongTypes = [];
+        for (var j = 0; j < combinedTypes.length && wrongTypes.length < 6; j++) {
+            if (combinedTypes[j] !== g.type) wrongTypes.push(combinedTypes[j]);
+        }
+        shuffleArr(wrongTypes);
+        var pickedWrong = wrongTypes.slice(0, 3);
+        var opts6 = [g.type].concat(pickedWrong);
+        shuffleArr(opts6);
+        var ansIdx6 = 0;
+        for (var k = 0; k < opts6.length; k++) { if (opts6[k] === g.type) { ansIdx6 = k; break; } }
+        pool.push({
+            type: 'content_choice',
+            question: '下列对本文的理解分析，正确的一项是？\n「' + g.example + '」属于什么文言现象？',
+            hint: '',
+            options: opts6,
+            answer: ansIdx6,
+            explain: g.type + '：' + g.note
+        });
+    }
+
+    // ===== 7. 内容理解简答题 / 赏析启示题（从examQuestions中取）=====
+    for (var i = 0; i < examQs.length; i++) {
+        var eq = examQs[i];
+        // Use non-translation, non-实词 questions for short_answer
+        if (eq.type === '翻译题' || eq.type === '实词题') continue;
+        pool.push({
+            type: 'short_answer',
+            question: eq.q,
+            answer: eq.a,
+            questionType: eq.type,
+            explain: '参考答案：' + eq.a
+        });
+    }
+    // Also add translation questions from examQuestions as short_answer
+    for (var i = 0; i < examQs.length; i++) {
+        var eq2 = examQs[i];
+        if (eq2.type !== '翻译题') continue;
+        pool.push({
+            type: 'short_answer',
+            question: eq2.q,
+            answer: eq2.a,
+            questionType: eq2.type,
+            explain: '参考答案：' + eq2.a
+        });
+    }
+
+    // ===== 8. 默写填空题（上下句默写：从sentences中挖空）=====
+    for (var i = 0; i < sentences.length; i++) {
+        var s8 = sentences[i];
+        var orig = s8.orig;
+        // Skip very short sentences
+        if (orig.length < 8) continue;
+        // Find a 2-4 char segment to blank out (prefer mid-sentence)
+        var blankStart = Math.floor(orig.length / 3);
+        var blankLen = Math.min(3, orig.length - blankStart - 2);
+        if (blankLen < 2) blankLen = 2;
+        var blanked = orig.substring(0, blankStart) + '＿＿＿' + orig.substring(blankStart + blankLen);
+        var answer = orig.substring(blankStart, blankStart + blankLen);
+        pool.push({
+            type: 'fill_blank',
+            subtype: 'recitation',
+            question: '请补全古文原句：' + blanked,
+            answer: answer,
+            acceptAnswers: [answer],
+            explain: '原句：' + orig
+        });
+    }
+
+    // ===== 9. 断句题 =====
+    for (var i = 0; i < sentences.length; i++) {
+        var s9 = sentences[i];
+        var origNoPunct = s9.orig.replace(/[，。？！；：""''（）《》、…—\s]/g, '');
+        if (origNoPunct.length < 6) continue;
+        // Standard answer: use / at original punctuation positions (mapped to no-punct string)
+        var stdAnswer = [];
+        var origIdx = 0;
+        for (var p = 0; p < s9.orig.length; p++) {
+            var ch = s9.orig.charAt(p);
+            if ('，。？！；：'.indexOf(ch) !== -1) {
+                stdAnswer.push(origIdx); // position in noPunct string to insert /
+            } else if ('\u201c\u201d\u2018\u2019\uff08\uff09\u300a\u300b\u3001\u2026\u2014'.indexOf(ch) === -1) {
+                origIdx++;
+            }
+        }
+        // Build the display version (no punctuation, spaces between chars for readability)
+        var displayText = '';
+        for (var p = 0; p < origNoPunct.length; p++) {
+            displayText += origNoPunct.charAt(p);
+        }
+        pool.push({
+            type: 'punctuate',
+            question: '请用"/"给下面的文言文断句：\n' + displayText,
+            answer: stdAnswer.join(','),
+            origNoPunct: origNoPunct,
+            origText: s9.orig,
+            explain: '断句参考：' + s9.orig
+        });
+    }
+
+    // ===== 10. 词义辨析选择题（高迷惑性）=====
+    var allVocabFlat = [];
+    for (var key2 in globalVocabPool) {
+        for (var j = 0; j < globalVocabPool[key2].length; j++) {
+            allVocabFlat.push(globalVocabPool[key2][j]);
+        }
+    }
+    for (var i = 0; i < vocab.length && i < 3; i++) {
+        var wv = vocab[i];
+        if (wv.type === '虚词') continue;
+        var similarDefs = [];
+        for (var j = 0; j < allVocabFlat.length; j++) {
+            var av2 = allVocabFlat[j];
+            if (av2.word === wv.word) continue;
+            if (av2.def === wv.def) continue;
+            var shareChar = false;
+            for (var c = 0; c < wv.def.length; c++) {
+                if (wv.def[c] === ' ' || wv.def[c] === '，' || wv.def[c] === '。') continue;
+                if (av2.def.indexOf(wv.def[c]) !== -1) { shareChar = true; break; }
+            }
+            if (shareChar && similarDefs.indexOf(av2.def) === -1) similarDefs.push(av2.def);
+        }
+        if (similarDefs.length >= 2) {
+            shuffleArr(similarDefs);
+            var discrWrong = similarDefs.slice(0, 3);
+            while (discrWrong.length < 3) {
+                var randIdx = Math.floor(Math.random() * allVocabFlat.length);
+                if (allVocabFlat[randIdx].def !== wv.def && discrWrong.indexOf(allVocabFlat[randIdx].def) === -1) {
+                    discrWrong.push(allVocabFlat[randIdx].def);
+                }
+            }
+            var opts2 = [wv.def].concat(discrWrong);
+            shuffleArr(opts2);
+            var ansIdx2 = 0;
+            for (var k = 0; k < opts2.length; k++) { if (opts2[k] === wv.def) { ansIdx2 = k; break; } }
+            pool.push({
+                type: 'vocab_choice',
+                question: '词义辨析：下列对「' + wv.word + '」的解释，正确的是？',
+                hint: '出处：' + wv.eg,
+                options: opts2,
+                answer: ansIdx2,
+                explain: '「' + wv.word + '」的正确解释是：' + wv.def + '。注意区分形近义近的词语，结合语境判断。（出自"' + wv.eg + '"）'
+            });
+        }
+    }
+
+    return pool;
+}
+
+/* ========== APP STATE ========== */
+var state = {
+    currentGrade: '',
+    currentTextId: '',
+    quizPool: [],
+    quizQuestions: [],
+    quizIndex: 0,
+    quizAnswers: [],
+    quizChecked: false,
+    flashcardIdx: 0,
+    flashcardFlipped: false
+};
+
+/* ========== PAGE NAVIGATION ========== */
+function goToPage(pageId) {
+    var pages = document.querySelectorAll('.page');
+    for (var i = 0; i < pages.length; i++) {
+        pages[i].classList.remove('active');
+    }
+    document.getElementById(pageId).classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+function backToList() {
+    showTextList(state.currentGrade);
+}
+
+/* ========== TEXT LIST ========== */
+function showTextList(grade) {
+    if (!isModuleAllowed(grade)) { alert('您没有使用该板块的权限'); return; }
+    state.currentGrade = grade;
+    document.getElementById('listTitle').textContent = grade + '古文篇目';
+    var html = '';
+    for (var i = 0; i < TEXTS.length; i++) {
+        var t = TEXTS[i];
+        if (t.grade !== grade) continue;
+        var tagsHtml = '';
+        for (var j = 0; j < t.tags.length; j++) {
+            tagsHtml += '<span class="badge badge-tag">' + t.tags[j] + '</span>';
+        }
+        var isExtra = t.isExtracurricular;
+        var iconEmoji = isExtra ? '📘' : '📕';
+        var labelBadge = isExtra ? '<span class="badge" style="background:#e8f4fd;color:#2980b9">📖 课外拓展</span>' : '<span class="badge" style="background:#fef3e2;color:#b7791f">📕 课本必读</span>';
+        html += '<div class="text-card" onclick="openText(\'' + t.id + '\')">';
+        html += '<div class="text-icon">' + iconEmoji + '</div>';
+        html += '<div class="text-info">';
+        html += '<div class="text-title">' + t.title + '</div>';
+        html += '<div class="text-meta">[' + t.dynasty + '] ' + t.author + ' · ' + t.source + '</div>';
+        html += '<div class="text-tags">' + labelBadge + ' ' + tagsHtml + '</div>';
+        html += '</div></div>';
+    }
+    document.getElementById('textList').innerHTML = html;
+    goToPage('textListPage');
+}
+
+/* ========== TEXT STUDY ========== */
+function getText(id) {
+    for (var i = 0; i < TEXTS.length; i++) {
+        if (TEXTS[i].id === id) return TEXTS[i];
+    }
+    return null;
+}
+
+function openText(id) {
+    state.currentTextId = id;
+    var t = getText(id);
+    if (!t) return;
+
+    document.getElementById('studyTitle').textContent = t.title;
+    document.getElementById('studyMeta').textContent = '[' + t.dynasty + '] ' + t.author + ' · ' + t.source;
+
+    // Show/hide tabs based on module permissions
+    var tabModules = ['original','guide','vocab','grammar','flashcard','quiz','exam'];
+    var firstVisibleTab = '';
+    for (var i = 0; i < tabModules.length; i++) {
+        var tabEl = document.querySelector('.tab-item[data-tab="' + tabModules[i] + '"]');
+        if (tabEl) {
+            if (isModuleAllowed(tabModules[i])) {
+                tabEl.classList.remove('hidden');
+                if (!firstVisibleTab) firstVisibleTab = tabModules[i];
+            } else {
+                tabEl.classList.add('hidden');
+            }
+        }
+    }
+
+    renderOriginal(t);
+    renderGuide(t);
+    renderExam(t);
+    renderVocab(t);
+    renderGrammar(t);
+    renderFlashcard(t);
+    initQuiz(t);
+
+    // reset to first visible tab
+    switchTab(firstVisibleTab || 'original');
+    goToPage('textStudyPage');
+}
+
+function switchTab(tabName) {
+    var tabs = document.querySelectorAll('.tab-item');
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+        if (tabs[i].getAttribute('data-tab') === tabName) tabs[i].classList.add('active');
+    }
+    var panes = document.querySelectorAll('.tab-pane');
+    for (var i = 0; i < panes.length; i++) {
+        panes[i].classList.remove('active');
+    }
+    var pane = document.getElementById('tab-' + tabName);
+    if (pane) pane.classList.add('active');
+}
+
+/* ========== RENDER: ORIGINAL TEXT ========== */
+function renderOriginal(t) {
+    var html = '<div class="orig-text">';
+    for (var i = 0; i < t.sentences.length; i++) {
+        html += '<span class="sentence" onclick="toggleSentence(this,' + i + ')" data-idx="' + i + '">' + t.sentences[i].orig + '</span> ';
+    }
+    html += '</div>';
+    html += '<p style="color:var(--text-m);font-size:.9em;text-align:center;margin-bottom:16px">💡 点击句中任意文字，查看对应翻译</p>';
+    html += '<div class="trans-box" id="transBox" style="display:none"></div>';
+    // Full translation toggle
+    html += '<button class="btn btn-outline btn-sm" style="margin-top:16px;width:100%" onclick="toggleFullTrans()">📋 展开/收起全文翻译</button>';
+    html += '<div id="fullTransBox" style="display:none;margin-top:12px" class="trans-box">';
+    for (var i = 0; i < t.sentences.length; i++) {
+        html += '<div class="trans-row"><div class="orig">' + t.sentences[i].orig + '</div><div class="trans">' + t.sentences[i].trans + '</div></div>';
+    }
+    html += '</div>';
+    document.getElementById('tab-original').innerHTML = html;
+}
+
+function toggleSentence(el, idx) {
+    var t = getText(state.currentTextId);
+    var box = document.getElementById('transBox');
+    // remove previous highlight
+    var all = document.querySelectorAll('.sentence.highlighted');
+    for (var i = 0; i < all.length; i++) all[i].classList.remove('highlighted');
+    el.classList.add('highlighted');
+    box.style.display = 'block';
+    box.innerHTML = '<div class="trans-row"><div class="orig">' + t.sentences[idx].orig + '</div><div class="trans">' + t.sentences[idx].trans + '</div></div>';
+}
+
+function toggleFullTrans() {
+    var box = document.getElementById('fullTransBox');
+    box.style.display = box.style.display === 'none' ? 'block' : 'none';
+}
+
+/* ========== RENDER: GUIDE ========== */
+function renderGuide(t) {
+    var html = '';
+    html += '<div class="guide-section">';
+    html += '<h3 class="guide-title">👤 作者简介</h3>';
+    html += '<div class="guide-content">' + (t.authorIntro||'暂无') + '</div>';
+    html += '</div>';
+    html += '<div class="guide-section">';
+    html += '<h3 class="guide-title">🏛 朝代背景</h3>';
+    html += '<div class="guide-content">' + (t.dynastyIntro||'暂无') + '</div>';
+    html += '</div>';
+    html += '<div class="guide-section">';
+    html += '<h3 class="guide-title">✍️ 写作意图</h3>';
+    html += '<div class="guide-content">' + (t.writingIntent||'暂无') + '</div>';
+    html += '</div>';
+    html += '<div class="guide-section">';
+    html += '<h3 class="guide-title">⭐ 文学价值</h3>';
+    html += '<div class="guide-content">' + (t.literaryValue||'暂无') + '</div>';
+    html += '</div>';
+    document.getElementById('tab-guide').innerHTML = html;
+}
+
+/* ========== RENDER: EXAM ========== */
+function renderExam(t) {
+    var html = '';
+    var qs = t.examQuestions || [];
+    if (qs.length === 0) {
+        html = '<p style="color:var(--text-m);text-align:center">暂无中考精练题目</p>';
+    } else {
+        for (var i = 0; i < qs.length; i++) {
+            html += '<div class="exam-card">';
+            html += '<div class="exam-q-head"><span class="exam-num">第' + (i+1) + '题</span><span class="exam-type">' + qs[i].type + '</span></div>';
+            html += '<div class="exam-q">' + qs[i].q + '</div>';
+            html += '<div class="exam-a" id="examA_' + i + '" style="display:none"><div class="exam-a-label">参考答案</div><div class="exam-a-text">' + qs[i].a + '</div></div>';
+            html += '<button class="btn btn-outline btn-sm" style="margin-top:10px" onclick="var e=document.getElementById(\'examA_' + i + '\');e.style.display=e.style.display==\'none\'?\'block\':\'none\'">查看答案</button>';
+            html += '</div>';
+        }
+    }
+    document.getElementById('tab-exam').innerHTML = html;
+}
+
+/* ========== RENDER: VOCAB ========== */
+function renderVocab(t) {
+    var html = '<div class="vocab-list">';
+    var vocab = t.vocab || [];
+    for (var i = 0; i < vocab.length; i++) {
+        var v = vocab[i];
+        var typeClass = '';
+        if (v.type === '虚词') typeClass = 'type-xu';
+        else if (v.type === '通假字') typeClass = 'type-tong';
+        else if (v.type === '古今异义') typeClass = 'type-yi';
+        else typeClass = 'type-shi';
+        html += '<div class="vocab-card">';
+        html += '<span class="vocab-word">' + v.word + '</span>';
+        html += '<span class="vocab-type ' + typeClass + '">' + v.type + '</span>';
+        html += '<div class="vocab-def">' + v.def + '</div>';
+        html += '<div class="vocab-eg">📌 ' + v.eg + '</div>';
+        html += '</div>';
+    }
+    html += '</div>';
+    document.getElementById('tab-vocab').innerHTML = html;
+}
+
+/* ========== RENDER: GRAMMAR ========== */
+function renderGrammar(t) {
+    var html = '';
+    var grammar = t.grammar || [];
+    for (var i = 0; i < grammar.length; i++) {
+        var g = grammar[i];
+        html += '<div class="grammar-item">';
+        html += '<div class="grammar-type">' + g.type + '</div>';
+        html += '<div class="grammar-example">「' + g.example + '」</div>';
+        html += '<div class="grammar-note">' + g.note + '</div>';
+        html += '</div>';
+    }
+    if (grammar.length === 0) html = '<p style="color:var(--text-m);text-align:center">暂无特殊句式整理</p>';
+    document.getElementById('tab-grammar').innerHTML = html;
+}
+
+/* ========== RENDER: FLASHCARD ========== */
+function renderFlashcard(t) {
+    state.flashcardIdx = 0;
+    state.flashcardFlipped = false;
+    drawFlashcard(t);
+}
+
+function drawFlashcard(t) {
+    var vocab = t.vocab || [];
+    if (vocab.length === 0) {
+        document.getElementById('tab-flashcard').innerHTML = '<p style="color:var(--text-m);text-align:center">暂无词汇卡片</p>';
+        return;
+    }
+    var v = vocab[state.flashcardIdx];
+    var html = '<p style="text-align:center;color:var(--text-m);margin-bottom:8px">👆 点击卡片翻转查看释义</p>';
+    html += '<div class="flashcard" id="flashcardEl" onclick="flipCard()">';
+    html += '<div class="flashcard-inner">';
+    html += '<div class="flashcard-front"><div class="fc-word">' + v.word + '</div><div class="fc-hint">点击翻转 →</div></div>';
+    html += '<div class="flashcard-back"><div class="fc-def">' + v.def + '</div><div class="fc-eg">📌 ' + v.eg + '</div></div>';
+    html += '</div></div>';
+    html += '<div class="flashcard-nav">';
+    html += '<button class="btn btn-ghost btn-sm" onclick="prevCard()"' + (state.flashcardIdx === 0 ? ' disabled style="opacity:.4"' : '') + '>← 上一个</button>';
+    html += '<span class="fc-counter">' + (state.flashcardIdx + 1) + ' / ' + vocab.length + '</span>';
+    html += '<button class="btn btn-ghost btn-sm" onclick="nextCard()"' + (state.flashcardIdx >= vocab.length - 1 ? ' disabled style="opacity:.4"' : '') + '>下一个 →</button>';
+    html += '</div>';
+    document.getElementById('tab-flashcard').innerHTML = html;
+    // Reset flip state
+    state.flashcardFlipped = false;
+}
+
+function flipCard() {
+    var el = document.getElementById('flashcardEl');
+    if (el) el.classList.toggle('flipped');
+    state.flashcardFlipped = !state.flashcardFlipped;
+}
+
+function prevCard() {
+    if (state.flashcardIdx > 0) {
+        state.flashcardIdx--;
+        drawFlashcard(getText(state.currentTextId));
+    }
+}
+
+function nextCard() {
+    var vocab = getText(state.currentTextId).vocab || [];
+    if (state.flashcardIdx < vocab.length - 1) {
+        state.flashcardIdx++;
+        drawFlashcard(getText(state.currentTextId));
+    }
+}
+
+/* ========== QUIZ ========== */
+function initQuiz(t) {
+    var pool = buildQuizPool(t);
+    state.quizPool = pool;
+    // Categorize pool by type
+    var cat = {
+        choice: [],
+        fill: [],
+        trans_open: [],
+        short: [],
+        punctuate: [],
+        func: [],
+        content_choice: []
+    };
+    for (var i = 0; i < pool.length; i++) {
+        var q = pool[i];
+        if (q.type === 'vocab_choice' || q.type === 'translate' || q.type === 'grammar') cat.choice.push(q);
+        else if (q.type === 'fill_blank') cat.fill.push(q);
+        else if (q.type === 'translate_open') cat.trans_open.push(q);
+        else if (q.type === 'short_answer') cat.short.push(q);
+        else if (q.type === 'punctuate') cat.punctuate.push(q);
+        else if (q.type === 'func_word') cat.func.push(q);
+        else if (q.type === 'content_choice') cat.content_choice.push(q);
+    }
+    // Pick questions: aim for 10 with balanced mix
+    var picked = [];
+    // 1. vocab choice (中考模式)
+    shuffleArr(cat.choice);
+    picked = picked.concat(cat.choice.slice(0, 2));
+    // 2. fill blank (meaning)
+    var fillMeaning = [];
+    for (var i = 0; i < cat.fill.length; i++) {
+        if (cat.fill[i].subtype === 'meaning') fillMeaning.push(cat.fill[i]);
+    }
+    shuffleArr(fillMeaning);
+    picked = picked.concat(fillMeaning.slice(0, 1));
+    // 3. func word
+    shuffleArr(cat.func);
+    picked = picked.concat(cat.func.slice(0, 1));
+    // 4. translate choice
+    var transChoice = [];
+    for (var i = 0; i < cat.choice.length; i++) {
+        if (cat.choice[i].type === 'translate') transChoice.push(cat.choice[i]);
+    }
+    shuffleArr(transChoice);
+    picked = picked.concat(transChoice.slice(0, 1));
+    // 5. translate open
+    shuffleArr(cat.trans_open);
+    picked = picked.concat(cat.trans_open.slice(0, 1));
+    // 6. content choice
+    shuffleArr(cat.content_choice);
+    picked = picked.concat(cat.content_choice.slice(0, 1));
+    // 7. short answer (non-translation)
+    var shortNonTrans = [];
+    for (var i = 0; i < cat.short.length; i++) {
+        if (cat.short[i].questionType !== '翻译题') shortNonTrans.push(cat.short[i]);
+    }
+    shuffleArr(shortNonTrans);
+    picked = picked.concat(shortNonTrans.slice(0, 1));
+    // 8. dictation fill
+    var fillRecite = [];
+    for (var i = 0; i < cat.fill.length; i++) {
+        if (cat.fill[i].subtype === 'recitation') fillRecite.push(cat.fill[i]);
+    }
+    shuffleArr(fillRecite);
+    picked = picked.concat(fillRecite.slice(0, 1));
+    // 9. punctuate
+    shuffleArr(cat.punctuate);
+    picked = picked.concat(cat.punctuate.slice(0, 1));
+    // 10. short answer (translation) or extra choice
+    var shortTrans = [];
+    for (var i = 0; i < cat.short.length; i++) {
+        if (cat.short[i].questionType === '翻译题') shortTrans.push(cat.short[i]);
+    }
+    shuffleArr(shortTrans);
+    if (shortTrans.length > 0) {
+        picked = picked.concat(shortTrans.slice(0, 1));
+    } else {
+        // Add another choice question
+        var remaining = cat.choice.slice(2);
+        shuffleArr(remaining);
+        picked = picked.concat(remaining.slice(0, 1));
+    }
+    // Shuffle picked questions
+    shuffleArr(picked);
+    state.quizQuestions = picked.slice(0, Math.min(10, picked.length));
+    state.quizIndex = 0;
+    state.quizAnswers = [];
+    state.quizChecked = false;
+    renderQuiz();
+}
+
+function getQuizTypeBadge(q) {
+    var map = {
+        'vocab_choice': {label: '实词解释', color: '#fef3e2', text: '#b7791f'},
+        'grammar': {label: '句式辨析', color: '#e8f4fd', text: '#2980b9'},
+        'translate': {label: '翻译选择', color: '#e8fde8', text: '#27ae60'},
+        'translate_open': {label: '翻译题', color: '#e8f4fd', text: '#2980b9'},
+        'fill_blank': {label: q.subtype === 'recitation' ? '默写填空' : '词义填空', color: '#fef3e2', text: '#b7791f'},
+        'short_answer': {label: q.questionType || '问答题', color: '#fde8e8', text: '#c0392b'},
+        'punctuate': {label: '断句题', color: '#f0e8fd', text: '#764ba2'},
+        'func_word': {label: '虚词辨析', color: '#e8f4fd', text: '#2980b9'},
+        'content_choice': {label: '内容理解', color: '#e8fde8', text: '#27ae60'}
+    };
+    var info = map[q.type] || {label: '练习题', color: '#fef3e2', text: '#b7791f'};
+    return '<span class="badge" style="background:' + info.color + ';color:' + info.text + ';margin-bottom:8px;display:inline-block">' + info.label + '</span>';
+}
+
+function isChoiceType(q) {
+    return q.type === 'vocab_choice' || q.type === 'translate' || q.type === 'grammar' || q.type === 'func_word' || q.type === 'content_choice';
+}
+
+function renderQuiz() {
+    var qs = state.quizQuestions;
+    var idx = state.quizIndex;
+    if (idx >= qs.length) {
+        renderResult();
+        return;
+    }
+    var q = qs[idx];
+    var total = qs.length;
+    var letters = ['A','B','C','D'];
+
+    var html = '<div class="quiz-header">';
+    html += '<div class="quiz-progress"><div class="quiz-q-num">第 ' + (idx + 1) + ' / ' + total + ' 题</div>';
+    html += '<div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:' + ((idx / total) * 100) + '%"></div></div></div>';
+    html += '</div>';
+
+    html += '<div class="quiz-question">';
+    html += getQuizTypeBadge(q);
+    var qText = q.question.replace(/\n/g, '<br>');
+    html += '<div style="margin-top:8px">' + qText + '</div>';
+    if (q.hint) html += '<div class="quiz-hint">' + q.hint + '</div>';
+    html += '</div>';
+
+    if (isChoiceType(q)) {
+        // Choice question rendering
+        html += '<div class="quiz-options" id="quizOptions">';
+        for (var i = 0; i < q.options.length; i++) {
+            html += '<div class="quiz-opt" data-idx="' + i + '" onclick="selectQuizOpt(' + i + ')">';
+            html += '<span class="opt-letter">' + letters[i] + '</span>';
+            html += '<span>' + q.options[i] + '</span>';
+            html += '</div>';
+        }
+        html += '</div>';
+    } else if (q.type === 'fill_blank') {
+        // Fill blank rendering
+        html += '<input type="text" class="quiz-input" id="quizInput" placeholder="请输入答案" autocomplete="off">';
+    } else if (q.type === 'translate_open') {
+        // Translate open rendering
+        html += '<textarea class="quiz-textarea" id="quizTextarea" rows="3" placeholder="请输入你的翻译"></textarea>';
+    } else if (q.type === 'short_answer') {
+        // Short answer rendering
+        html += '<div class="quiz-type-tag">题型：' + (q.questionType || '问答题') + '</div>';
+        html += '<textarea class="quiz-textarea" id="quizTextarea" rows="4" placeholder="请输入你的答案（作答后点击按钮查看参考答案）"></textarea>';
+    } else if (q.type === 'punctuate') {
+        // Punctuate rendering
+        html += '<input type="text" class="quiz-input" id="quizInput" placeholder="请用 / 断句，例如：学而时习之/不亦说乎" autocomplete="off">';
+        html += '<div class="quiz-hint">提示：在需要断句的位置输入 /（斜杠）</div>';
+    }
+
+    html += '<div class="quiz-explain" id="quizExplain"></div>';
+
+    html += '<div class="nav-row" style="margin-top:20px">';
+    var btnText = '确认答案';
+    if (q.type === 'short_answer') btnText = '查看参考答案';
+    html += '<button class="btn btn-primary" id="quizNextBtn" onclick="checkQuizAnswer()" style="flex:1">' + btnText + '</button>';
+    html += '</div>';
+
+    document.getElementById('tab-quiz').innerHTML = html;
+    state.quizChecked = false;
+}
+
+function selectQuizOpt(idx) {
+    if (state.quizChecked) return;
+    var opts = document.querySelectorAll('.quiz-opt');
+    for (var i = 0; i < opts.length; i++) opts[i].classList.remove('selected');
+    opts[idx].classList.add('selected');
+}
+
+function checkQuizAnswer() {
+    if (state.quizChecked) {
+        state.quizIndex++;
+        renderQuiz();
+        return;
+    }
+
+    var q = state.quizQuestions[state.quizIndex];
+    var explainBox = document.getElementById('quizExplain');
+
+    if (isChoiceType(q)) {
+        // Choice question
+        var opts = document.querySelectorAll('.quiz-opt');
+        var selected = -1;
+        for (var i = 0; i < opts.length; i++) {
+            if (opts[i].classList.contains('selected')) { selected = i; break; }
+        }
+        if (selected === -1) return;
+        var correct = q.answer;
+        var isCorrect = selected === correct;
+        state.quizAnswers.push({ question: q, selected: selected, correct: correct, isCorrect: isCorrect, userAnswer: q.options[selected], correctAnswer: q.options[correct] });
+        for (var i = 0; i < opts.length; i++) {
+            opts[i].style.cursor = 'default';
+            if (i === correct) opts[i].classList.add('correct');
+            if (i === selected && !isCorrect) opts[i].classList.add('wrong');
+        }
+        if (isCorrect) {
+            explainBox.className = 'quiz-explain show correct-explain';
+            explainBox.innerHTML = '✅ 回答正确！' + q.explain;
+        } else {
+            explainBox.className = 'quiz-explain show wrong-explain';
+            explainBox.innerHTML = '❌ 回答错误。正确答案是 ' + ['A','B','C','D'][correct] + '。<br>' + q.explain;
+        }
+    } else if (q.type === 'fill_blank') {
+        // Fill blank
+        var input = document.getElementById('quizInput');
+        var userVal = input.value.trim();
+        if (!userVal) return;
+        var isCorrect = false;
+        for (var i = 0; i < q.acceptAnswers.length; i++) {
+            var accept = q.acceptAnswers[i].trim();
+            if (userVal === accept) { isCorrect = true; break; }
+            // Fuzzy: if user answer contains the accept answer or vice versa
+            if (userVal.indexOf(accept) !== -1 || accept.indexOf(userVal) !== -1) {
+                if (Math.abs(userVal.length - accept.length) <= 2) { isCorrect = true; break; }
+            }
+        }
+        state.quizAnswers.push({ question: q, userAnswer: userVal, correctAnswer: q.answer, isCorrect: isCorrect });
+        input.disabled = true;
+        if (isCorrect) {
+            explainBox.className = 'quiz-explain show correct-explain';
+            explainBox.innerHTML = '✅ 回答正确！' + q.explain;
+        } else {
+            explainBox.className = 'quiz-explain show wrong-explain';
+            explainBox.innerHTML = '❌ 回答错误。正确答案：' + q.answer + '<br>' + q.explain;
+        }
+    } else if (q.type === 'translate_open') {
+        // Translate open: keyword matching
+        var ta = document.getElementById('quizTextarea');
+        var userVal2 = ta.value.trim();
+        if (!userVal2) return;
+        var kws = q.keywords || [];
+        var matched = 0;
+        for (var i = 0; i < kws.length; i++) {
+            if (userVal2.indexOf(kws[i]) !== -1) matched++;
+        }
+        var ratio = kws.length > 0 ? matched / kws.length : 0;
+        var isCorrect2 = ratio >= 0.6;
+        state.quizAnswers.push({ question: q, userAnswer: userVal2, correctAnswer: q.answer, isCorrect: isCorrect2, matchRatio: Math.round(ratio * 100) });
+        ta.disabled = true;
+        if (isCorrect2) {
+            explainBox.className = 'quiz-explain show correct-explain';
+            explainBox.innerHTML = '✅ 翻译较好！关键词匹配率 ' + Math.round(ratio * 100) + '%。<br>' + q.explain;
+        } else {
+            explainBox.className = 'quiz-explain show wrong-explain';
+            explainBox.innerHTML = '⚠️ 关键词匹配率 ' + Math.round(ratio * 100) + '%，需要提高。' + (ratio >= 0.3 ? '翻译部分正确，但关键词不够。' : '翻译偏差较大。') + '<br>' + q.explain;
+        }
+    } else if (q.type === 'short_answer') {
+        // Short answer: no auto-grading, show reference
+        var ta2 = document.getElementById('quizTextarea');
+        var userVal3 = ta2.value.trim();
+        state.quizAnswers.push({ question: q, userAnswer: userVal3, correctAnswer: q.answer, isCorrect: null });
+        ta2.disabled = true;
+        explainBox.className = 'quiz-explain show correct-explain';
+        explainBox.innerHTML = '📋 参考答案：<br>' + q.explain;
+    } else if (q.type === 'punctuate') {
+        // Punctuate
+        var input2 = document.getElementById('quizInput');
+        var userPunct = input2.value.trim();
+        if (!userPunct) return;
+        // Parse user's / positions relative to origNoPunct
+        var noPunct = q.origNoPunct;
+        var userPositions = [];
+        var charIdx = 0;
+        for (var i = 0; i < userPunct.length; i++) {
+            if (userPunct.charAt(i) === '/') {
+                userPositions.push(charIdx);
+            } else {
+                charIdx++;
+            }
+        }
+        var stdPositions = q.answer.split(',');
+        // Compare: count matching positions (within ±1 tolerance)
+        var matchCount = 0;
+        var totalStd = stdPositions.length;
+        for (var i = 0; i < stdPositions.length; i++) {
+            var stdPos = parseInt(stdPositions[i]);
+            for (var j = 0; j < userPositions.length; j++) {
+                if (Math.abs(userPositions[j] - stdPos) <= 1) { matchCount++; break; }
+            }
+        }
+        var ratio2 = totalStd > 0 ? matchCount / totalStd : 0;
+        var isCorrect3 = ratio2 >= 0.6;
+        state.quizAnswers.push({ question: q, userAnswer: userPunct, correctAnswer: q.origText, isCorrect: isCorrect3 });
+        input2.disabled = true;
+        if (isCorrect3) {
+            explainBox.className = 'quiz-explain show correct-explain';
+            explainBox.innerHTML = '✅ 断句正确率 ' + Math.round(ratio2 * 100) + '%！' + q.explain;
+        } else {
+            explainBox.className = 'quiz-explain show wrong-explain';
+            explainBox.innerHTML = '⚠️ 断句正确率 ' + Math.round(ratio2 * 100) + '%。' + q.explain;
+        }
+    }
+
+    document.getElementById('quizNextBtn').textContent = (state.quizIndex < state.quizQuestions.length - 1) ? '下一题 →' : '查看成绩';
+    state.quizChecked = true;
+}
+
+function renderResult() {
+    var answers = state.quizAnswers;
+    var correct = 0;
+    var totalGraded = 0;
+    var totalUngraded = 0;
+
+    for (var i = 0; i < answers.length; i++) {
+        var a = answers[i];
+        if (a.isCorrect === null) { totalUngraded++; }
+        else { totalGraded++; if (a.isCorrect) correct++; }
+    }
+
+    var pct = totalGraded > 0 ? Math.round((correct / totalGraded) * 100) : 0;
+    var scoreClass = pct >= 80 ? 'score-high' : (pct >= 60 ? 'score-mid' : 'score-low');
+    var msg = pct >= 90 ? '🎉 太棒了！掌握得非常好！' : (pct >= 70 ? '👍 不错，继续加油！' : (pct >= 50 ? '💪 还需努力，多复习词汇和句式。' : '📚 建议重新学习本文重点内容。'));
+
+    var html = '<div class="result-score">';
+    html += '<div class="score-circle ' + scoreClass + '">' + pct + '</div>';
+    html += '<p style="font-size:1.1em;color:var(--text)">' + msg + '</p>';
+    if (totalUngraded > 0) html += '<p style="font-size:.85em;color:var(--text-m)">（含 ' + totalUngraded + ' 道主观题，请对照参考答案自评）</p>';
+    html += '</div>';
+
+    html += '<div class="result-detail">';
+    html += '<div class="result-item"><div class="num">' + correct + '/' + totalGraded + '</div><div class="label">客观题正确</div></div>';
+    html += '<div class="result-item"><div class="num">' + totalUngraded + '</div><div class="label">主观题自评</div></div>';
+    html += '<div class="result-item"><div class="num">' + answers.length + '</div><div class="label">总题数</div></div>';
+    html += '</div>';
+
+    // Review
+    html += '<div class="review-list"><h3 class="title-md">📋 答题回顾</h3>';
+    for (var i = 0; i < answers.length; i++) {
+        var a = answers[i];
+        var cls = '';
+        var icon = '';
+        if (a.isCorrect === null) { cls = ''; icon = '📝'; }
+        else if (a.isCorrect) { cls = 'review-correct'; icon = '✅'; }
+        else { cls = 'review-wrong'; icon = '❌'; }
+        html += '<div class="review-item ' + cls + '">';
+        html += '<div class="review-q">' + icon + ' ' + a.question.question.replace(/\n/g, ' ').substring(0, 60) + (a.question.question.length > 60 ? '...' : '') + '</div>';
+        if (isChoiceType(a.question)) {
+            html += '<div class="review-ans">你的答案：' + (a.userAnswer || '未作答') + ' | 正确答案：' + (a.correctAnswer || '') + '</div>';
+        } else if (a.question.type === 'short_answer') {
+            html += '<div class="review-ans">📝 主观题（请对照参考答案自评）<br>参考答案：' + (a.correctAnswer || '').substring(0, 80) + '...</div>';
+        } else {
+            html += '<div class="review-ans">你的答案：' + (a.userAnswer || '未作答') + ' | 正确答案：' + (a.correctAnswer || '') + '</div>';
+        }
+        html += '</div>';
+    }
+    html += '</div>';
+
+    html += '<div class="nav-row">';
+    html += '<button class="btn btn-back" onclick="initQuiz(getText(state.currentTextId))" style="flex:1">🔄 重新练习</button>';
+    html += '<button class="btn btn-primary" onclick="switchTab(\'vocab\')" style="flex:1">📝 复习词汇</button>';
+    html += '</div>';
+
+    document.getElementById('tab-quiz').innerHTML = html;
+}
+
+/* ========== TRANSLATE GUIDE ========== */
+function toggleGuideCard(el) { el.parentElement.classList.toggle('expanded'); }
+
+function goToTranslateGuide() { if (!isModuleAllowed('翻译方法')) { alert('您没有使用该板块的权限'); return; } renderTranslateGuide(); goToPage('translateGuidePage'); }
+function goToExamGuide() { if (!isModuleAllowed('考试指南')) { alert('您没有使用该板块的权限'); return; } renderExamGuide(); goToPage('examGuidePage'); }
+
+function gc(title, bodyHtml) {
+    return '<div class="guide-card"><div class="guide-card-header" onclick="toggleGuideCard(this)"><span class="guide-card-title">' + title + '</span><span class="guide-card-toggle">▼</span></div><div class="guide-card-body">' + bodyHtml + '</div></div>';
+}
+
+function renderTranslateGuide() {
+    var h = '';
+    // 1. 信达雅
+    h += gc('一、文言文翻译总原则：信、达、雅', 
+        '<p><b>信</b>：忠实于原文，不随意增删内容，不改变原意。</p>' +
+        '<div class="guide-example">要求：翻译时必须准确传达原文的意思，不能凭主观臆断添加或删减内容。</div>' +
+        '<p><b>达</b>：译文通顺明白，符合现代汉语表达习惯。</p>' +
+        '<div class="guide-example">要求：译文语句通顺，不出现文言句式遗留，读者能顺畅理解。</div>' +
+        '<p><b>雅</b>：译文语言优美，尽可能保留原文的风格和韵味。</p>' +
+        '<div class="guide-example">要求：在信、达的基础上，追求用词优美、得体，体现原文的文学色彩。</div>'
+    );
+    // 2. 六字法
+    h += gc('二、翻译六字法（核心方法）', 
+        '<p><b>1. 留</b>——保留专有名词、国号、年号、人名、地名、官名等</p>' +
+        '<div class="guide-example">示例："晋太元中"→"晋朝太元年间"（"晋太元"保留）<br>示例："陈太丘与友期行"→"陈太丘和朋友相约同行"（"陈太丘"是人名，保留）</div>' +
+        '<p><b>2. 删</b>——删去没有实在意义的虚词（之、其、而、以、于等）</p>' +
+        '<div class="guide-example">示例："予独爱莲之出淤泥而不染"→"我唯独喜爱莲花从淤泥中长出却不被污染"（"之"删去）<br>示例："公大笑乐"→"谢安高兴得大笑起来"（"公"换为"谢安"，无虚词需删）</div>' +
+        '<p><b>3. 换</b>——用现代词语替换古代词语（古今异义、通假字）</p>' +
+        '<div class="guide-example">示例："学而时习之，不亦说乎"→"说"换为"悦"（通假字）<br>示例："儿女"古义="子侄辈"，换为现代义<br>示例："妻子"古义="妻子和儿女"，不可按今义翻译</div>' +
+        '<p><b>4. 调</b>——调整倒装句的语序，使之符合现代汉语习惯</p>' +
+        '<div class="guide-example">示例："何陋之有"→"有何陋"→"有什么简陋的呢"（宾语前置调整）<br>示例："白雪纷纷何所似"→"所似何"→"像什么"（疑问代词前置调整）</div>' +
+        '<p><b>5. 补</b>——补充省略的成分（主语、宾语、介词等）</p>' +
+        '<div class="guide-example">示例："（渔人）复前行"→补充主语"渔人"<br>示例："（太丘）去后（友）乃至"→补充省略的主语<br>示例："待君久不至"→"（我父亲）等您很久您没到"</div>' +
+        '<p><b>6. 贯</b>——把文言文中的数词、量词等贯串成现代汉语表达</p>' +
+        '<div class="guide-example">示例："三人行"→"三个人一起走路"<br>示例："元方时年七岁"→"元方当时七岁"</div>' +
+        '<div class="guide-formula">速记口诀：留删换调补贯，六字记心间</div>'
+    );
+    // 3. 特殊句式
+    h += gc('三、特殊句式翻译技巧', 
+        '<p><b>判断句</b>："……也"→"……是……"</p>' +
+        '<div class="guide-example">原文：即公大兄无奕女，左将军王凝之妻也。<br>翻译：（谢道韫）就是谢安大哥谢无奕的女儿，左将军王凝之的妻子。<br>技巧："……也"结尾的判断句，翻译时加"是"。</div>' +
+        '<p><b>被动句</b>："为……所……"→"被……"</p>' +
+        '<div class="guide-example">原文：为……所……<br>翻译：被……<br>技巧：找到"为……所"或"见"等被动标志，翻译为"被"。</div>' +
+        '<p><b>倒装句</b>：宾语前置、状语后置、定语后置</p>' +
+        '<div class="guide-example">宾语前置："何陋之有"→"有何陋"→"有什么简陋的呢"<br>状语后置："战于长勺"→"于长勺战"→"在长勺作战"<br>定语后置："马之千里者"→"千里之马"</div>' +
+        '<p><b>省略句</b>：补全主语/宾语/介词</p>' +
+        '<div class="guide-example">省主语："（友）过中不至"→补充"友"<br>省宾语："下车引之"→"下车引（元方）"→"下车去拉元方"<br>省介词："战（于）长勺"→补充"于"</div>'
+    );
+    // 4. 常见错误
+    h += gc('四、常见翻译错误类型（反面教材）', 
+        '<p><b>❌ 不辨古今异义，按今义翻译</b></p>' +
+        '<div class="guide-example">错误："妻子"译为"妻子"（今义，仅指配偶）<br>正确："妻子"古义="妻子和儿女"<br>错误："儿女"译为"儿子和女儿"（今义）<br>正确："儿女"古义="子侄辈"</div>' +
+        '<p><b>❌ 不识通假字，按字面翻译</b></p>' +
+        '<div class="guide-example">错误："尊君在不"中"不"译为"不"（今义否定词）<br>正确："不"通"否"，用于句末表疑问</div>' +
+        '<p><b>❌ 不明一词多义，选错义项</b></p>' +
+        '<div class="guide-example">错误："因"一律译为"因为"<br>正确："因"在不同语境有"趁、乘、凭借""因为""于是"等不同义项</div>' +
+        '<p><b>❌ 不调整倒装句序，照搬原文结构</b></p>' +
+        '<div class="guide-example">错误："何所似"译为"什么所像"<br>正确：调整语序为"所似何"→"像什么"</div>' +
+        '<p><b>❌ 不补省略成分，译文残缺</b></p>' +
+        '<div class="guide-example">错误："过中不至，太丘舍去"译为"过了中午没到，太丘离开"<br>正确：补充主语"（友）过中不至"</div>'
+    );
+    // 5. 评分标准
+    h += gc('五、中考翻译题评分标准', 
+        '<p>中考文言文翻译题通常采用"关键词+句子通顺"的评分方式：</p>' +
+        '<div class="guide-table"><table><tr><th>评分项</th><th>分值</th><th>说明</th></tr>' +
+        '<tr><td>关键词翻译</td><td>每个关键词1分</td><td>通常设2-3个关键词，必须准确翻译</td></tr>' +
+        '<tr><td>句子通顺</td><td>1-2分</td><td>译文语句通顺，符合现代汉语习惯</td></tr>' +
+        '<tr><td>句式体现</td><td>0.5-1分</td><td>特殊句式需体现调整（如判断句、倒装句）</td></tr></table></div>' +
+        '<div class="guide-example"><b>常见失分点：</b><br>① 漏翻关键词——如"未若"未翻译<br>② 未调整倒装句——如"何所似"未调整语序<br>③ 省略成分未补——如省略主语未补充<br>④ 多翻、错翻——增加了原文没有的内容<br>⑤ 翻译不完整——只翻译了半句</div>' +
+        '<div class="guide-formula">得分要诀：关键词不丢分，句式要调整，省略需补全，译文要通顺</div>'
+    );
+    document.getElementById('translateGuideContent').innerHTML = h;
+}
+
+function renderExamGuide() {
+    var h = '';
+    // 1. 概况
+    h += gc('一、中考古文考查概况', 
+        '<div class="guide-table"><table><tr><th>题型</th><th>分值</th><th>说明</th></tr>' +
+        '<tr><td>实词解释</td><td>2-3分</td><td>选择题或填空题，考查课内重点实词</td></tr>' +
+        '<tr><td>虚词辨析</td><td>2分</td><td>选择题，比较虚词用法异同</td></tr>' +
+        '<tr><td>句子翻译</td><td>4-6分</td><td>翻译2-3个句子，关键词+通顺评分</td></tr>' +
+        '<tr><td>内容理解</td><td>2-3分</td><td>选择题或简答题</td></tr>' +
+        '<tr><td>断句</td><td>2-3分</td><td>用/给句子断句</td></tr>' +
+        '<tr><td>古诗文默写</td><td>5-8分</td><td>上下句默写+理解性默写</td></tr></table></div>' +
+        '<p><b>命题趋势：</b>课内外结合、比较阅读增多，注重综合运用能力考查。</p>' +
+        '<p><b>总分占比：</b>通常占总分10-15%。</p>'
+    );
+    // 2A. 实词解释
+    h += gc('A. 实词解释题答题技巧', 
+        '<p><b>答题步骤：</b></p>' +
+        '<p>① 判断词性（名词/动词/形容词等）<br>② 回忆课内学过的用法<br>③ 代入原句验证是否通顺<br>④ 注意古今异义和通假字</p>' +
+        '<div class="guide-example"><b>高频陷阱：</b><br>古今异义：如"妻子"古义=妻子和儿女<br>通假字：如"不"通"否"<br>一词多义：如"因"有"趁、凭借""因为""于是"等义项</div>' +
+        '<div class="guide-formula">速记口诀：词性要判准，语境定义项，古今需分辨，通假要还原</div>'
+    );
+    // 2B. 虚词辨析
+    h += gc('B. 虚词辨析题答题技巧', 
+        '<p><b>常考虚词：</b>之、其、而、以、于、乃、为、焉、何、虽</p>' +
+        '<p><b>解题方法：</b>先判断虚词词性（代词/助词/连词/介词等），再找用法相同的选项。</p>' +
+        '<div class="guide-table"><table><tr><th>虚词</th><th>常见用法</th><th>示例</th></tr>' +
+        '<tr><td>之</td><td>代词/助词"的"/动词"去"/取消句子独立性</td><td>学而时习之 / 水陆草木之花 / 予独爱莲之出淤泥</td></tr>' +
+        '<tr><td>其</td><td>代词"他的"/语气词"大概"</td><td>其一犬坐于前 / 其真无马邪</td></tr>' +
+        '<tr><td>而</td><td>并列/递进/转折/修饰</td><td>温故而知新 / 学而不思则罔</td></tr>' +
+        '<tr><td>以</td><td>介词"用/凭"/连词"来"</td><td>以刀劈狼首 / 以光先帝遗德</td></tr>' +
+        '<tr><td>于</td><td>介词"在/到/对"</td><td>战于长勺 / 至于劝善</td></tr></table></div>' +
+        '<div class="guide-formula">速记口诀：虚词看词性，用法分类清，代入上下文，比较定答案</div>'
+    );
+    // 2C. 翻译题
+    h += gc('C. 句子翻译题答题技巧', 
+        '<p><b>翻译步骤：</b></p>' +
+        '<p>① 通读全句，理解大意<br>② 找出关键词（得分点）<br>③ 判断句式（判断/被动/倒装/省略）<br>④ 逐字翻译<br>⑤ 调整语序（倒装句）<br>⑥ 补充省略成分<br>⑦ 润色通顺</p>' +
+        '<div class="guide-example"><b>评分要点：</b><br>• 关键词必翻对（每个1分）<br>• 句式要体现（判断句加"是"，倒装句要调整）<br>• 译文要通顺（语句连贯，符合现代汉语习惯）</div>' +
+        '<div class="guide-example"><b>常见失分：</b><br>① 漏翻关键词——如"未若"未翻译<br>② 未调整倒装句——如"何所似"未调整<br>③ 省略成分未补——如省略主语<br>④ 译文不通顺——半文半白</div>' +
+        '<div class="guide-formula">速记口诀：六字法记心间，关键词不丢分，倒装句要调整，省略处需补全</div>'
+    );
+    // 2D. 内容理解
+    h += gc('D. 内容理解题答题技巧', 
+        '<p><b>答题步骤：</b></p>' +
+        '<p>① 通读全文，把握主旨<br>② 定位相关段落<br>③ 提取关键信息<br>④ 组织语言作答</p>' +
+        '<div class="guide-example"><b>选择题技巧：</b>逐项比对原文，注意：<br>• "无中生有"——原文没有的内容<br>• "偷换概念"——改变了原文意思<br>• "以偏概全"——部分代替整体<br>• "因果倒置"——颠倒了因果关系</div>' +
+        '<div class="guide-example"><b>简答题技巧：</b>观点 + 文本依据 + 分析<br>答题格式："本文通过……（文本依据），表现了/说明了……（观点），从中可以看出……（分析）"</div>' +
+        '<div class="guide-formula">速记口诀：原文是依据，逐项细比对，无中不生有，偏全要分辨</div>'
+    );
+    // 2E. 断句
+    h += gc('E. 断句题答题技巧', 
+        '<p><b>断句方法：</b></p>' +
+        '<p>① 找名词/代词（主语）<br>② 找动词（谓语）<br>③ 看虚词位置（句首/句末标志词）<br>④ 据句意断开<br>⑤ 通读验证通顺</p>' +
+        '<div class="guide-example"><b>标志词：</b><br>句首：夫、盖、故、则、若、且<br>句末：也、矣、乎、哉、焉、耳</div>' +
+        '<div class="guide-example"><b>示例：</b>"陈太丘与友期行/期日中/过中不至/太丘舍去"<br>断句依据：主谓之间断开，"期日中"独立成句，"过中不至"为原因</div>' +
+        '<div class="guide-formula">速记口诀：名动分主谓，虚词标首尾，语意断处寻，通读验通顺</div>'
+    );
+    // 2F. 默写
+    h += gc('F. 古诗文默写题答题技巧', 
+        '<p><b>上下句默写：</b>注意易错字，如"骤"（不写"聚"）、"欣然"（不写"欣燃"）。</p>' +
+        '<p><b>理解性默写：</b></p>' +
+        '<p>审题 → 定位篇目 → 回忆诗句 → 准确书写</p>' +
+        '<div class="guide-example"><b>示例：</b>"《桃花源记》中描写桃花源社会和平安宁的句子是：黄发垂髫，并怡然自乐。"<br>解题：审题"和平安宁"→ 定位《桃花源记》→ 回忆相关内容 → 写出准确诗句</div>' +
+        '<div class="guide-example"><b>高频易错字：</b><br>骤（非"聚"）、拟（非"疑"）、委（非"萎"）、顾（非"故"）、愠（非"温"）</div>'
+    );
+    // 2G. 比较阅读
+    h += gc('G. 比较阅读题答题技巧（课外古文）', 
+        '<p><b>解题策略：</b></p>' +
+        '<p>① 先读课外文段，借助注释理解大意<br>② 与课内篇目对比<br>③ 找共同点和不同点<br>④ 结合课内知识迁移运用</p>' +
+        '<div class="guide-example"><b>常见比较角度：</b><br>• 主题：两篇文章表达的主旨是否相似<br>• 人物形象：人物品质有何异同<br>• 写作手法：如对比、衬托、白描等<br>• 语言风格：如简洁、生动、华丽等</div>' +
+        '<div class="guide-formula">速记口诀：课外借注释，课内来迁移，异同仔细比，答题要全面</div>'
+    );
+    // 3. 时间分配
+    h += gc('三、考场时间分配建议', 
+        '<div class="guide-table"><table><tr><th>题型</th><th>建议用时</th></tr>' +
+        '<tr><td>课内文言文</td><td>8-10分钟</td></tr>' +
+        '<tr><td>课外文言文</td><td>8-10分钟</td></tr>' +
+        '<tr><td>古诗鉴赏</td><td>5-8分钟</td></tr>' +
+        '<tr><td>默写</td><td>3-5分钟</td></tr></table></div>' +
+        '<div class="guide-example">提示：先做有把握的题，遇到难题先跳过，最后回头解决。</div>'
+    );
+    // 4. 答题规范
+    h += gc('四、答题规范提醒', 
+        '<p><b>翻译题：</b>写完整句子，不写半句；标点符号要正确。</p>' +
+        '<p><b>简答题：</b>分点作答，用①②③标序号；先观点后分析。</p>' +
+        '<p><b>选择题：</b>涂卡清晰；不确定时相信第一直觉，不改则不涂。</p>' +
+        '<p><b>默写题：</b>字迹工整，不连笔；不写繁体字、异体字。</p>' +
+        '<div class="guide-formula">考场提醒：审题要仔细，答题要规范，字迹要工整，检查要耐心</div>'
+    );
+    document.getElementById('examGuideContent').innerHTML = h;
+}
+
+/* ========== INIT ========== */
+// Update stats
+var totalVocab = 0, totalQuiz = 0;
+for (var i = 0; i < TEXTS.length; i++) {
+    totalVocab += (TEXTS[i].vocab || []).length;
+    var pool = buildQuizPool(TEXTS[i]);
+    totalQuiz += pool.length;
+}
+document.getElementById('statTexts').textContent = TEXTS.length;
+document.getElementById('statVocab').textContent = totalVocab + '+';
+document.getElementById('statQuiz').textContent = totalQuiz + '+';
+</script>
+
+<script>
+// 登录验证 + 账号管理
+var LOGIN_USER = 'liulaoshi';
+var LOGIN_PASS = 'peiyou2026';
+var ACCT_KEY = 'guxx_accounts';
+var ALL_MODULES = ['初一','初二','初三','翻译方法','考试指南','original','guide','vocab','grammar','flashcard','quiz','exam'];
+var MODULE_LABELS = {
+    '初一':'初一古文','初二':'初二古文','初三':'初三古文','翻译方法':'翻译方法汇总','考试指南':'考试指南',
+    'original':'原文译注','guide':'名家导读','vocab':'重点词汇','grammar':'特殊句式','flashcard':'词汇卡片','quiz':'在线练习','exam':'中考精练'
+};
+var MODULE_GROUPS = [
+    {label:'年级板块',items:['初一','初二','初三']},
+    {label:'专题板块',items:['翻译方法','考试指南']},
+    {label:'古文学习页Tab',items:['original','guide','vocab','grammar','flashcard','quiz','exam']}
+];
+
+function getAccounts() {
+    var raw = localStorage.getItem(ACCT_KEY);
+    if (!raw) return [];
+    try { return JSON.parse(raw); } catch (ex) { return []; }
+}
+function saveAccounts(list) {
+    localStorage.setItem(ACCT_KEY, JSON.stringify(list));
+}
+function initAccounts() {
+    if (!localStorage.getItem(ACCT_KEY)) saveAccounts([]);
+}
+function updateLoginUI() {
+    var userType = sessionStorage.getItem('sys_login_type') || 'main';
+    var userName = sessionStorage.getItem('sys_login_user') || '';
+    var nameEl = document.getElementById('currentUserName');
+    var btnEl = document.getElementById('acctMgrBtn');
+    if (userType === 'main') {
+        if (nameEl) nameEl.textContent = '刘老师（管理员）';
+        if (btnEl) btnEl.classList.remove('hidden');
+        applyModuleVisibility(ALL_MODULES);
+    } else {
+        var accounts = getAccounts();
+        var displayName = userName;
+        var userModules = ALL_MODULES;
+        for (var i = 0; i < accounts.length; i++) {
+            if (accounts[i].username === userName) { displayName = accounts[i].displayName || userName; userModules = accounts[i].modules || ALL_MODULES; break; }
+        }
+        if (nameEl) nameEl.textContent = displayName;
+        if (btnEl) btnEl.classList.add('hidden');
+        applyModuleVisibility(userModules);
+    }
+}
+function applyModuleVisibility(modules) {
+    var gradeCards = ['初一','初二','初三'];
+    for (var i = 0; i < gradeCards.length; i++) {
+        var el = document.getElementById('gradeCard-' + gradeCards[i]);
+        if (el) {
+            if (modules.indexOf(gradeCards[i]) >= 0) { el.classList.remove('hidden'); }
+            else { el.classList.add('hidden'); }
+        }
+    }
+    var transEl = document.getElementById('specialCard-翻译方法');
+    if (transEl) {
+        if (modules.indexOf('翻译方法') >= 0) { transEl.classList.remove('hidden'); }
+        else { transEl.classList.add('hidden'); }
+    }
+    var examEl = document.getElementById('specialCard-考试指南');
+    if (examEl) {
+        if (modules.indexOf('考试指南') >= 0) { examEl.classList.remove('hidden'); }
+        else { examEl.classList.add('hidden'); }
+    }
+}
+function getUserModules() {
+    var userType = sessionStorage.getItem('sys_login_type') || 'main';
+    if (userType === 'main') return ALL_MODULES;
+    var userName = sessionStorage.getItem('sys_login_user') || '';
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === userName) return accounts[i].modules || ALL_MODULES;
+    }
+    return ALL_MODULES;
+}
+function isModuleAllowed(mod) {
+    var mods = getUserModules();
+    return mods.indexOf(mod) >= 0;
+}
+function checkLogin() {
+    if (sessionStorage.getItem('sys_login_ok') === '1') {
+        var o = document.getElementById('loginOverlay');
+        if (o) { o.style.display = 'none'; }
+        updateLoginUI();
+    }
+}
+function doLogin() {
+    var u = document.getElementById('loginUser').value.trim();
+    var p = document.getElementById('loginPass').value;
+    var e = document.getElementById('loginError');
+    if (u === LOGIN_USER && p === LOGIN_PASS) {
+        sessionStorage.setItem('sys_login_ok', '1');
+        sessionStorage.setItem('sys_login_user', u);
+        sessionStorage.setItem('sys_login_type', 'main');
+        var o = document.getElementById('loginOverlay');
+        o.style.opacity = '0';
+        setTimeout(function() { o.style.display = 'none'; }, 400);
+        updateLoginUI();
+        return;
+    }
+    // Check sub accounts
+    var accounts = getAccounts();
+    var found = null;
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === u && accounts[i].password === p) { found = accounts[i]; break; }
+    }
+    if (found) {
+        if (found.disabled) {
+            e.textContent = '该账号已被禁用，请联系管理员';
+            return;
+        }
+        if (found.expiryDate) {
+            var nowDate = new Date();
+            var nowStr = nowDate.getFullYear() + '-' + ('0' + (nowDate.getMonth() + 1)).slice(-2) + '-' + ('0' + nowDate.getDate()).slice(-2);
+            if (nowStr > found.expiryDate) {
+                e.textContent = '账号已过期，请联系管理员';
+                return;
+            }
+        }
+        sessionStorage.setItem('sys_login_ok', '1');
+        sessionStorage.setItem('sys_login_user', u);
+        sessionStorage.setItem('sys_login_type', 'sub');
+        var o2 = document.getElementById('loginOverlay');
+        o2.style.opacity = '0';
+        setTimeout(function() { o2.style.display = 'none'; }, 400);
+        updateLoginUI();
+        return;
+    }
+    e.textContent = '账号或密码错误，请重试';
+    document.getElementById('loginUser').value = '';
+    document.getElementById('loginPass').value = '';
+}
+// Account management functions
+function showAccountPage() {
+    renderAccountList();
+    goToPage('accountPage');
+}
+function renderAccountList() {
+    var accounts = getAccounts();
+    var wrap = document.getElementById('accountListWrap');
+    if (accounts.length === 0) {
+        wrap.innerHTML = '<div class="acct-empty">暂无子账号，请在上方创建</div>';
+        return;
+    }
+    var html = '<div class="acct-table-wrap"><table class="acct-table"><thead><tr><th>用户名</th><th>显示名</th><th>板块权限</th><th>到期时间</th><th>状态</th><th>操作</th></tr></thead><tbody>';
+    var nowDate = new Date();
+    var nowStr = nowDate.getFullYear() + '-' + ('0' + (nowDate.getMonth() + 1)).slice(-2) + '-' + ('0' + nowDate.getDate()).slice(-2);
+    for (var i = 0; i < accounts.length; i++) {
+        var a = accounts[i];
+        var statusHtml = a.disabled ? '<span class="acct-status-off">已禁用</span>' : '<span class="acct-status-on">正常</span>';
+        var toggleText = a.disabled ? '启用' : '禁用';
+        var modCount = (a.modules || ALL_MODULES).length;
+        var expiryHtml = '—';
+        if (a.expiryDate) {
+            if (nowStr > a.expiryDate) {
+                expiryHtml = '<span class="acct-expired">' + a.expiryDate + '（已过期）</span>';
+                statusHtml = '<span class="acct-status-off">已过期</span>';
+            } else {
+                var diffMs = new Date(a.expiryDate).getTime() - new Date(nowStr).getTime();
+                var diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                var warnClass = diffDays <= 7 ? 'acct-expiry-warn' : '';
+                expiryHtml = '<span class="' + warnClass + '">' + a.expiryDate + '（剩余' + diffDays + '天）</span>';
+            }
+        }
+        html += '<tr>';
+        html += '<td>' + a.username + '</td>';
+        html += '<td>' + (a.displayName || '—') + '</td>';
+        html += '<td><span class="acct-modules-count" onclick="editAccountModules(\'' + a.username + '\')">' + modCount + '/' + ALL_MODULES.length + '</span></td>';
+        html += '<td>' + expiryHtml + '</td>';
+        html += '<td>' + statusHtml + '</td>';
+        html += '<td>';
+        html += '<button class="acct-act-btn acct-act-reset" onclick="resetAccount(\'' + a.username + '\')">重置密码</button>';
+        html += '<button class="acct-act-btn acct-act-modules" onclick="editAccountModules(\'' + a.username + '\')">编辑板块</button>';
+        html += '<button class="acct-act-btn acct-act-expiry" onclick="extendExpiry(\'' + a.username + '\')">延期</button>';
+        html += '<button class="acct-act-btn acct-act-toggle" onclick="toggleAccount(\'' + a.username + '\')">' + toggleText + '</button>';
+        html += '<button class="acct-act-btn acct-act-delete" onclick="deleteAccount(\'' + a.username + '\')">删除</button>';
+        html += '</td>';
+        html += '</tr>';
+    }
+    html += '</tbody></table></div>';
+    wrap.innerHTML = html;
+}
+function createAccount() {
+    var user = document.getElementById('newAcctUser').value.trim();
+    var pass = document.getElementById('newAcctPass').value.trim();
+    var name = document.getElementById('newAcctName').value.trim();
+    if (!user || !pass) { alert('请填写用户名和密码'); return; }
+    if (user === LOGIN_USER) { alert('用户名不能与主账号重复'); return; }
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === user) { alert('该用户名已存在'); return; }
+    }
+    var modules = getCheckedModules('newAcctModules');
+    if (modules.length === 0) { alert('请至少选择一个板块'); return; }
+    var expiryDate = document.getElementById('newAcctExpiry').value || '';
+    var now = new Date();
+    var dateStr = now.getFullYear() + '-' + ('0' + (now.getMonth() + 1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2);
+    accounts.push({ username: user, password: pass, displayName: name || user, createdAt: dateStr, disabled: false, modules: modules, expiryDate: expiryDate });
+    saveAccounts(accounts);
+    document.getElementById('newAcctUser').value = '';
+    document.getElementById('newAcctPass').value = '';
+    document.getElementById('newAcctName').value = '';
+    document.getElementById('newAcctExpiry').value = '';
+    clearExpiryQuickActive();
+    initNewAcctModules();
+    renderAccountList();
+}
+function resetAccount(username) {
+    var newPass = prompt('请输入新的密码：', '123456');
+    if (!newPass) return;
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { accounts[i].password = newPass; break; }
+    }
+    saveAccounts(accounts);
+    alert('密码已重置为：' + newPass);
+}
+function toggleAccount(username) {
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { accounts[i].disabled = !accounts[i].disabled; break; }
+    }
+    saveAccounts(accounts);
+    renderAccountList();
+}
+function deleteAccount(username) {
+    if (!confirm('确定要删除子账号"' + username + '"吗？此操作不可恢复。')) return;
+    var accounts = getAccounts();
+    var newList = [];
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username !== username) newList.push(accounts[i]);
+    }
+    saveAccounts(newList);
+    renderAccountList();
+}
+function buildModuleGridHtml(containerId, checkedModules) {
+    var html = '';
+    for (var g = 0; g < MODULE_GROUPS.length; g++) {
+        var grp = MODULE_GROUPS[g];
+        html += '<div class="module-group-label">' + grp.label + '</div>';
+        for (var i = 0; i < grp.items.length; i++) {
+            var mod = grp.items[i];
+            var isChecked = checkedModules.indexOf(mod) >= 0;
+            var checkedAttr = isChecked ? 'checked' : '';
+            var checkedClass = isChecked ? ' checked' : '';
+            html += '<div class="module-item' + checkedClass + '" onclick="toggleModuleItem(this)">';
+            html += '<input type="checkbox" id="' + containerId + '_mod_' + mod + '" ' + checkedAttr + ' onclick="event.stopPropagation()">';
+            html += '<label for="' + containerId + '_mod_' + mod + '">' + MODULE_LABELS[mod] + '</label>';
+            html += '</div>';
+        }
+    }
+    return html;
+}
+function toggleModuleItem(el) {
+    var cb = el.querySelector('input[type=checkbox]');
+    cb.checked = !cb.checked;
+    if (cb.checked) { el.classList.add('checked'); }
+    else { el.classList.remove('checked'); }
+}
+function getCheckedModules(containerId) {
+    var result = [];
+    for (var i = 0; i < ALL_MODULES.length; i++) {
+        var cb = document.getElementById(containerId + '_mod_' + ALL_MODULES[i]);
+        if (cb && cb.checked) result.push(ALL_MODULES[i]);
+    }
+    return result;
+}
+function initNewAcctModules() {
+    var container = document.getElementById('newAcctModules');
+    if (container) container.innerHTML = buildModuleGridHtml('newAcctModules', ALL_MODULES);
+}
+function setExpiryQuick(days, btn) {
+    var now = new Date();
+    now.setDate(now.getDate() + days);
+    var dateStr = now.getFullYear() + '-' + ('0' + (now.getMonth() + 1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2);
+    document.getElementById('newAcctExpiry').value = dateStr;
+    var btns = document.querySelectorAll('.expiry-quick-btn');
+    for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+    if (btn) btn.classList.add('active');
+}
+function clearExpiryQuickActive() {
+    var btns = document.querySelectorAll('.expiry-quick-btn');
+    for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+}
+function editAccountModules(username) {
+    var accounts = getAccounts();
+    var acct = null;
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { acct = accounts[i]; break; }
+    }
+    if (!acct) return;
+    var currentModules = acct.modules || ALL_MODULES;
+    var mask = document.createElement('div');
+    mask.className = 'module-modal-mask';
+    mask.id = 'moduleModalMask';
+    var html = '<div class="module-modal">';
+    html += '<h3>编辑板块权限 — ' + acct.username + '</h3>';
+    html += '<div class="module-grid" id="editModulesGrid"></div>';
+    html += '<div class="modal-actions">';
+    html += '<button class="btn btn-ghost btn-sm" onclick="closeModuleModal()">取消</button>';
+    html += '<button class="btn btn-primary btn-sm" onclick="saveAccountModules(\'' + username + '\')">保存</button>';
+    html += '</div>';
+    html += '</div>';
+    mask.innerHTML = html;
+    document.body.appendChild(mask);
+    var grid = document.getElementById('editModulesGrid');
+    grid.innerHTML = buildModuleGridHtml('editModulesGrid', currentModules);
+}
+function closeModuleModal() {
+    var mask = document.getElementById('moduleModalMask');
+    if (mask) mask.parentNode.removeChild(mask);
+}
+function saveAccountModules(username) {
+    var modules = getCheckedModules('editModulesGrid');
+    if (modules.length === 0) { alert('请至少选择一个板块'); return; }
+    var accounts = getAccounts();
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { accounts[i].modules = modules; break; }
+    }
+    saveAccounts(accounts);
+    closeModuleModal();
+    renderAccountList();
+    alert('板块权限已更新');
+}
+function extendExpiry(username) {
+    var accounts = getAccounts();
+    var acct = null;
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { acct = accounts[i]; break; }
+    }
+    if (!acct) return;
+    var currentExpiry = acct.expiryDate || '';
+    var msg = '请输入新的到期日期（格式：YYYY-MM-DD）：\n\n快捷输入：\n+7  延期7天\n+30 延期30天\n+90 延期90天\n+180 延期180天\n+365 延期365天\n\n当前到期日期：' + (currentExpiry || '未设置');
+    var input = prompt(msg, currentExpiry);
+    if (!input) return;
+    input = input.trim();
+    var newDate = '';
+    if (input.charAt(0) === '+') {
+        var days = parseInt(input.substring(1), 10);
+        if (isNaN(days) || days <= 0) { alert('请输入有效的天数'); return; }
+        var baseDate = currentExpiry ? new Date(currentExpiry) : new Date();
+        baseDate.setDate(baseDate.getDate() + days);
+        newDate = baseDate.getFullYear() + '-' + ('0' + (baseDate.getMonth() + 1)).slice(-2) + '-' + ('0' + baseDate.getDate()).slice(-2);
+    } else {
+        newDate = input;
+    }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(newDate)) { alert('日期格式不正确，请使用 YYYY-MM-DD 格式'); return; }
+    for (var i = 0; i < accounts.length; i++) {
+        if (accounts[i].username === username) { accounts[i].expiryDate = newDate; break; }
+    }
+    saveAccounts(accounts);
+    renderAccountList();
+    alert('到期时间已更新为：' + newDate);
+}
+document.addEventListener('DOMContentLoaded', function() {
+    initAccounts();
+    initNewAcctModules();
+    var u = document.getElementById('loginUser');
+    var p = document.getElementById('loginPass');
+    if (u) { u.addEventListener('keydown', function(e) { if (e.key === 'Enter') { p.focus(); } }); }
+    if (p) { p.addEventListener('keydown', function(e) { if (e.key === 'Enter') { doLogin(); } }); }
+    checkLogin();
+});
+</script>
+</body>
+</html>
