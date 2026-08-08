@@ -346,6 +346,21 @@ canvas{max-width:100%}
   </div>
 </div>
 
+
+<!-- Full Report Viewer Modal -->
+<div id="fullReportModal" class="share-modal" style="z-index:10002;">
+  <div class="modal-box" style="max-width:600px;max-height:90vh;overflow-y:auto;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+      <h3 style="font-size:16px;color:#333;">📄 完整测评报告</h3>
+      <button onclick="closeFullReport()" style="padding:4px 10px;border-radius:6px;border:1px solid #ddd;background:#f0f0f0;font-size:13px;cursor:pointer;">关闭</button>
+    </div>
+    <div id="fullReportBody"></div>
+    <div style="margin-top:10px;text-align:center;">
+      <button onclick="closeFullReport()" style="padding:8px 20px;border-radius:8px;border:none;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:13px;cursor:pointer;">关闭报告</button>
+    </div>
+  </div>
+</div>
+
 <!-- Account Modal -->
 <div id="accountModal" class="acc-modal">
   <div class="modal-box">
@@ -1383,7 +1398,7 @@ function syncStateFromCloud(cb){
 
 /* === Admin: Fetch All Sub-Account Results === */
 function fetchAllResults(){
-  fetch(SUPABASE_URL+'/rest/v1/py_user_states?username=like.jz_*&select=username,state_data,updated_at&order=updated_at.desc',{
+  fetch(SUPABASE_URL+'/rest/v1/py_user_states?username=like.jz_*&select=username,state_data,updated_at&order=updated_at.desc&limit=200',{
     headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}
   }).then(function(resp){return resp.json();})
   .then(function(rows){
@@ -1829,6 +1844,8 @@ function copyShareLink(){
 
 /* Override showReport for share mode */
 var origShowReport=showReport;
+var LAST_REPORT_HTML='';
+var LAST_REPORT_SCORE=0;
 showReport=function(){
   if(SHARE_MODE){
     if(!SHARE_INFO.childName){
@@ -1837,6 +1854,17 @@ showReport=function(){
     }
   }
   origShowReport();
+  setTimeout(function(){
+    var rc=document.getElementById('report-content');
+    if(rc){
+      LAST_REPORT_HTML=rc.innerHTML;
+      var scoreMatch=LAST_REPORT_HTML.match(/(\d+)分/);
+      if(scoreMatch)LAST_REPORT_SCORE=parseInt(scoreMatch[1]);
+      if(SHARE_MODE&&SHARE_INFO.childName){
+        syncReportToCloud();
+      }
+    }
+  },200);
 };
 
 function closeShareInfo(){
@@ -1856,6 +1884,46 @@ function submitShareInfo(){
   closeShareInfo();
   syncStateToCloud();
   origShowReport();
+}
+
+/* Sync full report HTML to cloud for admin viewing */
+function syncReportToCloud(){
+  if(!SHARE_MODE||!SHARE_INFO.childName)return;
+  var username='jz_report_'+SHARE_INFO.childName;
+  var bodyData={
+    results:{},
+    displayName:SHARE_INFO.childName,
+    grade:SHARE_INFO.grade,
+    subjects:SHARE_INFO.subjects,
+    loginTime:new Date().toISOString(),
+    isShare:true,
+    reportHtml:LAST_REPORT_HTML,
+    reportScore:LAST_REPORT_SCORE,
+    hasReport:true
+  };
+  try{
+    var localResults=JSON.parse(localStorage.getItem('parent_diag_results')||'{}');
+    bodyData.results=localResults;
+  }catch(e){}
+  var body=JSON.stringify({
+    username:username,
+    state_data:JSON.stringify(bodyData),
+    updated_at:new Date().toISOString()
+  });
+  fetch(SUPABASE_URL+'/rest/v1/py_user_states?on_conflict=username',{
+    method:'POST',
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
+    body:body
+  }).then(function(resp){
+    if(resp.ok){
+      console.log('[Cloud] Report synced to cloud success');
+      var b=document.getElementById('shareModeBanner');
+      if(b){
+        b.textContent='✅ 报告已同步到后台';
+        setTimeout(function(){b.textContent='🎓 免登录测评模式 | 完成测评后生成专属报告';},3000);
+      }
+    }
+  }).catch(function(e){console.error('[Cloud] Report sync failed:',e);});
 }
 
 /* Override syncStateToCloud to include share info */
@@ -1898,8 +1966,8 @@ syncStateToCloud=function(){
   }).catch(function(e){console.error('[Cloud] Sync to cloud failed:',e);});
 };
 
-/* Override renderAdminResults to show share info */
-var origRenderAdminResults=renderAdminResults;
+/* Override renderAdminResults to show full report with view button */
+var origRenderAdminResults=null;
 renderAdminResults=function(rows){
   var html='';
   if(!rows||rows.length===0){
@@ -1914,14 +1982,31 @@ renderAdminResults=function(rows){
   var filtered=[];
   for(var i=0;i<rows.length;i++){
     var r=rows[i];
-    var sd=r.state_data;
-    if(typeof sd==='string')sd=JSON.parse(sd);
-    var results=sd.results||sd;
-    var moduleCount=Object.keys(results).length;
-    var isCompleted=moduleCount>=5;
-    if(adminTabFilter==='completed'&&!isCompleted)continue;
-    if(adminTabFilter==='pending'&&isCompleted)continue;
-    filtered.push({row:r,stateData:sd,results:results,moduleCount:moduleCount,isCompleted:isCompleted});
+    if(r.username.indexOf('jz_report_')===0){
+      var sd=r.state_data;
+      if(typeof sd==='string')sd=JSON.parse(sd);
+      var moduleCount=sd.results?Object.keys(sd.results).length:0;
+      var isCompleted=sd.hasReport===true||moduleCount>=5;
+      if(adminTabFilter==='completed'&&!isCompleted)continue;
+      if(adminTabFilter==='pending'&&isCompleted)continue;
+      filtered.push({row:r,stateData:sd,isReport:true,moduleCount:moduleCount,isCompleted:isCompleted});
+    }else if(r.username.indexOf('jz_share_')===0){
+      var sd2=r.state_data;
+      if(typeof sd2==='string')sd2=JSON.parse(sd2);
+      var mc2=sd2.results?Object.keys(sd2.results).length:0;
+      var ic2=mc2>=5;
+      if(adminTabFilter==='completed'&&!ic2)continue;
+      if(adminTabFilter==='pending'&&ic2)continue;
+      filtered.push({row:r,stateData:sd2,isReport:false,moduleCount:mc2,isCompleted:ic2});
+    }else if(r.username.indexOf('jz_')===0){
+      var sd3=r.state_data;
+      if(typeof sd3==='string')sd3=JSON.parse(sd3);
+      var mc3=sd3.results?Object.keys(sd3.results).length:(Object.keys(sd3).length>0?Object.keys(sd3).length:0);
+      var ic3=mc3>=5;
+      if(adminTabFilter==='completed'&&!ic3)continue;
+      if(adminTabFilter==='pending'&&ic3)continue;
+      filtered.push({row:r,stateData:sd3,isReport:false,moduleCount:mc3,isCompleted:ic3});
+    }
   }
 
   if(filtered.length===0){
@@ -1932,55 +2017,97 @@ renderAdminResults=function(rows){
 
   for(var i=0;i<filtered.length;i++){
     var f=filtered[i];
-    var acc=accMap[f.row.username];
-    var isShare=f.row.username.indexOf('jz_share_')===0;
-    var displayName=f.stateData.displayName||(acc?acc.displayName:f.row.username.replace('jz_',''));
+    var isShare=f.row.username.indexOf('jz_share_')===0||f.row.username.indexOf('jz_report_')===0;
+    var displayName=f.stateData.displayName||f.row.username.replace('jz_report_','').replace('jz_share_','').replace('jz_','');
     var updatedTime=f.row.updated_at?new Date(f.row.updated_at).toLocaleString('zh-CN'):'未知';
     var moduleNames={'learning_style':'学习风格','parenting_style':'教育风格','personality':'性格特点','relationship':'亲子关系','study_habits':'学习习惯'};
-    var detailHtml='';
-    var totalScore=0;
-    var scoreCount=0;
-    for(var key in f.results){
-      var r=f.results[key];
-      var mName=moduleNames[key]||key;
-      var avgPct=0;
-      if(r.percents&&r.percents.length>0){
-        var sum=0;
-        for(var p=0;p<r.percents.length;p++){sum+=r.percents[p];}
-        avgPct=Math.round(sum/r.percents.length);
-        totalScore+=avgPct;
-        scoreCount++;
-      }
-      detailHtml+='<div style="margin-top:4px;">'+mName+': '+(avgPct>0?avgPct+'%':'已完成')+'</div>';
-    }
-    var avgScore=scoreCount>0?Math.round(totalScore/scoreCount):0;
+
     html+='<div class="admin-result-card">';
     html+='<div class="ar-name">'+displayName;
     if(isShare)html+=' <span style="font-size:11px;padding:2px 6px;border-radius:4px;background:#e8f5e9;color:#2e7d32;">分享</span>';
-    if(acc&&acc.isAdmin)html+=' <span style="font-size:11px;color:#667eea;">管理员</span>';
     html+='</div>';
+
     var infoParts=[];
-    infoParts.push('账号: '+(isShare?'访客':f.row.username.replace('jz_','')));
     if(f.stateData.grade)infoParts.push('年级: '+f.stateData.grade);
     infoParts.push('完成模块: '+f.moduleCount+'/5');
     infoParts.push('更新: '+updatedTime);
     html+='<div class="ar-info">'+infoParts.join(' | ')+'</div>';
+
     if(f.stateData.subjects&&f.stateData.subjects.length>0){
       html+='<div class="ar-info" style="color:#e53935;">需提升科目: '+f.stateData.subjects.join('、')+'</div>';
     }
-    if(avgScore>0){
-      html+='<div class="ar-score">'+avgScore+'分</div>';
+
+    if(f.isReport&&f.stateData.reportScore){
+      html+='<div class="ar-score">'+f.stateData.reportScore+'分</div>';
     }
+
     if(f.isCompleted){
       html+='<div style="margin-top:4px;"><span style="color:#137333;font-size:12px;">✅ 全部完成</span></div>';
     }else{
       html+='<div style="margin-top:4px;"><span style="color:#b06000;font-size:12px;">⏳ 进行中</span></div>';
     }
-    html+='<div class="ar-detail">'+detailHtml+'</div>';
+
+    if(f.isReport&&f.stateData.reportHtml){
+      html+='<div style="margin-top:8px;"><button onclick="viewFullReport('+i+')" style="padding:8px 16px;border-radius:8px;border:1px solid #667eea;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:13px;cursor:pointer;">📄 查看完整报告</button></div>';
+    }
+
     html+='</div>';
   }
   document.getElementById('adminResultList').innerHTML=html;
+  window._adminFiltered=filtered;
 };
+
+function viewFullReport(idx){
+  if(!window._adminFiltered||!window._adminFiltered[idx])return;
+  var f=window._adminFiltered[idx];
+  var sd=f.stateData;
+  if(!sd.reportHtml){
+    alert('该记录暂无完整报告');
+    return;
+  }
+  var displayName=sd.displayName||'未知';
+  var grade=sd.grade||'';
+  var subjects=sd.subjects||[];
+  var modal=document.getElementById('fullReportModal');
+  var body=document.getElementById('fullReportBody');
+  var header='<div style="background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:10px;padding:14px;margin-bottom:10px;"><h3 style="font-size:15px;margin-bottom:4px;">'+displayName+' | '+grade+'</h3><p style="font-size:12px;opacity:0.9;">需提升科目：'+subjects.join('、')+'</p></div>';
+  body.innerHTML=header+sd.reportHtml;
+  modal.classList.add('show');
+  setTimeout(function(){
+    var canvases=body.querySelectorAll('canvas');
+    if(canvases.length>0){
+      var firstGauge=canvases[0];
+      if(firstGauge.id==='gauge-canvas'&&sd.reportScore){
+        drawGaugeChart('gauge-canvas',sd.reportScore,getLetterGrade(sd.reportScore));
+      }
+      if(canvases.length>1){
+        var allPercents=[];
+        var allDims=[];
+        var allColors=['#58a6ff','#f78166','#3fb950','#bc8cff','#f59e0b'];
+        var moduleNames={'learning_style':'学习风格','parenting_style':'教育风格','personality':'性格特点','relationship':'亲子关系','study_habits':'学习习惯'};
+        var sdResults=sd.results||{};
+        for(var key in sdResults){
+          if(sdResults[key].percents){
+            for(var p=0;p<sdResults[key].percents.length;p++){
+              allPercents.push(sdResults[key].percents[p]);
+            }
+          }
+        }
+        var dimsByModule={'learning_style':['视觉型','听觉型','动觉型'],'parenting_style':['民主型','权威型','放任型','溺爱型'],'personality':['开放性','尽责性','外向性','宜人性','情绪稳定性'],'relationship':['沟通质量','信任程度','冲突管理','陪伴质量'],'study_habits':['时间管理','学习方法','自律性']};
+        for(var key in dimsByModule){
+          allDims=allDims.concat(dimsByModule[key]);
+        }
+        if(allPercents.length>0){
+          drawRadarChart('report-canvas',allPercents,allDims,'#3b82f6',allColors);
+        }
+      }
+    }
+  },100);
+}
+
+function closeFullReport(){
+  document.getElementById('fullReportModal').classList.remove('show');
+}
 
 /* Override checkLogin for share mode */
 var origCheckLogin=checkLogin;
