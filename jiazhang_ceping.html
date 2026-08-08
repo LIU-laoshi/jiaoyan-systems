@@ -356,7 +356,7 @@ canvas{max-width:100%}
     </div>
     <div id="fullReportBody"></div>
     <div style="margin-top:10px;text-align:center;">
-      <button onclick="closeFullReport()" style="padding:8px 20px;border-radius:8px;border:none;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:13px;cursor:pointer;">关闭报告</button>
+      <button onclick="saveCurrentReport()" style="padding:8px 20px;border-radius:8px;border:none;background:linear-gradient(135deg,#3fb950,#2da44e);color:#fff;font-size:13px;cursor:pointer;margin-right:8px;">💾 保存报告</button><button onclick="closeFullReport()" style="padding:8px 20px;border-radius:8px;border:none;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:13px;cursor:pointer;">关闭报告</button>
     </div>
   </div>
 </div>
@@ -2099,7 +2099,7 @@ renderAdminResults=function(rows){
     }
 
     if(f.isReport&&f.stateData.reportHtml){
-      html+='<div style="margin-top:8px;"><button onclick="viewFullReport('+i+')" style="padding:8px 16px;border-radius:8px;border:1px solid #667eea;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:13px;cursor:pointer;">📄 查看完整报告</button></div>';
+      html+='<div style="margin-top:8px;"><button onclick="viewFullReport('+i+')" style="padding:8px 16px;border-radius:8px;border:1px solid #667eea;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:13px;cursor:pointer;">📄 查看完整报告 <button onclick="saveReportFile('+i+')" style="padding:8px 16px;border-radius:8px;border:1px solid #3fb950;background:linear-gradient(135deg,#3fb950,#2da44e);color:#fff;font-size:13px;cursor:pointer;">💾 保存报告</button></div>';
     }
 
     html+='</div>';
@@ -2159,6 +2159,46 @@ function viewFullReport(idx){
 function closeFullReport(){
   document.getElementById('fullReportModal').classList.remove('show');
 }
+
+function saveReportFile(idx){
+  if(!window._adminFiltered||!window._adminFiltered[idx])return;
+  var f=window._adminFiltered[idx];
+  var sd=f.stateData;
+  if(!sd.reportHtml){alert('\u8be5\u8bb0\u5f55\u6682\u65e0\u5b8c\u6574\u62a5\u544a');return;}
+  _downloadReportHTML(sd);
+}
+
+function saveCurrentReport(){
+  var body=document.getElementById('fullReportBody');
+  if(!body||!body.innerHTML){alert('\u5f53\u524d\u65e0\u62a5\u544a\u5185\u5bb9');return;}
+  var sd={reportHtml:body.innerHTML,displayName:'\u6d4b\u8bc4\u62a5\u544a',reportScore:0};
+  var nameMatch=body.innerHTML.match(/\u00a0\u00a0([^|<]+)/);
+  if(nameMatch)sd.displayName=nameMatch[1].trim();
+  var scoreMatch=body.innerHTML.match(/(\d+)\u5206/);
+  if(scoreMatch)sd.reportScore=parseInt(scoreMatch[1]);
+  _downloadReportHTML(sd);
+}
+
+function _downloadReportHTML(sd){
+  var displayName=sd.displayName||'\u6d4b\u8bc4\u62a5\u544a';
+  var grade=sd.grade||'';
+  var subjects=sd.subjects||[];
+  var reportHtml=sd.reportHtml||'';
+  var today=new Date();
+  var dateStr=today.getFullYear()+'\u5e74'+(today.getMonth()+1)+'\u6708'+today.getDate()+'\u65e5';
+  var subjectStr=subjects.length>0?('\u9700\u63d0\u5347\uff1a'+subjects.join('\u3001')):'';
+  var fullHTML='<!DOCTYPE html>\n<html lang="zh-CN">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width,initial-scale=1.0">\n<title>'+displayName+'\u5bb6\u957f\u6559\u80b2\u6d4b\u8bc4\u62a5\u544a</title>\n<style>\n*{margin:0;padding:0;box-sizing:border-box;}\nbody{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:#f5f5f5;color:#333;line-height:1.6;padding:16px;}\n.report-container{max-width:600px;margin:0 auto;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.08);overflow:hidden;}\n.report-header{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:20px;text-align:center;}\n.report-header h1{font-size:20px;margin-bottom:6px;}\n.report-header p{font-size:13px;opacity:0.9;}\n.report-body{padding:20px;}\n.report-body h2{font-size:16px;color:#1a365d;margin:16px 0 8px;padding-bottom:4px;border-bottom:2px solid #667eea22;}\n.report-body h3{font-size:14px;color:#333;margin:12px 0 6px;}\n.report-body p{font-size:13px;margin-bottom:8px;}\n.report-body ul{margin:4px 0 8px 18px;font-size:13px;}\n.report-body li{margin-bottom:4px;}\n.report-body table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px;}\n.report-body th,.report-body td{border:1px solid #e0e0e0;padding:6px 8px;text-align:center;}\n.report-body th{background:#667eea11;color:#1a365d;}\n.consult-banner{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:10px;padding:14px;text-align:center;margin:16px 0;}\n.consult-banner h3{font-size:15px;color:#fff;margin-bottom:4px;}\n.consult-banner p{font-size:12px;color:#fff;opacity:0.9;}\n.footer{text-align:center;padding:12px;font-size:11px;color:#999;border-top:1px solid #eee;}\n@media print{body{background:#fff;padding:0;}.report-container{box-shadow:none;max-width:100%;}}\n</style>\n</head>\n<body>\n<div class="report-container">\n<div class="report-header">\n<h1>\ud83d\udccb \u5bb6\u957f\u6559\u80b2\u6d4b\u8bc4\u62a5\u544a</h1>\n<p>'+displayName+(grade?(' | '+grade):'')+(subjectStr?('<br>'+subjectStr):'')+'</p>\n</div>\n<div class="report-body">\n'+reportHtml+'\n</div>\n<div class="footer">\u62a5\u544a\u751f\u6210\u65e5\u671f\uff1a'+dateStr+'<br>\u7cfb\u7edf\u8bbe\u8ba1\u5236\u4f5c\uff1a\u5218\u5cb3</div>\n</div>\n</body>\n</html>';
+  var blob=new Blob([fullHTML],{type:'text/html;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;
+  a.download=displayName+'_\u5bb6\u957f\u6559\u80b2\u6d4b\u8bc4\u62a5\u544a.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 
 /* Override checkLogin for share mode */
 var origCheckLogin=checkLogin;
