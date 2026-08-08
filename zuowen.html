@@ -94,6 +94,27 @@ body{font-family:'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-ser
 .eval-section h3{color:#1a365d;font-size:17px;margin-bottom:12px;}
 .eval-textarea{width:100%;min-height:180px;border:1px solid #e2e8f0;border-radius:10px;padding:14px;font-size:14px;line-height:1.8;resize:vertical;font-family:inherit;}
 .eval-textarea:focus{outline:none;border-color:#1a365d;box-shadow:0 0 0 3px rgba(26,54,93,0.1);}
+.ai-analysis-btn{padding:14px 40px;border:none;border-radius:30px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 4px 15px rgba(102,126,234,0.4);transition:all .3s;}
+.ai-analysis-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,0.5);}
+.ai-analysis-btn:active{transform:translateY(0);}
+.ai-report{background:#f7fafc;border-radius:14px;padding:20px;margin-top:16px;border:1px solid #e2e8f0;}
+.ai-report-header{text-align:center;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid #e2e8f0;}
+.ai-score-big{font-size:48px;font-weight:800;color:#1a365d;line-height:1.2;}
+.ai-score-label{font-size:14px;color:#718096;margin-top:4px;}
+.ai-grade-badge{display:inline-block;padding:4px 16px;border-radius:20px;font-size:13px;font-weight:600;margin-top:8px;}
+.ai-dim-row{display:flex;align-items:flex-start;gap:12px;margin:12px 0;padding:12px;background:#fff;border-radius:10px;border-left:4px solid #ddd;}
+.ai-dim-row.good{border-left-color:#48bb78;}
+.ai-dim-row.mid{border-left-color:#ed8936;}
+.ai-dim-row.low{border-left-color:#f56565;}
+.ai-dim-name{font-weight:700;font-size:14px;color:#1a365d;min-width:80px;}
+.ai-dim-score{font-weight:700;font-size:18px;min-width:60px;text-align:center;}
+.ai-dim-detail{flex:1;font-size:13px;color:#4a5568;line-height:1.7;}
+.ai-dim-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;margin:2px 4px 2px 0;}
+.ai-dim-tag.pos{background:#c6f6d5;color:#22543d;}
+.ai-dim-tag.neg{background:#fed7d7;color:#742a2a;}
+.ai-suggest{background:#ebf8ff;border-radius:10px;padding:14px;margin-top:12px;font-size:13px;color:#2a4365;line-height:1.7;}
+.ai-suggest-title{font-weight:700;color:#2c5282;margin-bottom:6px;}
+.ai-loading{text-align:center;padding:40px;color:#667eea;font-size:16px;}
 .char-count{font-size:12px;color:#a0aec0;margin-top:4px;text-align:right;}
 .dim-row{display:flex;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:6px;}
 .dim-label{font-size:14px;font-weight:600;color:#1a365d;width:70px;flex-shrink:0;}
@@ -1210,6 +1231,9 @@ body{font-family:'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-ser
 <h3>&#x1F4DD; 粘贴或输入你的作文</h3>
 <textarea class='eval-textarea' id='essayInput' placeholder='在此输入你的作文全文，建议300字以上...'></textarea>
 <div class='char-count' id='charCount'>已输入 0 字</div>
+<div style='text-align:center;margin-top:14px;'>
+<button class='ai-analysis-btn' onclick='analyzeEssay()'>🤖 一键智能分析得分</button>
+</div>
 </div>
 
 <div class='eval-section'>
@@ -1293,6 +1317,7 @@ body{font-family:'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-ser
 <div class='pitfall-item'><span class='pi-num'>10</span><span>结尾是否喊口号？（'让我们携手共创美好明天！'——假大空）</span></div>
 </div>
 
+<div id='aiAnalysisResult' class='hidden'></div>
 <div id='evalResult' class='hidden'></div>
 </div>
 
@@ -2228,6 +2253,245 @@ el.className = 'pq-title';
 body.className = 'pq-body open';
 el.className = 'pq-title open';
 }
+}
+
+function analyzeEssay() {
+var text = document.getElementById('essayInput').value.trim();
+var container = document.getElementById('aiAnalysisResult');
+if (!text || text.length < 20) {
+container.className = '';
+container.innerHTML = '<div class="ai-report"><div style="text-align:center;color:#e74c3c;padding:20px;">⚠️ 请先在上方文本框中输入你的作文（至少20字），再点击分析。</div></div>';
+container.scrollIntoView({behavior:'smooth'});
+return;
+}
+
+container.className = '';
+container.innerHTML = '<div class="ai-report"><div class="ai-loading">🔍 正在智能分析你的作文，请稍候...</div></div>';
+container.scrollIntoView({behavior:'smooth'});
+
+setTimeout(function() {
+var result = doAnalyzeEssay(text);
+container.innerHTML = result;
+}, 600);
+}
+
+function doAnalyzeEssay(text) {
+var chars = text.replace(/\s/g, '').length;
+var paragraphs = text.split(/\n\s*\n/).filter(function(p){return p.trim().length > 0;});
+var paraCount = paragraphs.length;
+var sentences = text.split(/[。！？；\n]/).filter(function(s){return s.trim().length > 2;});
+var sentenceCount = sentences.length;
+
+var sensoryWords = ['看','听','闻','尝','摸','红','白','蓝','绿','黄','黑','紫','金','银','亮','暗','热','冷','暖','凉','香','臭','甜','苦','辣','咸','酸','脆','软','硬','滑','粗','细','光','影','色','声','味','清','浊','浓','淡'];
+var emotionWords = ['感动','开心','快乐','悲伤','愤怒','惊喜','害怕','担心','期待','失望','兴奋','自豪','羞愧','骄傲','幸福','痛苦','心疼','不舍','怀念','感激','敬佩','震撼','温暖','孤独','坚强','勇敢','害怕','紧张','激动','平静','忧伤','欣慰','无奈','心疼'];
+var actionWords = ['走','跑','跳','说','看','听','做','写','读','想','拿','放','打','推','拉','抓','扔','踢','蹲','站','坐','躺','爬','追','逃','喊','叫','笑','哭','唱','问','答','想','记','忘','学','教','帮','送','买','卖','找','等','回','来','去','进','出','开','关','吃','喝','穿','戴','洗','切','炒','煮','种','挖','拔','折','拾','捡','举','抱','扶','牵','握','拍','摸','揉','捏','擦','扫'];
+var transitionWords = ['首先','其次','然后','接着','后来','最后','然而','但是','不过','因此','所以','因为','虽然','尽管','可是','而且','并且','此外','另外','总之','综上','换句话说','也就是说','与此同时','不仅如此','归根结底'];
+var rhetoricWords = ['像','仿佛','好似','犹如','宛如','如同','好像','似乎','一般','一样','似的'];
+var personificationWords = ['她笑了','他哭了','它在','风说','雨唱','花笑','树摇','月笑','星眨','太阳笑','大河唱','山醒','春来','秋去','时间走','岁月跑'];
+var quotePatterns = ['古人云','俗话说','正如','曾说','写道','诗云','曾说','有言','有句话','名言','警句','格言','诗句','对联'];
+var poetryPatterns = ['春风','明月','青山','绿水','花开','花落','落叶','飞雪','江南','塞北','天涯','海角','山川','河流','长风','万里','千秋','百代','一江春水','落霞','孤鹜','大漠','孤烟','长河','落日'];
+var detailWords = ['慢慢地','轻轻地','悄悄地','静静地','缓缓地','默默地','仔细地','认真地','小心翼翼','不知不觉','突然','忽然','猛地','一下子','渐渐','逐渐','一点一点','一丝一丝'];
+var structureWords = ['第一','第二','第三','一方面','另一方面','起初','开始','后来','最终','结果','开头','结尾','以上','以下','总之','综上'];
+var clichéWords = ['下雨送伞','深夜去医院','扶老奶奶','为中华之崛起','成为祖国栋梁','共创美好明天','携手','感恩的心','泪水模糊','眼眶湿润'];
+var northWords = ['堆雪人','滑冰','打雪仗','北方','大雪纷飞','暖气','炕','冻冰'];
+var emptyWords = ['非常','十分','特别','极其','格外','相当','无比','异常'];
+var persuasiveWords = ['应该','必须','要','让我们','我们要','应当','需要','务必'];
+
+var sensoryCount = countMatches(text, sensoryWords);
+var emotionCount = countMatches(text, emotionWords);
+var actionCount = countMatches(text, actionWords);
+var transitionCount = countMatches(text, transitionWords);
+var rhetoricCount = countMatches(text, rhetoricWords);
+var quoteCount = countMatches(text, quotePatterns);
+var poetryCount = countMatches(text, poetryPatterns);
+var detailCount = countMatches(text, detailWords);
+var structureCount = countMatches(text, structureWords);
+var clichéCount = countMatches(text, clichéWords);
+var northCount = countMatches(text, northWords);
+var emptyCount = countMatches(text, emptyWords);
+var persuasiveCount = countMatches(text, persuasiveWords);
+
+var hasTitle = paragraphs.length > 0 && paragraphs[0].trim().length < 30 && paragraphs[0].trim().length > 0;
+var firstParaLen = paragraphs.length > 0 ? paragraphs[0].replace(/\s/g,'').length : 0;
+var lastParaLen = paragraphs.length > 1 ? paragraphs[paragraphs.length-1].replace(/\s/g,'').length : 0;
+var avgSentenceLen = sentenceCount > 0 ? Math.round(chars / sentenceCount) : 0;
+var sentenceLens = sentences.map(function(s){return s.replace(/\s/g,'').length;});
+var shortSentences = sentenceLens.filter(function(l){return l > 0 && l <= 15;}).length;
+var longSentences = sentenceLens.filter(function(l){return l > 40;}).length;
+var punctTypes = 0;
+if(/[。]/.test(text)) punctTypes++;
+if(/[！]/.test(text)) punctTypes++;
+if(/[？]/.test(text)) punctTypes++;
+if(/[，]/.test(text)) punctTypes++;
+if(/[、]/.test(text)) punctTypes++;
+if(/[：]/.test(text)) punctTypes++;
+if(/[；]/.test(text)) punctTypes++;
+if(/[——]/.test(text)) punctTypes++;
+if(/[""]/.test(text)) punctTypes++;
+if(/[《》]/.test(text)) punctTypes++;
+if(/[……]/.test(text)) punctTypes++;
+
+var uniqueChars = {};
+for (var i = 0; i < text.length; i++) { uniqueChars[text[i]] = true; }
+var uniqueRatio = chars > 0 ? Object.keys(uniqueChars).length / chars : 0;
+
+var dialogueCount = (text.match(/[""]/g) || []).length / 2;
+
+var contentScore = 0, contentDetail = '';
+var contentTags = [];
+if (chars >= 600) { contentScore += 8; contentTags.push({t:'字数达标(' + chars + '字)', pos:true}); }
+else if (chars >= 400) { contentScore += 5; contentTags.push({t:'字数偏少(' + chars + '字)', pos:false}); }
+else { contentScore += 2; contentTags.push({t:'字数严重不足(' + chars + '字)', pos:false}); }
+if (actionCount >= 8) { contentScore += 6; contentTags.push({t:'行动描写丰富(' + actionCount + '处)', pos:true}); }
+else if (actionCount >= 4) { contentScore += 4; contentTags.push({t:'有行动描写(' + actionCount + '处)', pos:true}); }
+else { contentScore += 1; contentTags.push({t:'行动描写不足(' + actionCount + '处)', pos:false}); }
+if (sensoryCount >= 6) { contentScore += 5; contentTags.push({t:'感官描写丰富(' + sensoryCount + '处)', pos:true}); }
+else if (sensoryCount >= 3) { contentScore += 3; contentTags.push({t:'有感官描写(' + sensoryCount + '处)', pos:true}); }
+else { contentScore += 1; contentTags.push({t:'感官描写不足(' + sensoryCount + '处)', pos:false}); }
+if (emotionCount >= 5) { contentScore += 4; contentTags.push({t:'情感表达丰富(' + emotionCount + '处)', pos:true}); }
+else if (emotionCount >= 2) { contentScore += 2; contentTags.push({t:'有情感表达(' + emotionCount + '处)', pos:true}); }
+else { contentScore += 0; contentTags.push({t:'情感表达不足(' + emotionCount + '处)', pos:false}); }
+if (detailCount >= 3) { contentScore += 2; contentTags.push({t:'细节描写生动(' + detailCount + '处)', pos:true}); }
+contentScore = Math.min(contentScore, 25);
+if (clichéCount > 0) { contentScore = Math.max(contentScore - 3, 0); contentTags.push({t:'检测到老套素材(' + clichéCount + '处)', pos:false}); }
+if (northCount > 0) { contentScore = Math.max(contentScore - 2, 0); contentTags.push({t:'检测到北方素材(' + northCount + '处)', pos:false}); }
+if (persuasiveCount > 3) { contentScore = Math.max(contentScore - 2, 0); contentTags.push({t:'说教意味偏重(' + persuasiveCount + '处)', pos:false}); }
+var contentLevel = contentScore >= 22 ? 'good' : (contentScore >= 16 ? 'mid' : 'low');
+
+var langScore = 0, langTags = [];
+if (avgSentenceLen >= 10 && avgSentenceLen <= 30) { langScore += 4; langTags.push({t:'句式长短适中(均' + avgSentenceLen + '字)', pos:true}); }
+else if (avgSentenceLen > 0) { langScore += 2; langTags.push({t:'句式均长' + avgSentenceLen + '字', pos:false}); }
+if (shortSentences > 0 && longSentences > 0) { langScore += 3; langTags.push({t:'长短句交替(' + shortSentences + '短/' + longSentences + '长)', pos:true}); }
+else { langTags.push({t:'句式单一', pos:false}); }
+if (rhetoricCount >= 3) { langScore += 3; langTags.push({t:'比喻等修辞丰富(' + rhetoricCount + '处)', pos:true}); }
+else if (rhetoricCount >= 1) { langScore += 2; langTags.push({t:'有修辞运用(' + rhetoricCount + '处)', pos:true}); }
+else { langTags.push({t:'修辞手法不足', pos:false}); }
+if (detailCount >= 2) { langScore += 2; langTags.push({t:'细节修饰词丰富', pos:true}); }
+if (punctTypes >= 5) { langScore += 2; langTags.push({t:'标点多样(' + punctTypes + '种)', pos:true}); }
+else if (punctTypes >= 3) { langScore += 1; langTags.push({t:'标点基本多样(' + punctTypes + '种)', pos:true}); }
+else { langTags.push({t:'标点单一(' + punctTypes + '种)', pos:false}); }
+if (emptyCount >= 5) { langScore = Math.max(langScore - 2, 0); langTags.push({t:'空洞修饰词过多(' + emptyCount + '处)', pos:false}); }
+if (uniqueRatio > 0.5) { langScore += 2; langTags.push({t:'用词丰富度高', pos:true}); }
+else { langTags.push({t:'用词重复率偏高', pos:false}); }
+langScore = Math.min(langScore, 16);
+var langLevel = langScore >= 13 ? 'good' : (langScore >= 9 ? 'mid' : 'low');
+
+var structScore = 0, structTags = [];
+if (paraCount >= 3 && paraCount <= 8) { structScore += 2; structTags.push({t:'段落数量合理(' + paraCount + '段)', pos:true}); }
+else if (paraCount >= 2) { structScore += 1; structTags.push({t:'段落偏少(' + paraCount + '段)', pos:false}); }
+else { structTags.push({t:'仅1段，需分段', pos:false}); }
+if (firstParaLen > 0 && firstParaLen <= 150) { structScore += 1; structTags.push({t:'开头简洁(' + firstParaLen + '字)', pos:true}); }
+else if (firstParaLen > 200) { structTags.push({t:'开头过长(' + firstParaLen + '字)', pos:false}); }
+if (lastParaLen > 0 && lastParaLen <= 100) { structScore += 1; structTags.push({t:'结尾精炼(' + lastParaLen + '字)', pos:true}); }
+else if (lastParaLen > 150) { structTags.push({t:'结尾偏长(' + lastParaLen + '字)', pos:false}); }
+if (transitionCount >= 2) { structScore += 1; structTags.push({t:'有过渡衔接(' + transitionCount + '处)', pos:true}); }
+else { structTags.push({t:'过渡衔接不足', pos:false}); }
+structScore = Math.min(structScore, 5);
+var structLevel = structScore >= 4 ? 'good' : (structScore >= 3 ? 'mid' : 'low');
+
+var wmScore = 0, wmTags = [];
+if (chars >= 600) { wmScore += 2; wmTags.push({t:'字数满足要求', pos:true}); }
+else { wmTags.push({t:'字数不足600字', pos:false}); }
+if (punctTypes >= 4) { wmScore += 1; wmTags.push({t:'标点使用规范', pos:true}); }
+if (paraCount >= 3) { wmScore += 1; wmTags.push({t:'段落格式清晰', pos:true}); }
+else { wmTags.push({t:'段落格式需改善', pos:false}); }
+wmScore = Math.min(wmScore, 4);
+var wmLevel = wmScore >= 3 ? 'good' : (wmScore >= 2 ? 'mid' : 'low');
+
+var bonusScore = 0, bonusTags = [];
+if (quoteCount >= 1) { bonusScore += 1; bonusTags.push({t:'引用名言/诗句(' + quoteCount + '处)', pos:true}); }
+if (poetryCount >= 2) { bonusScore += 1; bonusTags.push({t:'含古诗词意象(' + poetryCount + '处)', pos:true}); }
+if (rhetoricCount >= 5 && detailCount >= 3) { bonusScore += 1; bonusTags.push({t:'语言表现力突出', pos:true}); }
+bonusScore = Math.min(bonusScore, 3);
+
+var totalScore = contentScore + langScore + structScore + wmScore + bonusScore;
+var grade = '';
+var gradeColor = '';
+if (totalScore >= 45) { grade = '一类文（优秀）'; gradeColor = '#48bb78'; }
+else if (totalScore >= 38) { grade = '二类文（良好）'; gradeColor = '#4299e1'; }
+else if (totalScore >= 30) { grade = '三类文（一般）'; gradeColor = '#ed8936'; }
+else { grade = '四类文（待提升）'; gradeColor = '#f56565'; }
+
+var suggestions = [];
+if (chars < 600) suggestions.push('📝 字数不足600字，中考要求至少600字，建议扩充内容，增加具体事例和细节描写。');
+if (actionCount < 4) suggestions.push('🏃 行动描写不足，广东阅卷最看重"做了什么"，建议增加具体的动作描写，少写"我感受到"，多写"我做了什么"。');
+if (sensoryCount < 3) suggestions.push('👀 感官描写不足，建议用五蕴写作法（色→受→想→行→识），从视觉、听觉、触觉等多角度描写。');
+if (rhetoricCount < 1) suggestions.push('🎨 缺少修辞手法，建议至少使用1-2处比喻或拟人，让语言更生动。');
+if (paraCount < 3) suggestions.push('📄 段落过少，建议分3-6段，开头简洁入题，结尾精炼升华。');
+if (firstParaLen > 200) suggestions.push('✂️ 开头过长（' + firstParaLen + '字），建议控制在150字以内，快速入题。');
+if (clichéCount > 0) suggestions.push('⚠️ 检测到老套素材，建议更换为广州本地素材（如早茶、醒狮、永庆坊等），符合广东阅卷偏好。');
+if (emptyCount >= 5) suggestions.push('🔤 空洞修饰词过多（"非常""十分"等），建议用具体描写替代，如"非常热"改为"汗水顺着脸颊滑落"。');
+if (transitionCount < 2) suggestions.push('🔗 过渡衔接不足，建议使用"起初…后来…最终…"等过渡词，让文章脉络更清晰。');
+if (bonusScore === 0) suggestions.push('💎 缺少加分亮点，建议镶嵌1-2句名言诗词（金镶玉法），提升文章文采。');
+if (persuasiveCount > 3) suggestions.push('📢 说教意味偏重，建议减少"我们应该""必须"等说教句式，用故事和细节传递道理。');
+if (suggestions.length === 0) suggestions.push('🌟 你的作文整体表现不错！继续保持，可以进一步提升细节描写的深度和语言的文采。');
+
+var html = '<div class="ai-report">';
+html += '<div class="ai-report-header">';
+html += '<div class="ai-score-big">' + totalScore + '<span style="font-size:20px;color:#a0aec0;"> / 53分</span></div>';
+html += '<div class="ai-score-label">2026广州中考作文智能评分（50分基础+3分加分）</div>';
+html += '<div class="ai-grade-badge" style="background:' + gradeColor + '20;color:' + gradeColor + ';">' + grade + '</div>';
+html += '</div>';
+
+html += '<div class="ai-dim-row ' + contentLevel + '">';
+html += '<div class="ai-dim-name">内容<br><span style="font-size:11px;color:#a0aec0;">/25分</span></div>';
+html += '<div class="ai-dim-score" style="color:' + (contentLevel==='good'?'#48bb78':contentLevel==='mid'?'#ed8936':'#f56565') + ';">' + contentScore + '分</div>';
+html += '<div class="ai-dim-detail">';
+contentTags.forEach(function(tag) { html += '<span class="ai-dim-tag ' + (tag.pos?'pos':'neg') + '">' + tag.t + '</span>'; });
+html += '<div style="margin-top:6px;">字数' + chars + ' | 段落' + paraCount + ' | 句子' + sentenceCount + ' | 行为词' + actionCount + ' | 感官词' + sensoryCount + ' | 情感词' + emotionCount + ' | 细节词' + detailCount + '</div>';
+html += '</div></div>';
+
+html += '<div class="ai-dim-row ' + langLevel + '">';
+html += '<div class="ai-dim-name">语言<br><span style="font-size:11px;color:#a0aec0;">/16分</span></div>';
+html += '<div class="ai-dim-score" style="color:' + (langLevel==='good'?'#48bb78':langLevel==='mid'?'#ed8936':'#f56565') + ';">' + langScore + '分</div>';
+html += '<div class="ai-dim-detail">';
+langTags.forEach(function(tag) { html += '<span class="ai-dim-tag ' + (tag.pos?'pos':'neg') + '">' + tag.t + '</span>'; });
+html += '<div style="margin-top:6px;">均句长' + avgSentenceLen + '字 | 短句' + shortSentences + ' | 长句' + longSentences + ' | 修辞' + rhetoricCount + '处 | 标点' + punctTypes + '种 | 对话' + dialogueCount + '处</div>';
+html += '</div></div>';
+
+html += '<div class="ai-dim-row ' + structLevel + '">';
+html += '<div class="ai-dim-name">结构<br><span style="font-size:11px;color:#a0aec0;">/5分</span></div>';
+html += '<div class="ai-dim-score" style="color:' + (structLevel==='good'?'#48bb78':structLevel==='mid'?'#ed8936':'#f56565') + ';">' + structScore + '分</div>';
+html += '<div class="ai-dim-detail">';
+structTags.forEach(function(tag) { html += '<span class="ai-dim-tag ' + (tag.pos?'pos':'neg') + '">' + tag.t + '</span>'; });
+html += '<div style="margin-top:6px;">共' + paraCount + '段 | 开头' + firstParaLen + '字 | 结尾' + lastParaLen + '字 | 过渡词' + transitionCount + '处</div>';
+html += '</div></div>';
+
+html += '<div class="ai-dim-row ' + wmLevel + '">';
+html += '<div class="ai-dim-name">文面<br><span style="font-size:11px;color:#a0aec0;">/4分</span></div>';
+html += '<div class="ai-dim-score" style="color:' + (wmLevel==='good'?'#48bb78':wmLevel==='mid'?'#ed8936':'#f56565') + ';">' + wmScore + '分</div>';
+html += '<div class="ai-dim-detail">';
+wmTags.forEach(function(tag) { html += '<span class="ai-dim-tag ' + (tag.pos?'pos':'neg') + '">' + tag.t + '</span>'; });
+html += '<div style="margin-top:6px;">用词丰富度' + (uniqueRatio*100).toFixed(1) + '% | 重复率' + ((1-uniqueRatio)*100).toFixed(1) + '%</div>';
+html += '</div></div>';
+
+html += '<div class="ai-dim-row ' + (bonusScore>=2?'good':bonusScore>=1?'mid':'low') + '">';
+html += '<div class="ai-dim-name">加分<br><span style="font-size:11px;color:#a0aec0;">/3分</span></div>';
+html += '<div class="ai-dim-score" style="color:#d69e2e;">+' + bonusScore + '分</div>';
+html += '<div class="ai-dim-detail">';
+if (bonusTags.length > 0) { bonusTags.forEach(function(tag) { html += '<span class="ai-dim-tag pos">' + tag.t + '</span>'; }); }
+else { html += '<span class="ai-dim-tag neg">暂无加分项</span>'; }
+html += '<div style="margin-top:6px;">名言引用' + quoteCount + '处 | 古诗意象' + poetryCount + '处</div>';
+html += '</div></div>';
+
+html += '<div class="ai-suggest">';
+html += '<div class="ai-suggest-title">📋 提升建议（共' + suggestions.length + '条）</div>';
+suggestions.forEach(function(s) { html += '<div style="margin:4px 0;">' + s + '</div>'; });
+html += '</div>';
+
+html += '<div style="text-align:center;margin-top:14px;font-size:12px;color:#a0aec0;">⚠️ 本分析基于文本特征统计与中考评分规则算法生成，仅供参考，实际评分以教师批改为准。</div>';
+html += '</div>';
+
+return html;
+}
+
+function countMatches(text, words) {
+var count = 0;
+for (var i = 0; i < words.length; i++) {
+var idx = text.indexOf(words[i]);
+while (idx !== -1) { count++; idx = text.indexOf(words[i], idx + words[i].length); }
+}
+return count;
 }
 
 function selectDim(btn) {
