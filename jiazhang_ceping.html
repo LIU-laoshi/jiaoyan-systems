@@ -1003,7 +1003,7 @@ function showReport() {
   html += '<h2>📊 综合教育测评报告</h2>';
   html += '<p>基于五大维度测评结果，以下为您孩子的综合教育测评画像和个性化行动建议。</p>';
   if(SHARE_INFO.childName){
-    html += '<div class="share-report-info"><h3>👶 '+SHARE_INFO.childName+' | '+SHARE_INFO.grade+' | 📱 '+SHARE_INFO.phone+'</h3><p>需提升科目：'+SHARE_INFO.subjects.join('、')+'</p></div>';
+    html += '<div class="share-report-info"><h3>👶 '+SHARE_INFO.childName+' | '+SHARE_INFO.grade+'</h3><p>需提升科目：'+SHARE_INFO.subjects.join('、')+'</p></div>';
   }
   html += '<div style="margin-top:10px;font-size:11px;color:rgba(255,255,255,.5)">报告编号：' + reportId + ' | 生成时间：' + now.toLocaleString("zh-CN") + '</div>';
   html += '</div>';
@@ -1487,7 +1487,7 @@ function renderAdminResults(rows){
     var avgScore=scoreCount>0?Math.round(totalScore/scoreCount):0;
     html+='<div class="admin-result-card">';
     html+='<div class="ar-name">'+displayName+' <span style="font-size:12px;color:#999;">('+f.row.username.replace('jz_','')+'</span>)</div>';
-    html+='<div class="ar-info">完成模块: '+f.moduleCount+'/5 | 更新时间: '+updatedTime+'</div>';
+    html+='<div class="ar-info">完成模块: '+f.moduleCount+'/5 | 更新时间: '+updatedTime+(f.stateData.phone?(' | 📱 '+f.stateData.phone):'')+'</div>';
     if(avgScore>0){
       html+='<div class="ar-score">'+avgScore+'分</div>';
     }
@@ -2138,7 +2138,8 @@ function viewFullReport(idx){
   var subjects=sd.subjects||[];
   var modal=document.getElementById('fullReportModal');
   var body=document.getElementById('fullReportBody');
-  var header='<div style="background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:10px;padding:14px;margin-bottom:10px;"><h3 style="font-size:15px;margin-bottom:4px;">'+displayName+' | '+grade+'</h3><p style="font-size:12px;opacity:0.9;">需提升科目：'+subjects.join('、')+'</p></div>';
+  var phone=sd.phone||'';
+  var header='<div style="background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:10px;padding:14px;margin-bottom:10px;"><h3 style="font-size:15px;margin-bottom:4px;">'+displayName+' | '+grade+(phone?(' | 📱 '+phone):'')+'</h3><p style="font-size:12px;opacity:0.9;">需提升科目：'+subjects.join('、')+'</p></div>';
   body.innerHTML=header+sd.reportHtml;
   modal.classList.add('show');
   setTimeout(function(){
