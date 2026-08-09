@@ -616,16 +616,19 @@ function calculateResult() {
   for (var qi = 0; qi < m.questions.length; qi++) {
     var q = m.questions[qi];
     var ans = answers[qi];
-    if (ans !== undefined && q.d[ans] !== undefined) {
-      var w = q.w ? q.w[ans] : 1;
-      scores[q.d[ans]] += w;
-    }
     if (isLikert) {
-      var qDim = q.d[0];
-      var maxW = 0;
-      if (q.w) { for (var wi = 0; wi < q.w.length; wi++) { if (q.w[wi] > maxW) maxW = q.w[wi]; } }
-      else { maxW = 1; }
-      maxScores[qDim] += maxW;
+      var dim = q.d[0];
+      var numOpts = q.o.length;
+      if (ans !== undefined) {
+        var sc = numOpts - ans;
+        scores[dim] += sc;
+      }
+      maxScores[dim] += numOpts;
+    } else {
+      if (ans !== undefined && q.d[ans] !== undefined) {
+        var w = q.w ? q.w[ans] : 1;
+        scores[q.d[ans]] += w;
+      }
     }
   }
   if (!isLikert) { for (var d = 0; d < dimCount; d++) maxScores[d] = m.questions.length; }
