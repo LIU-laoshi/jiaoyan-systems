@@ -1168,12 +1168,10 @@ function showReport() {
   html += '</div>';
 
   // 13. Disclaimer
-  html += '<a href="weixin://contacts/profile/17875314336" style="display:block;text-decoration:none;color:#fff;">';
-  html += '<div style="text-align:center;padding:16px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;margin-bottom:16px;color:#fff;cursor:pointer;">';
+  html += '<div onclick="contactWechat()" style="text-align:center;padding:16px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;margin-bottom:16px;color:#fff;cursor:pointer;">';
   html += '<div style="font-size:18px;font-weight:800;">💬 点击加微咨询：17875314336</div>';
   html += '<div style="font-size:13px;margin-top:4px;opacity:0.9;">专业教育规划师为您一对一解答（点击添加微信）</div>';
   html += '</div>';
-  html += '</a>';
   html += '<div class="report-disclaimer">';
   html += '⚠️ 本报告基于家长自评问卷生成，仅供家庭教育参考，不替代专业心理评估<br>';
   html += '如涉及学习障碍、情绪障碍、发育迟缓等专业问题，请咨询教育心理学家或儿童精神科医生<br>';
@@ -1185,6 +1183,19 @@ function showReport() {
   showPage("page-report");
   setTimeout(function() { drawGaugeChart("gauge-canvas", compositeScore, gradeInfo); }, 50);
   setTimeout(function() { drawRadarChart("report-canvas", allPercents, allDims, "#3b82f6", allColors); }, 100);
+}
+
+function contactWechat(){
+  var wx='17875314336';
+  var ta=document.createElement('textarea');
+  ta.value=wx;
+  ta.style.position='fixed';
+  ta.style.top='-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  try{document.execCommand('copy');}catch(e){}
+  document.body.removeChild(ta);
+  alert('微信号已复制：'+wx+'\n\n操作步骤：\n1. 点击右上角「...」返回微信\n2. 点击右上角「+」\n3. 选择「添加朋友」\n4. 在搜索框长按粘贴微信号\n5. 点击搜索即可添加');
 }
 
 function toggleFaq(idx) {
