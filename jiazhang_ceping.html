@@ -1168,10 +1168,12 @@ function showReport() {
   html += '</div>';
 
   // 13. Disclaimer
-  html += '<div style="text-align:center;padding:16px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;margin-bottom:16px;color:#fff;">';
-  html += '<div style="font-size:18px;font-weight:800;">📞 1V1咨询：17875314336</div>';
-  html += '<div style="font-size:13px;margin-top:4px;opacity:0.9;">专业教育规划师为您一对一解答</div>';
+  html += '<a href="weixin://contacts/profile/17875314336" style="display:block;text-decoration:none;color:#fff;">';
+  html += '<div style="text-align:center;padding:16px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;margin-bottom:16px;color:#fff;cursor:pointer;">';
+  html += '<div style="font-size:18px;font-weight:800;">💬 1V1咨询：17875314336</div>';
+  html += '<div style="font-size:13px;margin-top:4px;opacity:0.9;">专业教育规划师为您一对一解答（点击添加微信）</div>';
   html += '</div>';
+  html += '</a>';
   html += '<div class="report-disclaimer">';
   html += '⚠️ 本报告基于家长自评问卷生成，仅供家庭教育参考，不替代专业心理评估<br>';
   html += '如涉及学习障碍、情绪障碍、发育迟缓等专业问题，请咨询教育心理学家或儿童精神科医生<br>';
