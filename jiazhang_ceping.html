@@ -251,7 +251,37 @@ canvas{max-width:100%}
 .share-report-info h3{font-size:15px;margin-bottom:6px;}
 .share-report-info p{font-size:12px;opacity:0.9;}
 
+/* Security: disable text selection */
+body{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+input,textarea{-webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text}
 </style>
+<script>
+/* === Security Protection === */
+(function(){
+  var allowed=['liu-laoshi.github.io','localhost','127.0.0.1'];
+  var host=window.location.hostname;
+  var ok=false;
+  for(var i=0;i<allowed.length;i++){if(host.indexOf(allowed[i])>=0){ok=true;break;}}
+  if(!ok){
+    document.title='未授权访问';
+    document.documentElement.innerHTML='<body style="display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;font-family:sans-serif;background:#1a1a2e;color:#fff;"><div style="text-align:center;"><h1 style="font-size:28px;color:#e53935;">⚠️ 未授权访问</h1><p style="margin-top:12px;color:#999;">本系统受版权保护，仅在授权平台运行</p><p style="margin-top:8px;color:#666;font-size:12px;">系统设计制作：刘岳 © 2026</p></div></body>';
+    throw new Error('Unauthorized');
+  }
+  console.log('%c⚠️ 版权警告','color:red;font-size:40px;font-weight:bold;');
+  console.log('%c本系统代码受版权保护，未经授权禁止复制、转载、二次开发或用于商业用途。','color:#333;font-size:14px;');
+  console.log('%c系统设计制作：刘岳 | © 2026 保留所有权利','color:#666;font-size:12px;');
+  document.addEventListener('contextmenu',function(e){e.preventDefault();return false;});
+  document.addEventListener('keydown',function(e){
+    if(e.keyCode===123){e.preventDefault();return false;}
+    if(e.ctrlKey&&e.shiftKey&&(e.keyCode===73||e.keyCode===74||e.keyCode===67)){e.preventDefault();return false;}
+    if(e.ctrlKey&&e.keyCode===85){e.preventDefault();return false;}
+    if(e.ctrlKey&&e.keyCode===83){e.preventDefault();return false;}
+  });
+  document.addEventListener('copy',function(e){var t=e.target.tagName;if(t!=='INPUT'&&t!=='TEXTAREA'){e.preventDefault();}});
+  document.addEventListener('cut',function(e){var t=e.target.tagName;if(t!=='INPUT'&&t!=='TEXTAREA'){e.preventDefault();}});
+  document.addEventListener('dragstart',function(e){e.preventDefault();return false;});
+})();
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
 </head>
 <body>
