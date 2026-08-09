@@ -626,12 +626,14 @@ function calculateResult() {
       maxScores[dim] += numOpts;
     } else {
       if (ans !== undefined && q.d[ans] !== undefined) {
-        var w = q.w ? q.w[ans] : 1;
-        scores[q.d[ans]] += w;
+        for (var dd = 0; dd < dimCount; dd++) {
+          if (dd === q.d[ans]) { scores[dd] += 3; }
+          else { scores[dd] += 1; }
+        }
       }
     }
   }
-  if (!isLikert) { for (var d = 0; d < dimCount; d++) maxScores[d] = m.questions.length; }
+  if (!isLikert) { var mapMax = 3 + (dimCount - 1); for (var d = 0; d < dimCount; d++) maxScores[d] = m.questions.length * mapMax; }
   var percents = [];
   for (var j = 0; j < scores.length; j++) {
     percents.push(maxScores[j] > 0 ? Math.round((scores[j] / maxScores[j]) * 100) : 0);
@@ -662,7 +664,12 @@ function getInterp(moduleId, dimIdx, percent) {
   } else { return interp[String(dimIdx)] || null; }
 }
 
-function getTagInfo(pct) {
+function getTagInfo(pct, isMapping) {
+  if (isMapping) {
+    if (pct >= 40) return {cls:"tag-high",text:"主导"};
+    if (pct >= 20) return {cls:"tag-mid",text:"辅助"};
+    return {cls:"tag-low",text:"弱倾向"};
+  }
   if (pct >= 67) return {cls:"tag-high",text:"优势"};
   if (pct >= 34) return {cls:"tag-mid",text:"发展中"};
   return {cls:"tag-low",text:"需关注"};
@@ -678,7 +685,7 @@ function showResult() {
   for (var i = 0; i < m.dimensions.length; i++) {
     var pct = r.percents[i];
     var isTop = i === r.topDim;
-    var ti = getTagInfo(pct);
+    var ti = getTagInfo(pct, m.type === "mapping");
     html += '<div class="score-bar">';
     html += '<div class="sb-label"><span class="sb-name">' + (isTop ? "⭐ " : "") + m.dimensions[i] + ' <span class="tag ' + ti.cls + '">' + ti.text + '</span></span><span class="sb-value">' + pct + '%</span></div>';
     html += '<div class="sb-track"><div class="sb-fill" style="width:' + pct + '%;background:' + (isTop ? m.color : "#94a3b880") + '"></div></div>';
@@ -707,7 +714,7 @@ function showResult() {
     for (var di = 0; di < m.dimensions.length; di++) {
       var dipct = r.percents[di];
       var diInterp = getInterp(m.id, di, dipct);
-      var dti = getTagInfo(dipct);
+      var dti = getTagInfo(dipct, m.type === "mapping");
       if (diInterp) {
         html += '<div style="margin-top:' + (di > 0 ? "16px" : "0") + ';padding-top:' + (di > 0 ? "16px" : "0") + ';border-top:' + (di > 0 ? "1px solid var(--border)" : "none") + '">';
         html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="tag ' + dti.cls + '">' + m.dimensions[di] + ' ' + dipct + '% ' + dti.text + '</span></div>';
@@ -1048,7 +1055,7 @@ function showReport() {
       for (var di3 = 0; di3 < mod2.dimensions.length; di3++) {
         var pct3 = res2.percents[di3];
         var interp3 = getInterp(mod2.id, di3, pct3);
-        var tc = getTagInfo(pct3);
+        var tc = getTagInfo(pct3, mod2.type === "mapping");
         html += '<div style="margin-top:' + (di3 > 0 ? "12px" : "0") + ';padding-top:' + (di3 > 0 ? "12px" : "0") + ';border-top:' + (di3 > 0 ? "1px solid var(--border)" : "none") + '">';
         html += '<span class="tag ' + tc.cls + '">' + mod2.dimensions[di3] + ' ' + pct3 + '% ' + tc.text + '</span>';
         if (interp3) {
