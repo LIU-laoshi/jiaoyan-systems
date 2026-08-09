@@ -2129,9 +2129,13 @@ renderAdminResults=function(rows){
     }
 
     if(f.isReport&&f.stateData.reportHtml){
-      html+='<div style="margin-top:8px;"><button onclick="viewFullReport('+i+')" style="padding:8px 16px;border-radius:8px;border:1px solid #667eea;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:13px;cursor:pointer;">📄 查看完整报告 <button onclick="saveReportFile('+i+')" style="padding:8px 16px;border-radius:8px;border:1px solid #3fb950;background:linear-gradient(135deg,#3fb950,#2da44e);color:#fff;font-size:13px;cursor:pointer;">💾 保存报告</button></div>';
+      html+='<div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">';
+      html+='<button onclick="viewFullReport('+i+')" style="padding:8px 16px;border-radius:8px;border:1px solid #667eea;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:13px;cursor:pointer;">📄 查看完整报告</button>';
+      html+='<button onclick="saveReportFile('+i+')" style="padding:8px 16px;border-radius:8px;border:1px solid #3fb950;background:linear-gradient(135deg,#3fb950,#2da44e);color:#fff;font-size:13px;cursor:pointer;">💾 保存报告</button>';
+      html+='</div>';
     }
 
+    html+='<div style="margin-top:8px;"><button onclick="deleteReport('+i+')" style="padding:6px 14px;border-radius:8px;border:1px solid #e53935;background:#fff;color:#e53935;font-size:12px;cursor:pointer;">🗑 删除</button></div>';
     html+='</div>';
   }
   document.getElementById('adminResultList').innerHTML=html;
@@ -2195,8 +2199,38 @@ function saveReportFile(idx){
   if(!window._adminFiltered||!window._adminFiltered[idx])return;
   var f=window._adminFiltered[idx];
   var sd=f.stateData;
-  if(!sd.reportHtml){alert('\u8be5\u8bb0\u5f55\u6682\u65e0\u5b8c\u6574\u62a5\u544a');return;}
+  if(!sd.reportHtml){alert('该记录暂无完整报告');return;}
   _downloadReportHTML(sd);
+}
+
+function deleteReport(idx){
+  if(!window._adminFiltered||!window._adminFiltered[idx])return;
+  var f=window._adminFiltered[idx];
+  var displayName=f.stateData.displayName||f.row.username.replace('jz_report_','').replace('jz_share_','').replace('jz_','');
+  if(!confirm('确定要删除「'+displayName+'」的测评数据吗？\n此操作不可撤销。'))return;
+  var usernamesToDelete=[f.row.username];
+  if(f.row.username.indexOf('jz_report_')===0){
+    usernamesToDelete.push(f.row.username.replace('jz_report_','jz_share_'));
+  }
+  if(f.row.username.indexOf('jz_share_')===0){
+    usernamesToDelete.push(f.row.username.replace('jz_share_','jz_report_'));
+  }
+  var done=0;
+  var total=usernamesToDelete.length;
+  for(var k=0;k<usernamesToDelete.length;k++){
+    (function(uname){
+      fetch(SUPABASE_URL+'/rest/v1/py_user_states?username=eq.'+encodeURIComponent(uname),{
+        method:'DELETE',
+        headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'}
+      }).then(function(){
+        done++;
+        if(done===total){alert('已删除「'+displayName+'」的测评数据');fetchAllResults();}
+      }).catch(function(){
+        done++;
+        if(done===total){alert('已删除「'+displayName+'」的测评数据');fetchAllResults();}
+      });
+    })(usernamesToDelete[k]);
+  }
 }
 
 function saveCurrentReport(){
