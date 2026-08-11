@@ -1,0 +1,2519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>六年级语文学情分析系统 · 小升初衔接</title>
+<style>
+:root {
+    --primary: #c0392b;
+    --primary-light: #fadbd8;
+    --accent: #f59e0b;
+    --bg: #fffde7;
+    --card: #ffffff;
+    --text: #1e293b;
+    --text-light: #64748b;
+    --border: #e2e8f0;
+    --success: #c0392b;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+    padding: 0;
+}
+.container { max-width: 720px; margin: 0 auto; padding: 16px; }
+.header {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: #fff;
+    padding: 24px 20px;
+    text-align: center;
+    border-radius: 0 0 24px 24px;
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.2);
+    margin-bottom: 20px;
+}
+.header h1 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+.header .sub { font-size: 14px; opacity: 0.95; }
+.header .signal { margin-top: 12px; padding: 6px 14px; background: rgba(255,255,255,0.2); border-radius: 20px; display: inline-block; font-size: 13px; }
+.card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.card h2 {
+    font-size: 18px;
+    color: var(--primary);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.card h3 {
+    font-size: 15px;
+    color: var(--text);
+    margin: 14px 0 10px;
+    padding: 8px 12px;
+    background: #fadbd8;
+    border-radius: 8px;
+}
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; font-size: 13px; color: var(--text-light); margin-bottom: 4px; }
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 15px;
+    background: #fff;
+    transition: all 0.2s;
+}
+.form-group input:focus, .form-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+.question {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--primary);
+}
+.question .q-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+.question .q-tag {
+    display: inline-block;
+    background: #fadbd8;
+    color: var(--primary);
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-right: 6px;
+    font-weight: 500;
+}
+.options { display: flex; flex-direction: column; gap: 6px; }
+.option {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 12px;
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.option:hover { border-color: var(--primary); background: #fadbd8; }
+.option input { margin-right: 8px; margin-top: 2px; }
+.option.selected { border-color: var(--primary); background: #fadbd8; }
+.option.correct { border-color: var(--success); background: #fadbd8; }
+.option.wrong { border-color: var(--danger); background: #fee2e2; }
+.btn {
+    width: 100%;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, var(--primary) 0%, #047857 100%);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(192, 57, 43, 0.2);
+    margin-top: 16px;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(192, 57, 43, 0.3); }
+.btn:active { transform: translateY(0); }
+.btn-secondary {
+    background: linear-gradient(135deg, #fbbf24 0%, var(--accent) 100%);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.progress-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--card);
+    padding: 10px 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 12px;
+    border-radius: 0 0 12px 12px;
+}
+.progress-bar .label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-light); margin-bottom: 4px; }
+.progress-bar .track { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.progress-bar .fill { height: 100%; background: linear-gradient(90deg, #c0392b, #e74c3c); transition: width 0.3s; }
+.result-section { display: none; }
+.result-section.active { display: block; }
+.score-big {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #fdedec 0%, #fde68a 100%);
+    border-radius: 16px;
+    margin-bottom: 16px;
+}
+.score-big .num { font-size: 56px; font-weight: 800; line-height: 1; }
+.score-big .level { font-size: 20px; font-weight: 700; margin-top: 6px; }
+.score-big .tag { font-size: 14px; color: var(--text-light); margin-top: 4px; }
+.radar-wrap { background: var(--card); border-radius: 16px; padding: 20px; margin-bottom: 16px; text-align: center; }
+.module-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+.module-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 14px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.module-card .name { font-size: 13px; color: var(--text-light); }
+.module-card .score { font-size: 24px; font-weight: 700; color: var(--primary); margin: 4px 0; }
+.module-card .desc { font-size: 11px; color: var(--text-light); }
+.knowledge-gap { background: var(--card); border-radius: 16px; padding: 20px; margin-bottom: 16px; }
+.gap-item { padding: 10px 12px; border-radius: 10px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+.gap-item .tag { font-size: 11px; padding: 2px 8px; border-radius: 6px; flex-shrink: 0; }
+.gap-item .level-1 { background: #fee2e2; color: #b91c1c; }
+.gap-item .level-2 { background: #fed7aa; color: #c2410c; }
+.gap-item .level-3 { background: #fdedec; color: #b45309; }
+.gap-item .level-4 { background: #fadbd8; color: #047857; }
+.gap-item .name { flex: 1; font-size: 14px; }
+.gap-item .score { font-size: 13px; font-weight: 600; color: var(--text); }
+.advice-card {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    border-left: 4px solid var(--primary);
+}
+.advice-card h3 { color: var(--primary); font-size: 16px; margin-bottom: 10px; }
+.advice-card p { font-size: 14px; line-height: 1.7; color: var(--text); margin-bottom: 8px; }
+.advice-card ul { padding-left: 20px; }
+.advice-card li { font-size: 14px; margin-bottom: 6px; }
+.trial-guide {
+    background: linear-gradient(135deg, #fdedec 0%, #fde68a 100%);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    border-left: 4px solid var(--accent);
+}
+.trial-guide h3 { color: #b45309; font-size: 16px; margin-bottom: 10px; }
+.trial-guide p { font-size: 14px; line-height: 1.7; margin-bottom: 8px; }
+.path-card { background: var(--card); border-radius: 16px; padding: 20px; margin-bottom: 16px; }
+.path-step { display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start; }
+.path-step .num {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+}
+.path-step .content { flex: 1; }
+.path-step .title { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+.path-step .desc { font-size: 13px; color: var(--text-light); }
+.explain-box {
+    background: #f0f9ff;
+    border-left: 3px solid var(--primary);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 8px;
+    display: none;
+}
+.explain-box.show { display: block; }
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-light);
+    font-size: 12px;
+}
+.footer .signal {
+    margin-top: 6px;
+    padding: 4px 10px;
+    background: #fadbd8;
+    color: var(--primary);
+    border-radius: 12px;
+    display: inline-block;
+}
+.teacher-card {
+    background: linear-gradient(135deg, #fdedec 0%, #fed7aa 100%);
+    border-radius: 16px;
+    padding: 16px;
+    margin-top: 16px;
+    text-align: center;
+}
+.teacher-card .label { font-size: 12px; color: var(--text-light); }
+.teacher-card .name { font-size: 18px; font-weight: 700; color: var(--text); margin: 4px 0; }
+.teacher-card .tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 8px; }
+.teacher-card .tag { font-size: 11px; padding: 3px 8px; background: rgba(255,255,255,0.6); border-radius: 8px; color: var(--text); }
+.teacher-card .v-signal { margin-top: 10px; font-size: 12px; color: var(--accent); font-weight: 600; }
+.hidden { display: none; }
+@media (max-width: 480px) {
+    .container { padding: 10px; }
+    .header { padding: 18px 14px; }
+    .header h1 { font-size: 20px; }
+    .card { padding: 16px; }
+    .module-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.action-list { display: flex; flex-direction: column; gap: 8px; }
+.action-item { background: #f8fafc; padding: 12px 14px; border-radius: 10px; font-size: 14px; line-height: 1.6; border-left: 3px solid var(--primary); }
+
+/* 登录验证样式 */
+.login-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;z-index:99999;transition:opacity .4s;}
+.login-box{background:#fff;border-radius:16px;padding:36px 32px;width:300px;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.login-box h2{text-align:center;margin:0 0 24px;font-size:20px;color:#333;}
+.login-input{width:100%;padding:12px 16px;margin:10px 0;border:1.5px solid #ddd;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border-color .3s;}
+.login-input:focus{border-color:#667eea;}
+.login-btn{width:100%;padding:12px;margin:16px 0 8px;border:none;border-radius:8px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:16px;cursor:pointer;transition:opacity .3s;}
+.login-btn:hover{opacity:.9;}
+.login-error{color:#e74c3c;font-size:13px;text-align:center;min-height:18px;}
+.login-credits{text-align:center;margin-top:16px;font-size:12px;color:#aaa;}
+
+</style>
+</head>
+<body>
+
+<!-- 登录验证页 -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <h2>🔒 系统登录</h2>
+    <input type="text" class="login-input" id="loginUser" placeholder="请输入账号" autocomplete="off">
+    <input type="password" class="login-input" id="loginPass" placeholder="请输入密码" autocomplete="off">
+    <button class="login-btn" onclick="doLogin()">登 录</button>
+    <div class="login-error" id="loginError"></div>
+    <div class="login-credits">系统设计制作：刘岳</div>
+  </div>
+</div>
+
+
+<!-- ============== V4.1 右上角悬浮分享按钮（无追踪极简版） ============== -->
+<button class="v4-share-fab" onclick="v4ShowTeacherModal()" aria-label="刘老师简介">
+    👨‍🏫
+    <span class="v4-share-fab-tip">刘老师简介</span>
+</button>
+
+<!-- ============== V4.2 右上角第二个 fab：校区课程介绍 ============== -->
+<button class="v4-share-fab" onclick="v4ShowCourseModal()" aria-label="校区课程介绍">
+    🏫
+    <span class="v4-share-fab-tip">校区课程介绍</span>
+</button>
+
+<!-- ============== V4.1 分享模态框 ============== -->
+<div id="v4TeacherModal" class="v4-teacher-modal-mask" onclick="if(event.target===this) v4CloseTeacherModal();">
+    <div class="v4-teacher-modal" onclick="event.stopPropagation();">
+        <button class="v4-teacher-modal-close" onclick="v4CloseTeacherModal()">×</button>
+
+        <div class="v4-teacher-modal-header">
+            <img class="v4-teacher-modal-avatar" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCADIAMgDASIAAhEBAxEB/8QAHQABAAAHAQEAAAAAAAAAAAAAAAIDBAUGBwgBCf/EAEEQAAEDAwEFBAcECQQCAwAAAAEAAgMEBREGBxIhMUETUWFxCBQiMoGRoVJiscEVFiNCcoKSotEzQ0SyJDR04fH/xAAZAQEAAwEBAAAAAAAAAAAAAAAAAQIFAwT/xAAiEQEBAAEEAwADAQEAAAAAAAAAAQIDERJBBCExIlFhE3H/2gAMAwEAAhEDEQA/AOqUREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERARFhO0HaXp/Q0UZu9TmV5wIY/af547kGbKTPVQQY7aVjMnA3jjiuOtceknernFNSWOnZRRkuaJw475GeBHdwWqbxtB1TeCz1681cgbxA3yBnGM/JB9H2SMeMscHDvByol86rLtO1jaK1tTTXqrLt4OLHv3muwMcRy5Lcuzv0la0VsdPq+nZJC95zURDdLB/D1Ubp2dYIrbp69UV/tMFxtsokp5m7zT1Hn3FXJSgREQEREBERAREQEREBERAREQEREBERBr7bXrn9SNJSVNN2bq+c9nCxx6/a+C4V1NcLtqK5y190ndV1MvFzi72lsr0lb7V3javcqEyF9PQhtPCzmG+yC7HmSVS7OdByV9MKirG6154DwXLU1JhN66aenc7tGrILfI8nMZ+HRXSiszpJW+wd3k7PMLpGh2XWsgb+fHHVXmj2Z2iLG52jSO4rzXyp09M8Wz7XOrtJSuiDomcObeGSVBS6FuVaX9hSOy0ZAPDPkutKDSFrpWcKUSeMnFXSO308DcRQRs8mqn++XS80Me3NWw7XtTs51cbfd2zC11j2w1DXkjsDnhIB4dfBdssc17A5hBaRkEdQucNsOhqa828V9LEI66LgXMGC5vitrbFrzPeNAUAr3E19FmknzzLmcj8W4Xr0dXnP68utpcL/GdIiLs4iIiAiIgIiICIiAiIgIiICIiAiIg4ovllN+2i36ueS7tbhMRw5gOIH4LbGmaBlDSRRBuA0LH5bebXrG608jMOZVyY8i4kH5FZnSnLGrM187bs1NDCSSxd6d3LCu1K3OMqz07TvBXqjjzjiuGP11yXRoBaB0wpE7WjkvQS04JUNQY2sLnvAA5kldunCT2oKqFssTmOGQ4YIUjZzB+jNSXGlYcRVMLZsfeacfg4fJVTJ4ZmnsZWv3eYB4qZZZaajv4mqHiMGEsDjyyXNAyVbRu2cRrTfCyM5REWkzhERAREQEREBERAREQEREBERAVj1peJbHYZqynY10oc1jd4ZALjjKvis2sLZ+l9OVtIM77mbzCPtDiPwVc9+N2X0uPOcvjRWoaypr9SiurIIoZpWtDjHndeQMb2DyyMcOPJXiCZzYMsALscAVZp6ttdXSxyOAmgI/ZnmG4GD5dPgrzZ2tkk3SsnO2+62eMw9RRysqoA6rrL1SUjSc5ldutHzVysuoJ+03HVdLWRg4L4Hg481OqNF0VbLJNNTRVQkbuubM9x4d3kjdI0NBDF6tRQUohYWRNhLvZaeJHHmM8ePVWt3xc5Juyh1Q91IZW8eC1ze9UW6luMbbvU1kxe7cZFTghm90BPLJ4deoWe2UudaHRScSOBXkFmhbU9vF7Dycn2QeKjG+yyTeLdZKihqqt7YaKspKmI4Ilzx8jyKu0tKKuVrHN3nBzC0eIcCrrDTbjC45J715a4u0u0bAOu8fIHKvJblI53OYzedMzHIIiLUZYiIgIiICIiAiIgIiICIiAiIgIiINN7QNMPtt6FwpYnmlmJ9pvJmebT4Z4hWa0y7k3HvW+po2TRPjkaHMeC1wPULRFxoX2q+VNG/P7N5APe3mD8l4PJ0uP5RpePr3UnHL7GcUM7I4Q4nhhWS832D1qOKeURU797ednHLxVJ2dTJTOiieQ4ty37w7lhYvL7nfn2Wrss1PMzAZLUPDI5P4XcivPLym0emYSXdsHT91omRTN9Ya9jc4cD06Kf68K2Dt7ZK/fhPE4Ia/7vHn5qw2HSdX2zJm2reDiN0+tN7PiMgnHRVmqP1kpoaOGwz2VtRJK1skLmufuRkZLsgjl9VMwpbjcvVZFaL4ytgOTh7fZc082nuV+0riatqpce60NB81h9vtvqks000m/PJjfcBugnvx0Wb6Oh3aCWcj/AFX8PEDh/ldPG/LP/jy+Vtjjdl/REWkzhERAREQEREBERAREQEREBERAREQFr7alaN6KK6wgB0eI5fEdD+S2CtYbTdY0Ms9ZpagDqq4RQCrqnRn2aVge3dDvvEnl0GSVz1cZlhZXXRyuOcsY/arm0BsUpwR7p7lX1dDBWjeLRknPBYY0vOCCQVeLXdnwEMnyW96yJP02fePuMntlvNNCWRjLTxxnGPkrlBSRRS9oI2tf4dFbKa/UgZxkDT4ryt1HA2PEDS954DC7dOWWeWVVc4lrK+OjphmSR2OHQdT8FsWjp2UtLFBH7kbQ0LDtm7TMK2qnYO3cWgHubx4LN17PG05jjy/bP8nO3Lj+hERel5hERAREQEREBERAREQEREBEVFd7tb7PRuqrrWU9HTN5yTyBg+qCtQkDmtF6y9I3T9sMkGm6We71A4CV37KAHzPtO+AHmtCaz2qat1g58dwuT6ehd/xKTMUeO444u+JKDeu3HbdT2GCayaQnjqLu4Fk1WwhzKXvDTyc/6DzWAei+HVd01LV1cjpqqUw78kh3nPzvkkk88laQ3Fur0Xp2RaoutI4gOnpWyMGeJLHccfBymIvxuO96TA3p7UzjzNPnh/KenksbbRlxc3dLXtOHNIwWnuI6LcTIgQOHFUly0/TXEb7sxVDRhszPeHge8eBXl1vFmXvH1Xr0fLyx/HP3GsILY57sFv0VzprSGvaCOXNXqqpprZK2OtiDQfcmZ7j/APB8Cr3p2hFU71qRv7Bp9jP75/wF5MdHK5cXrz1pMeXTEtopu+mdn016skr4a+iqIqpzQMgxA7rmuHUYdkjw8FXbONsWn9V0kMNfUw2y8e6+mmfutce9jjwI8DxWbXyjjuNrrKOdofFUQvie09Q4EH8VwnrOxTab1HW2qfi6nfgO+008Wn5LTxwmOMkZeWdyytr6BtcHAFpBB4gjqvVwfpTaLqnS4ay1XeoZA3/YlPaR/wBLs4+GFuDTHpIPaGRals4f0M9E/B89x3+VKHSCLBtObVtHX8sZSXmGGd3KGqBhd/dw+RWbse2Rgexwc0jIIOQUESIiAiIgIiICIiAsL1ttN0to6OUXW5xvq4+HqdOe0mJ7t0cvjhXXX1+ZpjRl4vMn/EpnPYO9+MNHxcQvnrLUy1dVLUVUjpJ5Xl8j3HJc4nJJQb01Z6SN+r3SQ6coaa2QHg2WUdtLjv8Asj5Facvt8u+oq11Xe7jU105/eneXY8hyA8lbQ0BxCmBBCG/NQCbsnETNIaTweOI+Pcpw5Lxm7IwOB4FBHwIBznPcthbDA5+0Gjiif2c0kUrYZBzY8N3gR3+6RjqCQtdgBowAAOgCyvZbcDbNoWnqrOAyuiDvJzt0/RxUz6j67VsFw/SVI7tYxDWQO7OeIHg1w6j7p5hXaSaKngkmnkZHDG0ve95w1rQMkk9AArNcaKSjuPrtDgSPG49vRxHLP4LCttMd1v8Aoo0Nq3qaGowaneOHOGeDP4c8+/grbIYtqjbaypNZDZqKKWm92CSpjLg77xbn4jwWd7ItokOtLfJS1UMVHeaNoMsER9h7OQezuGeBHQ47wuR6HtYJ56SpBbLC4tc08wQVt/YzYK2ngdqqi3+0jqXQsaOT2NA3gfAlxHwUbbm7ppwG6crl/wBKeyeq6jtd2jYAysgMUhHV7Dw/tP0XTFPVMq6aCWLO7Jh2DzHgtNelHRzVWj6SqjYDFSVQc49QCN3KDlk8O/yULTx4qM81D1VVkYcsl0xrnUemJmPs12qoGNOexc/fiPmw8FizShdzQdhbE9rX67zTWq7wRU94ij7VrouDJ2DngHk4d3cturgTZlf3ac19Z7m1xDIaljJMHmx3suHycu+xyQEREBERAREQaO9Lm6eqbOqSga7D66tYCO9rAXH67q5Ai94Z4Hv710D6YOoG1Wo7PYYsEUULqmU9d+TgB/S3PxXP7OaCqxyPeF41QvdusaT34UTeSCJQU3Ays+y7I8jxUalN9mq8Ht+o/wD1BOIU+2zmmrYJ2kh0UjZAR4EH8lJPFeMHtY7+CD6FU9UyutdPVxkOZI1sgPgcFLtSsqqOSNzQRjksV2QV36T2b2uQu3j6u1p890fnlZVcKoUtrqKp3KGB0h/laT+Ssq4t2hywO2kXw0OGQQydid0e+5oAcfmPoui/RvrYq3ZsyAR7slLVzRyB3728Q8H5O+i5Oo53VVTUVMxLpJ3mRxPUk5P4rpT0ZJCLFfGjgG1cZx5x/wD0nZs3dHE2Pgxoa0cgFrrb1BJVbN7pFG3g1gef5eK2RnMefBY5rylbVaTuUbhkGB+R/KUg4SJ45HmvCckcAmMNA7hhQqqXh5KHmF4TwXgKJQRuIMhacHe4HxwF9C9D3Nt50dZbi0k+s0cUhJ790Z+uV88oj7Dj98ldm+i/eP0lsvgpXuzJbqiSnx90nfb/ANvog24iIgIiICIrHrm6mx6NvVzacPpaOWVn8QacfXCDhzbFehqDadf65j9+I1ToYj9yP2B/1WItbjiF57Uj995y4neJPUnmpvJBDPxp345gZUVM7fjBRwBafEYKkW137Mg/ukhBWKTUeyWSfYcCfI8FNUMjd9jmnkRhBNC85OUNO7fhaTzxg+ajKDrP0YLh6zoeSmccmnmcz4ZJ/NZztFmdS7PtQyN96Oim/wCpWnfRNrf2l8oieQZMB58D+C2ttmk7HZjqZ7f3qNw+eArRDi62DHs+C6H9F6cGq1LSHrHTzAeRe38wufKBuOJW6PRqrBT64uELzgT2/wCrZG/5UDpiPhGR8FQagj7WzVcZ/ejcPorgPd8yqS6f+jMPBTEVwBVxmKeWM82Pc35EhSOqumpo+y1BdI/sVcw/vKtSrUpLzwQe6plDR1VyrG01vpp6qodwEUEZe4/AK8ap0lfNKx0X6wULqF9Yx0kMcj2l+6CAd5oJLefVEsfiP7EHxJ+q6L9Dy67ty1DanO4SRR1TQT1aS04/qC5yj/0mgngFtj0Za4UO1m3sLg1tXDNTnPX2d4D5tCDtRERAREQFqD0o74217L56EOxPdJmUzR90Hfcfk3HxW31yd6YF3dUasstpa/MdJSmdze573Y/BoQaGeMcuiAg81607wz1Xjm55IIX7wB6hU1sOHTDucVUk4GCqW3jEs3i8oLivSvAvUEmnO7NKzx3h8VUHkqeUbs0cg/hPxVQg3X6KdSI9dXCAn/Wt7iB/C9p/Mrdm25xGybUf/wAct/uC5x9Hiu9S2p2sOOG1Ec0B+MZI+rQuhttMnabHb3J0fFn+4K0Vcj0o3WBbG2ISFu0KFrTgvopx8t0/ktctIDBhZxscl7LaLZzn32zxn4xO/wAKJ9K68tshmoo3O4nC8uzT6hPu89wlU9hf/wCIGHoq2uI9WkB6tKsdOCtXP39UXhw4B1XKfm4q10ssUNVDLUQ9vAx7XSRb272jQQS3PTI4Z8Veddw+r6wvUeOVU4/PB/NY5IcNValsCt2tXyKldRaXprfpi3nh2VrgDXkfekPtE+PBYBX1tVX1D6iuqZqmd/vSTSF7j8SqcuUt7sAlEpjBiMZ6BZTstrjQbQtO1Y/26+HPkXAH6FYoTlrWjmqyilNLNDMwlro3teCOYIOfyQfSMIqe3VLay301Sw5bNE2QHwIB/NVCgEREBcF7dbo677V9RTFwc2Ko9WZj7MYDfxBREGERZBIKjIyiIJcmGtJccBUVveHPkI5FxREFzaeCiREEMzd+Nze8cPNexO342u7wiIMi2f1pt2tbJVNODHVx/U7v5rrfbBS42NX2EcTDRb39JGURWitcbQEvIGcALOdk/DaJYAT/ALz8+XZPRE7S6us8+47dzkYyq25zFkchJ4bqIp7UcV7VGbmvLtwxvlj/AJtCwup9zA70RVv1eKYHCl1D92Jx6oiJVULWkBw5lTHe6QURQO+9klwddNmmmqt7t5zqGNrj4tG6fwWWoiAiIg//2Q==" alt="刘老师头像">
+            <div class="v4-teacher-modal-nameblock">
+                <h3 class="v4-teacher-modal-name">刘老师</h3>
+                <p class="v4-teacher-modal-subtitle">央视中学生频道《教育兴国》受邀专访嘉宾</p>
+            </div>
+        </div>
+
+        <div class="v4-teacher-modal-bio">
+            <p class="v4-teacher-modal-line">教培行业从业超 <b>8</b> 年</p>
+            <p class="v4-teacher-modal-line">从业至今规划学习和升学学员超 <b>3100</b> 名</p>
+            <p class="v4-teacher-modal-line">熟悉广州升学政策、了解小初高学员心理变化</p>
+            <p class="v4-teacher-modal-divider"></p>
+            <p class="v4-teacher-modal-line" style="font-weight:600; color:#0f766e;">目前服务教学点主要做：</p>
+            <p class="v4-teacher-modal-line">· 广州越秀区和荔湾区小初高 <b>1 对 1</b> 和 <b>1 对 3</b></p>
+            <p class="v4-teacher-modal-line">· 985/211 名师毕业</p>
+            <p class="v4-teacher-modal-line">· 双一流全学科老师配齐</p>
+            <p class="v4-teacher-modal-line">· 往届学生进步率以及家长满意度超 <b>95%</b></p>
+            <p class="v4-teacher-modal-divider"></p>
+            <p class="v4-teacher-modal-line" style="font-weight:600; color:#0f766e;">全面的学情诊断分析范围：</p>
+            <p class="v4-teacher-modal-line">知识体系盘查，应试技巧诊断，学习流程诊断，</p>
+            <p class="v4-teacher-modal-line">学习方法诊断，家校学习环境分析，短中长目标规划</p>
+            <p class="v4-teacher-modal-divider"></p>
+            <p class="v4-teacher-modal-line" style="font-weight:600; color:#0f766e;">工作信条：</p>
+            <p class="v4-teacher-modal-line">学生具有极强的可塑性，合理定制规划和引导可以大幅改善学生的学习效率和结果，老师专业度越深越全面，学生提升学习的幅度和速度越高。</p>
+        </div>
+
+        <div class="v4-teacher-modal-contact">
+            <p class="v4-teacher-modal-contact-label">微信和电话 · 加我沟通学习领取资料</p>
+            <div class="v4-teacher-modal-phone-row">
+                <span class="v4-teacher-modal-phone">17875314336</span>
+                <button class="v4-teacher-modal-phone-btn" onclick="v4CopyPhone(this)">📋 复制</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="v4CourseModal" class="v4-teacher-modal-mask" onclick="if(event.target===this) v4CloseCourseModal();">
+    <div class="v4-course-modal" onclick="event.stopPropagation();">
+        <button class="v4-teacher-modal-close" onclick="v4CloseCourseModal()">×</button>
+
+        <div class="v4-course-modal-header">
+            <h2>📖 校区课程介绍</h2>
+            <p>专注 1v1 &amp; 1v3 全学科针对性辅导，为每位学员定制提升方案！</p>
+        </div>
+
+        <div class="v4-course-modal-section">
+            <h3>一、【核心优势】</h3>
+            <p>我们专注于为<b>小学、初中、高中</b>学子，提供精准高效的 1V1 与 1V3 全学科辅导小班课，由经验丰富的名师团队授课，真正实现<b>个性化查漏补缺</b>与<b>同步提升</b>。</p>
+            <p>开设全年级所有学科 · <b>培优</b> · <b>同步</b> · <b>补差</b> 课程，包含 <b>小升初 MK、分分测、奥数竞赛、阅读写作拓展、初中自主招生</b> 类课程，更有金牌规划师做个性化学习方案规划。</p>
+            <p style="margin-top:8px; color:#92400e; font-weight:600;">🏫 校区环境：</p>
+            <div class="v4-course-modal-gallery">
+                <img src="https://www.coze.cn/s/ESTEzvK73uI/" alt="校区前台" onclick="v4ViewImage(this.src, this.alt)">
+                <img src="https://www.coze.cn/s/Bsf9fkcHh6o/" alt="教研成果墙" onclick="v4ViewImage(this.src, this.alt)">
+                <img src="https://www.coze.cn/s/EYgato5sgac/" alt="家长休息区" onclick="v4ViewImage(this.src, this.alt)">
+            </div>
+        </div>
+
+        <div class="v4-course-modal-section">
+            <h3>二、【三大亮点 👍】</h3>
+            <ul>
+                <li>① 精准定位，课程体系全面</li>
+                <li>② 超高性价比，小班享受</li>
+                <li>③ 特色课后服务，贴心托管</li>
+            </ul>
+            <div class="v4-course-modal-gallery">
+                <img src="https://www.coze.cn/s/Ek30K8TMUJk/" alt="精准定位课程体系" onclick="v4ViewImage(this.src, this.alt)">
+                <img src="https://www.coze.cn/s/H4HgkGysmhI/" alt="1对3小班课超高性价比" onclick="v4ViewImage(this.src, this.alt)">
+                <img src="https://www.coze.cn/s/HS3TRkMlAkM/" alt="特色课后服务" onclick="v4ViewImage(this.src, this.alt)">
+            </div>
+        </div>
+
+        <div class="v4-course-modal-address">
+            <div class="v4-course-modal-address-label">📍 校区地址</div>
+            <div class="v4-course-modal-address-value">越秀区新都会大厦东座（西门口地铁站 D 出口）</div>
+        </div>
+
+        <div class="v4-course-modal-section">
+            <h3>三、【师资雄厚，经验丰富】</h3>
+            <ul>
+                <li>1️⃣ 全员 985、211 院校毕业，学科功底扎实</li>
+                <li>2️⃣ 广州本地 <b>5 年以上</b> 一线教学经验，熟悉区域教学与考试特色</li>
+                <li>3️⃣ 学生进步率 <b>95%</b> 以上，提分效果显著</li>
+                <li>4️⃣ 家长满意度 <b>98%</b>，口碑值得信赖</li>
+                <li>5️⃣ 精通广州学情、考情及升学政策，提供精准备考与升学指导</li>
+            </ul>
+            <p style="margin-top:10px; color:#92400e; font-weight:600;">「部分老师展示」（点击图片可放大）：</p>
+            <div class="v4-course-modal-teachers">
+                <!-- 📐 数学小初组 6 位 -->
+                <div class="v4-teacher-group">
+                    <div class="v4-teacher-group-title">📐 数学组 · 小初（6 位）</div>
+                    <div class="v4-teacher-grid">
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/F6mjk5wIW84/" alt="胡家彬老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">胡家彬 · 小初数学</figcaption>
+                        </figure>
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/ypRtekHg7fQ/" alt="李想老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">李想 · 小初数学</figcaption>
+                        </figure>
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/vMy-cXy59Os/" alt="龙思睿老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">龙思睿 · 小初数学</figcaption>
+                        </figure>
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/tEGNZOsVsLs/" alt="王燕老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">王燕 · 小初数学</figcaption>
+                        </figure>
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/xf_4iVuNJpw/" alt="钟莹漫老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">钟莹漫 · 小初数学</figcaption>
+                        </figure>
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/CSZNE0cicZs/" alt="刘秋丽老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">刘秋丽 · 小初数学</figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <!-- 📐 数学初高组 3 位 -->
+                <div class="v4-teacher-group">
+                    <div class="v4-teacher-group-title">📐 数学组 · 初高（3 位）</div>
+                    <div class="v4-teacher-grid">
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/uY-yez5JsS8/" alt="涂雕老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">涂雕 · 初高数学</figcaption>
+                        </figure>
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/yVwVLCjuynU/" alt="胡鑫老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">胡鑫 · 初高数学</figcaption>
+                        </figure>
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/FHOlLP3M05Q/" alt="陈世杰老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">陈世杰 · 初高数学</figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <!-- 🔬 物理组 4 位 -->
+                <div class="v4-teacher-group">
+                    <div class="v4-teacher-group-title">🔬 物理组（4 位 · 初高）</div>
+                    <div class="v4-teacher-grid">
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/Cd0gXNeRWKY/" alt="李中源老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">李中源 · 初高物理</figcaption>
+                        </figure>
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/RxgEY0PgS3c/" alt="贺冠华老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">贺冠华 · 初高物理</figcaption>
+                        </figure>
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/CQ139w94ZPY/" alt="叶伟明老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">叶伟明 · 初高物理</figcaption>
+                        </figure>
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/DT-ygFDQyFE/" alt="王直老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">王直 · 初高物理</figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <!-- 🔤 英语组 3 位 -->
+                <div class="v4-teacher-group">
+                    <div class="v4-teacher-group-title">🔤 英语组（4 位 · 小初 / 初高）</div>
+                    <div class="v4-teacher-grid">
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/UFKOH_DWxcQ/" alt="李秋婷老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">李秋婷 · 小初英语</figcaption>
+                        </figure>
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/O6rNVi2i7TI/" alt="苏慧琳老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">苏慧琳 · 小初英语</figcaption>
+                        </figure>
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/SUeXEmePBys/" alt="邓萌老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">邓萌 · 初高英语</figcaption>
+                        </figure>
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/DBM_NWVaUsM/" alt="胡瑶老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">胡瑶 · 小初英语</figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <!-- 📖 语文组 1 位 -->
+                <div class="v4-teacher-group">
+                    <div class="v4-teacher-group-title">📖 语文组（2 位 · 小初）</div>
+                    <div class="v4-teacher-grid">
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/PBj_9yrigwU/" alt="肖洁欣老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">肖洁欣 · 小初语文</figcaption>
+                        </figure>
+                        <figure class="v4-teacher-card">
+                            <img src="https://www.coze.cn/s/BqCTacasDqk/" alt="董晓丹老师" onclick="v4ViewImage(this.src, this.alt)">
+                            <figcaption class="v4-teacher-card-name">董晓丹 · 小初语文</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="v4-course-modal-cta">
+            <div class="v4-course-modal-cta-title">💎 现在预约，享专属福利！</div>
+            <div class="v4-course-modal-cta-sub">免费安排一次「1V1 专属诊断试听课」<br>精准把脉，定制方案</div>
+            <div class="v4-course-modal-cta-phone">17875314336</div>
+            <button class="v4-course-modal-cta-btn" onclick="v4CopyPhone(this); event.stopPropagation();">📋 一键复制 V 信号</button>
+        </div>
+    </div>
+</div>
+
+<!-- ============== V4.2 全屏图片放大查看器 ============== -->
+<div id="v4ImageViewer" class="v4-image-viewer" onclick="if(event.target===this) v4CloseImageViewer();">
+    <button class="v4-image-viewer-close" onclick="v4CloseImageViewer()">×</button>
+    <img id="v4ImageViewerImg" src="" alt="放大图片">
+</div>
+
+<div class="header">
+    <h1>六年级语文学情分析系统·小升初衔接</h1>
+    <div class="sub">陪你看清学习地图</div>
+    <div class="signal">V 信号：17875314336</div>
+</div>
+
+<div class="container">
+    <div class="progress-bar" id="progressBar" style="display:none;">
+        <div class="label">
+            <span id="progressText">填写中 0%</span>
+            <span id="progressPercent">0%</span>
+        </div>
+        <div class="track"><div class="fill" id="progressFill" style="width:0%;"></div></div>
+    </div>
+
+    <div id="formArea">
+        <div class="card">
+            <h2>📋 第一步 · 基础信息</h2>
+            <div class="form-group"><label>学生昵称（脱敏用）</label>
+                <input type="text" id="studentName" placeholder="例如：小宇、小悦、同学A"></div>
+            <div class="form-group"><label>所在学校</label>
+                <input type="text" id="school" placeholder="例如：XX 中学"></div>
+            <div class="form-group"><label>最近一次语文成绩（满分 100）</label>
+                <input type="number" id="lastScore" min="0" max="100" placeholder="例如：78"></div>
+            <div class="form-group"><label>学习语文的时长</label>
+                <select id="studyDuration">
+                    <option value="">请选择</option>
+                    <option value="0">刚开始（不到 1 个月）</option>
+                    <option value="1">1-3 个月</option>
+                    <option value="2">3-6 个月</option>
+                    <option value="3">6 个月以上</option>
+                </select></div>
+            <div class="form-group"><label>主要学习目标</label>
+                <select id="goal">
+                    <option value="">请选择</option>
+                    <option value="提分">提分（从 C 升 B / 从 B 升 A）</option>
+                    <option value="夯实基础">夯实基础（先理解再做题）</option>
+                    <option value="竞赛">竞赛拓展</option>
+                    <option value="保持优势">保持优势</option>
+                </select></div>
+            <div class="form-group"><label>目前最让您/孩子困扰的</label>
+                <select id="painPoint">
+                    <option value="">请选择</option>
+                    <option value="上课听不懂">上课听不懂</option>
+                    <option value="阅读没思路">阅读没思路</option>
+                    <option value="考试时间不够">考试时间不够</option>
+                    <option value="字词记不住">字词记不住</option>
+                    <option value="粗心丢分">粗心丢分</option>
+                    <option value="对语文没兴趣">对语文没兴趣</option>
+                    <option value="情绪问题">情绪/信心问题</option>
+                </select></div>
+        </div>
+
+        <div class="card">
+            <h2>📚 第二步 · 知识体系盘查（50 题）</h2>
+            <div style="font-size:13px; color:var(--text-light); margin-bottom:12px;">题型含单选/多选/判断。诚实作答就好，没有对错。</div>
+            <div style="text-align:center; padding:40px 20px; color:#94a3b8; font-size:14px;"><p>📚 知识体系题目由系统动态加载</p><p style="font-size:12px; margin-top:8px;">基于人教版PEP六年级(上+下册)语文知识图谱·小升初衔接</p></div>
+        </div>
+
+        <div class="card">
+            <h2>🔄 第三步 · 学习流程（18 题）</h2>
+            <div style="font-size:13px; color:var(--text-light); margin-bottom:12px;">从预习→课堂→作业→复习→考试→复盘 6 阶段。</div>
+            <div class="question"><div class="q-title"><span class="q-tag">预习</span>语文课前，我会提前阅读课文了解本节内容</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_0" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_0" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_0" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_0" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_0" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">预习</span>预习时我会标注不懂的知识点</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_1" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_1" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_1" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_1" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_1" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">预习</span>我会提前完成 1-2 项语文预习任务(如跟读课文/标注新词)</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_2" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_2" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_2" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_2" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_2" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">课堂</span>语文课堂上我能紧跟老师的思路</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_3" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_3" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_3" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_3" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_3" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">课堂</span>课堂上我会主动记笔记（板书+自己的理解）</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_4" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_4" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_4" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_4" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_4" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">课堂</span>课堂上遇到不懂的我会当堂举手提问或课间找老师</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_5" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_5" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_5" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_5" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_5" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">作业</span>语文作业我会在当天完成</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_6" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_6" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_6" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_6" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_6" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">作业</span>做作业前我会先复习当天笔记</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_7" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_7" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_7" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_7" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_7" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">作业</span>作业不会做时我会自己再想 5-10 分钟再翻笔记</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_8" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_8" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_8" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_8" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_8" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">作业</span>作业做完我会自己检查再对答案</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_9" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_9" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_9" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_9" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_9" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">复习</span>我会整理错题到错题本并写错因</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_10" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_10" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_10" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_10" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_10" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">复习</span>周末我会花 1-2 小时复习本周语文</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_11" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_11" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_11" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_11" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_11" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">复习</span>我会用思维导图/表格整理章节知识</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_12" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_12" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_12" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_12" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_12" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">考试</span>月考/单元测试前我会系统复习+刷真题</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_13" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_13" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_13" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_13" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_13" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">考试</span>考后我会主动估分+反思错题</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_14" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_14" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_14" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_14" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_14" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">考试</span>我会把每次考试的错题重新做一遍</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_15" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_15" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_15" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_15" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_15" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">复盘</span>学完一章节我会反思知识结构+方法+漏洞</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_16" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_16" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_16" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_16" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_16" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">复盘</span>我会主动跟老师/家长沟通学习情况</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_17" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_17" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_17" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_17" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="p_17" value="4">E. 从不</label></div></div>
+        </div>
+
+        <div class="card">
+            <h2>⏰ 第四步 · 学习习惯（16 题）</h2>
+            <div style="font-size:13px; color:var(--text-light); margin-bottom:12px;">时间/环境/工具/笔记/提问/资料/健康 7 维度。</div>
+            <div class="question"><div class="q-title"><span class="q-tag">时间</span>我每天固定时段学习语文（如晚自习/固定时间）</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_0" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_0" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_0" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_0" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_0" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">时间</span>我每天语文学习时间在 1 小时以上</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_1" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_1" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_1" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_1" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_1" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">环境</span>我在独立安静的房间/书桌前学习语文</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_2" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_2" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_2" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_2" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_2" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">环境</span>学习时我能远离手机/电子产品的干扰</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_3" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_3" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_3" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_3" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_3" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">工具</span>我有专门的语文错题本并定期翻看</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_4" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_4" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_4" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_4" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_4" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">工具</span>我有专门的语文短语/句型积累本，分类整理好词好句</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_5" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_5" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_5" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_5" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_5" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">工具</span>我会用思维导图/表格/概念图整理语文知识</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_6" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_6" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_6" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_6" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_6" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">笔记</span>我的语文笔记包含老师板书+自己的理解+补充</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_7" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_7" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_7" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_7" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_7" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">笔记</span>我课后会整理笔记（补全、划重点、加批注）</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_8" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_8" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_8" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_8" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_8" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">提问</span>遇到语文疑问我会主动问老师/家长/同学</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_9" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_9" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_9" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_9" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_9" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">提问</span>我会把疑问和答案记下来便于复习</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_10" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_10" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_10" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_10" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_10" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">资料</span>我会主动看语文科普/视频拓展视野</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_11" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_11" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_11" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_11" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_11" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">资料</span>我会整理高频考点和易错题清单</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_12" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_12" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_12" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_12" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_12" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">健康</span>我学习时坐姿端正，眼睛与书本距离合适</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_13" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_13" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_13" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_13" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_13" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">健康</span>我每天保证 7-8 小时睡眠</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_14" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_14" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_14" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_14" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_14" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">健康</span>我会定期运动/休息避免学习疲劳</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_15" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_15" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_15" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_15" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="h_15" value="4">E. 从不</label></div></div>
+        </div>
+
+        <div class="card">
+            <h2>💡 第五步 · 思维方法（14 题）</h2>
+            <div style="font-size:13px; color:var(--text-light); margin-bottom:12px;">修辞/结构/概括/推断/比较/鉴赏/归纳/演绎/迁移/多解 10维度</div>
+            <div class="question"><div class="q-title"><span class="q-tag">修辞辨析</span>我能辨别文章中的比喻、拟人、排比、夸张等修辞手法</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_0" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_0" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_0" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_0" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_0" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">结构分析</span>我能分析文章的段落结构和行文思路(总分/递进/并列等)</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_1" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_1" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_1" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_1" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_1" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">概括归纳</span>我能用简洁的语言概括文章的主要内容或中心思想</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_2" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_2" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_2" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_2" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_2" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">推断理解</span>我能根据上下文推断词语的含义和作者的言外之意</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_3" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_3" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_3" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_3" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_3" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">比较阅读</span>我能对比分析不同文章或不同段落的异同点</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_4" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_4" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_4" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_4" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_4" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">鉴赏评价</span>我能赏析精彩语句并评价文章的写作特色</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_5" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_5" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_5" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_5" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_5" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">形象分析</span>我能从外貌、语言、动作、心理等多角度分析人物形象</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_6" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_6" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_6" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_6" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_6" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">情感体悟</span>我能体会作者在文章中表达的思想感情</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_7" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_7" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_7" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_7" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_7" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">归纳总结</span>我会从学过的课文中总结写作方法和表达技巧</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_8" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_8" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_8" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_8" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_8" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">演绎应用</span>我能把学到的写作方法运用到自己的作文中</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_9" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_9" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_9" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_9" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_9" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">跨文本迁移</span>我能把一种文体的阅读方法迁移到其他文体</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_10" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_10" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_10" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_10" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_10" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">多角度思考</span>遇到开放性问题我会从不同角度思考并组织答案</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_11" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_11" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_11" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_11" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_11" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">联想想象</span>我能在阅读时展开联想和想象，丰富对文本的理解</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_12" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_12" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_12" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_12" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_12" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">批判思考</span>我能对文章观点提出自己的看法和评价</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_13" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_13" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_13" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_13" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="t_13" value="4">E. 从不</label></div></div>
+            <h2>🎯 第六步 · 应试技巧（16 题）</h2>
+            <div style="font-size:13px; color:var(--text-light); margin-bottom:12px;">审题/阅读/作文/时间/顺序/检查/规范/心态/收尾 9维度</div>
+            <div class="question"><div class="q-title"><span class="q-tag">审题</span>语文答题前我会先完整读题2遍，不漏关键信息(题干要求/分值/限制条件)</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_0" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_0" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_0" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_0" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_0" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">审题</span>我会圈出题目中的关键词(如"不正确""主要原因""分别"等)</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_1" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_1" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_1" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_1" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_1" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">阅读</span>做阅读题我会先通读全文把握主旨再看题目回原文定位</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_2" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_2" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_2" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_2" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_2" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">阅读</span>我会在原文中标注与题目相关的关键句和段落</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_3" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_3" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_3" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_3" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_3" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">作文</span>写作文前我会先列提纲(开头-中间-结尾)再动笔</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_4" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_4" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_4" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_4" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_4" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">作文</span>我会为作文预留至少30分钟的写作时间</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_5" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_5" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_5" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_5" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_5" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">时间</span>我能在规定时间内完成语文试卷</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_6" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_6" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_6" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_6" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_6" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">时间</span>我会为各题型(基础/阅读/作文)分配合理的作答时间</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_7" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_7" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_7" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_7" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_7" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">顺序</span>语文考试我按'先易后难'的顺序做题</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_8" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_8" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_8" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_8" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_8" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">顺序</span>遇到不确定的选项我会先做标记，完成全部题目后再回来攻克</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_9" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_9" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_9" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_9" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_9" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">检查</span>考试最后10分钟我会检查答题卡是否填涂完整</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_10" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_10" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_10" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_10" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_10" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">检查</span>我会重点检查易错字、标点符号和病句修改</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_11" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_11" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_11" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_11" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_11" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">规范</span>我的语文答题卷面整洁、字迹工整</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_12" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_12" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_12" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_12" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_12" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">规范</span>我能准确使用标点符号(逗号/句号/引号/省略号等)</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_13" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_13" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_13" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_13" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_13" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">心态</span>考试紧张时我能用深呼吸/自我暗示调整状态</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_14" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_14" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_14" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_14" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_14" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">收尾</span>写完作文我会通读一遍检查语句通顺和错别字</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_15" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_15" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_15" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_15" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e_15" value="4">E. 从不</label></div></div>
+            <h2>🎨 第七步 · 学习风格（6 题 · 新增）</h2>
+            <div style="font-size:13px; color:var(--text-light); margin-bottom:12px;">视觉/听觉/动觉/阅读/交互/自测 6 种风格。</div>
+            <div class="question"><div class="q-title"><span class="q-tag">视觉</span>我通过看图、朗读、思维导图、故事演绎学语文效果更好</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_0" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_0" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_0" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_0" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_0" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">听觉</span>我通过听讲解、中文歌、中文广播、TED 演讲学语文效果更好</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_1" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_1" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_1" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_1" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_1" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">动觉</span>我通过抄写、角色扮演、口语对练、互动游戏学语文效果更好</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_2" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_2" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_2" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_2" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_2" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">阅读</span>我通过读课本、原版书、中文分级读物学语文效果更好</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_3" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_3" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_3" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_3" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_3" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">交互</span>我通过小组讨论、口语对练、互相讲解、中文辩论学语文效果更好</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_4" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_4" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_4" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_4" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_4" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">自测</span>我通过刷题、背课文、纠错本、限时训练学语文效果更好</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_5" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_5" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_5" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_5" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="s_5" value="4">E. 从不</label></div></div><h2>💚 第八步 · 情绪管理（6 题 · 新增）</h2>
+            <div style="font-size:13px; color:var(--text-light); margin-bottom:12px;">压力/挫折/兴趣/信心/自控/求助 6 维度。</div>
+            <div class="question"><div class="q-title"><span class="q-tag">压力</span>面对考试/作业压力我能保持冷静</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_0" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_0" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_0" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_0" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_0" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">挫折</span>语文成绩不理想时我不会轻易放弃</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_1" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_1" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_1" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_1" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_1" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">兴趣</span>我对语文学习有持续的兴趣和好奇心</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_2" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_2" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_2" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_2" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_2" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">信心</span>我相信自己可以学好语文</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_3" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_3" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_3" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_3" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_3" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">自控</span>学习遇到困难时我能控制焦虑情绪</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_4" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_4" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_4" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_4" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_4" value="4">E. 从不</label></div></div><div class="question"><div class="q-title"><span class="q-tag">求助</span>情绪低落时我会主动向老师/家长/同学倾诉</div><div class="options"><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_5" value="0">A. 总是</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_5" value="1">B. 经常</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_5" value="2">C. 有时</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_5" value="3">D. 很少</label><label class="option" onclick="this.classList.add('selected')"><input type="radio" name="e2_5" value="4">E. 从不</label></div></div>
+        </div>
+
+        <button class="btn" onclick="generateReport()">✨ 生成学情评价报告</button>
+    </div>
+
+    <div id="resultArea" class="result-section"></div>
+</div>
+
+<script>
+var KNOWLEDGE = [
+  { chapter: '字音字形综合', id: 'ch1', name: '字音字形综合', difficulty: '容易', weight: 1.0, icon: '📝', color: '#c0392b', questions: [
+    { type: 'single', bloom: 'remember', q: '下列词语中加点字读音完全正确的一项是？', options: ['A. 魁梧(kui wu)', 'B. 追悼(dao) 狭隘(yi)', 'C. 倔强(jue jiang) 模样(mu)', 'D. 着急(zhao) 均匀(yun)'], answer: 2, trap: 'B中隘读ai不读yi', explain: '倔强(jue jiang)和模样(mu)读音正确。' },
+    { type: 'single', bloom: 'understand', q: '下列词语书写完全正确的一项是？', options: ['A. 张冠李带', 'B. 自作自受', 'C. 可见一般', 'D. 兴高彩烈'], answer: 1, trap: '多个词语有常见错别字', explain: 'A应为张冠李戴，C应为可见一斑，D应为兴高采烈。' },
+    { type: 'single', bloom: 'apply', q: '塞字在不同词语中读音不同，下列分组正确的是？', options: ['A. 塞车(sai)/边塞(sai)/堵塞(se)', 'B. 塞车(sai)/边塞(sai)/堵塞(se)', 'C. 塞车(se)/边塞(sai)/堵塞(sai)', 'D. 全部读sai'], answer: 0, trap: '多音字需要根据语境判断', explain: '塞在塞车中读sai(口语)，边塞中读sai(边界)，堵塞中读se(书面语)。' },
+    { type: 'judge', bloom: 'analyze', q: '强字在勉强中读qiang，在强大中读qiang，在倔强中读jiang。', answer: 0, trap: '需要区分三个不同读音', explain: '强是多音字：qiang(强大)、qiang(勉强)、jiang(倔强)。' },
+    { type: 'multi', bloom: 'evaluate', q: '下列词语中哪些含有错别字？', options: ['A. 再接再厉', 'B. 迫不急待', 'C. 走投无路', 'D. 一愁莫展'], answer: [1,3], trap: '再接再厉常被误写为再接再励', explain: 'B应为迫不及待，D应为一筹莫展。A和C书写正确。' }
+  ]},
+  { chapter: '词语运用与语境分析', id: 'ch2', name: '词语运用与语境分析', difficulty: '中等', weight: 1.2, icon: '📖', color: '#e74c3c', questions: [
+    { type: 'single', bloom: 'remember', q: '他的行为令人不齿中不齿的意思是？', options: ['A. 牙齿不好', 'B. 不愿意提到表示鄙视', 'C. 不值得一提', 'D. 不放在眼里'], answer: 1, trap: '容易和不耻混淆', explain: '不齿意为不愿意提到表示鄙视。' },
+    { type: 'single', bloom: 'understand', q: '填入横线最恰当的词语：科学家的发现______了人们对宇宙的认识。', options: ['A. 改变', 'B. 深化', 'C. 扩大', 'D. 提高'], answer: 1, trap: '改变太笼统', explain: '深化认识是固定搭配。' },
+    { type: 'single', bloom: 'apply', q: '下列句子中成语使用恰当的是？', options: ['A. 他做事总是首鼠两端犹豫不决', 'B. 这道题太难了让我感到蔚为大观', 'C. 他的演讲夸夸其谈获得了掌声', 'D. 这个故事被传得绘声绘色'], answer: 0, trap: '要注意成语的感情色彩', explain: '首鼠两端形容犹豫不决用在此处恰当。' },
+    { type: 'judge', bloom: 'analyze', q: '他这个人太斤斤计较小事了中斤斤计较使用正确。', answer: 1, trap: '斤斤计较本身已含琐碎之意', explain: '斤斤计较本身就指过分计较琐碎的事后面再加小事语义重复。' },
+    { type: 'multi', bloom: 'evaluate', q: '下列哪些成语含有多的意思？', options: ['A. 不胜枚举', 'B. 罄竹难书', 'C. 寥寥无几', 'D. 数不胜数'], answer: [0,1,3], trap: '罄竹难书多用于坏事', explain: 'A不胜枚举=多到举不完，B罄竹难书=多得写不完，D数不胜数=多得数不完。C寥寥无几是少的意思。' }
+  ]},
+  { chapter: '病句修改与语法', id: 'ch3', name: '病句修改与语法', difficulty: '中等', weight: 1.2, icon: '🔄', color: '#8e44ad', questions: [
+    { type: 'single', bloom: 'remember', q: '下列句子中没有语病的一项是？', options: ['A. 我们必须认真克服并发现工作中的缺点', 'B. 通过这次活动使我们开阔了眼界', 'C. 他的写作水平明显增加了', 'D. 中国女排是否夺冠取决于队员们的发挥'], answer: 3, trap: 'A顺序不对B缺主语C搭配不当', explain: 'A应先发现再克服，B通过使缺主语，C水平应与提高搭配。' },
+    { type: 'single', bloom: 'understand', q: '把这幅画真美改为感叹句正确的是？', options: ['A. 这幅画难道不美吗？', 'B. 这幅画多么美啊！', 'C. 这幅画很美。', 'D. 这幅画是不是很美？'], answer: 1, trap: 'A是反问句不是感叹句', explain: '感叹句用多么...啊的结构来表达强烈的感叹语气。' },
+    { type: 'single', bloom: 'apply', q: '修改病句：我的成绩比上学期增加了。正确的改法是？', options: ['A. 我的成绩比上学期提高了。', 'B. 我的成绩比上学期增长了。', 'C. 我的成绩比上学期变好了。', 'D. 我的成绩比上学期上升了。'], answer: 0, trap: '增加与成绩搭配不当', explain: '成绩应与提高搭配，增加一般用于数量。' },
+    { type: 'judge', bloom: 'analyze', q: '不但他学习好而且体育也很棒这个递进复句的关联词使用正确。', answer: 1, trap: '主语相同时不但应在主语后', explain: '主语相同(他)时不但应放在主语后面。' },
+    { type: 'multi', bloom: 'evaluate', q: '下列哪些句子是病句？', options: ['A. 我估计他今天可能不会来了', 'B. 通过学习我提高了认识', 'C. 我们要养成爱护公物的良好习惯', 'D. 他的写作水平明显增加了'], answer: [0,3], trap: '估计和可能语义重复', explain: 'A估计和可能重复删去一个。D水平与增加搭配不当应为提高。' }
+  ]},
+  { chapter: '阅读理解与分析', id: 'ch4', name: '阅读理解与分析', difficulty: '较难', weight: 1.5, icon: '📚', color: '#16a085', questions: [
+    { type: 'single', bloom: 'remember', q: '鲁迅少年闰土中闰土给我讲了哪些趣事不包括？', options: ['A. 雪地捕鸟', 'B. 海边拾贝', 'C. 看瓜刺猹', 'D. 池塘钓鱼'], answer: 3, trap: '需要回忆课文内容', explain: '闰土讲了四件事：雪地捕鸟、海边拾贝、看瓜刺猹、看跳鱼儿。没有池塘钓鱼。' },
+    { type: 'single', bloom: 'understand', q: '散文中借景抒情的作用是什么？', options: ['A. 增加字数', 'B. 通过描写景物来表达作者的思想感情', 'C. 展示作者的地理知识', 'D. 让文章更有趣'], answer: 1, trap: '要理解写作手法的本质目的', explain: '借景抒情是散文常用手法通过景物描写来寄托和表达作者的内心情感。' },
+    { type: 'single', bloom: 'apply', q: '小说中写天阴沉沉的风呼呼地刮着这属于什么描写？', options: ['A. 人物描写表现人物性格', 'B. 环境描写渲染气氛烘托心情', 'C. 细节描写推动情节发展', 'D. 场面描写展示故事背景'], answer: 1, trap: '景物描写属于环境描写', explain: '天气描写属于环境描写常用来渲染气氛烘托人物心情。' },
+    { type: 'judge', bloom: 'analyze', q: '分析小说人物形象时只需要关注人物的外貌描写就够了。', answer: 1, trap: '人物形象分析需要多角度', explain: '分析人物形象需要关注语言动作心理外貌等多个方面。' },
+    { type: 'multi', bloom: 'evaluate', q: '理解文章标题的含义时应从哪些方面考虑？', options: ['A. 标题的字面意思', 'B. 标题的比喻义或象征义', 'C. 标题与文章主旨的关系', 'D. 标题的字数多少'], answer: [0,1,2], trap: '标题字数不是分析重点', explain: '分析标题含义需要从字面和深层两个层面以及与主旨的关联来分析。' }
+  ]},
+  { chapter: '古诗文理解与鉴赏', id: 'ch5', name: '古诗文理解与鉴赏', difficulty: '较难', weight: 1.5, icon: '🏮', color: '#d35400', questions: [
+    { type: 'single', bloom: 'remember', q: '下列诗句中哪句表达了送别主题？', options: ['A. 独在异乡为异客每逢佳节倍思亲', 'B. 莫愁前路无知己天下谁人不识君', 'C. 春眠不觉晓处处闻啼鸟', 'D. 锄禾日当午汗滴禾下土'], answer: 1, trap: 'A是思乡不是送别', explain: 'B出自高适别董大是送别名句。' },
+    { type: 'single', bloom: 'understand', q: '同样是写月举头望明月与明月松间照表达的情感有何不同？', options: ['A. 都表达思乡之情', 'B. 前者思乡后者闲适恬淡', 'C. 都表达闲适之情', 'D. 前者写景后者思乡'], answer: 1, trap: '同一意象在不同诗中可以表达不同情感', explain: '李白借月抒发思乡之情王维则通过月描写山林的幽静恬淡。' },
+    { type: 'single', bloom: 'apply', q: '对比但使龙城飞将在和王师北定中原日共同主题是？', options: ['A. 思乡', 'B. 爱国', 'C. 送别', 'D. 田园'], answer: 1, trap: '需要从诗句核心意思判断', explain: '两首诗都表达了爱国情怀。' },
+    { type: 'judge', bloom: 'analyze', q: '李白的早发白帝城和望庐山瀑布都运用了夸张的修辞手法。', answer: 0, trap: '需要分别分析两首诗', explain: '千里江陵一日还和飞流直下三千尺都是夸张。' },
+    { type: 'multi', bloom: 'evaluate', q: '下列哪些诗句出自杜甫之手？', options: ['A. 国破山河在城春草木深', 'B. 飞流直下三千尺疑是银河落九天', 'C. 随风潜入夜润物细无声', 'D. 大漠孤烟直长河落日圆'], answer: [0,2], trap: 'B是李白D是王维', explain: 'A和C出自杜甫，B是李白，D是王维。' }
+  ]},
+  { chapter: '议论文与写作手法', id: 'ch6', name: '议论文与写作手法', difficulty: '难', weight: 1.8, icon: '✍️', color: '#2980b9', questions: [
+    { type: 'single', bloom: 'remember', q: '议论文的三要素是什么？', options: ['A. 开头中间结尾', 'B. 论点论据论证', 'C. 时间地点人物', 'D. 起因经过结果'], answer: 1, trap: '议论文和记叙文要素不同', explain: '议论文三要素：论点论据论证。' },
+    { type: 'single', bloom: 'understand', q: '下列哪个不适合作为议论文的论据？', options: ['A. 名人名言', 'B. 历史事件', 'C. 天气情况', 'D. 统计数据'], answer: 2, trap: '论据需要能支撑论点', explain: '天气情况一般不能作为议论文的论据。' },
+    { type: 'single', bloom: 'apply', q: '演讲稿的结尾应该怎样写最有效？', options: ['A. 突然结束不说再见', 'B. 总结要点并发出号召', 'C. 引入一个新话题', 'D. 大段引用名言'], answer: 1, trap: '结尾需要有力收束', explain: '演讲稿结尾应总结观点并发出号召给听众留下深刻印象。' },
+    { type: 'judge', bloom: 'analyze', q: '写议论文时可以只有论点不需要反驳对立观点。', answer: 0, trap: '议论文可以只立论', explain: '议论文可以只正面论证(立论)也可以反驳对立观点(驳论)。' },
+    { type: 'multi', bloom: 'evaluate', q: '下列哪些是有效的论证方法？', options: ['A. 举例论证', 'B. 对比论证', 'C. 人身攻击', 'D. 比喻论证'], answer: [0,1,3], trap: '人身攻击是逻辑谬误', explain: '举例论证对比论证比喻论证都是有效方法人身攻击是谬误。' }
+  ]},
+  { chapter: '文学常识与名著', id: 'ch7', name: '文学常识与名著', difficulty: '中等', weight: 1.2, icon: '📜', color: '#9b59b6', questions: [
+    { type: 'single', bloom: 'remember', q: '唐宋八大家中唐代的两位是？', options: ['A. 李白杜甫', 'B. 韩愈柳宗元', 'C. 白居易王维', 'D. 李商隐杜牧'], answer: 1, trap: '唐代诗人多但只有两位在八大家中', explain: '唐宋八大家中唐代的是韩愈和柳宗元。' },
+    { type: 'single', bloom: 'understand', q: '西游记的作者是？', options: ['A. 施耐庵', 'B. 罗贯中', 'C. 吴承恩', 'D. 曹雪芹'], answer: 2, trap: '四大名著作者需记清', explain: '西游记吴承恩，水浒传施耐庵，三国演义罗贯中，红楼梦曹雪芹。' },
+    { type: 'single', bloom: 'apply', q: '诗仙诗圣诗佛分别指？', options: ['A. 李白杜甫王维', 'B. 杜甫李白白居易', 'C. 李白白居易王维', 'D. 王维李白杜甫'], answer: 0, trap: '需要区分三位诗人的称号', explain: '李白诗仙杜甫诗圣王维诗佛。' },
+    { type: 'judge', bloom: 'analyze', q: '论语是孔子本人写的著作。', answer: 1, trap: '论语不是孔子本人写的', explain: '论语是孔子的弟子及其再传弟子记录孔子言行的语录集。' },
+    { type: 'multi', bloom: 'evaluate', q: '下列哪些作品属于四大名著？', options: ['A. 聊斋志异', 'B. 三国演义', 'C. 儒林外史', 'D. 红楼梦'], answer: [1,3], trap: '四大名著是固定的四部', explain: '四大名著是三国演义水浒传西游记红楼梦。' }
+  ]},
+  { chapter: '文言文阅读', id: 'ch8', name: '文言文阅读', difficulty: '难', weight: 1.8, icon: '📜', color: '#e67e22', questions: [
+    { type: 'single', bloom: 'remember', q: '学而时习之不亦说乎中说(通假字)的意思是？', options: ['A. 说话', 'B. 同悦高兴', 'C. 说明', 'D. 劝说'], answer: 1, trap: '这是通假字', explain: '说通悦是高兴的意思。' },
+    { type: 'single', bloom: 'understand', q: '吾盾之坚物莫能陷也中陷的意思是？', options: ['A. 掉进去', 'B. 刺穿穿透', 'C. 失败', 'D. 陷阱'], answer: 1, trap: '需要结合上下文理解', explain: '出自自相矛盾陷意为刺穿。' },
+    { type: 'single', bloom: 'apply', q: '下列之的用法与其他三项不同的是？', options: ['A. 杨氏之子', 'B. 圣人之道', 'C. 吾欲之南海', 'D. 草木之花'], answer: 2, trap: '之有多种用法', explain: 'ABD中之都是助词的，C中之是动词去往。' },
+    { type: 'judge', bloom: 'analyze', q: '伯牙破琴绝弦终身不复鼓琴是因为他觉得没有值得为之弹琴的人了。', answer: 0, trap: '需要理解故事背景', explain: '伯牙的知音钟子期去世后伯牙认为世上再无知音于是破琴绝弦。' },
+    { type: 'multi', bloom: 'evaluate', q: '下列哪些是文言文常见的虚词？', options: ['A. 之', 'B. 跑', 'C. 而', 'D. 以'], answer: [0,2,3], trap: '跑是动词不是虚词', explain: '之而以都是文言文常见虚词，跑是动词(实词)。' }
+  ]},
+  { chapter: '对联歇后语与传统文化', id: 'ch9', name: '对联歇后语与传统文化', difficulty: '容易', weight: 1.0, icon: '🎯', color: '#2c3e50', questions: [
+    { type: 'single', bloom: 'remember', q: '下列歇后语正确的是？', options: ['A. 芝麻开花节节高', 'B. 哑巴吃黄连有苦说不出', 'C. 以上都对', 'D. 以上都不对'], answer: 2, trap: '两个歇后语都正确', explain: '两个歇后语都正确。' },
+    { type: 'single', bloom: 'understand', q: '对联春风送暖入屠苏的上联应该是？', options: ['A. 爆竹声中一岁除', 'B. 千门万户曈曈日', 'C. 总把新桃换旧符', 'D. 明月何时照我还'], answer: 0, trap: '需要知道这首诗的顺序', explain: '出自王安石元日：爆竹声中一岁除春风送暖入屠苏。' },
+    { type: 'single', bloom: 'apply', q: '下列哪句名言与坚持主题最相关？', options: ['A. 千里之行始于足下', 'B. 只要功夫深铁杵磨成针', 'C. 三人行必有我师焉', 'D. 己所不欲勿施于人'], answer: 1, trap: '多个名言都有道理但主题不同', explain: '铁杵磨成针讲的是坚持不放弃的精神。' },
+    { type: 'judge', bloom: 'analyze', q: '桃李满天下的桃李比喻的是学生或培养的人才。', answer: 0, trap: '这是一个常见的比喻', explain: '桃李比喻学生或所培养的人才。' },
+    { type: 'multi', bloom: 'evaluate', q: '下列哪些属于中国传统节日？', options: ['A. 春节', 'B. 感恩节', 'C. 端午节', 'D. 中秋节'], answer: [0,2,3], trap: '感恩节不是中国传统节日', explain: '春节端午节中秋节都是中国传统节日，感恩节是美国节日。' }
+  ]},
+  { chapter: '综合运用', id: 'ch10', name: '综合运用', difficulty: '难', weight: 1.8, icon: '🎓', color: '#c0392b', questions: [
+    { type: 'single', bloom: 'remember', q: '下列词语中加点字的读音全都不同的一项是？', options: ['A. 差别/出差/差不多/参差不齐', 'B. 重要/重新/重量/旧事重提', 'C. 闷热/闷闷不乐/闷热/闷热', 'D. 应该/响应/应考/应有尽有'], answer: 0, trap: '需要逐个辨别读音', explain: '差有四个读音各不相同。' },
+    { type: 'single', bloom: 'understand', q: '那河畔的金柳是夕阳中的新娘用了什么修辞？', options: ['A. 拟人', 'B. 比喻', 'C. 夸张', 'D. 排比'], answer: 1, trap: '是字句常构成暗喻', explain: '把金柳比作新娘是比喻(暗喻)。' },
+    { type: 'single', bloom: 'apply', q: '下面语段排序正确的是？1它飞得高看得远 2雄鹰展翅翱翔在蓝天 3我们要学习雄鹰的精神 4不怕风雨勇往直前', options: ['A. 2143', 'B. 2134', 'C. 1234', 'D. 2314'], answer: 0, trap: '要注意逻辑顺序', explain: '先写雄鹰飞翔(2)再说它飞高看远(1)接着描述品质(4)最后联系自身(3)。' },
+    { type: 'judge', bloom: 'analyze', q: '鼎字共12画第六画是竖折折。', answer: 0, trap: '需要数清笔画', explain: '鼎字共12画笔顺第六画确实是竖折折。' },
+    { type: 'multi', bloom: 'evaluate', q: '下列哪些是小学阶段必须掌握的古诗文？', options: ['A. 静夜思李白', 'B. 将进酒李白', 'C. 春晓孟浩然', 'D. 离骚屈原'], answer: [0,2], trap: '需要区分小学必背和更高年级的内容', explain: '静夜思和春晓是小学必背古诗，将进酒和离骚是中学内容。' }
+  ]}
+];
+var PROCESS = [
+  { id:'p1', text:'预习课文时会查阅作者背景和写作资料' },
+  { id:'p2', text:'上课认真听讲并能跟上老师的分析思路' },
+  { id:'p3', text:'课后主动完成阅读任务并做批注笔记' },
+  { id:'p4', text:'写作业前先复习当天课堂笔记' },
+  { id:'p5', text:'遇到不理解的文章会反复阅读思考' },
+  { id:'p6', text:'定期整理笔记和错题本归纳知识点' },
+  { id:'p7', text:'每天坚持课外阅读至少30分钟' },
+  { id:'p8', text:'写作文前会列提纲明确主题和结构' },
+  { id:'p9', text:'写完作文后会自己修改润色' },
+  { id:'p10', text:'背诵古诗文时先理解含义再背' },
+  { id:'p11', text:'每学完一个单元会做知识框架梳理' },
+  { id:'p12', text:'积极参与课堂讨论敢于发表不同观点' },
+  { id:'p13', text:'阅读时主动积累好词好句和素材' },
+  { id:'p14', text:'写作时有意识运用修辞和精彩表达' },
+  { id:'p15', text:'完成试卷后能认真检查不遗漏' },
+  { id:'p16', text:'考试后认真分析错题并总结经验' },
+  { id:'p17', text:'阅读文言文时会标注不懂的词句' },
+  { id:'p18', text:'能合理安排各板块复习时间' }
+];
+var HABIT = [
+  { id:'h1', text:'每天保持课外阅读的好习惯' },
+  { id:'h2', text:'书写工整规范注意卷面整洁' },
+  { id:'h3', text:'课堂上敢于质疑和提出问题' },
+  { id:'h4', text:'写作业时专注认真不分心' },
+  { id:'h5', text:'定期去图书馆借阅课外书籍' },
+  { id:'h6', text:'喜欢与同学讨论文学作品和写作心得' },
+  { id:'h7', text:'有积累好词好句和写作素材的习惯' },
+  { id:'h8', text:'写作前先构思框架再动笔' },
+  { id:'h9', text:'完成后主动检查修改' },
+  { id:'h10', text:'背诵时理解含义而非死记硬背' },
+  { id:'h11', text:'学习时间管理不被手机等干扰' },
+  { id:'h12', text:'课前预习标注重点和疑问' },
+  { id:'h13', text:'有写日记或随笔的习惯' },
+  { id:'h14', text:'考前系统复习而非临时抱佛脚' },
+  { id:'h15', text:'对好文章会反复品味和分析' },
+  { id:'h16', text:'善于从生活中积累写作素材' }
+];
+var THINKING = [
+  { id:'t1', text:'阅读时能准确概括文章主旨和作者观点' },
+  { id:'t2', text:'能分析文章中各种修辞手法的表达效果' },
+  { id:'t3', text:'写作时能有条理地表达自己的观点' },
+  { id:'t4', text:'能用自己的话准确复述和转述文章内容' },
+  { id:'t5', text:'做阅读题时能回到原文找依据并分析' },
+  { id:'t6', text:'分析人物形象时能结合具体语句深入解读' },
+  { id:'t7', text:'能区分事实与观点形成自己的判断' },
+  { id:'t8', text:'读古诗词能体会意境和诗人情感' },
+  { id:'t9', text:'能比较不同文章在主题和写法上的异同' },
+  { id:'t10', text:'写作时能围绕中心选材详略得当' },
+  { id:'t11', text:'能发现并赏析文章中的精彩语言' },
+  { id:'t12', text:'对文章有独立思考和个性化的理解' },
+  { id:'t13', text:'能根据上下文推断词语和句子的深层含义' },
+  { id:'t14', text:'阅读时能预测和推理文章走向' }
+];
+var EXAM = [
+  { id:'e1', text:'做阅读理解时先通读全文把握大意再答题' },
+  { id:'e2', text:'写作文前认真审题明确写作要求和体裁' },
+  { id:'e3', text:'根据题目分值合理分配答题篇幅' },
+  { id:'e4', text:'做完试卷后逐项检查不遗漏' },
+  { id:'e5', text:'字音字形题能运用排除法确定答案' },
+  { id:'e6', text:'阅读简答题能结合原文进行分析' },
+  { id:'e7', text:'作文能在规定时间内完成且字数达标' },
+  { id:'e8', text:'古诗文默写准确无误不写错别字' },
+  { id:'e9', text:'遇难题先跳过做完其他再回来攻克' },
+  { id:'e10', text:'审题时注意不正确属于等关键词' },
+  { id:'e11', text:'作文紧扣主题选材典型不跑题' },
+  { id:'e12', text:'合理分配各板块答题时间' },
+  { id:'e13', text:'能检查出作文中的病句和错别字' },
+  { id:'e14', text:'句式变换题确保变换后意思不变' },
+  { id:'e15', text:'文言文阅读能结合注释理解文意' },
+  { id:'e16', text:'综合题能联系多个知识点系统作答' }
+];
+var STYLE = [
+  { id:'s1', text:'我喜欢通过大量阅读来学习语文', weight: 'reading', label: '阅读型' },
+  { id:'s2', text:'我喜欢通过听讲解和讨论来理解课文', weight: 'auditory', label: '听觉型' },
+  { id:'s3', text:'我喜欢通过做笔记和整理知识点来学习', weight: 'writing', label: '书写型' },
+  { id:'s4', text:'我喜欢通过和同学讨论交流来加深理解', weight: 'social', label: '社交型' },
+  { id:'s5', text:'我喜欢通过联系生活实际来理解文章', weight: 'practical', label: '实践型' },
+  { id:'s6', text:'我喜欢通过画思维导图来梳理知识', weight: 'visual', label: '视觉型' }
+];
+var EMOTION = [
+  { id:'em1', text:'面对小升初语文考试我不紧张能正常发挥' },
+  { id:'em2', text:'考试不理想时我会分析原因并制定改进计划' },
+  { id:'em3', text:'我对语文学习保持积极的态度和兴趣' },
+  { id:'em4', text:'遇到难题我有耐心深入思考不轻易放弃' },
+  { id:'em5', text:'我对自己的语文水平有信心' },
+  { id:'em6', text:'学习压力大时我能合理调节保持好状态' }
+];
+var GRADE_RULES = [{"min": 95, "level": "S 卓越", "tag": "功底扎实+兴趣浓厚，可拓展阅读写作", "color": "#a93226", "summary": "孩子的语文学习已形成正向循环，功底扎实、兴趣浓厚、习惯良好，是少见的'自驱型'学习者。", "action_teacher": ["引入经典名著深度阅读", "重点培养写作表达和文学鉴赏能力", "鼓励阅读分享和写作输出"], "action_parent": ["保持阅读习惯，支持孩子的文学兴趣", "提供优质的阅读资源（名著、散文集）", "定期与孩子共读交流"]}, {"min": 88, "level": "A 优秀", "tag": "整体优秀，可向更高处走", "color": "#c0392b", "summary": "孩子整体学得不错，基础扎实，可以在阅读理解和写作表达上再上一层。", "action_teacher": ["系统查漏补缺，重点突破薄弱题型", "引入阅读理解技巧和写作方法训练", "培养文学鉴赏能力"], "action_parent": ["认可孩子的努力，保持鼓励", "支持课外阅读，拓宽知识面", "关注孩子的心态，避免过度比较"]}, {"min": 80, "level": "B 良好", "tag": "稳步前进，可更稳一些", "color": "#3b82f6", "summary": "孩子在稳步前进，部分基础知识和阅读习惯可以再扎实一些，整体可控。", "action_teacher": ["夯实字词基础，加强古诗文积累", "建立阅读批注习惯", "训练阅读理解和写作规范"], "action_parent": ["帮助孩子养成每日阅读的习惯", "关注孩子的默写和基础知识掌握", "避免在孩子面前过度焦虑"]}, {"min": 70, "level": "C 中等", "tag": "在路上了，节奏稳一些", "color": "#f59e0b", "summary": "孩子在打基础阶段，部分环节有提升空间，按节奏补就好，不用急。", "action_teacher": ["重学薄弱章节（字词/阅读/作文基础）", "重点培养阅读兴趣和朗读习惯", "降低起步难度，建立信心"], "action_parent": ["不要比较，多关注孩子的进步", "陪孩子一起阅读，培养兴趣", "降低期待，先抓基础字词"]}, {"min": 60, "level": "D 待提升", "tag": "方法可以再优化", "color": "#f97316", "summary": "孩子在某些环节有较多提升空间，兴趣和信心比刷题更重要。", "action_teacher": ["从兴趣入手（故事/绘本/动画）", "1v1 重学基础，从字词开始", "降低作业量，重质不重量"], "action_parent": ["先解决孩子的情绪问题", "把'成绩导向'转为'兴趣导向'", "与老师紧密配合，给孩子时间"]}, {"min": 0, "level": "E 起步期", "tag": "陪 ta 慢慢来", "color": "#ef4444", "summary": "孩子目前还在打基础期，需要从兴趣和信心入手，不能急。", "action_teacher": ["从趣味故事激发阅读兴趣", "1对1从字词开始，建立关系", "短期内不追求分数"], "action_parent": ["保护孩子的学习兴趣", "每天陪孩子读一个小故事", "与老师建立长期信任"]}];
+var MODULE_WEIGHTS = {"knowledge": 0.25, "process": 0.12, "habit": 0.12, "thinking": 0.15, "exam": 0.15, "style": 0.08, "emotion": 0.13};
+var MODULE_NAMES = {"knowledge": "知识体系", "process": "学习流程", "habit": "学习习惯", "thinking": "语文思维", "exam": "应试技巧", "style": "学习风格", "emotion": "情绪管理"};
+var RISK_RULES = [{"level": "red", "level_zh": "高风险", "title": "基础薄弱+阅读困难", "desc": "孩子对字词和课文掌握不牢，阅读理解有困难。建议先从基础字词入手，配合生动有趣的文章，激发阅读兴趣。", "action": "1v1 定制化辅导 + 从兴趣入手 + 字词基础巩固"}, {"level": "red", "level_zh": "高风险", "title": "基础薄弱+习惯未建立", "desc": "孩子不仅字词有漏洞，学习习惯也未成型。这是一个需要长期跟进的信号。", "action": "家校联动 + 习惯重塑 + 知识补漏并行"}, {"level": "red", "level_zh": "高风险", "title": "作文困难+情绪低落", "desc": "孩子对写作有畏难情绪，加上基础薄弱，可能已经对语文产生抵触。", "action": "暂停大作文 + 兴趣激发 + 小段落练习"}, {"level": "yellow", "level_zh": "中风险", "title": "阅读理解弱+方法缺失", "desc": "孩子阅读理解丢分多，没有掌握答题方法。建议先讲方法，再配合练习。", "action": "阅读技巧训练 + 答题方法总结"}, {"level": "yellow", "level_zh": "中风险", "title": "古诗文丢分多", "desc": "孩子对古诗文理解有困难，丢分较多。需要加强古诗文积累和理解。", "action": "古诗文趣味记忆 + 诗意理解训练"}, {"level": "yellow", "level_zh": "中风险", "title": "学习习惯待优化", "desc": "孩子在阅读/背诵/作业等环节有缺失，需要重点规范。", "action": "从最容易上手的习惯开始改变"}, {"level": "yellow", "level_zh": "中风险", "title": "兴趣需要培养", "desc": "孩子对语文学习兴趣不浓，需要通过有趣的方式激发。", "action": "趣味阅读 + 故事引入 + 降低难度"}, {"level": "yellow", "level_zh": "中风险", "title": "情绪需要关注", "desc": "孩子对语文可能存在畏难情绪，需要先解决情绪再谈学习。", "action": "兴趣激发 + 家长沟通 + 降低难度"}, {"level": "green", "level_zh": "稳态", "title": "学情稳定", "desc": "孩子学情稳定，基础扎实、阅读理解能力较强。", "action": "保持节奏 + 适当拓展阅读写作"}, {"level": "green", "level_zh": "优势型", "title": "基础突出", "desc": "孩子语文基础非常扎实，可以挑战更高难度。", "action": "名著阅读 + 写作拔高 + 文学鉴赏"}];
+var PATH_TEMPLATES = {
+  'S': { label: 'S 卓越 · 语文素养深厚，初中衔接无忧', months: [
+    { m: 1, task: '阅读初中必背文言文', desc: '世说新语论语选篇' },
+    { m: 2, task: '强化议论文写作', desc: '学习论点论据论证的完整结构' },
+    { m: 3, task: '拓展文学名著阅读', desc: '阅读朝花夕拾西游记原著' },
+    { m: 4, task: '古诗词鉴赏专题', desc: '掌握常见意象和表达技巧' },
+    { m: 5, task: '综合模拟训练', desc: '小升初真题训练查漏补缺' },
+    { m: 6, task: '初中衔接预备', desc: '预习初一语文重点篇目' }
+  ]},
+  'A': { label: 'A 优秀 · 具备初中语文学习能力', months: [
+    { m: 1, task: '巩固文言文基础', desc: '积累常见文言词汇和句式' },
+    { m: 2, task: '提升阅读深度', desc: '学习分析文章深层含义' },
+    { m: 3, task: '强化写作训练', desc: '每周1篇完整作文练习' },
+    { m: 4, task: '古诗词系统复习', desc: '按主题分类整理必背古诗' },
+    { m: 5, task: '综合题型训练', desc: '各类题型专项突破' },
+    { m: 6, task: '总复习与模拟', desc: '全面复习模拟测试' }
+  ]},
+  'B': { label: 'B 良好 · 基础扎实冲刺提升', months: [
+    { m: 1, task: '强化字词语句基础', desc: '易错字词和病句修改专项' },
+    { m: 2, task: '阅读理解方法提升', desc: '学习不同文体的阅读策略' },
+    { m: 3, task: '写作结构优化', desc: '开头结尾技巧选材立意' },
+    { m: 4, task: '古诗文背诵巩固', desc: '确保必背篇目全部过关' },
+    { m: 5, task: '薄弱环节专项', desc: '针对个人薄弱点重点突破' },
+    { m: 6, task: '考前综合训练', desc: '模拟考试调整状态' }
+  ]},
+  'C': { label: 'C 中等 · 需要系统复习提升', months: [
+    { m: 1, task: '回归课本基础', desc: '重新梳理课本知识点' },
+    { m: 2, task: '字词专项训练', desc: '每天定量练习字词' },
+    { m: 3, task: '阅读基础训练', desc: '简单阅读理解掌握基本方法' },
+    { m: 4, task: '写作基础训练', desc: '从片段练习开始' },
+    { m: 5, task: '古诗文强化', desc: '每天背诵一首古诗' },
+    { m: 6, task: '综合复习', desc: '重点知识梳理和练习' }
+  ]},
+  'D': { label: 'D 待提升 · 重点补基础', months: [
+    { m: 1, task: '基础字词过关', desc: '每天10个词语确保会写会用' },
+    { m: 2, task: '培养阅读习惯', desc: '每天阅读30分钟' },
+    { m: 3, task: '简单写作练习', desc: '从一段话写起' },
+    { m: 4, task: '古诗背诵', desc: '每周2首理解后再背' },
+    { m: 5, task: '阅读方法入门', desc: '学会概括文章大意' },
+    { m: 6, task: '综合基础复习', desc: '回顾重点夯实基础' }
+  ]},
+  'E': { label: 'E 需关注 · 从兴趣入手重建信心', months: [
+    { m: 1, task: '趣味阅读启蒙', desc: '选择感兴趣的故事书' },
+    { m: 2, task: '口语表达训练', desc: '每天讲故事或说见闻' },
+    { m: 3, task: '基础字词攻关', desc: '从最常用的字词开始' },
+    { m: 4, task: '仿写练习', desc: '模仿优秀段落写话' },
+    { m: 5, task: '古诗趣味学习', desc: '通过故事了解古诗背景' },
+    { m: 6, task: '建立学习信心', desc: '看到进步持续鼓励' }
+  ]}
+};
+var LIKERT_SCORE = [5,4,3,2,1];
+
+function updateProgress() {
+    var bar = document.getElementById('progressBar');
+    bar.style.display = 'block';
+    var total = 0, filled = 0;
+    document.querySelectorAll('.question').forEach(function(q) {
+        total += 1;
+        if (q.querySelector('input[type=radio]:checked') || q.querySelector('input[type=checkbox]:checked')) filled += 1;
+    });
+    var pct = Math.round(filled / total * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressPercent').textContent = pct + '%';
+    document.getElementById('progressText').textContent = '已答 ' + filled + ' / ' + total;
+}
+document.querySelectorAll('input').forEach(function(r) {
+    if (r.type === 'radio' || r.type === 'checkbox') r.addEventListener('change', updateProgress);
+});
+
+function calcModule(questions, prefix) {
+    var total = 0, count = 0;
+    questions.forEach(function(q, i) {
+        var name = prefix + i;
+        if (q.type === 'multi') {
+            // 多选题：checkbox，可能选多个
+            var checked = document.querySelectorAll('input[name="' + name + '"]:checked');
+            if (checked.length > 0) {
+                var correct = Array.isArray(q.answer) ? q.answer : [q.answer];
+                var userAns = Array.from(checked).map(function(c) { return parseInt(c.value; })).sort(function(a,b) { return a-b; });
+                var correctSorted = correct.slice().sort(function(a,b) { return a-b; });
+                if (JSON.stringify(userAns) === JSON.stringify(correctSorted)) {
+                    total += 100;
+                } else {
+                    var matched = userAns.filter(function(v) { return correctSorted.includes(v; })).length;
+                    total += Math.round(matched / correct.length * 60);
+                }
+                count += 1;
+            }
+        } else if (q.type === 'judge') {
+            // 判断题：radio，value 为 "true"/"false"
+            var sel = document.querySelector('input[name="' + name + '"]:checked');
+            if (sel) {
+                total += (sel.value === String(q.answer)) ? 100 : 0;
+                count += 1;
+            }
+        } else {
+            // 单选题：radio，value 为索引数字
+            var sel = document.querySelector('input[name="' + name + '"]:checked');
+            if (sel) {
+                total += (parseInt(sel.value) === q.answer) ? 100 : 0;
+                count += 1;
+            }
+        }
+    });
+    return count > 0 ? Math.round(total / count) : 0;
+}
+
+function calcKnowledge() {
+    var results = [];
+    var totalScore = 0, totalWeight = 0;
+    KNOWLEDGE.forEach(function(ch) {
+        var r = calcModule(ch.questions, 'k_' + ch.id + '_');
+        results.push({id: ch.id, name: ch.name, score: r, weight: ch.weight, difficulty: ch.difficulty});
+        totalScore += r * ch.weight;
+        totalWeight += ch.weight;
+    });
+    return { avg: Math.round(totalScore / totalWeight), details: results };
+}
+
+function calcSelfModule(questions, prefix) {
+    var total = 0, count = 0;
+    questions.forEach(function(q, i) {
+        var sel = document.querySelector('input[name="' + prefix + i + '"]:checked');
+        if (sel) {
+            total += LIKERT_SCORE[parseInt(sel.value)];
+            count += 1;
+        }
+    });
+    if (count === 0) return 0;
+    return Math.round(total / count / 5 * 100);
+}
+
+function identifyStyle() {
+    // 学习风格识别
+    var visual = calcSelfModule(STYLE.filter(function(q) { return q.dim === '视觉'; }), 's_v_');
+    var audio = calcSelfModule(STYLE.filter(function(q) { return q.dim === '听觉'; }), 's_a_');
+    var kine = calcSelfModule(STYLE.filter(function(q) { return q.dim === '动觉'; }), 's_k_');
+    var read = calcSelfModule(STYLE.filter(function(q) { return q.dim === '阅读'; }), 's_r_');
+    var inter = calcSelfModule(STYLE.filter(function(q) { return q.dim === '交互'; }), 's_i_');
+    var test = calcSelfModule(STYLE.filter(function(q) { return q.dim === '自测'; }), 's_t_');
+    return [
+        {name: '视觉型', score: visual, tip: '适合看图、动画、视频学习'},
+        {name: '听觉型', score: audio, tip: '适合听讲解、讨论学习'},
+        {name: '动觉型', score: kine, tip: '适合动手实验、演示学习'},
+        {name: '阅读型', score: read, tip: '适合读课本、笔记学习'},
+        {name: '交互型', score: inter, tip: '适合小组讨论、互相讲解'},
+        {name: '自测型', score: test, tip: '适合刷题、自测、纠错学习'},
+    ].sort(function(a, b) { return b.score - a.score; });
+}
+
+function predictScore(current, gradeKey) {
+    var base = {
+        S: [current + 3, current + 6], A: [current + 6, current + 12], B: [current + 8, current + 15],
+        C: [current + 10, current + 18], D: [current + 12, current + 20], E: [current + 15, current + 25]
+    };
+    return base[gradeKey] || [current + 5, current + 10];
+}
+
+function generateReport() {
+    try {
+    var name = document.getElementById('studentName').value || '同学';
+    var lastScore = parseInt(document.getElementById('lastScore').value) || 70;
+    var goal = document.getElementById('goal').value;
+
+    // 1. 计算各模块
+    var knowledge = calcKnowledge();
+    var processScore = calcSelfModule(PROCESS, 'p_');
+    var habitScore = calcSelfModule(HABIT, 'h_');
+    var thinkingScore = calcSelfModule(THINKING, 't_');
+    var examScore = calcSelfModule(EXAM, 'e_');
+    var styleScore = calcSelfModule(STYLE, 's_');
+    var emotionScore = calcSelfModule(EMOTION, 'e2_');
+
+    var moduleScores = {
+        knowledge: knowledge.avg, process: processScore, habit: habitScore,
+        thinking: thinkingScore, exam: examScore, style: styleScore, emotion: emotionScore
+    };
+
+    // 2. 总分
+    var totalScore = Math.round(
+        moduleScores.knowledge * MODULE_WEIGHTS.knowledge +
+        moduleScores.process * MODULE_WEIGHTS.process +
+        moduleScores.habit * MODULE_WEIGHTS.habit +
+        moduleScores.thinking * MODULE_WEIGHTS.thinking +
+        moduleScores.exam * MODULE_WEIGHTS.exam +
+        moduleScores.style * MODULE_WEIGHTS.style +
+        moduleScores.emotion * MODULE_WEIGHTS.emotion
+    );
+
+    // 3. 等级
+    var grade = GRADE_RULES.find(function(g) { return totalScore >= g.min; }) || GRADE_RULES[GRADE_RULES.length - 1];
+    var gradeKey = grade.level.charAt(0);
+
+    // 4. 风险评估
+    var risks = evaluateRisks(moduleScores);
+
+    // 5. 学习风格
+    var styles = identifyStyle();
+    var topStyle = styles[0];
+    var secondStyle = styles[1];
+
+    // 6. 知识图谱（按得分排序）
+    var knowledgeRanked = knowledge.details.slice().sort(function(a, b) { return a.score - b.score; });
+    var top5Weak = knowledgeRanked.slice(0, Math.min(5, knowledgeRanked.length));
+
+    // 7. 核心优势 3 + 核心问题 3
+    var modulesRanked = Object.entries(moduleScores)
+        .map(function(kv) { var k = kv[0], v = kv[1]; return {key: k, name: MODULE_NAMES[k], score: v}; })
+        .sort(function(a, b) { return b.score - a.score; });
+    var top3 = modulesRanked.slice(0, 3);
+    var bottom3 = modulesRanked.slice(-3).reverse();
+
+    // 8. 6 个月路径
+    var path = PATH_TEMPLATES[gradeKey] || PATH_TEMPLATES['B'];
+
+    // 9. 分数预测
+    var [m3, m6] = predictScore(lastScore, gradeKey);
+
+    // ========== 渲染 ==========
+    var html = '';
+
+    // 1. 大分数 + 等级
+    html += '<div class="score-big" style="background:linear-gradient(135deg, #fdedec 0%, #fde68a 100%);">' +
+        '<div style="font-size:14px; color:var(--text-light);">综合学情指数</div>' +
+        '<div class="num" style="color:' + grade.color + ';">' + totalScore + '</div>' +
+        '<div class="level" style="color:' + grade.color + ';">' + grade.level + '</div>' +
+        '<div class="tag">' + grade.tag + '</div>' +
+        '<div style="margin-top:14px; padding:14px; background:rgba(255,255,255,0.6); border-radius:12px; font-size:14px; line-height:1.7; text-align:left; color:var(--text);">' + grade.summary + '</div>' +
+        '</div>';
+
+    // 2. 学生画像（3 段）
+    html += '<div class="card"><h2>👤 学情画像</h2>' +
+        '<div style="background:linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); padding:14px; border-radius:12px; margin-bottom:10px;">' +
+        '<div style="font-size:13px; color:var(--primary); font-weight:600; margin-bottom:6px;">📊 整体学情</div>' +
+        '<div style="font-size:14px; line-height:1.7;">' + name + ' 整体处于 <strong>' + grade.level + '</strong> 水平，' + grade.summary + '</div></div>' +
+        '<div style="background:linear-gradient(135deg, #fadbd8 0%, #a7f3d0 100%); padding:14px; border-radius:12px; margin-bottom:10px;">' +
+        '<div style="font-size:13px; color:#047857; font-weight:600; margin-bottom:6px;">💪 3 大核心优势</div>' +
+        '<div style="font-size:14px; line-height:1.7;">' + top3.map(function(m) { return '【' + m.name + '】' + m.score + '分'; }).join(' / ') + '</div></div>' +
+        '<div style="background:linear-gradient(135deg, #fed7aa 0%, #fdba74 100%); padding:14px; border-radius:12px;">' +
+        '<div style="font-size:13px; color:#c2410c; font-weight:600; margin-bottom:6px;">⚠️ 3 大待优化点</div>' +
+        '<div style="font-size:14px; line-height:1.7;">' + bottom3.map(function(m) { return '【' + m.name + '】' + m.score + '分'; }).join(' / ') + '</div></div></div>';
+
+    // 3. 双雷达图
+    html += '<div class="card"><h2>📡 学情 vs 应试 · 双雷达</h2>' +
+        '<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">' +
+        '<div style="text-align:center;"><div style="font-size:13px; color:var(--primary); font-weight:600; margin-bottom:6px;">学情能力</div><canvas id="radar1" width="280" height="280"></canvas></div>' +
+        '<div style="text-align:center;"><div style="font-size:13px; color:#ec4899; font-weight:600; margin-bottom:6px;">应试能力</div><canvas id="radar2" width="280" height="280"></canvas></div></div></div>';
+
+    // 4. 模块小卡片（7 维）
+    html += '<div class="card"><h2>🎯 7 大模块得分</h2><div class="module-grid">';
+    var moduleColors = {
+        knowledge: '#2563eb', process: '#f59e0b', habit: '#c0392b',
+        thinking: '#8b5cf6', exam: '#ec4899', style: '#06b6d4', emotion: '#84cc16'
+    };
+    Object.keys(MODULE_NAMES).forEach(function(k) {
+        html += '<div class="module-card"><div class="name">' + MODULE_NAMES[k] + '</div>' +
+            '<div class="score" style="color:' + moduleColors[k] + ';">' + moduleScores[k] + '</div>' +
+            '<div class="desc">' + getModuleDesc(k, moduleScores[k]) + '</div></div>';
+    });
+    html += '</div></div>';
+
+    // 5. 知识图谱（6 章）
+    html += '<div class="card"><h2>📚 知识图谱（按章节）</h2>';
+    knowledge.details.sort(function(a, b) { return a.score - b.score; }).forEach(function(k) {
+        var lv = k.score >= 80 ? 4 : k.score >= 60 ? 3 : k.score >= 40 ? 2 : 1;
+        var tag = lv === 4 ? '很扎实' : lv === 3 ? '还不错' : lv === 2 ? '可再稳一点' : '急需补';
+        html += '<div class="gap-item"><div class="tag level-' + lv + '">' + tag + '</div>' +
+            '<div class="name">' + k.name + ' <span style="font-size:11px; color:var(--text-light);">（' + k.difficulty + '）</span></div>' +
+            '<div class="score">' + k.score + '分</div></div>';
+    });
+    html += '</div>';
+
+    // 6. TOP 5 薄弱
+    html += '<div class="card"><h2>🎯 TOP 5 薄弱章节</h2>';
+    top5Weak.forEach(function(k, i) {
+        html += '<div style="display:flex; align-items:center; gap:10px; padding:10px 12px; background:#fdedec; border-radius:10px; margin-bottom:8px;">' +
+            '<div style="width:28px; height:28px; background:#f59e0b; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">' + (i+1) + '</div>' +
+            '<div style="flex:1; font-size:14px;"><strong>' + k.name + '</strong><div style="font-size:12px; color:var(--text-light); margin-top:2px;">' + k.score + '分 / ' + k.difficulty + '</div></div></div>';
+    });
+    html += '</div>';
+
+    // 7. 风险预警
+    if (risks.length > 0) {
+        html += '<div class="card"><h2>🚨 风险预警</h2>';
+        risks.forEach(function(r) {
+            var bg = r.level === 'red' ? '#fee2e2' : r.level === 'yellow' ? '#fdedec' : '#fadbd8';
+            var c = r.level === 'red' ? '#b91c1c' : r.level === 'yellow' ? '#b45309' : '#047857';
+            html += '<div style="background:' + bg + '; padding:14px; border-radius:12px; margin-bottom:10px; border-left:4px solid ' + c + ';">' +
+                '<div style="font-size:13px; font-weight:700; color:' + c + ';">' + r.level_zh + ' · ' + r.title + '</div>' +
+                '<div style="font-size:14px; line-height:1.7; margin:6px 0;">' + r.desc + '</div>' +
+                '<div style="font-size:13px; color:' + c + ';"><strong>建议：</strong>' + r.action + '</div></div>';
+        });
+        html += '</div>';
+    } else {
+        html += '<div class="card"><h2>🚨 风险预警</h2><div style="background:#fadbd8; padding:14px; border-radius:12px; text-align:center; color:#047857; font-size:14px;">✅ 当前未发现明显风险信号，可按计划稳步推进。</div></div>';
+    }
+
+    // 8. 学习风格
+    html += '<div class="card"><h2>🎨 学习风格识别</h2>' +
+        '<div style="background:linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); padding:14px; border-radius:12px; margin-bottom:10px;">' +
+        '<div style="font-size:13px; color:#0369a1; font-weight:600; margin-bottom:6px;">主导风格</div>' +
+        '<div style="font-size:18px; font-weight:700; color:#0c4a6e; margin-bottom:4px;">' + topStyle.name + '（' + topStyle.score + '分）</div>' +
+        '<div style="font-size:13px; color:#075985;">' + topStyle.tip + '</div></div>' +
+        '<div style="background:#f8fafc; padding:14px; border-radius:12px;">' +
+        '<div style="font-size:13px; color:var(--text-light); margin-bottom:8px;">辅助风格</div>' +
+        '<div style="font-size:14px;">' + styles.slice(1, 4).map(function(s) { return s.name + ' ' + s.score + '分'; }).join(' / ') + '</div></div></div>';
+
+    // 9. 6 个月路径
+    html += '<div class="card"><h2>🗓️ 6 个月学习路径</h2>';
+    path.forEach(function(p, i) {
+        html += '<div class="path-step"><div class="num">' + (i+1) + '</div><div class="content">' +
+            '<div class="title">' + p[0] + '：' + p[1] + '</div>' +
+            '<div class="desc">' + p[2] + '</div></div></div>';
+    });
+    html += '</div>';
+
+    // 10. 老师行动清单
+    html += '<div class="card"><h2>👨‍🏫 老师行动清单</h2><div class="action-list">';
+    grade.action_teacher.forEach(function(a) {
+        html += '<div class="action-item">📌 ' + a + '</div>';
+    });
+    html += '</div></div>';
+
+    // 11. 家长行动清单
+    html += '<div class="card"><h2>👪 家长行动清单</h2><div class="action-list">';
+    grade.action_parent.forEach(function(a) {
+        html += '<div class="action-item">💡 ' + a + '</div>';
+    });
+    html += '</div></div>';
+
+    // 12. 学习效果预测
+    html += '<div class="card"><h2>📈 学习效果预测</h2>' +
+        '<div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; text-align:center;">' +
+        '<div style="background:#fdedec; padding:14px; border-radius:12px;"><div style="font-size:12px; color:var(--text-light);">当前</div><div style="font-size:28px; font-weight:700; color:#b45309;">' + lastScore + '</div><div style="font-size:11px; color:var(--text-light);">分</div></div>' +
+        '<div style="background:#fed7aa; padding:14px; border-radius:12px;"><div style="font-size:12px; color:var(--text-light);">3 个月后</div><div style="font-size:28px; font-weight:700; color:#c2410c;">' + Math.min(100, m3) + '</div><div style="font-size:11px; color:var(--text-light);">分</div></div>' +
+        '<div style="background:#fadbd8; padding:14px; border-radius:12px;"><div style="font-size:12px; color:var(--text-light);">6 个月后</div><div style="font-size:28px; font-weight:700; color:#047857;">' + Math.min(100, m6) + '</div><div style="font-size:11px; color:var(--text-light);">分</div></div>' +
+        '</div>' +
+        '<div style="margin-top:10px; font-size:13px; color:var(--text-light); line-height:1.7; padding:10px; background:#f8fafc; border-radius:8px;">💡 预测基于' + grade.level + '水平的标准提升路径，实际进度取决于执行到位度+孩子状态调整。</div></div>';
+
+    // 13. 1v1 试听课 60min 分段
+    var weakestChapter = knowledgeRanked[0];
+    var weakestModule = bottom3[0];
+    html += '<div class="trial-guide"><h2>📝 1v1 试听课老师指引（60min）</h2>' +
+        '<p style="font-size:14px; line-height:1.7;"><strong>' + name + '</strong> 整体 <strong style="color:' + grade.color + ';">' + grade.level + '</strong>，核心突破口：<strong>' + weakestChapter.name + '</strong>（' + weakestChapter.score + '分）+ <strong>' + weakestModule.name + '</strong>（' + weakestModule.score + '分）。</p>' +
+        '<p style="font-size:14px; line-height:1.7; margin-top:10px;"><strong>建议分段：</strong></p>' +
+        '<ul style="padding-left:20px; font-size:14px; line-height:1.8;">' +
+        '<li><strong style="color:#b45309;">0-10min · 关系建立</strong>：聊最近一次考试+最有意思的语文现象，放松孩子</li>' +
+        '<li><strong style="color:#b45309;">10-15min · 摸底诊断</strong>：出 1-2 道' + weakestChapter.name + '诊断题（5min 内测 1 个核心知识点）</li>' +
+        '<li><strong style="color:#b45309;">15-40min · 精讲突破</strong>：精讲 1-2 个核心知识点（用 3D 实验/生活现象）</li>' +
+        '<li><strong style="color:#b45309;">40-55min · 当场练</strong>：2-3 道同类型题，观察孩子的' + weakestModule.name + '</li>' +
+        '<li><strong style="color:#b45309;">55-60min · 路径共识</strong>：和孩子+家长一起制定 3 个月路径</li>' +
+        '</ul>' +
+        '<p style="font-size:13px; color:var(--text-light); margin-top:10px;">💡 试听课不是刷题课，是「看见孩子在哪里」。</p></div>';
+
+    // 14.5 老师详细介绍板块（与模态框内容一致）
+    html += '<div class="v4-result-bio">' +
+        '<h3>👨‍🏫 关于刘老师</h3>' +
+
+        '<div class="v4-result-bio-block">' +
+        '<div class="v4-result-bio-title">🎓 资历背景</div>' +
+        '<p>· 央视中学生频道《教育兴国》受邀专访嘉宾</p>' +
+        '<p>· 教培行业从业超 <b>8</b> 年</p>' +
+        '<p>· 从业至今规划学习和升学学员超 <b>3100</b> 名</p>' +
+        '<p>· 熟悉广州升学政策、了解小初高学员心理变化</p>' +
+        '</div>' +
+
+        '<div class="v4-result-bio-block">' +
+        '<div class="v4-result-bio-title">📍 目前服务教学点主要做</div>' +
+        '<p>· 广州越秀区和荔湾区小初高 <b>1 对 1</b> 和 <b>1 对 3</b></p>' +
+        '<p>· 985/211 名师毕业</p>' +
+        '<p>· 双一流全学科老师配齐</p>' +
+        '<p>· 往届学生进步率以及家长满意度超 <b>95%</b></p>' +
+        '</div>' +
+
+        '<div class="v4-result-bio-block">' +
+        '<div class="v4-result-bio-title">📊 全面的学情诊断分析范围</div>' +
+        '<p>· 知识体系盘查，应试技巧诊断，学习流程诊断</p>' +
+        '<p>· 学习方法诊断，家校学习环境分析，短中长目标规划</p>' +
+        '</div>' +
+
+        '<div class="v4-result-bio-block">' +
+        '<div class="v4-result-bio-title">💡 工作信条</div>' +
+        '<p class="v4-result-bio-quote">学生具有极强的可塑性，合理定制规划和引导可以大幅改善学生的学习效率和结果，老师专业度越深越全面，学生提升学习的幅度和速度越高。</p>' +
+        '</div>' +
+
+        '<div class="v4-result-bio-contact">' +
+        '<div class="v4-result-bio-contact-label">微信和电话 · 加我沟通学习领取资料</div>' +
+        '<div class="v4-result-bio-phone">17875314336</div>' +
+        '</div>' +
+        '</div>';
+
+    // 14.6 校区课程介绍板块（紧凑版，完整版在模态框）
+    html += '<div class="v4-result-course">' +
+        '<h3>📖 校区课程介绍</h3>' +
+        '<div class="v4-result-course-block">' +
+        '<div class="v4-result-course-title">🎯 核心优势</div>' +
+        '<p>专注 1v1 &amp; 1v3 全学科针对性辅导，为每位学员定制提升方案</p>' +
+        '<p>小学 / 初中 / 高中 · 培优 / 同步 / 补差 · 小升初 MK / 奥数 / KET / PET</p>' +
+        '</div>' +
+        '<div class="v4-result-course-block">' +
+        '<div class="v4-result-course-title">⭐ 三大亮点</div>' +
+        '<div class="v4-result-course-highlights">' +
+        '<span class="v4-result-course-tag">① 精准定位，课程体系全面</span>' +
+        '<span class="v4-result-course-tag">② 超高性价比，小班享受</span>' +
+        '<span class="v4-result-course-tag">③ 特色课后服务，贴心托管</span>' +
+        '</div>' +
+        '</div>' +
+        '<div class="v4-result-course-block">' +
+        '<div class="v4-result-course-title">👨‍🏫 师资雄厚（19 位骨干老师）</div>' +
+        '<p>全员 985/211 院校毕业 · 广州本地 <b>5 年以上</b> 教学经验</p>' +
+        '<p>📐 数学 9 位（初高 3 + 小初 6）· 🔬 物理 4 位 · 🔤 英语 4 位 · 📖 语文 2 位</p>' +
+        '<p>学生进步率 <b>95%</b> 以上 · 家长满意度 <b>98%</b></p>' +
+        '</div>' +
+        '<div class="v4-result-course-address">📍 越秀区新都会大厦东座（西门口地铁站 D 出口）</div>' +
+        '<button class="v4-result-course-cta" onclick="v4ShowCourseModal()">📖 查看完整校区课程介绍（含校区环境 + 师资展示）</button>' +
+        '</div>';
+
+    // 15. 操作按钮
+    html += '<button class="btn btn-secondary" onclick="window.print()">🖨️ 打印 / 导出 PDF</button>' +
+        '<button class="btn" onclick="location.reload()" style="margin-top:10px;">🔄 重新分析</button>';
+
+    document.getElementById('resultArea').innerHTML = html;
+    document.getElementById('formArea').style.display = 'none';
+    document.getElementById('progressBar').style.display = 'none';
+    document.getElementById('resultArea').classList.add('active');
+
+    // 渲染雷达图
+    setTimeout(function() {
+        drawRadar('radar1', [moduleScores.knowledge, moduleScores.process, moduleScores.habit, moduleScores.thinking, moduleScores.style],
+            ['知识', '流程', '习惯', '思维', '风格'], '#2563eb', 'rgba(192, 57, 43, 0.2)');
+        drawRadar('radar2', [moduleScores.exam, moduleScores.emotion, moduleScores.thinking, moduleScores.process, moduleScores.knowledge],
+            ['应试', '情绪', '思维', '流程', '知识'], '#ec4899', 'rgba(236, 72, 153, 0.2)');
+    }, 100);
+
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    try { v4AddShareHint(); } catch(e) { console.warn('v4AddShareHint:', e.message); }
+    } catch(error) {
+        console.error('generateReport error:', error);
+        alert('生成报告时出错：' + error.message + '\n\n请打开浏览器控制台(F12)查看详细信息');
+    }
+}
+
+function getModuleDesc(name, score) {
+    if (score >= 80) return '表现优秀';
+    if (score >= 60) return '基本到位';
+    if (score >= 40) return '有提升空间';
+    return '需重点关注';
+}
+
+function evaluateRisks(s) {
+    var risks = [];
+    if (s.knowledge < 60 && s.exam < 60) risks.push(RISK_RULES[0]);
+    if (s.knowledge < 60 && s.habit < 60) risks.push(RISK_RULES[1]);
+    if (s.process < 50 && s.emotion < 50) risks.push(RISK_RULES[2]);
+    if (s.knowledge < 70 && s.thinking < 70) risks.push(RISK_RULES[3]);
+    if (s.exam < 60 && s.emotion < 60) risks.push(RISK_RULES[4]);
+    if (s.process < 60) risks.push(RISK_RULES[5]);
+    if (s.habit < 60) risks.push(RISK_RULES[6]);
+    if (s.emotion < 60) risks.push(RISK_RULES[7]);
+    if (s.knowledge >= 80 && s.exam >= 80) risks.push(RISK_RULES[8]);
+    if (s.knowledge >= 90) risks.push(RISK_RULES[9]);
+    return risks;
+}
+
+function drawRadar(canvasId, scores, labels, lineColor, fillColor) {
+    var canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W = canvas.width, H = canvas.height;
+    var cx = W / 2, cy = H / 2;
+    var r = 90;
+    ctx.clearRect(0, 0, W, H);
+    // 网格
+    for (var i = 1; i <= 5; i++) {
+        var ratio = i / 5;
+        ctx.beginPath();
+        for (var j = 0; j < 5; j++) {
+            var angle = -Math.PI / 2 + j * (Math.PI * 2 / 5);
+            var x = cx + Math.cos(angle) * r * ratio;
+            var y = cy + Math.sin(angle) * r * ratio;
+            if (j === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.strokeStyle = i === 5 ? '#cbd5e1' : '#e2e8f0';
+        ctx.lineWidth = i === 5 ? 1.2 : 1;
+        ctx.stroke();
+    }
+    // 轴线
+    for (var j = 0; j < 5; j++) {
+        var angle = -Math.PI / 2 + j * (Math.PI * 2 / 5);
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r);
+        ctx.strokeStyle = '#cbd5e1';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+    }
+    // 数据
+    ctx.beginPath();
+    for (var j = 0; j < 5; j++) {
+        var angle = -Math.PI / 2 + j * (Math.PI * 2 / 5);
+        var ratio = scores[j] / 100;
+        var x = cx + Math.cos(angle) * r * ratio;
+        var y = cy + Math.sin(angle) * r * ratio;
+        if (j === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = fillColor;
+    ctx.fill();
+    ctx.strokeStyle = lineColor;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    // 数据点
+    for (var j = 0; j < 5; j++) {
+        var angle = -Math.PI / 2 + j * (Math.PI * 2 / 5);
+        var ratio = scores[j] / 100;
+        var x = cx + Math.cos(angle) * r * ratio;
+        var y = cy + Math.sin(angle) * r * ratio;
+        ctx.beginPath();
+        ctx.arc(x, y, 3.5, 0, Math.PI * 2);
+        ctx.fillStyle = lineColor;
+        ctx.fill();
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+    }
+    // 标签
+    for (var j = 0; j < 5; j++) {
+        var angle = -Math.PI / 2 + j * (Math.PI * 2 / 5);
+        var labelR = r + 18;
+        var x = cx + Math.cos(angle) * labelR;
+        var y = cy + Math.sin(angle) * labelR;
+        ctx.fillStyle = '#1e293b';
+        ctx.font = 'bold 11px -apple-system, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(labels[j], x, y - 6);
+        ctx.fillStyle = lineColor;
+        ctx.font = 'bold 12px -apple-system, sans-serif';
+        ctx.fillText(scores[j] + '分', x, y + 7);
+    }
+}
+</script>
+
+
+
+
+
+
+<!-- ============== V4 报告内嵌分享提示（无追踪极简版） ============== -->
+<style>
+.v4-share-hint {
+    margin: 48px auto 24px;
+    max-width: 720px;
+    padding: 40px 36px;
+    background: linear-gradient(135deg, #f8faf7 0%, #ffffff 100%);
+    border: 1px solid #d4e4d4;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(76, 124, 78, 0.10);
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.v4-share-hint::before {
+    content: "";
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(107, 165, 110, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+}
+.v4-share-hint::after {
+    content: "";
+    position: absolute;
+    bottom: -30px;
+    left: -30px;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(76, 124, 78, 0.10) 0%, transparent 70%);
+    border-radius: 50%;
+}
+.v4-share-hint-title {
+    font-size: 22px;
+    color: #2d5a31;
+    font-weight: 500;
+    margin: 0 0 14px;
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+}
+.v4-share-hint-subtitle {
+    font-size: 15px;
+    color: #5a6b5c;
+    line-height: 1.9;
+    margin: 0 0 28px;
+    position: relative;
+    z-index: 1;
+}
+.v4-share-hint-subtitle b {
+    color: #2d5a31;
+    font-weight: 500;
+}
+.v4-share-hint-linkbox {
+    background: #ffffff;
+    border: 1px solid #e8ede7;
+    border-radius: 12px;
+    padding: 18px 16px;
+    margin: 0 0 24px;
+    position: relative;
+    z-index: 1;
+}
+.v4-share-hint-linklabel {
+    font-size: 13px;
+    color: #4a5a4c;
+    margin: 0 0 12px;
+    line-height: 1.6;
+}
+.v4-share-hint-linklabel b {
+    color: #2d5a31;
+    font-weight: 600;
+}
+.v4-share-hint-linkrow {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.v4-share-hint-linkrow input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #d4dcd4;
+    border-radius: 8px;
+    background: #f8faf7;
+    font-size: 13px;
+    color: #2d5a31;
+    font-family: "SF Mono", Monaco, monospace;
+    min-width: 0;
+}
+.v4-share-hint-linkrow input:focus {
+    outline: none;
+    border-color: #4c7c4e;
+    background: #ffffff;
+}
+.v4-share-hint-linkrow button {
+    padding: 10px 18px;
+    background: #4c7c4e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+.v4-share-hint-linkrow button:hover {
+    background: #3d6540;
+}
+.v4-share-hint-cta {
+    padding-top: 20px;
+    border-top: 1px dashed #d4e4d4;
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
+}
+.v4-share-hint-cta-text {
+    font-size: 14px;
+    color: #5a6b5c;
+    margin: 0 0 8px;
+}
+.v4-share-hint-cta-vcode {
+    display: inline-block;
+    background: #2d5a31;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-family: "SF Mono", Monaco, monospace;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin: 0 0 8px;
+}
+.v4-share-hint-cta-foot {
+    font-size: 12px;
+    color: #8a9a8c;
+    margin: 6px 0 0;
+    line-height: 1.6;
+}
+.v4-share-hint-decoration {
+    font-size: 36px;
+    color: #6ba56e;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+    opacity: 0.7;
+}
+@media (max-width: 600px) {
+    .v4-share-hint {padding: 28px 20px; margin: 32px 12px 16px;}
+    .v4-share-hint-title {font-size: 19px;}
+    .v4-share-hint-subtitle {font-size: 14px;}
+    .v4-share-hint-linkrow {flex-direction: column; align-items: stretch;}
+    .v4-share-hint-linkrow button {width: 100%;}
+}
+
+/* ============== V4.1 右上角悬浮分享按钮 ============== */
+.v4-share-fab {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 9998;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+}
+.v4-share-fab[aria-label="刘老师简介"] {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    box-shadow: 0 4px 16px rgba(17, 153, 142, 0.4);
+    font-size: 28px;
+}
+.v4-share-fab[aria-label="刘老师简介"]:hover {
+    box-shadow: 0 6px 24px rgba(17, 153, 142, 0.5);
+}
+.v4-share-fab:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 24px rgba(102, 126, 234, 0.5);
+}
+.v4-share-fab:active {
+    transform: scale(0.96);
+}
+.v4-share-fab-tip {
+    position: absolute;
+    right: 64px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+.v4-share-fab:hover .v4-share-fab-tip {
+    opacity: 1;
+}
+
+/* V4.1 share modal CSS 已删除（V4.2 用 v4-teacher-modal 替代） */
+.v4-share-hint-localtip {
+    font-size: 12px;
+    color: #92400e;
+    background: #fdedec;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-top: 4px;
+}
+.v4-share-hint-linktip {
+    font-size: 12px;
+    color: #9ca3af;
+    margin: 10px 0 0;
+    text-align: center;
+}
+
+/* ============== V4.2 报告底部的简洁提示框（替代链接复制区） ============== */
+.v4-share-hint-tipbox {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border: 1px solid #bae6fd;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin: 8px 0 24px;
+    text-align: center;
+}
+.v4-share-hint-tip-main {
+    font-size: 14px;
+    color: #075985;
+    margin: 0;
+    line-height: 1.7;
+}
+.v4-share-hint-tip-main b {
+    color: #0369a1;
+    font-weight: 600;
+}
+
+/* ============== V4.2 刘老师简介模态框 ============== */
+.v4-teacher-modal-mask {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: v4-fade-in 0.2s ease;
+}
+.v4-teacher-modal {
+    background: #fff;
+    border-radius: 16px;
+    max-width: 440px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 28px 26px 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: v4-scale-in 0.3s ease;
+}
+.v4-teacher-modal-close {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 32px; height: 32px;
+    border: none;
+    background: transparent;
+    font-size: 22px;
+    cursor: pointer;
+    color: #999;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+}
+.v4-teacher-modal-close:hover {
+    background: #f0f0f0;
+    color: #333;
+}
+.v4-teacher-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.v4-teacher-modal-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 3px solid #f0f9ff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.v4-teacher-modal-nameblock {
+    flex: 1;
+    min-width: 0;
+}
+.v4-teacher-modal-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 4px;
+}
+.v4-teacher-modal-subtitle {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0;
+}
+.v4-teacher-modal-bio {
+    margin-bottom: 18px;
+    line-height: 1.8;
+}
+.v4-teacher-modal-line {
+    font-size: 13px;
+    color: #374151;
+    margin: 4px 0;
+}
+.v4-teacher-modal-line b {
+    color: #a93226;
+    font-weight: 600;
+}
+.v4-teacher-modal-divider {
+    height: 1px;
+    background: #f0f0f0;
+    margin: 12px 0;
+}
+.v4-teacher-modal-contact {
+    background: linear-gradient(135deg, #ecfdf5 0%, #fadbd8 100%);
+    border-radius: 12px;
+    padding: 16px 18px;
+}
+.v4-teacher-modal-contact-label {
+    font-size: 13px;
+    color: #065f46;
+    margin: 0 0 10px;
+    font-weight: 500;
+}
+.v4-teacher-modal-phone-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.v4-teacher-modal-phone {
+    flex: 1;
+    font-size: 20px;
+    font-weight: 700;
+    color: #065f46;
+    letter-spacing: 1px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", monospace;
+}
+.v4-teacher-modal-phone-btn {
+    padding: 8px 14px;
+    background: #c0392b;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+.v4-teacher-modal-phone-btn:hover {
+    background: #a93226;
+    transform: scale(1.05);
+}
+
+/* ============== V4.2 结果页面 · 刘老师详细介绍 ============== */
+.v4-result-bio {
+    background: linear-gradient(135deg, #f0fdfa 0%, #ecfdf5 100%);
+    border-radius: 16px;
+    padding: 22px 20px 18px;
+    margin-top: 18px;
+    border: 1px solid #99f6e4;
+    box-shadow: 0 2px 12px rgba(15, 118, 110, 0.06);
+}
+.v4-result-bio > h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f766e;
+    margin: 0 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px dashed #99f6e4;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+.v4-result-bio-block {
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    border-left: 3px solid #0f766e;
+}
+.v4-result-bio-block:last-of-type {
+    margin-bottom: 0;
+}
+.v4-result-bio-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f766e;
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
+}
+.v4-result-bio-block p {
+    font-size: 13px;
+    line-height: 1.8;
+    color: #374151;
+    margin: 2px 0;
+}
+.v4-result-bio-block p b {
+    color: #dc2626;
+    font-weight: 700;
+}
+.v4-result-bio-quote {
+    background: #fffbeb;
+    border-left: 3px solid #f59e0b !important;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: #78350f !important;
+    font-style: italic;
+    line-height: 1.8 !important;
+    margin: 4px 0 0 !important;
+}
+.v4-result-bio-contact {
+    background: linear-gradient(135deg, #ecfdf5 0%, #fadbd8 100%);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-top: 14px;
+    text-align: center;
+    border: 1px solid #6ee7b7;
+}
+.v4-result-bio-contact-label {
+    font-size: 13px;
+    color: #065f46;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+.v4-result-bio-phone {
+    font-size: 22px;
+    font-weight: 700;
+    color: #065f46;
+    letter-spacing: 2px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", monospace;
+}
+
+/* ============== V4.2 校区课程介绍 · 右上角第二个 fab ============== */
+.v4-share-fab[aria-label="校区课程介绍"] {
+    top: 84px;
+    background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.4);
+    font-size: 26px;
+}
+.v4-share-fab[aria-label="校区课程介绍"]:hover {
+    box-shadow: 0 6px 24px rgba(245, 158, 11, 0.5);
+}
+
+/* ============== V4.2 校区课程介绍 · 模态框 ============== */
+.v4-course-modal {
+    background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 540px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px 20px 22px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: v4-scale-in 0.25s ease;
+}
+.v4-course-modal-header {
+    text-align: center;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+    border-bottom: 2px dashed #fde68a;
+}
+.v4-course-modal-header h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: #92400e;
+    margin: 0 0 4px;
+    letter-spacing: 0.5px;
+}
+.v4-course-modal-header p {
+    font-size: 13px;
+    color: #b45309;
+    margin: 0;
+    line-height: 1.6;
+}
+.v4-course-modal-section {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    border-left: 4px solid #f59e0b;
+    box-shadow: 0 1px 6px rgba(245, 158, 11, 0.08);
+}
+.v4-course-modal-section h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #92400e;
+    margin: 0 0 10px;
+    letter-spacing: 0.3px;
+}
+.v4-course-modal-section p {
+    font-size: 13px;
+    line-height: 1.85;
+    color: #374151;
+    margin: 4px 0;
+}
+.v4-course-modal-section p b {
+    color: #ea580c;
+    font-weight: 700;
+}
+.v4-course-modal-section ul {
+    margin: 4px 0 0;
+    padding-left: 4px;
+    list-style: none;
+}
+.v4-course-modal-section ul li {
+    font-size: 13px;
+    line-height: 1.85;
+    color: #374151;
+    padding-left: 4px;
+    margin: 2px 0;
+}
+.v4-course-modal-highlight {
+    background: linear-gradient(135deg, #ecfdf5 0%, #fadbd8 100%);
+    border-left: 4px solid #c0392b;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 6px rgba(16, 185, 129, 0.1);
+}
+.v4-course-modal-highlight p {
+    font-size: 13px;
+    line-height: 1.85;
+    color: #065f46;
+    margin: 3px 0;
+}
+.v4-course-modal-highlight b {
+    color: #047857;
+}
+.v4-course-modal-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 8px;
+}
+.v4-course-modal-gallery img {
+    width: 100%;
+    height: 88px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: zoom-in;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+.v4-course-modal-gallery img:hover {
+    transform: scale(1.04);
+}
+.v4-course-modal-teachers {
+    display: block;
+    margin-top: 10px;
+}
+.v4-teacher-group {
+    margin-top: 12px;
+}
+.v4-teacher-group:first-child {
+    margin-top: 0;
+}
+.v4-teacher-group-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #92400e;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+    border-left: 3px solid #f59e0b;
+    background: linear-gradient(90deg, #fffbeb 0%, #fdedec 100%);
+    border-radius: 0 6px 6px 0;
+}
+.v4-teacher-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+.v4-teacher-card {
+    position: relative;
+    margin: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    cursor: zoom-in;
+    transition: transform 0.2s;
+    background: #fff;
+}
+.v4-teacher-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+.v4-teacher-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+}
+.v4-teacher-card-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(0deg, rgba(146, 64, 14, 0.95) 0%, rgba(146, 64, 14, 0.0) 100%);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    padding: 22px 4px 6px;
+    line-height: 1.3;
+    letter-spacing: 0.3px;
+    pointer-events: none;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+@media (max-width: 600px) {
+    .v4-teacher-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .v4-teacher-card img {
+        height: 130px;
+    }
+}
+.v4-course-modal-address {
+    background: linear-gradient(135deg, #fdedec 0%, #fde68a 100%);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    text-align: center;
+    border: 1px dashed #f59e0b;
+}
+.v4-course-modal-address-label {
+    font-size: 12px;
+    color: #92400e;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+.v4-course-modal-address-value {
+    font-size: 15px;
+    color: #78350f;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+.v4-course-modal-cta {
+    background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+    border-radius: 14px;
+    padding: 18px 16px 16px;
+    margin-top: 14px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(15, 118, 110, 0.25);
+}
+.v4-course-modal-cta-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+}
+.v4-course-modal-cta-sub {
+    font-size: 12px;
+    opacity: 0.92;
+    line-height: 1.7;
+    margin-bottom: 10px;
+}
+.v4-course-modal-cta-phone {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 2px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", monospace;
+    margin-bottom: 8px;
+}
+.v4-course-modal-cta-btn {
+    background: rgba(255, 255, 255, 0.95);
+    color: #0f766e;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.v4-course-modal-cta-btn:hover {
+    background: #fff;
+    transform: scale(1.05);
+}
+
+/* ============== V4.2 结果页 · 校区课程介绍紧凑版 ============== */
+.v4-result-course {
+    background: linear-gradient(135deg, #fffbeb 0%, #fdedec 100%);
+    border-radius: 16px;
+    padding: 20px 20px 18px;
+    margin-top: 18px;
+    border: 1px solid #fde68a;
+    box-shadow: 0 2px 12px rgba(245, 158, 11, 0.08);
+}
+.v4-result-course > h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #92400e;
+    margin: 0 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px dashed #fde68a;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+.v4-result-course-block {
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    border-left: 3px solid #f59e0b;
+}
+.v4-result-course-block:last-of-type {
+    margin-bottom: 0;
+}
+.v4-result-course-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #92400e;
+    margin-bottom: 6px;
+}
+.v4-result-course-block p {
+    font-size: 12.5px;
+    line-height: 1.75;
+    color: #374151;
+    margin: 2px 0;
+}
+.v4-result-course-block p b {
+    color: #ea580c;
+    font-weight: 700;
+}
+.v4-result-course-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+.v4-result-course-tag {
+    font-size: 11.5px;
+    padding: 3px 10px;
+    background: linear-gradient(135deg, #fdedec 0%, #fde68a 100%);
+    color: #92400e;
+    border-radius: 16px;
+    font-weight: 600;
+    border: 1px solid #f59e0b;
+}
+.v4-result-course-address {
+    background: linear-gradient(135deg, #ecfdf5 0%, #fadbd8 100%);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 13px;
+    color: #065f46;
+    border: 1px dashed #6ee7b7;
+    font-weight: 500;
+}
+.v4-result-course-cta {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(15, 118, 110, 0.2);
+    letter-spacing: 0.5px;
+}
+.v4-result-course-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
+}
+
+/* ============== 图片放大查看器（全屏遮罩） ============== */
+.v4-image-viewer {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.92);
+    z-index: 10001;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: v4-fade-in 0.2s ease;
+    cursor: zoom-out;
+}
+.v4-image-viewer.active {
+    display: flex;
+}
+.v4-image-viewer img {
+    max-width: 92%;
+    max-height: 92vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    cursor: default;
+}
+.v4-image-viewer-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+.v4-image-viewer-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.08);
+}
+
+@keyframes v4-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes v4-scale-in {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+    .v4-share-fab {
+        top: 12px;
+        right: 12px;
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+    }
+    .v4-teacher-modal {
+        padding: 22px 18px 20px;
+    }
+    .v4-teacher-modal-header {
+        gap: 12px;
+    }
+    .v4-teacher-modal-avatar {
+        width: 60px;
+        height: 60px;
+    }
+    .v4-teacher-modal-name {
+        font-size: 18px;
+    }
+    .v4-teacher-modal-phone {
+        font-size: 18px;
+    }
+    .v4-teacher-modal-phone-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .v4-teacher-modal-phone-btn {
+        width: 100%;
+    }
+}
+</style>
+
+<script>
+// ========== V4.2 分享功能升级版（刘老师简介） ==========
+
+// 1. 报告生成后调用：底部分享提示（V4.2 升级版：去掉链接复制，加简洁提示）
+function v4AddShareHint() {
+    var resultArea = document.getElementById('resultArea');
+    if (!resultArea) return;
+
+    var panel = document.createElement('div');
+    panel.className = 'v4-share-hint';
+
+    panel.innerHTML = '<div class="v4-share-hint-decoration">🌿</div>' +
+        '<h3 class="v4-share-hint-title">如果你身边也有六年级的家长朋友</h3>' +
+        '<p class="v4-share-hint-subtitle">这份测评可能对他们也有用 ——<br>' +
+        '每个孩子的学情都不一样，但<b>能看见，就有了方向</b>。</p>' +
+
+        '<div class="v4-share-hint-tipbox">' +
+            '<p class="v4-share-hint-tip-main">📲 <b>点击顶部分享按钮</b>复制联系方式<br>发给身边有需要的家长朋友</p>' +
+        '</div>' +
+
+        '<div class="v4-share-hint-cta">' +
+            '<p class="v4-share-hint-cta-text">🌱 想进一步聊聊孩子的学习？</p>' +
+            '<p><span class="v4-share-hint-cta-vcode">17875314336</span></p>' +
+            '<p class="v4-share-hint-cta-foot">央视中学生频道《教育兴国》受邀专访嘉宾 · 教培行业从业超 8 年 · 规划学员超 3100 名</p>' +
+        '</div>';
+
+    resultArea.appendChild(panel);
+
+    // 滚动到分享提示
+    setTimeout(function() {
+        panel.scrollIntoView({behavior: 'smooth', block: 'center'});
+    }, 800);
+}
+
+function v4CopyShareLink(btn) {
+    var input = btn.parentNode.querySelector('input');
+    if (!input) return;
+    var text = input.value;
+    if (!text) {
+        btn.textContent = '本地文件无链接';
+        setTimeout(function() {
+            btn.textContent = '📋 复制';
+        }, 2000);
+        return;
+    }
+    var orig = btn.textContent;
+
+    function onSuccess() {
+        btn.textContent = '✅ 已复制';
+        setTimeout(function() { btn.textContent = orig; }, 2000);
+    }
+    function onFail() {
+        // 自动选中让用户长按复制
+        input.select();
+        input.setSelectionRange(0, input.value.length);
+        try {
+            var ok = document.execCommand('copy');
+            if (ok) {
+                onSuccess();
+            } else {
+                btn.textContent = '请长按复制';
+            }
+        } catch(e) {
+            btn.textContent = '请长按复制';
+        }
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(onSuccess).catch(onFail);
+    } else {
+        onFail();
+    }
+}
+
+// 5. 打开刘老师简介模态框（点击右上角 fab）
+function v4ShowTeacherModal() {
+    var modal = document.getElementById('v4TeacherModal');
+    if (modal) modal.style.display = 'flex';
+}
+
+// 6. 关闭刘老师简介模态框
+function v4CloseTeacherModal() {
+    var modal = document.getElementById('v4TeacherModal');
+    if (modal) modal.style.display = 'none';
+}
+
+// 7. 复制手机号 17875314336
+function v4CopyPhone(btn) {
+    var phone = '17875314336';
+    var orig = btn.textContent;
+
+    function onSuccess() {
+        btn.textContent = '✅ 已复制';
+        setTimeout(function() { btn.textContent = orig; }, 2000);
+    }
+    function onFail() {
+        try {
+            var ok = document.execCommand('copy');
+            if (ok) {
+                onSuccess();
+            } else {
+                btn.textContent = '请长按复制';
+            }
+        } catch(e) {
+            btn.textContent = '请长按复制';
+        }
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+        navigator.clipboard.writeText(phone).then(onSuccess).catch(onFail);
+    } else {
+        // 非 HTTPS 协议：用临时 textarea + execCommand
+        var textarea = document.createElement('textarea');
+        textarea.value = phone;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            var ok2 = document.execCommand('copy');
+            document.body.removeChild(textarea);
+            if (ok2) {
+                onSuccess();
+            } else {
+                btn.textContent = '请长按复制';
+            }
+        } catch(e) {
+            document.body.removeChild(textarea);
+            btn.textContent = '请长按复制';
+        }
+    }
+}
+
+// 8. ESC 键关闭所有模态框（刘老师 / 校区课程 / 图片查看器）
+// ========== V55 改造终版：基于 V54版改造为六年级语文版(12 单元 50 题) ==========
+function renderKnowledgeSection() {
+    var h2s = document.querySelectorAll('h2');
+    var knowledgeContainer = null;
+    for (var h2 of h2s) {
+        if (h2.textContent.includes('知识体系盘查')) {
+            knowledgeContainer = h2.parentElement;
+            break;
+        }
+    }
+    if (!knowledgeContainer) { console.warn('renderKnowledgeSection: 未找到知识体系盘查容器'); return; }
+
+    // 删除旧版 HTML 静态区（所有 .question div 和物理章节 h3）
+    knowledgeContainer.querySelectorAll('.question').forEach(function(q) { q.remove());
+    knowledgeContainer.querySelectorAll('h3').forEach(function(h) { h.remove(); });
+
+    // 用 KNOWLEDGE 数组（语文版 1-12）重新生成
+    var html = '';
+    KNOWLEDGE.forEach(function(ch; }) {
+        html += '<h3>' + ch.name + '（' + ch.difficulty + '）</h3>';
+        ch.questions.forEach(function(q, i) {
+            var isMulti = q.type === 'multi';
+            var inputType = isMulti ? 'checkbox' : 'radio';
+            var tagColor = '#c0392b';
+            if (q.type === 'judge') tagColor = '#c0392b';
+            else if (isMulti) tagColor = '#f59e0b';
+            var tagName = isMulti ? '多选' : (q.type === 'judge' ? '判断' : '单选');
+
+            html += '<div class="question">';
+            html += '<div class="q-title">';
+            html += '<span class="q-tag" style="background:' + tagColor + '15; color:' + tagColor + ';">' + tagName + '</span>';
+            var bloomMap = {'remember':'记忆','understand':'理解','apply':'应用','analyze':'分析','evaluate':'评价'};
+            var bloomLabel = bloomMap[q.bloom] || q.bloom || '理解';
+            html += '<span class="q-tag" style="background:#f1f5f9; color:#475569;">' + bloomLabel + '</span>';
+            html += q.q + '</div>';
+            html += '<div class="options">';
+
+            if (q.type === 'judge') {
+                html += '<label class="option" onclick="this.classList.add(\'selected\')">';
+                html += '<input type="radio" name="k_' + ch.id + '_' + i + '" value="true">✓ 正确</label>';
+                html += '<label class="option" onclick="this.classList.add(\'selected\')">';
+                html += '<input type="radio" name="k_' + ch.id + '_' + i + '" value="false">✗ 错误</label>';
+            } else {
+                q.options.forEach(function(opt, j) {
+                    html += '<label class="option" onclick="this.classList.add(\'selected\')">';
+                    html += '<input type="' + inputType + '" name="k_' + ch.id + '_' + i + '" value="' + j + '">' + opt + '</label>';
+                });
+            }
+            html += '</div></div>';
+        });
+    });
+
+    // 在"题型含单选/多选/判断"提示行后插入
+    var tipDiv = knowledgeContainer.querySelector('div[style*="font-size:13px"]');
+    if (tipDiv) {
+        tipDiv.insertAdjacentHTML('afterend', html);
+    } else {
+        knowledgeContainer.insertAdjacentHTML('beforeend', html);
+    }
+    console.log('V55 六年级语文版 KNOWLEDGE 渲染完成：' + KNOWLEDGE.reduce(function(s, ch) { return s + ch.questions.length; }, 0) + ' 道题，' + KNOWLEDGE.length + ' 章节');
+}
+
+// 页面加载时执行（清空旧版 HTML 静态区，渲染语文版）
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderKnowledgeSection);
+} else {
+    renderKnowledgeSection();
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' || e.keyCode === 27) {
+        v4CloseTeacherModal();
+        v4CloseCourseModal();
+        v4CloseImageViewer();
+    }
+});
+
+// 9. 点击遮罩层关闭（mask 上 onclick 已经在 HTML 写好）
+
+// 10. 打开校区课程介绍模态框
+function v4ShowCourseModal() {
+    var modal = document.getElementById('v4CourseModal');
+    if (modal) modal.style.display = 'flex';
+}
+
+// 11. 关闭校区课程介绍模态框
+function v4CloseCourseModal() {
+    var modal = document.getElementById('v4CourseModal');
+    if (modal) modal.style.display = 'none';
+}
+
+// 12. 全屏图片放大查看
+function v4ViewImage(src, alt) {
+    var viewer = document.getElementById('v4ImageViewer');
+    var img = document.getElementById('v4ImageViewerImg');
+    if (viewer && img) {
+        img.src = src;
+        img.alt = alt || '放大图片';
+        viewer.classList.add('active');
+    }
+}
+
+// 13. 关闭全屏图片查看器
+function v4CloseImageViewer() {
+    var viewer = document.getElementById('v4ImageViewer');
+    if (viewer) viewer.classList.remove('active');
+}
+
+</script>
+
+
+<script>
+// 登录验证
+var LOGIN_USER = 'liulaoshi';
+var LOGIN_PASS = 'peiyou2026';
+function checkLogin(){
+  if(sessionStorage.getItem('sys_login_ok')==='1'){
+    var o=document.getElementById('loginOverlay');
+    if(o){o.style.display='none';}
+  }
+}
+function doLogin(){
+  var u=document.getElementById('loginUser').value;
+  var p=document.getElementById('loginPass').value;
+  var e=document.getElementById('loginError');
+  if(u===LOGIN_USER && p===LOGIN_PASS){
+    sessionStorage.setItem('sys_login_ok','1');
+    var o=document.getElementById('loginOverlay');
+    o.style.opacity='0';
+    setTimeout(function(){o.style.display='none';},400);
+  }else{
+    e.textContent='账号或密码错误，请重试';
+    document.getElementById('loginUser').value='';
+    document.getElementById('loginPass').value='';
+  }
+}
+document.addEventListener('DOMContentLoaded',function(){
+  var u=document.getElementById('loginUser');
+  var p=document.getElementById('loginPass');
+  if(u){u.addEventListener('keydown',function(e){if(e.key==='Enter'){p.focus();}});}
+  if(p){p.addEventListener('keydown',function(e){if(e.key==='Enter'){doLogin();}});}
+  checkLogin();
+});
+</script>
+</body>
+</html>
