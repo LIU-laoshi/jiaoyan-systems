@@ -1911,6 +1911,7 @@ function generateReport() {
         '<button class="btn" onclick="location.reload()" style="margin-top:10px;">🔄 重新分析</button>';
 
     document.getElementById('resultArea').innerHTML = html;
+    try{ syncReportToCloud(html, totalScore); }catch(e){ console.error('[Cloud] sync failed:', e); }
     document.getElementById('formArea').style.display = 'none';
     document.getElementById('progressBar').style.display = 'none';
     document.getElementById('resultArea').classList.add('active');
@@ -3193,6 +3194,7 @@ function doLogin(){
     var o=document.getElementById('loginOverlay');
     o.style.opacity='0';
     setTimeout(function(){o.style.display='none';},400);
+    if(u===LOGIN_USER){ showAdminFab(); }
   }else{
     e.textContent='账号或密码错误，请重试';
     document.getElementById('loginUser').value='';
@@ -3206,6 +3208,280 @@ document.addEventListener('DOMContentLoaded',function(){
   if(p){p.addEventListener('keydown',function(e){if(e.key==='Enter'){doLogin();}});}
   checkLogin();
 });
+</script>
+
+<script>
+// ========== Supabase 云端同步 + 管理员后台 ==========
+var SUPABASE_URL = 'https://bmgqtxhbzupaujpzghpq.supabase.co';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtZ3F0eGhienVwYXVqcHpnaHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwMDQxODQsImV4cCI6MjEwMTU4MDE4NH0.JgiQlUopALIDRYxE72oyPC2NoC0L4HrhH2q9cHW01W0';
+var DATA_PREFIX = 'g6english_';
+
+// 获取云端用户名前缀
+function getCloudUsername(){
+  var user = sessionStorage.getItem('sys_login_ok') === '1' ? 'liulaoshi' : 'default';
+  return DATA_PREFIX + user;
+}
+
+// 同步报告到云端
+function syncReportToCloud(reportHtml, reportScore){
+  var nameEl = document.getElementById('studentName');
+  var schoolEl = document.getElementById('school');
+  var scoreEl = document.getElementById('lastScore');
+  var displayName = (nameEl && nameEl.value) ? nameEl.value : '同学';
+  var school = (schoolEl && schoolEl.value) ? schoolEl.value : '';
+  var score = (scoreEl && scoreEl.value) ? scoreEl.value : '';
+  var username = DATA_PREFIX + 'report_' + displayName + '_' + Date.now();
+  var now = new Date();
+  var timestamp = now.getFullYear() + '-' + 
+    String(now.getMonth()+1).padStart(2,'0') + '-' +
+    String(now.getDate()).padStart(2,'0') + ' ' +
+    String(now.getHours()).padStart(2,'0') + ':' +
+    String(now.getMinutes()).padStart(2,'0');
+
+  var payload = {
+    username: username,
+    state_data: {
+      displayName: displayName,
+      school: school,
+      score: score,
+      phone: '',
+      loginTime: timestamp,
+      isShare: false,
+      reportHtml: reportHtml,
+      reportScore: reportScore,
+      hasReport: true
+    }
+  };
+
+  fetch(SUPABASE_URL + '/rest/v1/py_user_states?on_conflict=username', {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates'
+    },
+    body: JSON.stringify(payload)
+  }).then(function(res){
+    if(res.ok){ console.log('[Cloud] Report synced successfully'); }
+    else { console.error('[Cloud] Sync failed:', res.status); }
+  }).catch(function(e){
+    console.error('[Cloud] Sync error:', e);
+  });
+}
+
+// 获取所有报告
+function fetchAllReports(callback){
+  fetch(SUPABASE_URL + '/rest/v1/py_user_states?username=like.' + DATA_PREFIX + '*', {
+    method: 'GET',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY
+    }
+  }).then(function(res){
+    return res.json();
+  }).then(function(data){
+    var reports = [];
+    if(data && data.length){
+      for(var i = 0; i < data.length; i++){
+        var item = data[i];
+        if(item.username && item.username.indexOf(DATA_PREFIX + 'report_') === 0){
+          reports.push(item);
+        }
+      }
+    }
+    callback(reports);
+  }).catch(function(e){
+    console.error('[Cloud] Fetch error:', e);
+    callback([]);
+  });
+}
+
+// 显示管理员浮动按钮
+function showAdminFab(){
+  if(document.getElementById('adminFab')) return;
+  var fab = document.createElement('div');
+  fab.id = 'adminFab';
+  fab.style.cssText = 'position:fixed;right:20px;bottom:80px;width:52px;height:52px;border-radius:50%;background:#ef4444;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;box-shadow:0 4px 12px rgba(239,68,68,0.4);z-index:9998;transition:transform 0.2s;';
+  fab.innerHTML = '\uD83D\uDCCA';
+  fab.onclick = function(){ openAdminPanel(); };
+  document.body.appendChild(fab);
+}
+
+// 渲染管理员面板
+function renderAdminPanel(){
+  var listEl = document.getElementById('adminReportList');
+  if(!listEl) return;
+  listEl.innerHTML = '<div style="text-align:center;color:#999;padding:20px;">\u52A0\u8F7D\u4E2D...</div>';
+  
+  fetchAllReports(function(reports){
+    if(!reports.length){
+      listEl.innerHTML = '<div style="text-align:center;color:#999;padding:40px 20px;">\u6682\u65E0\u6D4B\u8BC4\u62A5\u544A\u8BB0\u5F55</div>';
+      return;
+    }
+    var html = '';
+    for(var i = 0; i < reports.length; i++){
+      var r = reports[i];
+      var d = r.state_data || {};
+      var displayName = d.displayName || '\u672A\u77E5';
+      var school = d.school || '\u672A\u586B\u5199';
+      var score = d.score || '-';
+      var loginTime = d.loginTime || '\u672A\u77E5\u65F6\u95F4';
+      var reportScore = d.reportScore !== undefined ? d.reportScore : '-';
+      html += '<div style="background:#f8fafc;border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid #e2e8f0;">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">' +
+          '<div>' +
+            '<div style="font-size:16px;font-weight:700;color:#1e293b;">' + displayName + '</div>' +
+            '<div style="font-size:13px;color:#64748b;">' + school + '</div>' +
+          '</div>' +
+          '<div style="text-align:right;">' +
+            '<div style="font-size:20px;font-weight:700;color:#f59e0b;">' + reportScore + '</div>' +
+            '<div style="font-size:11px;color:#94a3b8;">\u6D4B\u8BC4\u5F97\u5206</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="font-size:12px;color:#94a3b8;margin-bottom:10px;">\uD83D\uDD52 ' + loginTime + '</div>' +
+        '<div style="display:flex;gap:8px;">' +
+          '<button onclick="viewReport(\'' + r.username + '\')" style="flex:1;padding:8px;background:#10b981;color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;">\uD83D\uDC41\uFE0F \u67E5\u770B</button>' +
+          '<button onclick="deleteReport(\'' + r.username + '\')" style="flex:1;padding:8px;background:#ef4444;color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;">\uD83D\uDDD1\uFE0F \u5220\u9664</button>' +
+        '</div>' +
+      '</div>';
+    }
+    listEl.innerHTML = html;
+  });
+}
+
+// 打开管理员面板
+function openAdminPanel(){
+  if(document.getElementById('adminOverlay')) return;
+  var overlay = document.createElement('div');
+  overlay.id = 'adminOverlay';
+  overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;display:flex;justify-content:flex-end;';
+  
+  var panel = document.createElement('div');
+  panel.style.cssText = 'width:90%;max-width:420px;height:100%;background:#fff;overflow-y:auto;box-shadow:-4px 0 20px rgba(0,0,0,0.15);animation:slideIn 0.3s ease;';
+  
+  panel.innerHTML = 
+    '<style>@keyframes slideIn{from{transform:translateX(100%);}to{transform:translateX(0);}}@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}</style>' +
+    '<div style="position:sticky;top:0;background:linear-gradient(135deg,#ef4444 0%,#dc2626 100%);color:#fff;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,0.15);">' +
+      '<div style="font-size:18px;font-weight:700;">\uD83D\uDCCA \u6D4B\u8BC4\u62A5\u544A\u7BA1\u7406</div>' +
+      '<div onclick="closeAdminPanel()" style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;">\u00D7</div>' +
+    '</div>' +
+    '<div style="padding:16px;">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">' +
+        '<span style="font-size:14px;color:#64748b;">\u62A5\u544A\u5217\u8868</span>' +
+        '<button onclick="renderAdminPanel()" style="padding:6px 12px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;font-size:12px;color:#64748b;cursor:pointer;">\uD83D\uDD04 \u5237\u65B0</button>' +
+      '</div>' +
+      '<div id="adminReportList"></div>' +
+    '</div>' +
+    '<div style="padding:16px;text-align:center;">' +
+      '<div style="font-size:12px;color:#94a3b8;">\u7CFB\u7EDF\u8BBE\u8BA1\u5236\u4F5C\uFF1A\u5218\u5CB3</div>' +
+    '</div>';
+  
+  overlay.appendChild(panel);
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay){ closeAdminPanel(); }
+  });
+  document.body.appendChild(overlay);
+  
+  renderAdminPanel();
+}
+
+// 关闭管理员面板
+function closeAdminPanel(){
+  var overlay = document.getElementById('adminOverlay');
+  if(overlay){
+    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.2s';
+    setTimeout(function(){
+      if(overlay.parentNode){ overlay.parentNode.removeChild(overlay); }
+    }, 200);
+  }
+}
+
+// 查看报告详情
+function viewReport(username){
+  fetch(SUPABASE_URL + '/rest/v1/py_user_states?username=eq.' + encodeURIComponent(username), {
+    method: 'GET',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY
+    }
+  }).then(function(res){
+    return res.json();
+  }).then(function(data){
+    if(!data || !data.length){
+      alert('\u62A5\u544A\u4E0D\u5B58\u5728\u6216\u5DF2\u5220\u9664');
+      return;
+    }
+    var d = data[0].state_data || {};
+    var reportHtml = d.reportHtml || '<p>\u62A5\u544A\u5185\u5BB9\u4E3A\u7A7A</p>';
+    var displayName = d.displayName || '\u672A\u77E5';
+    var school = d.school || '';
+    var loginTime = d.loginTime || '';
+    
+    // 移除已有模态框
+    var oldModal = document.getElementById('reportViewModal');
+    if(oldModal){ oldModal.parentNode.removeChild(oldModal); }
+    
+    var modal = document.createElement('div');
+    modal.id = 'reportViewModal';
+    modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:10001;display:flex;align-items:center;justify-content:center;padding:20px;';
+    
+    var modalContent = document.createElement('div');
+    modalContent.style.cssText = 'width:100%;max-width:720px;max-height:90vh;background:#fff;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;';
+    
+    var modalHeader = document.createElement('div');
+    modalHeader.style.cssText = 'background:linear-gradient(135deg,#10b981 0%,#059669 100%);color:#fff;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;';
+    modalHeader.innerHTML = '<div style="font-size:16px;font-weight:700;">\uD83D\uDCD8 ' + displayName + ' \u7684\u62A5\u544A' + (school ? ' (' + school + ')' : '') + '</div>';
+    
+    var closeBtn = document.createElement('div');
+    closeBtn.style.cssText = 'width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer;flex-shrink:0;';
+    closeBtn.innerHTML = '\u00D7';
+    closeBtn.onclick = function(){
+      if(modal.parentNode){ modal.parentNode.removeChild(modal); }
+    };
+    modalHeader.appendChild(closeBtn);
+    
+    var modalBody = document.createElement('div');
+    modalBody.style.cssText = 'overflow-y:auto;padding:16px;-webkit-overflow-scrolling:touch;';
+    modalBody.innerHTML = reportHtml;
+    
+    modalContent.appendChild(modalHeader);
+    modalContent.appendChild(modalBody);
+    modal.appendChild(modalContent);
+    modal.addEventListener('click', function(e){
+      if(e.target === modal){ if(modal.parentNode){ modal.parentNode.removeChild(modal); } }
+    });
+    document.body.appendChild(modal);
+  }).catch(function(e){
+    console.error('[Cloud] View error:', e);
+    alert('\u83B7\u53D6\u62A5\u544A\u5931\u8D25\uFF0C\u8BF7\u7A0D\u540E\u91CD\u8BD5');
+  });
+}
+
+// 删除报告
+function deleteReport(username){
+  if(!confirm('\u786E\u5B9A\u8981\u5220\u9664\u8FD9\u6761\u62A5\u544A\u5417\uFF1F\u5220\u9664\u540E\u65E0\u6CD5\u6062\u590D\u3002')){
+    return;
+  }
+  fetch(SUPABASE_URL + '/rest/v1/py_user_states?username=eq.' + encodeURIComponent(username), {
+    method: 'DELETE',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY
+    }
+  }).then(function(res){
+    if(res.ok){
+      alert('\u5220\u9664\u6210\u529F');
+      renderAdminPanel();
+    } else {
+      alert('\u5220\u9664\u5931\u8D25\uFF0C\u8BF7\u7A0D\u540E\u91CD\u8BD5');
+    }
+  }).catch(function(e){
+    console.error('[Cloud] Delete error:', e);
+    alert('\u5220\u9664\u5931\u8D25\uFF0C\u7F51\u7EDC\u9519\u8BEF');
+  });
+}
 </script>
 </body>
 </html>
