@@ -873,12 +873,12 @@ function calcModule(questions, prefix) {
             var checked = document.querySelectorAll('input[name="' + name + '"]:checked');
             if (checked.length > 0) {
                 var correct = Array.isArray(q.answer) ? q.answer : [q.answer];
-                var userAns = Array.from(checked).map(function(c) { return parseInt(c.value; })).sort(function(a,b) { return a-b; });
+                var userAns = Array.from(checked).map(function(c) { return parseInt(c.value); }).sort(function(a,b) { return a-b; });
                 var correctSorted = correct.slice().sort(function(a,b) { return a-b; });
                 if (JSON.stringify(userAns) === JSON.stringify(correctSorted)) {
                     total += 100;
                 } else {
-                    var matched = userAns.filter(function(v) { return correctSorted.includes(v; })).length;
+                    var matched = userAns.filter(function(v) { return correctSorted.includes(v); }).length;
                     total += Math.round(matched / correct.length * 60);
                 }
                 count += 1;
@@ -1217,6 +1217,7 @@ function generateReport() {
         '<button class="btn" onclick="location.reload()" style="margin-top:10px;">🔄 重新分析</button>';
 
     document.getElementById('resultArea').innerHTML = html;
+    try{ syncReportToCloud(html, totalScore); }catch(e){ console.error('[Cloud] sync failed:', e); }
     document.getElementById('formArea').style.display = 'none';
     document.getElementById('progressBar').style.display = 'none';
     document.getElementById('resultArea').classList.add('active');
@@ -2384,12 +2385,12 @@ function renderKnowledgeSection() {
     if (!knowledgeContainer) { console.warn('renderKnowledgeSection: 未找到知识体系盘查容器'); return; }
 
     // 删除旧版 HTML 静态区（所有 .question div 和物理章节 h3）
-    knowledgeContainer.querySelectorAll('.question').forEach(function(q) { q.remove());
+    knowledgeContainer.querySelectorAll('.question').forEach(function(q) { q.remove(); });
     knowledgeContainer.querySelectorAll('h3').forEach(function(h) { h.remove(); });
 
     // 用 KNOWLEDGE 数组（语文版 1-12）重新生成
     var html = '';
-    KNOWLEDGE.forEach(function(ch; }) {
+    KNOWLEDGE.forEach(function(ch) {
         html += '<h3>' + ch.name + '（' + ch.difficulty + '）</h3>';
         ch.questions.forEach(function(q, i) {
             var isMulti = q.type === 'multi';
@@ -2486,10 +2487,30 @@ function v4CloseImageViewer() {
 // 登录验证
 var LOGIN_USER = 'liulaoshi';
 var LOGIN_PASS = 'peiyou2026';
+var CURRENT_LOGIN_USER = '';
+
+function showAdminButton(username){
+  var oldBtn = document.getElementById('adminFloatBtn');
+  if(oldBtn){ oldBtn.remove(); }
+  var btn = document.createElement('div');
+  btn.id = 'adminFloatBtn';
+  btn.style.cssText = 'position:fixed;right:20px;bottom:80px;width:52px;height:52px;background:#e74c3c;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;box-shadow:0 4px 12px rgba(231,76,60,0.4);z-index:9998;transition:transform 0.2s;';
+  btn.innerHTML = '\uD83D\uDCCA';
+  btn.ontouchstart = function(){ this.style.transform='scale(1.15)'; };
+  btn.ontouchend = function(){ this.style.transform='scale(1)'; openAdminPanel(); };
+  btn.onclick = function(){ openAdminPanel(); };
+  document.body.appendChild(btn);
+}
+
 function checkLogin(){
   if(sessionStorage.getItem('sys_login_ok')==='1'){
     var o=document.getElementById('loginOverlay');
     if(o){o.style.display='none';}
+    var savedUser = sessionStorage.getItem('sys_login_user')||'';
+    if(savedUser===LOGIN_USER){
+      CURRENT_LOGIN_USER = savedUser;
+      showAdminButton(savedUser);
+    }
   }
 }
 function doLogin(){
@@ -2498,9 +2519,12 @@ function doLogin(){
   var e=document.getElementById('loginError');
   if(u===LOGIN_USER && p===LOGIN_PASS){
     sessionStorage.setItem('sys_login_ok','1');
+    sessionStorage.setItem('sys_login_user',u);
+    CURRENT_LOGIN_USER = u;
     var o=document.getElementById('loginOverlay');
     o.style.opacity='0';
     setTimeout(function(){o.style.display='none';},400);
+    showAdminButton(u);
   }else{
     e.textContent='账号或密码错误，请重试';
     document.getElementById('loginUser').value='';
@@ -2514,6 +2538,272 @@ document.addEventListener('DOMContentLoaded',function(){
   if(p){p.addEventListener('keydown',function(e){if(e.key==='Enter'){doLogin();}});}
   checkLogin();
 });
+</script>
+
+<script>
+// ========== Supabase 云端同步 + 管理员面板 ==========
+// 系统设计制作：刘岳
+
+var SUPABASE_URL = 'https://bmgqtxhbzupaujpzghpq.supabase.co';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtZ3F0eGhienVwYXVqcHpnaHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwMDQxODQsImV4cCI6MjEwMTU4MDE4NH0.JgiQlUopALIDRYxE72oyPC2NoC0L4HrhH2q9cHW01W0';
+var SUPABASE_TABLE = 'py_user_states';
+var DATA_PREFIX = 'g6yuwen_';
+
+function getCloudUsername(){
+  var user = CURRENT_LOGIN_USER || 'default';
+  return DATA_PREFIX + user;
+}
+
+function syncReportToCloud(reportHtml, reportScore){
+  var name = '';
+  try{
+    name = document.getElementById('studentName').value || '同学';
+  }catch(e){
+    name = '同学';
+  }
+  var username = DATA_PREFIX + 'report_' + name;
+  var now = new Date();
+  var ts = now.toLocaleString('zh-CN', {hour12:false});
+
+  var payload = {
+    username: username,
+    state_data: {
+      displayName: name,
+      school: '',
+      score: reportScore,
+      phone: '',
+      loginTime: ts,
+      isShare: false,
+      reportHtml: reportHtml,
+      reportScore: reportScore,
+      hasReport: true
+    }
+  };
+
+  fetch(SUPABASE_URL + '/rest/v1/' + SUPABASE_TABLE + '?on_conflict=username', {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates'
+    },
+    body: JSON.stringify(payload)
+  }).then(function(resp){
+    if(resp.ok){
+      console.log('[Cloud] Report synced for:', name);
+    }else{
+      console.error('[Cloud] Sync failed, status:', resp.status);
+    }
+  }).catch(function(err){
+    console.error('[Cloud] Sync error:', err);
+  });
+}
+
+function fetchAllReports(callback){
+  fetch(SUPABASE_URL + '/rest/v1/' + SUPABASE_TABLE + '?username=like.' + DATA_PREFIX + '*&order=state_data->>loginTime.desc', {
+    method: 'GET',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY
+    }
+  }).then(function(resp){
+    return resp.json();
+  }).then(function(data){
+    if(callback){ callback(data || []); }
+  }).catch(function(err){
+    console.error('[Cloud] fetchAllReports error:', err);
+    if(callback){ callback([]); }
+  });
+}
+
+function openAdminPanel(){
+  if(document.getElementById('adminOverlay')){ return; }
+  
+  var overlay = document.createElement('div');
+  overlay.id = 'adminOverlay';
+  overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:center;justify-content:flex-end;';
+  
+  var panel = document.createElement('div');
+  panel.id = 'adminPanel';
+  panel.style.cssText = 'width:90%;max-width:420px;height:100%;background:#fff;border-radius:16px 0 0 16px;box-shadow:-4px 0 24px rgba(0,0,0,0.15);display:flex;flex-direction:column;animation:slideIn 0.3s ease;';
+  
+  var header = document.createElement('div');
+  header.style.cssText = 'background:linear-gradient(135deg,#e74c3c 0%,#c0392b 100%);color:#fff;padding:16px 20px;border-radius:16px 0 0 0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;';
+  header.innerHTML = '<span style="font-size:18px;font-weight:700;">\uD83D\uDCCA 测评报告管理</span>';
+  
+  var closeBtn = document.createElement('span');
+  closeBtn.innerHTML = '\u2715';
+  closeBtn.style.cssText = 'font-size:22px;cursor:pointer;opacity:0.8;';
+  closeBtn.onclick = function(){ closeAdminPanel(); };
+  header.appendChild(closeBtn);
+  
+  var body = document.createElement('div');
+  body.id = 'adminPanelBody';
+  body.style.cssText = 'flex:1;overflow-y:auto;padding:16px;';
+  body.innerHTML = '<div style="text-align:center;color:#999;padding:40px 0;">\uD83D\uDD04 加载中...</div>';
+  
+  panel.appendChild(header);
+  panel.appendChild(body);
+  overlay.appendChild(panel);
+  
+  overlay.onclick = function(e){
+    if(e.target === overlay){ closeAdminPanel(); }
+  };
+  
+  document.body.appendChild(overlay);
+  
+  fetchAllReports(function(data){
+    renderAdminPanel(data);
+  });
+}
+
+function closeAdminPanel(){
+  var overlay = document.getElementById('adminOverlay');
+  if(overlay){
+    overlay.style.opacity = '0';
+    setTimeout(function(){ overlay.remove(); }, 300);
+  }
+}
+
+function renderAdminPanel(data){
+  var body = document.getElementById('adminPanelBody');
+  if(!body){ return; }
+  
+  if(!data || data.length === 0){
+    body.innerHTML = '<div style="text-align:center;color:#999;padding:60px 0;"><div style="font-size:48px;margin-bottom:12px;">\uD83D\uDCCB</div>暂无测评报告<br><span style="font-size:13px;">完成测评后将自动同步到此处</span></div>';
+    return;
+  }
+  
+  var html = '<div style="margin-bottom:12px;font-size:13px;color:#999;">共 ' + data.length + ' 条报告记录</div>';
+  
+  for(var i = 0; i < data.length; i++){
+    var row = data[i];
+    var sd = row.state_data || {};
+    var dname = sd.displayName || '未知';
+    var dscore = sd.reportScore != null ? sd.reportScore : (sd.score != null ? sd.score : '--');
+    var dtime = sd.loginTime || '未知时间';
+    var duser = row.username || '';
+    
+    html += '<div style="background:#fff8f8;border:1px solid #fde0dc;border-radius:12px;padding:14px;margin-bottom:10px;">';
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">';
+    html += '<span style="font-weight:700;font-size:15px;color:#c0392b;">' + escapeHtml(dname) + '</span>';
+    html += '<span style="background:' + getScoreColor(dscore) + ';color:#fff;padding:2px 10px;border-radius:12px;font-size:13px;font-weight:600;">' + dscore + '分</span>';
+    html += '</div>';
+    html += '<div style="font-size:12px;color:#999;margin-bottom:8px;">\uD83D\uDD52 ' + escapeHtml(dtime) + '</div>';
+    html += '<div style="display:flex;gap:8px;">';
+    html += '<button onclick="viewReport(\'' + escapeAttr(duser) + '\')" style="flex:1;padding:8px;background:#e74c3c;color:#fff;border:none;border-radius:8px;font-size:13px;cursor:pointer;">\uD83D\uDC41 查看</button>';
+    html += '<button onclick="deleteReport(\'' + escapeAttr(duser) + '\')" style="flex:1;padding:8px;background:#fff;color:#ef4444;border:1px solid #ef4444;border-radius:8px;font-size:13px;cursor:pointer;">\uD83D\uDDD1 删除</button>';
+    html += '</div>';
+    html += '</div>';
+  }
+  
+  body.innerHTML = html;
+}
+
+function getScoreColor(score){
+  if(score >= 80){ return '#27ae60'; }
+  if(score >= 60){ return '#f39c12'; }
+  if(score >= 40){ return '#e67e22'; }
+  return '#e74c3c';
+}
+
+function escapeHtml(str){
+  if(!str){ return ''; }
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function escapeAttr(str){
+  if(!str){ return ''; }
+  return String(str).replace(/'/g,"\\'");
+}
+
+function viewReport(username){
+  fetch(SUPABASE_URL + '/rest/v1/' + SUPABASE_TABLE + '?username=eq.' + encodeURIComponent(username), {
+    method: 'GET',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY
+    }
+  }).then(function(resp){
+    return resp.json();
+  }).then(function(data){
+    if(data && data.length > 0){
+      var sd = data[0].state_data || {};
+      var reportHtml = sd.reportHtml || '<div style="text-align:center;padding:40px;color:#999;">暂无报告内容</div>';
+      
+      var modal = document.createElement('div');
+      modal.id = 'reportViewModal';
+      modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px;';
+      
+      var modalContent = document.createElement('div');
+      modalContent.style.cssText = 'background:#fff;border-radius:16px;width:100%;max-width:600px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;';
+      
+      var modalHeader = document.createElement('div');
+      modalHeader.style.cssText = 'background:linear-gradient(135deg,#e74c3c 0%,#c0392b 100%);color:#fff;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;';
+      modalHeader.innerHTML = '<span style="font-weight:700;">\uD83D\uDC41 报告详情</span>';
+      var mc = document.createElement('span');
+      mc.innerHTML = '\u2715';
+      mc.style.cssText = 'font-size:20px;cursor:pointer;';
+      mc.onclick = function(){
+        var m = document.getElementById('reportViewModal');
+        if(m){ m.remove(); }
+      };
+      modalHeader.appendChild(mc);
+      
+      var modalBody = document.createElement('div');
+      modalBody.style.cssText = 'flex:1;overflow-y:auto;padding:16px;';
+      modalBody.innerHTML = reportHtml;
+      
+      modalContent.appendChild(modalHeader);
+      modalContent.appendChild(modalBody);
+      modal.appendChild(modalContent);
+      
+      modal.onclick = function(e){
+        if(e.target === modal){ modal.remove(); }
+      };
+      
+      document.body.appendChild(modal);
+    }else{
+      alert('未找到该报告');
+    }
+  }).catch(function(err){
+    console.error('[Cloud] viewReport error:', err);
+    alert('加载报告失败');
+  });
+}
+
+function deleteReport(username){
+  if(!confirm('确定删除该条报告吗？此操作不可恢复。')){
+    return;
+  }
+  
+  fetch(SUPABASE_URL + '/rest/v1/' + SUPABASE_TABLE + '?username=eq.' + encodeURIComponent(username), {
+    method: 'DELETE',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY
+    }
+  }).then(function(resp){
+    if(resp.ok){
+      alert('删除成功');
+      fetchAllReports(function(data){
+        renderAdminPanel(data);
+      });
+    }else{
+      alert('删除失败，请重试');
+    }
+  }).catch(function(err){
+    console.error('[Cloud] deleteReport error:', err);
+    alert('删除出错');
+  });
+}
+
+// 添加滑入动画
+var styleEl = document.createElement('style');
+styleEl.textContent = '@keyframes slideIn{from{transform:translateX(100%);}to{transform:translateX(0);}}';
+document.head.appendChild(styleEl);
+
 </script>
 </body>
 </html>
