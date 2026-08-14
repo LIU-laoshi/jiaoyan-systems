@@ -170,6 +170,11 @@ button{font-family:inherit;cursor:pointer;border:none;}
 .tbl tr:nth-child(even) td{background:#f8fafc;}
 .q-row input,.q-row select{min-width:60px;}
 .q-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.quick-judge-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:#f0f7ff;border:1px dashed #3b82f6;border-radius:10px;padding:10px;margin-top:10px;}
+.qj-btn{width:52px;height:24px;border:none;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer;padding:0;line-height:1;color:#fff;}
+.qj-ok{background:#16a34a;}
+.qj-half{background:#d97706;}
+.qj-no{background:#dc2626;}
 .warn-line{background:#fef3c7;color:#b45309;border-radius:8px;padding:8px 12px;font-size:13px;margin-top:10px;display:none;}
 .warn-line.show{display:block;}
 
@@ -429,6 +434,12 @@ button{font-family:inherit;cursor:pointer;border:none;}
             </select>
           </div>
           <div class="form-item">
+            <label>判卷标准</label>
+            <select id="f_judgeStd">
+              <option>通用</option><option>广州中考</option><option>广东高考</option>
+            </select>
+          </div>
+          <div class="form-item">
             <label>总分（满分）</label>
             <input type="number" id="f_totalScore" min="1" value="100">
           </div>
@@ -506,10 +517,12 @@ button{font-family:inherit;cursor:pointer;border:none;}
           </table>
         </div>
         <div class="q-actions">
+          <button class="btn btn-primary btn-sm" style="flex:1;" onclick="autoScore()">⚡ 一键自动配分</button>
           <button class="btn btn-outline btn-sm" onclick="addQuestion()">＋ 添加一题</button>
           <button class="btn btn-outline btn-sm" onclick="addQuick(5)">＋ 快速添加5题</button>
           <button class="btn btn-warn btn-sm" onclick="saveDraftNow()">保存草稿</button>
         </div>
+        <div class="ocr-tip" style="color:#7c3aed;">💡 卷面没标分值？点「一键自动配分」：系统会按所选「判卷标准」（通用/广州中考/广东高考）自动分配合理分值，并自动凑齐到设定总分；配完后仍可逐题手动微调。选择「广州中考」或「广东高考」时，单选/填空/多选/作文将按官方标准单题分值执行。</div>
         <div id="step2Err" class="login-tip"></div>
         <div style="display:flex;gap:10px;margin-top:14px;">
           <button class="btn btn-ghost" onclick="gotoStep(1)">上一步</button>
@@ -520,6 +533,14 @@ button{font-family:inherit;cursor:pointer;border:none;}
       <!-- 第三步 得分录入 -->
       <div id="step3Box" style="display:none;">
         <div class="warn-line" id="scoreStat" style="display:block;background:#eef2f7;color:#334155;"></div>
+        <div class="quick-judge-bar" id="quickJudgeBar">
+          <span style="font-weight:700;color:#1e3a8a;">⚡ 快速判卷：</span>
+          <button class="btn btn-primary btn-sm" onclick="quickAll('ok')">全部判对</button>
+          <button class="btn btn-warn btn-sm" onclick="quickAll('half')">全部判半对</button>
+          <button class="btn btn-ghost btn-sm" onclick="quickAll('no')">全部判错</button>
+          <button class="btn btn-ghost btn-sm" onclick="quickAll('clear')">清空得分</button>
+        </div>
+        <div class="ocr-tip" style="color:#7c3aed;">💡 每道题下方可直接点「✓对 / 半对 / ✗错」快速判卷（对=满分、半对=满分一半、错=0分），也可在上方批量操作；判完系统自动统计得分。</div>
         <div style="overflow-x:auto;">
           <table class="tbl">
             <thead>
@@ -529,7 +550,7 @@ button{font-family:inherit;cursor:pointer;border:none;}
                 <th>知识点</th>
                 <th>难度</th>
                 <th>满分</th>
-                <th style="width:110px;">该生得分</th>
+                <th style="width:120px;">该生得分</th>
               </tr>
             </thead>
             <tbody id="gotTbody"></tbody>
@@ -856,6 +877,7 @@ function freshDraft(){
     date: todayStr(),
     studentName: '',
     studentClass: '',
+    judgeStd: '通用',
     questions: [],
     createTime: null,
     updateTime: null
@@ -894,6 +916,7 @@ function fillStep1(){
   document.getElementById('f_subject').value = draft.subject || '语文';
   document.getElementById('f_grade').value = draft.grade || '';
   document.getElementById('f_examType').value = draft.examType || '月考';
+  document.getElementById('f_judgeStd').value = draft.judgeStd || '通用';
   document.getElementById('f_totalScore').value = draft.totalScore || 100;
   document.getElementById('f_date').value = draft.date || todayStr();
   document.getElementById('f_studentName').value = draft.studentName || '';
@@ -905,6 +928,7 @@ function saveStep1(){
   draft.subject = document.getElementById('f_subject').value;
   draft.grade = document.getElementById('f_grade').value.trim();
   draft.examType = document.getElementById('f_examType').value;
+  draft.judgeStd = document.getElementById('f_judgeStd').value || '通用';
   draft.totalScore = parseNum(document.getElementById('f_totalScore').value);
   draft.date = document.getElementById('f_date').value;
   draft.studentName = document.getElementById('f_studentName').value.trim();
@@ -1007,6 +1031,98 @@ function updateSum(){
   }
   warn.innerHTML = msg;
 }
+/* 判卷标准分值库（依据广州中考/广东省高考官方试卷结构，2026年起实施）
+   中考数学150分制：单选10题40分(4分/题)、填空6题24分(4分/题)、解答9题86分；
+   中考语文140分：积累28+阅读52+写作60；道法70：单选17题34分+非选36分；
+   中考物理90：单选10题30分(3分/题)+非选60；化学60：单选12题24分(2分/题)+非选36分；
+   高考数学150：单选8题40分(5分/题)、多选3题18分(6分/题)、填空3题15分(5分/题)、解答77分；
+   高考物理100：单选7题28分(4分/题)、多选3题18分(6分/题)、非选54分；
+   高考化学100：单选16题44分+非选56；生物100：单选16题40分+非选60；
+   高考历史/政治/地理100：单选16题48分(3分/题)+非选52；高考语文作文60分。
+   若卷面未标注分值，系统按该标准自动分配；标准未覆盖时回退通用默认值。 */
+var JUDGE_STD = {
+  '广州中考': {
+    '数学': {'单选':4, '填空':4},
+    '物理': {'单选':3},
+    '化学': {'单选':2},
+    '道法': {'单选':2},
+    '历史': {'单选':2},
+    '语文': {'作文':60}
+  },
+  '广东高考': {
+    '数学': {'单选':5, '多选':6, '填空':5},
+    '物理': {'单选':4, '多选':6},
+    '化学': {'单选':3},
+    '生物': {'单选':2},
+    '历史': {'单选':3},
+    '政治': {'单选':3},
+    '地理': {'单选':3},
+    '语文': {'作文':60}
+  }
+};
+function stdSingleScore(subject, type){
+  var std = JUDGE_STD[draft.judgeStd];
+  if(std && std[subject] && std[subject][type]){ return std[subject][type]; }
+  var base = {'单选':3, '判断':2, '填空':3, '多选':4};
+  return base[type] || 0;
+}
+function autoScore(){
+  if(!draft || draft.questions.length === 0){ modalAlert('提示', '请先添加题目，再一键自动配分'); return; }
+  var total = parseNum(draft.totalScore) || 100;
+  var i, q, t;
+  var subjIdx = [];
+  for(i=0;i<draft.questions.length;i++){
+    q = draft.questions[i];
+    t = q.type || '解答';
+    var s = stdSingleScore(draft.subject, t);
+    if(s > 0){ q.score = s; }
+    else { subjIdx.push(i); }
+  }
+  var used = 0;
+  for(i=0;i<draft.questions.length;i++){
+    var st = stdSingleScore(draft.subject, draft.questions[i].type);
+    if(st > 0){ used += parseNum(draft.questions[i].score); }
+  }
+  var remain = total - used;
+  var zuowenIdx = -1;
+  for(i=0;i<subjIdx.length;i++){
+    if(draft.questions[subjIdx[i]].type === '作文'){ zuowenIdx = subjIdx[i]; }
+  }
+  var others = [];
+  for(i=0;i<subjIdx.length;i++){
+    if(subjIdx[i] !== zuowenIdx){ others.push(subjIdx[i]); }
+  }
+  var zuowenShare = 0;
+  if(zuowenIdx >= 0){
+    var zwStd = stdSingleScore(draft.subject, '作文');
+    zuowenShare = zwStd > 0 ? Math.min(zwStd, total) : Math.max(Math.round(total * 0.25), 10);
+    if(zuowenShare > remain){ zuowenShare = Math.max(remain, 1); }
+    draft.questions[zuowenIdx].score = zuowenShare;
+    remain -= zuowenShare;
+  }
+  if(others.length > 0){
+    var each = remain > 0 ? Math.floor(remain / others.length) : 0;
+    for(i=0;i<others.length;i++){ draft.questions[others[i]].score = each; }
+  }
+  /* 差额修正，保证题目分值合计等于设定总分 */
+  var sum = 0;
+  for(i=0;i<draft.questions.length;i++){ sum += parseNum(draft.questions[i].score); }
+  var diff = total - sum;
+  if(diff !== 0){
+    var tgt = -1;
+    if(zuowenIdx >= 0){ tgt = zuowenIdx; }
+    else if(others.length > 0){ tgt = others[others.length - 1]; }
+    else { tgt = draft.questions.length - 1; }
+    var nv = Math.max(parseNum(draft.questions[tgt].score) + diff, 1);
+    draft.questions[tgt].score = nv;
+  }
+  renderStep2();
+  saveDraft(draft);
+  var fs = 0;
+  for(i=0;i<draft.questions.length;i++){ fs += parseNum(draft.questions[i].score); }
+  var stdName = draft.judgeStd || '通用';
+  modalAlert('自动配分完成', '已按「' + stdName + '」判卷标准自动配分（客观题按官方单题分值、主观题按剩余均摊、作文给标准分）。当前题目分值合计 <b>' + fs + '</b> 分，与设定总分 ' + total + ' 分一致。可在下方逐题微调后继续。');
+}
 function saveDraftNow(){
   saveStep1();
   saveDraft(draft);
@@ -1030,17 +1146,52 @@ function renderStep3(){
   var html = '';
   for(var i=0;i<draft.questions.length;i++){
     var q = draft.questions[i];
+    var gotVal = (q.got !== undefined && q.got !== null) ? q.got : '';
     html += '<tr>'
       + '<td>' + esc(q.no) + '</td>'
       + '<td>' + esc(q.type) + '</td>'
       + '<td>' + esc(q.knowledge) + '</td>'
       + '<td>' + esc(q.difficulty) + '</td>'
       + '<td>' + parseNum(q.score) + '</td>'
-      + '<td><input type="number" min="0" inputmode="decimal" value="' + (q.got!==undefined ? q.got : '') + '" data-idx="' + i + '" placeholder="0-' + parseNum(q.score) + '" oninput="gotField(this)" onblur="gotBlur(this)"></td>'
+      + '<td>'
+      +   '<div style="display:flex;align-items:center;gap:4px;">'
+      +     '<input type="number" min="0" inputmode="decimal" style="width:58px;" value="' + (gotVal===''?'':gotVal) + '" data-idx="' + i + '" placeholder="0-' + parseNum(q.score) + '" oninput="gotField(this)" onblur="gotBlur(this)">'
+      +     '<div style="display:flex;flex-direction:column;gap:2px;">'
+      +       '<button type="button" class="qj-btn qj-ok" onclick="quickJudge(' + i + ',1)">✓对</button>'
+      +       '<button type="button" class="qj-btn qj-half" onclick="quickJudge(' + i + ',0.5)">半对</button>'
+      +       '<button type="button" class="qj-btn qj-no" onclick="quickJudge(' + i + ',0)">✗错</button>'
+      +     '</div>'
+      +   '</div>'
+      + '</td>'
       + '</tr>';
   }
   tb.innerHTML = html;
   updateScoreStat();
+}
+function quickJudge(idx, ratio){
+  var q = draft.questions[idx];
+  if(!q){ return; }
+  var full = parseNum(q.score);
+  var g;
+  if(ratio === 0){ g = 0; }
+  else if(ratio === 0.5){ g = Math.round(full / 2); }
+  else { g = full; }
+  q.got = g;
+  var inp = document.querySelector('#gotTbody input[data-idx="' + idx + '"]');
+  if(inp){ inp.value = g; }
+  updateScoreStat();
+}
+function quickAll(mode){
+  if(!draft){ return; }
+  for(var i=0;i<draft.questions.length;i++){
+    var q = draft.questions[i];
+    var full = parseNum(q.score);
+    if(mode === 'ok'){ q.got = full; }
+    else if(mode === 'half'){ q.got = Math.round(full / 2); }
+    else if(mode === 'no'){ q.got = 0; }
+    else if(mode === 'clear'){ q.got = 0; }
+  }
+  renderStep3();
 }
 function gotField(el){
   var idx = parseInt(el.getAttribute('data-idx'), 10);
@@ -1229,6 +1380,7 @@ function startOCR(){
     return Tesseract.createWorker('chi_sim');
   }).then(function(worker){
     var allParsed = [];
+    var rawTexts = [];
     var idx = 0;
     function runNext(){
       if(idx >= ocrImages.length){
@@ -1240,7 +1392,9 @@ function startOCR(){
       return new Promise(function(resolve){
         readImageData(ocrImages[curIdx], function(data){
           worker.recognize(data).then(function(res){
-            var sub = parseOCRText(res.data.text || '');
+            var txt = res.data.text || '';
+            rawTexts[curIdx] = txt;
+            var sub = parseOCRText(txt);
             for(var k=0;k<sub.length;k++){ sub[k].page = curIdx + 1; }
             allParsed = allParsed.concat(sub);
           }).catch(function(){});
@@ -1256,7 +1410,17 @@ function startOCR(){
     ocrRunning = false;
     parsed = normalizeOCRNo(parsed);
     if(parsed.length === 0){
-      setOcrStatus('warn', '未从图片中识别出题目，请尝试更清晰的试卷图片，或直接手动录入题目。');
+      var diag = '';
+      for(var ri=0;ri<rawTexts.length;ri++){
+        var rt = (rawTexts[ri] || '').replace(/\s+/g,' ').slice(0, 120);
+        if(rt){ diag += '<div style="margin-top:6px;"><b>第' + (ri+1) + '张识别原文：</b>' + esc(rt) + '</div>'; }
+      }
+      var reason = '识别引擎已正常运行，但未解析出带编号的题目。';
+      var allRaw = (rawTexts||[]).join(' ');
+      if(/[A-Za-z]{2,}/.test(allRaw) && !/[一-龥]{2,}/.test(allRaw)){
+        reason = '识别出的多为英文乱码，疑似中文语言包未生效或图片文字过小/模糊。';
+      }
+      setOcrStatus('warn', reason + '常见原因：①照片模糊/反光/倾斜，请正对拍清晰；②题号不规整（无数字编号或编号混排）；③图片过大已压缩。' + diag + '<div style="margin-top:6px;">💡 建议：重新拍摄清晰试卷识别，或直接手动录入题目，再用「一键自动配分」按判卷标准分配分值。</div>');
       return;
     }
     ocrParsedList = parsed;
@@ -1298,16 +1462,37 @@ function normalizeOCRNo(list){
   return list;
 }
 function matchQStart(line){
-  var m1 = line.match(/^\s*(\d{1,3})\s*[\.、．。)）]/);
+  var m1 = line.match(/^\s*(\d{1,3})\s*[\.、．。)）\]]/);
   if(m1){
     var rest = line.slice(m1[0].length);
     if(!/^\d/.test(rest)){ return m1[1]; }
   }
   var m2 = line.match(/^\s*[（(]\s*(\d{1,3})\s*[)）]/);
   if(m2){ return m2[1]; }
-  var m3 = line.match(/^\s*第\s*(\d{1,3})\s*题/);
+  var m3 = line.match(/^\s*[\[【]\s*(\d{1,3})\s*[\]]/);
   if(m3){ return m3[1]; }
+  var m4 = line.match(/^\s*第\s*(\d{1,3})\s*题/);
+  if(m4){ return m4[1]; }
+  var m5 = line.match(/^\s*题\s*(\d{1,3})/);
+  if(m5){ return m5[1]; }
+  var m6 = line.match(/^\s*[^\d\s]{0,2}\s*(\d{1,2})\s*[\.、．。)）]/);
+  if(m6 && line.length < 40){
+    var r6 = line.slice(m6[0].length);
+    if(!/^\d/.test(r6)){ return m6[1]; }
+  }
   return null;
+}
+function guessType(text){
+  var t = text || '';
+  if(/[A-D]\s*[\.．、]/.test(t) && /A\s*[\.．、]/.test(t) && /B\s*[\.．、]/.test(t)){ return '单选'; }
+  if(/多选|不定项|多选题/.test(t)){ return '多选'; }
+  if(/判断|对错|说法.*(正确|错误)|下列说法.*(正确|错误)/.test(t)){ return '判断'; }
+  if(/填空|横线|__|＿_|_____|（\s*）/ .test(t)){ return '填空'; }
+  if(/计算|求值|化简|解方程|解不等式/.test(t)){ return '计算'; }
+  if(/作文|写作|不少于|题目自拟/.test(t)){ return '作文'; }
+  if(/实验|探究/.test(t)){ return '实验'; }
+  if(/解答|证明|说明|分析|综合/.test(t)){ return '解答'; }
+  return '解答';
 }
 function extractScore(line){
   var m = line.match(/[（(]\s*(\d{1,3})\s*分\s*[)）]|满分\s*(\d{1,3})|分值\s*(\d{1,3})|(\d{1,3})\s*分/);
@@ -1337,7 +1522,7 @@ function parseOCRText(text){
     var no = matchQStart(line);
     if(no){
       if(cur){ result.push(cur); }
-      cur = {no: no, score: 0, type: '解答', knowledge: '', difficulty: '中', ability: '', desc: line};
+      cur = {no: no, score: 0, type: guessType(line), knowledge: '', difficulty: '中', ability: '', desc: line};
       var sc = extractScore(line);
       cur.score = sc > 0 ? sc : secScore;
       continue;
