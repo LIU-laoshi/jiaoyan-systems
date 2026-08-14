@@ -671,6 +671,17 @@ window.onerror = function(msg){
     }
   }catch(e){}
 };
+var canPickFile = (function(){
+  try{
+    return !!(window.FileReader && window.URL && URL.createObjectURL);
+  }catch(e){ return false; }
+})();
+if(!canPickFile){
+  window.addEventListener('DOMContentLoaded', function(){
+    var tip = document.getElementById('ocrCountTip');
+    if(tip){ tip.innerHTML = '⚠ 当前浏览环境不支持选择照片（如扣子APP预览模式），请用手机自带浏览器打开本页面后使用识别功能。'; }
+  });
+}
 var curStep = 1;
 var draft = null;
 var ocrImageData = null;
@@ -1101,28 +1112,21 @@ function ocrOnFile(input){
   var files = input.files;
   if(!files || files.length === 0){ return; }
   var added = 0;
-  setOcrStatus('loading', '正在读取并压缩图片，请稍候……');
   for(var i=0;i<files.length;i++){
     var f = files[i];
     if(!f || f.type.indexOf('image/') !== 0){ continue; }
-    (function(file){
-      var reader = new FileReader();
-      reader.onload = function(e){
-        compressImage(e.target.result, function(data){
-          ocrImages.push({data: data, name: file.name || ''});
-          renderOcrImgs();
-          setOcrStatus('ok', '已添加 <b>' + ocrImages.length + '</b> 张试卷图片，可继续点击选择添加更多，或点「开始识别」逐张扫描。');
-        });
-      };
-      reader.onerror = function(){
-        setOcrStatus('err', '图片读取失败，请重新选择照片。');
-      };
-      reader.readAsDataURL(file);
-    })(f);
+    var url = null;
+    try{ url = URL.createObjectURL(f); }catch(e){ url = null; }
+    ocrImages.push({url: url, file: f, name: f.name || ''});
     added++;
   }
   input.value = '';
-  if(added === 0){ setOcrStatus('err', '未识别到图片，请选择照片后重试'); }
+  if(added === 0){
+    setOcrStatus('err', '未识别到图片，请选择照片后重试');
+  } else {
+    renderOcrImgs();
+    setOcrStatus('ok', '已添加 <b>' + ocrImages.length + '</b> 张试卷图片，可继续添加，或点「开始识别」逐张扫描。');
+  }
 }
 function compressImage(dataUrl, cb){
   var img = new Image();
@@ -1149,12 +1153,31 @@ function compressImage(dataUrl, cb){
   img.onerror = function(){ cb(dataUrl); };
   img.src = dataUrl;
 }
+function readImageData(item, cb){
+  if(item.data){
+    compressImage(item.data, cb);
+    return;
+  }
+  if(!item.file){
+    cb(item.url || '');
+    return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(e){
+    compressImage(e.target.result, cb);
+  };
+  reader.onerror = function(){
+    cb(item.url || '');
+  };
+  reader.readAsDataURL(item.file);
+}
 function renderOcrImgs(){
   var box = document.getElementById('ocrImgs');
   var html = '';
   for(var i=0;i<ocrImages.length;i++){
+    var src = ocrImages[i].url || ocrImages[i].data || '';
     html += '<div class="ocr-img-item">'
-      + '<img src="' + ocrImages[i].data + '" alt="第' + (i+1) + '张试卷">'
+      + '<img src="' + src + '" alt="第' + (i+1) + '张试卷">'
       + '<span class="ocr-img-tag">第' + (i+1) + '张</span>'
       + '<button type="button" class="ocr-img-del" onclick="ocrDelImg(' + i + ')">×</button>'
       + '</div>';
@@ -1168,6 +1191,8 @@ function renderOcrImgs(){
   }
 }
 function ocrDelImg(i){
+  var item = ocrImages[i];
+  if(item && item.url){ try{ URL.revokeObjectURL(item.url); }catch(e){} }
   ocrImages.splice(i, 1);
   renderOcrImgs();
   if(ocrImages.length === 0){
@@ -1194,31 +1219,34 @@ function ensureTesseract(){
 }
 function startOCR(){
   if(ocrRunning){ return; }
-  var imgs = ocrImages.slice();
-  if(imgs.length === 0 && ocrImageData){
-    imgs = [{data: ocrImageData, name: ''}];
-  }
-  if(imgs.length === 0){
+  if(ocrImages.length === 0){
     setOcrStatus('err', '请先选择试卷图片');
     return;
   }
   ocrRunning = true;
-  setOcrStatus('loading', '正在下载识别引擎与中文语言包，首次使用约需1-2分钟，请保持网络畅通；下载完成后将逐张扫描' + imgs.length + '张图片……');
+  setOcrStatus('loading', '正在下载识别引擎与中文语言包，首次使用约需1-2分钟，请保持网络畅通；下载完成后将逐张扫描' + ocrImages.length + '张图片……');
   ensureTesseract().then(function(){
     return Tesseract.createWorker('chi_sim');
   }).then(function(worker){
     var allParsed = [];
     var idx = 0;
     function runNext(){
-      if(idx >= imgs.length){
+      if(idx >= ocrImages.length){
         try{ worker.terminate(); }catch(e){}
         return Promise.resolve(allParsed);
       }
-      setOcrStatus('loading', '正在识别第 <b>' + (idx + 1) + '/' + imgs.length + '</b> 张图片，请稍候……');
-      return worker.recognize(imgs[idx].data).then(function(res){
-        var sub = parseOCRText(res.data.text || '');
-        for(var k=0;k<sub.length;k++){ sub[k].page = idx + 1; }
-        allParsed = allParsed.concat(sub);
+      var curIdx = idx;
+      setOcrStatus('loading', '正在识别第 <b>' + (curIdx + 1) + '/' + ocrImages.length + '</b> 张图片，请稍候……');
+      return new Promise(function(resolve){
+        readImageData(ocrImages[curIdx], function(data){
+          worker.recognize(data).then(function(res){
+            var sub = parseOCRText(res.data.text || '');
+            for(var k=0;k<sub.length;k++){ sub[k].page = curIdx + 1; }
+            allParsed = allParsed.concat(sub);
+          }).catch(function(){});
+          resolve();
+        });
+      }).then(function(){
         idx++;
         return runNext();
       });
@@ -1250,7 +1278,7 @@ function startOCR(){
     saveDraft(draft);
     renderOcrParsed();
     document.getElementById('ocrTableWrap').style.display = 'block';
-    setOcrStatus('ok', '共识别 <b>' + imgs.length + '</b> 张图片，解析出 <b>' + parsed.length + '</b> 道题，已自动追加到下方题目列表；每道题都标注了来源页，请对照「待确认」表逐题校对（补填知识点、修正分值），确认后点击「同步修改到题目列表」。');
+    setOcrStatus('ok', '共识别 <b>' + ocrImages.length + '</b> 张图片，解析出 <b>' + parsed.length + '</b> 道题，已自动追加到下方题目列表；每道题都标注了来源页，请对照「待确认」表逐题校对（补填知识点、修正分值），确认后点击「同步修改到题目列表」。');
   }).catch(function(){
     ocrRunning = false;
     setOcrStatus('err', '识别功能需联网加载识别引擎，请检查网络后重试；也可手动录入题目');
@@ -1413,9 +1441,12 @@ function clearOCRResult(){
   ocrAppendCount = 0;
   document.getElementById('ocrTbody').innerHTML = '';
   document.getElementById('ocrTableWrap').style.display = 'none';
+  for(var ri=0;ri<ocrImages.length;ri++){
+    if(ocrImages[ri] && ocrImages[ri].url){ try{ URL.revokeObjectURL(ocrImages[ri].url); }catch(e){} }
+  }
+  ocrImages = [];
   document.getElementById('ocrImgs').innerHTML = '';
   document.getElementById('ocrFile').value = '';
-  ocrImages = [];
   ocrImageData = null;
   var tip = document.getElementById('ocrCountTip');
   if(tip){ tip.innerHTML = '可分多次添加试卷照片（也可一次多选），系统将按顺序逐张识别并合并题目；识别结果会标注每道题来自第几张。'; }
