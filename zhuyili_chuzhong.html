@@ -1375,10 +1375,20 @@ body::after{
         trials.sort(function() { return Math.random() - 0.5; });
 
         trials.forEach(function(trial) {
-            var leftArrows = trial.condition === 'incongruent' ? '>>>' : (trial.condition === 'neutral' ? '---' : '<<<');
-            var rightArrows = trial.condition === 'incongruent' ? '>>>' : (trial.condition === 'neutral' ? '---' : '<<<');
-            trial.display = leftArrows + '▼' + rightArrows;
-            trial.correctKey = trial.condition === 'incongruent' ? 'ArrowRight' : 'ArrowLeft';
+            var centerArrow = Math.random() < 0.5 ? '◀' : '▶';
+            var leftArrows, rightArrows;
+            if (trial.condition === 'neutral') {
+                leftArrows = '---';
+                rightArrows = '---';
+            } else if (trial.condition === 'congruent') {
+                leftArrows = centerArrow === '◀' ? '◀◀◀' : '▶▶▶';
+                rightArrows = centerArrow === '◀' ? '◀◀◀' : '▶▶▶';
+            } else {
+                leftArrows = centerArrow === '◀' ? '▶▶▶' : '◀◀◀';
+                rightArrows = centerArrow === '◀' ? '▶▶▶' : '◀◀◀';
+            }
+            trial.display = leftArrows + centerArrow + rightArrows;
+            trial.correctKey = centerArrow === '◀' ? 'ArrowLeft' : 'ArrowRight';
             flankerState.stimuli.push(trial);
         });
 
