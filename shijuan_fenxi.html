@@ -467,7 +467,7 @@ button{font-family:inherit;cursor:pointer;border:none;}
       <div id="step2Box" style="display:none;">
         <!-- 上传试卷图片自动识别 -->
         <div class="ocr-block">
-          <div class="ocr-head">📷 上传试卷图片自动识别<span style="margin-left:auto;font-size:11px;color:#94a3b8;font-weight:400;">v4.1 引擎自托管版</span></div>
+          <div class="ocr-head">📷 上传试卷图片自动识别<span style="margin-left:auto;font-size:11px;color:#94a3b8;font-weight:400;">v4.2 引擎自托管版</span></div>
           <div class="ocr-toolbar">
             <input type="file" id="ocrFile" accept="image/*" multiple onchange="ocrOnFile(this)">
             <button class="btn btn-primary" onclick="startOCR()">开始识别</button>
@@ -1423,11 +1423,20 @@ function ocrShowProgress(m){
   }catch(e){}
 }
 function createWorkerOne(opt){
-  return Tesseract.createWorker('chi_sim', 1, {
+  return Tesseract.createWorker({
     workerPath: opt.workerPath,
     corePath: opt.corePath,
     langPath: opt.langPath,
     logger: ocrShowProgress
+  }).then(function(worker){
+    return worker.loadLanguage('chi_sim').then(function(){
+      return worker.initialize('chi_sim', 1);
+    }).then(function(){
+      return worker;
+    }).catch(function(e){
+      try{ worker.terminate(); }catch(err){}
+      throw e;
+    });
   });
 }
 function createWorkerRetry(idx){
