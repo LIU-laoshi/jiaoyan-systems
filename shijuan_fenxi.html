@@ -462,7 +462,7 @@ button{font-family:inherit;cursor:pointer;border:none;}
             <button class="btn btn-primary" onclick="startOCR()">开始识别</button>
           </div>
           <div class="ocr-imgs" id="ocrImgs"></div>
-          <div class="ocr-tip" id="ocrCountTip">可一次选择多张试卷照片（按住可多选），系统将按顺序逐张识别并合并题目；识别结果会标注每道题来自第几张。</div>
+          <div class="ocr-tip" id="ocrCountTip">可分多次添加试卷照片（也可一次多选），每次选择后自动加入下方列表；识别结果会标注每道题来自第几张。</div>
           <div class="ocr-status" id="ocrStatus"></div>
           <div class="ocr-table-wrap" id="ocrTableWrap" style="display:none;">
             <table class="tbl">
@@ -663,6 +663,14 @@ var SUPABASE_URL = 'https://bmgqtxhbzupaujpzghpq.supabase.co';
 var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtZ3F0eGhienVwYXVqcHpnaHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwMDQxODQsImV4cCI6MjEwMTU4MDE4NH0.JgiQlUopALIDRYxE72oyPC2NoC0L4HrhH2q9cHW01W0';
 
 var curReportId = null;
+window.onerror = function(msg){
+  try{
+    var el = document.getElementById('ocrStatus');
+    if(el && el.className.indexOf('ocr-') === -1){
+      setOcrStatus('err', '页面出错：' + String(msg).slice(0, 80) + '，请刷新重试');
+    }
+  }catch(e){}
+};
 var curStep = 1;
 var draft = null;
 var ocrImageData = null;
@@ -1093,22 +1101,53 @@ function ocrOnFile(input){
   var files = input.files;
   if(!files || files.length === 0){ return; }
   var added = 0;
+  setOcrStatus('loading', '正在读取并压缩图片，请稍候……');
   for(var i=0;i<files.length;i++){
     var f = files[i];
     if(!f || f.type.indexOf('image/') !== 0){ continue; }
     (function(file){
       var reader = new FileReader();
       reader.onload = function(e){
-        ocrImages.push({data: e.target.result, name: file.name || ''});
-        renderOcrImgs();
-        setOcrStatus('ok', '已添加 <b>' + ocrImages.length + '</b> 张试卷图片，点击「开始识别」将按顺序逐张扫描并合并题目。');
+        compressImage(e.target.result, function(data){
+          ocrImages.push({data: data, name: file.name || ''});
+          renderOcrImgs();
+          setOcrStatus('ok', '已添加 <b>' + ocrImages.length + '</b> 张试卷图片，可继续点击选择添加更多，或点「开始识别」逐张扫描。');
+        });
+      };
+      reader.onerror = function(){
+        setOcrStatus('err', '图片读取失败，请重新选择照片。');
       };
       reader.readAsDataURL(file);
     })(f);
     added++;
   }
   input.value = '';
-  if(added === 0){ setOcrStatus('err', '请选择图片文件'); }
+  if(added === 0){ setOcrStatus('err', '未识别到图片，请选择照片后重试'); }
+}
+function compressImage(dataUrl, cb){
+  var img = new Image();
+  img.onload = function(){
+    try{
+      var MAX = 1600;
+      var w = img.width, h = img.height;
+      if(w > MAX || h > MAX){
+        var scale = Math.min(MAX / w, MAX / h);
+        w = Math.round(w * scale);
+        h = Math.round(h * scale);
+      }
+      var canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      var out = canvas.toDataURL('image/jpeg', 0.82);
+      cb(out);
+    }catch(e){
+      cb(dataUrl);
+    }
+  };
+  img.onerror = function(){ cb(dataUrl); };
+  img.src = dataUrl;
 }
 function renderOcrImgs(){
   var box = document.getElementById('ocrImgs');
@@ -1124,7 +1163,7 @@ function renderOcrImgs(){
   var tip = document.getElementById('ocrCountTip');
   if(tip){
     tip.innerHTML = ocrImages.length === 0
-      ? '可一次选择多张试卷照片（按住可多选），系统将按顺序逐张识别并合并题目；识别结果会标注每道题来自第几张。'
+      ? '可分多次添加试卷照片（也可一次多选），系统将按顺序逐张识别并合并题目；识别结果会标注每道题来自第几张。'
       : '已选 <b>' + ocrImages.length + '</b> 张试卷，将按「第1张→第N张」顺序依次识别并合并题号。';
   }
 }
@@ -1379,7 +1418,7 @@ function clearOCRResult(){
   ocrImages = [];
   ocrImageData = null;
   var tip = document.getElementById('ocrCountTip');
-  if(tip){ tip.innerHTML = '可一次选择多张试卷照片（按住可多选），系统将按顺序逐张识别并合并题目；识别结果会标注每道题来自第几张。'; }
+  if(tip){ tip.innerHTML = '可分多次添加试卷照片（也可一次多选），系统将按顺序逐张识别并合并题目；识别结果会标注每道题来自第几张。'; }
   setOcrStatus('', '');
 }
 
