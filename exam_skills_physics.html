@@ -1,0 +1,4064 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>初中物理考试技巧提升系统（初二+初三）</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px}
+body{font-family:'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:#F7F7F7;color:#333;line-height:1.6;overflow-x:hidden}
+:root{--primary:#667eea;--accent:#764ba2;--bg:#F7F7F7;--white:#fff;--light-blue:#e8f0fe;--border:#e0e0e0;--success:#2e7d32;--warning:#f57c00;--danger:#c62828;--gray:#757575}
+.top-bar{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:12px 16px;position:sticky;top:0;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.top-bar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.top-bar h1{font-size:1.05rem;font-weight:700;letter-spacing:1px}
+.top-bar .back-btn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:5px 14px;border-radius:20px;font-size:0.8rem;cursor:pointer;transition:all 0.3s}
+.top-bar .back-btn:hover{background:rgba(255,255,255,0.25)}
+.top-bar .back-btn:active{transform:scale(0.95)}
+.page{display:none;min-height:calc(100vh - 50px);padding:16px;max-width:1200px;margin:0 auto}
+.page.active{display:block;animation:fadeIn 0.4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.home-hero{text-align:center;padding:30px 16px 20px}
+.home-hero .logo-circle{width:80px;height:80px;margin:0 auto 16px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.2rem;color:#fff;box-shadow:0 4px 16px rgba(102,126,234,0.3)}
+.home-hero h2{color:#667eea;font-size:1.5rem;margin-bottom:8px}
+.home-hero p{color:#666;font-size:0.9rem;max-width:500px;margin:0 auto}
+.hero-stats{display:flex;justify-content:center;gap:20px;margin-top:20px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat .num{font-size:1.4rem;font-weight:700;color:#764ba2}
+.hero-stat .label{font-size:0.75rem;color:#999}
+.home-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.home-card{background:#fff;border-radius:14px;padding:24px 16px;text-align:center;cursor:pointer;transition:all 0.35s;border:2px solid transparent;box-shadow:0 2px 8px rgba(0,0,0,0.06);position:relative;overflow:hidden}
+.home-card:hover{border-color:#667eea;transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.12)}
+.home-card:active{transform:scale(0.97)}
+.home-card .card-icon{width:56px;height:56px;margin:0 auto 12px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.8rem}
+.home-card h3{font-size:1rem;color:#667eea;margin-bottom:6px}
+.home-card p{font-size:0.78rem;color:#888;line-height:1.4}
+.home-card .card-num{position:absolute;top:8px;right:12px;font-size:2rem;font-weight:800;color:#f0f0f0;z-index:0}
+.section-header{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:12px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.section-header .sh-icon{width:40px;height:40px;background:rgba(255,255,255,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.section-header h2{font-size:1.1rem;font-weight:600}
+.section-header p{font-size:0.78rem;opacity:0.85;margin-top:2px}
+.card{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 6px rgba(0,0,0,0.05);border:1px solid #f0f0f0}
+.card-title{font-size:1rem;font-weight:600;color:#667eea;margin-bottom:10px;display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:2px solid #f0f0f0}
+.card-title .ct-icon{font-size:1.1rem}
+.card-content{font-size:0.88rem;color:#444;line-height:1.7}
+.card-content p{margin-bottom:8px}
+.card-content ul,.card-content ol{padding-left:18px;margin-bottom:8px}
+.card-content li{margin-bottom:4px}
+.card-content strong{color:#667eea}
+.card-content .highlight{background:#e8eaf6;padding:2px 6px;border-radius:4px;color:#764ba2;font-weight:600}
+.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:0.72rem;font-weight:600;margin:2px}
+.tag-blue{background:#e8eaf6;color:#667eea}
+.tag-purple{background:#f3e5f5;color:#764ba2}
+.tag-orange{background:#fff3e0;color:#e65100}
+.tag-green{background:#e8f5e9;color:#2e7d32}
+.tag-red{background:#ffebee;color:#c62828}
+.tag-gray{background:#f5f5f5;color:#616161}
+.subject-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.subject-tab{padding:8px 16px;background:#fff;border:2px solid #e0e0e0;border-radius:20px;font-size:0.85rem;cursor:pointer;transition:all 0.3s;color:#666;font-weight:500}
+.subject-tab:hover{border-color:#667eea}
+.subject-tab.active{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-color:transparent}
+.sub-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.sub-tab{padding:5px 12px;background:#f5f5f5;border-radius:16px;font-size:0.78rem;cursor:pointer;transition:all 0.25s;color:#666}
+.sub-tab:hover{background:#e8eaf6}
+.sub-tab.active{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.sub-content{display:none;animation:fadeIn 0.3s ease}
+.sub-content.active{display:block}
+.btn{padding:10px 20px;border:none;border-radius:8px;font-size:0.88rem;cursor:pointer;transition:all 0.3s;font-weight:600}
+.btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.btn-primary:hover{opacity:0.9}
+.btn-accent{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.btn-accent:hover{opacity:0.9}
+.btn-outline{background:transparent;border:2px solid #667eea;color:#667eea}
+.btn-outline:hover{background:#667eea;color:#fff}
+.btn:active{transform:scale(0.96)}
+.btn:disabled{opacity:0.5;cursor:not-allowed}
+.btn-block{display:block;width:100%;text-align:center}
+.quiz-question{background:#fff;border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid #eee}
+.quiz-q-text{font-size:0.9rem;font-weight:600;color:#333;margin-bottom:10px;line-height:1.6}
+.quiz-q-text .q-num{color:#764ba2;font-weight:700;margin-right:4px}
+.quiz-options{display:flex;flex-direction:column;gap:8px}
+.quiz-opt{padding:10px 14px;border:2px solid #eee;border-radius:8px;cursor:pointer;transition:all 0.2s;font-size:0.85rem;display:flex;align-items:flex-start;gap:8px}
+.quiz-opt:hover{border-color:#667eea;background:#f0f2ff}
+.quiz-opt.selected{border-color:#667eea;background:#e8eaf6}
+.quiz-opt.correct{border-color:#2e7d32;background:#e8f5e9}
+.quiz-opt.wrong{border-color:#c62828;background:#ffebee}
+.quiz-opt .opt-label{font-weight:700;color:#764ba2;flex-shrink:0}
+.quiz-explain{margin-top:10px;padding:12px;background:#f5f7fa;border-radius:8px;font-size:0.8rem;color:#555;line-height:1.6;display:none;border-left:4px solid #667eea}
+.quiz-explain.show{display:block}
+.quiz-explain .explain-tag{color:#764ba2;font-weight:700;font-size:0.75rem}
+.progress-bar{background:#e0e0e0;height:8px;border-radius:4px;overflow:hidden;margin:10px 0}
+.progress-fill{height:100%;background:linear-gradient(90deg,#667eea,#764ba2);transition:width 0.5s ease;border-radius:4px}
+.progress-text{font-size:0.8rem;color:#666;text-align:center}
+.radar-container{text-align:center;margin:20px auto}
+#radarCanvas{max-width:100%}
+.rating-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0}
+.rating-item{background:#fff;border-radius:10px;padding:14px;border:1px solid #eee;text-align:center}
+.rating-item .ri-dim{font-size:0.82rem;color:#666;margin-bottom:6px}
+.rating-item .ri-score{font-size:1.6rem;font-weight:700}
+.rating-item .ri-level{font-size:0.72rem;padding:2px 10px;border-radius:12px;display:inline-block;margin-top:4px}
+.level-excellent{background:#e8f5e9;color:#2e7d32}
+.level-good{background:#e8eaf6;color:#667eea}
+.level-fair{background:#fff3e0;color:#e65100}
+.level-weak{background:#ffebee;color:#c62828}
+.expandable{cursor:pointer;padding:12px;background:#f5f7fa;border-radius:8px;margin-bottom:8px;transition:all 0.3s}
+.expandable:hover{background:#e8eaf6}
+.expandable .exp-header{display:flex;justify-content:space-between;align-items:center;font-size:0.88rem;font-weight:600;color:#667eea}
+.expandable .exp-arrow{transition:transform 0.3s;font-size:0.8rem}
+.expandable.open .exp-arrow{transform:rotate(180deg)}
+.expandable .exp-body{display:none;margin-top:10px;font-size:0.82rem;color:#555;line-height:1.7}
+.expandable.open .exp-body{display:block}
+.checklist{list-style:none;padding:0}
+.checklist li{padding:8px 0 8px 28px;position:relative;font-size:0.85rem;color:#444;border-bottom:1px dashed #eee}
+.checklist li::before{content:'\2611';position:absolute;left:0;top:8px;color:#764ba2;font-size:1rem}
+.checklist li:last-child{border-bottom:none}
+.info-box{padding:12px 16px;border-radius:8px;margin:10px 0;font-size:0.82rem;line-height:1.6}
+.info-blue{background:#e8eaf6;border-left:4px solid #667eea;color:#3949ab}
+.info-purple{background:#f3e5f5;border-left:4px solid #764ba2;color:#4a148c}
+.info-orange{background:#fff3e0;border-left:4px solid #f57c00;color:#e65100}
+.info-green{background:#e8f5e9;border-left:4px solid #2e7d32;color:#1b5e20}
+.info-red{background:#ffebee;border-left:4px solid #c62828;color:#b71c1c}
+.data-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:0.82rem}
+.data-table th{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:8px 10px;text-align:left;font-weight:600}
+.data-table td{padding:8px 10px;border-bottom:1px solid #eee}
+.data-table tr:nth-child(even){background:#f9f9f9}
+.data-table tr:hover{background:#f0f2ff}
+.tab-content{display:none;animation:fadeIn 0.3s ease}
+.tab-content.active{display:block}
+.interactive-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
+.interact-card{background:#fff;border-radius:12px;padding:18px;cursor:pointer;transition:all 0.3s;border:2px solid #eee;text-align:center}
+.interact-card:hover{border-color:#667eea;transform:translateY(-2px)}
+.interact-card .ic-icon{font-size:2rem;margin-bottom:8px}
+.interact-card h3{font-size:0.9rem;color:#667eea;margin-bottom:4px}
+.interact-card p{font-size:0.75rem;color:#999}
+.score-display{text-align:center;padding:20px}
+.score-display .big-score{font-size:3rem;font-weight:800;color:#764ba2}
+.score-display .score-label{font-size:0.9rem;color:#666}
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:2000;justify-content:center;align-items:center;padding:16px}
+.modal-overlay.show{display:flex;animation:fadeIn 0.2s ease}
+.modal-box{background:#fff;border-radius:14px;max-width:500px;width:100%;max-height:85vh;overflow-y:auto;padding:20px;animation:slideUp 0.3s ease}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-box h3{color:#667eea;margin-bottom:12px;font-size:1.1rem}
+.modal-close{float:right;font-size:1.4rem;cursor:pointer;color:#999;line-height:1}
+.modal-close:hover{color:#333}
+.app-footer{text-align:center;padding:20px 16px;color:#999;font-size:0.75rem;border-top:1px solid #eee;margin-top:20px}
+.login-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;z-index:99999;transition:opacity .4s}
+.login-box{background:#fff;border-radius:16px;padding:36px 32px;width:300px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.login-box h2{text-align:center;margin:0 0 24px;font-size:20px;color:#333}
+.login-input{width:100%;padding:12px 16px;margin:10px 0;border:1.5px solid #ddd;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border-color .3s}
+.login-input:focus{border-color:#667eea}
+.login-btn{width:100%;padding:12px;margin:16px 0 8px;border:none;border-radius:8px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:16px;cursor:pointer;transition:opacity .3s}
+.login-btn:hover{opacity:.9}
+.login-error{color:#e74c3c;font-size:13px;text-align:center;min-height:18px}
+.login-credits{text-align:center;margin-top:16px;font-size:12px;color:#aaa}
+.timeline{position:relative;padding-left:30px}
+.timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#667eea,#764ba2)}
+.timeline-item{position:relative;margin-bottom:20px}
+.timeline-dot{position:absolute;left:-26px;top:4px;width:16px;height:16px;border-radius:50%;background:#667eea;border:3px solid #fff;box-shadow:0 0 0 2px #667eea;z-index:1}
+.timeline-content{background:#fff;border-radius:10px;padding:16px;border:1px solid #eee}
+.timeline-content h3{color:#667eea;font-size:0.95rem;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.timeline-content .tl-tag{font-size:0.7rem;padding:2px 8px;border-radius:10px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.module-tag{display:inline-block;padding:3px 12px;border-radius:12px;font-size:0.75rem;font-weight:600;margin:2px}
+.module-1{background:#e8eaf6;color:#667eea}
+.module-2{background:#f3e5f5;color:#764ba2}
+.module-3{background:#fff3e0;color:#e65100}
+.module-4{background:#e8f5e9;color:#2e7d32}
+.module-5{background:#fce4ec;color:#c62828}
+.module-6{background:#e0f7fa;color:#00695c}
+.example-box{background:linear-gradient(135deg,#f8f9ff,#f3f0ff);border-radius:10px;padding:16px;margin:12px 0;border:1px solid #e8e0ff}
+.example-box h4{color:#667eea;margin-bottom:8px;font-size:0.92rem}
+.example-box .problem{font-weight:600;color:#333;margin-bottom:8px;line-height:1.7}
+.example-box .solution{color:#555;line-height:1.8}
+.example-box .solution strong{color:#764ba2}
+.example-box .tip{margin-top:8px;padding:8px 12px;background:#fff;border-radius:6px;border-left:3px solid #764ba2;font-size:0.8rem;color:#666}
+@media(max-width:768px){
+.home-grid{grid-template-columns:repeat(2,1fr)}
+.interactive-grid{grid-template-columns:1fr}
+.rating-grid{grid-template-columns:1fr}
+.home-hero h2{font-size:1.25rem}
+.top-bar h1{font-size:0.9rem}
+.card{padding:14px}
+.section-header{padding:12px 14px}
+.section-header h2{font-size:1rem}
+}
+@media(max-width:480px){
+.home-grid{grid-template-columns:1fr}
+.home-hero{padding:20px 12px 10px}
+.home-hero h2{font-size:1.1rem}
+.home-hero .logo-circle{width:64px;height:64px;font-size:1.8rem}
+.hero-stats{gap:12px}
+.home-card{padding:18px 12px}
+.home-card .card-icon{width:48px;height:48px;font-size:1.5rem}
+.quiz-question{padding:12px}
+.quiz-opt{padding:8px 10px;font-size:0.8rem}
+.card-content{font-size:0.82rem}
+.data-table{font-size:0.75rem}
+.data-table th,.data-table td{padding:6px 8px}
+.subject-tabs{gap:6px}
+.subject-tab{padding:6px 12px;font-size:0.78rem}
+.top-bar h1{font-size:0.82rem}
+.top-bar .back-btn{padding:4px 10px;font-size:0.72rem}
+.btn{padding:8px 16px;font-size:0.82rem}
+.timeline{padding-left:24px}
+.modal-box{padding:16px}
+}
+
+/* ===== 顶尖版新增样式 ===== */
+.ds-input{width:100%;padding:10px 12px;margin:6px 0 12px;border:1.5px solid #ddd;border-radius:8px;font-size:0.88rem;outline:none;transition:border-color .3s;box-sizing:border-box}
+.ds-input:focus{border-color:#667eea}
+.diag-student-form{background:#fafbff;border:1px solid #eef0f8;border-radius:12px;padding:14px 16px;margin-top:12px}
+.diag-student-form label{font-size:0.8rem;color:#666;font-weight:600}
+.ds-grade-row{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
+.ds-grade-chip{padding:7px 14px;background:#fff;border:1.5px solid #ddd;border-radius:20px;font-size:0.82rem;cursor:pointer;color:#666;transition:all .25s}
+.ds-grade-chip.active{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-color:transparent}
+.quiz-opt.right{border-color:#2e7d32;background:#e8f5e9;animation:pulseGreen .4s ease}
+.quiz-opt.false{border-color:#c62828;background:#ffebee;animation:pulseRed .4s ease}
+.quiz-opt.locked{cursor:default}
+@keyframes pulseGreen{0%{transform:scale(1)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
+@keyframes pulseRed{0%{transform:scale(1)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
+.quiz-question.enter{animation:slideInRight .4s ease}
+@keyframes slideInRight{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:translateX(0)}}
+.feedback-banner{margin-top:12px;padding:11px 14px;border-radius:8px;font-size:0.84rem;font-weight:600;display:none}
+.feedback-banner.show{display:block}
+.fb-right{background:#e8f5e9;color:#1b5e20;border-left:4px solid #2e7d32}
+.fb-wrong{background:#ffebee;color:#b71c1c;border-left:4px solid #c62828}
+.diag-timer{font-size:1.15rem;font-weight:700;color:#764ba2;font-family:monospace}
+.report-head{background:linear-gradient(135deg,#667eea,#764ba2);border-radius:16px;padding:24px 20px;color:#fff;text-align:center;margin-bottom:16px;position:relative;overflow:hidden}
+.report-head::after{content:'';position:absolute;top:-60px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.08)}
+.report-head .rh-title{font-size:1.15rem;font-weight:700;margin-bottom:4px;letter-spacing:1px}
+.report-head .rh-sub{font-size:0.78rem;opacity:0.9;margin-bottom:12px}
+.ring-box{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;padding:6px 0 4px}
+.ring-box .ring-info{text-align:left}
+.ring-info .ri-big{font-size:1.7rem;font-weight:800}
+.ring-info .ri-label{font-size:0.78rem;opacity:0.92;margin-top:2px}
+.grade-badge{display:inline-block;padding:10px 28px;border-radius:40px;font-size:1.35rem;font-weight:800;color:#fff;box-shadow:0 6px 18px rgba(0,0,0,0.22);letter-spacing:2px}
+.grade-label{margin-top:6px;font-size:0.88rem;font-weight:600;opacity:0.95}
+.meta-strip{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px}
+.meta-chip{background:rgba(255,255,255,0.16);border:1px solid rgba(255,255,255,0.3);padding:6px 16px;border-radius:30px;font-size:0.8rem}
+.meta-chip b{font-size:0.92rem}
+.section-title{font-size:1.02rem;font-weight:700;color:#667eea;margin-bottom:14px;display:flex;align-items:center;gap:8px;padding-bottom:10px;border-bottom:2px solid #f0f0f0}
+.chart-container{display:flex;justify-content:center;align-items:center;text-align:center;margin:6px 0}
+.chart-container canvas{max-width:100%}
+.dimension-result{margin-bottom:16px;padding:12px 14px;background:#fafbff;border-radius:10px;border:1px solid #f0f0f0}
+.dimension-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:4px}
+.dimension-name{font-size:0.9rem;font-weight:600;color:#333}
+.dimension-percent{font-size:0.85rem;font-weight:700}
+.dimension-bar{height:10px;background:#eef0f8;border-radius:6px;overflow:hidden;margin-bottom:8px}
+.dimension-bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#667eea,#764ba2);transition:width 1s ease}
+.ability-level{display:inline-block;padding:1px 10px;border-radius:12px;font-size:0.72rem;font-weight:600}
+.level-strong{background:#e8f5e9;color:#2e7d32}
+.level-medium{background:#e8eaf6;color:#667eea}
+.level-weak{background:#ffebee;color:#c62828}
+.kp-list{display:flex;flex-direction:column;gap:10px}
+.kp-item{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.kp-rank{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:0.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.kp-name{font-size:0.85rem;font-weight:600;min-width:100px}
+.kp-count{font-size:0.75rem;color:#e65100;font-weight:600}
+.kp-bar{flex:1;min-width:120px;height:8px;background:#eef0f8;border-radius:5px;overflow:hidden}
+.kp-bar i{display:block;height:100%;background:linear-gradient(90deg,#f57c00,#e65100);border-radius:5px}
+.wrong-question-item{padding:14px;border:1px solid #f0e0e0;border-radius:10px;margin-bottom:12px;background:#fffafa}
+.wq-head{font-size:0.82rem;font-weight:700;color:#c62828;margin-bottom:8px}
+.wq-tag{display:inline-block;padding:1px 10px;border-radius:10px;background:#ffebee;color:#c62828;font-size:0.72rem;font-weight:600}
+.wrong-answer{font-size:0.84rem;color:#c62828;margin:6px 0;background:#ffebee;padding:8px 12px;border-radius:6px}
+.correct-answer{font-size:0.84rem;color:#2e7d32;margin:6px 0;background:#e8f5e9;padding:8px 12px;border-radius:6px}
+.explanation{font-size:0.82rem;color:#555;margin-top:8px;background:#f5f7fa;padding:10px 12px;border-radius:6px;border-left:3px solid #764ba2;line-height:1.7}
+.no-wrong{padding:18px;text-align:center;background:#e8f5e9;border-radius:10px;color:#2e7d32;font-size:0.9rem;font-weight:600}
+.summary-box{background:linear-gradient(135deg,#f8f9ff,#f3f0ff);border-radius:12px;padding:18px;border:1px solid #e8e0ff;font-size:0.88rem;color:#444;line-height:1.9}
+.summary-box b{color:#667eea}
+.plan-card{background:#fafbff;border:1px solid #eef0f8;border-radius:12px;padding:16px;margin-bottom:12px}
+.plan-title{font-size:0.92rem;font-weight:700;color:#667eea;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.plan-list{list-style:none;padding:0}
+.plan-list li{display:flex;align-items:flex-start;gap:10px;padding:7px 0;font-size:0.84rem;color:#555;line-height:1.6;border-bottom:1px dashed #eee}
+.plan-list li:last-child{border-bottom:none}
+.plan-list li b{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:0.72rem;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.plan-note{margin-top:10px;padding:10px 14px;background:#fff3e0;border-left:4px solid #f57c00;border-radius:6px;font-size:0.8rem;color:#e65100;line-height:1.7}
+.subject-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.subject-card{background:#fafbff;border:1px solid #eef0f8;border-radius:10px;padding:14px}
+.subject-name{font-size:0.9rem;font-weight:700;color:#667eea;margin-bottom:6px}
+.subject-desc{font-size:0.82rem;color:#555;line-height:1.7}
+.parent-card{background:linear-gradient(135deg,#f3e5f5,#fce4ec);border-radius:14px;padding:20px;border:1px solid #f0d8e8}
+.parent-title{font-size:0.98rem;font-weight:700;color:#764ba2;margin-bottom:10px}
+.parent-text{font-size:0.86rem;color:#4a3a5a;line-height:2;text-align:justify}
+.teacher-card{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#f8f9ff,#f3f0ff);border-radius:14px;padding:18px;border:1px solid #e8e0ff;flex-wrap:wrap}
+.teacher-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0;box-shadow:0 6px 16px rgba(102,126,234,0.35)}
+.teacher-info{flex:1;min-width:200px}
+.teacher-name{font-size:1rem;font-weight:700;color:#333}
+.teacher-award{margin-top:4px;font-size:0.78rem;color:#e65100;font-weight:600}
+.teacher-stats{margin-top:4px;font-size:0.8rem;color:#667eea;font-weight:600}
+.teacher-phone{margin-top:6px;font-size:0.88rem;color:#764ba2;font-weight:700}
+.print-bar{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.btn-secondary{background:#f5f5f5;color:#555}
+.btn-secondary:hover{background:#e0e0e0}
+.cloud-sync-tip{margin-top:10px;padding:8px 12px;background:#e8f5e9;border-left:4px solid #2e7d32;border-radius:6px;font-size:0.78rem;color:#1b5e20;line-height:1.6}
+@media(max-width:768px){
+  .subject-grid{grid-template-columns:1fr}
+  .teacher-card{justify-content:center;text-align:center}
+  .ring-box{flex-direction:column;text-align:center}
+  .ring-info{text-align:center}
+}
+@media print{
+  .login-overlay,.top-bar,.back-btn,.app-footer,.print-bar,.no-print,.cloud-sync-tip{display:none!important}
+  #diag-intro,#diag-quiz{display:none!important}
+  #page-diagnosis{display:block!important}
+  .report-head{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .dimension-bar-fill,.kp-bar i,.grade-badge,.meta-chip,.subject-card,.parent-card{background:#f5f5f5!important;color:#333!important}
+  .subject-grid{grid-template-columns:1fr}
+  .teacher-card{justify-content:center;text-align:center}
+  .ring-box{flex-direction:column;text-align:center}
+  .ring-info{text-align:center}
+  .report-head{padding:18px 14px}
+  .meta-chip{padding:5px 12px;font-size:0.74rem}
+  .dimension-header{flex-direction:column;align-items:flex-start}
+  .section-title{font-size:0.95rem}
+  .ring-info .ri-big{font-size:1.4rem}
+  .grade-badge{padding:8px 22px;font-size:1.15rem}
+  .kp-item{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <h2>🔒 系统登录</h2>
+    <input type="text" class="login-input" id="loginUser" placeholder="请输入账号" autocomplete="off">
+    <input type="password" class="login-input" id="loginPass" placeholder="请输入密码" autocomplete="off">
+    <button class="login-btn" onclick="doLogin()">登 录</button>
+    <div class="login-error" id="loginError"></div>
+    <div class="login-credits">系统设计制作：刘岳</div>
+  </div>
+</div>
+
+<div class="top-bar">
+<div class="top-bar-inner">
+<h1>⚛️ 初二物理考试技巧提升系统</h1>
+<button class="back-btn" onclick="showPage('home')" style="display:none" id="backBtn">返回首页</button>
+</div>
+</div>
+<!-- ========== 首页 ========== -->
+<div class="page active" id="page-home">
+<div class="home-hero">
+<div class="logo-circle">⚛️</div>
+<h2>初中物理考试技巧提升系统</h2>
+<p>覆盖初二+初三全年级物理考试技巧，融合题型策略、易错分析、实验探究、知识速查，助力物理高效提分</p>
+<div class="hero-stats">
+<div class="hero-stat"><div class="num">8</div><div class="label">核心模块</div></div>
+<div class="hero-stat"><div class="num">6</div><div class="label">能力维度</div></div>
+<div class="hero-stat"><div class="num">60</div><div class="label">诊断题目</div></div>
+<div class="hero-stat"><div class="num">5</div><div class="label">互动训练</div></div>
+</div>
+</div>
+<div class="home-grid">
+<div class="home-card" onclick="showPage('diagnosis')">
+<div class="card-num">01</div>
+<div class="card-icon" style="background:linear-gradient(135deg,#e8eaf6,#c5cae9)">📊</div>
+<h3>学情诊断</h3>
+<p>6维度60题精准测评，环形分数+雷达+等级分析</p>
+</div>
+<div class="home-card" onclick="showPage('skills')">
+<div class="card-num">02</div>
+<div class="card-icon" style="background:linear-gradient(135deg,#f3e5f5,#e1bee7)">📚</div>
+<h3>题型技巧库</h3>
+<p>选择题/填空题/实验探究题/计算题全攻略</p>
+</div>
+<div class="home-card" onclick="showPage('modules')">
+<div class="card-num">03</div>
+<div class="card-icon" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9)">🔬</div>
+<h3>知识模块策略</h3>
+<p>初二声光力热+初三电学内能，模块化提分方案</p>
+</div>
+<div class="home-card" onclick="showPage('mistakes')">
+<div class="card-num">04</div>
+<div class="card-icon" style="background:linear-gradient(135deg,#ffebee,#ffcdd2)">⚠️</div>
+<h3>易错点分析</h3>
+<p>30+高频易错点详解，避免丢分</p>
+</div>
+<div class="home-card" onclick="showPage('psychology')">
+<div class="card-num">05</div>
+<div class="card-icon" style="background:linear-gradient(135deg,#fce4ec,#f8bbd0)">🧠</div>
+<h3>考试心态</h3>
+<p>焦虑自评+减压训练+考场心理</p>
+</div>
+<div class="home-card" onclick="showPage('examples')">
+<div class="card-num">06</div>
+<div class="card-icon" style="background:linear-gradient(135deg,#e0f7fa,#b2ebf2)">📝</div>
+<h3>典型例题</h3>
+<p>20+经典物理题型解题思路与步骤演示</p>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px">
+<div class="home-card" onclick="showPage('knowledge')">
+<div class="card-num">07</div>
+<div class="card-icon" style="background:linear-gradient(135deg,#e8eaf6,#c5cae9)">🔑</div>
+<h3>知识点速查</h3>
+<p>力学/电学/声光/热学公式定理速记</p>
+</div>
+<div class="home-card" onclick="showPage('sprint')">
+<div class="card-num">08</div>
+<div class="card-icon" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2)">⏱️</div>
+<h3>考前冲刺</h3>
+<p>初二初三中考30天冲刺计划+考场实战手册</p>
+</div>
+</div>
+<div style="margin-top:14px">
+<div class="home-card" onclick="showPage('training')" style="text-align:center;padding:18px">
+<div class="card-icon" style="background:linear-gradient(135deg,#f3e5f5,#e1bee7);margin-bottom:8px">🎮</div>
+<h3>互动训练</h3>
+<p>5大互动模块实战演练——限时答题、易错挑战、公式速记、解题策略模拟</p>
+</div>
+</div>
+<div class="app-footer">
+<p>初中物理考试技巧提升系统 | 覆盖初二+初三全年级全模块</p>
+<p>系统设计制作：刘岳 | 仅供学习参考</p>
+</div>
+</div>
+<!-- ========== 学情诊断 ========== -->
+
+<div class="page" id="page-diagnosis">
+<div class="section-header">
+<div class="sh-icon">📊</div>
+<div><h2>考试能力诊断</h2><p>6个维度×60题，精准评估初中物理（初二+初三）考试能力</p></div>
+</div>
+
+<div id="diag-intro" class="card">
+<div class="card-title"><span class="ct-icon">📋</span>测评说明</div>
+<div class="card-content">
+<p>本测评从<strong>审题理解力、计算准确度、解题策略力、时间管理力、检查校验力、心理稳定性</strong>六个维度全面评估你的初中物理考试能力。</p>
+<p>共<strong>60道题</strong>（每维度10题），每题4个选项，选择最符合你实际情况的答案。完成后将生成<strong>能力环形图、雷达图</strong>和<strong>个性化提升方案</strong>。</p>
+<div class="info-box info-purple">
+<strong>测评须知：</strong>请根据真实情况作答，不要选择"理想中的自己"。测评结果仅用于自我了解和改进，不计入任何成绩。
+</div>
+<div class="diag-student-form">
+<div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:2px"><span class="ct-icon">👤</span>填写学生信息（用于生成专属报告）</div>
+<label>学生姓名</label>
+<input type="text" class="ds-input" id="stuName" placeholder="请输入姓名">
+<label>学校名称</label>
+<input type="text" class="ds-input" id="stuSchool" placeholder="请输入学校名称（选填）">
+<label>所在年级</label>
+<div class="ds-grade-row" id="gradeRow">
+<div class="ds-grade-chip" data-grade="初二" onclick="pickGrade(this)">初二</div>
+<div class="ds-grade-chip" data-grade="初三" onclick="pickGrade(this)">初三</div>
+</div>
+</div>
+<div style="text-align:center;margin-top:14px">
+<button class="btn btn-accent btn-block" onclick="startDiag()">开始测评</button>
+</div>
+</div>
+</div>
+
+<div id="diag-quiz" style="display:none">
+<div class="card" style="position:sticky;top:56px;z-index:100;background:#fff">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+<span id="diag-progress-text" style="font-size:0.85rem;color:#667eea;font-weight:600">第 1 / 60 题</span>
+<span id="diag-timer" class="diag-timer">00:00</span>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="diag-progress" style="width:0%"></div></div>
+</div>
+<div id="diag-question-container"></div>
+<div style="display:flex;gap:10px;margin-top:14px">
+<button class="btn btn-outline" id="diag-prev" onclick="diagPrev()" style="display:none">上一题</button>
+<button class="btn btn-primary" id="diag-next" onclick="diagNext()" style="display:none">下一题</button>
+<button class="btn btn-accent" id="diag-finish" onclick="finishDiag()" style="display:none">查看报告</button>
+</div>
+</div>
+
+<div id="diag-result" style="display:none">
+<div class="report-wrap" id="reportContent"></div>
+</div>
+</div>
+<!-- ========== 题型技巧库 ========== -->
+<div class="page" id="page-skills">
+<div class="section-header">
+<div class="sh-icon">📚</div>
+<div><h2>题型技巧库</h2><p>选择题·填空题·实验探究题·计算题 全攻略</p></div>
+</div>
+
+<div class="subject-tabs" id="skill-tabs">
+<div class="subject-tab active" onclick="switchSkillTab(event,0)">选择题技巧</div>
+<div class="subject-tab" onclick="switchSkillTab(event,1)">填空题技巧</div>
+<div class="subject-tab" onclick="switchSkillTab(event,2)">实验探究题技巧</div>
+<div class="subject-tab" onclick="switchSkillTab(event,3)">计算题技巧</div>
+<div class="subject-tab" onclick="switchSkillTab(event,4)">时间管理</div>
+<div class="subject-tab" onclick="switchSkillTab(event,5)">检查策略</div>
+</div>
+
+<div id="skill-content">
+<!-- 选择题技巧 -->
+<div class="tab-content active" id="skill-0">
+<div class="card">
+<div class="card-title"><span class="ct-icon">✅</span>选择题通用策略</div>
+<div class="card-content">
+<p><strong>一、解题六步法：</strong></p>
+<ol>
+<li><strong>审题</strong>：通读题目，圈出关键词和条件（已知量/求量/约束条件）</li>
+<li><strong>联想</strong>：快速联想相关物理概念、公式和规律</li>
+<li><strong>选择方法</strong>：根据题目特征选择最合适的解法</li>
+<li><strong>执行</strong>：快速计算或推理，得出结论</li>
+<li><strong>验证</strong>：将结果代入验证或用排除法确认</li>
+<li><strong>标记</strong>：不确定的题做标记，留待检查</li>
+</ol>
+<div class="info-box info-blue"><strong>时间分配：</strong>物理选择题建议每题1-2分钟，总时间控制在20分钟内。超时2分钟仍无思路的题先跳过。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>选择题核心技巧</div>
+<div class="card-content">
+<p><strong>1. 排除法（最常用）</strong></p>
+<ul>
+<li>逐一验证选项，排除明显错误的选项</li>
+<li>适用于：概念判断题、物理现象判断题、单位换算题</li>
+<li><span class="highlight">关键</span>：注意排除时要找"确定性"错误，不要猜</li>
+</ul>
+<p><strong>2. 特殊值法</strong></p>
+<ul>
+<li>取满足条件的特殊值代入验证，快速排除或确定答案</li>
+<li>适用于：比例题、密度比较题、浮力大小判断题</li>
+<li><span class="highlight">技巧</span>：取便于计算的数值（如水的密度1.0×10³kg/m³）</li>
+</ul>
+<p><strong>3. 代入验证法</strong></p>
+<ul>
+<li>将选项逐一代入题目条件验证</li>
+<li>适用于：速度计算、密度计算、压强计算</li>
+<li><span class="highlight">技巧</span>：优先代入中间选项，减少验证次数</li>
+</ul>
+<p><strong>4. 图象分析法</strong></p>
+<ul>
+<li>根据物理图象（如s-t图、v-t图、I-U图）直观判断</li>
+<li>适用于：运动图象题、电阻图象题、晶体熔化图象题</li>
+<li><span class="highlight">技巧</span>：注意坐标轴含义和图象斜率的物理意义</li>
+</ul>
+<p><strong>5. 估算法</strong></p>
+<ul>
+<li>不精确计算，通过估算快速排除不合理选项</li>
+<li>适用于：生活中的物理量估测题、数量级判断题</li>
+<li><span class="highlight">技巧</span>：熟记常见物理量的估测值</li>
+</ul>
+<p><strong>6. 概念辨析法</strong></p>
+<ul>
+<li>用物理概念和规律直接判断选项正误</li>
+<li>适用于：物理概念判断题、物理规律应用题</li>
+<li><span class="highlight">技巧</span>：注意概念的准确性和适用条件</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">⚠️</span>选择题常见陷阱</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>陷阱类型</th><th>表现</th><th>应对策略</th></tr>
+<tr><td>单位陷阱</td><td>题目给cm，选项给m或mm</td><td>审题时圈出单位，计算后检查单位一致性</td></tr>
+<tr><td>方向陷阱</td><td>力的方向、电流方向判断错误</td><td>画受力分析图，标注方向</td></tr>
+<tr><td>条件陷阱</td><td>忽略"匀速""静止"等关键词</td><td>审题圈出关键词，注意隐含条件</td></tr>
+<tr><td>多选陷阱</td><td>单选题当多选题做，或遗漏正确选项</td><td>注意题目要求是单选还是多选</td></tr>
+<tr><td>图象陷阱</td><td>图象坐标轴含义理解错误</td><td>先看坐标轴标注，再看图象形状</td></tr>
+<tr><td>概念陷阱</td><td>相似概念混淆（如质量与重力）</td><td>区分"质量"与"重力"、"位移"与"路程"等</td></tr>
+</table>
+<div class="info-box info-orange"><strong>口诀：</strong>"一看二想三验证，排除代入加画图，特殊值法效率高，估算检查不马虎。"</div>
+</div>
+</div>
+
+<div class="example-box">
+<h4>📝 选择题示例</h4>
+<div class="problem">一个人站在平面镜前2m处，若人向平面镜靠近0.5m，则人与镜中像的距离变为（ ）<br>A. 1m &nbsp; B. 1.5m &nbsp; C. 3m &nbsp; D. 4m</div>
+<div class="solution"><strong>解题思路：</strong>平面镜成像特点：像到镜面的距离等于物体到镜面的距离。人向镜面靠近0.5m后，人到镜面距离为2-0.5=1.5m，像到镜面距离也是1.5m，所以人与像的距离为1.5+1.5=3m。选C。</div>
+<div class="tip">✨ 技巧：平面镜成像"等大、等距、垂直、虚像"四特点，物像到镜面距离始终相等。</div>
+</div>
+</div>
+
+<!-- 填空题技巧 -->
+<div class="tab-content" id="skill-1">
+<div class="card">
+<div class="card-title"><span class="ct-icon">✏️</span>填空题核心策略</div>
+<div class="card-content">
+<p><strong>填空题特点：</strong>不需要写出过程，只写答案，但要求<strong>完全正确</strong>——一步算错，整题零分。</p>
+<p><strong>一、三大解题方法：</strong></p>
+<ul>
+<li><strong>直接计算法</strong>：按题目条件直接用公式计算，最基本的方法</li>
+<li><strong>图象分析法</strong>：根据图象读取数据或判断规律</li>
+<li><strong>推理判断法</strong>：根据物理概念和规律进行推理</li>
+</ul>
+<p><strong>二、填空题规范要求：</strong></p>
+<ol>
+<li>数值结果注意<strong>单位</strong>（速度m/s、密度kg/m³、力N等）</li>
+<li>注意<strong>有效数字</strong>和科学记数法表示</li>
+<li>多空题写<strong>所有空</strong>，不能遗漏</li>
+<li>物理量用<strong>规范符号</strong>表示（如v、ρ、F、p等）</li>
+<li>判断题写<strong>准确结论</strong>，不要写模棱两可的答案</li>
+</ol>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔬</span>填空题高频题型技巧</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>题型</th><th>技巧要点</th><th>易错提示</th></tr>
+<tr><td>速度计算</td><td>v=s/t，注意单位换算（km/h与m/s）</td><td>1m/s=3.6km/h</td></tr>
+<tr><td>密度计算</td><td>ρ=m/V，注意单位统一</td><td>g/cm³与kg/m³的换算</td></tr>
+<tr><td>力的大小</td><td>G=mg，注意g=10N/kg或9.8N/kg</td><td>质量与重力的区别</td></tr>
+<tr><td>压强计算</td><td>p=F/S，注意受力面积的单位</td><td>cm²要换算为m²</td></tr>
+<tr><td>浮力计算</td><td>F浮=ρ液gV排，注意V排的含义</td><td>部分浸入时V排&lt;V物</td></tr>
+<tr><td>功和功率</td><td>W=Fs，P=W/t=Fv</td><td>注意力和位移方向一致</td></tr>
+<tr><td>光学填空</td><td>反射定律、折射规律、成像特点</td><td>虚像和实像的区别</td></tr>
+<tr><td>声学填空</td><td>音调、响度、音色的区分</td><td>频率与音调、振幅与响度</td></tr>
+</table>
+</div>
+</div>
+
+<div class="example-box">
+<h4>📝 填空题示例</h4>
+<div class="problem">一物体放在水平地面上，受到水平向右的推力F=20N作用匀速直线运动，已知物体所受摩擦力为f，则f=______N，方向______。</div>
+<div class="solution"><strong>解题思路：</strong>物体匀速直线运动→受力平衡。水平方向受推力F（向右）和摩擦力f（向左），二力平衡，所以f=F=20N，方向水平向左。</div>
+<div class="tip">✨ 易错点："匀速直线运动"或"静止"意味着受力平衡，这是受力分析的关键条件。</div>
+</div>
+</div>
+
+<!-- 实验探究题技巧 -->
+<div class="tab-content" id="skill-2">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔬</span>实验探究题答题规范</div>
+<div class="card-content">
+<p><strong>一、实验探究题七大要素：</strong></p>
+<ol>
+<li><strong>提出问题</strong>：明确要研究什么</li>
+<li><strong>猜想与假设</strong>：基于生活经验或已有知识提出猜想</li>
+<li><strong>设计实验</strong>：确定实验方法（控制变量法最常用）</li>
+<li><strong>进行实验</strong>：按步骤操作，记录数据</li>
+<li><strong>分析数据</strong>：比较、归纳，寻找规律</li>
+<li><strong>得出结论</strong>：用准确语言描述结论</li>
+<li><strong>评估与交流</strong>：分析误差来源，提出改进建议</li>
+</ol>
+<p><strong>二、控制变量法（核心方法）：</strong></p>
+<ul>
+<li>研究一个量与多个因素的关系时，每次只改变一个因素，保持其他因素不变</li>
+<li><strong>适用场景</strong>：影响滑动摩擦力的因素、影响压强的因素、影响浮力的因素、影响电阻的因素</li>
+<li><strong>答题模板</strong>："在保持______不变的条件下，改变______，观察______的变化"</li>
+</ul>
+<div class="info-box info-purple"><strong>阅卷提示：</strong>实验探究题通常按要点给分，结论表述要准确完整。如"在______一定时，______与______成______比"。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">📊</span>实验数据分析技巧</div>
+<div class="card-content">
+<p><strong>1. 表格数据分析：</strong></p>
+<ul>
+<li>横向比较：同一组在不同条件下的数据变化</li>
+<li>纵向比较：不同组在相同条件下的数据差异</li>
+<li>寻找规律：正比、反比、无关等关系</li>
+</ul>
+<p><strong>2. 图象分析：</strong></p>
+<ul>
+<li>看坐标轴：明确横纵坐标代表的物理量</li>
+<li>看图象形状：直线表示正比关系，曲线表示其他关系</li>
+<li>看特殊点：起点、拐点、交点的物理含义</li>
+</ul>
+<p><strong>3. 误差分析：</strong></p>
+<table class="data-table">
+<tr><th>误差来源</th><th>具体表现</th><th>改进方法</th></tr>
+<tr><td>测量工具</td><td>刻度尺读数误差、天平灵敏度</td><td>多次测量取平均值</td></tr>
+<tr><td>操作不当</td><td>读数时视线不正、未调零</td><td>严格按照规范操作</td></tr>
+<tr><td>环境因素</td><td>温度变化、空气阻力</td><td>控制实验环境条件</td></tr>
+<tr><td>实验设计</td><td>方案本身的系统误差</td><td>改进实验方案</td></tr>
+</table>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">📝</span>常见实验题类型</div>
+<div class="card-content">
+<p><strong>类型一：测量型实验</strong></p>
+<ul>
+<li>测速度、测密度、测滑轮组机械效率</li>
+<li><strong>关键</strong>：明确实验原理（公式）、器材选择、步骤设计</li>
+<li><strong>注意</strong>：读数要估读到分度值的下一位</li>
+</ul>
+<p><strong>类型二：探究型实验</strong></p>
+<ul>
+<li>探究滑动摩擦力影响因素、探究二力平衡条件、探究凸透镜成像规律</li>
+<li><strong>关键</strong>：控制变量法的应用、结论表述的准确性</li>
+<li><strong>注意</strong>：结论要写"在______一定时"的前提条件</li>
+</ul>
+<p><strong>类型三：设计型实验</strong></p>
+<ul>
+<li>设计测密度的方案、设计测力的方案</li>
+<li><strong>关键</strong>：原理正确、步骤合理、器材可行</li>
+<li><strong>注意</strong>：写出实验表达式时注意符号对应</li>
+</ul>
+</div>
+</div>
+
+<div class="example-box">
+<h4>📝 实验探究题示例</h4>
+<div class="problem">在"探究滑动摩擦力大小与哪些因素有关"的实验中：(1)实验原理是什么？(2)为什么要求弹簧测力计沿水平方向匀速拉动？(3)若要探究摩擦力与接触面粗糙程度的关系，应控制什么不变？</div>
+<div class="solution"><strong>解答：</strong><br>(1)实验原理：二力平衡。弹簧测力计的拉力等于滑动摩擦力。<br>(2)匀速直线拉动时，物体在水平方向受到的拉力和摩擦力是一对平衡力，大小相等。沿水平方向是为了确保拉力和摩擦力在同一直线上。<br>(3)应控制压力大小不变，只改变接触面的粗糙程度。</div>
+<div class="tip">✨ 技巧：实验探究题答题三部曲——①说原理（为什么这样做）②说方法（控制变量法）③说结论（准确表述规律）。</div>
+</div>
+</div>
+
+<!-- 计算题技巧 -->
+<div class="tab-content" id="skill-3">
+<div class="card">
+<div class="card-title"><span class="ct-icon">📝</span>计算题答题规范</div>
+<div class="card-content">
+<p><strong>一、计算题四步法：</strong></p>
+<ol>
+<li><strong>写"解"</strong>：每道题开头写"解："，表明开始答题</li>
+<li><strong>列已知</strong>：写出已知量和所求（注意带单位和下标）</li>
+<li><strong>写过程</strong>：写出公式→代入数据→计算结果（每步带单位）</li>
+<li><strong>作答</strong>：最后写"答：..."给出明确结论</li>
+</ol>
+<p><strong>二、分步得分原则：</strong></p>
+<ul>
+<li>即使不会完整解题，也要<strong>写出能写的公式</strong>——每个公式都可能得分</li>
+<li>代入数据步骤不能省，<strong>公式+代入+结果</strong>是三步得分点</li>
+<li>关键步骤不能跳，尤其是<strong>公式的适用条件</strong>要说明</li>
+</ul>
+<div class="info-box info-purple"><strong>阅卷提示：</strong>物理计算题通常按步骤给分。公式2-3分，代入数据2-3分，计算结果1-2分，作答1分。即使最终答案错误，公式和代入正确也能获得大部分分数。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">📐</span>力学计算题技巧</div>
+<div class="card-content">
+<p><strong>1. 速度计算题：</strong></p>
+<ul>
+<li>公式：v=s/t</li>
+<li><strong>注意</strong>：单位统一（m/s或km/h），注意路程和时间的对应关系</li>
+<li><strong>技巧</strong>：画运动过程示意图辅助分析</li>
+</ul>
+<p><strong>2. 密度计算题：</strong></p>
+<ul>
+<li>公式：ρ=m/V</li>
+<li><strong>注意</strong>：单位换算（1g/cm³=1×10³kg/m³）</li>
+<li><strong>技巧</strong>：空心/实心问题用密度比较法或体积比较法</li>
+</ul>
+<p><strong>3. 压强计算题：</strong></p>
+<ul>
+<li>公式：p=F/S（固体）、p=ρgh（液体）</li>
+<li><strong>注意</strong>：受力面积S要换算为m²，深度h是从液面到所求点的竖直距离</li>
+</ul>
+<p><strong>4. 浮力计算题：</strong></p>
+<ul>
+<li>方法：称重法F浮=G-F'、阿基米德原理F浮=ρ液gV排、平衡法F浮=G物（漂浮/悬浮）</li>
+<li><strong>注意</strong>：判断物体状态（漂浮、悬浮、沉底）是选择公式的前提</li>
+</ul>
+<p><strong>5. 功和功率计算题：</strong></p>
+<ul>
+<li>公式：W=Fs、P=W/t=Fv、η=W有/W总</li>
+<li><strong>注意</strong>：力和位移方向要一致，有用功和总功要分清</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">📄</span>综合计算题技巧</div>
+<div class="card-content">
+<p><strong>1. 多过程问题：</strong></p>
+<ul>
+<li>分阶段分析，每个阶段单独列方程</li>
+<li>注意各阶段之间的衔接条件（如速度、位置等）</li>
+<li>画运动过程示意图辅助分析</li>
+</ul>
+<p><strong>2. 图象综合题：</strong></p>
+<ul>
+<li>从图象中提取已知数据</li>
+<li>注意图象中特殊点的物理含义</li>
+<li>结合公式进行计算</li>
+</ul>
+<p><strong>3. 实际应用题：</strong></p>
+<ul>
+<li>建立物理模型，将实际问题转化为物理问题</li>
+<li>注意单位的统一和换算</li>
+<li>检验结果是否符合实际</li>
+</ul>
+</div>
+</div>
+
+<div class="example-box">
+<h4>📝 计算题示例</h4>
+<div class="problem">一个体积为100cm³的实心铁球浸没在水中，求铁球受到的浮力。（ρ水=1.0×10³kg/m³，g=10N/kg）</div>
+<div class="solution"><strong>解：</strong><br>已知：V球=100cm³=1×10⁻⁴m³，浸没→V排=V球，ρ水=1.0×10³kg/m³，g=10N/kg<br>由阿基米德原理：<br>F浮=ρ液gV排=1.0×10³kg/m³×10N/kg×1×10⁻⁴m³=1N<br>答：铁球受到的浮力为1N。</div>
+<div class="tip">✨ 技巧：浮力计算题三部曲——①判断物体状态②选择公式③代入计算。注意单位统一。</div>
+</div>
+</div>
+
+<!-- 时间管理 -->
+<div class="tab-content" id="skill-4">
+<div class="card">
+<div class="card-title"><span class="ct-icon">⏱️</span>考试时间分配</div>
+<div class="card-content">
+<p><strong>初二物理考试（60-90分钟）时间分配建议：</strong></p>
+<table class="data-table">
+<tr><th>题型</th><th>题量</th><th>建议用时</th><th>每题用时</th></tr>
+<tr><td>选择题</td><td>10-12题</td><td>15-20分钟</td><td>1.5-2分钟</td></tr>
+<tr><td>填空题</td><td>6-8题</td><td>10-15分钟</td><td>1.5-2分钟</td></tr>
+<tr><td>实验探究题</td><td>2-3题</td><td>15-20分钟</td><td>5-7分钟</td></tr>
+<tr><td>计算题</td><td>2-3题</td><td>15-20分钟</td><td>5-7分钟</td></tr>
+<tr><td>检查</td><td>-</td><td>5-10分钟</td><td>-</td></tr>
+</table>
+<div class="info-box info-purple"><strong>时间管理三原则：</strong>①先易后难，按顺序做题；②遇到卡壳超过3分钟的题果断跳过；③预留5-10分钟检查时间。</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title"><span class="ct-icon">🕐</span>时间管理实战技巧</div>
+<div class="card-content">
+<p><strong>1. "三轮做题法"：</strong></p>
+<ul>
+<li><strong>第一轮（40-50分钟）</strong>：做所有有把握的题，快速准确</li>
+<li><strong>第二轮（15-20分钟）</strong>：攻克第一轮跳过的中等难度题</li>
+<li><strong>第三轮（5-10分钟）</strong>：冲击难题+检查</li>
+</ul>
+<p><strong>2. "时间红线"机制：</strong></p>
+<ul>
+<li>选择题每题红线：2分钟（超时跳过）</li>
+<li>填空题每题红线：3分钟（超时跳过）</li>
+<li>实验探究题每题红线：7分钟（超时先写能写的步骤）</li>
+<li>计算题每题红线：8分钟（超时先写公式）</li>
+</ul>
+<p><strong>3. 跳题标记法：</strong></p>
+<ul>
+<li>跳过的题在试卷上做明显标记（画圈/折角）</li>
+<li>在答题卡对应位置先写"解："，避免漏答</li>
+<li>做完后面的题回来时，心态更放松，可能突然有思路</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- 检查策略 -->
+<div class="tab-content" id="skill-5">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔍</span>检查策略</div>
+<div class="card-content">
+<p><strong>一、检查优先级（从高到低）：</strong></p>
+<ol>
+<li><strong>高分题优先</strong>：计算题、实验探究题</li>
+<li><strong>易错题优先</strong>：计算量大、单位换算多的题</li>
+<li><strong>跳过的题</strong>：第一轮没做出的题，回来重新思考</li>
+<li><strong>选择题填空题</strong>：快速过一遍，确认填涂位置</li>
+<li><strong>答题卡</strong>：检查是否漏涂、错位</li>
+</ol>
+<p><strong>二、检查方法：</strong></p>
+<table class="data-table">
+<tr><th>题型</th><th>检查方法</th><th>注意事项</th></tr>
+<tr><td>选择题</td><td>用不同方法重新验证（如排除法→代入法）</td><td>无充分理由不轻易改答案</td></tr>
+<tr><td>填空题</td><td>重新计算+单位检查+有效数字</td><td>单位是否正确、是否需要科学记数法</td></tr>
+<tr><td>计算题</td><td>逆运算验证、量纲检查</td><td>每步单位、公式适用条件</td></tr>
+<tr><td>实验题</td><td>检查结论表述是否完整准确</td><td>"在______一定时"不能漏写</td></tr>
+<tr><td>作图题</td><td>检查力的方向、虚实线、标注</td><td>力的大小是否按比例、方向是否正确</td></tr>
+</table>
+<p><strong>三、检查清单：</strong></p>
+<ul class="checklist">
+<li>答题卡填涂位置是否正确</li>
+<li>每道题是否都写了答案（无空题）</li>
+<li>选择题是否全部填涂（不漏涂）</li>
+<li>计算题每步是否带单位</li>
+<li>计算题是否写了"解："和"答："</li>
+<li>实验题结论是否写了前提条件</li>
+<li>作图题是否标注了力和方向</li>
+<li>单位换算是否正确（cm²→m²等）</li>
+<li>姓名、考号是否填写</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+<!-- ========== 知识模块策略 ========== -->
+<div class="page" id="page-modules">
+<div class="section-header">
+<div class="sh-icon">🔬</div>
+<div><h2>知识模块策略</h2><p>声现象·光现象·物态变化·运动与力·质量与密度·电学基础</p></div>
+</div>
+
+<div class="subject-tabs" id="module-tabs">
+<div class="subject-tab active" onclick="switchModuleTab(event,0)"><span class="module-tag module-1">声现象</span></div>
+<div class="subject-tab" onclick="switchModuleTab(event,1)"><span class="module-tag module-2">光现象</span></div>
+<div class="subject-tab" onclick="switchModuleTab(event,2)"><span class="module-tag module-3">物态变化</span></div>
+<div class="subject-tab" onclick="switchModuleTab(event,3)"><span class="module-tag module-4">运动与力</span></div>
+<div class="subject-tab" onclick="switchModuleTab(event,4)"><span class="module-tag module-5">质量与密度</span></div>
+<div class="subject-tab" onclick="switchModuleTab(event,5)"><span class="module-tag module-6">电学基础</span></div>
+<div class="subject-tab" onclick="switchModuleTab(event,6)"><span class="module-tag module-1">内能与热机</span></div>
+<div class="subject-tab" onclick="switchModuleTab(event,7)"><span class="module-tag module-2">电流与电路</span></div>
+<div class="subject-tab" onclick="switchModuleTab(event,8)"><span class="module-tag module-3">欧姆定律</span></div>
+<div class="subject-tab" onclick="switchModuleTab(event,9)"><span class="module-tag module-4">电功率</span></div>
+<div class="subject-tab" onclick="switchModuleTab(event,10)"><span class="module-tag module-5">生活用电与电与磁</span></div>
+<div class="subject-tab" onclick="switchModuleTab(event,11)"><span class="module-tag module-6">信息与能源</span></div>
+</div>
+
+<div id="module-content">
+<!-- 声现象 -->
+<div class="tab-content active" id="module-0">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔊</span>声现象学习重点</div>
+<div class="card-content">
+<p>声现象是八年级上册的重要模块，考查<strong>声音的产生与传播、声音的特性、噪声控制</strong>等知识。</p>
+<p><strong>核心知识点：</strong></p>
+<ul>
+<li><strong>声音的产生</strong>：物体振动产生声音，振动停止发声停止</li>
+<li><strong>声音的传播</strong>：需要介质（固/液/气），真空不能传声，声速v=340m/s（15℃空气中）</li>
+<li><strong>声音的特性</strong>：音调（频率）、响度（振幅）、音色（发声体材料结构）</li>
+<li><strong>声的利用</strong>：传递信息（回声定位、B超）、传递能量（超声波清洗、碎石）</li>
+<li><strong>噪声控制</strong>：声源处减弱、传播过程中减弱、人耳处减弱</li>
+</ul>
+<div class="info-box info-blue"><strong>声现象最大挑战：</strong>区分音调、响度、音色三个特性。音调看频率（高低），响度看振幅（大小），音色看材料结构（品质）。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>声现象考试策略</div>
+<div class="card-content">
+<ol>
+<li><strong>概念辨析题</strong>：区分"声音的产生"（振动）和"声音的传播"（需要介质）</li>
+<li><strong>特性判断题</strong>：音调→频率→高低；响度→振幅→大小；音色→材料→品质</li>
+<li><strong>声速计算</strong>：回声测距s=vt/2（注意除以2），注意温度对声速的影响</li>
+<li><strong>噪声题</strong>：从三个环节回答减弱噪声的方法</li>
+<li><strong>超声与次声</strong>：高于20000Hz为超声，低于20Hz为次声</li>
+</ol>
+<div class="example-box">
+<h4>📝 声现象典型易错</h4>
+<div class="problem">"震耳欲聋"描述的是声音的哪个特性？</div>
+<div class="solution"><strong>正确答案：</strong>响度。"震耳欲聋"形容声音很大，响度由振幅决定。<br><strong>常见错误：</strong>误选音调，认为"震"与频率有关。实际上"震耳欲聋"强调声音大（响度大）。</div>
+<div class="tip">✨ 关键词对应：高/低→音调，大/小/响/轻→响度，好听/难听/辨别→音色。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>声现象高频考点</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>考点</th><th>考查方式</th><th>易错点</th></tr>
+<tr><td>声音产生条件</td><td>判断振动与发声的关系</td><td>振动停止，发声立即停止</td></tr>
+<tr><td>声音传播条件</td><td>真空铃实验、月球传声</td><td>真空不能传声</td></tr>
+<tr><td>声音三特性</td><td>生活现象判断音调/响度/音色</td><td>三者区分不清</td></tr>
+<tr><td>回声测距</td><td>s=vt/2计算距离</td><td>忘记除以2</td></tr>
+<tr><td>减弱噪声</td><td>三个途径的判断</td><td>混淆"声源处"和"人耳处"</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 光现象 -->
+<div class="tab-content" id="module-1">
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>光现象学习重点</div>
+<div class="card-content">
+<p>光现象是八年级上册的<strong>核心模块</strong>，考查光的直线传播、反射、折射、色散和凸透镜成像。</p>
+<p><strong>核心知识点：</strong></p>
+<ul>
+<li><strong>光的直线传播</strong>：光在同种均匀介质中沿直线传播，光速c=3×10⁸m/s</li>
+<li><strong>光的反射定律</strong>：三线共面、两线分居、两角相等</li>
+<li><strong>平面镜成像</strong>：等大、等距、垂直、虚像（关于镜面对称）</li>
+<li><strong>光的折射规律</strong>：从空气斜射入水/玻璃，折射角小于入射角</li>
+<li><strong>光的色散</strong>：白光分解为七色光，三原色红绿蓝</li>
+<li><strong>凸透镜成像</strong>：u>2f倒立缩小实像、f&lt;u&lt;2f倒立放大实像、u&lt;f正立放大虚像</li>
+</ul>
+<div class="info-box info-purple"><strong>光现象最大挑战：</strong>凸透镜成像规律的记忆和应用。需要熟记"一倍焦距分虚实，二倍焦距分大小"口诀。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>光现象考试策略</div>
+<div class="card-content">
+<ol>
+<li><strong>反射定律作图</strong>：法线用虚线，反射角=入射角（都从法线量起）</li>
+<li><strong>平面镜成像作图</strong>：利用对称性，像和物关于镜面对称</li>
+<li><strong>折射判断</strong>：空气→水/玻璃，折射角&lt;入射角；反之折射角>入射角</li>
+<li><strong>凸透镜成像</strong>：口诀"一倍焦距分虚实，二倍焦距分大小；物近像远像变大，物远像近像变小"</li>
+<li><strong>实验题</strong>：凸透镜成像实验中，注意蜡烛和光屏的移动方向一致</li>
+</ol>
+<div class="example-box">
+<h4>📝 光现象典型易错</h4>
+<div class="problem">凸透镜焦距为10cm，物体放在距透镜15cm处，光屏上得到的像是什么性质？</div>
+<div class="solution"><strong>解：</strong>焦距f=10cm，物距u=15cm，f&lt;u&lt;2f（10&lt;15&lt;20），成倒立、放大的实像。<br><strong>应用：</strong>投影仪/幻灯机原理。</div>
+<div class="tip">✨ 口诀：u>2f照相机（倒立缩小实像），f&lt;u&lt;2f投影仪（倒立放大实像），u&lt;f放大镜（正立放大虚像）。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>光现象高频考点</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>考点</th><th>考查方式</th><th>易错点</th></tr>
+<tr><td>光的直线传播</td><td>小孔成像、影子的形成、日食月食</td><td>小孔成像成倒立实像</td></tr>
+<tr><td>反射定律</td><td>作图题、角度计算</td><td>入射角和反射角都从法线量起</td></tr>
+<tr><td>平面镜成像</td><td>成像特点判断、作图</td><td>像的大小与物体到镜面距离无关</td></tr>
+<tr><td>折射规律</td><td>光路图判断、水中物体变浅</td><td>折射角和入射角的大小关系</td></tr>
+<tr><td>凸透镜成像</td><td>成像性质判断、应用举例</td><td>物距变化时像的变化规律</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 物态变化 -->
+<div class="tab-content" id="module-2">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🌡️</span>物态变化学习重点</div>
+<div class="card-content">
+<p>物态变化是八年级上册的重要内容，考查<strong>温度、六种物态变化及其吸放热</strong>。</p>
+<p><strong>核心知识点：</strong></p>
+<ul>
+<li><strong>温度</strong>：表示物体冷热程度，常用温度计、体温计测量</li>
+<li><strong>熔化与凝固</strong>：固↔液，熔化吸热、凝固放热</li>
+<li><strong>汽化与液化</strong>：液↔气，汽化吸热（蒸发+沸腾）、液化放热</li>
+<li><strong>升华与凝华</strong>：固↔气，升华吸热、凝华放热</li>
+<li><strong>晶体与非晶体</strong>：晶体有固定熔点（如冰0℃），非晶体无固定熔点（如玻璃）</li>
+</ul>
+<div class="info-box info-orange"><strong>物态变化最大挑战：</strong>六种物态变化的名称、方向和吸放热关系容易混淆。建议画"三角图"记忆。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>物态变化考试策略</div>
+<div class="card-content">
+<ol>
+<li><strong>物态变化判断</strong>：先判断初态和末态，再确定物态变化名称</li>
+<li><strong>吸放热判断</strong>：熔化、汽化、升华→吸热；凝固、液化、凝华→放热</li>
+<li><strong>晶体熔化图象</strong>：水平段表示熔化过程，温度不变，吸热</li>
+<li><strong>沸腾图象</strong>：水平段表示沸腾过程，温度不变，吸热</li>
+<li><strong>生活现象</strong>：雾、露（液化）；霜、雪（凝华）；冰（凝固）；干冰（升华）</li>
+</ol>
+<div class="example-box">
+<h4>📝 物态变化典型易错</h4>
+<div class="problem">冬天室外冰冻的衣服也会变干，这是什么物态变化？吸热还是放热？</div>
+<div class="solution"><strong>正确答案：</strong>升华，吸热。冰直接变成水蒸气，没有经过液态阶段。<br><strong>常见错误：</strong>误认为是熔化（需要温度达到熔点）或汽化（需要先变成液态）。</div>
+<div class="tip">✨ 判断物态变化：找初态→找末态→确定名称。固态→气态=升华，气态→固态=凝华。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>物态变化高频考点</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>考点</th><th>考查方式</th><th>易错点</th></tr>
+<tr><td>温度计使用</td><td>读数、量程、分度值</td><td>体温计可以离开人体读数</td></tr>
+<tr><td>晶体熔化</td><td>图象分析、熔点判断</td><td>熔化时温度不变但吸热</td></tr>
+<tr><td>沸腾</td><td>沸点、气压关系</td><td>沸点随气压增大而升高</td></tr>
+<tr><td>蒸发与沸腾</td><td>区别与联系</td><td>蒸发在任何温度下发生</td></tr>
+<tr><td>六种物态变化</td><td>生活现象判断</td><td>升华和凝华容易忽略</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 运动与力 -->
+<div class="tab-content" id="module-3">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🏃</span>运动与力学习重点</div>
+<div class="card-content">
+<p>运动与力是八年级下册的<strong>核心模块</strong>，涵盖机械运动、力、牛顿第一定律、二力平衡等。</p>
+<p><strong>核心知识点：</strong></p>
+<ul>
+<li><strong>机械运动</strong>：参照物、速度v=s/t、匀速直线运动</li>
+<li><strong>力</strong>：力的三要素（大小、方向、作用点）、力的作用效果</li>
+<li><strong>重力</strong>：G=mg，方向竖直向下，g=10N/kg</li>
+<li><strong>弹力</strong>：弹簧测力计原理（在弹性限度内，F与形变成正比）</li>
+<li><strong>摩擦力</strong>：滑动摩擦力f=μN，影响因素（压力、粗糙程度）</li>
+<li><strong>牛顿第一定律</strong>：不受力时保持静止或匀速直线运动</li>
+<li><strong>二力平衡</strong>：等大、反向、共线、同体</li>
+</ul>
+<div class="info-box info-green"><strong>运动与力最大挑战：</strong>受力分析是核心能力。需要准确画出受力示意图，判断平衡力与相互作用力。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>运动与力考试策略</div>
+<div class="card-content">
+<ol>
+<li><strong>速度计算</strong>：注意单位换算，1m/s=3.6km/h</li>
+<li><strong>受力分析</strong>：画受力图→判断运动状态→列平衡方程</li>
+<li><strong>二力平衡</strong>：必须同时满足四个条件，缺一不可</li>
+<li><strong>惯性题</strong>：惯性不是力，不能说"受到惯性作用"</li>
+<li><strong>摩擦力</strong>：滑动摩擦力大小只与压力和粗糙程度有关，与速度无关</li>
+</ol>
+<div class="example-box">
+<h4>📝 运动与力典型易错</h4>
+<div class="problem">汽车突然刹车时，乘客会向前倾倒，这是因为什么？</div>
+<div class="solution"><strong>正确答案：</strong>乘客具有惯性。刹车时汽车减速，但乘客由于惯性保持原来的运动状态，所以向前倾倒。<br><strong>常见错误：</strong>说"受到向前的力"或"受到惯性作用"。惯性是物体的属性，不是力。</div>
+<div class="tip">✨ 惯性表述：一切物体都有惯性，惯性大小只与质量有关，与速度无关。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>运动与力高频考点</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>考点</th><th>考查方式</th><th>易错点</th></tr>
+<tr><td>参照物</td><td>判断运动/静止、参照物选择</td><td>参照物是假定为不动的物体</td></tr>
+<tr><td>速度计算</td><td>v=s/t、平均速度</td><td>单位换算km/h与m/s</td></tr>
+<tr><td>力的示意图</td><td>画力、标注大小方向</td><td>方向和作用点要准确</td></tr>
+<tr><td>二力平衡</td><td>平衡条件判断</td><td>平衡力与相互作用力的区别</td></tr>
+<tr><td>惯性</td><td>解释生活现象</td><td>惯性不是力，不能说"受到惯性"</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 质量与密度 -->
+<div class="tab-content" id="module-4">
+<div class="card">
+<div class="card-title"><span class="ct-icon">⚖️</span>质量与密度学习重点</div>
+<div class="card-content">
+<p>质量与密度是八年级上册的<strong>重点计算模块</strong>，考查天平使用、密度公式及计算。</p>
+<p><strong>核心知识点：</strong></p>
+<ul>
+<li><strong>质量</strong>：物体所含物质的多少，单位kg，用天平测量</li>
+<li><strong>密度</strong>：ρ=m/V，某种物质单位体积的质量，单位kg/m³或g/cm³</li>
+<li><strong>天平使用</strong>：放平→归零→调平衡→左物右码→读数</li>
+<li><strong>量筒使用</strong>：读数时视线与液面齐平</li>
+<li><strong>密度计算</strong>：ρ=m/V，m=ρV，V=m/ρ</li>
+<li><strong>空心实心</strong>：比较密度法、比较体积法、比较质量法</li>
+</ul>
+<div class="info-box info-red"><strong>质量与密度最大挑战：</strong>密度计算中的单位换算和空心实心问题的判断方法。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>质量与密度考试策略</div>
+<div class="card-content">
+<ol>
+<li><strong>天平读数</strong>：右盘砝码质量+游码示数=物体质量</li>
+<li><strong>密度计算</strong>：注意单位统一，1g/cm³=1×10³kg/m³</li>
+<li><strong>空心问题</strong>：假设实心算出体积，与实际体积比较；或算出实际密度与物质密度比较</li>
+<li><strong>混合密度</strong>：ρ混=m总/V总，不能用密度平均值</li>
+<li><strong>实验题</strong>：测固体密度（天平+量筒）、测液体密度（剩余法减小误差）</li>
+</ol>
+<div class="example-box">
+<h4>📝 质量与密度典型易错</h4>
+<div class="problem">一个铝球质量为54g，体积为30cm³，判断是空心还是实心？（ρ铝=2.7g/cm³）</div>
+<div class="solution"><strong>解法（比较体积法）：</strong><br>假设实心，V实=m/ρ=54g÷2.7g/cm³=20cm³<br>因为V实=20cm³&lt;V实际=30cm³，所以铝球是空心的。<br>空心部分体积=30-20=10cm³</div>
+<div class="tip">✨ 技巧：空心实心判断三种方法——比密度、比体积、比质量，选最简便的计算。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>质量与密度高频考点</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>考点</th><th>考查方式</th><th>易错点</th></tr>
+<tr><td>天平使用</td><td>操作步骤、读数</td><td>左物右码，读数=砝码+游码</td></tr>
+<tr><td>密度计算</td><td>ρ=m/V公式应用</td><td>单位换算g/cm³与kg/m³</td></tr>
+<tr><td>空心实心</td><td>三种判断方法</td><td>计算时要假设是实心</td></tr>
+<tr><td>测密度实验</td><td>实验步骤、误差分析</td><td>液体密度测量的先后顺序</td></tr>
+<tr><td>密度与温度</td><td>热胀冷缩对密度的影响</td><td>水的反常膨胀（4℃密度最大）</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 电学基础 -->
+<div class="tab-content" id="module-5">
+<div class="card">
+<div class="card-title"><span class="ct-icon">⚡</span>电学基础学习重点</div>
+<div class="card-content">
+<p>电学基础是物理考试中<strong>分值高、综合性强</strong>的模块，涵盖电流、电压、电阻和欧姆定律。</p>
+<p><strong>核心知识点：</strong></p>
+<ul>
+<li><strong>电流</strong>：I=Q/t，单位A，串联电流处处相等，并联干路等于各支路之和</li>
+<li><strong>电压</strong>：U，单位V，串联总电压等于各部分之和，并联电压相等</li>
+<li><strong>电阻</strong>：R，单位Ω，决定因素（材料、长度、横截面积、温度）</li>
+<li><strong>欧姆定律</strong>：I=U/R，导体中的电流与电压成正比，与电阻成反比</li>
+<li><strong>串并联电路</strong>：串联R总=R₁+R₂，并联1/R总=1/R₁+1/R₂</li>
+<li><strong>电功电功率</strong>：W=UIt，P=UI=I²R=U²/R</li>
+</ul>
+<div class="info-box info-blue"><strong>电学最大挑战：</strong>电路分析（串并联判断）和欧姆定律的综合应用。需要掌握画等效电路图的能力。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>电学考试策略</div>
+<div class="card-content">
+<ol>
+<li><strong>电路分析</strong>：先判断串并联，再画等效电路图</li>
+<li><strong>欧姆定律</strong>：注意I、U、R必须是同一导体、同一时刻的量</li>
+<li><strong>电表判断</strong>：电流表串联、电压表并联，注意量程选择</li>
+<li><strong>比值问题</strong>：串联正比分压（U₁/U₂=R₁/R₂），并联反比分流（I₁/I₂=R₂/R₁）</li>
+<li><strong>安全用电</strong>：不接触低压带电体，不靠近高压带电体</li>
+</ol>
+<div class="example-box">
+<h4>📝 电学典型易错</h4>
+<div class="problem">两个电阻R₁=10Ω、R₂=20Ω串联接在6V电源上，求通过R₁的电流和R₂两端的电压。</div>
+<div class="solution"><strong>解：</strong><br>串联总电阻R=R₁+R₂=10+20=30Ω<br>电路电流I=U/R=6V/30Ω=0.2A<br>串联电流处处相等，I₁=I=0.2A<br>U₂=IR₂=0.2A×20Ω=4V</div>
+<div class="tip">✨ 技巧：串联电路"电流处处相等"是解题突破口，先求总电阻再求总电流。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>电学高频考点</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>考点</th><th>考查方式</th><th>易错点</th></tr>
+<tr><td>串并联判断</td><td>画等效电路、判断连接方式</td><td>电压表当作断路处理</td></tr>
+<tr><td>欧姆定律</td><td>I=U/R计算、比值问题</td><td>I、U、R必须对应同一导体</td></tr>
+<tr><td>电表读数</td><td>量程选择、分度值判断</td><td>注意0-0.6A和0-3A量程</td></tr>
+<tr><td>电路故障</td><td>断路/短路判断</td><td>电压表有示数说明断路</td></tr>
+<tr><td>滑动变阻器</td><td>阻值变化对电路的影响</td><td>接线柱选择"一上一下"</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- 内能与热机（初三） -->
+<div class="tab-content" id="module-6">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔥</span>内能与热机学习重点（初三）</div>
+<div class="card-content">
+<p>内能是九年级的热学核心模块，考查<strong>分子动理论、内能、比热容、热机、能量转化</strong>。</p>
+<p><strong>核心知识点：</strong></p>
+<ul>
+<li><strong>分子动理论</strong>：物质由分子组成，分子在不停地做无规则运动，分子间有引力和斥力</li>
+<li><strong>内能</strong>：物体内所有分子动能和分子势能的总和，一切物体都有内能</li>
+<li><strong>改变内能方式</strong>：做功（机械能→内能）和热传递（高温→低温）</li>
+<li><strong>比热容</strong>：c=Q/(mΔt)，水的比热容最大c水=4.2×10³J/(kg·℃)</li>
+<li><strong>热值</strong>：1kg燃料完全燃烧放出的热量，q=Q/m</li>
+<li><strong>热机</strong>：四冲程（吸气、压缩、做功、排气），做功冲程内能→机械能</li>
+</ul>
+<div class="info-box info-blue"><strong>内能模块最大挑战：</strong>区分"做功改变内能"和"热传递改变内能"，以及比热容计算中Δt（末温减初温）的正确使用。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>内能考试策略</div>
+<div class="card-content">
+<ol>
+<li><strong>分子动理论题</strong>：扩散现象说明分子在无规则运动，"温度越高扩散越快"</li>
+<li><strong>内能判断</strong>：同一物体温度升高内能增大，但内能增大温度不一定升高（如晶体熔化）</li>
+<li><strong>做功与热传递</strong>：摩擦生热、压缩气体→做功；晒太阳、烧水→热传递</li>
+<li><strong>比热容计算</strong>：Q=cmΔt，注意Δt=末温-初温，质量单位用kg</li>
+<li><strong>热机效率</strong>：η=W有用/Q放×100%，热机做功冲程是唯一对外做功的冲程</li>
+</ol>
+<div class="example-box">
+<h4>📝 内能典型易错</h4>
+<div class="problem">"热传递和做功都能改变内能"，如何判断？搓手取暖和用热水袋取暖分别属于哪种方式？</div>
+<div class="solution"><strong>正确答案：</strong>搓手取暖属于做功（克服摩擦做功，机械能→内能）；用热水袋取暖属于热传递（高温热水→低温手）。<br><strong>常见错误：</strong>将"摩擦生热"误认为热传递。判断关键：是否有"做功的位移"或"高温物体与低温物体直接接触"。</div>
+<div class="tip">✨ 判断口诀：摩擦压缩必做功，接触传热是热传递；做功内能来改变，热传递看温度差。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>内能高频考点</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>考点</th><th>考查方式</th><th>易错点</th></tr>
+<tr><td>分子动理论</td><td>扩散现象、分子间作用力</td><td>扩散是分子运动不是机械运动</td></tr>
+<tr><td>内能改变方式</td><td>判断做功还是热传递</td><td>摩擦生热误判为热传递</td></tr>
+<tr><td>比热容</td><td>Q=cmΔt计算、水的比热容大</td><td>Δt用错、单位不统一</td></tr>
+<tr><td>热值</td><td>Q=mq计算、燃料完全燃烧</td><td>热值是燃料的特性</td></tr>
+<tr><td>热机四冲程</td><td>冲程判断、能量转化</td><td>做功冲程才对外做功</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 电流与电路（初三） -->
+<div class="tab-content" id="module-7">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔌</span>电流与电路学习重点（初三）</div>
+<div class="card-content">
+<p>电流与电路是九年级电学的入门基础，考查<strong>电荷、电流、电路组成、串并联、电流电压测量</strong>。</p>
+<p><strong>核心知识点：</strong></p>
+<ul>
+<li><strong>电荷</strong>：正负电荷、摩擦起电（电子转移）、电荷间相互作用（同斥异吸）</li>
+<li><strong>电流</strong>：电荷定向移动形成电流，方向：正电荷定向移动方向，单位A</li>
+<li><strong>电路组成</strong>：电源、用电器、开关、导线四要素；通路、断路、短路三种状态</li>
+<li><strong>串并联</strong>：串联电流处处相等；并联各支路互不影响</li>
+<li><strong>电流表</strong>：串联接入，正进负出，不能直接接电源两极</li>
+<li><strong>电压表</strong>：并联接入，量程选择，可直接测电源电压</li>
+</ul>
+<div class="info-box info-purple"><strong>电路模块最大挑战：</strong>电路图的识别与设计、电流表电压表的正确连接、短路的判断。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>电流与电路考试策略</div>
+<div class="card-content">
+<ol>
+<li><strong>电路判断</strong>：电流表当导线、电压表当断路，去掉电表再判断串并联</li>
+<li><strong>故障分析</strong>：电流表无示数电压表有示数→断路；电流过大→短路</li>
+<li><strong>电路设计题</strong>：按要求逐条设计，开关控制并联电路各支路时接在支路上</li>
+<li><strong>读数技巧</strong>：先看量程再读数，电流表0-0.6A与0-3A、电压表0-3V与0-15V相差5倍</li>
+<li><strong>实物图连接</strong>：从电源正极出发，按电流路径逐个连接，注意电表正负接线柱</li>
+</ol>
+<div class="example-box">
+<h4>📝 电路典型易错</h4>
+<div class="problem">两个灯泡串联时，通过它们的电流I₁和I₂有什么关系？若一个灯泡灯丝断了，另一个会怎样？</div>
+<div class="solution"><strong>正确答案：</strong>串联电流处处相等，I₁=I₂。灯丝断了电路断路，另一个灯泡也不亮。<br><strong>常见错误：</strong>认为离电源近的灯泡电流大。串联电路中电流处处相等，只是电阻大的分压大。</div>
+<div class="tip">✨ 记忆：串联"流等压分"，并联"压等流分"；串联断路全不亮，并联互不影响。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>电流与电路高频考点</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>考点</th><th>考查方式</th><th>易错点</th></tr>
+<tr><td>摩擦起电</td><td>电子转移方向判断</td><td>失去电子带正电</td></tr>
+<tr><td>电流方向</td><td>电路中电流方向判断</td><td>电流方向与电子移动方向相反</td></tr>
+<tr><td>串并联判断</td><td>电路图识别</td><td>电表处理不当</td></tr>
+<tr><td>短路判断</td><td>电源短路与局部短路</td><td>电源短路烧坏电源</td></tr>
+<tr><td>电表连接</td><td>电流表串联、电压表并联</td><td>电表接错烧表</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 欧姆定律（初三） -->
+<div class="tab-content" id="module-8">
+<div class="card">
+<div class="card-title"><span class="ct-icon">📏</span>欧姆定律学习重点（初三）</div>
+<div class="card-content">
+<p>欧姆定律是九年级电学的中枢，考查<strong>欧姆定律、串并联计算、伏安法测电阻、动态电路</strong>。</p>
+<p><strong>核心知识点：</strong></p>
+<ul>
+<li><strong>欧姆定律</strong>：I=U/R，导体中电流与电压成正比，与电阻成反比（同体同时）</li>
+<li><strong>电阻</strong>：导体对电流的阻碍作用，与材料、长度、横截面积、温度有关</li>
+<li><strong>串联电路</strong>：R=R₁+R₂，电流处处相等，电压正比分压U₁/U₂=R₁/R₂</li>
+<li><strong>并联电路</strong>：1/R=1/R₁+1/R₂，各支路电压相等，电流反比分流I₁/I₂=R₂/R₁</li>
+<li><strong>伏安法测电阻</strong>：原理R=U/I，滑动变阻器保护电路+多次测量求平均</li>
+<li><strong>动态电路</strong>：滑片移动、开关通断引起电路变化分析</li>
+</ul>
+<div class="info-box info-orange"><strong>欧姆定律最大挑战：</strong>I、U、R的"同体同时"对应关系，以及动态电路中电表示数的变化分析。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>欧姆定律考试策略</div>
+<div class="card-content">
+<ol>
+<li><strong>计算对应</strong>：三个量必须对应同一导体同一时刻，加下标区分如I₁=U₁/R₁</li>
+<li><strong>动态电路口诀</strong>："串大流小压大"，变阻器阻值增大→总电阻增大→总电流减小</li>
+<li><strong>伏安法实验</strong>：滑动变阻器初始调最大阻值，多次测量取平均减小误差</li>
+<li><strong>I-U图象</strong>：同一电阻I-U图象是过原点的直线，斜率倒数表示电阻</li>
+<li><strong>求电阻方法</strong>：串联分压求电压、并联分流求电流，再结合欧姆定律</li>
+</ol>
+<div class="example-box">
+<h4>📝 欧姆定律典型易错</h4>
+<div class="problem">一个灯泡电阻10Ω，正常发光时电流0.3A，现接在9V电源上，需串联一个多大的电阻？</div>
+<div class="solution"><strong>解：</strong>灯泡正常发光电压U₁=I×R₁=0.3×10=3V；串联分压，R分得电压U₂=9-3=6V；串联电流相等I=0.3A，R₂=U₂/I=6/0.3=20Ω。<br><strong>常见错误：</strong>直接用9V除以灯泡电阻，忽视串联分压。</div>
+<div class="tip">✨ 技巧：串联分压U总=U₁+U₂，先求已知电阻电压，再用欧姆定律求所需电阻。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>欧姆定律高频考点</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>考点</th><th>考查方式</th><th>易错点</th></tr>
+<tr><td>欧姆定律应用</td><td>串并联综合计算</td><td>I、U、R不对应</td></tr>
+<tr><td>串并联规律</td><td>分压分流计算</td><td>正比反比记反</td></tr>
+<tr><td>伏安法测电阻</td><td>实验电路连接与计算</td><td>滑动变阻器作用</td></tr>
+<tr><td>动态电路</td><td>滑片移动电表示数变化</td><td>先判断结构再分析</td></tr>
+<tr><td>I-U图象</td><td>图象读数求电阻</td><td>坐标轴物理意义</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 电功率（初三） -->
+<div class="tab-content" id="module-9">
+<div class="card">
+<div class="card-title"><span class="ct-icon">⚡</span>电功率学习重点（初三）</div>
+<div class="card-content">
+<p>电功率是九年级电学的最重要模块（中考压轴常客），考查<strong>电功、电功率、焦耳定律、额定功率、测量小灯泡功率</strong>。</p>
+<p><strong>核心知识点：</strong></p>
+<ul>
+<li><strong>电功</strong>：W=UIt，单位J或kW·h（1kW·h=3.6×10⁶J）</li>
+<li><strong>电功率</strong>：P=W/t=UI=I²R=U²/R，单位W</li>
+<li><strong>额定功率与实际功率</strong>：额定电压下功率为额定功率，实际功率随实际电压变化</li>
+<li><strong>焦耳定律</strong>：Q=I²Rt，电热器（纯电阻）Q=W=Pt</li>
+<li><strong>测小灯泡电功率</strong>：原理P=UI，需测额定电压下的电流</li>
+<li><strong>电表读数</strong>：电能表读数（最后一位小数）、测量电功率</li>
+</ul>
+<div class="info-box info-red"><strong>电功率最大挑战：</strong>额定功率与实际功率的区别（灯越亮实际功率越大），以及电功率三公式的灵活选择。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>电功率考试策略</div>
+<div class="card-content">
+<ol>
+<li><strong>公式选择</strong>：串联比电流用P=I²R，并联比电压用P=U²/R，已知UI直接用P=UI</li>
+<li><strong>灯泡亮度</strong>：实际功率越大灯越亮，两灯串联时电阻大的亮（电流相等），并联时电阻小的亮（电压相等）</li>
+<li><strong>档位问题</strong>：电热器"高温档=功率大"，根据P=U²/R，电阻小功率大（多挡位电路）</li>
+<li><strong>测功率实验</strong>：移动滑片使电压表示数等于额定电压，再读电流算额定功率</li>
+<li><strong>电能表测功率</strong>：P=n/N×3.6×10⁶/t（n转数，N为每度转数）</li>
+</ol>
+<div class="example-box">
+<h4>📝 电功率典型易错</h4>
+<div class="problem">标有"220V 100W"的灯泡，接在110V的电压下，实际功率约为多少？</div>
+<div class="solution"><strong>解：</strong>电阻R=U²/P=220²/100=484Ω；实际功率P实=U实²/R=110²/484=25W。<br><strong>常见错误：</strong>误认为实际功率是额定功率的一半。实际功率与电压的平方成正比，110V是220V的一半，功率变为1/4。</div>
+<div class="tip">✨ 记忆：P实/P额=(U实/U额)²，电压减半功率变四分之一。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>电功率高频考点</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>考点</th><th>考查方式</th><th>易错点</th></tr>
+<tr><td>电功率计算</td><td>额定与实际功率</td><td>P与U²成正比</td></tr>
+<tr><td>焦耳定律</td><td>Q=I²Rt计算</td><td>非纯电阻不能用Q=UIt</td></tr>
+<tr><td>测灯泡功率</td><td>实验电路与读数</td><td>必须额定电压下测量</td></tr>
+<tr><td>多挡位电路</td><td>高温低温档判断</td><td>电阻小功率大</td></tr>
+<tr><td>电能表</td><td>读数与测功率</td><td>最后一位是小数</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 生活用电与电与磁（初三） -->
+<div class="tab-content" id="module-10">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🏠</span>生活用电与电与磁学习重点（初三）</div>
+<div class="card-content">
+<p>生活用电与电与磁是九年级电学的应用拓展，考查<strong>家庭电路、安全用电、磁场、电磁铁、电动机、发电机</strong>。</p>
+<p><strong>核心知识点：</strong></p>
+<ul>
+<li><strong>家庭电路</strong>：火线零线、220V、保险丝/空气开关、用电器并联、开关接火线</li>
+<li><strong>安全用电</strong>：不接触低压带电体、不靠近高压带电体、安全电压不高于36V</li>
+<li><strong>磁场</strong>：磁体周围存在磁场，磁感线从N极出发回到S极</li>
+<li><strong>电生磁</strong>：奥斯特实验（电流周围有磁场），电磁铁（电流磁效应）</li>
+<li><strong>电磁感应</strong>：法拉第实验，闭合电路部分导体切割磁感线产生感应电流</li>
+<li><strong>电动机与发电机</strong>：电动机（通电线圈在磁场中受力转动，电能→机械能）、发电机（电磁感应，机械能→电能）</li>
+</ul>
+<div class="info-box info-green"><strong>电与磁最大挑战：</strong>区分"电生磁"（电磁铁、电动机）与"磁生电"（电磁感应、发电机）两大方向。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>生活用电与电与磁考试策略</div>
+<div class="card-content">
+<ol>
+<li><strong>家庭电路连接</strong>：开关与灯串联且接火线，插座左零右火上接地，保险丝接火线</li>
+<li><strong>安全用电判断</strong>：是否接触带电体、是否靠近高压、是否有良好接地</li>
+<li><strong>电磁方向判断</strong>：右手定则判断通电螺线管N极（电流方向与N极关系）</li>
+<li><strong>感应电流条件</strong>：①闭合电路②部分导体③切割磁感线，三条件缺一不可</li>
+<li><strong>电动机发电机区分</strong>：有电源→电动机；有灵敏电流表/无电源→发电机</li>
+</ol>
+<div class="example-box">
+<h4>📝 生活用电典型易错</h4>
+<div class="problem">为什么家庭电路的开关要接在火线上？三孔插座的"接地"孔有什么作用？</div>
+<div class="solution"><strong>正确答案：</strong>开关接火线，断开开关后灯泡不带电，避免触电；三孔插座的接地孔连接大地，防止用电器外壳带电时触电（金属外壳用电器必须接地）。<br><strong>常见错误：</strong>开关接零线，断开后灯泡仍可能带电。</div>
+<div class="tip">✨ 口诀：开关火线灯并联，左零右火上接地，保险火线保安全。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>生活用电与电与磁高频考点</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>考点</th><th>考查方式</th><th>易错点</th></tr>
+<tr><td>家庭电路连接</td><td>电路图判断正误</td><td>开关位置、接地</td></tr>
+<tr><td>安全用电</td><td>安全行为判断</td><td>安全电压36V</td></tr>
+<tr><td>电生磁</td><td>右手定则、电磁铁</td><td>电流方向与N极</td></tr>
+<tr><td>电磁感应</td><td>感应电流条件</td><td>切割磁感线三条件</td></tr>
+<tr><td>电动机与发电机</td><td>原理与能量转化</td><td>有无电源判断</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 信息与能源（初三） -->
+<div class="tab-content" id="module-11">
+<div class="card">
+<div class="card-title"><span class="ct-icon">📡</span>信息与能源学习重点（初三）</div>
+<div class="card-content">
+<p>信息的传递与能源是九年级的识记性模块，考查<strong>电磁波、电话、光纤、能源分类与可持续发展</strong>。</p>
+<p><strong>核心知识点：</strong></p>
+<ul>
+<li><strong>电磁波</strong>：不需要介质，真空中速度c=3×10⁸m/s，波长频率关系c=λf</li>
+<li><strong>信息的传递</strong>：电话（电流传递）、光纤通信（光的全反射）、卫星通信、网络</li>
+<li><strong>能源分类</strong>：一次能源/二次能源、可再生能源/不可再生能源、常规/新能源</li>
+<li><strong>核能</strong>：核裂变（原子弹、核电站）、核聚变（氢弹、太阳）</li>
+<li><strong>能量守恒</strong>：能量转化和转移有方向性，总量守恒</li>
+</ul>
+<div class="info-box info-purple"><strong>信息与能源最大挑战：</strong>能源分类的准确记忆，以及"能量转化具有方向性"的理解。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>信息与能源考试策略</div>
+<div class="card-content">
+<ol>
+<li><strong>电磁波波长频率</strong>：c=λf，波长与频率成反比，同一电磁波真空速度相同</li>
+<li><strong>能源分类</strong>：可再生能源（太阳能、风能、水能）与不可再生（煤、石油、天然气、核能）</li>
+<li><strong>能量转化方向性</strong>：机械能可以自发转化为内能，但内能不能自发转化为机械能</li>
+<li><strong>现代通信</strong>：手机用电磁波、光纤用激光（全反射）、微波通信</li>
+<li><strong>低碳节能</strong>：节约用电用水、开发利用新能源</li>
+</ol>
+<div class="example-box">
+<h4>📝 能源典型易错</h4>
+<div class="problem">核能属于一次能源还是二次能源？是可再生能源还是不可再生能源？</div>
+<div class="solution"><strong>正确答案：</strong>核能是一次能源（直接来自自然界）、不可再生能源（核燃料有限）。<br><strong>常见错误：</strong>误认为核电是二次能源。核电站利用核能发电，核能本身直接来源于自然界。</div>
+<div class="tip">✨ 分类口诀：一二次看来源，可再生看能否再生；煤油气核不可再生，太阳能风能水能可再生。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>信息与能源高频考点</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>考点</th><th>考查方式</th><th>易错点</th></tr>
+<tr><td>电磁波</td><td>速度、波长频率关系</td><td>真空速度恒为3×10⁸</td></tr>
+<tr><td>通信方式</td><td>光纤、卫星通信判断</td><td>光纤用光不是电</td></tr>
+<tr><td>能源分类</td><td>可再生不可再生判断</td><td>核能不可再生</td></tr>
+<tr><td>核裂变聚变</td><td>核电站原理</td><td>核电站是裂变</td></tr>
+<tr><td>能量守恒</td><td>能量转化方向性</td><td>能量不能凭空产生</td></tr>
+</table>
+</div>
+</div>
+</div>
+<!-- ========== 易错点分析 ========== -->
+<div class="page" id="page-mistakes">
+<div class="section-header">
+<div class="sh-icon">⚠️</div>
+<div><h2>常见易错点分析</h2><p>30+高频易错点，逐个击破避免丢分</p></div>
+</div>
+
+<div class="subject-tabs" id="mistake-tabs">
+<div class="subject-tab active" onclick="switchMistakeTab(event,0)">力学易错</div>
+<div class="subject-tab" onclick="switchMistakeTab(event,1)">电学易错</div>
+<div class="subject-tab" onclick="switchMistakeTab(event,2)">声光易错</div>
+<div class="subject-tab" onclick="switchMistakeTab(event,3)">热学易错</div>
+<div class="subject-tab" onclick="switchMistakeTab(event,4)">实验操作易错</div>
+<div class="subject-tab" onclick="switchMistakeTab(event,5)">初三电学内能易错</div>
+</div>
+
+<div id="mistake-content">
+<!-- 力学易错 -->
+<div class="tab-content active" id="mistake-0">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🏃</span>力学高频易错点</div>
+<div class="card-content">
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>1. 惯性与力的混淆</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>说"受到惯性作用"或"惯性力"</p>
+<p><strong>正确理解：</strong>惯性是物体的固有属性，一切物体都有惯性，惯性不是力。只能说"具有惯性"或"由于惯性"。</p>
+<p><strong>口诀：</strong>"惯性是属性，不是力；只能说具有，不能说受到。"</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>2. 平衡力与相互作用力混淆</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>把平衡力当作相互作用力，或反之</p>
+<p><strong>平衡力：</strong>作用在<strong>同一物体</strong>上的两个力（如书受重力和桌面支持力）</p>
+<p><strong>相互作用力：</strong>作用在<strong>两个不同物体</strong>上的力（如书压桌面和桌面支持书）</p>
+<p><strong>关键区分：</strong>看是否作用在同一个物体上。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>3. 速度单位换算错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>1m/s=3.6km/h记错或方向搞反</p>
+<p><strong>正确换算：</strong>1m/s=3.6km/h，1km/h=1/3.6m/s≈0.28m/s</p>
+<p><strong>推导：</strong>1m/s=1×3.6km/h=3.6km/h</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>4. 重力方向表述错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>说重力方向是"垂直向下"或"指向地心"</p>
+<p><strong>正确说法：</strong>重力方向是"竖直向下"。垂直向下需要说明垂直于哪个面，竖直向下是固定方向。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>5. 滑动摩擦力大小判断错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>认为速度越大摩擦力越大，或接触面积越大摩擦力越大</p>
+<p><strong>正确理解：</strong>滑动摩擦力大小只与<strong>压力大小</strong>和<strong>接触面粗糙程度</strong>有关，与速度、接触面积无关。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>6. 压强公式混用</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>液体压强用p=F/S计算</p>
+<p><strong>正确做法：</strong>固体压强用p=F/S，液体压强用p=ρgh。但规则形状的液体也可以用p=F/S。</p>
+<p><strong>注意：</strong>p=F/S中S是受力面积，单位必须换算为m²。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>7. 浮力方向表述错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>说浮力方向"向上"或"垂直向上"</p>
+<p><strong>正确说法：</strong>浮力方向是"竖直向上"。</p>
+<p><strong>注意：</strong>无论物体在液体中的位置如何，浮力方向始终竖直向上。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 电学易错 -->
+<div class="tab-content" id="mistake-1">
+<div class="card">
+<div class="card-title"><span class="ct-icon">⚡</span>电学高频易错点</div>
+<div class="card-content">
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>1. 串并联电路判断错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>有电压表的电路不会判断串并联</p>
+<p><strong>正确做法：</strong>分析电路时，电流表当作导线（短路），电压表当作断路（开路），先判断用电器的连接方式。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>2. 欧姆定律I、U、R不对应</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>用R₁的电压除以R₂的电阻</p>
+<p><strong>正确做法：</strong>I=U/R中三个量必须对应同一导体、同一时刻。要加下标区分，如I₁=U₁/R₁。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>3. 电表量程读数错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>量程选错导致读数错误</p>
+<p><strong>电流表：</strong>0-0.6A（分度值0.02A）和0-3A（分度值0.1A），读数相差5倍</p>
+<p><strong>电压表：</strong>0-3V（分度值0.1V）和0-15V（分度值0.5V），读数相差5倍</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>4. 滑动变阻器接线错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>接"两上"或"两下"接线柱</p>
+<p><strong>正确接法：</strong>"一上一下"，即上面两个接线柱选一个，下面两个选一个。接"两上"相当于导线（阻值为0），接"两下"相当于定值电阻（阻值最大且不变）。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>5. 短路与断路混淆</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>断路：</strong>电路某处断开，电路中无电流。电流表无示数，电压表可能测电源电压。</p>
+<p><strong>短路：</strong>导线直接连接用电器两端。被短路的用电器不工作，电流很大。</p>
+<p><strong>判断技巧：</strong>电压表有较大示数但电流表无示数→断路；电流过大→短路。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>6. 电路故障分析不全面</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>只考虑一种故障可能</p>
+<p><strong>正确做法：</strong>电路故障可能是断路或短路，需要根据电表示数综合判断。列出所有可能，逐一排除。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 声光易错 -->
+<div class="tab-content" id="mistake-2">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔊</span>声光高频易错点</div>
+<div class="card-content">
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>1. 音调、响度、音色混淆</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>将"震耳欲聋"判断为音调高</p>
+<p><strong>正确理解：</strong>音调→频率→高低（高音/低音）；响度→振幅→大小（大声/小声）；音色→材料→品质（分辨不同声音）。</p>
+<p><strong>关键词对应：</strong>高/低/尖锐→音调；大/小/响/轻→响度；好听/辨别→音色。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>2. 真空能否传声/传光</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>认为真空可以传声或真空不能传光</p>
+<p><strong>正确理解：</strong>声音传播需要介质，真空不能传声；光可以在真空中传播（光不需要介质）。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>3. 入射角/反射角从哪里量起</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>从反射面量起</p>
+<p><strong>正确做法：</strong>入射角和反射角都是从法线量起的。法线是垂直于反射面的虚线。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>4. 平面镜成像距离计算</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>像到物体的距离等于物到镜面的距离</p>
+<p><strong>正确理解：</strong>像到镜面距离=物到镜面距离。像到物体距离=2×物到镜面距离。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>5. 凸透镜成像规律记混</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>口诀记忆：</strong>"一倍焦距分虚实，二倍焦距分大小"</p>
+<p>u>2f：倒立缩小实像（照相机）</p>
+<p>f&lt;u&lt;2f：倒立放大实像（投影仪）</p>
+<p>u&lt;f：正立放大虚像（放大镜）</p>
+<p>u=2f：倒立等大实像（分界点）</p>
+<p>u=f：不成像（分界点）</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>6. 实像与虚像混淆</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>实像：</strong>实际光线会聚形成，能呈现在光屏上，倒立。如小孔成像、凸透镜成实像。</p>
+<p><strong>虚像：</strong>光线的反向延长线形成，不能呈现在光屏上。如平面镜成像、凸透镜成虚像。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 热学易错 -->
+<div class="tab-content" id="mistake-3">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🌡️</span>热学高频易错点</div>
+<div class="card-content">
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>1. 物态变化名称记错</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>六种物态变化：</strong></p>
+<p>固态→液态：熔化（吸热）</p>
+<p>液态→固态：凝固（放热）</p>
+<p>液态→气态：汽化（吸热）</p>
+<p>气态→液态：液化（放热）</p>
+<p>固态→气态：升华（吸热）</p>
+<p>气态→固态：凝华（放热）</p>
+<p><strong>口诀：</strong>"熔汽升吸热，凝液凝放热"（注意"凝"出现两次：凝固和凝华都放热）</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>2. 晶体熔化时温度是否变化</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>认为晶体熔化时温度升高</p>
+<p><strong>正确理解：</strong>晶体熔化时温度保持不变（在熔点），但需要继续吸热。非晶体熔化时温度持续升高，没有固定熔点。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>3. 蒸发与沸腾的区别</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>蒸发：</strong>在任何温度下发生，只在液体表面进行，缓慢</p>
+<p><strong>沸腾：</strong>在沸点时发生，液体表面和内部同时进行，剧烈</p>
+<p><strong>共同点：</strong>都是汽化现象，都吸热</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>4. "白气"是什么物态变化</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>认为"白气"是水蒸气</p>
+<p><strong>正确理解：</strong>"白气"不是水蒸气（水蒸气是无色透明的），而是水蒸气遇冷液化形成的小水珠。所以"白气"的形成是液化现象。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>5. 体温计的特殊性</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>认为体温计和普通温度计一样不能离开人体读数</p>
+<p><strong>正确理解：</strong>体温计有缩口结构，离开人体后水银不会自动回落，因此可以离开人体读数。使用前需要甩一甩使水银回落。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>6. 沸点与气压的关系</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>正确理解：</strong>液体的沸点随气压增大而升高，随气压减小而降低。</p>
+<p><strong>应用：</strong>高压锅利用增大气压来提高沸点，使食物更快煮熟。高海拔地区气压低，水的沸点低于100℃。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 实验操作易错 -->
+<div class="tab-content" id="mistake-4">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔬</span>实验操作高频易错点</div>
+<div class="card-content">
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>1. 天平使用"左物右码"记反</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>左盘放砝码，右盘放物体</p>
+<p><strong>正确做法：</strong>左盘放物体，右盘放砝码。因为游码向右移动相当于在右盘加小砝码。</p>
+<p><strong>读数：</strong>物体质量=砝码总质量+游码示数。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>2. 量筒读数视线问题</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>仰视或俯视读数</p>
+<p><strong>正确做法：</strong>视线与液面最低处保持水平。仰视读数偏小，俯视读数偏大。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>3. 测密度实验顺序错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>测固体密度：</strong>先测质量（天平），再测体积（量筒）。如果先测体积再测质量，固体沾水会导致质量偏大，密度偏大。</p>
+<p><strong>测液体密度：</strong>先测总质量（烧杯+液体），倒入量筒测体积，再测剩余质量（烧杯+剩余液体）。这样可以避免烧杯壁残留液体带来的误差。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>4. 控制变量法表述不完整</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>结论不写前提条件</p>
+<p><strong>正确表述：</strong>"在______一定时，______与______成正比/反比。"必须写出"在______一定时"的前提条件。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>5. 凸透镜成像实验操作错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>蜡烛、凸透镜、光屏不在同一高度</p>
+<p><strong>正确做法：</strong>蜡烛、凸透镜、光屏依次放在光具座上，调整三者中心在同一高度，目的是使像成在光屏中央。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>6. 弹簧测力计使用前未调零</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>直接使用未调零的弹簧测力计</p>
+<p><strong>正确做法：</strong>使用前先检查指针是否在零刻度线处，不在则需要调零。测量时力的方向要与弹簧轴线方向一致。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- 初三电学内能易错 -->
+<div class="tab-content" id="mistake-5">
+<div class="card">
+<div class="card-title"><span class="ct-icon">⚡</span>初三电学高频易错点</div>
+<div class="card-content">
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>1. 电功率公式选择错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>不管条件一律用P=UI</p>
+<p><strong>正确做法：</strong>串联电路比电流方便用P=I²R（电流相等）；并联电路比电压方便用P=U²/R（电压相等）；已知UI直接用P=UI。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>2. 额定功率与实际功率混淆</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>认为灯泡接在任何电压下功率都是额定功率</p>
+<p><strong>正确理解：</strong>额定功率是额定电压下的功率，实际功率随实际电压变化。P实/P额=(U实/U额)²，实际电压减半，实际功率变为原来的1/4。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>3. 焦耳定律适用范围错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>非纯电阻电路（如电动机）也直接用Q=UIt=Pt算热量</p>
+<p><strong>正确理解：</strong>焦耳定律Q=I²Rt对所有电路适用；但Q=W=Pt只适用于纯电阻电路。电动机电路消耗的电能W>产生的热量Q。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>4. 动态电路分析错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>不看电路结构变化，凭感觉判断电表示数</p>
+<p><strong>正确做法：</strong>先判断开关通断/滑片位置改变了电路结构，再按"总电阻→总电流→分电压/分电流"顺序分析。口诀"串大流小压大"。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>5. 电表量程与读数错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>读表时忘了乘分度值或量程看错</p>
+<p><strong>正确做法：</strong>电流表0-0.6A分度值0.02A、0-3A分度值0.1A；电压表0-3V分度值0.1V、0-15V分度值0.5V。读数前先确认接线柱所选量程。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>6. 电能表读数错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>把电能表最后一位整数位当整数读</p>
+<p><strong>正确理解：</strong>电能表最后一位数字是小数位，读数单位是kW·h。电能表测功率：P=n/N×3.6×10⁶/t（n为转数，N为每kW·h转数，t为秒）。</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔥</span>初三热学（内能）高频易错点</div>
+<div class="card-content">
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>7. 比热容计算Δt用错</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>Δt用初温减末温，或把"升高到"当"升高了"</p>
+<p><strong>正确理解：</strong>Δt=末温-初温。"升高了10℃"指Δt=10℃；"升高到10℃"指末温t=10℃（还要减初温）。质量单位用kg，比热容单位J/(kg·℃)。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>8. 热值单位与计算错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>固体燃料热值q的单位J/m³，气体用J/kg，混用</p>
+<p><strong>正确理解：</strong>固体液体燃料热值单位J/kg，气体燃料热值单位J/m³。Q=mq（固体液体）或Q=Vq（气体）。热值是燃料的特性，与质量无关。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>9. 做功与热传递改变内能判断错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>把摩擦生热当成热传递</p>
+<p><strong>正确理解：</strong>摩擦生热、压缩气体做功→做功改变内能；高温物体与低温物体接触传热→热传递改变内能。做功是能量的转化，热传递是能量的转移。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>10. 热机冲程判断错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>认为四个冲程都对外做功</p>
+<p><strong>正确理解：</strong>只有做功冲程对外做功（内能→机械能）；压缩冲程是机械能→内能。四冲程一个循环：吸气、压缩、做功、排气，曲轴转两圈，做功一次。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========== 考试心态 ========== -->
+<div class="page" id="page-psychology">
+<div class="section-header">
+<div class="sh-icon">🧠</div>
+<div><h2>考试心态调整</h2><p>焦虑自评·减压训练·考场心理建设</p></div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">📋</span>物理考试焦虑自评</div>
+<div class="card-content">
+<p>选择最符合你情况的选项，了解自己的考试焦虑程度：</p>
+<div id="anxiety-quiz"></div>
+<div id="anxiety-result" style="display:none;margin-top:14px"></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🧘</span>考前减压方法</div>
+<div class="card-content">
+<div class="info-box info-blue">
+<h3 style="color:#667eea;margin-bottom:8px">💧 4-4-6呼吸法</h3>
+<p><strong>步骤：</strong></p>
+<ul>
+<li>闭上眼睛，用鼻子吸气4秒，感受腹部膨胀</li>
+<li>屏住呼吸4秒，保持自然</li>
+<li>用嘴缓慢呼气6秒，感受身体放松</li>
+<li>重复3-5次，心率会明显下降</li>
+</ul>
+</div>
+<div class="info-box info-purple">
+<h3 style="color:#764ba2;margin-bottom:8px">👉 肌肉渐进放松法</h3>
+<p><strong>步骤：</strong></p>
+<ul>
+<li>从手部开始，用力握拳5秒后突然放松，感受对比</li>
+<li>依次对手臂、肩膀、面部、腹部、腿部进行紧张-放松</li>
+<li>每个部位重复2-3次</li>
+<li>整个过程约5分钟，考前进考场前可在座位上完成</li>
+</ul>
+</div>
+<div class="info-box info-green">
+<h3 style="color:#2e7d32;margin-bottom:8px">💬 积极自我暗示</h3>
+<p><strong>步骤：</strong></p>
+<ul>
+<li>考前准备3-5句积极暗示语，如"我准备得很充分""我会做的题一定能做对"</li>
+<li>遇到难题时默念"这道题难大家都难，我先做后面的"</li>
+<li>考完一科立即放下，不复盘不对答案，告诉自己"考完就过了"</li>
+<li>把焦虑转化为行动：与其担心不如多背一个公式</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🏫</span>考场心理实战指南</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>场景</th><th>心理反应</th><th>应对策略</th></tr>
+<tr><td>看到试卷感觉很难</td><td>紧张、心跳加速</td><td>深呼吸3次，告诉自己"难大家都难，做好我会的"</td></tr>
+<tr><td>前几道选择题就卡住</td><td>慌张、自我怀疑</td><td>跳过标记，先做后面的，"先易后难"是铁律</td></tr>
+<tr><td>计算总是出错</td><td>烦躁、越算越乱</td><td>停下来深呼吸，重新审题，放慢计算速度</td></tr>
+<tr><td>实验探究题不会写结论</td><td>焦虑、无从下手</td><td>先写实验原理和控制变量法表述，争步骤分</td></tr>
+<tr><td>时间不够了</td><td>焦虑、手忙脚乱</td><td>优先做有把握的高分题，计算题先写公式</td></tr>
+<tr><td>旁边同学翻页很快</td><td>焦虑、比较心理</td><td>专注自己的试卷，每个人的做题策略不同</td></tr>
+<tr><td>检查时发现错误</td><td>纠结、不确定改不改</td><td>有充分理由才改，否则相信第一直觉</td></tr>
+</table>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">📅</span>考前一周心理调适计划</div>
+<div class="card-content">
+<div class="timeline">
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h3>考前7天 — 回归基础 <span class="tl-tag">稳心态</span></h3>
+<p>看错题本和笔记，不再做新题难题。每天适度做题保持手感（30-45分钟），重点复习公式定理。调整作息早睡早起。</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h3>考前3天 — 减少训练 <span class="tl-tag">调状态</span></h3>
+<p>每天只做少量基础题（15-20分钟），重点看公式和概念。避免讨论成绩和排名，保持平和心态。</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h3>考前1天 — 轻松准备 <span class="tl-tag">做准备</span></h3>
+<p>整理考试用品（准考证、2B铅笔、黑色签字笔、直尺、计算器）。下午散步放松，晚上10点前入睡。</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h3>考试当天 — 自信应考 <span class="tl-tag">上考场</span></h3>
+<p>早起吃好早餐，提前30分钟到达考场。进考场前做3次深呼吸，告诉自己"我能行"。发卷后先浏览全卷，制定答题策略。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========== 典型例题 ========== -->
+<div class="page" id="page-examples">
+<div class="section-header">
+<div class="sh-icon">📝</div>
+<div><h2>典型例题与解题思路</h2><p>精选经典物理题型，展示完整解题过程</p></div>
+</div>
+
+<div class="subject-tabs" id="example-tabs">
+<div class="subject-tab active" onclick="switchExampleTab(event,0)">声现象</div>
+<div class="subject-tab" onclick="switchExampleTab(event,1)">光现象</div>
+<div class="subject-tab" onclick="switchExampleTab(event,2)">力学</div>
+<div class="subject-tab" onclick="switchExampleTab(event,3)">电学</div>
+<div class="subject-tab" onclick="switchExampleTab(event,4)">综合</div>
+<div class="subject-tab" onclick="switchExampleTab(event,5)">初三电学</div>
+<div class="subject-tab" onclick="switchExampleTab(event,6)">内能热学</div>
+</div>
+
+<div id="example-content">
+<!-- 声现象例题 -->
+<div class="tab-content active" id="example-0">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔊</span>例1：回声测距</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">一个人对着山崖喊话，经过2s后听到回声，求人到山崖的距离。（空气中声速v=340m/s）</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>声音传播的总路程 s总 = v×t = 340m/s × 2s = 680m</p>
+<p>人到山崖的距离 s = s总/2 = 680/2 = 340m</p>
+<p><strong>答：</strong>人到山崖的距离为340m。</p>
+</div>
+<div class="tip">解题技巧：回声测距问题，声音走过的路程是往返的，所以人到障碍物距离=声速×时间÷2。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔊</span>例2：声音三特性辨析</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">以下说法中，分别描述声音的哪个特性？(1)"引吭高歌"(2)"声音刺耳"(3)"闻其声知其人"</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>(1)"引吭高歌"中的"高"指声音大→响度（振幅决定）</p>
+<p>(2)"声音刺耳"形容声音尖锐→音调高（频率决定）</p>
+<p>(3)"闻其声知其人"指能辨别不同人的声音→音色（发声体材料结构决定）</p>
+</div>
+<div class="tip">解题技巧：高/低→音调，大/小/响/轻→响度，辨别/好听→音色。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔊</span>例3：减弱噪声的途径</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">下列措施中，分别在什么环节减弱噪声？(1)摩托车安装消声器(2)高速公路两侧安装隔音墙(3)戴上耳塞</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>(1)摩托车安装消声器→在声源处减弱噪声</p>
+<p>(2)高速公路两侧安装隔音墙→在传播过程中减弱噪声</p>
+<p>(3)戴上耳塞→在人耳处减弱噪声</p>
+</div>
+<div class="tip">解题技巧：减弱噪声三途径——声源处、传播过程中、人耳处。看措施在哪里实施就属于哪个环节。</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 光现象例题 -->
+<div class="tab-content" id="example-1">
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>例4：平面镜成像计算</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">身高1.6m的同学站在竖直放置的平面镜前2m处，问：(1)他在镜中的像高多少？(2)像到他本人的距离是多少？(3)若他向镜面走近0.5m，像到镜面的距离变为多少？</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>(1)平面镜成像"等大"，像高=物高=1.6m</p>
+<p>(2)像到镜面距离=物到镜面距离=2m，像到本人距离=2+2=4m</p>
+<p>(3)向镜面走近0.5m后，物到镜面=2-0.5=1.5m，像到镜面=1.5m</p>
+</div>
+<div class="tip">解题技巧：平面镜成像四特点——等大、等距、垂直、虚像。像与物关于镜面对称。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>例5：凸透镜成像应用</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">凸透镜焦距f=10cm。(1)物体放在25cm处，光屏上成什么像？(2)物体从25cm处向透镜靠近到15cm处，像如何变化？(3)物体放在5cm处，成什么像？</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>(1)u=25cm>2f=20cm→倒立、缩小、实像（照相机原理）</p>
+<p>(2)从u=25cm到u=15cm（f&lt;u&lt;2f）→像从缩小实像变为放大实像，且像变大、像距变大</p>
+<p>(3)u=5cm&lt;f=10cm→正立、放大、虚像（放大镜原理）</p>
+</div>
+<div class="tip">口诀：一倍焦距分虚实，二倍焦距分大小；物近像远像变大，物远像近像变小。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>例6：光的折射判断</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">一束光从空气斜射入水中，入射角为40°，则折射角可能为多少？</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>光从空气斜射入水中，折射角小于入射角。</p>
+<p>入射角=40°，所以折射角&lt;40°，可能为30°（具体值取决于水的折射率）。</p>
+<p><strong>注意：</strong>折射角和入射角都是从法线量起的。</p>
+</div>
+<div class="tip">解题技巧：空气→水/玻璃，折射角&lt;入射角；水/玻璃→空气，折射角>入射角。"空气角大"。</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 力学例题 -->
+<div class="tab-content" id="example-2">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🏃</span>例7：速度计算</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">一辆汽车在平直公路上匀速行驶，前半程速度为60km/h，后半程速度为40km/h，求全程的平均速度。</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>设全程为2s，前半程和后半程各为s</p>
+<p>前半程用时 t₁=s/60 (h)</p>
+<p>后半程用时 t₂=s/40 (h)</p>
+<p>总时间 t=t₁+t₂=s/60+s/40=s(2+3)/120=5s/120=s/24</p>
+<p>平均速度 v=2s/t=2s/(s/24)=48 km/h</p>
+<p><strong>答：</strong>全程平均速度为48km/h。</p>
+</div>
+<div class="tip">解题技巧：平均速度=总路程÷总时间，不是速度的平均值！分段计算时注意路程和时间的对应关系。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">⚖️</span>例8：密度计算</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">一个质量为178g的铜球，体积为30cm³。（ρ铜=8.9g/cm³）(1)判断是否空心；(2)若空心，空心部分体积多大？(3)若空心部分注满水，总质量多少？</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>(1)假设实心：V实=m/ρ=178÷8.9=20cm³</p>
+<p>因为V实=20cm³&lt;V球=30cm³，所以铜球是空心的</p>
+<p>(2)空心体积V空=V球-V实=30-20=10cm³</p>
+<p>(3)注满水：m水=ρ水×V空=1.0×10=10g</p>
+<p>总质量m总=178+10=188g</p>
+</div>
+<div class="tip">解题技巧：空心实心判断——假设实心算体积，与实际体积比较。空心部分注水/注其他物质，用ρ=m/V计算。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🏊</span>例9：浮力计算</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">一个物体重力为6N，体积为5×10⁻⁴m³，将其浸入水中（ρ水=1.0×10³kg/m³，g=10N/kg）。(1)求物体完全浸没时受到的浮力；(2)物体静止后是漂浮、悬浮还是沉底？</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>(1)完全浸没时：F浮=ρ水gV排=1.0×10³×10×5×10⁻⁴=5N</p>
+<p>(2)比较浮力与重力：F浮=5N&lt;G物=6N</p>
+<p>浮力小于重力→物体沉底</p>
+<p><strong>验证：</strong>物体密度ρ物=m/V=G/(gV)=6/(10×5×10⁻⁴)=1.2×10³kg/m³>ρ水</p>
+<p>ρ物>ρ液→沉底，与结论一致。</p>
+</div>
+<div class="tip">解题技巧：判断浮沉——比较ρ物与ρ液（或比较F浮与G物）。ρ物&lt;ρ液漂浮，ρ物=ρ液悬浮，ρ物>ρ液沉底。</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 电学例题 -->
+<div class="tab-content" id="example-3">
+<div class="card">
+<div class="card-title"><span class="ct-icon">⚡</span>例10：欧姆定律计算</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">如图，R₁=10Ω、R₂=20Ω串联接在12V电源上。求：(1)电路总电阻；(2)电路中的电流；(3)R₁和R₂两端的电压。</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>(1)串联总电阻R=R₁+R₂=10+20=30Ω</p>
+<p>(2)I=U/R=12V/30Ω=0.4A</p>
+<p>(3)串联电流处处相等：I₁=I₂=I=0.4A</p>
+<p>U₁=I₁R₁=0.4×10=4V</p>
+<p>U₂=I₂R₂=0.4×20=8V</p>
+<p>验证：U₁+U₂=4+8=12V=U ✓</p>
+</div>
+<div class="tip">解题技巧：串联电路先求总电阻→再求总电流→最后求各部分电压。串联正比分压：U₁/U₂=R₁/R₂。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">⚡</span>例11：并联电路计算</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">R₁=10Ω、R₂=20Ω并联接在6V电源上。求：(1)通过R₁和R₂的电流；(2)干路总电流；(3)电路总电阻。</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>(1)并联电压相等：U₁=U₂=U=6V</p>
+<p>I₁=U₁/R₁=6/10=0.6A</p>
+<p>I₂=U₂/R₂=6/20=0.3A</p>
+<p>(2)干路电流I=I₁+I₂=0.6+0.3=0.9A</p>
+<p>(3)R=U/I=6/0.9≈6.67Ω</p>
+<p>或用公式：1/R=1/R₁+1/R₂=1/10+1/20=3/20</p>
+<p>R=20/3≈6.67Ω</p>
+</div>
+<div class="tip">解题技巧：并联电路先求各支路电流→再求干路总电流。并联反比分流：I₁/I₂=R₂/R₁。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">⚡</span>例12：滑动变阻器问题</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">如图，R₁=20Ω为定值电阻，R为滑动变阻器，电源电压6V不变。当滑片P在中点时，电流表示数为0.2A。(1)求滑动变阻器最大阻值；(2)当滑片在最右端时，电流表示数多大？</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>(1)滑片在中点，R接入阻值=R_max/2</p>
+<p>R总=U/I=6/0.2=30Ω</p>
+<p>R_max/2=R总-R₁=30-20=10Ω</p>
+<p>R_max=20Ω</p>
+<p>(2)滑片在最右端，R=R_max=20Ω</p>
+<p>R总'=R₁+R=20+20=40Ω</p>
+<p>I'=U/R总'=6/40=0.15A</p>
+</div>
+<div class="tip">解题技巧：滑动变阻器问题关键——明确滑片位置与接入阻值的关系，注意"一上一下"接法。</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 综合例题 -->
+<div class="tab-content" id="example-4">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🏆</span>例13：力学综合</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">一个边长为10cm的正方体木块漂浮在水面，露出水面的高度为4cm。（ρ水=1.0×10³kg/m³，g=10N/kg）求：(1)木块底面受到的水的压强；(2)木块受到的浮力；(3)木块的密度。</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>(1)木块浸入水中的深度h=10-4=6cm=0.06m</p>
+<p>p=ρ水gh=1.0×10³×10×0.06=600Pa</p>
+<p>(2)木块底面积S=0.1×0.1=0.01m²</p>
+<p>浮力F浮=pS=600×0.01=6N</p>
+<p>（或用F浮=ρ水gV排=1.0×10³×10×0.01×0.06=6N）</p>
+<p>(3)漂浮时F浮=G木</p>
+<p>m木=G/g=6/10=0.6kg</p>
+<p>V木=0.1³=0.001m³</p>
+<p>ρ木=m/V=0.6/0.001=0.6×10³kg/m³</p>
+</div>
+<div class="tip">综合技巧：漂浮问题核心是F浮=G物，结合p=ρgh、F浮=ρ液gV排综合求解。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🏆</span>例14：压强综合</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">将一个质量为500g、底面积为50cm²的物体放在水平桌面上。求：(1)物体对桌面的压力；(2)物体对桌面的压强。（g=10N/kg）</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>(1)水平面上：F=G=mg=0.5kg×10N/kg=5N</p>
+<p>(2)S=50cm²=0.005m²</p>
+<p>p=F/S=5/0.005=1000Pa</p>
+<p><strong>答：</strong>压力为5N，压强为1000Pa。</p>
+</div>
+<div class="tip">综合技巧：固体压强计算——水平面上压力F=G=mg，注意面积单位cm²要换算为m²。</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- 初三电学例题 -->
+<div class="tab-content" id="example-5">
+<div class="card">
+<div class="card-title"><span class="ct-icon">⚡</span>例15：电功率综合计算（中考压轴）</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">标有"6V 3W"的小灯泡与滑动变阻器串联接在9V电源上，灯丝电阻不变。(1)求灯丝电阻；(2)要使灯泡正常发光，变阻器接入电阻为多少？(3)若变阻器接入电阻为12Ω，灯泡实际功率为多少？</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>(1)由P=U²/R得：R=U²/P=6²/3=12Ω</p>
+<p>(2)灯泡正常发光需U₁=6V，I=P/U=3/6=0.5A；串联分压U₂=9-6=3V；R₂=U₂/I=3/0.5=6Ω</p>
+<p>(3)串联总电阻R总=12+12=24Ω；I=U/R总=9/24=0.375A；P实=I²R=0.375²×12≈1.69W</p>
+</div>
+<div class="tip">中考电功率压轴解题三步：先求电阻（R=U²/P）→判断灯泡状态→用实际电流电压求实际功率。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">⚡</span>例16：多挡位电热器问题</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">某电热器有两个发热电阻R₁=44Ω、R₂=88Ω，可串联或单独使用。电源电压220V。求：(1)单独用R₁时的功率；(2)串联时的功率；(3)哪个是高温挡？</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>(1)单独R₁：P₁=U²/R₁=220²/44=1100W</p>
+<p>(2)串联R串=44+88=132Ω；P串=U²/R串=220²/132≈366.7W</p>
+<p>(3)由P=U²/R，电压相同时电阻越小功率越大，单独R₁（1100W）是高温挡</p>
+</div>
+<div class="tip">多挡位电路核心：P=U²/R，电压不变时电阻小→功率大→高温挡。串联电阻大功率小（低温），并联电阻小功率大（高温）。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">⚡</span>例17：动态电路电表示数变化</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">如图，R₁为定值电阻，R₂为滑动变阻器，串联接在电源上。滑片P向右移动时：(1)电路中电流如何变化？(2)电压表V₁（测R₁）示数如何变化？(3)电压表V₂（测R₂）示数如何变化？</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>(1)滑片右移→R₂接入电阻变大→总电阻变大→电源电压不变→电流变小</p>
+<p>(2)R₁阻值不变，电流变小→U₁=I×R₁变小，V₁示数变小</p>
+<p>(3)U₂=U-U₁，电源电压不变，U₁变小→U₂变大，V₂示数变大</p>
+</div>
+<div class="tip">动态电路分析口诀："串大流小压大"——变阻器阻值增大，总电流减小，定值电阻分压减小，变阻器分压增大。</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 内能热学例题 -->
+<div class="tab-content" id="example-6">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔥</span>例18：比热容计算</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">质量为2kg的水，温度从20℃升高到70℃，吸收了多少热量？（c水=4.2×10³J/(kg·℃)）</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>Δt=70-20=50℃</p>
+<p>Q吸=cmΔt=4.2×10³×2×50=4.2×10⁵J</p>
+<p><strong>答：</strong>水吸收了4.2×10⁵J热量。</p>
+</div>
+<div class="tip">比热容计算三步：①确定Δt（末温-初温）②统一单位（质量kg、温度℃）③代入Q=cmΔt。注意"升高到"与"升高了"的区别。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔥</span>例19：热值计算与热效率</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">完全燃烧0.5kg的酒精（q=3.0×10⁷J/kg），放出的热量被20kg的水吸收，水温度升高了10℃，求：(1)酒精完全燃烧放出的热量；(2)水的吸热效率。</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>(1)Q放=mq=0.5×3.0×10⁷=1.5×10⁷J</p>
+<p>(2)Q吸=cmΔt=4.2×10³×20×10=8.4×10⁵J</p>
+<p>η=Q吸/Q放×100%=8.4×10⁵/1.5×10⁷≈5.6%</p>
+</div>
+<div class="tip">热效率计算：η=有效利用热量/总放热量×100%。热机效率、加热效率都是这个思路，注意单位统一。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔥</span>例20：热机与能量转化综合</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">某汽油机飞轮转速为2400r/min，求：(1)每秒完成多少个工作循环？(2)每秒做功多少次？(3)每秒钟曲轴转几圈？</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>(1)飞轮每秒转2400/60=40圈；一个工作循环曲轴转2圈，所以每秒20个循环</p>
+<p>(2)每个循环做功1次，每秒做功20次</p>
+<p>(3)每秒曲轴转40圈</p>
+</div>
+<div class="tip">热机规律：四冲程一个循环，曲轴转2圈，做功1次。飞轮转速除以2=每秒做功次数（循环数）。</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========== 知识点速查 ========== -->
+<div class="page" id="page-knowledge">
+<div class="section-header">
+<div class="sh-icon">🔑</div>
+<div><h2>知识点速查</h2><p>力学·电学·声光·热学·常用数据 公式定理速记</p></div>
+</div>
+
+<div class="subject-tabs" id="knowledge-tabs">
+<div class="subject-tab active" onclick="switchKnowTab(event,0)">力学公式</div>
+<div class="subject-tab" onclick="switchKnowTab(event,1)">电学公式</div>
+<div class="subject-tab" onclick="switchKnowTab(event,2)">声光公式</div>
+<div class="subject-tab" onclick="switchKnowTab(event,3)">热学公式</div>
+<div class="subject-tab" onclick="switchKnowTab(event,4)">常用数据</div>
+<div class="subject-tab" onclick="switchKnowTab(event,5)">初三公式</div>
+</div>
+
+<div id="knowledge-content">
+<!-- 力学公式 -->
+<div class="tab-content active" id="know-0">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🏃</span>力学核心公式速记</div>
+<div class="card-content">
+<h3 style="color:#667eea;margin:8px 0">运动学</h3>
+<table class="data-table">
+<tr><th>名称</th><th>公式</th><th>备注</th></tr>
+<tr><td>速度</td><td>v=s/t</td><td>s路程(m), t时间(s), v速度(m/s)</td></tr>
+<tr><td>单位换算</td><td>1m/s=3.6km/h</td><td>注意方向不能搞反</td></tr>
+<tr><td>平均速度</td><td>v̄=s总/t总</td><td>不是速度的平均值</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">力学</h3>
+<table class="data-table">
+<tr><th>名称</th><th>公式</th><th>备注</th></tr>
+<tr><td>重力</td><td>G=mg</td><td>g=10N/kg（或9.8N/kg）</td></tr>
+<tr><td>密度</td><td>ρ=m/V</td><td>1g/cm³=1×10³kg/m³</td></tr>
+<tr><td>压强（固体）</td><td>p=F/S</td><td>S受力面积，单位m²</td></tr>
+<tr><td>压强（液体）</td><td>p=ρgh</td><td>h深度（液面到所求点）</td></tr>
+<tr><td>浮力（称重法）</td><td>F浮=G-F'</td><td>F'为浸入液体时的视重</td></tr>
+<tr><td>浮力（阿基米德）</td><td>F浮=ρ液gV排</td><td>V排为排开液体的体积</td></tr>
+<tr><td>浮力（平衡法）</td><td>F浮=G物</td><td>漂浮或悬浮时</td></tr>
+<tr><td>功</td><td>W=Fs</td><td>力和位移方向要一致</td></tr>
+<tr><td>功率</td><td>P=W/t=Fv</td><td>单位W（瓦特）</td></tr>
+<tr><td>机械效率</td><td>η=W有/W总</td><td>η&lt;1，通常用百分数表示</td></tr>
+<tr><td>杠杆平衡</td><td>F₁L₁=F₂L₂</td><td>动力×动力臂=阻力×阻力臂</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 电学公式 -->
+<div class="tab-content" id="know-1">
+<div class="card">
+<div class="card-title"><span class="ct-icon">⚡</span>电学核心公式速记</div>
+<div class="card-content">
+<h3 style="color:#667eea;margin:8px 0">基本概念</h3>
+<table class="data-table">
+<tr><th>名称</th><th>公式/关系</th><th>备注</th></tr>
+<tr><td>电流</td><td>I=Q/t</td><td>Q电荷量(C), t时间(s)</td></tr>
+<tr><td>串联电流</td><td>I=I₁=I₂</td><td>处处相等</td></tr>
+<tr><td>并联电流</td><td>I=I₁+I₂</td><td>干路等于各支路之和</td></tr>
+<tr><td>串联电压</td><td>U=U₁+U₂</td><td>总电压等于各部分之和</td></tr>
+<tr><td>并联电压</td><td>U=U₁=U₂</td><td>各支路电压相等</td></tr>
+<tr><td>串联电阻</td><td>R=R₁+R₂</td><td>总电阻大于任一分电阻</td></tr>
+<tr><td>并联电阻</td><td>1/R=1/R₁+1/R₂</td><td>总电阻小于任一分电阻</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">重要定律</h3>
+<table class="data-table">
+<tr><th>名称</th><th>公式</th><th>备注</th></tr>
+<tr><td>欧姆定律</td><td>I=U/R</td><td>I、U、R对应同一导体同一时刻</td></tr>
+<tr><td>电功</td><td>W=UIt</td><td>单位J（焦耳）</td></tr>
+<tr><td>电功率</td><td>P=UI=I²R=U²/R</td><td>单位W（瓦特）</td></tr>
+<tr><td>焦耳定律</td><td>Q=I²Rt</td><td>电流产生的热量</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">串联分压与并联分流</h3>
+<table class="data-table">
+<tr><th>类型</th><th>规律</th><th>记忆口诀</th></tr>
+<tr><td>串联分压</td><td>U₁/U₂=R₁/R₂</td><td>串联正比分压</td></tr>
+<tr><td>并联分流</td><td>I₁/I₂=R₂/R₁</td><td>并联反比分流</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 声光公式 -->
+<div class="tab-content" id="know-2">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔊</span>声光核心知识速记</div>
+<div class="card-content">
+<h3 style="color:#667eea;margin:8px 0">声学</h3>
+<table class="data-table">
+<tr><th>项目</th><th>内容</th><th>备注</th></tr>
+<tr><td>声音传播速度</td><td>v=340m/s（15℃空气）</td><td>固>液>气，真空不传声</td></tr>
+<tr><td>回声测距</td><td>s=vt/2</td><td>除以2因为是往返</td></tr>
+<tr><td>音调</td><td>由频率决定</td><td>频率越高音调越高</td></tr>
+<tr><td>响度</td><td>由振幅决定</td><td>振幅越大响度越大</td></tr>
+<tr><td>音色</td><td>由材料结构决定</td><td>辨别不同声源</td></tr>
+<tr><td>人耳听觉范围</td><td>20Hz~20000Hz</td><td>低于20Hz次声，高于20000Hz超声</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">光学</h3>
+<table class="data-table">
+<tr><th>项目</th><th>内容</th><th>备注</th></tr>
+<tr><td>光速</td><td>c=3×10⁸m/s</td><td>真空中最大</td></tr>
+<tr><td>反射定律</td><td>反射角=入射角</td><td>都从法线量起</td></tr>
+<tr><td>平面镜成像</td><td>等大、等距、垂直、虚像</td><td>关于镜面对称</td></tr>
+<tr><td>折射规律</td><td>空气→水：折射角&lt;入射角</td><td>"空气角大"</td></tr>
+<tr><td>凸透镜成像（u>2f）</td><td>倒立缩小实像</td><td>照相机</td></tr>
+<tr><td>凸透镜成像（f&lt;u&lt;2f）</td><td>倒立放大实像</td><td>投影仪</td></tr>
+<tr><td>凸透镜成像（u&lt;f）</td><td>正立放大虚像</td><td>放大镜</td></tr>
+<tr><td>光的三原色</td><td>红、绿、蓝</td><td>混合成白光</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 热学公式 -->
+<div class="tab-content" id="know-3">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🌡️</span>热学核心知识速记</div>
+<div class="card-content">
+<h3 style="color:#667eea;margin:8px 0">物态变化（六种）</h3>
+<table class="data-table">
+<tr><th>变化</th><th>过程</th><th>吸/放热</th><th>生活实例</th></tr>
+<tr><td>熔化</td><td>固→液</td><td>吸热</td><td>冰雪消融</td></tr>
+<tr><td>凝固</td><td>液→固</td><td>放热</td><td>水结冰</td></tr>
+<tr><td>汽化</td><td>液→气</td><td>吸热</td><td>水蒸发、沸腾</td></tr>
+<tr><td>液化</td><td>气→液</td><td>放热</td><td>雾、露、"白气"</td></tr>
+<tr><td>升华</td><td>固→气</td><td>吸热</td><td>干冰、樟脑丸变小</td></tr>
+<tr><td>凝华</td><td>气→固</td><td>放热</td><td>霜、雪、灯泡发黑</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">温度与温度计</h3>
+<table class="data-table">
+<tr><th>项目</th><th>内容</th></tr>
+<tr><td>温度单位</td><td>摄氏度（℃）</td></tr>
+<tr><td>体温计量程</td><td>35℃~42℃，分度值0.1℃</td></tr>
+<tr><td>体温计特殊性</td><td>有缩口，可离开人体读数，用前需甩</td></tr>
+<tr><td>标准大气压下水的沸点</td><td>100℃</td></tr>
+<tr><td>标准大气压下冰的熔点</td><td>0℃</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">吸放热口诀</h3>
+<table class="data-table">
+<tr><th>吸热（三个）</th><th>放热（三个）</th></tr>
+<tr><td>熔化、汽化、升华</td><td>凝固、液化、凝华</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 常用数据 -->
+<div class="tab-content" id="know-4">
+<div class="card">
+<div class="card-title"><span class="ct-icon">📋</span>常用物理数据速记</div>
+<div class="card-content">
+<h3 style="color:#667eea;margin:8px 0">常见物质密度</h3>
+<table class="data-table">
+<tr><th>物质</th><th>密度(kg/m³)</th><th>密度(g/cm³)</th></tr>
+<tr><td>水</td><td>1.0×10³</td><td>1.0</td></tr>
+<tr><td>冰</td><td>0.9×10³</td><td>0.9</td></tr>
+<tr><td>酒精</td><td>0.8×10³</td><td>0.8</td></tr>
+<tr><td>铝</td><td>2.7×10³</td><td>2.7</td></tr>
+<tr><td>铁</td><td>7.9×10³</td><td>7.9</td></tr>
+<tr><td>铜</td><td>8.9×10³</td><td>8.9</td></tr>
+<tr><td>水银</td><td>13.6×10³</td><td>13.6</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">常见物理量估测</h3>
+<table class="data-table">
+<tr><th>物理量</th><th>常见估测值</th></tr>
+<tr><td>中学生体重</td><td>约500N（50kg）</td></tr>
+<tr><td>中学生身高</td><td>约1.6m~1.7m</td></tr>
+<tr><td>步行速度</td><td>约1.1~1.4m/s（约5km/h）</td></tr>
+<tr><td>自行车速度</td><td>约5m/s（约18km/h）</td></tr>
+<tr><td>教室门高</td><td>约2m</td></tr>
+<tr><td>一个鸡蛋质量</td><td>约50g</td></tr>
+<tr><td>人体安全电压</td><td>不高于36V</td></tr>
+<tr><td>家庭电路电压</td><td>220V</td></tr>
+<tr><td>一节干电池电压</td><td>1.5V</td></tr>
+<tr><td>标准大气压</td><td>约1.0×10⁵Pa</td></tr>
+<tr><td>光速</td><td>3×10⁸m/s</td></tr>
+<tr><td>声速（15℃空气）</td><td>340m/s</td></tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 初三公式 -->
+<div class="tab-content" id="know-5">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔥</span>初三热学核心公式速记</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>名称</th><th>公式</th><th>备注</th></tr>
+<tr><td>比热容</td><td>c=Q/(mΔt)</td><td>水c=4.2×10³J/(kg·℃)</td></tr>
+<tr><td>吸热/放热</td><td>Q=cmΔt</td><td>Δt=末温-初温</td></tr>
+<tr><td>热值</td><td>Q=mq（固液）<br>Q=Vq（气体）</td><td>q单位J/kg或J/m³</td></tr>
+<tr><td>热机效率</td><td>η=W有用/Q放×100%</td><td>做功冲程对外做功</td></tr>
+<tr><td>能量守恒</td><td>能量总量不变</td><td>转化和转移有方向性</td></tr>
+</table>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">⚡</span>初三电学核心公式速记</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>名称</th><th>公式</th><th>备注</th></tr>
+<tr><td>电功</td><td>W=UIt</td><td>1kW·h=3.6×10⁶J</td></tr>
+<tr><td>电功率</td><td>P=W/t=UI=I²R=U²/R</td><td>灵活选择公式</td></tr>
+<tr><td>额定功率</td><td>P额=U额I额</td><td>额定电压下测量</td></tr>
+<tr><td>焦耳定律</td><td>Q=I²Rt</td><td>纯电阻Q=W=Pt</td></tr>
+<tr><td>电能表测功率</td><td>P=n/N×3.6×10⁶/t</td><td>n转数、N每度转数</td></tr>
+<tr><td>电磁波</td><td>c=λf</td><td>真空c=3×10⁸m/s</td></tr>
+</table>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔑</span>初三高频常数速记</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>物理量</th><th>数值</th><th>备注</th></tr>
+<tr><td>水的比热容</td><td>4.2×10³J/(kg·℃)</td><td>比热容最大，常用作冷却剂</td></tr>
+<tr><td>家庭电路电压</td><td>220V</td><td>交流电</td></tr>
+<tr><td>安全电压</td><td>不高于36V</td><td>人体安全电压</td></tr>
+<tr><td>1度电</td><td>1kW·h=3.6×10⁶J</td><td>电能表读数单位</td></tr>
+<tr><td>电磁波真空速度</td><td>3×10⁸m/s</td><td>与光速相同</td></tr>
+<tr><td>常见热值</td><td>煤3×10⁷J/kg<br>酒精3×10⁷J/kg</td><td>焦炭、氢更高</td></tr>
+</table>
+</div>
+</div>
+</div>
+<!-- ========== 考前冲刺 ========== -->
+<div class="page" id="page-sprint">
+<div class="section-header">
+<div class="sh-icon">⏱️</div>
+<div><h2>考前冲刺计划</h2><p>30天倒计时冲刺+考场实战手册</p></div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">📅</span>30天冲刺时间轴</div>
+<div class="card-content">
+<div class="timeline">
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h3>第30-21天：基础回顾 <span class="tl-tag">查漏补缺</span></h3>
+<p><strong>核心任务：</strong>按模块梳理知识点，完成基础题和中档题的复习。</p>
+<ul>
+<li>Day 30-27：声现象、光现象、物态变化（八上基础模块）</li>
+<li>Day 26-24：质量与密度、机械运动（八上计算模块）</li>
+<li>Day 23-21：力、运动和力、压强（八下力学基础）</li>
+</ul>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h3>第20-11天：专题突破 <span class="tl-tag">重点攻克</span></h3>
+<p><strong>核心任务：</strong>按专题集中训练，突破薄弱环节。</p>
+<ul>
+<li>Day 20-17：浮力、功和机械能、简单机械（力学综合）</li>
+<li>Day 16-14：电流、电压、电阻、欧姆定律（电学综合）</li>
+<li>Day 13-11：凸透镜成像实验、测密度实验、电学实验（实验专题）</li>
+</ul>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h3>第10-4天：综合训练 <span class="tl-tag">模拟实战</span></h3>
+<p><strong>核心任务：</strong>做3-5套完整模拟卷，限时训练。</p>
+<ul>
+<li>每两天做一套模拟卷（60-90分钟限时）</li>
+<li>做完当天批改+错题分析+查漏补缺</li>
+<li>重点关注实验探究题、计算综合题、图象分析题</li>
+</ul>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h3>第3-1天：回归调整 <span class="tl-tag">稳心备考</span></h3>
+<p><strong>核心任务：</strong>看错题本、看笔记、适度练手、调整心态。</p>
+<ul>
+<li>Day 3：看错题本，重做错题中的典型题</li>
+<li>Day 2：浏览公式定理、看笔记、整理考试用品</li>
+<li>Day 1：轻松复习（30分钟基础题）、早睡</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎓</span>初三中考冲刺重点（初三必读）</div>
+<div class="card-content">
+<div class="info-box info-purple"><strong>中考物理考情提示：</strong>中考物理（初二+初三全内容）约90分钟，满分通常80-100分。电学（约30%）、力学（约30%）是两大支柱，声光热（约25%）、实验探究（约15%）次之。电功率、浮力压强、欧姆定律综合是压轴题高发区。</div>
+<p><strong>初三冲刺三大主攻方向：</strong></p>
+<ul>
+<li><strong>电学综合计算</strong>：欧姆定律+电功率+焦耳定律综合，掌握"先求电阻→判断状态→算实际功率"三步法</li>
+<li><strong>实验探究规范</strong>：伏安法测电阻/测电功率、探究焦耳定律，牢记"原理+器材+步骤+结论+评估"五要素</li>
+<li><strong>热学与能源</strong>：比热容、热值计算，能源分类与节能，识记性内容性价比高，考前务必过一遍</li>
+</ul>
+<div class="info-box info-green"><strong>中考答题策略：</strong>①选择填空先拿分（约35分钟）②实验探究规范写（约20分钟）③计算题分步得分（约25分钟）④预留10分钟检查。压轴题最后一问不会也要写公式争步骤分。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">📈</span>初二初三衔接与提升清单</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>阶段</th><th>重点内容</th><th>提分要点</th></tr>
+<tr><td>初二上</td><td>声光热、物态变化、质量密度</td><td>概念辨析+单位换算</td></tr>
+<tr><td>初二下</td><td>力、运动和力、压强浮力、功和机械能</td><td>受力分析+公式选择</td></tr>
+<tr><td>初三上</td><td>内能、电流电路、欧姆定律、电功率</td><td>电路化简+动态分析</td></tr>
+<tr><td>初三下</td><td>生活用电、电与磁、信息能源</td><td>识记分类+安全用电</td></tr>
+</table>
+</div>
+</div>
+<div class="card">
+<div class="card-title"><span class="ct-icon">🏫</span>考场实战手册</div>
+<div class="card-content">
+<p><strong>考试当天流程：</strong></p>
+<table class="data-table">
+<tr><th>时间点</th><th>任务</th><th>注意事项</th></tr>
+<tr><td>考前1小时</td><td>到达考场，找到座位坐下</td><td>深呼吸放松，不讨论试题</td></tr>
+<tr><td>发卷后</td><td>浏览全卷，检查页码、题目数</td><td>先看实验题和计算题，心中有数</td></tr>
+<tr><td>前15-20分钟</td><td>做选择题</td><td>快速准确，排除法+代入法</td></tr>
+<tr><td>20-40分钟</td><td>做填空题</td><td>注意单位、有效数字</td></tr>
+<tr><td>40-60分钟</td><td>做实验探究题和计算题</td><td>规范答题，分步得分</td></tr>
+<tr><td>最后5-10分钟</td><td>检查全卷</td><td>优先检查高分题和易错题</td></tr>
+</table>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">✅</span>考前最终检查清单</div>
+<div class="card-content">
+<ul class="checklist">
+<li>准考证、身份证已带齐</li>
+<li>2B铅笔、0.5mm黑色签字笔各2支以上</li>
+<li>直尺、三角板、圆规已带齐</li>
+<li>橡皮、计算器（如允许）已带齐</li>
+<li>公式、定理已熟记（不需带资料）</li>
+<li>作息调整到最佳状态，早睡早起</li>
+<li>早餐吃好，不吃太饱也不空腹</li>
+<li>提前30分钟到达考场</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- ========== 互动训练 ========== -->
+<div class="page" id="page-training">
+<div class="section-header">
+<div class="sh-icon">🎮</div>
+<div><h2>互动训练</h2><p>5大互动模块实战演练</p></div>
+</div>
+
+<div class="interactive-grid">
+<div class="interact-card" onclick="showPage('quiz-timed')">
+<div class="ic-icon">⏱️</div>
+<h3>限时答题训练</h3>
+<p>10题限时挑战，训练答题节奏</p>
+</div>
+<div class="interact-card" onclick="showPage('quiz-mistake')">
+<div class="ic-icon">⚠️</div>
+<h3>易错题挑战</h3>
+<p>高频易错题专项训练</p>
+</div>
+<div class="interact-card" onclick="showPage('quiz-formula')">
+<div class="ic-icon">🧮</div>
+<h3>公式速记</h3>
+<p>核心公式定理速记挑战</p>
+</div>
+<div class="interact-card" onclick="showPage('quiz-strategy')">
+<div class="ic-icon">🎯</div>
+<h3>解题策略模拟</h3>
+<p>场景化解题策略选择</p>
+</div>
+<div class="interact-card" onclick="showPage('quiz-knowledge')">
+<div class="ic-icon">📚</div>
+<h3>知识问答</h3>
+<p>初二物理知识点问答挑战</p>
+</div>
+</div>
+</div>
+<!-- 限时答题训练 -->
+<div class="page" id="page-quiz-timed">
+<div class="section-header">
+<div class="sh-icon">⏱️</div>
+<div><h2>限时答题训练</h2><p>10题×90秒/题，总时15分钟</p></div>
+</div>
+<div class="card" id="timed-intro">
+<div class="card-content">
+<p>在15分钟内完成10道选择题，每题建议用时90秒。完成后查看得分和解析。</p>
+<div style="text-align:center;margin-top:14px">
+<button class="btn btn-primary btn-block" onclick="startTimedQuiz()">开始训练</button>
+</div>
+</div>
+</div>
+<div id="timed-quiz" style="display:none">
+<div class="card" style="position:sticky;top:56px;z-index:100;background:#fff">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<span id="timed-q-progress" style="font-size:0.85rem;color:#667eea;font-weight:600">第 1 / 10 题</span>
+<span id="timed-timer" style="font-size:1.2rem;font-weight:700;color:#764ba2">15:00</span>
+</div>
+<div class="progress-bar" style="margin-top:8px"><div class="progress-fill" id="timed-progress" style="width:10%"></div></div>
+</div>
+<div id="timed-container"></div>
+<div id="timed-result" style="display:none">
+<div class="score-display">
+<div class="big-score" id="timed-score">0</div>
+<div class="score-label">分 / 100分</div>
+</div>
+<div id="timed-review"></div>
+<div style="text-align:center;margin-top:14px">
+<button class="btn btn-outline" onclick="resetTimedQuiz()">再来一次</button>
+<button class="btn btn-primary" onclick="showPage('training')">返回训练列表</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 易错题挑战 -->
+<div class="page" id="page-quiz-mistake">
+<div class="section-header">
+<div class="sh-icon">⚠️</div>
+<div><h2>易错题挑战</h2><p>高频易错题专项训练</p></div>
+</div>
+<div id="mistake-quiz-container"></div>
+<div style="text-align:center;margin-top:14px">
+<button class="btn btn-primary" onclick="showPage('training')">返回训练列表</button>
+</div>
+</div>
+
+<!-- 公式速记 -->
+<div class="page" id="page-quiz-formula">
+<div class="section-header">
+<div class="sh-icon">🧮</div>
+<div><h2>公式速记挑战</h2><p>初二+初三物理核心公式填空</p></div>
+</div>
+<div id="formula-quiz-container"></div>
+<div style="text-align:center;margin-top:14px">
+<button class="btn btn-primary" onclick="showPage('training')">返回训练列表</button>
+</div>
+</div>
+
+<!-- 解题策略模拟 -->
+<div class="page" id="page-quiz-strategy">
+<div class="section-header">
+<div class="sh-icon">🎯</div>
+<div><h2>解题策略模拟</h2><p>场景化解题策略选择</p></div>
+</div>
+<div id="strategy-quiz-container"></div>
+<div style="text-align:center;margin-top:14px">
+<button class="btn btn-primary" onclick="showPage('training')">返回训练列表</button>
+</div>
+</div>
+
+<!-- 知识问答 -->
+<div class="page" id="page-quiz-knowledge">
+<div class="section-header">
+<div class="sh-icon">📚</div>
+<div><h2>知识问答挑战</h2><p>初二+初三物理知识点问答</p></div>
+</div>
+<div id="knowledge-quiz-container"></div>
+<div style="text-align:center;margin-top:14px">
+<button class="btn btn-primary" onclick="showPage('training')">返回训练列表</button>
+</div>
+</div>
+<!-- 页脚 -->
+<div style="text-align:center;padding:30px 20px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;margin-top:0;">
+    <p style="font-size:18px;font-weight:bold;margin-bottom:10px;">初二物理考试技巧提升系统</p>
+    <p style="font-size:13px;color:rgba(255,255,255,0.85);margin-bottom:5px;">覆盖八年级上下册全模块 | 题型技巧·易错分析·知识速查·心态调节</p>
+    <p style="font-size:13px;color:rgba(255,255,255,0.85);margin-bottom:5px;">包含8个功能页面 + 5个互动训练模块 + 36道诊断题 + 40+知识问答</p>
+    <p style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:15px;">系统设计制作：刘岳 | 仅供学习参考</p>
+</div><script>
+// ========== 登录验证 ==========
+var LOGIN_USER = 'liulaoshi';
+var LOGIN_PASS = 'peiyou2026';
+function checkLogin(){
+  if(sessionStorage.getItem('sys_login_ok')==='1'){
+    var o=document.getElementById('loginOverlay');
+    if(o){o.style.display='none';}
+  }
+}
+function doLogin(){
+  var u=document.getElementById('loginUser').value;
+  var p=document.getElementById('loginPass').value;
+  var e=document.getElementById('loginError');
+  if(u===LOGIN_USER && p===LOGIN_PASS){
+    sessionStorage.setItem('sys_login_ok','1');
+    var o=document.getElementById('loginOverlay');
+    o.style.opacity='0';
+    setTimeout(function(){o.style.display='none';},400);
+  }else{
+    e.textContent='账号或密码错误，请重试';
+    document.getElementById('loginUser').value='';
+    document.getElementById('loginPass').value='';
+  }
+}
+document.addEventListener('DOMContentLoaded',function(){
+  var u=document.getElementById('loginUser');
+  var p=document.getElementById('loginPass');
+  if(u){u.addEventListener('keydown',function(e){if(e.key==='Enter'){p.focus();}});}
+  if(p){p.addEventListener('keydown',function(e){if(e.key==='Enter'){doLogin();}});}
+  checkLogin();
+});
+
+// ========== 页面切换 ==========
+function showPage(pageId){
+  var pages=document.querySelectorAll('.page');
+  for(var i=0;i<pages.length;i++){
+    pages[i].classList.remove('active');
+  }
+  var target=document.getElementById('page-'+pageId);
+  if(target){target.classList.add('active');}
+  var backBtn=document.getElementById('backBtn');
+  if(backBtn){backBtn.style.display=(pageId==='home')?'none':'inline-block';}
+  window.scrollTo(0,0);
+}
+
+// ========== 展开收缩 ==========
+function toggleExpand(el){
+  el.classList.toggle('open');
+}
+
+// ========== 技巧库 Tab切换 ==========
+function switchSkillTab(ev,idx){
+  var tabs=document.querySelectorAll('#skill-tabs .subject-tab');
+  var contents=document.querySelectorAll('#skill-content .tab-content');
+  for(var i=0;i<tabs.length;i++){tabs[i].classList.remove('active');}
+  for(var i=0;i<contents.length;i++){contents[i].classList.remove('active');}
+  if(ev)ev.target.closest('.subject-tab').classList.add('active');
+  var target=document.getElementById('skill-'+idx);
+  if(target){target.classList.add('active');}
+}
+
+// ========== 知识模块 Tab切换 ==========
+function switchModuleTab(ev,idx){
+  var tabs=document.querySelectorAll('#module-tabs .subject-tab');
+  var contents=document.querySelectorAll('#module-content .tab-content');
+  for(var i=0;i<tabs.length;i++){tabs[i].classList.remove('active');}
+  for(var i=0;i<contents.length;i++){contents[i].classList.remove('active');}
+  if(ev)ev.target.closest('.subject-tab').classList.add('active');
+  var target=document.getElementById('module-'+idx);
+  if(target){target.classList.add('active');}
+}
+
+// ========== 易错点 Tab切换 ==========
+function switchMistakeTab(ev,idx){
+  var tabs=document.querySelectorAll('#mistake-tabs .subject-tab');
+  var contents=document.querySelectorAll('#mistake-content .tab-content');
+  for(var i=0;i<tabs.length;i++){tabs[i].classList.remove('active');}
+  for(var i=0;i<contents.length;i++){contents[i].classList.remove('active');}
+  if(ev)ev.target.closest('.subject-tab').classList.add('active');
+  var target=document.getElementById('mistake-'+idx);
+  if(target){target.classList.add('active');}
+}
+
+// ========== 典型例题 Tab切换 ==========
+function switchExampleTab(ev,idx){
+  var tabs=document.querySelectorAll('#example-tabs .subject-tab');
+  var contents=document.querySelectorAll('#example-content .tab-content');
+  for(var i=0;i<tabs.length;i++){tabs[i].classList.remove('active');}
+  for(var i=0;i<contents.length;i++){contents[i].classList.remove('active');}
+  if(ev)ev.target.closest('.subject-tab').classList.add('active');
+  var target=document.getElementById('example-'+idx);
+  if(target){target.classList.add('active');}
+}
+
+// ========== 知识点速查 Tab切换 ==========
+function switchKnowTab(ev,idx){
+  var tabs=document.querySelectorAll('#knowledge-tabs .subject-tab');
+  var contents=document.querySelectorAll('#knowledge-content .tab-content');
+  for(var i=0;i<tabs.length;i++){tabs[i].classList.remove('active');}
+  for(var i=0;i<contents.length;i++){contents[i].classList.remove('active');}
+  if(ev)ev.target.closest('.subject-tab').classList.add('active');
+  var target=document.getElementById('know-'+idx);
+  if(target){target.classList.add('active');}
+}
+
+
+// ========== 学情诊断（顶尖版：初二+初三） ==========
+var diagDimensions=['审题理解力','计算准确度','解题策略力','时间管理力','检查校验力','心理稳定性'];
+var diagDimensionIcons=['🔍','🧮','🎯','⏱️','🔎','🧠'];
+var diagDimensionColors=['#667eea','#34c78b','#f59e0b','#3b82f6','#8b5cf6','#ef4444'];
+var diagQuestions=[
+{id:'d0_01',dim:0,difficulty:1,tag:'审题习惯',q:'考试时看到一道物理题，你的第一反应是：',opts:['先从头到尾读一遍题目，圈出关键词和条件','先看问题问什么，再回去读条件','直接开始算，边算边看题','感觉难就直接跳过'],ans:0,explanation:'先完整读题并圈出关键词和条件，能避免遗漏已知信息、误读题意，是正确解题的第一步。'},
+{id:'d0_02',dim:0,difficulty:1,tag:'作图习惯',q:'做力学题时，你的习惯是：',opts:['先画受力分析图，在图上标注已知力','脑海中想象，少画图','随手画个草图，能看清就行','不画图，直接用公式算'],ans:0,explanation:'画受力分析图并标注已知力，是力学题的"翻译"过程，能把抽象条件可视化，帮助发现等量关系。'},
+{id:'d0_03',dim:0,difficulty:1,tag:'实验审题',q:'做实验探究题时，你的做法是：',opts:['先明确实验目的和原理，再分析步骤','直接看数据找规律','看实验步骤猜结论','等老师讲解'],ans:0,explanation:'实验探究题先明确实验目的和原理，才能正确分析步骤和设计实验，避免"看数据猜结论"。'},
+{id:'d0_04',dim:0,difficulty:2,tag:'关键词识别',q:'审题时，你是否会注意"匀速""静止""浸没"等关键词？',opts:['每次都会特别注意并圈出来','有时注意，有时忽略','很少注意，经常因此出错','从来不注意'],ans:0,explanation:'"匀速""静止""浸没""不计摩擦"等关键词直接决定解题方法和公式，主动圈画能避免误读题意。'},
+{id:'d0_05',dim:0,difficulty:2,tag:'条件分析',q:'遇到含多个条件的物理题，你的处理方式是：',opts:['逐个分析每个条件的含义和作用','看完就忘，直接用公式','只看前两个条件','感觉太难就放弃'],ans:0,explanation:'每个条件都有其作用，逐个分析并标注用途，确保用上全部已知信息，避免漏用条件导致解不出来。'},
+{id:'d0_06',dim:0,difficulty:2,tag:'解题规范',q:'做计算题时，你的策略是：',opts:['先写已知量，列公式，代入数据，算结果，作答','直接心算，少写过程','写公式但跳过代入步骤','感觉不会就空着'],ans:0,explanation:'先列已知量、写公式、代数据、算结果、作答，是物理计算题的规范流程，思路清晰、不易出错。'},
+{id:'d0_07',dim:0,difficulty:2,tag:'理想条件',q:'物理题中常出现"不计摩擦""忽略空气阻力"等理想条件，你通常：',opts:['会主动识别并把它们当作隐含条件使用','知道有这些说法但不太理解','经常忽略这些理想化条件','觉得是出题人故意刁难'],ans:0,explanation:'理想化条件是出题人简化模型的工具，主动识别"不计摩擦""光滑""轻质"等词，能避免把复杂因素算进去，是审题的关键一步。'},
+{id:'d0_08',dim:0,difficulty:3,tag:'压轴审题',q:'面对中考物理压轴题（通常多问），你的读题策略是：',opts:['先通读所有小问，明确整体思路，再逐问攻克','直接看最后一问，从后往前做','只读第一问，后面的不看','三问一起看，结果都没读懂'],ans:0,explanation:'压轴题小问层层递进，先通读明确结构，再逐问攻克，既避免漏看条件，也能为第一问得分打基础。'},
+{id:'d0_09',dim:0,difficulty:3,tag:'电路审题',q:'遇到开关多、元件多的初三电学综合题，你的审题方法是：',opts:['先分析每个开关状态，化简电路再分析','直接套公式','只看电压表电流表示数','感觉复杂就跳过'],ans:0,explanation:'电学综合题要先"化简电路"：明确各开关通断、各表测的对象，把复杂电路转化为基本串并联，再结合欧姆定律、电功率公式求解。'},
+{id:'d0_10',dim:0,difficulty:3,tag:'图象信息',q:'审题时遇到物理图象题（如s-t图、I-U图、温度时间图象），你的做法是：',opts:['先看清横纵坐标轴的含义和单位，再读图象','直接看图象形状','只看特殊点','凭感觉猜测'],ans:0,explanation:'图象题的"钥匙"是坐标轴：先弄清横纵坐标分别代表什么物理量、单位和分度值，再分析图象形状、斜率、特殊点的物理含义。'},
+{id:'d1_01',dim:1,difficulty:1,tag:'书写规范',q:'物理计算过程中，你的习惯是：',opts:['每步都写清楚，注意单位和符号','口算为主，少写过程','写得很快但经常出错','计算时容易分心'],ans:0,explanation:'规范书写计算过程，每步标注单位和符号，既减少笔误，也便于检查时快速定位错误。'},
+{id:'d1_02',dim:1,difficulty:1,tag:'单位换算',q:'遇到单位换算（如km/h转m/s），你的状态是：',opts:['每次都仔细换算，1m/s=3.6km/h','经常忘记换算或搞反方向','知道要换算但经常出错','不太在意单位'],ans:0,explanation:'单位换算是物理计算的高频失分点，牢记1m/s=3.6km/h、1g/cm3=1.0×103kg/m3，换算要一步到位并检查方向。'},
+{id:'d1_03',dim:1,difficulty:1,tag:'验算习惯',q:'解完物理计算题后，你是否会检验？',opts:['每次都会检查量纲和数量级是否合理','有时检验，有时不检验','很少检验','不知道要检验'],ans:0,explanation:'解完计算题后检验量纲和数量级，能及时发现明显错误，是计算的最后防线。'},
+{id:'d1_04',dim:1,difficulty:2,tag:'单位统一',q:'做密度计算时，你：',opts:['注意单位统一，1g/cm3=1.0×103kg/m3','经常忘记单位换算','计算时单位混乱','不知道单位怎么换算'],ans:0,explanation:'密度计算必须先统一单位（如kg/m3与g/cm3），再代入公式，否则结果会差1000倍。'},
+{id:'d1_05',dim:1,difficulty:2,tag:'公式选择',q:'浮力计算中，你的准确率：',opts:['几乎不出错，能正确选择公式','偶尔出错，公式选错','经常出错，不知道用哪个公式','错误很多'],ans:0,explanation:'浮力计算先判断物体状态再选公式：称重法、阿基米德原理、平衡法各有适用，选对公式是计算准确的前提。'},
+{id:'d1_06',dim:1,difficulty:2,tag:'电学计算',q:'做电学计算题时，你的计算：',opts:['仔细准确，最后检查单位和结果','经常因计算错误丢分','计算慢但准确','计算快但容易错'],ans:0,explanation:'电学计算题注意I、U、R的对应关系（同一导体同一时刻），算完检查单位与结果，能大幅降低出错率。'},
+{id:'d1_07',dim:1,difficulty:2,tag:'数值估算',q:'算出计算结果后，你是否会先估算一下量级是否合理？',opts:['会快速判断结果量级（如几十瓦不可能算出几千瓦）','偶尔会估算','很少检查结果是否合理','从不估算，算出就写'],ans:0,explanation:'估算量级是拦截低级错误的高效手段，如家庭用电功率约几十到几千瓦、中学生重力约500牛，明显离谱的结果往往是单位或公式错误。'},
+{id:'d1_08',dim:1,difficulty:3,tag:'电功率计算',q:'做电功率计算时，你选择公式的习惯是：',opts:['根据已知量灵活选择P=UI、P=I2R或P=U2/R','只会用P=UI一个公式','经常公式选错导致算错','知道公式但不会选'],ans:0,explanation:'电功率三公式各有适用：串联比电流用P=I2R方便，并联比电压用P=U2/R方便，已知U和I直接用P=UI。灵活选择能大幅提高计算准确率。'},
+{id:'d1_09',dim:1,difficulty:3,tag:'热学计算',q:'做比热容、热值计算题（Q=cmΔt、Q=mq）时，你的计算：',opts:['注意单位统一（质量用kg、温度用℃）且结果带单位','经常忘记单位换算','Δt算错（末温减初温）','经常混淆cmΔt和mq'],ans:0,explanation:'热学计算最容易错的是单位与Δt：质量统一用kg，Δt是末温减初温，吸热用Q=cmΔt，燃料放热用Q=mq，注意q的单位。'},
+{id:'d1_10',dim:1,difficulty:3,tag:'多步运算',q:'遇到需要多步计算的初三物理综合题（如电热综合），你的习惯是：',opts:['分步书写过程，每步带单位，最后检查','全部心算','直接写结果不写过程','只算最后一步'],ans:0,explanation:'多步计算务必分步书写并带单位，既减少心算误差，也方便检查定位错误，还能在结果错误时争取步骤分。'},
+{id:'d2_01',dim:2,difficulty:1,tag:'选择题策略',q:'遇到不会的选择题，你的策略是：',opts:['先排除明显错误选项，再用代入法验证','直接猜一个','死想十分钟','空着不写'],ans:0,explanation:'选择题"排除法、代入法、特殊值法"是最高效的组合，先排除确定错误的，再验证剩余选项。'},
+{id:'d2_02',dim:2,difficulty:1,tag:'控制变量',q:'做实验探究题时，你的方法是：',opts:['先分析控制变量法，再设计实验步骤','直接看数据猜结论','感觉无从下手就放弃','背答案但不会分析'],ans:0,explanation:'实验探究题的核心方法是控制变量法，明确"每次只改变一个变量"，结论表述要带前提条件。'},
+{id:'d2_03',dim:2,difficulty:1,tag:'电路分析',q:'遇到电学综合题，你的思路是：',opts:['先画等效电路图，再判断串并联，用欧姆定律','不知道怎么分析电路','看着图猜答案','直接放弃'],ans:0,explanation:'电学综合题先画等效电路图（电压表断路、电流表短路），判断串并联后用欧姆定律求解，思路清晰。'},
+{id:'d2_04',dim:2,difficulty:2,tag:'浮沉判断',q:'遇到需要判断浮沉状态的题目，你：',opts:['会比较物体密度与液体密度的大小关系','只看浮力和重力大小但不会判断','知道要比较但经常判断错','不知道什么时候用什么方法'],ans:0,explanation:'判断浮沉状态是关键一步：比较ρ物与ρ液（或F浮与G物），确定漂浮、悬浮还是沉底后再选公式。'},
+{id:'d2_05',dim:2,difficulty:2,tag:'步骤得分',q:'计算题不会时，你：',opts:['写相关公式和已知条件的推导，争步骤分','直接空着','写个猜的答案','感觉没用就不写'],ans:0,explanation:'计算题不会也要写相关公式和已知条件推导，"写了就有分"是铁律，能争取宝贵的步骤分。'},
+{id:'d2_06',dim:2,difficulty:2,tag:'一题多解',q:'做出一道题后，你是否会思考是否有其他解法？',opts:['经常会思考不同解法并比较','偶尔会想到','做对就行了，不想其他方法','从来不想'],ans:0,explanation:'一题多解能加深理解，也能在考试中遇到类似题时快速找到最简解法，是提升解题能力的有效途径。'},
+{id:'d2_07',dim:2,difficulty:2,tag:'图象解题',q:'遇到需要用图象解题的题目（如图象求路程、读电阻），你的策略是：',opts:['熟练从图象读取数据、用面积/斜率等工具求解','会读但用不熟练','不太会用图象','完全不会用图象'],ans:0,explanation:'图象是物理的重要语言：s-t图象的斜率是速度、v-t图象面积是路程、I-U图象可读电阻，掌握图象分析法能高效解题。'},
+{id:'d2_08',dim:2,difficulty:3,tag:'实验设计',q:'初三电学实验（如伏安法测电阻、测电功率），让你设计或改进方案时，你：',opts:['能清晰说明实验原理、器材选择和数据测量方法','知道大概但说不完整','不会设计','直接抄书上的结论'],ans:0,explanation:'实验设计要抓住"原理—器材—步骤—结论"四要素：伏安法测电阻原理是R=U/I，测电功率原理是P=UI，同时考虑滑动变阻器的保护与多次测量。'},
+{id:'d2_09',dim:2,difficulty:3,tag:'动态电路',q:'遇到动态电路题（滑动变阻器滑片移动、开关通断改变电路），你的思路是：',opts:['先判断电路结构是否变化，再分析总电阻、电流、各元件电压变化','凭感觉判断','只看一个电表示数变化','直接放弃'],ans:0,explanation:'动态电路口诀"串大流小压大"：变阻器阻值增大→总电阻增大→总电流减小→定值电阻电压减小、变阻器电压增大。先定结构再逐量分析。'},
+{id:'d2_10',dim:2,difficulty:3,tag:'综合策略',q:'做电热综合、力电综合等跨章节综合题时，你：',opts:['会先拆分模块，找到联系量（如电流产生的热量），分步求解','感觉无从下手','只做会的小问','凭感觉乱写'],ans:0,explanation:'跨模块综合题要先"找桥"：如电热综合以焦耳定律Q=I2Rt为桥梁，把电学量与热学量联系起来，分步求解、逐步得分。'},
+{id:'d3_01',dim:3,difficulty:1,tag:'整体分配',q:'考试时你的时间分配是：',opts:['先易后难，预留检查时间','按顺序做，卡在哪就在哪','前面做得很慢，后面来不及','从后往前做'],ans:0,explanation:'先易后难能保证基础分全部到手，并预留检查时间。建议平时固定各题型的时间预算，形成稳定节奏。'},
+{id:'d3_02',dim:3,difficulty:1,tag:'卡壳处理',q:'遇到卡壳超过3分钟的题，你：',opts:['果断跳过，做标记后面回来再做','继续死想，不愿意放弃','在原地发呆，不知所措','随意猜一个答案'],ans:0,explanation:'卡壳超过3分钟说明暂时思路不通，果断跳过做标记，完成其他题后再回来，心态放松反而容易有思路。'},
+{id:'d3_03',dim:3,difficulty:1,tag:'末段时间',q:'考试剩最后10分钟时，你通常：',opts:['优先检查高分题和易错题，逐题核对','已经做完了，提前交卷','感觉来不及检查','只检查选择题'],ans:0,explanation:'最后几分钟应"把分抢回来"：优先检查分值高、易错的计算题，而不是发呆或提前交卷。'},
+{id:'d3_04',dim:3,difficulty:2,tag:'作业限时',q:'你平时做物理作业的习惯是：',opts:['限时完成，像考试一样计时','慢慢做，不限时间','经常拖到很晚','挑简单的做，难的跳过'],ans:0,explanation:'把作业当考试限时完成，既提高效率，也训练时间分配能力，让"考试节奏感"成为习惯。'},
+{id:'d3_05',dim:3,difficulty:2,tag:'复习规划',q:'考试前你的复习计划是：',opts:['制定详细计划，按模块复习','有个大致方向，不太具体','走一步看一步','没有计划，随意复习'],ans:0,explanation:'有计划的复习能覆盖所有知识点、避免遗漏，还能增强考试信心。建议考前三到七天列出知识点清单逐项过关。'},
+{id:'d3_06',dim:3,difficulty:2,tag:'计时工具',q:'你是否会用计时器训练答题节奏？',opts:['经常使用，已经成为习惯','偶尔使用','知道有用但没用过','不知道这种方法'],ans:0,explanation:'定时训练能培养时间感知，如用秒表掐"选择题每道2分钟"，长期坚持考试时间感会明显增强。'},
+{id:'d3_07',dim:3,difficulty:2,tag:'题型时间',q:'你是否会给不同物理题型设定"时间红线"（如选择题超3分钟就跳过）？',opts:['会为每个题型设定红线并严格遵守','大致有个概念，不严格','没有概念，凭感觉','从没想过设时间限制'],ans:0,explanation:'设定时间红线是专业考生做法：选择题2-3分钟、填空3分钟、实验和计算题8-10分钟，超时立即跳过，保证时间花在刀刃上。'},
+{id:'d3_08',dim:3,difficulty:3,tag:'节奏把控',q:'物理考试进行到一半时，你能否清晰知道还剩多少时间、还有多少题没做？',opts:['能随时掌握进度并动态调整节奏','大概知道但不精确','不太清楚，全靠感觉','完全不掌握，到交卷才发现'],ans:0,explanation:'优秀考生心中有"进度表"，随时比对时间与题量。中考物理题量大，更要养成看表对进度的习惯，动态调整做题速度。'},
+{id:'d3_09',dim:3,difficulty:3,tag:'检查预留',q:'对于"预留检查时间"，你的做法是：',opts:['每次都预留5-10分钟专门检查','有时来得及才检查','很少能留出检查时间','从不考虑检查时间'],ans:0,explanation:'检查时间是"稳定得分"的关键，中高档考生都强制预留5-10分钟，把检查当作考试的一个固定环节来规划。'},
+{id:'d3_10',dim:3,difficulty:3,tag:'动态调整',q:'物理考试中如果某道计算题比预期多花了时间，你会：',opts:['快速调整后续节奏，压缩简单题时间补回来','继续按原计划做','变得慌张，节奏全乱','直接放弃后续检查'],ans:0,explanation:'考试节奏要"动态调整"：某题超时后，要有意识地加快后面简单题的速度，把时间补回来，避免连锁拖延。'},
+{id:'d4_01',dim:4,difficulty:1,tag:'检查策略',q:'考试结束后你的检查习惯是：',opts:['优先检查高分题和易错题，用不同方法验证','从头到尾重新做一遍','只看看答案是否合理','不检查，做完就交卷'],ans:0,explanation:'检查要"抓重点"：优先复查分值高、易算错的题，用不同方法交叉验证；从头重做一遍效率低。'},
+{id:'d4_02',dim:4,difficulty:1,tag:'验算方法',q:'你检查计算题的方法是：',opts:['用量纲检查和数量级估算验证','重新算一遍','看看答案是否"看着对"','不检查'],ans:0,explanation:'用量纲检查和数量级估算验证结果，能独立发现错误；而原样重算往往"错得一样"。'},
+{id:'d4_03',dim:4,difficulty:1,tag:'修改原则',q:'检查时发现答案和原来不同，你：',opts:['有充分理由才改，否则相信第一直觉','经常改成第二个答案','总是觉得后来的对','不知道该怎么办'],ans:0,explanation:'大量研究表明第一直觉正确率更高。只有找到明确的错误理由时才修改答案，否则不要轻易改动。'},
+{id:'d4_04',dim:4,difficulty:2,tag:'填涂检查',q:'你是否会检查答题卡填涂位置？',opts:['每次都会逐题核对填涂位置','偶尔检查','很少检查','从来不检查'],ans:0,explanation:'漏涂、错位、涂错是"冤枉丢分"的头号原因，填涂后逐题核对一遍，是性价比最高的检查动作。'},
+{id:'d4_05',dim:4,difficulty:2,tag:'单位检查',q:'检查时你是否注意检查单位？',opts:['会特别检查单位是否正确','有时想到，有时忽略','很少检查单位','不知道要检查单位'],ans:0,explanation:'物理答案的单位与数值同样重要，检查时特别注意单位是否正确、是否与题目要求一致。'},
+{id:'d4_06',dim:4,difficulty:2,tag:'错题本',q:'你的错题本使用情况是：',opts:['有错题本，定期回顾和重做','有错题本但很少看','没有错题本','不知道怎么用错题本'],ans:0,explanation:'错题本是提分利器：记录、归因、定期重做，能让同样的错误不再犯第二次，是学霸的标配习惯。'},
+{id:'d4_07',dim:4,difficulty:2,tag:'数据核对',q:'检查实验探究题时，你是否会核对实验数据是否符合物理规律（如成正比）？',opts:['会核对数据规律是否合理，发现异常数据','偶尔会核对','很少注意数据合理性','从不检查数据'],ans:0,explanation:'实验数据要符合物理规律：如电阻一定时电流与电压成正比，若某组数据明显偏离，可能是读数或计算错误，检查时发现异常要重新核对。'},
+{id:'d4_08',dim:4,difficulty:3,tag:'多解检查',q:'检查电学题时，你是否会考虑"开关不同状态""滑片不同位置"产生多解的情况？',opts:['会专门检查是否遗漏不同状态下的结果','有时想到有时忽略','很少考虑多解','不知道还要检查多解'],ans:0,explanation:'电学题常因开关通断、滑片位置不同而有多种电路状态，检查时逐一核对各状态，避免漏掉一组解。'},
+{id:'d4_09',dim:4,difficulty:3,tag:'交叉验证',q:'对关键的计算题，你是否会用两种不同的方法交叉验证结果？',opts:['经常对重要题目用两种方法验证','偶尔会这样做','很少用两种方法','从不用'],ans:0,explanation:'用不同方法（如公式法+图象法、阿基米德原理+平衡法）交叉验证，能大大降低"同一种错误算两次"的概率，是高分段考生的习惯。'},
+{id:'d4_10',dim:4,difficulty:3,tag:'易错清单',q:'检查物理试卷时，你是否会针对自己常犯的错误（单位、符号、量程、结论表述）逐一排查？',opts:['会按自己的"易错清单"逐项排查','想到什么查什么','凭感觉随便看','没有易错清单概念'],ans:0,explanation:'建立个人物理"易错清单"（单位换算、电压表量程、结论前提条件、光路作图虚实线等），检查时逐项过一遍，精准拦截高频失误。'},
+{id:'d5_01',dim:5,difficulty:1,tag:'压力应对',q:'考试时看到难题，你的心态是：',opts:['告诉自己"难大家都难"，先做会的','立刻紧张，心跳加速','大脑一片空白','想放弃这道题'],ans:0,explanation:'难题面前"大家都难"，先做会做的题拿到基础分，再回头攻克，是稳定心态、保障分数的关键心理战术。'},
+{id:'d5_02',dim:5,difficulty:1,tag:'失误应对',q:'考试中计算出错时，你：',opts:['深呼吸放松，重新审题计算','越算越乱，心烦意乱','着急，手心出汗','直接放弃这道题'],ans:0,explanation:'发现计算错误时最关键的是稳住心态：深呼吸、暂停几秒、重新理清思路再算，慌乱只会让错误连锁放大。'},
+{id:'d5_03',dim:5,difficulty:1,tag:'考后心态',q:'考完一科后，你的状态是：',opts:['立刻放下，全力准备下一科','和同学对答案，发现错了很难受','一直想刚才的题，影响后面','感觉考得不好，情绪低落'],ans:0,explanation:'考后立即放下、不对答案，能避免破坏后续考试状态。"考完就过"是专业考生的做法。'},
+{id:'d5_04',dim:5,difficulty:2,tag:'睡眠管理',q:'考前一晚你的睡眠状况是：',opts:['按时休息，保证充足睡眠','复习到很晚，睡眠不足','紧张得睡不着','反复想考试内容，影响睡眠'],ans:0,explanation:'充足睡眠直接影响大脑运转效率，考前熬夜复习弊大于利，规律作息是考场正常发挥的基础。'},
+{id:'d5_05',dim:5,difficulty:2,tag:'焦虑症状',q:'你是否有考试焦虑的身体症状（手汗、心慌、肠胃不适等）？',opts:['几乎没有，能保持平和心态','偶尔有，但能自行调节','经常有，影响发挥','每次考试都会有，严重影响'],ans:0,explanation:'适度焦虑是正常且有益的，但严重到影响发挥时需要干预，可通过呼吸训练、运动、规律作息来调节。'},
+{id:'d5_06',dim:5,difficulty:2,tag:'放松技巧',q:'你是否会用深呼吸等方法调节考试紧张？',opts:['经常使用，效果不错','知道这个方法但很少用','听说过但没试过','不知道这个方法'],ans:0,explanation:'深呼吸（如4-4-6呼吸法）和积极自我暗示是经过验证的减压技巧，考前练习几次，考场紧张时能迅速平复。'},
+{id:'d5_07',dim:5,difficulty:2,tag:'积极暗示',q:'物理考试前，你是否会用积极的话语鼓励自己？',opts:['经常进行积极自我暗示','偶尔会鼓励自己','很少这样做','经常自我否定'],ans:0,explanation:'积极自我暗示能重塑考试信心，考前准备几句正向话语，如"我复习得很充分""计算题我一定能算对"，紧张时默念可稳定情绪。'},
+{id:'d5_08',dim:5,difficulty:3,tag:'中考心态',q:'面对中考这种大考，你的心理状态通常是：',opts:['能把它当作平时考试，保持平常心','会紧张但能较快平复','非常紧张，影响正常发挥','一想到就害怕，无法安心复习'],ans:0,explanation:'大考心态的关键是"平常心"：把中考当作一次普通模考，专注当下每一题，不预设结果，紧张时用深呼吸调节，正常发挥就是超常发挥。'},
+{id:'d5_09',dim:5,difficulty:3,tag:'成绩波动',q:'一次物理模考成绩不理想后，你的状态是：',opts:['分析错因制定改进计划，快速振作','会难过几天但能恢复','长时间情绪低落影响学习','自我怀疑，想放弃物理'],ans:0,explanation:'成绩波动是正常现象，关键是归因和调整：把失败转化为"错因清单"，针对薄弱模块制定计划，心理韧性强的人进步最快。'},
+{id:'d5_10',dim:5,difficulty:3,tag:'专注力',q:'在考试压力较大的环境中，你能否保持长时间专注不分心？',opts:['能保持专注，只关注当前题目','基本能专注，偶尔走神','容易分心，常想其他事','很难专注，频繁走神'],ans:0,explanation:'考场专注力可以训练：平时练习就模拟考试环境，用"只关注当前这一题"切断杂念，专注力会逐步提升，大考时尤为重要。'}
+];
+var diagStarted=false;
+var diagCurrent=0;
+var diagAnswers=[];
+var diagTimerInt=null;
+var diagSeconds=0;
+var studentName='';
+var studentGrade='';
+var studentSchool='';
+
+function pickGrade(el){
+  var chips=document.getElementById('gradeRow').getElementsByClassName('ds-grade-chip');
+  for(var i=0;i<chips.length;i++){chips[i].classList.remove('active');}
+  el.classList.add('active');
+  studentGrade=el.getAttribute('data-grade');
+}
+
+function startDiag(){
+  var nm=document.getElementById('stuName').value;
+  if(!nm||nm.replace(/\s/g,'')===''){
+    alert('请先填写学生姓名再开始测评');
+    return;
+  }
+  studentName=nm.replace(/\s/g,'');
+  studentSchool=document.getElementById('stuSchool').value;
+  diagStarted=true;
+  diagCurrent=0;
+  diagAnswers=[];
+  diagSeconds=0;
+  for(var i=0;i<diagQuestions.length;i++){diagAnswers.push(-1);}
+  document.getElementById('diag-intro').style.display='none';
+  document.getElementById('diag-quiz').style.display='block';
+  document.getElementById('diag-result').style.display='none';
+  startDiagTimer();
+  renderDiagQuestion();
+}
+
+function startDiagTimer(){
+  if(diagTimerInt)clearInterval(diagTimerInt);
+  diagTimerInt=setInterval(function(){
+    diagSeconds++;
+    var m=Math.floor(diagSeconds/60);
+    var s=diagSeconds%60;
+    var t=document.getElementById('diag-timer');
+    if(t)t.innerText=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+  },1000);
+}
+
+function stopDiagTimer(){
+  if(diagTimerInt)clearInterval(diagTimerInt);
+  diagTimerInt=null;
+}
+
+function formatElapsed(sec){
+  if(sec<=0)return '0秒';
+  var m=Math.floor(sec/60);
+  var s=sec%60;
+  var r='';
+  if(m>0)r=m+'分';
+  if(s>0||m===0)r+=s+'秒';
+  if(m===0&&s===0)r='0秒';
+  return r;
+}
+
+function starStr(d){
+  if(d===1)return '★';
+  if(d===3)return '★★★';
+  return '★★';
+}
+
+function renderDiagQuestion(){
+  var q=diagQuestions[diagCurrent];
+  var html='<div class="quiz-question enter" id="diagQBox">';
+  html+='<div class="quiz-q-text"><span class="q-num">第'+(diagCurrent+1)+'题</span>';
+  html+='<span class="tag tag-purple">'+diagDimensions[q.dim]+'</span>';
+  html+='<span class="tag tag-orange">'+starStr(q.difficulty)+'</span>';
+  html+='<span class="tag tag-blue">'+q.tag+'</span>';
+  html+='</div>';
+  html+='<div class="quiz-q-text" style="font-weight:600;color:#333;line-height:1.8;margin-top:4px">'+q.q+'</div>';
+  html+='<div class="quiz-options">';
+  var answered=diagAnswers[diagCurrent]!==-1;
+  for(var i=0;i<q.opts.length;i++){
+    var cls='quiz-opt';
+    if(answered){
+      cls+=' locked';
+      if(i===q.ans)cls+=' right';
+      if(i===diagAnswers[diagCurrent]&&i!==q.ans)cls+=' false';
+    }
+    html+='<div class="'+cls+'" onclick="selectDiag('+i+')"><span class="opt-label">'+String.fromCharCode(65+i)+'</span><span>'+q.opts[i]+'</span></div>';
+  }
+  html+='</div>';
+  if(answered){
+    var ok=diagAnswers[diagCurrent]===q.ans;
+    var fbCls=ok?'fb-right':'fb-wrong';
+    var fbTxt=ok?'✓ 回答正确，继续保持！':'✗ 本题建议选最优项，点击查看解析';
+    html+='<div class="feedback-banner '+fbCls+' show">'+fbTxt+'</div>';
+    html+='<div class="quiz-explain show"><span class="explain-tag">解析：</span>'+q.explanation+'</div>';
+  }
+  html+='</div>';
+  document.getElementById('diag-question-container').innerHTML=html;
+  var progress=((diagCurrent+1)/diagQuestions.length)*100;
+  var fill=document.getElementById('diag-progress');
+  fill.style.width=progress+'%';
+  fill.style.transition='width .5s ease';
+  document.getElementById('diag-progress-text').innerText='第 '+(diagCurrent+1)+' / '+diagQuestions.length+' 题';
+  document.getElementById('diag-prev').style.display=(diagCurrent===0)?'none':'inline-block';
+  var nextBtn=document.getElementById('diag-next');
+  var finBtn=document.getElementById('diag-finish');
+  if(answered){
+    if(diagCurrent===diagQuestions.length-1){
+      nextBtn.style.display='none';
+      finBtn.style.display='inline-block';
+    }else{
+      nextBtn.style.display='inline-block';
+      finBtn.style.display='none';
+    }
+  }else{
+    nextBtn.style.display='none';
+    finBtn.style.display='none';
+  }
+}
+
+function selectDiag(optIdx){
+  if(diagAnswers[diagCurrent]!==-1)return;
+  diagAnswers[diagCurrent]=optIdx;
+  renderDiagQuestion();
+}
+
+function diagPrev(){
+  if(diagCurrent>0){diagCurrent--;renderDiagQuestion();}
+}
+
+function diagNext(){
+  if(diagCurrent<diagQuestions.length-1){
+    diagCurrent++;
+    renderDiagQuestion();
+    window.scrollTo(0,0);
+  }
+}
+
+function finishDiag(){
+  for(var i=0;i<diagQuestions.length;i++){
+    if(diagAnswers[i]===-1){
+      if(!confirm('还有第'+(i+1)+'题未作答，是否跳过并查看报告？')){
+        diagCurrent=i;
+        renderDiagQuestion();
+        return;
+      }
+      break;
+    }
+  }
+  stopDiagTimer();
+  showDiagResult();
+}
+
+function calcScores(){
+  var scores=[0,0,0,0,0,0];
+  var correctCount=0;
+  var totalScore=0;
+  for(var i=0;i<diagQuestions.length;i++){
+    var q=diagQuestions[i];
+    var a=diagAnswers[i];
+    if(a===-1){scores[q.dim]+=0;continue;}
+    if(a===q.ans){scores[q.dim]+=100;correctCount++;}
+    else{scores[q.dim]+=33;}
+  }
+  for(var i=0;i<6;i++){scores[i]=Math.round(scores[i]/10);}
+  for(var i=0;i<6;i++){totalScore+=scores[i];}
+  var percentage=Math.round(totalScore/6);
+  return {scores:scores,correct:correctCount,totalScore:totalScore,totalMax:600,percentage:percentage};
+}
+
+function getGrade(p){
+  if(p>=90)return {grade:'S',color:'#10b981',label:'顶尖优秀',advice:'物理基础扎实、应试习惯优秀，建议向电学压轴与实验设计发起挑战，稳定保持优势，冲刺重点高中。'};
+  if(p>=75)return {grade:'A',color:'#7c6cf0',label:'表现优秀',advice:'整体能力出色，针对最弱维度进行专项突破，可向满分目标稳步迈进。'};
+  if(p>=60)return {grade:'B',color:'#5b9cf5',label:'稳步提升',advice:'具备良好基础，建议聚焦薄弱维度系统训练，掌握应试技巧，物理成绩将明显跃升。'};
+  if(p>=40)return {grade:'C',color:'#f59e0b',label:'潜力待挖掘',advice:'建议从学习习惯与基础技巧抓起，按周训练计划循序渐进，提升空间很大。'};
+  return {grade:'D',color:'#ef4444',label:'亟需系统规划',advice:'建议优先重建学习习惯与基础，配合专业辅导规划，逐步建立信心与能力。'};
+}
+
+function getLevel(p){
+  if(p>=80)return {level:'强',cls:'level-strong'};
+  if(p>=55)return {level:'中',cls:'level-medium'};
+  return {level:'弱',cls:'level-weak'};
+}
+
+function getLevelText(p){
+  if(p>=80)return '表现优异，习惯成熟，是稳定的得分优势。';
+  if(p>=55)return '基础尚可，但面对高难度物理情境时仍有提升空间。';
+  return '较为薄弱，建议从基础习惯和方法入手重点加强。';
+}
+
+function showDiagResult(){
+  document.getElementById('diag-quiz').style.display='none';
+  document.getElementById('diag-result').style.display='block';
+  var cs=calcScores();
+  var elapsedText=formatElapsed(diagSeconds);
+  generateReport(cs,elapsedText);
+  syncReportToCloud(cs,elapsedText);
+  window.scrollTo(0,0);
+}
+
+function planTitle(grade){
+  if(grade==='S')return '冲刺保持计划';
+  if(grade==='A')return '精进提升计划';
+  if(grade==='B')return '巩固强化计划';
+  if(grade==='C')return '基础重建计划';
+  return '筑基起步计划';
+}
+
+function generateReport(cs,elapsedText){
+  var html='';
+  var g=getGrade(cs.percentage);
+  var now=new Date();
+  var dateStr=now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日';
+
+  html+='<div class="report-head">';
+  html+='<div class="rh-title">📊 物理考试能力测评报告</div>';
+  html+='<div class="rh-sub">'+studentName+(studentGrade?' · '+studentGrade:'')+(studentSchool?' · '+studentSchool:'')+' · '+dateStr+'</div>';
+  html+='<div class="ring-box">';
+  html+='<div style="position:relative;width:190px;height:190px"><canvas id="ringCanvas"></canvas>';
+  html+='<div style="position:absolute;top:0;left:0;width:190px;height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none">';
+  html+='<div style="font-size:2.2rem;font-weight:800;color:#fff">'+cs.percentage+'%</div>';
+  html+='<div style="font-size:0.72rem;color:rgba(255,255,255,0.85)">综合得分</div>';
+  html+='</div></div>';
+  html+='<div class="ring-info">';
+  html+='<div style="display:flex;align-items:center;gap:12px;margin-top:6px"><div class="grade-badge" style="background:linear-gradient(135deg,'+g.color+','+g.color+'99)">'+g.grade+'级</div><div class="grade-label">'+g.label+'</div></div>';
+  html+='</div>';
+  html+='</div>';
+  html+='<div class="meta-strip">';
+  html+='<span class="meta-chip">总分 <b>'+cs.totalScore+'</b> / '+cs.totalMax+'</span>';
+  html+='<span class="meta-chip">答对 <b>'+cs.correct+'</b> / 60</span>';
+  html+='<span class="meta-chip">用时 <b>'+elapsedText+'</b></span>';
+  html+='</div>';
+  html+='</div>';
+
+  html+='<div class="card"><h3 class="section-title">📡 六维能力雷达图</h3><div class="chart-container" id="radarBox"></div>';
+  html+='<h3 class="section-title">📊 六维得分柱状图</h3><div class="chart-container" id="barBox"></div></div>';
+
+  html+='<div class="card"><h3 class="section-title">🔍 各维度强弱分析</h3>';
+  var strongIdx=0,weakIdx=0;
+  for(var i=0;i<6;i++){
+    var lv=getLevel(cs.scores[i]);
+    html+='<div class="dimension-result">';
+    html+='<div class="dimension-header"><span class="dimension-name">'+diagDimensionIcons[i]+' '+diagDimensions[i]+'</span>';
+    html+='<span class="dimension-percent" style="color:'+diagDimensionColors[i]+'">'+cs.scores[i]+'分 <span class="ability-level '+lv.cls+'">'+lv.level+'</span></span></div>';
+    html+='<div class="dimension-bar"><div class="dimension-bar-fill" style="width:'+cs.scores[i]+'%;background:linear-gradient(90deg,'+diagDimensionColors[i]+',#764ba2)"></div></div>';
+    html+='<p style="font-size:0.82rem;color:#888;line-height:1.7;margin-top:6px">'+getLevelText(cs.scores[i])+'</p>';
+    html+='</div>';
+    if(cs.scores[i]>cs.scores[strongIdx])strongIdx=i;
+    if(cs.scores[i]<cs.scores[weakIdx])weakIdx=i;
+  }
+  html+='<div class="info-box info-green"><strong>💪 最强维度：</strong>'+diagDimensions[strongIdx]+'（'+cs.scores[strongIdx]+'分）——保持并迁移到其他维度。</div>';
+  html+='<div class="info-box info-red"><strong>⚠️ 最需提升：</strong>'+diagDimensions[weakIdx]+'（'+cs.scores[weakIdx]+'分）——重点突破方向。</div>';
+  html+='</div>';
+
+  var wrongs=[];
+  var tagCount={};
+  for(var i=0;i<diagQuestions.length;i++){
+    var q=diagQuestions[i];
+    var a=diagAnswers[i];
+    if(a!==q.ans){
+      wrongs.push({q:q,a:a,idx:i});
+      if(!tagCount[q.tag])tagCount[q.tag]=0;
+      tagCount[q.tag]++;
+    }
+  }
+  var tags=[];
+  for(var t in tagCount){tags.push({tag:t,count:tagCount[t]});}
+  tags.sort(function(x,y){return y.count-x.count;});
+
+  html+='<div class="card"><h3 class="section-title">🎯 薄弱习惯聚类</h3>';
+  if(tags.length===0){
+    html+='<div class="no-wrong">太棒了！本次测评全部选择最优项，考试习惯非常优秀，继续保持！</div>';
+  }else{
+    html+='<div class="kp-list">';
+    var maxCount=tags[0].count;
+    for(var i=0;i<tags.length;i++){
+      var k=tags[i];
+      html+='<div class="kp-item"><span class="kp-rank">'+(i+1)+'</span>';
+      html+='<span class="kp-name">'+k.tag+'</span>';
+      html+='<span class="kp-count">'+k.count+'题待改进</span>';
+      html+='<div class="kp-bar"><i style="width:'+Math.round(k.count/maxCount*100)+'%"></i></div></div>';
+    }
+    html+='</div>';
+  }
+  html+='</div>';
+
+  html+='<div class="card"><h3 class="section-title">📖 错题回顾与解析</h3>';
+  if(wrongs.length===0){
+    html+='<div class="no-wrong">全部作答最优，无错题需要回顾。</div>';
+  }else{
+    for(var i=0;i<wrongs.length;i++){
+      var w=wrongs[i];
+      var q=w.q;
+      html+='<div class="wrong-question-item">';
+      html+='<div class="wq-head">第'+(w.idx+1)+'题 <span class="wq-tag">'+q.tag+'</span> <span style="color:#888;font-weight:400">· '+diagDimensions[q.dim]+' · '+starStr(q.difficulty)+'</span></div>';
+      html+='<div style="font-size:0.86rem;line-height:1.7;color:#333;margin-bottom:8px">'+q.q+'</div>';
+      if(w.a===-1){
+        html+='<div class="wrong-answer">✗ 未作答</div>';
+      }else{
+        html+='<div class="wrong-answer">✗ 你的选择：'+(q.opts[w.a]||'未作答')+'</div>';
+      }
+      html+='<div class="correct-answer">✓ 最优选择：'+q.opts[q.ans]+'</div>';
+      html+='<div class="explanation">💡 '+q.explanation+'</div>';
+      html+='</div>';
+    }
+  }
+  html+='</div>';
+
+  html+='<div class="card"><h3 class="section-title">💬 综合解读</h3><div class="summary-box">';
+  html+='<p><b>'+studentName+'</b>同学，本次测评综合得分 <b>'+cs.percentage+'%</b>，达到 <b>'+g.grade+'级 · '+g.label+'</b>，用时 '+elapsedText+'。</p>';
+  html+='<p style="margin-top:8px">最强维度是 <b>'+diagDimensions[strongIdx]+'</b>（'+cs.scores[strongIdx]+'分），最需提升的是 <b>'+diagDimensions[weakIdx]+'</b>（'+cs.scores[weakIdx]+'分）。</p>';
+  html+='<p style="margin-top:8px">'+g.advice+'</p>';
+  html+='</div></div>';
+
+  var plans=getWeekPlan(g.grade,weakIdx,tags);
+  html+='<div class="card"><h3 class="section-title">🗓️ 个性化周训练计划（'+g.grade+'级 · '+planTitle(g.grade)+'）</h3>';
+  for(var i=0;i<plans.length;i++){
+    html+='<div class="plan-card"><div class="plan-title">📅 '+plans[i].t+'</div><ul class="plan-list">';
+    for(var j=0;j<plans[i].items.length;j++){
+      html+='<li><b>'+(j+1)+'</b><span>'+plans[i].items[j]+'</span></li>';
+    }
+    html+='</ul></div>';
+  }
+  html+='<div class="plan-note">📌 计划强度根据本次等级自动匹配，坚持执行两周后再测，可重新生成更精准的方案。</div>';
+  html+='</div>';
+
+  html+='<div class="card"><h3 class="section-title">📚 初中物理知识模块与能力对应（初二+初三）</h3><div class="subject-grid">';
+  var subs=[
+    {n:'📘 初二 · 声光热与透镜',d:'声现象、光现象、透镜应用、物态变化，考察<b>审题理解力</b>与<b>解题策略力</b>，光路作图与实验探究是重点。'},
+    {n:'📗 初二 · 力学基础',d:'运动与力、质量与密度、重力弹力摩擦力，深度关联<b>计算准确度</b>与<b>审题理解力</b>，受力分析是核心。'},
+    {n:'📙 初二 · 压强浮力与机械',d:'压强、浮力、功和机械能、简单机械，考验<b>解题策略力</b>与<b>检查校验力</b>，浮沉判断与杠杆平衡是高频考点。'},
+    {n:'🔥 初三 · 内能与内能的利用',d:'比热容、热机、能量转化与守恒，关联<b>计算准确度</b>（Q=cmΔt）与<b>审题理解力</b>。'},
+    {n:'⚡ 初三 · 电学核心',d:'电流电路、欧姆定律、电功率、焦耳定律，直接关联<b>解题策略力</b>、<b>计算准确度</b>与<b>检查校验力</b>，动态电路与电热综合是压轴。'},
+    {n:'🧲 初三 · 电与磁与生活用电',d:'电与磁、家庭电路与安全用电，考验<b>审题理解力</b>与<b>检查校验力</b>，作图与安全常识易失分。'},
+    {n:'⚖️ 全程 · 应试心态',d:'中考临场发挥取决于<b>心理稳定性</b>，深呼吸、积极暗示、考后放下等技巧贯穿初二至初三。'},
+    {n:'🎯 各维度学习建议',d:'根据本次最弱维度'+diagDimensions[weakIdx]+'，优先安排对应知识模块的专项训练，见效最快。'}
+  ];
+  for(var i=0;i<subs.length;i++){
+    html+='<div class="subject-card"><div class="subject-name">'+subs[i].n+'</div><div class="subject-desc">'+subs[i].d+'</div></div>';
+  }
+  html+='</div></div>';
+
+  html+='<div class="card"><h3 class="section-title">💝 家长寄语（中考语境）</h3><div class="parent-card">';
+  html+='<div class="parent-title">给家长的一封信</div>';
+  var pMsg='';
+  if(cs.percentage>=90){
+    pMsg='恭喜您！孩子在此次测评中表现非常优异，物理考试习惯与能力已接近顶尖水平。中考冲刺阶段，请继续给予信任与空间，支持他向电学压轴和实验设计发起挑战，同时留意劳逸结合，避免因追求满分而过度焦虑。孩子的优秀离不开您的长期陪伴，请把这份自信带进中考考场。';
+  }else if(cs.percentage>=75){
+    pMsg='孩子整体能力出色，具备冲击重点高中的潜力。当前最需要的是针对薄弱维度（如'+diagDimensions[weakIdx]+'）的专项突破。建议每周与孩子一起复盘一次错题，关注其考前心态调节，少一些催促、多一些方法指导，孩子的成绩完全有希望在现有基础上再上一个台阶。';
+  }else if(cs.percentage>=60){
+    pMsg='孩子的考试习惯与能力处于稳步上升期，提升空间很大。中考前的这段时间，请鼓励孩子按周训练计划循序渐进，重点关注最弱维度'+diagDimensions[weakIdx]+'。孩子需要的不是一味加压，而是清晰的方法与稳定的支持。每天固定半小时高质量练习，中考时会有惊喜。';
+  }else if(cs.percentage>=40){
+    pMsg='孩子当前在考试方法与习惯上还有较大提升空间，但这恰恰意味着进步潜力巨大。建议降低对分数的过度关注，先从基础习惯（审题、单位换算、受力分析）抓起，每天一小步。同时建议联系我们预约一次专业的1对1学情规划，帮助孩子尽快找到适合自己的提升路径。请多给孩子鼓励与耐心，中考是一场马拉松，稳住心态就能跑赢。';
+  }else{
+    pMsg='孩子目前的学习状态需要系统性的调整与帮助。这并不代表孩子不聪明，而是学习习惯与方法的底层需要重建。请先放下焦虑，与孩子一起从最基础的审题、单位换算、检查三个动作练起，必要时寻求专业辅导支持。我们愿与您并肩同行，为孩子制定长期可行的提升方案，请相信坚持的力量。';
+  }
+  html+='<p class="parent-text">'+pMsg+'</p></div></div>';
+
+  html+='<div class="card no-print"><h3 class="section-title">👨‍🏫 专业成长支持</h3><div class="teacher-card">';
+  html+='<div class="teacher-avatar">👨‍🏫</div><div class="teacher-info">';
+  html+='<div class="teacher-name">刘老师 · 资深理科教育规划师</div>';
+  html+='<div class="teacher-award">★ 央视中学生频道《教育兴国》受邀专访嘉宾</div>';
+  html+='<div class="teacher-stats">从业超8年 · 累计规划学员3100+ · 专注初中理科提分</div>';
+  html+='<div class="teacher-phone">📞 17875314336（扫码测评后预约咨询）</div>';
+  html+='</div></div></div>';
+
+  html+='<div class="print-bar no-print">';
+  html+='<button class="btn btn-secondary" onclick="resetDiag()">重新测评</button>';
+  html+='<button class="btn btn-outline" onclick="showPage(\'skills\')">查看技巧库</button>';
+  html+='<button class="btn btn-accent" onclick="window.print()">🖨️ 打印报告</button>';
+  html+='</div>';
+
+  document.getElementById('reportContent').innerHTML=html;
+
+  setTimeout(function(){
+    var ring=document.getElementById('ringCanvas');
+    if(ring)drawRing(ring,cs.percentage,g.color);
+    var rb=document.getElementById('radarBox');
+    if(rb)rb.appendChild(drawRadar(document.createElement('canvas'),cs));
+    var bb=document.getElementById('barBox');
+    if(bb)bb.appendChild(drawBar(document.createElement('canvas'),cs));
+  },150);
+}
+
+function getWeekPlan(grade,weakIdx,tags){
+  var weakName=diagDimensions[weakIdx];
+  var weakTag=(tags&&tags.length)?tags[0].tag:'综合习惯';
+  var plans=[];
+  if(grade==='S'){
+    plans.push({t:'周一 · 电学压轴攻坚',items:['精做2道电学综合压轴题（动态电路/电热综合），限时40分钟','使用"先化简电路、再列方程"策略，规范写出每一步依据','记录压轴错题，重写完整解答并总结思路']});
+    plans.push({t:'周二 · 速度训练',items:['限时完成12道选择题（25分钟），练习排除法、图象分析法','对照答案逐题复盘，找出超时题目并分析原因','坚持3分钟"时间红线"，超时立即跳过']});
+    plans.push({t:'周三 · 实验与思维',items:['深挖2道实验探究题（伏安法测电阻/测电功率/密度测量），设计改进方案','用"原理-器材-步骤-结论"四要素分析实验','挑战一题多解，比较不同方法的优劣']});
+    plans.push({t:'周四 · 全真模拟',items:['完整做一套中考模拟卷（100分钟），严格模拟考场环境','模拟时记录各题型用时，对照时间分配表找偏差','考后重点复盘错题与压轴题得分情况']});
+    plans.push({t:'周五 · 专项巩固',items:['针对最弱维度【'+weakName+'】安排15分钟专项训练','重做本周所有错题，确保"错题清零"','练习用两种方法交叉验证关键计算']});
+    plans.push({t:'周末 · 保持与调整',items:['周六：轻松完成1套基础卷，保持手感和信心','周日：整理错题本，复习本周技巧要点','保证充足睡眠，用深呼吸法调节考前心态']});
+  }else if(grade==='A'){
+    plans.push({t:'周一 · 压轴入门',items:['精做1-2道电学或力学压轴题，重点拿下第(1)(2)问','掌握"执果索因"分析法，写清推导依据','压轴错题完整重写一遍']});
+    plans.push({t:'周二 · 薄弱专项',items:['针对【'+weakName+'】+【'+weakTag+'】安排20分钟专项练习','总结该类题型的通用解题步骤','做3道同类题巩固，做到举一反三']});
+    plans.push({t:'周三 · 计算精度',items:['完成20道计算题（密度/压强/浮力/电功率），要求零失误','每步规范书写，统一单位','用单位换算检验或代入法验证5道关键题']});
+    plans.push({t:'周四 · 时间管理',items:['限时完成1套选择题+填空题组合（50分钟）','练习"先易后难"与"时间红线"策略','复盘超时题，优化时间分配']});
+    plans.push({t:'周五 · 错题复盘',items:['重做本周错题，归因（计算/审题/策略/心态）','把典型错误录入错题本','对易错清单（单位/量程/结论前提）逐项自查']});
+    plans.push({t:'周末 · 模拟与心态',items:['周六：限时1套模拟卷，模拟真实考场','周日：分析错题分布，制定下周重点','练习深呼吸与积极暗示，强化考试信心']});
+  }else if(grade==='B'){
+    plans.push({t:'周一 · 基础加固',items:['复习【'+weakName+'】对应的核心概念与公式（如欧姆定律、密度公式）','完成10道基础题，要求全部正确','建立"知识点清单"，标记薄弱项']});
+    plans.push({t:'周二 · 技巧训练',items:['学习选择题四法（排除、特殊值、代入、图象分析）','完成8道选择题练习，每次限时2分钟/题','学会"先排除再验证"的快速解题流程']});
+    plans.push({t:'周三 · 计算规范',items:['完成15道计算题，重点练单位换算（km/h与m/s、kg/m3与g/cm3）','每步写清过程，做完用数量级验证','记录所有失误点，形成个人易错清单']});
+    plans.push({t:'周四 · 检查训练',items:['做10道题后专门练习"检查"环节','练习优先检查高分题、用不同方法验证','核对填涂与单位，杜绝冤枉丢分']});
+    plans.push({t:'周五 · 错题归因',items:['重做本周错题，按"审题/计算/策略/心态"四类归因','针对【'+weakTag+'】类题目再练3题','与同学或老师交流1道不会的题']});
+    plans.push({t:'周末 · 限时训练',items:['周六：限时完成1套中档模拟卷（90分钟）','周日：复盘失分点，制定下周计划','加入10分钟深呼吸练习，稳定心态']});
+  }else if(grade==='C'){
+    plans.push({t:'周一 · 习惯重建',items:['学习"三步审题法"：通读、圈关键词、明确所求','完成5道题专门训练圈画关键词与隐含条件（如"匀速""浸没""不计摩擦"）','每天记录一次"我审对了"的小成就']});
+    plans.push({t:'周二 · 计算筑基',items:['完成10道基础计算题（速度、密度、简单压强），先易后难','规范书写步骤，每步标注单位','做错的重做一遍，直到全对为止']});
+    plans.push({t:'周三 · 策略启蒙',items:['学习排除法与特殊值法，用于选择题','完成6道选择题练习，体会方法带来的提速','建立"选择题四法"小抄，随时查阅']});
+    plans.push({t:'周四 · 时间感知',items:['用计时器做作业：每题限时训练','学习"卡壳3分钟就跳过"策略','练习先易后难，保护基础分']});
+    plans.push({t:'周五 · 检查起步',items:['完成8道题后，练习用数量级估算检查计算题','学习核对答案与题目是否对应','开始建立错题本，记录5道错题']});
+    plans.push({t:'周末 · 信心建立',items:['周六：完成1套基础卷，目标是把会做的全做对','周日：家长陪同复盘，重点表扬进步','练习深呼吸法，为下一次测评做准备']});
+  }else{
+    plans.push({t:'周一 · 从零开始',items:['复习最基础概念：速度、密度、重力公式与单位','完成5道最简单的计算题，找回手感','目标：今天搞懂1个概念，不贪多']});
+    plans.push({t:'周二 · 审题入门',items:['学习读题三步骤：看完整、圈条件、明所求','做3道简单题，专练"读懂题再动笔"','请家长或老师帮助确认是否读懂了题目']});
+    plans.push({t:'周三 · 计算复原',items:['用课本例题练习速度、密度四则运算','每步写过程，做完对答案','错题不灰心，第二天再重做一遍']});
+    plans.push({t:'周四 · 小步练习',items:['完成4道选择题，用排除法缩小范围','设置每道题5分钟的时间上限','做完后学习"检查一遍"的习惯']});
+    plans.push({t:'周五 · 陪伴学习',items:['建议家长陪同完成1小时专注学习','用"番茄钟"25分钟学习+5分钟休息','记录今天学到的1个新方法']});
+    plans.push({t:'周末 · 评估规划',items:['周六：完成一套最基础的自测，定位当前水平','周日：建议预约专业1对1学情规划，制定长期方案','家长寄语：多鼓励、少比较，重建孩子的学习信心']});
+  }
+  return plans;
+}
+
+function drawRing(canvasEl,pct,color){
+  var c=canvasEl;
+  var ctx=c.getContext('2d');
+  var size=190,cx=size/2,cy=size/2,r=78;
+  c.width=size;c.height=size;
+  ctx.clearRect(0,0,size,size);
+  ctx.lineWidth=16;ctx.lineCap='round';
+  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
+  ctx.strokeStyle='rgba(255,255,255,0.18)';ctx.stroke();
+  var start=-Math.PI/2;
+  var end=start+Math.PI*2*pct/100;
+  var grad=ctx.createLinearGradient(0,0,size,size);
+  grad.addColorStop(0,'#667eea');grad.addColorStop(1,'#764ba2');
+  ctx.strokeStyle=grad;
+  ctx.beginPath();ctx.arc(cx,cy,r,start,end);ctx.stroke();
+}
+
+function drawRadar(canvasEl,cs){
+  var c=canvasEl;
+  var ctx=c.getContext('2d');
+  var size=340,cx=size/2,cy=size/2,r=118,n=6;
+  c.width=size;c.height=size;
+  var step=Math.PI*2/n;
+  ctx.strokeStyle='rgba(100,116,139,0.16)';
+  ctx.lineWidth=1;
+  for(var l=1;l<=5;l++){
+    ctx.beginPath();
+    var rr=r*l/5;
+    for(var i=0;i<=n;i++){
+      var a=step*i-Math.PI/2;
+      var x=cx+rr*Math.cos(a),y=cy+rr*Math.sin(a);
+      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    ctx.closePath();ctx.stroke();
+  }
+  for(var i=0;i<n;i++){
+    var a=step*i-Math.PI/2;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));
+    ctx.stroke();
+  }
+  var pts=[];
+  ctx.beginPath();
+  for(var i=0;i<n;i++){
+    var pct=cs.scores[i];
+    var rr=r*pct/100;
+    var a=step*i-Math.PI/2;
+    var x=cx+rr*Math.cos(a),y=cy+rr*Math.sin(a);
+    pts.push({x:x,y:y});
+    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  var grad=ctx.createLinearGradient(0,0,size,size);
+  grad.addColorStop(0,'rgba(102,126,234,0.4)');grad.addColorStop(1,'rgba(118,75,162,0.3)');
+  ctx.fillStyle=grad;ctx.fill();
+  ctx.strokeStyle='#667eea';ctx.lineWidth=2.5;ctx.stroke();
+  for(var i=0;i<pts.length;i++){
+    ctx.beginPath();ctx.arc(pts[i].x,pts[i].y,5,0,Math.PI*2);
+    ctx.fillStyle='#764ba2';ctx.fill();
+    ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();
+  }
+  ctx.font='bold 13px sans-serif';
+  ctx.textAlign='center';
+  for(var i=0;i<n;i++){
+    var a=step*i-Math.PI/2;
+    var x=cx+(r+26)*Math.cos(a),y=cy+(r+26)*Math.sin(a);
+    ctx.fillStyle='#334155';ctx.fillText(diagDimensions[i],x,y);
+    ctx.fillStyle=diagDimensionColors[i];
+    ctx.fillText(cs.scores[i]+'分',x,y+17);
+  }
+  return c;
+}
+
+function drawBar(canvasEl,cs){
+  var c=canvasEl;
+  var ctx=c.getContext('2d');
+  var w=460,h=240;
+  c.width=w;c.height=h;
+  ctx.clearRect(0,0,w,h);
+  var n=6,padL=20,padR=20,padT=22,padB=34;
+  var chartW=w-padL-padR;
+  var chartH=h-padT-padB;
+  var barW=chartW/n-16;
+  ctx.strokeStyle='rgba(100,116,139,0.12)';
+  ctx.lineWidth=1;
+  for(var g=0;g<=4;g++){
+    var gy=padT+chartH-(chartH*g/4);
+    ctx.beginPath();
+    ctx.moveTo(padL,gy);ctx.lineTo(w-padR,gy);
+    ctx.stroke();
+    ctx.fillStyle='#999';ctx.font='11px sans-serif';ctx.textAlign='right';
+    ctx.fillText((g*25)+'',padL-4,gy+4);
+  }
+  for(var i=0;i<n;i++){
+    var x=padL+(chartW/n)*i+8;
+    var vh=(cs.scores[i]/100)*chartH;
+    var y=padT+chartH-vh;
+    var grad=ctx.createLinearGradient(0,y,0,padT+chartH);
+    grad.addColorStop(0,diagDimensionColors[i]);
+    grad.addColorStop(1,'#764ba2');
+    ctx.fillStyle=grad;
+    ctx.fillRect(x,y,barW,vh);
+    ctx.fillStyle='#334155';ctx.textAlign='center';ctx.font='bold 12px sans-serif';
+    ctx.fillText(cs.scores[i],x+barW/2,y-6);
+    ctx.fillStyle='#888';ctx.font='11px sans-serif';
+    ctx.fillText(diagDimensions[i].slice(0,4),x+barW/2,padT+chartH+16);
+  }
+  return c;
+}
+
+function syncReportToCloud(cs,elapsedText){
+  try{
+    var SUPABASE_URL='https://bmgqtxhbzupaujpzghpq.supabase.co';
+    var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtZ3F0eGhienVwYXVqcHpnaHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwMDQxODQsImV4cCI6MjEwMTU4MDE4NH0.JgiQlUopALIDRYxE72oyPC2NoC0L4HrhH2q9cHW01W0';
+    var ts=new Date().getTime();
+    var uname='exam_skill_physics_report_'+(studentName||'guest')+'_'+ts;
+    var bodyData={
+      student_name:studentName||'匿名',
+      grade:studentGrade||'',
+      school:studentSchool||'',
+      total_score:cs.totalScore,
+      total_max:cs.totalMax,
+      percentage:cs.percentage,
+      grade_level:getGrade(cs.percentage).grade,
+      correct:cs.correct,
+      elapsed:elapsedText,
+      dim0_percent:cs.scores[0],
+      dim1_percent:cs.scores[1],
+      dim2_percent:cs.scores[2],
+      dim3_percent:cs.scores[3],
+      dim4_percent:cs.scores[4],
+      dim5_percent:cs.scores[5],
+      report_time:new Date().toISOString()
+    };
+    var body=JSON.stringify({username:uname,state_data:JSON.stringify(bodyData),updated_at:new Date().toISOString()});
+    fetch(SUPABASE_URL+'/rest/v1/py_user_states?on_conflict=username',{
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
+      body:body
+    }).then(function(resp){
+      if(resp.ok){console.log('[Cloud] 报告已同步到云端');}
+    }).catch(function(e){console.error('[Cloud] 同步失败',e);});
+  }catch(e){console.error('[Cloud] 同步异常',e);}
+}
+
+function resetDiag(){
+  stopDiagTimer();
+  diagStarted=false;
+  diagCurrent=0;
+  diagAnswers=[];
+  diagSeconds=0;
+  studentName='';studentGrade='';studentSchool='';
+  document.getElementById('stuName').value='';
+  document.getElementById('stuSchool').value='';
+  var chips=document.getElementById('gradeRow').getElementsByClassName('ds-grade-chip');
+  for(var i=0;i<chips.length;i++){chips[i].classList.remove('active');}
+  document.getElementById('diag-intro').style.display='block';
+  document.getElementById('diag-quiz').style.display='none';
+  document.getElementById('diag-result').style.display='none';
+}
+
+</script>
+
+<script>
+// ========== 限时答题训练 ==========
+var timedQuestions=[
+{q:'声音在空气中的传播速度约为：',opts:['340m/s','3×108m/s','3×108km/s','340km/h'],ans:0,exp:'声音在15℃空气中的传播速度约为340m/s。3×108m/s是光速。'},
+{q:'凸透镜焦距为10cm，物体放在距透镜15cm处，光屏上成：',opts:['倒立缩小实像','倒立放大实像','正立放大虚像','倒立等大实像'],ans:1,exp:'f=10cm，u=15cm，f<u<2f，成倒立放大实像（投影仪原理）。'},
+{q:'一个质量为0.5kg的物体，其重力为（g=10N/kg）：',opts:['5N','0.5N','50N','0.05N'],ans:0,exp:'G=mg=0.5kg×10N/kg=5N。'},
+{q:'冰的密度为0.9×103kg/m3，水的密度为1.0×103kg/m3，等质量的冰化成水后：',opts:['体积变大','体积变小','体积不变','质量变大'],ans:1,exp:'冰化成水质量不变，水的密度大于冰的密度，由V=m/ρ知体积变小。'},
+{q:'两个电阻R1=10欧、R2=20欧串联，总电阻为：',opts:['10欧','20欧','30欧','6.67欧'],ans:2,exp:'串联总电阻R=R1+R2=10+20=30欧。'},
+{q:'人站在平面镜前3m处，则人与镜中像的距离为：',opts:['3m','1.5m','6m','4.5m'],ans:2,exp:'像到镜面距离=物到镜面距离=3m，人与像距离=3+3=6m。'},
+{q:'下列物态变化中，属于升华的是：',opts:['冰熔化成水','水蒸发成水蒸气','干冰直接变成气体','水蒸气液化成小水珠'],ans:2,exp:'升华是固态直接变成气态。干冰（固态CO2）直接变成气体是升华。'},
+{q:'汽车匀速直线运动时，下列说法正确的是：',opts:['汽车不受力','汽车受平衡力','汽车惯性消失','汽车受到的合力不为零'],ans:1,exp:'匀速直线运动状态说明汽车受到平衡力，合力为零。惯性不会消失。'},
+{q:'将一木块放入水中，木块漂浮，则木块的密度：',opts:['大于水的密度','等于水的密度','小于水的密度','无法判断'],ans:2,exp:'漂浮条件：F浮=G物，即ρ水gV排=ρ木gV木，由于V排<V木，所以ρ木<ρ水。'},
+{q:'家用照明电路的电压为：',opts:['1.5V','36V','220V','380V'],ans:2,exp:'我国家庭电路电压为220V，人体安全电压不高于36V。'},
+{q:'水的比热容是4.2×10的3次方焦每千克摄氏度，表示的意义是：',opts:['1kg水升高1摄氏度吸收4.2×10的3次方焦热量','1kg水升高1摄氏度放出4.2×10的6次方焦热量','1L水升高1摄氏度吸收4.2×10的3次方焦热量','2kg水升高1摄氏度吸收4.2×10的3次方焦热量'],ans:0,exp:'比热容定义：单位质量的某种物质温度升高（或降低）1摄氏度所吸收（或放出）的热量。水的比热容为4.2×10的3次方焦每千克摄氏度。'},
+{q:'额定电压220V、额定功率100W的灯泡正常工作时，通过它的电流约为：',opts:['0.45A','2.2A','220A','4.5A'],ans:0,exp:'由P=UI得I=P/U=100W/220V，约等于0.45A。'},
+{q:'电阻R=10欧，通过电流I=2A，通电时间t=10s，产生的热量为（焦耳定律）：',opts:['200J','400J','40J','4000J'],ans:1,exp:'Q=I的2次方乘R乘t=(2A)的2次方×10欧×10s=400J。'},
+{q:'发现有人触电时，正确的做法是：',opts:['立即用手拉开触电者','先切断电源，再用干燥的绝缘物体挑开电线','用湿木棍挑开电线','继续围观等待'],ans:1,exp:'发现有人触电，应首先切断电源（或用干燥的绝缘物体挑开电线），绝不能直接用手去拉触电者。'}
+];
+var timedStarted=false;
+var timedIdx=0;
+var timedAnswers=[];
+var timedTimerInt=null;
+var timedSec=900;
+
+function startTimedQuiz(){
+  timedStarted=true;
+  timedIdx=0;
+  timedAnswers=[];
+  timedSec=900;
+  for(var i=0;i<timedQuestions.length;i++){timedAnswers.push(-1);}
+  document.getElementById('timed-intro').style.display='none';
+  document.getElementById('timed-result').style.display='none';
+  renderTimedQuestion();
+  startTimedTimer();
+}
+
+function startTimedTimer(){
+  if(timedTimerInt)clearInterval(timedTimerInt);
+  timedTimerInt=setInterval(function(){
+    timedSec--;
+    var m=Math.floor(timedSec/60);
+    var s=timedSec%60;
+    var t=document.getElementById('timed-timer');
+    if(t)t.innerText=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+    if(timedSec<=0){clearInterval(timedTimerInt);finishTimedQuiz();}
+  },1000);
+}
+
+function renderTimedQuestion(){
+  var q=timedQuestions[timedIdx];
+  var html='<div class="quiz-question">';
+  html+='<div class="quiz-q-text"><span class="q-num">第'+(timedIdx+1)+'题</span>'+q.q+'</div>';
+  html+='<div class="quiz-options">';
+  for(var i=0;i<q.opts.length;i++){
+    var cls='quiz-opt';
+    if(timedAnswers[timedIdx]===i){cls+=' selected';}
+    html+='<div class="'+cls+'" onclick="selectTimed('+i+')"><span class="opt-label">'+String.fromCharCode(65+i)+'</span><span>'+q.opts[i]+'</span></div>';
+  }
+  html+='</div>';
+  if(timedAnswers[timedIdx]!==-1){
+    html+='<div class="quiz-explain show"><span class="explain-tag">解析：</span>'+q.exp+'</div>';
+  }
+  html+='</div>';
+  var container=document.getElementById('timed-container');
+  if(container)container.innerHTML=html;
+  var prog=document.getElementById('timed-progress');
+  if(prog)prog.style.width=((timedIdx+1)/timedQuestions.length*100)+'%';
+  var qp=document.getElementById('timed-q-progress');
+  if(qp)qp.innerText='第 '+(timedIdx+1)+' / '+timedQuestions.length+' 题';
+}
+
+function selectTimed(idx){
+  timedAnswers[timedIdx]=idx;
+  renderTimedQuestion();
+  setTimeout(function(){
+    if(timedIdx<timedQuestions.length-1){
+      timedIdx++;
+      renderTimedQuestion();
+    }else{
+      finishTimedQuiz();
+    }
+  },800);
+}
+
+function finishTimedQuiz(){
+  if(timedTimerInt)clearInterval(timedTimerInt);
+  var correct=0;
+  var html='';
+  for(var i=0;i<timedQuestions.length;i++){
+    var q=timedQuestions[i];
+    var isCorrect=timedAnswers[i]===q.ans;
+    if(isCorrect)correct++;
+    html+='<div class="quiz-question">';
+    html+='<div class="quiz-q-text"><span class="q-num">第'+(i+1)+'题</span>'+q.q+'</div>';
+    html+='<div class="quiz-options">';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='quiz-opt';
+      if(j===q.ans)cls+=' correct';
+      if(timedAnswers[i]===j&&j!==q.ans)cls+=' wrong';
+      html+='<div class="'+cls+'"><span class="opt-label">'+String.fromCharCode(65+j)+'</span><span>'+q.opts[j]+'</span></div>';
+    }
+    html+='</div>';
+    html+='<div class="quiz-explain show"><span class="explain-tag">解析：</span>'+q.exp+'</div>';
+    html+='</div>';
+  }
+  var score=Math.round(correct/timedQuestions.length*100);
+  document.getElementById('timed-score').innerText=score;
+  document.getElementById('timed-review').innerHTML=html;
+  document.getElementById('timed-container').style.display='none';
+  var qp=document.getElementById('timed-q-progress');
+  if(qp)qp.parentElement.style.display='none';
+  document.getElementById('timed-result').style.display='block';
+}
+
+function resetTimedQuiz(){
+  document.getElementById('timed-intro').style.display='block';
+  document.getElementById('timed-result').style.display='none';
+  document.getElementById('timed-container').style.display='block';
+  document.getElementById('timed-container').innerHTML='';
+  var qp=document.getElementById('timed-q-progress');
+  if(qp)qp.parentElement.style.display='block';
+  var tr=document.getElementById('timed-result');
+  tr.innerHTML='';
+  var sd=document.createElement('div');
+  sd.className='score-display';
+  sd.innerHTML='<div class="big-score" id="timed-score">0</div><div class="score-label">分 / 100分</div>';
+  tr.appendChild(sd);
+  var rv=document.createElement('div');
+  rv.id='timed-review';
+  tr.appendChild(rv);
+  var btnDiv=document.createElement('div');
+  btnDiv.style.cssText='text-align:center;margin-top:14px';
+  var btn1=document.createElement('button');
+  btn1.className='btn btn-outline';
+  btn1.innerText='再来一次';
+  btn1.onclick=function(){resetTimedQuiz();};
+  btnDiv.appendChild(btn1);
+  btnDiv.appendChild(document.createTextNode(' '));
+  var btn2=document.createElement('button');
+  btn2.className='btn btn-primary';
+  btn2.innerText='返回训练列表';
+  btn2.onclick=function(){showPage('training');};
+  btnDiv.appendChild(btn2);
+  tr.appendChild(btnDiv);
+  timedStarted=false;
+  timedIdx=0;
+  timedAnswers=[];
+}
+
+// ========== 易错题挑战 ==========
+var mistakeQuizData=[
+{q:'关于惯性，下列说法正确的是：',opts:['速度越大惯性越大','质量越大惯性越大','静止的物体没有惯性','惯性是一种力'],ans:1,exp:'惯性是物体的固有属性，一切物体都有惯性。惯性大小只与质量有关，与速度无关。惯性不是力。'},
+{q:'一个人从平面镜中看到钟表的示数为2:00，则实际时间为：',opts:['2:00','10:00','12:00','4:00'],ans:1,exp:'平面镜成像左右对称，钟表在镜中是反的。2:00在镜中看到实际是10:00。'},
+{q:'将一物体放入水中，它排开水的体积为100cm3，则它受到的浮力为（g=10N/kg）：',opts:['1N','10N','0.1N','100N'],ans:0,exp:'F浮=ρ水gV排=1.0×103kg/m3×10N/kg×1×10-4m3=1N。注意V排要换算为m3。'},
+{q:'冬天窗户上的冰花形成过程属于什么物态变化？',opts:['凝固','凝华','液化','升华'],ans:1,exp:'冰花是室内水蒸气遇冷直接变成固态（冰），气态→固态是凝华现象，放热。'},
+{q:'两个电阻并联，R1=6欧，R2=3欧，总电阻为：',opts:['9欧','2欧','3欧','6欧'],ans:1,exp:'1/R=1/R1+1/R2=1/6+1/3=1/6+2/6=3/6=1/2，R=2欧。并联总电阻小于任一分电阻。'},
+{q:'凸透镜成实像时，物距减小，则：',opts:['像变大，像距变大','像变小，像距变小','像变大，像距变小','像变小，像距变大'],ans:0,exp:'凸透镜成实像时：物近像远像变大。物距减小→像变大、像距变大。'},
+{q:'关于声音，下列说法正确的是：',opts:['真空可以传声','声音在固体中传播最慢','声音的传播需要介质','超声波不是声波'],ans:2,exp:'声音传播需要介质，真空不能传声。声音在固体中传播最快。超声波也是声波，只是频率高于20000Hz。'},
+{q:'滑动摩擦力的大小与下列哪个因素有关？',opts:['接触面积大小','运动速度','压力大小','接触时间'],ans:2,exp:'滑动摩擦力大小只与压力大小和接触面粗糙程度有关，与速度、接触面积、接触时间无关。'},
+{q:'质量相同的水和砂石吸收相同热量后，温度升高较多的是：',opts:['水','砂石','两者相同','无法判断'],ans:1,exp:'由Q=cmΔt得Δt=Q/(cm)，质量相同、吸热相同，比热容小的温度升高多。砂石的比热容远小于水，故砂石温度升高较多。'},
+{q:'关于内能，下列说法正确的是：',opts:['温度越高的物体内能一定越大','0摄氏度的物体没有内能','内能大小只与温度有关','一切物体都具有内能'],ans:3,exp:'内能是物体内所有分子热运动的动能和分子势能的总和。一切物体在任何温度下都具有内能，0摄氏度的物体也有内能。'},
+{q:'两个用电器串联在电路中，电阻R1=4欧、R2=6欧，通过R1的电流为0.5A，则通过R2的电流为：',opts:['0.3A','0.5A','0.75A','1.25A'],ans:1,exp:'串联电路电流处处相等，通过各用电器的电流相同，故通过R2的电流也是0.5A。'}
+];
+var mistakeQuizState=[];
+
+function renderMistakeQuiz(){
+  var html='';
+  for(var i=0;i<mistakeQuizData.length;i++){
+    var q=mistakeQuizData[i];
+    html+='<div class="quiz-question" id="mq-'+i+'">';
+    html+='<div class="quiz-q-text"><span class="q-num">第'+(i+1)+'题</span>'+q.q+'</div>';
+    html+='<div class="quiz-options">';
+    for(var j=0;j<q.opts.length;j++){
+      html+='<div class="quiz-opt" onclick="selectMistakeQuiz('+i+','+j+')"><span class="opt-label">'+String.fromCharCode(65+j)+'</span><span>'+q.opts[j]+'</span></div>';
+    }
+    html+='</div>';
+    html+='<div class="quiz-explain" id="mq-exp-'+i+'"><span class="explain-tag">解析：</span>'+q.exp+'</div>';
+    html+='</div>';
+  }
+  document.getElementById('mistake-quiz-container').innerHTML=html;
+  mistakeQuizState=[];
+  for(var i=0;i<mistakeQuizData.length;i++){mistakeQuizState.push(-1);}
+}
+
+function selectMistakeQuiz(qIdx,optIdx){
+  if(mistakeQuizState[qIdx]!==-1)return;
+  mistakeQuizState[qIdx]=optIdx;
+  var q=mistakeQuizData[qIdx];
+  var container=document.getElementById('mq-'+qIdx);
+  var opts=container.querySelectorAll('.quiz-opt');
+  for(var i=0;i<opts.length;i++){
+    opts[i].onclick=null;
+    if(i===q.ans){opts[i].classList.add('correct');}
+    if(i===optIdx&&i!==q.ans){opts[i].classList.add('wrong');}
+  }
+  document.getElementById('mq-exp-'+qIdx).classList.add('show');
+}
+
+// ========== 公式速记 ==========
+var formulaQuizData=[
+{q:'速度公式：v = ?',opts:['s/t','t/s','s×t','s+t'],ans:0,exp:'速度=路程÷时间，v=s/t。'},
+{q:'重力公式：G = ?',opts:['m/g','g/m','mg','m+g'],ans:2,exp:'重力=质量×g，G=mg，g=10N/kg。'},
+{q:'密度公式：ρ = ?',opts:['m/V','V/m','mV','m+V'],ans:0,exp:'密度=质量÷体积，ρ=m/V。'},
+{q:'压强公式（固体）：p = ?',opts:['S/F','F×S','F/S','F-S'],ans:2,exp:'压强=压力÷受力面积，p=F/S。'},
+{q:'液体压强公式：p = ?',opts:['ρgh','ρg/h','ρh/g','g/ρh'],ans:0,exp:'液体压强p=ρgh，ρ为液体密度，g=10N/kg，h为深度。'},
+{q:'浮力公式（阿基米德原理）：F浮 = ?',opts:['ρ液gV物','ρ液gV排','ρ物gV物','ρ物gV排'],ans:1,exp:'F浮=ρ液gV排，V排是排开液体的体积（不是物体体积）。'},
+{q:'功的公式：W = ?',opts:['F+s','F-s','Fs','F/s'],ans:2,exp:'功=力×距离，W=Fs，力和位移方向要一致。'},
+{q:'功率公式：P = ?',opts:['W/t','W×t','t/W','W+t'],ans:0,exp:'功率=功÷时间，P=W/t=Fv。'},
+{q:'欧姆定律：I = ?',opts:['U×R','U/R','R/U','U+R'],ans:1,exp:'电流=电压÷电阻，I=U/R。'},
+{q:'电功率公式：P = ?',opts:['U/I','I/U','UI','U-I'],ans:2,exp:'电功率P=UI=I2R=U2/R。'},
+{q:'物体吸收热量的公式（比热容）：Q = ?',opts:['cmΔt','m/cΔt','c/mΔt','cm/Δt'],ans:0,exp:'吸热公式Q=cmΔt，c为比热容，m为质量，Δt为温度变化量。'},
+{q:'燃料完全燃烧放出的热量：Q = ?',opts:['qm','m/q','q/m','q+m'],ans:0,exp:'燃料完全燃烧放热Q=mq，q为热值，m为燃料质量。'},
+{q:'焦耳定律（电流产生的热量）：Q = ?',opts:['I2Rt','IRt','UIt','I2R/t'],ans:0,exp:'焦耳定律：电流产生的热量Q=I2Rt，纯电阻电路也可用Q=W=UIt。'},
+{q:'电功公式：W = ?',opts:['UIt','UI/t','UIt/2','U2It'],ans:0,exp:'电功W=UIt=Pt=I2Rt=U2t/R，注意各公式的适用条件。'}
+];
+var formulaQuizState=[];
+
+function renderFormulaQuiz(){
+  var html='';
+  for(var i=0;i<formulaQuizData.length;i++){
+    var q=formulaQuizData[i];
+    html+='<div class="quiz-question" id="fq-'+i+'">';
+    html+='<div class="quiz-q-text"><span class="q-num">第'+(i+1)+'题</span>'+q.q+'</div>';
+    html+='<div class="quiz-options">';
+    for(var j=0;j<q.opts.length;j++){
+      html+='<div class="quiz-opt" onclick="selectFormulaQuiz('+i+','+j+')"><span class="opt-label">'+String.fromCharCode(65+j)+'</span><span>'+q.opts[j]+'</span></div>';
+    }
+    html+='</div>';
+    html+='<div class="quiz-explain" id="fq-exp-'+i+'"><span class="explain-tag">解析：</span>'+q.exp+'</div>';
+    html+='</div>';
+  }
+  document.getElementById('formula-quiz-container').innerHTML=html;
+  formulaQuizState=[];
+  for(var i=0;i<formulaQuizData.length;i++){formulaQuizState.push(-1);}
+}
+
+function selectFormulaQuiz(qIdx,optIdx){
+  if(formulaQuizState[qIdx]!==-1)return;
+  formulaQuizState[qIdx]=optIdx;
+  var q=formulaQuizData[qIdx];
+  var container=document.getElementById('fq-'+qIdx);
+  var opts=container.querySelectorAll('.quiz-opt');
+  for(var i=0;i<opts.length;i++){
+    opts[i].onclick=null;
+    if(i===q.ans){opts[i].classList.add('correct');}
+    if(i===optIdx&&i!==q.ans){opts[i].classList.add('wrong');}
+  }
+  document.getElementById('fq-exp-'+qIdx).classList.add('show');
+}
+
+// ========== 解题策略模拟 ==========
+var strategyQuizData=[
+{q:'考试中遇到一道浮力选择题，不知道物体是漂浮还是沉底，最佳策略是？',opts:['直接猜漂浮','比较物体密度与液体密度判断浮沉状态，再选公式','随便写一个公式算','放弃不做'],ans:1,exp:'浮力题先判断浮沉状态是关键。比较ρ物与ρ液：ρ物<ρ液漂浮，ρ物=ρ液悬浮，ρ物>ρ液沉底。'},
+{q:'电学题中，有电压表和电流表的电路不会判断串并联，应该？',opts:['放弃这道题','将电压表当断路、电流表当导线处理，再判断用电器连接方式','随便画一个等效电路','背公式试试'],ans:1,exp:'分析电路时，电压表当断路、电流表当导线，去掉电表后再判断用电器的串并联关系。'},
+{q:'实验探究题中，不会写结论表述，你的策略是？',opts:['空着不写','按"在____一定时，____与____成正比"模板写结论','随便写几个字','写一堆公式凑字数'],ans:1,exp:'实验结论要写前提条件（控制变量）+ 变量关系。模板："在____一定时，____与____成____比"。'},
+{q:'考试时间不够了，还有两道计算题没做，你应该？',opts:['优做有把握的那道，另一道写公式和代入步骤','随便做一道','两道都放弃','想办法都做完'],ans:0,exp:'时间不够时，优做有把握的题，另一道写相关公式和已知条件的推导争步骤分。'},
+{q:'检查时发现计算题答案似乎错了，你应该？',opts:['有充分理由才改，否则相信第一直觉','立刻改成另一个答案','反复修改','不管它'],ans:0,exp:'无充分理由不轻易改答案。但如果确认计算过程有误（如单位换算错误），应改正。'},
+{q:'遇到凸透镜成像题记不清成像规律，策略是？',opts:['口诀"一倍焦距分虚实，二倍焦距分大小"帮助判断','直接猜一个答案','放弃这道题','随便画一个光路图'],ans:0,exp:'凸透镜成像规律用口诀记忆：一倍焦距分虚实（u=f），二倍焦距分大小（u=2f）。物近像远像变大。'},
+{q:'已知两个电阻串联，要比较它们消耗电功率的大小，最方便的是？',opts:['用P=I2R，串联电流相等，电阻越大功率越大','用P=U2/R','用P=W/t','无法比较'],ans:0,exp:'串联电路中电流I相等，用P=I2R判断：电阻越大，电功率越大。并联则用P=U2/R判断。'},
+{q:'滑动变阻器滑片向右移动使电路电阻增大，与它串联的灯泡变亮还是变暗？',opts:['变亮','变暗','不变','无法判断'],ans:1,exp:'串联电路总电阻增大，总电流减小，通过灯泡的电流减小，灯泡变暗。记住口诀：串大流小。'},
+{q:'做电热综合题（如电热水壶烧水），计算电流产生热量与水温升高的关系，正确思路是？',opts:['先用Q=I2Rt算电热，再结合Q=cmΔt求温度变化，注意热效率','只算电热不用管水温','只算水温不管电热','直接猜一个温度'],ans:0,exp:'电热综合以焦耳定律为桥梁：先算Q=I2Rt（电热），若存在热损失要考虑效率，再代入Q=cmΔt求温度变化。'}
+];
+var strategyQuizState=[];
+
+function renderStrategyQuiz(){
+  var html='';
+  for(var i=0;i<strategyQuizData.length;i++){
+    var q=strategyQuizData[i];
+    html+='<div class="quiz-question" id="sq-'+i+'">';
+    html+='<div class="quiz-q-text"><span class="q-num">第'+(i+1)+'题</span>'+q.q+'</div>';
+    html+='<div class="quiz-options">';
+    for(var j=0;j<q.opts.length;j++){
+      html+='<div class="quiz-opt" onclick="selectStrategyQuiz('+i+','+j+')"><span class="opt-label">'+String.fromCharCode(65+j)+'</span><span>'+q.opts[j]+'</span></div>';
+    }
+    html+='</div>';
+    html+='<div class="quiz-explain" id="sq-exp-'+i+'"><span class="explain-tag">解析：</span>'+q.exp+'</div>';
+    html+='</div>';
+  }
+  document.getElementById('strategy-quiz-container').innerHTML=html;
+  strategyQuizState=[];
+  for(var i=0;i<strategyQuizData.length;i++){strategyQuizState.push(-1);}
+}
+
+function selectStrategyQuiz(qIdx,optIdx){
+  if(strategyQuizState[qIdx]!==-1)return;
+  strategyQuizState[qIdx]=optIdx;
+  var q=strategyQuizData[qIdx];
+  var container=document.getElementById('sq-'+qIdx);
+  var opts=container.querySelectorAll('.quiz-opt');
+  for(var i=0;i<opts.length;i++){
+    opts[i].onclick=null;
+    if(i===q.ans){opts[i].classList.add('correct');}
+    if(i===optIdx&&i!==q.ans){opts[i].classList.add('wrong');}
+  }
+  document.getElementById('sq-exp-'+qIdx).classList.add('show');
+}
+
+// ========== 知识问答 ==========
+var knowledgeQuizData=[
+{q:'声音的三个特性中，由频率决定的是：',opts:['音调','响度','音色','速度'],ans:0,exp:'音调由频率决定（高低），响度由振幅决定（大小），音色由材料结构决定（品质）。'},
+{q:'光的反射定律中，反射角等于：',opts:['入射角','折射角','90度','0度'],ans:0,exp:'反射定律：反射角等于入射角，都从法线量起。'},
+{q:'平面镜成像的特点不包括以下哪项？',opts:['等大','等距','倒立','虚像'],ans:2,exp:'平面镜成像特点：等大、等距、垂直、虚像。像是正立的，不是倒立的。'},
+{q:'下列物态变化中，属于放热的是：',opts:['熔化','汽化','升华','凝固'],ans:3,exp:'放热的三种：凝固、液化、凝华。吸热的三种：熔化、汽化、升华。'},
+{q:'牛顿第一定律的内容是：',opts:['力是改变物体运动状态的原因','物体受力才会运动','速度越快受力越大','物体不受力时保持静止或匀速直线运动'],ans:3,exp:'牛顿第一定律：一切物体在没有受到力的作用时，总保持静止状态或匀速直线运动状态。'},
+{q:'影响滑动摩擦力大小的因素是：',opts:['速度和接触面积','压力大小和接触面粗糙程度','物体质量和体积','温度和湿度'],ans:1,exp:'滑动摩擦力只与压力大小和接触面粗糙程度有关，与速度、接触面积等无关。'},
+{q:'欧姆定律的内容是：',opts:['电流与电压成正比','电流与电阻成正比','导体中的电流与电压成正比，与电阻成反比','电压与电流成反比'],ans:2,exp:'欧姆定律：导体中的电流与导体两端的电压成正比，与导体的电阻成反比。I=U/R。'},
+{q:'凸透镜成像中，u=f时：',opts:['成倒立缩小实像','成倒立放大实像','成正立放大虚像','不成像'],ans:3,exp:'u=f是焦点位置，光线经凸透镜后平行射出，不能成像。"一倍焦距分虚实"。'},
+{q:'下列关于密度的说法正确的是：',opts:['密度与质量成正比','密度与体积成反比','密度是物质本身的特性，与质量体积无关','质量越大密度越大'],ans:2,exp:'密度是物质本身的特性，同种物质密度一定（在温度不变时），与质量和体积无关。'},
+{q:'家庭电路中，各用电器之间的连接方式是：',opts:['串联','并联','混联','不确定'],ans:1,exp:'家庭电路中各用电器并联连接，互不影响，每个用电器可以独立开关。'},
+{q:'下列关于比热容的说法正确的是：',opts:['比热容与质量有关','比热容是物质的特性，与质量、温度变化无关','比热容与温度变化有关','比热容与热量多少有关'],ans:1,exp:'比热容是物质的一种特性，只与物质种类和状态有关，与质量、温度变化、热量多少无关。'},
+{q:'下列现象中，属于内能转化为机械能的是：',opts:['热机做功冲程','电流通过电炉丝发热','冬天搓手取暖','太阳能热水器加热水'],ans:0,exp:'热机（如内燃机）做功冲程中，燃气内能转化为活塞的机械能。'},
+{q:'家庭电路中，空气开关的主要作用是：',opts:['美观装饰','电流过大时自动断开电路，保护电路','测量消耗电能','调节电压大小'],ans:1,exp:'空气开关在电路中电流过大（短路或总功率过大）时自动断开，起保护作用。电能表才测量消耗的电能。'},
+{q:'发电机是利用什么原理工作的？',opts:['电磁感应','电流的磁效应','通电导体在磁场中受力','电荷的定向移动'],ans:0,exp:'发电机利用电磁感应原理（闭合电路的一部分导体切割磁感线产生感应电流），将机械能转化为电能。'}
+];
+var knowledgeQuizState=[];
+
+function renderKnowledgeQuiz(){
+  var html='';
+  for(var i=0;i<knowledgeQuizData.length;i++){
+    var q=knowledgeQuizData[i];
+    html+='<div class="quiz-question" id="kq-'+i+'">';
+    html+='<div class="quiz-q-text"><span class="q-num">第'+(i+1)+'题</span>'+q.q+'</div>';
+    html+='<div class="quiz-options">';
+    for(var j=0;j<q.opts.length;j++){
+      html+='<div class="quiz-opt" onclick="selectKnowledgeQuiz('+i+','+j+')"><span class="opt-label">'+String.fromCharCode(65+j)+'</span><span>'+q.opts[j]+'</span></div>';
+    }
+    html+='</div>';
+    html+='<div class="quiz-explain" id="kq-exp-'+i+'"><span class="explain-tag">解析：</span>'+q.exp+'</div>';
+    html+='</div>';
+  }
+  document.getElementById('knowledge-quiz-container').innerHTML=html;
+  knowledgeQuizState=[];
+  for(var i=0;i<knowledgeQuizData.length;i++){knowledgeQuizState.push(-1);}
+}
+
+function selectKnowledgeQuiz(qIdx,optIdx){
+  if(knowledgeQuizState[qIdx]!==-1)return;
+  knowledgeQuizState[qIdx]=optIdx;
+  var q=knowledgeQuizData[qIdx];
+  var container=document.getElementById('kq-'+qIdx);
+  var opts=container.querySelectorAll('.quiz-opt');
+  for(var i=0;i<opts.length;i++){
+    opts[i].onclick=null;
+    if(i===q.ans){opts[i].classList.add('correct');}
+    if(i===optIdx&&i!==q.ans){opts[i].classList.add('wrong');}
+  }
+  document.getElementById('kq-exp-'+qIdx).classList.add('show');
+}
+
+// ========== 焦虑自评 ==========
+var anxietyQuizData=[
+{q:'物理考试前你是否经常感到紧张？',opts:['从不','偶尔','经常','总是']},
+{q:'物理考试时你是否会手心出汗？',opts:['从不','偶尔','经常','总是']},
+{q:'你是否会因为担心物理考试而睡不着？',opts:['从不','偶尔','经常','总是']},
+{q:'物理考试中遇到难题你是否会大脑空白？',opts:['从不','偶尔','经常','总是']},
+{q:'你是否会反复检查已经做对的物理计算题？',opts:['从不','偶尔','经常','总是']}
+];
+
+function renderAnxietyQuiz(){
+  var html='';
+  for(var i=0;i<anxietyQuizData.length;i++){
+    var q=anxietyQuizData[i];
+    html+='<div class="quiz-question" id="aq-'+i+'">';
+    html+='<div class="quiz-q-text"><span class="q-num">第'+(i+1)+'题</span>'+q.q+'</div>';
+    html+='<div class="quiz-options">';
+    for(var j=0;j<q.opts.length;j++){
+      html+='<div class="quiz-opt" onclick="selectAnxiety('+i+','+j+')"><span class="opt-label">'+String.fromCharCode(65+j)+'</span><span>'+q.opts[j]+'</span></div>';
+    }
+    html+='</div>';
+    html+='</div>';
+  }
+  document.getElementById('anxiety-quiz').innerHTML=html;
+}
+
+var anxietyAnswers=[];
+
+function selectAnxiety(qIdx,optIdx){
+  anxietyAnswers[qIdx]=optIdx;
+  var container=document.getElementById('aq-'+qIdx);
+  var opts=container.querySelectorAll('.quiz-opt');
+  for(var i=0;i<opts.length;i++){
+    opts[i].classList.remove('selected');
+    if(i===optIdx)opts[i].classList.add('selected');
+  }
+  var allAnswered=true;
+  for(var i=0;i<anxietyQuizData.length;i++){
+    if(anxietyAnswers[i]===undefined){allAnswered=false;break;}
+  }
+  if(allAnswered){
+    var total=0;
+    for(var i=0;i<anxietyQuizData.length;i++){total+=anxietyAnswers[i];}
+    var level='';
+    var color='';
+    var advice='';
+    if(total<=5){level='正常';color='#2e7d32';advice='你的考试焦虑水平正常，保持这种状态即可。';}
+    else if(total<=9){level='轻度焦虑';color='#667eea';advice='有轻度焦虑，建议学习深呼吸法和肌肉放松法进行调节。';}
+    else if(total<=12){level='中度焦虑';color='#e65100';advice='焦虑程度较高，建议制定详细复习计划增强自信，并练习放松技巧。';}
+    else{level='重度焦虑';color='#c62828';advice='焦虑程度较高，建议与家长或老师沟通，必要时可寻求专业心理辅助。';}
+    var html='<div class="score-display"><div class="big-score" style="color:'+color+'">'+total+'</div><div class="score-label">分 / 15分 — '+level+'</div></div>';
+    html+='<div class="info-box" style="background:#f5f7fa;border-left:4px solid '+color+'"><strong>建议：</strong>'+advice+'</div>';
+    document.getElementById('anxiety-result').innerHTML=html;
+    document.getElementById('anxiety-result').style.display='block';
+  }
+}
+
+// ========== 初始化各页面数据 ==========
+document.addEventListener('DOMContentLoaded',function(){
+  renderMistakeQuiz();
+  renderFormulaQuiz();
+  renderStrategyQuiz();
+  renderKnowledgeQuiz();
+  renderAnxietyQuiz();
+});
+</script>
+</body>
+</html>
