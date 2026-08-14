@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>初中生空间思维测评分析系统</title>
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--p:#ffffff;--s:#f4f6ff;--a:#eceefb;--h:#7c6cf0;--h2:#5b9cf5;--t:#1e293b;--tm:#64748b;--ok:#10b981;--w:#f59e0b;--r:#ef4444;--gl:#a8c0ff;--gp:#c4b5fd;--grad:linear-gradient(135deg,#a8c0ff 0%,#c4b5fd 45%,#d4a5ff 100%)}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;background:var(--grad);background-attachment:fixed;min-height:100vh;color:var(--t);overflow-x:hidden}
+/* ===== 背景粒子与光效 ===== */
+.particle-bg{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.particle{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);animation:floatUp linear infinite;opacity:0}
+@keyframes floatUp{0%{transform:translateY(20px) scale(.6);opacity:0}20%{opacity:.8}100%{transform:translateY(-100vh) scale(1.3);opacity:0}}
+.glow{position:fixed;border-radius:50%;filter:blur(60px);opacity:.35;z-index:0;pointer-events:none;animation:glowMove 14s ease-in-out infinite}
+@keyframes glowMove{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-30px)}}
+/* ===== 容器与卡片 ===== */
+.container{max-width:920px;margin:0 auto;padding:24px 18px 60px;min-height:100vh;position:relative;z-index:1}
+.page{display:none}
+.page.active{display:block;animation:pageIn .55s cubic-bezier(.22,1,.36,1)}
+@keyframes pageIn{from{opacity:0;transform:translateY(26px) scale(.98)}to{opacity:1;transform:none}}
+.card{background:rgba(255,255,255,.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-radius:26px;padding:36px;margin-bottom:26px;border:1px solid rgba(255,255,255,.6);box-shadow:0 24px 60px -18px rgba(76,64,160,.22),0 4px 18px rgba(76,64,160,.08);transition:transform .3s,box-shadow .3s}
+.card:hover{box-shadow:0 30px 70px -18px rgba(76,64,160,.3)}
+/* ===== 标题 ===== */
+.main-title{font-size:2.3em;text-align:center;background:linear-gradient(135deg,var(--h),var(--h2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px;letter-spacing:1px}
+.subtitle{text-align:center;color:var(--tm);font-size:1.05em;margin-bottom:26px;line-height:1.8}
+.section-title{font-size:1.25em;color:var(--h);margin:30px 0 18px;padding-bottom:10px;border-bottom:2px solid rgba(124,108,240,.18);display:flex;align-items:center;gap:8px}
+/* ===== 按钮 ===== */
+.btn{background:linear-gradient(135deg,var(--h),var(--h2));color:#fff;border:none;padding:14px 38px;font-size:1.05em;border-radius:30px;cursor:pointer;transition:all .3s;display:inline-block;font-weight:bold;box-shadow:0 8px 22px rgba(124,108,240,.35);text-align:center}
+.btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(124,108,240,.45)}
+.btn:active{transform:translateY(0)}
+.btn-secondary{background:rgba(100,116,139,.12);color:var(--tm);box-shadow:none}
+.btn-secondary:hover{background:rgba(100,116,139,.2);color:var(--t)}
+.btn-block{width:100%;display:block;margin:20px auto 0}
+.btn-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.btn-row .btn{margin:0}
+.btn-icon{display:inline-flex;align-items:center;gap:8px}
+/* ===== 登录 ===== */
+.login-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#6d5ae6,#4a6fd8 60%,#3b82f6);display:flex;align-items:center;justify-content:center;z-index:99999;transition:opacity .45s}
+.login-box{background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-radius:24px;padding:40px 36px;width:min(92%,340px);box-shadow:0 30px 70px rgba(0,0,0,.35);text-align:center;position:relative;overflow:hidden}
+.login-box::before{content:'';position:absolute;top:-60px;right:-60px;width:150px;height:150px;background:radial-gradient(circle,rgba(124,108,240,.25),transparent 70%);border-radius:50%}
+.login-logo{width:74px;height:74px;margin:0 auto 16px;animation:float 3.2s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.login-box h2{font-size:21px;color:var(--t);margin-bottom:6px;font-weight:800}
+.login-sub{font-size:12px;color:var(--tm);margin-bottom:18px}
+.login-input{width:100%;padding:13px 16px;margin:9px 0;border:1.8px solid #e5e7f0;border-radius:13px;font-size:15px;box-sizing:border-box;outline:none;transition:border-color .3s,box-shadow .3s;background:#fafbff}
+.login-input:focus{border-color:var(--h);box-shadow:0 0 0 4px rgba(124,108,240,.12)}
+.login-btn{width:100%;padding:13px;margin:16px 0 10px;border:none;border-radius:13px;background:linear-gradient(135deg,var(--h),var(--h2));color:#fff;font-size:16px;font-weight:bold;cursor:pointer;transition:transform .2s,opacity .3s,box-shadow .3s;box-shadow:0 8px 20px rgba(124,108,240,.4)}
+.login-btn:hover{transform:translateY(-2px);opacity:.95;box-shadow:0 12px 26px rgba(124,108,240,.5)}
+.login-error{color:#e74c3c;font-size:13px;min-height:18px;margin-top:4px}
+.login-credits{text-align:center;margin-top:14px;font-size:12px;color:#94a3b8}
+/* ===== 欢迎页 ===== */
+.welcome-header{text-align:center;margin-bottom:32px}
+.welcome-icon{width:118px;height:118px;margin:0 auto 22px;animation:float 3.2s ease-in-out infinite}
+.welcome-title{font-size:2.4rem;font-weight:800;background:linear-gradient(135deg,var(--h),var(--h2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px;letter-spacing:1px}
+.welcome-subtitle{font-size:1.02rem;color:var(--tm);line-height:2;text-align:center}
+.dimension-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
+.dimension-item{background:rgba(255,255,255,.72);border-radius:16px;padding:16px 10px;text-align:center;transition:all .3s ease;border:1px solid rgba(124,108,240,.14);cursor:pointer}
+.dimension-item:hover{transform:translateY(-5px);background:#fff;box-shadow:0 14px 30px rgba(124,108,240,.18)}
+.dimension-item .di{font-size:1.9rem;margin-bottom:7px}
+.dimension-item .dn{font-weight:700;color:var(--t);font-size:.9rem}
+.dimension-item .dp{font-size:.75rem;color:var(--tm);margin-top:3px}
+.btn-start{width:100%;margin-top:10px;padding:17px;font-size:1.15rem;border-radius:34px}
+.welcome-footer{text-align:center;margin-top:22px;color:var(--tm);font-size:.88rem}
+.footer-sign{text-align:center;margin-top:26px;padding-top:20px;border-top:1px dashed rgba(124,108,240,.25);color:var(--tm);font-size:.85rem}
+/* ===== 表单 ===== */
+.form-group{margin-bottom:22px}
+.form-label{display:block;margin-bottom:9px;color:var(--tm);font-weight:600;font-size:.95em}
+.form-input{width:100%;padding:14px 18px;background:#fafbff;border:2px solid #e5e7f0;border-radius:14px;color:var(--t);font-size:1em;outline:none;transition:border-color .3s,box-shadow .3s}
+.form-input:focus{border-color:var(--h);box-shadow:0 0 0 4px rgba(124,108,240,.1)}
+.grade-options{display:flex;gap:12px;flex-wrap:wrap}
+.grade-option{flex:1;min-width:88px}
+.grade-option input{display:none}
+.grade-option label{display:block;padding:15px 8px;background:#fafbff;border:2px solid #e5e7f0;border-radius:14px;text-align:center;cursor:pointer;color:var(--t);font-weight:600;transition:all .25s}
+.grade-option input:checked+label{border-color:var(--h);background:linear-gradient(135deg,rgba(124,108,240,.14),rgba(91,156,245,.12));color:var(--h);transform:translateY(-2px);box-shadow:0 8px 18px rgba(124,108,240,.16)}
+/* ===== 维度说明 ===== */
+.tips-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:22px 0}
+.tip-card{background:#fafbff;border:1px solid rgba(124,108,240,.12);border-radius:18px;padding:22px;transition:all .3s}
+.tip-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(124,108,240,.14);background:#fff}
+.tip-icon{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:14px;background:linear-gradient(135deg,rgba(124,108,240,.16),rgba(91,156,245,.14))}
+.tip-title{font-weight:700;font-size:1.02em;margin-bottom:8px;color:var(--t)}
+.tip-desc{font-size:.88em;color:var(--tm);line-height:1.75}
+.step-flow{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:22px 0}
+.step-item{display:flex;flex-direction:column;align-items:center;gap:7px;padding:12px 14px;background:#fafbff;border-radius:16px;min-width:74px;border:1px solid rgba(124,108,240,.1)}
+.step-num{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--h),var(--h2));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9em;box-shadow:0 5px 12px rgba(124,108,240,.3)}
+.step-label{font-size:.78em;color:var(--tm)}
+.feature-card{background:linear-gradient(135deg,rgba(124,108,240,.08),rgba(91,156,245,.08));border-radius:18px;padding:24px;margin-top:22px}
+/* ===== 测试页 ===== */
+.progress-container{margin-bottom:24px}
+.progress-bar{height:10px;background:rgba(100,116,139,.12);border-radius:12px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--h),var(--h2));border-radius:12px;transition:width .6s cubic-bezier(.22,1,.36,1);width:0}
+.progress-text{display:flex;justify-content:space-between;margin-top:9px;font-size:.85em;color:var(--tm)}
+.dim-chip{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(124,108,240,.14),rgba(91,156,245,.12));color:var(--h);padding:8px 18px;border-radius:24px;font-weight:700;font-size:.95em;margin-bottom:14px}
+.timer-chip{background:rgba(245,158,11,.14);color:#b45309;padding:7px 15px;border-radius:20px;font-weight:700;font-size:.88em;white-space:nowrap}
+.dimension-title{font-size:1.35em;color:var(--h);margin-bottom:8px;font-weight:800}
+.dimension-desc{color:var(--tm);margin-bottom:20px;line-height:1.8;font-size:.93em}
+.question-container{background:linear-gradient(180deg,#fafbff,#f4f6ff);border-radius:20px;padding:26px;margin-bottom:20px;position:relative;border:1px solid rgba(124,108,240,.1);animation:qIn .45s ease}
+@keyframes qIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+.question-number{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--h),var(--h2));color:#fff;padding:6px 16px;border-radius:22px;font-size:.88em;margin-bottom:16px;font-weight:700}
+.difficulty{color:#ffe6a8;font-size:.95em;letter-spacing:2px}
+.question-content{font-size:1.08em;margin-bottom:18px;line-height:1.85;font-weight:500}
+.question-tag{display:inline-block;background:rgba(91,156,245,.14);color:#3b6fd8;font-size:.76em;padding:3px 12px;border-radius:14px;margin-left:10px;vertical-align:middle}
+.question-svg{display:flex;justify-content:center;margin:20px 0;background:rgba(255,255,255,.6);border-radius:16px;padding:16px;border:1px dashed rgba(124,108,240,.18)}
+.question-svg svg{max-width:100%;height:auto}
+.options{display:grid;gap:12px}
+.option{background:#fff;border:2px solid #e5e7f0;border-radius:14px;padding:14px 18px;cursor:pointer;transition:all .28s;display:flex;align-items:center;gap:14px}
+.option:hover{border-color:var(--h);background:rgba(124,108,240,.06);transform:translateX(4px)}
+.option-letter{width:34px;height:34px;background:#eef0f8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;color:var(--tm);transition:all .28s}
+.option-text{flex:1;line-height:1.6}
+.option.correct{border-color:var(--ok);background:rgba(16,185,129,.08);animation:popIn .35s ease}
+.option.correct .option-letter{background:var(--ok);color:#fff}
+.option.wrong{border-color:var(--r);background:rgba(239,68,68,.07);animation:shake .4s ease}
+.option.wrong .option-letter{background:var(--r);color:#fff}
+.option.disabled{pointer-events:none}
+@keyframes popIn{0%{transform:scale(.94)}60%{transform:scale(1.04)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.feedback-float{position:absolute;top:20%;right:22px;font-size:2.6em;font-weight:900;opacity:0;pointer-events:none;z-index:5}
+.feedback-float.show{animation:fb .9s ease}
+@keyframes fb{0%{opacity:0;transform:scale(.4) rotate(-12deg)}30%{opacity:1;transform:scale(1.25) rotate(0)}70%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.8)}}
+.nav-buttons{display:flex;justify-content:space-between;margin-top:24px;gap:14px}
+.nav-buttons .btn{margin:0;flex:1;padding:14px 20px}
+/* 维度过渡 */
+.dim-transition{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(124,108,240,.92),rgba(91,156,245,.92));backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:200;color:#fff;text-align:center}
+.dim-transition.show{display:flex;animation:dimIn .45s ease}
+@keyframes dimIn{from{opacity:0}to{opacity:1}}
+.dim-transition .dt-icon{font-size:3.6rem;margin-bottom:16px}
+.dim-transition .dt-title{font-size:1.9rem;font-weight:800;margin-bottom:10px}
+.dim-transition .dt-desc{font-size:.95rem;opacity:.92;max-width:80%;line-height:1.8}
+/* ===== 报告页 ===== */
+.result-header{text-align:center;margin-bottom:24px}
+.student-name{font-size:1.9em;color:var(--h);font-weight:800;margin-bottom:6px}
+.student-grade{color:var(--tm);font-size:1.02em}
+.score-top{display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap;margin:26px 0}
+.ring-wrap{position:relative;width:190px;height:190px}
+.ring-wrap canvas{width:190px;height:190px}
+.ring-center{position:absolute;top:0;left:0;width:190px;height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-score{font-size:2.7em;font-weight:900;background:linear-gradient(135deg,var(--h),var(--h2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.ring-label{font-size:.78em;color:var(--tm);margin-top:6px}
+.grade-badge{display:inline-block;padding:16px 30px;background:linear-gradient(135deg,var(--h),var(--h2));border-radius:52px;font-size:1.9em;font-weight:900;color:#fff;box-shadow:0 10px 28px rgba(124,108,240,.4)}
+.grade-label{text-align:center;color:var(--tm);margin-top:10px;font-size:.98em}
+.meta-strip{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+.meta-chip{background:#fafbff;border:1px solid rgba(124,108,240,.14);padding:9px 18px;border-radius:22px;font-size:.85em;color:var(--tm)}
+.meta-chip b{color:var(--h)}
+.chart-container{display:flex;justify-content:center;margin:16px 0;overflow-x:auto}
+.chart-container canvas{max-width:100%;height:auto}
+.dimension-result{background:#fafbff;border:1px solid rgba(124,108,240,.1);border-radius:18px;padding:22px;margin-bottom:16px}
+.dimension-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:10px}
+.dimension-name{font-size:1.12em;color:var(--h);font-weight:800;display:flex;align-items:center;gap:8px}
+.dimension-percent{font-size:1.4em;font-weight:900;color:var(--h)}
+.dimension-bar{height:11px;background:rgba(100,116,139,.12);border-radius:6px;overflow:hidden;margin-bottom:14px}
+.dimension-bar-fill{height:100%;border-radius:6px;transition:width 1.1s cubic-bezier(.22,1,.36,1)}
+.dimension-stats{display:flex;gap:18px;flex-wrap:wrap;font-size:.88em;color:var(--tm);margin-bottom:10px}
+.dimension-stats span b{color:var(--t)}
+.ability-level{display:inline-block;padding:4px 14px;border-radius:18px;font-size:.82em;font-weight:700}
+.level-strong{background:rgba(16,185,129,.14);color:#065f46}
+.level-medium{background:rgba(245,158,11,.15);color:#92400e}
+.level-weak{background:rgba(239,68,68,.12);color:#991b1b}
+/* 知识点聚类 */
+.kp-list{display:grid;gap:12px}
+.kp-item{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #eef0f8;border-radius:14px;padding:12px 16px}
+.kp-rank{width:30px;height:30px;border-radius:10px;background:linear-gradient(135deg,var(--r),#f97316);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85em;flex-shrink:0}
+.kp-name{flex:1;font-weight:600}
+.kp-count{color:var(--tm);font-size:.85em}
+.kp-bar{width:70px;height:8px;background:#eef0f8;border-radius:6px;overflow:hidden}
+.kp-bar i{display:block;height:100%;background:linear-gradient(90deg,#ef4444,#f97316);border-radius:6px}
+/* 错题回顾 */
+.wrong-question-item{background:rgba(239,68,68,.05);border-left:4px solid var(--r);padding:16px 18px;margin-bottom:14px;border-radius:0 14px 14px 0}
+.wq-head{font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wq-tag{font-size:.75em;background:rgba(239,68,68,.12);color:#c2410c;padding:2px 10px;border-radius:12px}
+.wrong-answer{color:#dc2626;margin:4px 0;font-size:.92em}
+.correct-answer{color:#059669;margin:4px 0;font-size:.92em}
+.explanation{color:var(--tm);font-size:.9em;margin-top:10px;line-height:1.8;background:rgba(255,255,255,.6);padding:10px 14px;border-radius:10px}
+.no-wrong{padding:22px;text-align:center;color:var(--ok);background:rgba(16,185,129,.07);border-radius:16px;font-weight:600}
+/* 训练计划 */
+.plan-card{background:linear-gradient(135deg,rgba(124,108,240,.09),rgba(91,156,245,.09));border-radius:18px;padding:24px;margin-bottom:16px}
+.plan-title{font-weight:800;font-size:1.08em;color:var(--h);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.plan-list{list-style:none;display:grid;gap:10px}
+.plan-list li{display:flex;gap:12px;align-items:flex-start;font-size:.93em;line-height:1.7}
+.plan-list li b{color:var(--h);flex-shrink:0;background:rgba(124,108,240,.12);width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.8em}
+/* 学科关联 */
+.subject-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.subject-card{background:#fafbff;border:1px solid rgba(124,108,240,.12);border-radius:16px;padding:18px;transition:all .3s}
+.subject-card:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(124,108,240,.14)}
+.subject-name{font-weight:800;margin-bottom:8px;color:var(--t);font-size:1em}
+.subject-desc{font-size:.86em;color:var(--tm);line-height:1.7}
+/* 家长寄语 */
+.parent-card{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(91,156,245,.08));border:1px solid rgba(16,185,129,.18);border-radius:20px;padding:26px}
+.parent-title{font-weight:800;color:#065f46;margin-bottom:14px;font-size:1.1em;display:flex;align-items:center;gap:8px}
+.parent-text{font-size:.95em;color:var(--t);line-height:2}
+/* 教师卡 */
+.teacher-card{display:flex;align-items:center;gap:18px;background:linear-gradient(135deg,rgba(124,108,240,.1),rgba(91,156,245,.08));border-radius:20px;padding:22px}
+.teacher-avatar{width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,var(--h),var(--h2));display:flex;align-items:center;justify-content:center;font-size:1.9rem;flex-shrink:0;box-shadow:0 8px 20px rgba(124,108,240,.35)}
+.teacher-info{flex:1}
+.teacher-name{font-weight:800;font-size:1.05em}
+.teacher-award{color:var(--w);font-size:.85em;margin:4px 0}
+.teacher-stats{color:var(--tm);font-size:.82em}
+.teacher-phone{color:var(--h);font-weight:700;margin-top:5px;font-size:.9em}
+/* 打印按钮 */
+.print-bar{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:30px 0 10px}
+.summary-box{background:linear-gradient(135deg,rgba(124,108,240,.08),rgba(91,156,245,.08));border-radius:18px;padding:22px;line-height:2;font-size:.97em}
+.highlight-item{display:inline-block;background:rgba(124,108,240,.12);color:var(--h);padding:4px 14px;border-radius:16px;margin:4px;font-size:.85em;font-weight:600}
+/* ===== 响应式 ===== */
+@media(max-width:680px){
+  .container{padding:16px 12px 50px}
+  .card{padding:24px 18px;border-radius:20px}
+  .welcome-title{font-size:1.75rem}
+  .dimension-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .tips-grid{grid-template-columns:1fr}
+  .subject-grid{grid-template-columns:1fr}
+  .score-top{gap:22px}
+  .main-title{font-size:1.7em}
+  .question-container{padding:18px 14px}
+  .option{padding:12px 14px}
+}
+/* ===== 打印样式 ===== */
+@media print{
+  body{background:#fff!important}
+  .particle-bg,.glow,.login-overlay,.dim-transition,.print-bar,.no-print,#feedbackZone{display:none!important}
+  .container{padding:0;max-width:100%}
+  .card{box-shadow:none!important;border:1px solid #e2e6ef!important;break-inside:avoid;margin-bottom:16px;backdrop-filter:none;-webkit-backdrop-filter:none;background:#fff}
+  .page{display:none!important}
+  .page.active{display:block!important}
+  .btn,.nav-buttons{display:none!important}
+  @page{margin:1.2cm}
+}
+
+</style>
+</head>
+<body>
+
+<!-- 登录验证 -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="login-logo">
+      <svg viewBox="0 0 120 120" fill="none">
+        <circle cx="60" cy="60" r="55" stroke="url(#lg)" stroke-width="4"/>
+        <path d="M60 20L95 45V95H25V45L60 20Z" fill="url(#lg)" opacity="0.18"/>
+        <path d="M60 20L95 45V95H25V45L60 20Z" stroke="url(#lg)" stroke-width="3"/>
+        <circle cx="60" cy="60" r="8" fill="url(#lg)"/>
+        <line x1="60" y1="20" x2="60" y2="52" stroke="url(#lg)" stroke-width="2" stroke-dasharray="4 4"/>
+        <line x1="25" y1="45" x2="95" y2="45" stroke="url(#lg)" stroke-width="2" stroke-dasharray="4 4"/>
+        <line x1="25" y1="45" x2="25" y2="95" stroke="url(#lg)" stroke-width="2" stroke-dasharray="4 4"/>
+        <line x1="95" y1="45" x2="95" y2="95" stroke="url(#lg)" stroke-width="2" stroke-dasharray="4 4"/>
+        <defs><linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7c6cf0"/><stop offset="100%" stop-color="#5b9cf5"/></linearGradient></defs>
+      </svg>
+    </div>
+    <h2>初中生空间思维测评</h2>
+    <div class="login-sub">专业 · 科学 · 六维深度测评</div>
+    <input type="text" class="login-input" id="loginUser" placeholder="请输入账号" autocomplete="off">
+    <input type="password" class="login-input" id="loginPass" placeholder="请输入密码" autocomplete="off">
+    <button class="login-btn" id="loginBtn" onclick="doLogin()">登 录</button>
+    <div class="login-error" id="loginError"></div>
+    <div class="login-credits">系统设计制作：刘岳</div>
+  </div>
+</div>
+
+<!-- 背景特效 -->
+<div class="particle-bg" id="particles"></div>
+<div class="glow" style="width:320px;height:320px;background:#b79cf7;top:-80px;left:-80px"></div>
+<div class="glow" style="width:260px;height:260px;background:#7fb8f5;bottom:-60px;right:-60px;animation-delay:3s"></div>
+
+<div class="container">
+
+<!-- 欢迎页 -->
+<div class="page active" id="welcomePage">
+  <div class="card">
+    <div class="welcome-header">
+      <div class="welcome-icon">
+        <svg viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="60" r="55" stroke="url(#wg)" stroke-width="4"/>
+          <path d="M60 20L95 45V95H25V45L60 20Z" fill="url(#wg)" opacity="0.18"/>
+          <path d="M60 20L95 45V95H25V45L60 20Z" stroke="url(#wg)" stroke-width="3"/>
+          <circle cx="60" cy="60" r="8" fill="url(#wg)"/>
+          <line x1="60" y1="20" x2="60" y2="52" stroke="url(#wg)" stroke-width="2" stroke-dasharray="4 4"/>
+          <line x1="25" y1="45" x2="95" y2="45" stroke="url(#wg)" stroke-width="2" stroke-dasharray="4 4"/>
+          <line x1="25" y1="45" x2="25" y2="95" stroke="url(#wg)" stroke-width="2" stroke-dasharray="4 4"/>
+          <line x1="95" y1="45" x2="95" y2="95" stroke="url(#wg)" stroke-width="2" stroke-dasharray="4 4"/>
+          <defs><linearGradient id="wg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7c6cf0"/><stop offset="100%" stop-color="#5b9cf5"/></linearGradient></defs>
+        </svg>
+      </div>
+      <h1 class="welcome-title">初中生空间思维测评</h1>
+      <p class="welcome-subtitle">本测评系统专为初中生设计，从六大维度科学评估空间思维能力。<br>共60道进阶题目，预计用时35-45分钟，系统将生成专属分析报告。</p>
+    </div>
+    <div class="dimension-grid" id="welcomeDimGrid"></div>
+    <button class="btn btn-start" onclick="goToPage('infoPage')">开始测评 →</button>
+    <div class="welcome-footer">六大维度 · 60道进阶题目 · SVG三维图形 · 智能分析报告 · 云端同步</div>
+  </div>
+  <div class="footer-sign">系统设计制作：刘岳</div>
+</div>
+
+<!-- 基本信息页 -->
+<div class="page" id="infoPage">
+  <div class="card">
+    <h2 class="main-title">基本信息</h2>
+    <p class="subtitle">请填写学生基本信息，用于生成个性化报告</p>
+    <div class="form-group">
+      <label class="form-label">学生姓名 *</label>
+      <input type="text" class="form-input" id="studentName" placeholder="请输入学生姓名">
+    </div>
+    <div class="form-group">
+      <label class="form-label">就读年级 *</label>
+      <div class="grade-options">
+        <div class="grade-option"><input type="radio" name="grade" id="g1" value="初一"><label for="g1">初一</label></div>
+        <div class="grade-option"><input type="radio" name="grade" id="g2" value="初二"><label for="g2">初二</label></div>
+        <div class="grade-option"><input type="radio" name="grade" id="g3" value="初三"><label for="g3">初三</label></div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">学校名称（选填）</label>
+      <input type="text" class="form-input" id="schoolName" placeholder="请输入学校名称">
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goToPage('welcomePage')">上一步</button>
+      <button class="btn" onclick="goDimensionInfo()">查看维度说明</button>
+      <button class="btn" onclick="startTest()">开始测评</button>
+    </div>
+  </div>
+</div>
+
+<!-- 维度说明页 -->
+<div class="page" id="dimensionInfoPage">
+  <div class="card">
+    <h2 class="main-title" style="font-size:1.8em">测评维度说明</h2>
+    <p class="subtitle">了解空间思维的六大核心维度，帮助更有针对性地作答</p>
+    <div class="tips-grid" id="dimInfoGrid"></div>
+    <div class="feature-card">
+      <div style="font-weight:800;color:var(--h);margin-bottom:10px">为什么空间思维很重要？</div>
+      <p style="font-size:.92em;color:var(--tm);line-height:1.9">空间思维是数学几何、物理受力分析、化学分子结构等理科学习的基础能力，也是初中阶段能力提升的关键突破口。通过科学测评找准薄弱点，才能实现高效提分。</p>
+    </div>
+    <div class="feature-card" style="margin-top:14px">
+      <div style="font-weight:800;color:var(--h);margin-bottom:14px">测评流程</div>
+      <div class="step-flow">
+        <div class="step-item"><div class="step-num">1</div><div class="step-label">填写信息</div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-label">六维测评</div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-label">智能分析</div></div>
+        <div class="step-item"><div class="step-num">4</div><div class="step-label">生成报告</div></div>
+      </div>
+      <p style="font-size:.85em;color:var(--tm);text-align:center;margin-top:6px">六大维度 · 每题含三维图形 · 自动判分 · 生成专属训练方案</p>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goToPage('infoPage')">返回</button>
+      <button class="btn" onclick="startTest()">开始测评</button>
+    </div>
+  </div>
+</div>
+
+<!-- 测试页 -->
+<div class="page" id="testPage">
+  <div class="card">
+    <div class="progress-container">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-text">
+        <span id="dimensionName"></span>
+        <span id="questionProgress"></span>
+        <span class="timer-chip" id="timerChip">⏱ 0:00</span>
+      </div>
+    </div>
+    <div class="dim-chip" id="currentDimensionTitle"></div>
+    <div class="dimension-title" id="currentDimensionName"></div>
+    <p class="dimension-desc" id="currentDimensionDesc"></p>
+    <div id="questionContainer"></div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" id="prevBtn" onclick="prevQuestion()">上一题</button>
+      <button class="btn" id="nextBtn" onclick="nextQuestion()">下一题</button>
+    </div>
+  </div>
+</div>
+
+<!-- 维度过渡 -->
+<div class="dim-transition" id="dimTransition">
+  <div>
+    <div class="dt-icon" id="dtIcon"></div>
+    <div class="dt-title" id="dtTitle"></div>
+    <div class="dt-desc" id="dtDesc"></div>
+  </div>
+</div>
+
+<!-- 结果页 -->
+<div class="page" id="resultPage">
+  <div id="reportContent"></div>
+</div>
+
+</div>
+
+<script>
+
+var DIMENSIONS = [
+{id:'spatial_perception',name:'空间感知能力',short:'空间感知',description:'对图形形状、大小、方向、位置的基本感知与判断能力。这是空间思维的起点，也是初中几何学习的基础。',icon:'eye',color:'#7c6cf0',subjects:'数学图形初步、地理地图判读',questions:[
+{id:1,difficulty:1,tag:'图形识别',content:'下面的图形中，哪个是圆形？',svg:'<svg width="220" height="90"><polygon points="25,20 65,70 5,70" fill="none" stroke="#7c6cf0" stroke-width="3"/><text x="22" y="84" font-size="11" fill="#64748b">A</text><rect x="90" y="25" width="45" height="45" fill="none" stroke="#5b9cf5" stroke-width="3"/><text x="102" y="84" font-size="11" fill="#64748b">B</text><circle cx="185" cy="47" r="22" fill="none" stroke="#10b981" stroke-width="3"/><text x="177" y="84" font-size="11" fill="#64748b">C</text></svg>',options:['图形A','图形B','图形C','图形A和C都是'],answer:2,explanation:'圆形是由一条闭合曲线围成的平面图形，圆周上每一点到圆心的距离都相等。图形C是圆形，A是三角形，B是正方形。'},
+{id:2,difficulty:1,tag:'图形识别',content:'下面的图形中，有3条边的是哪个？',svg:'<svg width="230" height="90"><polygon points="30,15 60,70 5,70" fill="none" stroke="#7c6cf0" stroke-width="3"/><text x="22" y="84" font-size="11" fill="#64748b">A</text><rect x="95" y="25" width="45" height="45" fill="none" stroke="#5b9cf5" stroke-width="3"/><text x="107" y="84" font-size="11" fill="#64748b">B</text><polygon points="180,40 200,15 220,40 200,65" fill="none" stroke="#10b981" stroke-width="3"/><text x="188" y="84" font-size="11" fill="#64748b">C</text></svg>',options:['图形A','图形B','图形C','图形A和C都是'],answer:0,explanation:'图形A是三角形，有3条边、3个顶点。图形B是四边形有4条边，图形C是菱形也有4条边。'},
+{id:3,difficulty:1,tag:'大小比较',content:'下图中的三个圆，哪个面积最大？',svg:'<svg width="230" height="90"><circle cx="35" cy="45" r="13" fill="none" stroke="#7c6cf0" stroke-width="3"/><text x="28" y="80" font-size="11" fill="#64748b">A</text><circle cx="115" cy="45" r="28" fill="none" stroke="#5b9cf5" stroke-width="3"/><text x="107" y="80" font-size="11" fill="#64748b">B</text><circle cx="195" cy="45" r="10" fill="none" stroke="#10b981" stroke-width="3"/><text x="188" y="80" font-size="11" fill="#64748b">C</text></svg>',options:['圆A','圆B','圆C','一样大'],answer:1,explanation:'圆的面积等于圆周率乘以半径的平方。圆B的半径最大（28），所以它的面积最大。'},
+{id:4,difficulty:2,tag:'方位判断',content:'下图中，图形A在图形B的哪个方向？',svg:'<svg width="220" height="100"><circle cx="60" cy="50" r="20" fill="rgba(124,108,240,0.15)" stroke="#7c6cf0" stroke-width="3"/><text x="52" y="55" font-size="16" fill="#7c6cf0">A</text><circle cx="160" cy="50" r="20" fill="rgba(91,156,245,0.15)" stroke="#5b9cf5" stroke-width="3"/><text x="152" y="55" font-size="16" fill="#5b9cf5">B</text><line x1="85" y1="50" x2="132" y2="50" stroke="#f59e0b" stroke-width="2" marker-end="url(#ar1)"/><defs><marker id="ar1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#f59e0b"/></marker></defs></svg>',options:['左边','右边','上边','下边'],answer:0,explanation:'从图中看，A在左侧（横坐标60），B在右侧（横坐标160），所以A在B的左边。'},
+{id:5,difficulty:2,tag:'坐标定位',content:'在平面直角坐标系中，点A的坐标为(2,5)，点B的坐标为(5,3)，那么点A在点B的什么方向？',svg:'<svg width="220" height="150"><line x1="20" y1="110" x2="205" y2="110" stroke="rgba(0,0,0,0.15)"/><line x1="115" y1="15" x2="115" y2="140" stroke="rgba(0,0,0,0.15)"/><text x="200" y="105" font-size="11" fill="#64748b">X</text><text x="120" y="20" font-size="11" fill="#64748b">Y</text><circle cx="70" cy="40" r="6" fill="#7c6cf0"/><text x="48" y="34" font-size="12" fill="#7c6cf0">A</text><circle cx="140" cy="70" r="6" fill="#ef4444"/><text x="145" y="64" font-size="12" fill="#ef4444">B</text></svg>',options:['西北方向','东北方向','西南方向','东南方向'],answer:0,explanation:'A的横坐标2小于B的横坐标5（在左，即西边）；A的纵坐标5大于B的纵坐标3（在上，即北边）。因此A在B的西北方向。'},
+{id:6,difficulty:2,tag:'网格计数',content:'在2×2的网格中，黑色小方格有几个相邻的白色小方格（只算上下左右相邻）？',svg:'<svg width="150" height="150"><rect x="15" y="15" width="50" height="50" fill="#3b3f5c" stroke="#7c6cf0" stroke-width="2"/><rect x="70" y="15" width="50" height="50" fill="#fff" stroke="#7c6cf0" stroke-width="2"/><rect x="15" y="70" width="50" height="50" fill="#fff" stroke="#7c6cf0" stroke-width="2"/><rect x="70" y="70" width="50" height="50" fill="#fff" stroke="#7c6cf0" stroke-width="2"/></svg>',options:['2个','3个','4个','1个'],answer:0,explanation:'黑色方格在左上角，它的右方和下方各有一个白色方格与它相邻，共2个。'},
+{id:7,difficulty:2,tag:'图形分割',content:'一个正方形被两条中线分成4个全等的小正方形，每个小正方形的面积是原正方形的几分之几？',svg:'<svg width="150" height="150"><rect x="15" y="15" width="120" height="120" fill="none" stroke="#7c6cf0" stroke-width="3"/><line x1="15" y1="75" x2="135" y2="75" stroke="#7c6cf0" stroke-width="2"/><line x1="75" y1="15" x2="75" y2="135" stroke="#7c6cf0" stroke-width="2"/><rect x="15" y="15" width="60" height="60" fill="rgba(124,108,240,0.2)"/></svg>',options:['二分之一','四分之一','三分之一','八分之一'],answer:1,explanation:'两条中线把正方形平均分成4个全等的小正方形，每个小正方形的面积是大正方形的四分之一。'},
+{id:8,difficulty:3,tag:'图形规律',content:'观察图形的排列规律，问号处应该填什么图形？',svg:'<svg width="250" height="70"><rect x="12" y="15" width="36" height="36" fill="none" stroke="#7c6cf0" stroke-width="3"/><rect x="62" y="15" width="36" height="36" fill="none" stroke="#7c6cf0" stroke-width="3"/><rect x="112" y="15" width="36" height="36" fill="none" stroke="#7c6cf0" stroke-width="3"/><text x="160" y="42" font-size="24" fill="#f59e0b">?</text><circle cx="215" cy="33" r="18" fill="none" stroke="#10b981" stroke-width="3"/></svg>',options:['三角形','圆形','正方形','无法确定'],answer:2,explanation:'前三个图形都是正方形，排列规律是"正方形、正方形、正方形、？"，所以问号处应填正方形。'},
+{id:9,difficulty:3,tag:'视图判断',content:'下图的立体图形由小正方体搭成，从正面看（正前方看过去）会看到什么形状？',svg:'<svg width="200" height="120"><g><polygon points="40,20 65,30 65,80 40,90 15,80 15,30" fill="#8b7bf2" stroke="#6a58d8" stroke-width="1.5"/><polygon points="65,30 90,20 90,70 65,80" fill="#c9c2fa" stroke="#8b7bf2" stroke-width="1.5"/><polygon points="65,80 90,70 90,120 65,130 40,120 40,90" fill="#6a58d8" stroke="#5a4bd6" stroke-width="1.5"/></g><text x="120" y="50" font-size="13" fill="#64748b">观察方向</text><line x1="115" y1="60" x2="100" y2="65" stroke="#f59e0b" stroke-width="2" marker-end="url(#ar2)"/><defs><marker id="ar2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#f59e0b"/></marker></defs></svg>',options:['一个正方形','两个上下叠放的正方形','两个左右并排的正方形','一个长方形'],answer:1,explanation:'从正面看，这个立体下层有1个小正方体、上层在左侧叠放了1个小正方体，因此看到的是两个上下叠放的正方形。'},
+{id:10,difficulty:3,tag:'空间方位',content:'小明面向东方，向右（顺时针）转90°后，他面向哪个方向？',svg:'<svg width="220" height="150"><circle cx="110" cy="80" r="60" fill="none" stroke="#7c6cf0" stroke-width="2" stroke-dasharray="4 4"/><text x="105" y="20" font-size="13" fill="#5b9cf5">北</text><text x="175" y="85" font-size="13" fill="#f59e0b">东</text><text x="105" y="150" font-size="13" fill="#10b981">南</text><text x="35" y="85" font-size="13" fill="#ef4444">西</text><polygon points="110,80 130,105 110,98 100,105" fill="none" stroke="#f59e0b" stroke-width="2.5"/><text x="118" y="95" font-size="11" fill="#f59e0b">东</text></svg>',options:['北方','南方','东方','西方'],answer:1,explanation:'面向东，向右转是顺时针方向：东→南→西→北。转90°后正好面向南方。'}]},
+{id:'mental_rotation',name:'心理旋转能力',short:'心理旋转',description:'在头脑中想象并旋转图形，判断旋转前后状态的对应关系。对函数图像变换、几何运动学习至关重要。',icon:'rotate',color:'#5b9cf5',subjects:'数学图形旋转、物理刚体运动',questions:[
+{id:11,difficulty:1,tag:'旋转对称',content:'字母Z在纸面上旋转180°后，会变成下面的哪一个？',svg:'<svg width="210" height="90"><text x="30" y="55" font-size="46" fill="#7c6cf0">Z</text><text x="22" y="80" font-size="11" fill="#64748b">原图</text><line x1="95" y1="20" x2="95" y2="70" stroke="#e4e8ec" stroke-width="2"/><text x="120" y="55" font-size="46" fill="#10b981">Z</text><text x="148" y="55" font-size="46" fill="#ef4444">N</text></svg>',options:['Z','N','S','M'],answer:0,explanation:'字母Z具有180°旋转对称性，绕其中心旋转180°后仍与原来的Z重合，所以旋转后还是Z。'},
+{id:12,difficulty:1,tag:'旋转变换',content:'一个三角形绕某一点旋转90°后，它的形状会变成什么？',svg:'<svg width="220" height="110"><polygon points="35,15 70,80 0,80" fill="rgba(124,108,240,0.18)" stroke="#7c6cf0" stroke-width="2.5"/><text x="20" y="98" font-size="11" fill="#64748b">原图</text><polygon points="150,20 180,75 120,75" fill="rgba(16,185,129,0.18)" stroke="#10b981" stroke-width="2.5"/><text x="135" y="98" font-size="11" fill="#64748b">旋转后</text></svg>',options:['变成圆形','变成正方形','变成菱形','仍然是三角形'],answer:3,explanation:'旋转只改变图形的位置和方向，不改变图形的形状和大小。三角形旋转后仍然是三角形。'},
+{id:13,difficulty:1,tag:'字母旋转',content:'数字6在纸面上旋转180°后，会变成哪个数字？',svg:'<svg width="220" height="90"><text x="30" y="55" font-size="48" fill="#7c6cf0">6</text><text x="22" y="80" font-size="11" fill="#64748b">原图</text><line x1="95" y1="20" x2="95" y2="70" stroke="#e4e8ec" stroke-width="2"/><text x="125" y="55" font-size="48" fill="#10b981">9</text><text x="165" y="55" font-size="48" fill="#ef4444">8</text></svg>',options:['6','9','8','0'],answer:1,explanation:'数字6绕中心旋转180°后，上半部分与下半部分交换位置，会变成9。'},
+{id:14,difficulty:2,tag:'旋转方向',content:'一个向上的箭头，在纸面上顺时针旋转270°后，箭头指向哪个方向？',svg:'<svg width="220" height="110"><polygon points="55,10 78,45 55,40 32,45" fill="none" stroke="#7c6cf0" stroke-width="2.5"/><text x="40" y="70" font-size="11" fill="#64748b">原图(上)</text><text x="130" y="55" font-size="26" fill="#f59e0b">?</text><text x="108" y="80" font-size="11" fill="#64748b">顺时针270°</text></svg>',options:['向上','向下','向左','向右'],answer:2,explanation:'顺时针旋转：上→右（90°）→下（180°）→左（270°）。所以旋转270°后箭头指向左方。'},
+{id:15,difficulty:2,tag:'旋转对称',content:'一个正方形绕中心旋转45°后，它还是正方形吗？',svg:'<svg width="220" height="110"><rect x="20" y="25" width="55" height="55" fill="none" stroke="#7c6cf0" stroke-width="2.5"/><text x="28" y="96" font-size="11" fill="#64748b">旋转前</text><rect x="125" y="36" width="55" height="55" fill="rgba(16,185,129,0.15)" stroke="#10b981" stroke-width="2.5" transform="rotate(45 152 63)"/><text x="133" y="96" font-size="11" fill="#64748b">旋转45°后</text></svg>',options:['是，图形属性不变','变成菱形','变成圆形','不确定'],answer:0,explanation:'旋转是刚体变换，不改变图形的边、角、面积等属性。正方形旋转45°后仍然是正方形，只是方向变了。'},
+{id:16,difficulty:2,tag:'字母旋转',content:'字母H在纸面上旋转180°后，会变成下面的哪一个？',svg:'<svg width="210" height="90"><text x="30" y="55" font-size="48" fill="#7c6cf0">H</text><text x="22" y="80" font-size="11" fill="#64748b">原图</text><line x1="95" y1="20" x2="95" y2="70" stroke="#e4e8ec" stroke-width="2"/><text x="120" y="55" font-size="48" fill="#10b981">H</text><text x="160" y="55" font-size="48" fill="#ef4444">I</text></svg>',options:['H','I','A','X'],answer:0,explanation:'字母H绕其中心旋转180°后仍与原来重合（180°旋转对称），所以旋转后还是H。'},
+{id:17,difficulty:2,tag:'旋转变换',content:'下图中三角形绕点O顺时针旋转90°后，顶点A会转到哪个方向？',svg:'<svg width="220" height="140"><polygon points="60,45 85,90 35,90" fill="rgba(124,108,240,0.18)" stroke="#7c6cf0" stroke-width="2.5"/><circle cx="60" cy="90" r="4" fill="#ef4444"/><text x="66" y="104" font-size="11" fill="#ef4444">O</text><circle cx="60" cy="45" r="4" fill="#10b981"/><text x="66" y="40" font-size="11" fill="#10b981">A</text><text x="120" y="55" font-size="22" fill="#f59e0b">顺时针90°</text></svg>',options:['转到左边','转到右边','转到下边','位置不变'],answer:1,explanation:'点A在点O的正上方，绕O顺时针旋转90°后，A会转到O的正右方。'},
+{id:18,difficulty:3,tag:'旋转体',content:'一个半圆绕它的直径旋转一周（360°），所形成的立体图形是？',svg:'<svg width="230" height="120"><path d="M 30,60 A 45,45 0 0 1 120,60" fill="none" stroke="#7c6cf0" stroke-width="2.5"/><line x1="30" y1="60" x2="120" y2="60" stroke="#7c6cf0" stroke-width="2" stroke-dasharray="5,4"/><text x="68" y="95" font-size="11" fill="#64748b">半圆</text><text x="145" y="55" font-size="20" fill="#f59e0b">绕直径旋转</text></svg>',options:['球体','圆柱','圆锥','圆台'],answer:0,explanation:'半圆以直径为轴旋转一周，弧线上每一点扫出的轨迹都是圆，所有圆叠加起来正好围成一个球体。'},
+{id:19,difficulty:3,tag:'旋转对称',content:'字母N在纸面上旋转180°后，会变成下面的哪一个？',svg:'<svg width="210" height="90"><text x="30" y="55" font-size="48" fill="#7c6cf0">N</text><text x="22" y="80" font-size="11" fill="#64748b">原图</text><line x1="95" y1="20" x2="95" y2="70" stroke="#e4e8ec" stroke-width="2"/><text x="120" y="55" font-size="48" fill="#10b981">N</text><text x="158" y="55" font-size="48" fill="#ef4444">Z</text></svg>',options:['N','Z','M','H'],answer:0,explanation:'字母N具有180°旋转对称性，绕中心旋转180°后仍与原来重合，所以旋转后还是N。'},
+{id:20,difficulty:3,tag:'旋转变换',content:'一个圆绕圆心旋转任意角度后，结果会怎样？',svg:'<svg width="240" height="100"><circle cx="55" cy="50" r="30" fill="none" stroke="#7c6cf0" stroke-width="3"/><line x1="55" y1="50" x2="85" y2="50" stroke="#ef4444" stroke-width="2" marker-end="url(#ar3)"/><text x="38" y="92" font-size="11" fill="#64748b">原图</text><circle cx="170" cy="50" r="30" fill="none" stroke="#10b981" stroke-width="3" stroke-dasharray="6 4"/><text x="153" y="92" font-size="11" fill="#64748b">旋转任意角度</text><defs><marker id="ar3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#ef4444"/></marker></defs></svg>',options:['图形完全不变','变成椭圆','位置改变形状也变','无法判断'],answer:0,explanation:'圆具有旋转不变性，绕圆心旋转任意角度后，图形与原来完全重合，这是圆的重要性质。'}]},
+{id:'spatial_visualization',name:'空间可视化能力',short:'空间可视化',description:'对复杂立体进行组合、分解、投影与多步骤想象的能力，是立体几何与化学分子结构的核心能力。',icon:'brain',color:'#10b981',subjects:'立体几何、化学分子与晶体结构',questions:[
+{id:21,difficulty:1,tag:'立体组合',content:'下图由几个大小相同的小正方体组成？',svg:'<svg width="170" height="120"><g><polygon points="30,25 55,35 55,80 30,90 5,80 5,35" fill="#8b7bf2" stroke="#6a58d8" stroke-width="1.5"/><polygon points="55,35 80,25 80,70 55,80" fill="#c9c2fa" stroke="#8b7bf2" stroke-width="1.5"/><polygon points="55,80 80,70 80,115 55,125 30,115 30,90" fill="#6a58d8" stroke="#5a4bd6" stroke-width="1.5"/></g><g><polygon points="85,25 110,35 110,80 85,90 60,80 60,35" fill="#8b7bf2" stroke="#6a58d8" stroke-width="1.5"/><polygon points="110,35 135,25 135,70 110,80" fill="#c9c2fa" stroke="#8b7bf2" stroke-width="1.5"/><polygon points="110,80 135,70 135,115 110,125 85,115 85,90" fill="#6a58d8" stroke="#5a4bd6" stroke-width="1.5"/></g><g><polygon points="85,25 110,35 110,80 85,90 60,80 60,35" fill="#8b7bf2" stroke="#6a58d8" stroke-width="1.5"/><polygon points="110,35 135,25 135,70 110,80" fill="#c9c2fa" stroke="#8b7bf2" stroke-width="1.5"/><polygon points="110,80 135,70 135,115 110,125 85,115 85,90" fill="#6a58d8" stroke="#5a4bd6" stroke-width="1.5"/></g></svg>',options:['2个','3个','4个','5个'],answer:1,explanation:'图中下层有2个小正方体，上层又叠放了1个，总共是3个小正方体。'},
+{id:22,difficulty:1,tag:'投影',content:'一个正方体在平行光照射下，它的影子（投影）不可能是下面的哪个图形？',svg:'<svg width="250" height="100"><polygon points="25,15 60,30 60,80 25,95 -10,80 -10,30" fill="rgba(124,108,240,0.12)" stroke="#7c6cf0" stroke-width="2"/><text x="8" y="95" font-size="10" fill="#64748b">立方体</text><rect x="110" y="30" width="40" height="40" fill="none" stroke="#10b981" stroke-width="2"/><text x="118" y="85" font-size="10" fill="#64748b">正方形</text><polygon points="190,35 210,60 190,85 170,60" fill="none" stroke="#ef4444" stroke-width="2"/><text x="178" y="98" font-size="10" fill="#ef4444">三角形?</text></svg>',options:['正方形','长方形','六边形','圆形'],answer:3,explanation:'正方体在光照下的投影可能是正方形、长方形、菱形、六边形等，但绝不会是圆形（圆形没有直线边界）。'},
+{id:23,difficulty:1,tag:'图形组合',content:'两个完全相同的直角三角形，一定能拼成什么图形？',svg:'<svg width="240" height="110"><polygon points="15,70 75,70 15,20" fill="rgba(124,108,240,0.18)" stroke="#7c6cf0" stroke-width="2"/><polygon points="75,70 15,70 15,20" fill="rgba(91,156,245,0.18)" stroke="#5b9cf5" stroke-width="2" transform="translate(75,70) scale(-1,1) translate(-15,-70)"/><text x="22" y="95" font-size="11" fill="#64748b">两个完全相同的直角三角形</text><text x="130" y="55" font-size="22" fill="#f59e0b">拼成?</text></svg>',options:['平行四边形','圆形','梯形','星形'],answer:0,explanation:'两个全等的三角形沿对应边拼合，总能构成一个平行四边形（若恰为直角三角形，还可拼成长方形）。'},
+{id:24,difficulty:2,tag:'三视图',content:'下图是由3个小正方体排成一列搭成的立体，从上面看（俯视图）会看到什么？',svg:'<svg width="220" height="110"><g><polygon points="15,25 40,35 40,80 15,90 -10,80 -10,35" fill="#8b7bf2" stroke="#6a58d8" stroke-width="1.5"/><polygon points="40,35 65,25 65,70 40,80" fill="#c9c2fa" stroke="#8b7bf2" stroke-width="1.5"/><polygon points="40,80 65,70 65,115 40,125 15,115 15,90" fill="#6a58d8" stroke="#5a4bd6" stroke-width="1.5"/></g><g><polygon points="55,25 80,35 80,80 55,90 30,80 30,35" fill="#8b7bf2" stroke="#6a58d8" stroke-width="1.5"/><polygon points="80,35 105,25 105,70 80,80" fill="#c9c2fa" stroke="#8b7bf2" stroke-width="1.5"/><polygon points="80,80 105,70 105,115 80,125 55,115 55,90" fill="#6a58d8" stroke="#5a4bd6" stroke-width="1.5"/></g><g><polygon points="95,25 120,35 120,80 95,90 70,80 70,35" fill="#8b7bf2" stroke="#6a58d8" stroke-width="1.5"/><polygon points="120,35 145,25 145,70 120,80" fill="#c9c2fa" stroke="#8b7bf2" stroke-width="1.5"/><polygon points="120,80 145,70 145,115 120,125 95,115 95,90" fill="#6a58d8" stroke="#5a4bd6" stroke-width="1.5"/></g><text x="155" y="55" font-size="13" fill="#f59e0b">俯视</text></svg>',options:['1个正方形','2个正方形','3个正方形排成一行','一个长方形'],answer:2,explanation:'3个小正方体排成一列，从正上方看下去，会看到3个正方形排成一行。'},
+{id:25,difficulty:2,tag:'立体组合',content:'一个3×3×3的大魔方，如果挖去最中心的那1个小立方体，还剩下多少个小立方体？',svg:'<svg width="170" height="140"><rect x="20" y="30" width="40" height="40" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="65" y="30" width="40" height="40" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="20" y="75" width="40" height="40" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="65" y="75" width="40" height="40" fill="rgba(124,108,240,0.18)" stroke="#7c6cf0" stroke-width="2"/><circle cx="85" cy="95" r="12" fill="#fff" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/><text x="115" y="60" font-size="11" fill="#64748b">3×3×3</text><text x="105" y="78" font-size="11" fill="#ef4444">挖去中心</text></svg>',options:['24个','25个','26个','27个'],answer:2,explanation:'大魔方共有3×3×3=27个小立方体，挖去中心的1个后，还剩27-1=26个。'},
+{id:26,difficulty:2,tag:'重叠计数',content:'下图这个立体图形中，一共用了几个小正方体？（下层4个，上层前面叠2个）',svg:'<svg width="200" height="130"><g><polygon points="20,50 45,60 45,95 20,105 -5,95 -5,60" fill="#8b7bf2" stroke="#6a58d8" stroke-width="1.5"/><polygon points="45,60 70,50 70,85 45,95" fill="#c9c2fa" stroke="#8b7bf2" stroke-width="1.5"/><polygon points="45,95 70,85 70,120 45,130 20,120 20,105" fill="#6a58d8" stroke="#5a4bd6" stroke-width="1.5"/></g><g><polygon points="55,50 80,60 80,95 55,105 30,95 30,60" fill="#8b7bf2" stroke="#6a58d8" stroke-width="1.5"/><polygon points="80,60 105,50 105,85 80,95" fill="#c9c2fa" stroke="#8b7bf2" stroke-width="1.5"/><polygon points="80,95 105,85 105,120 80,130 55,120 55,105" fill="#6a58d8" stroke="#5a4bd6" stroke-width="1.5"/></g><g><polygon points="90,50 115,60 115,95 90,105 65,95 65,60" fill="#8b7bf2" stroke="#6a58d8" stroke-width="1.5"/><polygon points="115,60 140,50 140,85 115,95" fill="#c9c2fa" stroke="#8b7bf2" stroke-width="1.5"/><polygon points="115,95 140,85 140,120 115,130 90,120 90,105" fill="#6a58d8" stroke="#5a4bd6" stroke-width="1.5"/></g><g><polygon points="90,10 115,20 115,55 90,65 65,55 65,20" fill="#c9c2fa" stroke="#8b7bf2" stroke-width="1.5"/><polygon points="115,20 140,10 140,45 115,55" fill="#d9d4fb" stroke="#c9c2fa" stroke-width="1.5"/><polygon points="115,55 140,45 140,80 115,90 90,80 90,65" fill="#8b7bf2" stroke="#6a58d8" stroke-width="1.5"/></g><g><polygon points="55,10 80,20 80,55 55,65 30,55 30,20" fill="#c9c2fa" stroke="#8b7bf2" stroke-width="1.5"/><polygon points="80,20 105,10 105,45 80,55" fill="#d9d4fb" stroke="#c9c2fa" stroke-width="1.5"/><polygon points="80,55 105,45 105,80 80,90 55,80 55,65" fill="#8b7bf2" stroke="#6a58d8" stroke-width="1.5"/></g><text x="145" y="70" font-size="12" fill="#64748b">下层4个</text><text x="145" y="88" font-size="12" fill="#64748b">上层2个</text></svg>',options:['5个','6个','7个','8个'],answer:1,explanation:'下层有4个小正方体，上层叠放了2个，总共4+2=6个小正方体。'},
+{id:27,difficulty:2,tag:'展开折叠',content:'下面的两个平面图形中，哪个折叠起来可以成为一个正方体？',svg:'<svg width="280" height="120"><g transform="translate(5,10)"><rect width="30" height="30" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="35" width="30" height="30" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="70" width="30" height="30" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="35" y="-35" width="30" height="30" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="35" y="35" width="30" height="30" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="35" y="70" width="30" height="30" fill="none" stroke="#7c6cf0" stroke-width="2"/></g><text x="48" y="120" font-size="11" fill="#64748b">A</text><g transform="translate(160,10)"><rect width="30" height="30" fill="none" stroke="#ef4444" stroke-width="2"/><rect x="35" width="30" height="30" fill="none" stroke="#ef4444" stroke-width="2"/><rect x="70" width="30" height="30" fill="none" stroke="#ef4444" stroke-width="2"/><rect x="35" y="-35" width="30" height="30" fill="none" stroke="#ef4444" stroke-width="2"/><rect y="35" width="30" height="30" fill="none" stroke="#ef4444" stroke-width="2"/><rect x="35" y="70" width="30" height="30" fill="none" stroke="#ef4444" stroke-width="2"/></g><text x="203" y="120" font-size="11" fill="#64748b">B</text></svg>',options:['图形A','图形B','两个都可以','两个都不行'],answer:0,explanation:'图形A是"1-4-1"型展开图，是正方体的标准展开图；图形B中间是"2-4"型，折叠时会有两个面重叠，无法围成正方体。'},
+{id:28,difficulty:3,tag:'立体组合',content:'用小正方体搭立体：从正面看是下层2个、上层靠左1个（共2层）；从上面看是2个正方形并排。至少需要几个小正方体？',svg:'<svg width="230" height="120"><text x="10" y="20" font-size="12" fill="#7c6cf0">正面看</text><rect x="10" y="30" width="40" height="40" fill="rgba(124,108,240,0.25)" stroke="#7c6cf0" stroke-width="2"/><rect x="55" y="30" width="40" height="40" fill="rgba(124,108,240,0.15)" stroke="#7c6cf0" stroke-width="2"/><rect x="10" y="-10" width="40" height="40" fill="rgba(124,108,240,0.5)" stroke="#7c6cf0" stroke-width="2"/><text x="10" y="90" font-size="12" fill="#5b9cf5">上面看</text><rect x="10" y="100" width="40" height="30" fill="rgba(91,156,245,0.25)" stroke="#5b9cf5" stroke-width="2"/><rect x="55" y="100" width="40" height="30" fill="rgba(91,156,245,0.25)" stroke="#5b9cf5" stroke-width="2"/><text x="130" y="55" font-size="13" fill="#64748b">最少?</text></svg>',options:['2个','3个','4个','5个'],answer:1,explanation:'正面要求有2列，左边列2层、右边列1层；俯视图要求两列都占位。最少用3个：左边叠2个、右边放1个即可满足两个视图。'},
+{id:29,difficulty:3,tag:'空间分割',content:'一个正方体，用平面切2刀，最多可以把它分成几块？',svg:'<svg width="200" height="130"><polygon points="30,20 65,35 65,90 30,105 -5,90 -5,35" fill="rgba(124,108,240,0.12)" stroke="#7c6cf0" stroke-width="2"/><polygon points="65,35 100,20 100,75 65,90" fill="rgba(124,108,240,0.2)" stroke="#7c6cf0" stroke-width="2"/><line x1="12" y1="60" x2="92" y2="42" stroke="#ef4444" stroke-width="2"/><line x1="10" y1="50" x2="88" y2="85" stroke="#10b981" stroke-width="2"/><text x="115" y="60" font-size="13" fill="#64748b">切2刀</text></svg>',options:['3块','4块','5块','6块'],answer:1,explanation:'两刀要尽量交叉。第一刀把正方体分成2块；第二刀与第一刀交叉，能把这2块再各切开一部分，最多可得到4块。'},
+{id:30,difficulty:3,tag:'组合想象',content:'下图的立体（3个小正方体呈拐角排列），从上面看（俯视图）会是哪个形状？',svg:'<svg width="230" height="130"><g><polygon points="30,30 55,40 55,85 30,95 5,85 5,40" fill="#8b7bf2" stroke="#6a58d8" stroke-width="1.5"/><polygon points="55,40 80,30 80,75 55,85" fill="#c9c2fa" stroke="#8b7bf2" stroke-width="1.5"/><polygon points="55,85 80,75 80,120 55,130 30,120 30,95" fill="#6a58d8" stroke="#5a4bd6" stroke-width="1.5"/></g><g><polygon points="55,30 80,40 80,85 55,95 30,85 30,40" fill="#8b7bf2" stroke="#6a58d8" stroke-width="1.5"/><polygon points="80,40 105,30 105,75 80,85" fill="#c9c2fa" stroke="#8b7bf2" stroke-width="1.5"/><polygon points="80,85 105,75 105,120 80,130 55,120 55,95" fill="#6a58d8" stroke="#5a4bd6" stroke-width="1.5"/></g><g><polygon points="80,30 105,40 105,85 80,95 55,85 55,40" fill="#8b7bf2" stroke="#6a58d8" stroke-width="1.5"/><polygon points="105,40 130,30 130,75 105,85" fill="#c9c2fa" stroke="#8b7bf2" stroke-width="1.5"/><polygon points="105,85 130,75 130,120 105,130 80,120 80,95" fill="#6a58d8" stroke="#5a4bd6" stroke-width="1.5"/></g><text x="135" y="55" font-size="13" fill="#f59e0b">俯视?</text></svg>',options:['三个正方形排成一行','三个正方形组成拐角(角形)','两个正方形','一个正方形'],answer:1,explanation:'三个小正方体呈"拐角"排列（L形），从正上方看下去，会看到3个正方形组成一个L形（拐角形）。'}]},
+{id:'graph_transformation',name:'图形变换能力',short:'图形变换',description:'对图形进行平移、轴对称、中心对称、坐标变换等操作的理解能力，是坐标几何与函数图像的基础。',icon:'transform',color:'#f59e0b',subjects:'坐标几何、函数图像、物理图像',questions:[
+{id:31,difficulty:1,tag:'轴对称',content:'下面的图形中，哪个是轴对称图形？',svg:'<svg width="250" height="90"><polygon points="25,15 55,70 5,70" fill="none" stroke="#ef4444" stroke-width="2.5"/><text x="15" y="84" font-size="11" fill="#64748b">A</text><rect x="90" y="20" width="55" height="50" fill="rgba(124,108,240,0.15)" stroke="#7c6cf0" stroke-width="2.5"/><text x="107" y="84" font-size="11" fill="#64748b">B</text><polygon points="180,20 205,70 155,70" fill="none" stroke="#5b9cf5" stroke-width="2.5"/><text x="168" y="84" font-size="11" fill="#64748b">C</text></svg>',options:['图形A','图形B','图形C','都不是'],answer:1,explanation:'长方形沿水平中线或竖直中线对折，两边能完全重合，是轴对称图形；而普通三角形和不规则三角形不一定有对称轴。'},
+{id:32,difficulty:1,tag:'中心对称',content:'下面的图形中，哪个是中心对称图形？',svg:'<svg width="250" height="90"><polygon points="25,15 50,70 0,70" fill="none" stroke="#ef4444" stroke-width="2.5"/><text x="12" y="84" font-size="11" fill="#64748b">A</text><polygon points="120,15 150,45 120,75 90,45" fill="rgba(124,108,240,0.15)" stroke="#7c6cf0" stroke-width="2.5"/><circle cx="120" cy="45" r="3" fill="#f59e0b"/><text x="108" y="84" font-size="11" fill="#64748b">B</text><polygon points="185,15 210,60 170,60" fill="none" stroke="#5b9cf5" stroke-width="2.5"/><text x="173" y="84" font-size="11" fill="#64748b">C</text></svg>',options:['图形A','图形B','图形C','都不是'],answer:1,explanation:'菱形绕它的中心（对角线的交点）旋转180°后能与自身重合，是中心对称图形。'},
+{id:33,difficulty:1,tag:'平移',content:'把下面的三角形向左平移3格后，它会在哪个位置？',svg:'<svg width="240" height="100"><polygon points="80,15 115,75 45,75" fill="rgba(91,156,245,0.15)" stroke="#5b9cf5" stroke-width="2.5" stroke-dasharray="5,4"/><polygon points="38,15 73,75 3,75" fill="rgba(124,108,240,0.2)" stroke="#7c6cf0" stroke-width="2.5"/><text x="10" y="90" font-size="11" fill="#7c6cf0">平移后</text><text x="170" y="50" font-size="13" fill="#64748b">← 平移3格</text></svg>',options:['虚线的位置','实线的位置','二者之间','无法确定'],answer:0,explanation:'平移只改变位置，不改变形状和大小。三角形向左平移3格后，应落在虚线所示位置。'},
+{id:34,difficulty:2,tag:'对称轴',content:'等边三角形一共有几条对称轴？',svg:'<svg width="170" height="130"><polygon points="85,15 130,100 40,100" fill="rgba(124,108,240,0.15)" stroke="#7c6cf0" stroke-width="2.5"/><line x1="85" y1="15" x2="85" y2="100" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5,4"/><line x1="85" y1="100" x2="60" y2="58" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5,4"/><line x1="85" y1="100" x2="110" y2="58" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5,4"/></svg>',options:['1条','2条','3条','无数条'],answer:2,explanation:'等边三角形三条边相等、三个角相等，每条边对应一条对称轴，共有3条对称轴。'},
+{id:35,difficulty:2,tag:'轴对称',content:'字母A关于竖直的对称轴对折后，会变成什么？',svg:'<svg width="230" height="90"><text x="25" y="60" font-size="52" fill="#7c6cf0">A</text><line x1="65" y1="10" x2="65" y2="80" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5,5"/><text x="100" y="60" font-size="52" fill="#10b981">A</text><text x="150" y="60" font-size="52" fill="#ef4444">V</text></svg>',options:['A','V','H','M'],answer:0,explanation:'字母A沿竖直中线对折，左右两边完全重合，所以关于竖直轴对称后仍然是A。'},
+{id:36,difficulty:2,tag:'坐标变换',content:'在平面直角坐标系中，点(3,4)关于原点对称后，坐标为？',svg:'<svg width="200" height="160"><line x1="100" y1="15" x2="100" y2="145" stroke="rgba(0,0,0,0.15)"/><line x1="15" y1="80" x2="185" y2="80" stroke="rgba(0,0,0,0.15)"/><circle cx="140" cy="40" r="6" fill="#ef4444"/><text x="146" y="34" font-size="12" fill="#ef4444">(3,4)</text><circle cx="60" cy="120" r="6" fill="#10b981"/><text x="30" y="135" font-size="12" fill="#10b981">(-3,-4)</text><line x1="140" y1="40" x2="60" y2="120" stroke="#7c6cf0" stroke-width="1.5" stroke-dasharray="4,4"/></svg>',options:['(-3,4)','(3,-4)','(-3,-4)','(4,-3)'],answer:2,explanation:'关于原点对称，横纵坐标都要变成相反数：(x,y)→(-x,-y)，所以(3,4)→(-3,-4)。'},
+{id:37,difficulty:2,tag:'中心对称',content:'一个平行四边形绕它的中心旋转180°后，结果会怎样？',svg:'<svg width="240" height="110"><polygon points="25,35 80,15 60,80 5,60" fill="rgba(124,108,240,0.18)" stroke="#7c6cf0" stroke-width="2.5"/><circle cx="43" cy="48" r="4" fill="#ef4444"/><text x="20" y="98" font-size="11" fill="#64748b">原图</text><text x="115" y="55" font-size="20" fill="#f59e0b">旋转180°</text><polygon points="185,75 130,95 150,30 205,50" fill="rgba(16,185,129,0.18)" stroke="#10b981" stroke-width="2.5"/><text x="158" y="105" font-size="11" fill="#64748b">旋转后</text></svg>',options:['与原图形完全重合','变成菱形','位置改变但方向也变','无法确定'],answer:0,explanation:'平行四边形是中心对称图形，绕中心旋转180°后与原来的图形完全重合。'},
+{id:38,difficulty:3,tag:'坐标变换',content:'点(2,-1)先向右平移3个单位，再向上平移2个单位，到达的新坐标是？',svg:'<svg width="200" height="160"><line x1="100" y1="15" x2="100" y2="145" stroke="rgba(0,0,0,0.15)"/><line x1="15" y1="80" x2="185" y2="80" stroke="rgba(0,0,0,0.15)"/><circle cx="70" cy="110" r="6" fill="#ef4444"/><text x="30" y="125" font-size="12" fill="#ef4444">(2,-1)</text><circle cx="145" cy="60" r="6" fill="#10b981"/><text x="130" y="52" font-size="12" fill="#10b981">(5,1)</text></svg>',options:['(5,1)','(5,-3)','(-1,1)','(1,3)'],answer:0,explanation:'向右平移横坐标+3：2+3=5；向上平移纵坐标+2：-1+2=1。所以新坐标为(5,1)。'},
+{id:39,difficulty:3,tag:'对称轴',content:'关于正五边形，下列说法正确的是？',svg:'<svg width="180" height="150"><polygon points="90,20 140,55 122,110 58,110 40,55" fill="rgba(124,108,240,0.15)" stroke="#7c6cf0" stroke-width="2.5"/><line x1="90" y1="20" x2="90" y2="110" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="5,4"/></svg>',options:['有5条对称轴且有中心对称','有5条对称轴但没有中心对称','没有对称轴','只有1条对称轴'],answer:1,explanation:'正五边形有5条对称轴（每个顶点到对边中点连线），但因为是奇数边形，绕中心旋转180°后不会与自身重合，所以没有中心对称。'},
+{id:40,difficulty:3,tag:'图形变换',content:'一个图形先绕某点顺时针旋转90°，再绕同一点逆时针旋转90°，最终结果怎样？',svg:'<svg width="240" height="110"><polygon points="35,30 80,15 75,80 30,65" fill="rgba(124,108,240,0.18)" stroke="#7c6cf0" stroke-width="2.5"/><circle cx="55" cy="48" r="4" fill="#ef4444"/><text x="42" y="98" font-size="11" fill="#64748b">初始位置</text><text x="105" y="55" font-size="17" fill="#f59e0b">顺90°再逆90°</text><polygon points="185,70 140,85 145,20 190,5" fill="rgba(16,185,129,0.18)" stroke="#10b981" stroke-width="2.5"/><circle cx="162" cy="45" r="4" fill="#ef4444"/><text x="168" y="98" font-size="11" fill="#64748b">回到原位</text></svg>',options:['回到原来的位置','移动到下方','旋转90°后停止','无法确定'],answer:0,explanation:'先顺时针旋转90°，再逆时针旋转90°，两次旋转相互抵消，图形回到原来的位置。'}]},
+{id:'solid_imagination',name:'立体想象能力',short:'立体想象',description:'对立体图形的展开、折叠、截面、三视图进行想象的能力，直接影响中考立体几何与空间角的学习。',icon:'cube',color:'#f97316',subjects:'立体几何、制图、美术透视',questions:[
+{id:41,difficulty:1,tag:'展开图',content:'下面的两个平面图形中，哪个折叠起来可以成为正方体？',svg:'<svg width="280" height="120"><g transform="translate(5,10)"><rect width="30" height="30" fill="none" stroke="#ef4444" stroke-width="2"/><rect x="35" width="30" height="30" fill="none" stroke="#ef4444" stroke-width="2"/><rect x="70" width="30" height="30" fill="none" stroke="#ef4444" stroke-width="2"/><rect x="35" y="-35" width="30" height="30" fill="none" stroke="#ef4444" stroke-width="2"/><rect y="35" width="30" height="30" fill="none" stroke="#ef4444" stroke-width="2"/><rect x="35" y="70" width="30" height="30" fill="none" stroke="#ef4444" stroke-width="2"/></g><text x="48" y="120" font-size="11" fill="#64748b">A</text><g transform="translate(160,10)"><rect width="30" height="30" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="35" width="30" height="30" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="70" width="30" height="30" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="35" y="-35" width="30" height="30" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="35" y="35" width="30" height="30" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="35" y="70" width="30" height="30" fill="none" stroke="#7c6cf0" stroke-width="2"/></g><text x="203" y="120" font-size="11" fill="#64748b">B</text></svg>',options:['图形A','图形B','两个都可以','两个都不行'],answer:1,explanation:'图形B是标准的"1-4-1"型正方体展开图；图形A是"2-4"型，折叠时有两个面会重叠，不能围成正方体。'},
+{id:42,difficulty:1,tag:'三视图',content:'一个正方体，从它的右面看过去，看到的图形是？',svg:'<svg width="200" height="120"><polygon points="50,20 85,35 85,95 50,110 15,95 15,35" fill="rgba(124,108,240,0.12)" stroke="#7c6cf0" stroke-width="2.5"/><polygon points="85,35 120,20 120,80 85,95" fill="rgba(124,108,240,0.2)" stroke="#7c6cf0" stroke-width="2.5"/><text x="130" y="55" font-size="14" fill="#f59e0b">右面→</text></svg>',options:['正方形','长方形','三角形','圆形'],answer:0,explanation:'正方体的六个面都是全等的正方形，从任何一个方向（正面、侧面、上面）看，看到的都是一个正方形。'},
+{id:43,difficulty:1,tag:'相对面',content:'在正方体的展开图中，与标有A的面相对的面是？',svg:'<svg width="230" height="110"><g transform="translate(10,10)"><rect width="45" height="45" fill="none" stroke="#7c6cf0" stroke-width="2"/><text x="16" y="30" font-size="18" fill="#7c6cf0">B</text><rect x="50" width="45" height="45" fill="rgba(124,108,240,0.2)" stroke="#7c6cf0" stroke-width="2"/><text x="62" y="30" font-size="18" fill="#7c6cf0">A</text><rect x="100" width="45" height="45" fill="none" stroke="#7c6cf0" stroke-width="2"/><text x="112" y="30" font-size="18" fill="#7c6cf0">C</text><rect x="50" y="50" width="45" height="45" fill="none" stroke="#7c6cf0" stroke-width="2"/><text x="62" y="80" font-size="18" fill="#7c6cf0">D</text></g></svg>',options:['面B','面C','面D','无法确定'],answer:2,explanation:'在展开图中，A所在面的正下方（隔一行）的D面是它的相对面。折叠后A与D相对。'},
+{id:44,difficulty:2,tag:'截面',content:'用一个平面去截圆柱，得到的截面不可能是什么图形？',svg:'<svg width="260" height="110"><ellipse cx="50" cy="40" rx="35" ry="14" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="15" y="40" width="70" height="45" fill="rgba(124,108,240,0.1)" stroke="#7c6cf0" stroke-width="2"/><text x="30" y="100" font-size="11" fill="#64748b">圆柱</text><rect x="130" y="30" width="50" height="35" fill="none" stroke="#10b981" stroke-width="2"/><text x="140" y="80" font-size="11" fill="#10b981">长方形</text><polygon points="215,25 235,65 195,65" fill="none" stroke="#ef4444" stroke-width="2"/><text x="193" y="90" font-size="11" fill="#ef4444">三角形?</text></svg>',options:['圆形','长方形','椭圆','三角形'],answer:3,explanation:'平行于底面截得圆，平行于轴截得长方形，斜着截得椭圆；但圆柱的截面不可能出现三角形（没有尖角）。'},
+{id:45,difficulty:2,tag:'截面',content:'用一个平面去截正方体，截面最多是几边形？',svg:'<svg width="200" height="130"><polygon points="30,20 65,35 65,90 30,105 -5,90 -5,35" fill="none" stroke="#7c6cf0" stroke-width="2"/><polygon points="65,35 100,20 100,75 65,90" fill="none" stroke="#7c6cf0" stroke-width="2"/><polygon points="-5,35 30,20 65,35 65,90 30,55 -5,75" fill="rgba(239,68,68,0.18)" stroke="#ef4444" stroke-width="2"/><text x="110" y="60" font-size="13" fill="#64748b">六边形?</text></svg>',options:['四边形','五边形','六边形','七边形'],answer:2,explanation:'一个平面最多能与正方体的6个面相交，每条交线是一条边，所以截面最多是六边形。'},
+{id:46,difficulty:2,tag:'三视图',content:'一个立体图形，从正面看是正方形，从侧面看也是正方形，它可能是？',svg:'<svg width="230" height="110"><text x="15" y="20" font-size="12" fill="#7c6cf0">正面</text><rect x="15" y="28" width="45" height="45" fill="none" stroke="#7c6cf0" stroke-width="2.5"/><text x="30" y="88" font-size="11" fill="#64748b">正方形</text><text x="105" y="20" font-size="12" fill="#10b981">侧面</text><rect x="105" y="28" width="45" height="45" fill="none" stroke="#10b981" stroke-width="2.5"/><text x="120" y="88" font-size="11" fill="#64748b">正方形</text><text x="175" y="55" font-size="22" fill="#f59e0b">?</text></svg>',options:['一定是正方体','一定是长方体','可能是正方体或特殊长方体','无法确定'],answer:0,explanation:'正面是正方形说明宽=高；侧面是正方形说明深=高。所以宽=深=高，一定是正方体。'},
+{id:47,difficulty:2,tag:'展开图',content:'三棱柱的表面展开图中，侧面（长方形）一共有几个？',svg:'<svg width="220" height="100"><polygon points="25,20 55,35 25,50 -5,35" fill="none" stroke="#7c6cf0" stroke-width="2"/><polygon points="60,20 90,35 60,50 30,35" fill="none" stroke="#5b9cf5" stroke-width="2"/><polygon points="95,20 125,35 95,50 65,35" fill="none" stroke="#10b981" stroke-width="2"/><rect x="25" y="40" width="30" height="40" fill="none" stroke="#f59e0b" stroke-width="2"/><rect x="60" y="40" width="30" height="40" fill="none" stroke="#ef4444" stroke-width="2"/><text x="20" y="98" font-size="11" fill="#64748b">三棱柱展开</text></svg>',options:['1个','2个','3个','4个'],answer:2,explanation:'三棱柱有3个侧面，每个侧面都是长方形，所以展开图中有3个长方形，上下是2个三角形底面。'},
+{id:48,difficulty:3,tag:'截面',content:'用一个平面去截圆锥，截面不可能是什么图形？',svg:'<svg width="220" height="120"><polygon points="75,15 120,90 30,90" fill="rgba(124,108,240,0.12)" stroke="#7c6cf0" stroke-width="2"/><ellipse cx="75" cy="90" rx="45" ry="12" fill="none" stroke="#7c6cf0" stroke-width="2"/><text x="55" y="110" font-size="11" fill="#64748b">圆锥</text><rect x="140" y="40" width="45" height="40" fill="none" stroke="#ef4444" stroke-width="2"/><text x="145" y="95" font-size="11" fill="#ef4444">正方形?</text></svg>',options:['三角形','圆形','椭圆','正方形'],answer:3,explanation:'过顶点垂直于底面截得三角形，平行于底面截得圆，斜截得椭圆；但圆锥的截面不可能出现正方形。'},
+{id:49,difficulty:3,tag:'三视图',content:'一个立体，从正面看是长方形，从上面看是圆形，这个立体是？',svg:'<svg width="230" height="110"><rect x="20" y="30" width="60" height="45" fill="none" stroke="#7c6cf0" stroke-width="2.5"/><text x="28" y="92" font-size="11" fill="#64748b">正面:长方形</text><ellipse cx="170" cy="50" rx="40" ry="18" fill="rgba(91,156,245,0.15)" stroke="#5b9cf5" stroke-width="2.5"/><text x="143" y="92" font-size="11" fill="#64748b">上面:圆形</text></svg>',options:['圆柱','圆锥','球','长方体'],answer:0,explanation:'圆柱从正面看是长方形，从上面看是圆形。而圆锥正面看是三角形，球两个方向看都是圆。'},
+{id:50,difficulty:3,tag:'立体推理',content:'用一个平面去截正方体，截面不可能是下面哪个图形？',svg:'<svg width="260" height="100"><polygon points="20,20 55,35 55,85 20,100 -15,85 -15,35" fill="none" stroke="#7c6cf0" stroke-width="2"/><polygon points="55,35 90,20 90,75 55,85" fill="none" stroke="#7c6cf0" stroke-width="2"/><text x="20" y="100" font-size="10" fill="#64748b">正方体</text><polygon points="120,20 145,60 95,60" fill="none" stroke="#10b981" stroke-width="2"/><text x="112" y="85" font-size="10" fill="#64748b">三角形</text><polygon points="170,25 200,25 200,60 170,60" fill="none" stroke="#5b9cf5" stroke-width="2"/><text x="172" y="85" font-size="10" fill="#64748b">正方形</text><circle cx="235" cy="42" r="16" fill="none" stroke="#ef4444" stroke-width="2"/><text x="222" y="85" font-size="10" fill="#ef4444">圆形?</text></svg>',options:['三角形','正方形','五边形','圆形'],answer:3,explanation:'正方体的截面可以是三角形、正方形、长方形、五边形、六边形等直线型多边形，但绝不会出现圆弧边，所以不可能是圆形。'}]},
+{id:'spatial_reasoning',name:'空间推理能力',short:'空间推理',description:'综合运用方位、路径、距离等知识进行推理的高级空间能力，是工程设计与竞赛思维的重要基础。',icon:'target',color:'#ef4444',subjects:'物理、工程、编程逻辑、竞赛',questions:[
+{id:51,difficulty:1,tag:'方位推理',content:'小丽面向北方，向左（逆时针）转90°后，她面向哪个方向？',svg:'<svg width="220" height="150"><circle cx="110" cy="80" r="60" fill="none" stroke="#7c6cf0" stroke-width="2" stroke-dasharray="4 4"/><text x="105" y="20" font-size="13" fill="#5b9cf5">北</text><text x="175" y="85" font-size="13" fill="#f59e0b">东</text><text x="105" y="150" font-size="13" fill="#10b981">南</text><text x="35" y="85" font-size="13" fill="#ef4444">西</text><polygon points="110,80 130,105 110,98 100,105" fill="none" stroke="#ef4444" stroke-width="2.5" transform="rotate(-90 110 80)"/></svg>',options:['东方','南方','西方','北方'],answer:2,explanation:'面向北，向左转是逆时针方向：北→西→南→东。转90°后正好面向西方。'},
+{id:52,difficulty:1,tag:'路径规划',content:'在长方体框架上，一只蚂蚁从顶点A沿棱爬到顶点B，最少要走几条棱？',svg:'<svg width="200" height="150"><polygon points="40,25 75,45 75,105 40,125 5,105 5,45" fill="none" stroke="#7c6cf0" stroke-width="2"/><polygon points="75,45 110,25 110,85 75,105" fill="none" stroke="#7c6cf0" stroke-width="2"/><circle cx="5" cy="45" r="6" fill="#ef4444"/><text x="0" y="38" font-size="12" fill="#ef4444">A</text><circle cx="110" cy="85" r="6" fill="#10b981"/><text x="112" y="100" font-size="12" fill="#10b981">B</text></svg>',options:['2条','3条','4条','5条'],answer:1,explanation:'从长方体一个顶点到对角的顶点，沿棱走最短要经过3条棱（长、宽、高各一条），共3条。'},
+{id:53,difficulty:1,tag:'方位推理',content:'小明从家出发向东北方向走100米到达学校，那么从学校看，小明家在哪个方向？',svg:'<svg width="180" height="160"><line x1="90" y1="15" x2="90" y2="145" stroke="rgba(0,0,0,0.12)"/><line x1="15" y1="80" x2="165" y2="80" stroke="rgba(0,0,0,0.12)"/><text x="85" y="20" font-size="10" fill="#64748b">北</text><text x="152" y="75" font-size="10" fill="#64748b">东</text><circle cx="110" cy="50" r="7" fill="#ef4444"/><text x="112" y="44" font-size="11" fill="#ef4444">学校</text><circle cx="60" cy="115" r="7" fill="#10b981"/><text x="28" y="130" font-size="11" fill="#10b981">家</text><line x1="95" y1="80" x2="110" y2="50" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,4"/></svg>',options:['东北方向','西北方向','东南方向','西南方向'],answer:3,explanation:'家→学校是东北方向，反过来学校→家就是相反的方向：西南方向。'},
+{id:54,difficulty:2,tag:'立体推理',content:'正方体的两条体对角线（连接相对顶点的线）有什么关系？',svg:'<svg width="180" height="140"><polygon points="35,25 70,45 70,105 35,125 0,105 0,45" fill="none" stroke="#7c6cf0" stroke-width="2"/><polygon points="70,45 105,25 105,85 70,105" fill="none" stroke="#7c6cf0" stroke-width="2"/><line x1="0" y1="45" x2="70" y2="105" stroke="#ef4444" stroke-width="2.5"/><line x1="105" y1="45" x2="35" y2="105" stroke="#10b981" stroke-width="2.5"/></svg>',options:['相交','平行','异面且垂直','异面且不垂直'],answer:0,explanation:'正方体的4条体对角线都经过正方体的中心点，因此任意两条体对角线都会在中心相交（夹角约70.5°，并不垂直）。'},
+{id:55,difficulty:2,tag:'路径规划',content:'在3×3的方格棋盘上，从左上角走到右下角，每次只能向右或向下走一格，共有多少种不同的最短走法？',svg:'<svg width="180" height="180"><rect x="20" y="20" width="140" height="140" fill="none" stroke="#7c6cf0" stroke-width="2"/><line x1="20" y1="66" x2="160" y2="66" stroke="#e4e8ec" stroke-width="2"/><line x1="20" y1="112" x2="160" y2="112" stroke="#e4e8ec" stroke-width="2"/><line x1="66" y1="20" x2="66" y2="160" stroke="#e4e8ec" stroke-width="2"/><line x1="112" y1="20" x2="112" y2="160" stroke="#e4e8ec" stroke-width="2"/><circle cx="26" cy="26" r="5" fill="#7c6cf0"/><text x="20" y="18" font-size="11" fill="#7c6cf0">起点</text><circle cx="154" cy="154" r="5" fill="#10b981"/><text x="128" y="174" font-size="11" fill="#10b981">终点</text></svg>',options:['4种','5种','6种','8种'],answer:2,explanation:'从左上角到右下角需要向右走2步、向下走2步，共4步。在4步中选2步向右，有C(4,2)=6种走法。'},
+{id:56,difficulty:2,tag:'空间计数',content:'一个3×3×3的大正方体表面全部涂上红色后，切成27个小立方体，其中只有1个面涂红的小立方体有几个？',svg:'<svg width="170" height="150"><rect x="15" y="20" width="40" height="40" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="60" y="20" width="40" height="40" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="15" y="65" width="40" height="40" fill="none" stroke="#7c6cf0" stroke-width="2"/><rect x="60" y="65" width="40" height="40" fill="rgba(124,108,240,0.18)" stroke="#7c6cf0" stroke-width="2"/><text x="105" y="45" font-size="11" fill="#64748b">3×3×3</text><text x="100" y="62" font-size="11" fill="#ef4444">表面涂红</text></svg>',options:['4个','5个','6个','8个'],answer:2,explanation:'只有1个面涂红的是每个面正中央的小立方体（该小立方体只暴露一个面在外面）。6个面各1个，共6个。'},
+{id:57,difficulty:3,tag:'立体推理',content:'一个正四棱锥（底面正方形、侧面都是三角形）能否用大小相同的小立方体精确堆成？',svg:'<svg width="200" height="130"><polygon points="40,20 90,55 40,90 -10,55" fill="none" stroke="#7c6cf0" stroke-width="2"/><polygon points="40,20 90,55 40,65 -10,30" fill="rgba(124,108,240,0.15)" stroke="#7c6cf0" stroke-width="2"/><text x="105" y="55" font-size="13" fill="#64748b">正四棱锥</text></svg>',options:['能','不能','部分能','无法判断'],answer:1,explanation:'正四棱锥的侧面是斜面，小立方体有水平的顶面和竖直的侧面，无法拼出光滑的斜面，所以不能精确堆成。'},
+{id:58,difficulty:3,tag:'坐标推理',content:'在空间直角坐标系中，点P的坐标为(2,3,4)，则点P到原点的距离是？',svg:'<svg width="190" height="160"><line x1="35" y1="135" x2="165" y2="135" stroke="rgba(0,0,0,0.12)"/><line x1="35" y1="135" x2="35" y2="15" stroke="rgba(0,0,0,0.12)"/><line x1="35" y1="135" x2="160" y2="70" stroke="rgba(0,0,0,0.12)"/><text x="155" y="130" font-size="11" fill="#64748b">X</text><text x="40" y="20" font-size="11" fill="#64748b">Y</text><text x="160" y="62" font-size="11" fill="#64748b">Z</text><circle cx="105" cy="95" r="6" fill="#ef4444"/><text x="112" y="90" font-size="12" fill="#ef4444">P(2,3,4)</text></svg>',options:['5','9','√29','5.5'],answer:2,explanation:'空间中点到原点的距离公式为d=√(x²+y²+z²)。代入得√(4+9+16)=√29。'},
+{id:59,difficulty:2,tag:'空间推理',content:'下面的正方体展开图折叠成正方体后，与数字"1"相对的面是哪个数字？',svg:'<svg width="240" height="130"><g transform="translate(15,15)"><rect width="45" height="45" fill="none" stroke="#7c6cf0" stroke-width="2"/><text x="16" y="30" font-size="18" fill="#7c6cf0">4</text><rect x="50" width="45" height="45" fill="none" stroke="#7c6cf0" stroke-width="2"/><text x="16" y="75" font-size="18" fill="#7c6cf0">2</text><rect x="100" width="45" height="45" fill="none" stroke="#7c6cf0" stroke-width="2"/><text x="112" y="30" font-size="18" fill="#7c6cf0">1</text><rect x="50" y="-50" width="45" height="45" fill="none" stroke="#7c6cf0" stroke-width="2"/><text x="62" y="-20" font-size="18" fill="#7c6cf0">3</text><rect x="50" y="50" width="45" height="45" fill="none" stroke="#7c6cf0" stroke-width="2"/><text x="62" y="80" font-size="18" fill="#7c6cf0">5</text><rect x="100" y="50" width="45" height="45" fill="none" stroke="#7c6cf0" stroke-width="2"/><text x="112" y="80" font-size="18" fill="#7c6cf0">6</text></g></svg>',options:['3','4','5','6'],answer:2,explanation:'把展开图折成正方体：数字"1"所在面位于中间，与它相对的是隔一个格的"5"所在面（在"1"右侧相邻列的下一行）。'},
+{id:60,difficulty:3,tag:'路径规划',content:'一只蚂蚁在正方体的表面从顶点A爬到与它相对的顶点B，最短的路线会经过正方体的几个面？',svg:'<svg width="200" height="140"><polygon points="35,25 70,45 70,105 35,125 0,105 0,45" fill="none" stroke="#7c6cf0" stroke-width="2"/><polygon points="70,45 105,25 105,85 70,105" fill="none" stroke="#7c6cf0" stroke-width="2"/><circle cx="0" cy="45" r="6" fill="#ef4444"/><text x="0" y="38" font-size="12" fill="#ef4444">A</text><circle cx="105" cy="85" r="6" fill="#10b981"/><text x="108" y="100" font-size="12" fill="#10b981">B</text></svg>',options:['1个面','2个面','3个面','4个面'],answer:1,explanation:'把正方体展开，A、B两点的最短路线是把正方体的表面展开后，沿直线从A到B。最短路线会跨越2个相邻的面。'}]}
+];
+var ICON_MAP = {eye:'👁️',rotate:'🔄',brain:'🧠',transform:'🔀',cube:'📦',target:'🎯'};
+var currentDimension = 0;
+var currentQuestion = 0;
+var allAnswers = {};
+var studentInfo = {name:'',grade:'',school:''};
+var startTime = 0;
+var timerId = 0;
+
+function init(){
+  buildWelcomeGrid();
+  buildDimInfo();
+  createParticles();
+}
+
+function createParticles(){
+  var container = document.getElementById('particles');
+  if(!container) return;
+  for(var i=0;i<18;i++){
+    var p = document.createElement('div');
+    p.className = 'particle';
+    var s = 6 + Math.random()*14;
+    p.style.width = s+'px';
+    p.style.height = s+'px';
+    p.style.left = (Math.random()*100)+'%';
+    p.style.top = (Math.random()*100)+'%';
+    p.style.animationDuration = (9+Math.random()*14)+'s';
+    p.style.animationDelay = (Math.random()*8)+'s';
+    container.appendChild(p);
+  }
+}
+
+function buildWelcomeGrid(){
+  var g = document.getElementById('welcomeDimGrid');
+  if(!g) return;
+  var html = '';
+  for(var i=0;i<DIMENSIONS.length;i++){
+    var d = DIMENSIONS[i];
+    html += '<div class="dimension-item" onclick="goToPage(\'infoPage\')">';
+    html += '<div class="di">'+(ICON_MAP[d.icon]||'🧩')+'</div>';
+    html += '<div class="dn">'+d.short+'</div>';
+    html += '<div class="dp">'+d.questions.length+'题</div>';
+    html += '</div>';
+  }
+  g.innerHTML = html;
+}
+
+function buildDimInfo(){
+  var g = document.getElementById('dimInfoGrid');
+  if(!g) return;
+  var html = '';
+  for(var i=0;i<DIMENSIONS.length;i++){
+    var d = DIMENSIONS[i];
+    html += '<div class="tip-card">';
+    html += '<div class="tip-icon">'+(ICON_MAP[d.icon]||'🧩')+'</div>';
+    html += '<div class="tip-title">'+d.name+'</div>';
+    html += '<div class="tip-desc">'+d.description+'</div>';
+    html += '</div>';
+  }
+  g.innerHTML = html;
+}
+
+function goToPage(id){
+  var pages = document.querySelectorAll('.page');
+  for(var i=0;i<pages.length;i++){pages[i].className = pages[i].className.replace(/\s*active/g,'');}
+  var target = document.getElementById(id);
+  if(target) target.className += ' active';
+  window.scrollTo(0,0);
+}
+
+function goDimensionInfo(){
+  if(!document.getElementById('studentName').value.trim()){
+    alert('请先填写学生姓名');
+    return;
+  }
+  goToPage('dimensionInfoPage');
+}
+
+function startTest(){
+  var name = document.getElementById('studentName').value.trim();
+  var grade = document.querySelector('input[name=grade]:checked');
+  if(!name){alert('请输入学生姓名');return;}
+  if(!grade){alert('请选择就读年级');return;}
+  studentInfo.name = name;
+  studentInfo.grade = grade.value;
+  studentInfo.school = document.getElementById('schoolName').value.trim();
+  currentDimension = 0;
+  currentQuestion = 0;
+  allAnswers = {};
+  startTime = Date.now();
+  if(timerId) clearInterval(timerId);
+  timerId = setInterval(updateTimer,1000);
+  updateTimer();
+  goToPage('testPage');
+  showDimTransition(0);
+}
+
+function updateTimer(){
+  var el = document.getElementById('timerChip');
+  if(el) el.textContent = '⏱ '+getElapsedText();
+}
+
+function getElapsedText(){
+  if(!startTime) return '0:00';
+  var elapsed = Math.floor((Date.now()-startTime)/1000);
+  var mins = Math.floor(elapsed/60);
+  var secs = elapsed%60;
+  return mins+':'+(secs<10?'0':'')+secs;
+}
+
+function getElapsedSeconds(){
+  if(!startTime) return 0;
+  return Math.floor((Date.now()-startTime)/1000);
+}
+
+function showDimTransition(di){
+  var d = DIMENSIONS[di];
+  var t = document.getElementById('dimTransition');
+  document.getElementById('dtIcon').textContent = ICON_MAP[d.icon]||'🧩';
+  document.getElementById('dtTitle').textContent = '维度 '+(di+1)+'：'+d.name;
+  document.getElementById('dtDesc').textContent = d.description;
+  t.className = 'dim-transition show';
+  setTimeout(function(){
+    t.className = 'dim-transition';
+    renderQuestion();
+  },1300);
+}
+
+function renderQuestion(){
+  var dim = DIMENSIONS[currentDimension];
+  var q = dim.questions[currentQuestion];
+  var total = 0;
+  for(var i=0;i<currentDimension;i++) total += DIMENSIONS[i].questions.length;
+  total += currentQuestion+1;
+  document.getElementById('progressFill').style.width = (total/60*100)+'%';
+  document.getElementById('dimensionName').textContent = '维度'+(currentDimension+1)+'/6';
+  document.getElementById('questionProgress').textContent = '题目'+(currentQuestion+1)+'/10';
+  document.getElementById('currentDimensionTitle').innerHTML = (ICON_MAP[dim.icon]||'🧩')+' '+dim.short;
+  document.getElementById('currentDimensionName').textContent = dim.name;
+  document.getElementById('currentDimensionDesc').textContent = dim.description;
+  var stars = '';
+  for(var s=0;s<3;s++) stars += s<q.difficulty?'★':'☆';
+  var html = '<div class="question-container" id="qc">';
+  html += '<span class="question-number">第'+(currentQuestion+1)+'题<span class="difficulty">'+stars+'</span><span class="question-tag">'+q.tag+'</span></span>';
+  html += '<p class="question-content">'+q.content+'</p>';
+  if(q.svg) html += '<div class="question-svg">'+q.svg+'</div>';
+  html += '<div class="options">';
+  for(var i=0;i<q.options.length;i++){
+    html += '<div class="option" id="opt'+i+'" onclick="selectOption('+i+')">';
+    html += '<span class="option-letter">'+String.fromCharCode(65+i)+'</span>';
+    html += '<span class="option-text">'+q.options[i]+'</span>';
+    html += '</div>';
+  }
+  html += '</div><div class="feedback-float" id="fbFloat"></div></div>';
+  document.getElementById('questionContainer').innerHTML = html;
+  var last = (currentDimension===DIMENSIONS.length-1 && currentQuestion===dim.questions.length-1);
+  document.getElementById('prevBtn').style.visibility = (currentQuestion>0||currentDimension>0)?'visible':'hidden';
+  document.getElementById('nextBtn').textContent = last?'提交并查看结果':'下一题';
+  document.getElementById('nextBtn').disabled = false;
+  document.getElementById('nextBtn').style.opacity = '1';
+}
+
+function selectOption(i){
+  var q = DIMENSIONS[currentDimension].questions[currentQuestion];
+  if(allAnswers[currentDimension+'_'+currentQuestion] !== undefined) return;
+  allAnswers[currentDimension+'_'+currentQuestion] = i;
+  var isCorrect = (i===q.answer);
+  for(var j=0;j<q.options.length;j++){
+    var el = document.getElementById('opt'+j);
+    if(el){
+      el.className = 'option disabled';
+      if(j===q.answer) el.className += ' correct';
+      if(j===i && !isCorrect) el.className += ' wrong';
+    }
+  }
+  var fb = document.getElementById('fbFloat');
+  if(fb){
+    fb.textContent = isCorrect?'✓':'✗';
+    fb.style.color = isCorrect?'#10b981':'#ef4444';
+    fb.className = 'feedback-float show';
+    setTimeout(function(){fb.className = 'feedback-float';},900);
+  }
+}
+
+function prevQuestion(){
+  if(currentQuestion>0) currentQuestion--;
+  else if(currentDimension>0){
+    currentDimension--;
+    currentQuestion = DIMENSIONS[currentDimension].questions.length-1;
+  }
+  renderQuestion();
+}
+
+function nextQuestion(){
+  var key = currentDimension+'_'+currentQuestion;
+  if(allAnswers[key]===undefined){alert('请先选择答案');return;}
+  var dim = DIMENSIONS[currentDimension];
+  if(currentQuestion<dim.questions.length-1){
+    currentQuestion++;
+    renderQuestion();
+  } else if(currentDimension<DIMENSIONS.length-1){
+    currentDimension++;
+    currentQuestion = 0;
+    showDimTransition(currentDimension);
+  } else {
+    showResults();
+  }
+}
+
+function calcModuleByType(answers,di){
+  var dim = DIMENSIONS[di];
+  var score = 0, maxScore = 0, correct = 0;
+  for(var i=0;i<dim.questions.length;i++){
+    var q = dim.questions[i];
+    maxScore += q.difficulty;
+    var key = di+'_'+i;
+    if(answers[key]!==undefined && answers[key]===q.answer){score += q.difficulty; correct++;}
+  }
+  return {score:score,maxScore:maxScore,correct:correct,total:dim.questions.length};
+}
+
+function calculateAllScores(answers){
+  var results = {}, totalScore = 0, totalMax = 0, totalCorrect = 0;
+  for(var i=0;i<DIMENSIONS.length;i++){
+    var r = calcModuleByType(answers,i);
+    results[DIMENSIONS[i].id] = {
+      name:DIMENSIONS[i].name, short:DIMENSIONS[i].short, icon:DIMENSIONS[i].icon,
+      color:DIMENSIONS[i].color, subjects:DIMENSIONS[i].subjects,
+      score:r.score, maxScore:r.maxScore, correct:r.correct, total:r.total,
+      percentage:r.maxScore>0?Math.round(r.score/r.maxScore*100):0, di:i
+    };
+    totalScore += r.score; totalMax += r.maxScore; totalCorrect += r.correct;
+  }
+  return {dimensions:results,totalScore:totalScore,totalMaxScore:totalMax,
+    overallPercentage:totalMax>0?Math.round(totalScore/totalMax*100):0,totalCorrect:totalCorrect};
+}
+
+function getGrade(p){
+  if(p>=90) return {grade:'S',color:'#10b981',label:'空间天赋卓越',advice:'保持并挑战高难度竞赛训练'};
+  if(p>=75) return {grade:'A',color:'#7c6cf0',label:'空间能力优秀',advice:'强化薄弱维度，冲击更高层次'};
+  if(p>=60) return {grade:'B',color:'#5b9cf5',label:'空间能力良好',advice:'针对薄弱知识点进行专项突破'};
+  if(p>=40) return {grade:'C',color:'#f59e0b',label:'空间能力待提升',advice:'建议系统训练，打好几何基础'};
+  return {grade:'D',color:'#ef4444',label:'空间能力需关注',advice:'建议从基础图形感知开始，循序渐进训练'};
+}
+
+function getLevel(p){
+  if(p>=80) return {level:'强',cls:'level-strong'};
+  if(p>=50) return {level:'中',cls:'level-medium'};
+  return {level:'弱',cls:'level-weak'};
+}
+
+function getLevelText(p){
+  if(p>=80) return '表现出色，空间直觉敏锐，能够快速完成空间想象任务。';
+  if(p>=50) return '基础扎实，但面对复杂空间关系时仍有一定提升空间。';
+  return '较为薄弱，需要加强基础图形的感知与立体想象训练。';
+}
+
+function drawRing(canvasEl,pct,color){
+  var c = canvasEl;
+  var ctx = c.getContext('2d');
+  var size = 190, cx = size/2, cy = size/2, r = 78;
+  c.width = size; c.height = size;
+  ctx.clearRect(0,0,size,size);
+  ctx.lineWidth = 16; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2);
+  ctx.strokeStyle = 'rgba(100,116,139,.12)'; ctx.stroke();
+  var start = -Math.PI/2;
+  var end = start + Math.PI*2*pct/100;
+  var grad = ctx.createLinearGradient(0,0,size,size);
+  grad.addColorStop(0,'#7c6cf0'); grad.addColorStop(1,'#5b9cf5');
+  ctx.strokeStyle = grad;
+  ctx.beginPath(); ctx.arc(cx,cy,r,start,end); ctx.stroke();
+}
+
+function drawRadar(canvasEl,scores){
+  var c = canvasEl;
+  var ctx = c.getContext('2d');
+  var size = 340, cx = size/2, cy = size/2, r = 118, n = 6;
+  c.width = size; c.height = size;
+  var keys = [], labels = [], colors = [];
+  for(var id in scores.dimensions){
+    keys.push(id);
+    labels.push(scores.dimensions[id].short);
+    colors.push(scores.dimensions[id].color);
+  }
+  var step = Math.PI*2/n;
+  ctx.strokeStyle = 'rgba(100,116,139,.16)';
+  ctx.lineWidth = 1;
+  for(var l=1;l<=5;l++){
+    ctx.beginPath();
+    var rr = r*l/5;
+    for(var i=0;i<=n;i++){
+      var a = step*i-Math.PI/2;
+      var x = cx+rr*Math.cos(a), y = cy+rr*Math.sin(a);
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.closePath(); ctx.stroke();
+  }
+  for(var i=0;i<n;i++){
+    var a = step*i-Math.PI/2;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));
+    ctx.stroke();
+  }
+  var pts = [];
+  ctx.beginPath();
+  for(var i=0;i<n;i++){
+    var pct = scores.dimensions[keys[i]].percentage;
+    var rr = r*pct/100;
+    var a = step*i-Math.PI/2;
+    var x = cx+rr*Math.cos(a), y = cy+rr*Math.sin(a);
+    pts.push({x:x,y:y});
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  var grad = ctx.createLinearGradient(0,0,size,size);
+  grad.addColorStop(0,'rgba(124,108,240,.4)'); grad.addColorStop(1,'rgba(91,156,245,.3)');
+  ctx.fillStyle = grad; ctx.fill();
+  ctx.strokeStyle = '#7c6cf0'; ctx.lineWidth = 2.5; ctx.stroke();
+  for(var i=0;i<pts.length;i++){
+    ctx.beginPath(); ctx.arc(pts[i].x,pts[i].y,5,0,Math.PI*2);
+    ctx.fillStyle = '#7c6cf0'; ctx.fill();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+  }
+  ctx.font = 'bold 13px sans-serif';
+  ctx.textAlign = 'center';
+  for(var i=0;i<n;i++){
+    var a = step*i-Math.PI/2;
+    var x = cx+(r+26)*Math.cos(a), y = cy+(r+26)*Math.sin(a);
+    ctx.fillStyle = '#334155'; ctx.fillText(labels[i],x,y);
+    ctx.fillStyle = colors[i];
+    ctx.fillText(scores.dimensions[keys[i]].percentage+'%',x,y+17);
+  }
+  return c;
+}
+
+function drawBar(canvasEl,scores){
+  var c = canvasEl;
+  var ctx = c.getContext('2d');
+  var w = 460, h = 230;
+  c.width = w; c.height = h;
+  var keys = [], labels = [], colors = [];
+  for(var id in scores.dimensions){
+    keys.push(id);
+    labels.push(scores.dimensions[id].short);
+    colors.push(scores.dimensions[id].color);
+  }
+  var bw = 46, gap = 26, sx = 40, sy = h-40, maxH = 130;
+  ctx.font = 'bold 12px sans-serif';
+  for(var i=0;i<keys.length;i++){
+    var pct = scores.dimensions[keys[i]].percentage;
+    var bh = maxH*pct/100;
+    var x = sx+i*(bw+gap);
+    var grad = ctx.createLinearGradient(0,sy-bh,0,sy);
+    grad.addColorStop(0,colors[i]); grad.addColorStop(1,colors[i]+'88');
+    ctx.fillStyle = grad;
+    ctx.fillRect(x,sy-bh,bw,bh);
+    ctx.fillStyle = '#334155';
+    ctx.textAlign = 'center';
+    ctx.fillText(pct+'%',x+bw/2,sy-bh-8);
+    ctx.fillStyle = '#64748b';
+    ctx.font = '11px sans-serif';
+    ctx.fillText(labels[i],x+bw/2,sy+18);
+    ctx.font = 'bold 12px sans-serif';
+  }
+  ctx.strokeStyle = 'rgba(100,116,139,.15)';
+  ctx.beginPath(); ctx.moveTo(sx-5,sy); ctx.lineTo(w-10,sy); ctx.stroke();
+  return c;
+}
+
+function getWrongList(){
+  var wrongs = [];
+  for(var di=0;di<DIMENSIONS.length;di++){
+    var dim = DIMENSIONS[di];
+    for(var qi=0;qi<dim.questions.length;qi++){
+      var q = dim.questions[qi];
+      var key = di+'_'+qi;
+      if(allAnswers[key]!==undefined && allAnswers[key]!==q.answer){
+        wrongs.push({di:di,qi:qi,q:q,ua:allAnswers[key],dimName:dim.name,short:dim.short,color:dim.color});
+      }
+    }
+  }
+  return wrongs;
+}
+
+function buildKpCluster(wrongs){
+  var map = {};
+  for(var i=0;i<wrongs.length;i++){
+    var tag = wrongs[i].q.tag;
+    if(!map[tag]) map[tag] = {tag:tag,count:0,names:[]};
+    map[tag].count++;
+    if(map[tag].names.indexOf(wrongs[i].short)<0) map[tag].names.push(wrongs[i].short);
+  }
+  var arr = [];
+  for(var t in map) arr.push(map[t]);
+  arr.sort(function(a,b){return b.count-a.count;});
+  return arr;
+}
+
+function getWeekPlan(grade,weakDims,weakTags){
+  var plans = [];
+  if(grade==='S'){
+    plans.push({t:'🚀 精英进阶计划',items:['挑战空间思维竞赛题与中考压轴立体几何题','每周完成1套三维图形推理进阶训练','尝试用数学软件辅助立体图形动态观察']});
+    plans.push({t:'📐 学科深化计划',items:['在物理力学与化学晶体结构学习中主动运用空间想象','尝试自主设计几何模型并讲解给同学听','参加数学建模或思维类竞赛拓展视野']});
+  } else if(grade==='A'){
+    plans.push({t:'⭐ 强化提升计划',items:['针对'+weakTags[0]+'等薄弱知识点进行专项练习','每周2次立体几何综合训练（三视图+截面+展开图）','建立错题本，记录每次空间推理的思路误区']});
+    plans.push({t:'📚 能力拓展计划',items:['挑战中考立体几何压轴题','用积木或折纸动手制作立体模型强化想象','尝试快速心算图形旋转后的位置']});
+  } else if(grade==='B'){
+    plans.push({t:'📈 稳步提升计划',items:['从'+weakTags[0]+'入手，先攻克最容易提分的知识点','每周3次、每次20分钟的空间图形基础训练','做错题后合上书重新在脑中复现图形']});
+    plans.push({t:'📝 习惯养成计划',items:['每天利用碎片时间做3-5道空间图形小题','用方格纸绘制立体图形的三视图','周末复习本周错题，总结易错图形类型']});
+  } else if(grade==='C'){
+    plans.push({t:'📉 系统训练计划',items:['从最基础的图形识别与方位判断开始巩固','每周3-4次基础训练，每次15-20分钟','配合三视图、展开图的实物演示（折纸、积木）学习']});
+    plans.push({t:'🎯 夯实基础计划',items:['先掌握图形的平移、旋转、对称三大基础变换','用身边实物（纸盒、书本）观察立体图形','建议安排专业老师进行1对1空间思维引导']});
+  } else {
+    plans.push({t:'🎯 重点关注计划',items:['建议尽快进行专业评估，制定专属提升方案','从认识基本图形、方位感知开始，循序渐进','用实物教具（积木、折纸、魔方）辅助训练']});
+    plans.push({t:'❤️ 陪伴鼓励计划',items:['降低难度预期，以建立兴趣和信心为先','每次完成小任务给予积极鼓励','建议预约专业测评师进行深入沟通与规划']});
+  }
+  return plans;
+}
+
+function getSubjectAdvice(scores){
+  var s = [], d = [];
+  for(var id in scores.dimensions){
+    var dim = scores.dimensions[id];
+    if(dim.percentage>=80) s.push(dim.name);
+    if(dim.percentage<55) d.push(dim.name);
+  }
+  return {s:s,d:d};
+}
+
+function generateReport(info,scores,elapsedText){
+  var g = getGrade(scores.overallPercentage);
+  var wrongs = getWrongList();
+  var kp = buildKpCluster(wrongs);
+  var html = '';
+
+  // 总分卡片
+  html += '<div class="card" style="text-align:center">';
+  html += '<div class="result-header"><h2 class="student-name">'+info.name+' 的测评报告</h2>';
+  html += '<p class="student-grade">'+info.grade+' · '+(info.school||'未填写学校')+'</p></div>';
+  html += '<div class="score-top">';
+  html += '<div class="ring-wrap"><canvas id="ringCanvas"></canvas><div class="ring-center"><div class="ring-score">'+scores.overallPercentage+'%</div><div class="ring-label">综合得分</div></div></div>';
+  html += '<div style="text-align:center"><div class="grade-badge" style="background:linear-gradient(135deg,'+g.color+','+g.color+'99)">'+g.grade+'级</div><div class="grade-label">'+g.label+'</div></div>';
+  html += '</div>';
+  html += '<div class="meta-strip">';
+  html += '<span class="meta-chip">总得分 <b>'+scores.totalScore+'</b> / '+scores.totalMaxScore+'</span>';
+  html += '<span class="meta-chip">答对 <b>'+scores.totalCorrect+'</b> / 60</span>';
+  html += '<span class="meta-chip">用时 <b>'+elapsedText+'</b></span>';
+  html += '</div></div>';
+
+  // 能力图
+  html += '<div class="card"><h3 class="section-title">📊 能力雷达图</h3><div class="chart-container" id="radarBox"></div>';
+  html += '<h3 class="section-title">📈 六维得分对比</h3><div class="chart-container" id="barBox"></div></div>';
+
+  // 维度分析
+  html += '<div class="card"><h3 class="section-title">🔍 各维度强弱分析</h3>';
+  var keys = [];
+  for(var id in scores.dimensions) keys.push(id);
+  for(var i=0;i<keys.length;i++){
+    var dim = scores.dimensions[keys[i]];
+    var lv = getLevel(dim.percentage);
+    html += '<div class="dimension-result">';
+    html += '<div class="dimension-header"><span class="dimension-name">'+(ICON_MAP[dim.icon]||'🧩')+' '+dim.name+'</span>';
+    html += '<span class="dimension-percent">'+dim.percentage+'% <span class="ability-level '+lv.cls+'">'+lv.level+'</span></span></div>';
+    html += '<div class="dimension-bar"><div class="dimension-bar-fill" style="width:'+dim.percentage+'%;background:'+dim.color+'"></div></div>';
+    html += '<div class="dimension-stats"><span>答对 <b>'+dim.correct+'</b> / '+dim.total+'</span><span>得分 <b>'+dim.score+'</b> / '+dim.maxScore+'</span><span>关联学科 <b>'+dim.subjects+'</b></span></div>';
+    html += '<p style="font-size:.9em;color:var(--tm);line-height:1.8">'+getLevelText(dim.percentage)+'</p>';
+    html += '</div>';
+  }
+  html += '</div>';
+
+  // 知识点错题聚类
+  html += '<div class="card"><h3 class="section-title">🎯 薄弱知识点聚类</h3>';
+  if(kp.length===0){
+    html += '<div class="no-wrong">太棒了！本次测评没有做错的题目，继续保持！</div>';
+  } else {
+    html += '<div class="kp-list">';
+    var maxCount = kp[0].count;
+    for(var i=0;i<kp.length;i++){
+      var k = kp[i];
+      html += '<div class="kp-item"><span class="kp-rank">'+(i+1)+'</span>';
+      html += '<span class="kp-name">'+k.tag+'</span>';
+      html += '<span class="kp-count">错'+k.count+'题</span>';
+      html += '<div class="kp-bar"><i style="width:'+Math.round(k.count/maxCount*100)+'%"></i></div></div>';
+    }
+    html += '</div>';
+  }
+  html += '</div>';
+
+  // 错题回顾
+  html += '<div class="card"><h3 class="section-title">📖 错题回顾与解析</h3>';
+  if(wrongs.length===0){
+    html += '<div class="no-wrong">本环节全部答对，非常优秀！</div>';
+  } else {
+    for(var i=0;i<wrongs.length;i++){
+      var w = wrongs[i];
+      html += '<div class="wrong-question-item">';
+      html += '<div class="wq-head">第'+w.q.id+'题 <span class="wq-tag">'+w.q.tag+'</span><span style="color:var(--tm);font-weight:400;font-size:.82em">· '+w.dimName+'</span></div>';
+      html += '<div style="font-size:.92em;margin-bottom:8px">'+w.q.content+'</div>';
+      if(w.q.svg) html += '<div style="display:flex;justify-content:center;margin:10px 0">'+w.q.svg+'</div>';
+      html += '<div class="wrong-answer">✗ 你的答案：'+(w.q.options[w.ua]||'未作答')+'</div>';
+      html += '<div class="correct-answer">✓ 正确答案：'+w.q.options[w.q.answer]+'</div>';
+      html += '<div class="explanation">💡 '+w.q.explanation+'</div>';
+      html += '</div>';
+    }
+  }
+  html += '</div>';
+
+  // 综合解读
+  html += '<div class="card"><h3 class="section-title">💬 综合解读</h3>';
+  html += '<div class="summary-box">';
+  var strong = null, weak = null;
+  for(var i=0;i<keys.length;i++){
+    var dim = scores.dimensions[keys[i]];
+    if(!strong||dim.percentage>strong.percentage) strong = dim;
+    if(!weak||dim.percentage<weak.percentage) weak = dim;
+  }
+  html += '<p><b>'+info.name+'</b> 本次测评综合得分 <b>'+scores.overallPercentage+'%</b>，达到 <b>'+g.grade+'级 · '+g.label+'</b>。';
+  html += '最强维度是 <b>'+strong.short+'</b>（'+strong.percentage+'%），最需提升的是 <b>'+weak.short+'</b>（'+weak.percentage+'%）。</p>';
+  html += '<p style="margin-top:8px">'+g.advice+'。</p>';
+  html += '<div style="margin-top:12px">';
+  var sa = getSubjectAdvice(scores);
+  if(sa.s.length) html += '<span class="highlight-item">优势可迁移：'+sa.s.join('、')+'</span>';
+  if(sa.d.length) html += '<span class="highlight-item">重点提升：'+sa.d.join('、')+'</span>';
+  html += '</div></div></div>';
+
+  // 周训练计划
+  html += '<div class="card"><h3 class="section-title">🗓️ 个性化周训练计划</h3>';
+  var weakTags = kp.length?kp.slice(0,2):['综合训练'];
+  var planTags = [];
+  for(var i=0;i<weakTags.length;i++) planTags.push(weakTags[i].tag);
+  if(planTags.length===0) planTags.push('空间综合');
+  var plans = getWeekPlan(g.grade,weak,planTags);
+  for(var i=0;i<plans.length;i++){
+    html += '<div class="plan-card"><div class="plan-title">'+plans[i].t+'</div><ul class="plan-list">';
+    for(var j=0;j<plans[i].items.length;j++){
+      html += '<li><b>'+(j+1)+'</b><span>'+plans[i].items[j]+'</span></li>';
+    }
+    html += '</ul></div>';
+  }
+  html += '</div>';
+
+  // 学科关联
+  html += '<div class="card"><h3 class="section-title">📚 学科关联与选科建议</h3><div class="subject-grid">';
+  var subs = [
+    {n:'📐 数学',d:'立体几何、函数图像、坐标变换都依赖空间思维。'+strong.short+'优秀可直接迁移到几何压轴题。'},
+    {n:'⚡ 物理',d:'受力分析、光的反射折射、运动图像等需要空间想象能力，尤其'+weak.short+'不足时建议加强训练。'},
+    {n:'🧪 化学',d:'分子结构、晶体结构、有机物的空间构型（如甲烷正四面体）都依赖立体想象能力。'},
+    {n:'🎨 美术与制图',d:'透视、三视图、机械制图是空间可视化能力的直接应用，也是职业规划的参考方向。'}
+  ];
+  for(var i=0;i<subs.length;i++){
+    html += '<div class="subject-card"><div class="subject-name">'+subs[i].n+'</div><div class="subject-desc">'+subs[i].d+'</div></div>';
+  }
+  html += '</div>';
+  var selAdvice = '';
+  if(scores.overallPercentage>=75) selAdvice = '空间能力优秀，建议优先考虑理科方向（数理）或工程类、设计类方向，可冲击理科实验班或重点班。';
+  else if(scores.overallPercentage>=55) selAdvice = '空间能力中等，具备理科学习基础，建议选科时结合数学、物理成绩综合判断，可兼顾文理搭配。';
+  else selAdvice = '空间能力相对薄弱，建议在初升高选科时谨慎评估纯理科方向，可结合兴趣选择偏文科或文理兼收的专业，并及早进行空间思维训练。';
+  html += '<div class="plan-card" style="margin-top:16px"><div class="plan-title">🎓 选科建议</div><p style="font-size:.93em;line-height:1.9;color:var(--t)">'+selAdvice+'</p></div>';
+  html += '</div>';
+
+  // 家长寄语
+  html += '<div class="card"><h3 class="section-title">💝 家长寄语</h3><div class="parent-card">';
+  html += '<div class="parent-title">给家长的一封信</div>';
+  var pMsg = '';
+  if(scores.overallPercentage>=75){
+    pMsg = '恭喜您！孩子在空间思维方面表现出较强的天赋和潜力。空间思维能力与理科学习高度相关，建议在保持优势的同时，鼓励孩子挑战更高层次的数学思维训练，并引导他将这种能力迁移到物理、化学等学科学习中，为未来的理科发展打下坚实基础。';
+  } else if(scores.overallPercentage>=55){
+    pMsg = '孩子的空间思维能力处于中等水平，仍有很大的提升空间。空间思维是可以通过科学训练显著提升的能力，建议每天安排15-20分钟的空间图形练习，多让孩子动手拼搭积木、折纸、观察生活中的立体图形，循序渐进地提升。请给予孩子充分的耐心和鼓励，进步往往就在坚持之中。';
+  } else {
+    pMsg = '孩子的空间思维能力目前相对薄弱，这并不代表孩子不聪明，而是说明这一能力需要更多针对性的训练。建议降低训练难度、以兴趣培养为先，用魔方、积木、拼图等实物游戏激发孩子的空间想象。同时建议您联系我们，安排一次专业的空间思维1对1诊断与辅导，帮助孩子尽快找到提升路径。请多给孩子鼓励与陪伴，每个孩子都有自己的成长节奏。';
+  }
+  html += '<p class="parent-text">'+pMsg+'</p></div></div>';
+
+  // 教师咨询卡
+  html += '<div class="card no-print"><h3 class="section-title">👨‍🏫 专业成长支持</h3><div class="teacher-card">';
+  html += '<div class="teacher-avatar">👨‍🏫</div><div class="teacher-info">';
+  html += '<div class="teacher-name">刘老师 · 资深理科教育规划师</div>';
+  html += '<div class="teacher-award">★ 央视受邀专访嘉宾</div>';
+  html += '<div class="teacher-stats">从业8年 · 学员3100+ · 专注空间思维与理科培优</div>';
+  html += '<div class="teacher-phone">📞 17875314336（扫码测评后预约咨询）</div>';
+  html += '</div></div></div>';
+
+  // 打印按钮
+  html += '<div class="print-bar no-print">';
+  html += '<button class="btn btn-secondary" onclick="restart()">重新测评</button>';
+  html += '<button class="btn" onclick="window.print()">🖨️ 打印报告</button>';
+  html += '</div>';
+  html += '<div class="footer-sign no-print">系统设计制作：刘岳</div>';
+
+  document.getElementById('reportContent').innerHTML = html;
+
+  setTimeout(function(){
+    var ring = document.getElementById('ringCanvas');
+    if(ring) drawRing(ring,scores.overallPercentage,g.color);
+    var rb = document.getElementById('radarBox');
+    if(rb) rb.appendChild(drawRadar(document.createElement('canvas'),scores));
+    var bb = document.getElementById('barBox');
+    if(bb) bb.appendChild(drawBar(document.createElement('canvas'),scores));
+  },120);
+}
+
+function showResults(){
+  var s = calculateAllScores(allAnswers);
+  if(timerId) clearInterval(timerId);
+  var elapsed = getElapsedText();
+  goToPage('resultPage');
+  generateReport(studentInfo,s,elapsed);
+  syncReportToCloud(s,elapsed);
+}
+
+function syncReportToCloud(scores,elapsedText){
+  try{
+    var SUPABASE_URL = 'https://bmgqtxhbzupaujpzghpq.supabase.co';
+    var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtZ3F0eGhienVwYXVqcHpnaHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwMDQxODQsImV4cCI6MjEwMTU4MDE4NH0.JgiQlUopALIDRYxE72oyPC2NoC0L4HrhH2q9cHW01W0';
+    var uname = 'kongjian_report_'+(studentInfo.name||'guest');
+    var bodyData = {
+      student_name: studentInfo.name||'匿名',
+      grade: studentInfo.grade||'',
+      school: studentInfo.school||'',
+      total_score: scores.totalScore,
+      total_max: scores.totalMaxScore,
+      percentage: scores.overallPercentage,
+      grade_level: getGrade(scores.overallPercentage).grade,
+      correct: scores.totalCorrect,
+      elapsed: elapsedText,
+      spatial_perception: scores.dimensions.spatial_perception.percentage,
+      mental_rotation: scores.dimensions.mental_rotation.percentage,
+      spatial_visualization: scores.dimensions.spatial_visualization.percentage,
+      graph_transformation: scores.dimensions.graph_transformation.percentage,
+      solid_imagination: scores.dimensions.solid_imagination.percentage,
+      spatial_reasoning: scores.dimensions.spatial_reasoning.percentage,
+      report_time: new Date().toISOString()
+    };
+    var body = JSON.stringify({username:uname,state_data:JSON.stringify(bodyData),updated_at:new Date().toISOString()});
+    fetch(SUPABASE_URL+'/rest/v1/py_user_states?on_conflict=username',{
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
+      body:body
+    }).then(function(resp){
+      if(resp.ok) console.log('[Cloud] 报告已同步到云端');
+    }).catch(function(e){console.error('[Cloud] 同步失败',e);});
+  }catch(e){console.error('[Cloud] 同步异常',e);}
+}
+
+function restart(){
+  studentInfo = {name:'',grade:'',school:''};
+  currentDimension = 0; currentQuestion = 0; allAnswers = {};
+  document.getElementById('studentName').value = '';
+  document.getElementById('schoolName').value = '';
+  var radios = document.querySelectorAll('input[name=grade]');
+  for(var i=0;i<radios.length;i++) radios[i].checked = false;
+  if(timerId) clearInterval(timerId);
+  goToPage('welcomePage');
+}
+
+function printReport(){ window.print(); }
+
+// 键盘导航
+document.addEventListener('keydown',function(e){
+  var cur = document.getElementById('testPage');
+  if(cur && cur.className.indexOf('active')>=0){
+    if(e.key==='1'||e.key==='a'||e.key==='A') selectOption(0);
+    if(e.key==='2'||e.key==='b'||e.key==='B') selectOption(1);
+    if(e.key==='3'||e.key==='c'||e.key==='C') selectOption(2);
+    if(e.key==='4'||e.key==='d'||e.key==='D') selectOption(3);
+    if(e.key==='ArrowRight'||e.key==='Enter') nextQuestion();
+    if(e.key==='ArrowLeft') prevQuestion();
+  }
+});
+
+window.onload = function(){ init(); };
+</script>
+
+<script>
+// 登录验证
+var LOGIN_USER = 'liulaoshi';
+var LOGIN_PASS = 'peiyou2026';
+function checkLogin(){
+  if(sessionStorage.getItem('sys_login_ok')==='1'){
+    var o = document.getElementById('loginOverlay');
+    if(o) o.style.display = 'none';
+  }
+}
+function doLogin(){
+  var u = document.getElementById('loginUser').value;
+  var p = document.getElementById('loginPass').value;
+  var e = document.getElementById('loginError');
+  if(u===LOGIN_USER && p===LOGIN_PASS){
+    sessionStorage.setItem('sys_login_ok','1');
+    var o = document.getElementById('loginOverlay');
+    o.style.opacity = '0';
+    setTimeout(function(){o.style.display = 'none';},400);
+  }else{
+    e.textContent = '账号或密码错误，请重试';
+    document.getElementById('loginUser').value = '';
+    document.getElementById('loginPass').value = '';
+  }
+}
+document.addEventListener('DOMContentLoaded',function(){
+  var u = document.getElementById('loginUser');
+  var p = document.getElementById('loginPass');
+  var b = document.getElementById('loginBtn');
+  if(u) u.addEventListener('keydown',function(e){if(e.key==='Enter'){p.focus();}});
+  if(p) p.addEventListener('keydown',function(e){if(e.key==='Enter'){doLogin();}});
+  if(b) b.addEventListener('click',function(){doLogin();});
+  checkLogin();
+});
+</script>
+</body>
+</html>
