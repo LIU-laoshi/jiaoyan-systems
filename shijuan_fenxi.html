@@ -467,10 +467,11 @@ button{font-family:inherit;cursor:pointer;border:none;}
       <div id="step2Box" style="display:none;">
         <!-- 上传试卷图片自动识别 -->
         <div class="ocr-block">
-          <div class="ocr-head">📷 上传试卷图片自动识别</div>
+          <div class="ocr-head">📷 上传试卷图片自动识别<span style="margin-left:auto;font-size:11px;color:#94a3b8;font-weight:400;">v4.1 引擎自托管版</span></div>
           <div class="ocr-toolbar">
             <input type="file" id="ocrFile" accept="image/*" multiple onchange="ocrOnFile(this)">
             <button class="btn btn-primary" onclick="startOCR()">开始识别</button>
+            <button class="btn btn-ghost" onclick="ocrSelfCheck()">🔍 引擎自检</button>
           </div>
           <div class="ocr-imgs" id="ocrImgs"></div>
           <div class="ocr-tip" id="ocrCountTip">可分多次添加试卷照片（也可一次多选），每次选择后自动加入下方列表；识别结果会标注每道题来自第几张。</div>
@@ -1353,6 +1354,7 @@ function ocrDelImg(i){
   }
 }
 var OCR_GH = 'https://liu-laoshi.github.io/jiaoyan-systems/ocr/';
+var OCR_FAILED = [];
 var OCR_ENGINE_SRCS = [
   OCR_GH + 'tesseract.min.js',
   'https://unpkg.com/tesseract.js@4.1.4/dist/tesseract.min.js',
@@ -1378,11 +1380,19 @@ function loadScriptSeq(urls, idx){
     s.async = true;
     s.onload = function(){ resolve(); };
     s.onerror = function(){
+      OCR_FAILED.push(urls[idx]);
       if(s.parentNode){ s.parentNode.removeChild(s); }
       loadScriptSeq(urls, idx + 1).then(resolve, reject);
     };
     document.head.appendChild(s);
   });
+}
+function ocrDiagHTML(){
+  var diag = '';
+  if(OCR_FAILED && OCR_FAILED.length){
+    diag = '<div style="margin-top:6px;font-size:12px;word-break:break-all;">加载失败的镜像地址：<br>' + OCR_FAILED.map(esc).join('<br>') + '</div>';
+  }
+  return diag;
 }
 function ensureTesseract(){
   if(window.Tesseract){
@@ -1394,6 +1404,7 @@ function ensureTesseract(){
     tesseractReady = true;
   }).catch(function(){
     tesseractLoading = null;
+    setOcrStatus('err', '识别引擎加载失败，请检查网络后重试；也可手动录入题目。<br>💡 点上方「🔍 引擎自检」查看各资源可达性，并把结果截图发给老师。' + ocrDiagHTML());
     throw new Error('\u8bc6\u522b\u5f15\u64ce\u52a0\u8f7d\u5931\u8d25');
   });
   return tesseractLoading;
@@ -1426,6 +1437,34 @@ function createWorkerRetry(idx){
   return createWorkerOne(OCR_WORKER_OPTS[idx]).catch(function(){
     return createWorkerRetry(idx + 1);
   });
+}
+function ocrSelfCheck(){
+  var urls = [
+    ['GitHub 主引擎', OCR_GH + 'tesseract.min.js'],
+    ['GitHub 识别核心', OCR_GH + 'tesseract-core.wasm.js'],
+    ['GitHub 中文语言包', OCR_GH + 'tessdata/chi_sim.traineddata.gz'],
+    ['备用源 unpkg', 'https://unpkg.com/tesseract.js@4.1.4/dist/tesseract.min.js'],
+    ['备用源 jsdelivr', 'https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js']
+  ];
+  var out = '<b>识别引擎网络自检：</b><br>';
+  var pending = urls.length;
+  function allDone(){
+    if(--pending > 0){ return; }
+    setOcrStatus('warn', out + '<div style="margin-top:6px;">✅ 表示该地址可访问；❌ 表示访问失败。把结果截图发给老师即可定位问题。</div>');
+  }
+  for(var i=0;i<urls.length;i++){
+    (function(item){
+      var t0 = Date.now();
+      fetch(item[1], {method:'HEAD', mode:'cors'}).then(function(res){
+        out += '<div style="margin-top:4px;">✅ ' + item[0] + '：HTTP ' + res.status + '，' + (Date.now()-t0) + 'ms</div>';
+        allDone();
+      }).catch(function(){
+        out += '<div style="margin-top:4px;">❌ ' + item[0] + '：访问失败（' + (Date.now()-t0) + 'ms）</div>';
+        allDone();
+      });
+    })(urls[i]);
+  }
+  setOcrStatus('loading', '正在测试各识别资源地址，请稍候……');
 }
 function startOCR(){
   if(ocrRunning){ return; }
@@ -1504,7 +1543,7 @@ function startOCR(){
     setOcrStatus('ok', '共识别 <b>' + ocrImages.length + '</b> 张图片，解析出 <b>' + parsed.length + '</b> 道题，已自动追加到下方题目列表；每道题都标注了来源页，请对照「待确认」表逐题校对（补填知识点、修正分值），确认后点击「同步修改到题目列表」。');
   }).catch(function(){
     ocrRunning = false;
-    setOcrStatus('err', '识别功能需联网加载识别引擎，请检查网络后重试；也可手动录入题目');
+    setOcrStatus('err', '识别引擎加载失败，请检查网络后重试；也可手动录入题目。<br>💡 点上方「🔍 引擎自检」查看各资源可达性，并把结果截图发给老师。' + ocrDiagHTML());
   });
 }
 function normalizeOCRNo(list){
