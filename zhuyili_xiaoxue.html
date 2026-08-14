@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小学生注意力监测系统</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--primary:#f97316;--primary-dark:#ea580c;--secondary:#ec4899;--accent:#14b8a6;--accent-l:#2dd4bf;--bg-dark:#1a1033;--bg-card:rgba(255,255,255,.08);--bg-card-hover:rgba(255,255,255,.15);--text-primary:#fef3c7;--text-secondary:#fcd34d;--success:#4ade80;--warning:#facc15;--danger:#f87171;--glow:rgba(249,115,22,.5);--pink:#f472b6;--sky:#38bdf8;--lime:#a3e635}
+        body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#1a1033 0%,#2d1b69 30%,#1a1033 60%,#1e3a5f 100%);min-height:100vh;color:var(--text-primary);overflow-x:hidden}
+        .container{max-width:1200px;margin:0 auto;padding:20px;min-height:100vh}
+        .screen{display:none;animation:fadeIn .5s ease}
+        .screen.active{display:block}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes pulse{0%,100%{box-shadow:0 0 20px var(--glow)}50%{box-shadow:0 0 40px var(--glow),0 0 60px rgba(244,114,182,.3)}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+        @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        @keyframes rainbow{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
+        @keyframes pop{0%{transform:scale(0)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+        @keyframes noise{0%{transform:translate(0,0)}100%{transform:translate(-10%,-10%)}}
+        @keyframes flicker{0%,100%{opacity:.3}50%{opacity:.1}}
+        @keyframes sparkle{0%,100%{opacity:.4;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+        .welcome-screen{text-align:center;padding:40px 20px}
+        .logo-container{margin-bottom:30px}
+        .logo-icon{width:120px;height:120px;background:linear-gradient(135deg,var(--primary),var(--secondary),var(--accent));border-radius:30px;display:flex;align-items:center;justify-content:center;margin:0 auto 25px;animation:pulse 2s infinite,float 3s ease-in-out infinite;position:relative;overflow:hidden;font-size:60px}
+        .logo-icon::before{content:'';position:absolute;width:200%;height:10px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:spin 3s linear infinite}
+        .welcome-title{font-size:2.2rem;font-weight:700;background:linear-gradient(90deg,var(--accent-l),var(--primary),var(--secondary),var(--sky));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:15px}
+        .welcome-subtitle{font-size:1.1rem;color:var(--text-secondary);margin-bottom:30px;line-height:1.8}
+        .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:30px 0}
+        .feature-card{background:var(--bg-card);border:2px solid rgba(249,115,22,.3);border-radius:20px;padding:20px;text-align:left;transition:all .3s ease}
+        .feature-card:hover{transform:translateY(-5px) scale(1.02);border-color:var(--primary);box-shadow:0 10px 30px rgba(249,115,22,.2)}
+        .feature-card h4{color:var(--accent-l);font-size:1rem;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+        .feature-card p{color:var(--text-secondary);font-size:.85rem;line-height:1.5}
+        .btn{padding:14px 40px;font-size:1.1rem;font-weight:600;border:none;border-radius:50px;cursor:pointer;transition:all .3s ease;background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;box-shadow:0 4px 20px rgba(249,115,22,.4)}
+        .btn:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(249,115,22,.6)}
+        .btn:active{transform:translateY(0)}
+        .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+        .btn-secondary{background:transparent;border:2px solid var(--primary);color:var(--primary);box-shadow:none}
+        .btn-secondary:hover{background:var(--primary);color:white}
+        .btn-green{background:linear-gradient(135deg,var(--accent),var(--lime));box-shadow:0 4px 20px rgba(20,184,166,.4)}
+        .btn-green:hover{box-shadow:0 8px 30px rgba(20,184,166,.6)}
+        .form-screen{padding:30px 20px}
+        .form-container{max-width:600px;margin:0 auto;background:var(--bg-card);border:2px solid rgba(249,115,22,.3);border-radius:24px;padding:35px;backdrop-filter:blur(10px)}
+        .form-title{font-size:1.6rem;text-align:center;margin-bottom:8px;color:var(--accent-l)}
+        .form-subtitle{text-align:center;color:var(--text-secondary);margin-bottom:30px}
+        .form-group{margin-bottom:20px}
+        .form-group label{display:block;margin-bottom:6px;font-weight:500;color:var(--text-primary);font-size:.95rem}
+        .form-group input,.form-group select{width:100%;padding:12px 16px;border:2px solid rgba(249,115,22,.3);border-radius:14px;background:rgba(26,16,51,.8);color:var(--text-primary);font-size:1rem;transition:all .3s ease}
+        .form-group input:focus,.form-group select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 20px rgba(249,115,22,.3)}
+        .form-group select option{background:#1a1033;color:#fef3c7}
+        .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+        .progress-bar{width:100%;height:8px;background:rgba(249,115,22,.2);border-radius:4px;margin-bottom:25px;overflow:hidden}
+        .progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--secondary),var(--accent));border-radius:4px;transition:width .5s ease}
+        .grade-hint{text-align:center;padding:12px;background:linear-gradient(135deg,rgba(249,115,22,.15),rgba(236,72,153,.15));border-radius:12px;margin-bottom:20px;color:var(--accent-l);font-size:.9rem;border:1px dashed rgba(249,115,22,.4)}
+        .test-screen{padding:15px}
+        .test-container{max-width:800px;margin:0 auto}
+        .test-header{text-align:center;margin-bottom:20px}
+        .test-name{font-size:1.6rem;color:var(--accent-l);margin-bottom:8px}
+        .test-description{color:var(--text-secondary);font-size:.95rem;line-height:1.5}
+        .test-stats{display:flex;justify-content:center;gap:25px;margin:15px 0;flex-wrap:wrap}
+        .stat-item{text-align:center}
+        .stat-item span{display:block;color:var(--text-secondary);font-size:.8rem}
+        .stat-item strong{font-size:1.3rem;color:var(--accent-l)}
+        .schulte-grid{display:grid;gap:8px;max-width:380px;margin:25px auto}
+        .schulte-grid.g4{grid-template-columns:repeat(4,1fr)}
+        .schulte-grid.g5{grid-template-columns:repeat(5,1fr)}
+        .schulte-cell{aspect-ratio:1;background:linear-gradient(135deg,var(--bg-card),var(--bg-card-hover));border:2px solid rgba(249,115,22,.4);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:700;cursor:pointer;transition:all .2s ease;user-select:none}
+        .schulte-cell:hover{background:linear-gradient(135deg,var(--primary),var(--secondary));transform:scale(1.08)}
+        .schulte-cell.found{background:var(--success);border-color:var(--success);color:white;animation:pop .3s ease}
+        .schulte-cell.wrong{background:var(--danger);border-color:var(--danger);animation:shake .3s ease}
+        .nback-display{text-align:center;margin:30px 0}
+        .nback-stimulus{font-size:4.5rem;font-weight:700;color:var(--accent-l);text-shadow:0 0 30px rgba(45,212,191,.5);min-height:130px;display:flex;align-items:center;justify-content:center}
+        .nback-instruction{color:var(--text-secondary);font-size:1rem;margin-bottom:15px}
+        .nback-buttons{display:flex;gap:20px;justify-content:center;margin-top:25px}
+        .nback-btn{padding:14px 36px;font-size:1.2rem;font-weight:600;border:none;border-radius:50px;cursor:pointer;transition:all .3s ease}
+        .nback-btn.yes{background:var(--success);color:white}
+        .nback-btn.no{background:var(--danger);color:white}
+        .nback-btn:hover{transform:scale(1.08)}
+        .digit-display{text-align:center;margin:30px 0}
+        .digit-sequence{font-size:2.8rem;font-weight:700;letter-spacing:12px;color:var(--accent-l);text-shadow:0 0 20px rgba(45,212,191,.5);min-height:90px;display:flex;align-items:center;justify-content:center}
+        .digit-input{display:flex;justify-content:center;gap:10px;margin-top:25px;flex-wrap:wrap}
+        .digit-input input{width:55px;height:55px;text-align:center;font-size:1.4rem;border:2px solid rgba(249,115,22,.4);border-radius:12px;background:rgba(26,16,51,.8);color:var(--text-primary)}
+        .digit-input input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 20px rgba(249,115,22,.3)}
+        .cpt-display{text-align:center;margin:30px 0}
+        .cpt-letter{font-size:7rem;font-weight:700;color:var(--accent-l);min-height:180px;display:flex;align-items:center;justify-content:center;text-shadow:0 0 40px rgba(45,212,191,.5)}
+        .cpt-instruction{color:var(--warning);font-size:1.1rem;margin-bottom:15px}
+        .switch-display{text-align:center;margin:25px 0}
+        .switch-rules{background:rgba(249,115,22,.15);border-radius:14px;padding:18px;margin-bottom:25px;display:flex;justify-content:center;gap:30px;flex-wrap:wrap}
+        .switch-rule{display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px;border-radius:12px}
+        .switch-rule.active{background:rgba(249,115,22,.25);border:2px solid var(--primary)}
+        .switch-rule h4{color:var(--accent-l);font-size:.95rem}
+        .switch-rule span{font-size:.8rem;color:var(--text-secondary)}
+        .switch-task{font-size:3rem;font-weight:700;color:var(--accent-l);min-height:110px;display:flex;align-items:center;justify-content:center;text-shadow:0 0 30px rgba(45,212,191,.5)}
+        .stroop-display{text-align:center;margin:30px 0}
+        .stroop-word{font-size:3.5rem;font-weight:700;padding:35px 50px;border-radius:18px;display:inline-block;min-width:180px}
+        .stroop-shape{font-size:5rem;min-height:120px;display:flex;align-items:center;justify-content:center}
+        .stroop-instruction{color:var(--text-secondary);font-size:.95rem;margin-bottom:15px}
+        .flanker-display{text-align:center;margin:30px 0}
+        .flanker-arrows{font-size:3.5rem;letter-spacing:4px;display:flex;justify-content:center;align-items:center;gap:8px;min-height:130px}
+        .flanker-center{color:var(--accent-l);text-shadow:0 0 20px rgba(45,212,191,.5)}
+        .dual-task-container{max-width:600px;margin:0 auto}
+        .dual-task-area{position:relative;width:100%;height:350px;background:var(--bg-card);border:2px solid rgba(249,115,22,.4);border-radius:18px;overflow:hidden;margin-bottom:15px}
+        .dual-target{position:absolute;width:50px;height:50px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:50%;box-shadow:0 0 20px var(--glow);transition:all .1s linear}
+        .dual-audio{text-align:center;padding:18px;background:rgba(249,115,22,.15);border-radius:14px;margin-bottom:15px}
+        .dual-audio h4{color:var(--accent-l);margin-bottom:8px}
+        .dual-status{display:flex;justify-content:center;gap:25px;margin-top:15px}
+        .dual-status-item{text-align:center}
+        .dual-status-item span{display:block;color:var(--text-secondary);font-size:.85rem}
+        .dual-status-item strong{font-size:1.4rem;color:var(--accent-l)}
+        .fatigue-display{text-align:center;margin:25px 0}
+        .fatigue-counter{font-size:2.5rem;font-weight:700;color:var(--accent-l);margin-bottom:15px}
+        .fatigue-timer{font-size:1.3rem;color:var(--text-secondary);margin-bottom:15px}
+        .fatigue-bar{width:100%;height:20px;background:rgba(249,115,22,.2);border-radius:10px;overflow:hidden;margin-bottom:15px}
+        .fatigue-fill{height:100%;background:linear-gradient(90deg,var(--success),var(--warning),var(--danger));transition:width .5s ease}
+        .context-noise{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100}
+        .noise-overlay{position:absolute;width:100%;height:100%;background:url('data:image/svg+xml,<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.1"/></svg>');animation:noise .5s steps(5) infinite}
+        .distraction-text{position:fixed;font-size:1.8rem;color:rgba(248,113,113,.35);pointer-events:none;z-index:99;animation:flicker .1s infinite}
+        .test-controls{display:flex;justify-content:center;gap:15px;margin-top:25px;flex-wrap:wrap}
+        .test-hint{text-align:center;padding:12px;background:rgba(249,115,22,.15);border-radius:12px;margin-bottom:15px;color:var(--text-secondary);font-size:.9rem}
+        .results-screen{padding:15px}
+        .results-container{max-width:1000px;margin:0 auto}
+        .results-header{text-align:center;margin-bottom:35px}
+        .results-title{font-size:1.8rem;color:var(--accent-l);margin-bottom:8px}
+        .results-subtitle{color:var(--text-secondary)}
+        .score-overview{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:35px}
+        .score-card{background:var(--bg-card);border:2px solid rgba(249,115,22,.3);border-radius:18px;padding:20px;text-align:center;transition:all .3s ease}
+        .score-card:hover{border-color:var(--primary);transform:translateY(-5px)}
+        .score-card h4{color:var(--text-secondary);font-size:.85rem;margin-bottom:8px}
+        .score-card .score{font-size:2.2rem;font-weight:700;margin-bottom:8px}
+        .score-card .grade{font-size:.95rem;padding:4px 14px;border-radius:20px;display:inline-block}
+        .grade-excellent{background:rgba(74,222,128,.2);color:var(--success)}
+        .grade-good{background:rgba(45,212,191,.2);color:var(--accent-l)}
+        .grade-average{background:rgba(250,204,21,.2);color:var(--warning)}
+        .grade-poor{background:rgba(248,113,113,.2);color:var(--danger)}
+        .chart-container{background:var(--bg-card);border:2px solid rgba(249,115,22,.3);border-radius:18px;padding:25px;margin-bottom:25px}
+        .chart-title{font-size:1.2rem;color:var(--accent-l);margin-bottom:18px;text-align:center}
+        .radar-chart{max-width:480px;margin:0 auto}
+        .decay-chart{max-width:650px;margin:0 auto}
+        .test-results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:25px}
+        .test-result-card{background:var(--bg-card);border:2px solid rgba(249,115,22,.3);border-radius:16px;padding:18px}
+        .test-result-card h4{color:var(--accent-l);margin-bottom:12px;font-size:1rem}
+        .test-result-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(249,115,22,.1)}
+        .test-result-item:last-child{border-bottom:none}
+        .test-result-item span:first-child{color:var(--text-secondary)}
+        .test-result-item span:last-child{font-weight:600}
+        .percentile-bar{width:100%;height:30px;background:rgba(249,115,22,.2);border-radius:15px;overflow:hidden;margin:18px 0;position:relative}
+        .percentile-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:15px;transition:width 1s ease}
+        .percentile-marker{position:absolute;top:-5px;width:4px;height:40px;background:var(--secondary);border-radius:2px;transition:left 1s ease}
+        .percentile-label{text-align:center;color:var(--text-secondary);margin-bottom:8px}
+        .recommendations{background:var(--bg-card);border:2px solid rgba(249,115,22,.3);border-radius:18px;padding:25px;margin-bottom:25px}
+        .recommendations h3{color:var(--accent-l);margin-bottom:18px;font-size:1.2rem}
+        .recommendation-item{display:flex;gap:12px;padding:12px;background:rgba(249,115,22,.08);border-radius:12px;margin-bottom:12px}
+        .recommendation-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+        .recommendation-content h4{color:var(--text-primary);margin-bottom:4px;font-size:.95rem}
+        .recommendation-content p{color:var(--text-secondary);font-size:.85rem;line-height:1.5}
+        .daily-tips{background:linear-gradient(135deg,rgba(249,115,22,.12),rgba(236,72,153,.12));border:2px solid rgba(249,115,22,.35);border-radius:18px;padding:25px;margin-bottom:25px}
+        .daily-tips h3{color:var(--accent-l);margin-bottom:18px;font-size:1.2rem}
+        .daily-tip-item{display:flex;gap:12px;padding:12px;background:rgba(26,16,51,.5);border-radius:12px;margin-bottom:10px}
+        .daily-tip-number{width:28px;height:28px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:.85rem}
+        .daily-tip-item p{font-size:.85rem;line-height:1.5}
+        .time-management{background:var(--bg-card);border:2px solid rgba(249,115,22,.3);border-radius:18px;padding:25px;margin-bottom:25px}
+        .time-management h3{color:var(--accent-l);margin-bottom:18px;font-size:1.2rem}
+        .time-block{display:grid;grid-template-columns:90px 1fr;gap:15px;padding:12px;background:rgba(249,115,22,.08);border-radius:12px;margin-bottom:12px}
+        .time-block-time{font-size:1.1rem;font-weight:700;color:var(--accent-l)}
+        .time-block-content h4{margin-bottom:4px;font-size:.95rem}
+        .time-block-content p{color:var(--text-secondary);font-size:.85rem}
+        .action-buttons{display:flex;justify-content:center;gap:15px;margin-top:35px;flex-wrap:wrap}
+        .key-hint{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);background:rgba(26,16,51,.9);padding:8px 18px;border-radius:10px;color:var(--text-secondary);font-size:.85rem;display:flex;gap:15px;z-index:50;border:1px solid rgba(249,115,22,.3)}
+        .key-hint kbd{background:rgba(255,255,255,.1);padding:4px 8px;border-radius:5px;border:1px solid rgba(249,115,22,.3)}
+        .waiting-screen{text-align:center;padding:80px 20px}
+        .waiting-spinner{width:70px;height:70px;border:4px solid rgba(249,115,22,.2);border-top-color:var(--accent-l);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 25px}
+        .waiting-text{font-size:1.1rem;color:var(--text-secondary)}
+        .mascot{font-size:2.5rem;display:inline-block;animation:bounce 1.5s ease-in-out infinite}
+        .test-complete-screen{text-align:center;padding:50px 20px}
+        .test-complete-screen .emoji{font-size:3.5rem;margin-bottom:15px;animation:pop .5s ease}
+        .color-btns{display:flex;justify-content:center;gap:12px;margin-top:20px;flex-wrap:wrap}
+        .color-btn{width:60px;height:60px;border-radius:14px;border:3px solid transparent;cursor:pointer;transition:all .2s ease;font-size:1.5rem;display:flex;align-items:center;justify-content:center}
+        .color-btn:hover{transform:scale(1.1);border-color:white}
+        .shape-display{font-size:6rem;min-height:120px;display:flex;align-items:center;justify-content:center}
+        @media(max-width:768px){
+            .welcome-title{font-size:1.6rem}
+            .form-row{grid-template-columns:1fr}
+            .schulte-grid{gap:4px}
+            .schulte-cell{font-size:1rem}
+            .nback-stimulus{font-size:3rem}
+            .stroop-word{font-size:2.2rem;padding:25px 30px}
+            .flanker-arrows{font-size:2.5rem}
+            .key-hint{display:none}
+            .score-overview{grid-template-columns:repeat(2,1fr)}
+            .cpt-letter{font-size:5rem}
+            .dual-task-area{height:280px}
+        }
+    
+/* 登录验证样式 */
+.login-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;z-index:99999;transition:opacity .4s;}
+.login-box{background:#fff;border-radius:16px;padding:36px 32px;width:300px;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.login-box h2{text-align:center;margin:0 0 24px;font-size:20px;color:#333;}
+.login-input{width:100%;padding:12px 16px;margin:10px 0;border:1.5px solid #ddd;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border-color .3s;}
+.login-input:focus{border-color:#667eea;}
+.login-btn{width:100%;padding:12px;margin:16px 0 8px;border:none;border-radius:8px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:16px;cursor:pointer;transition:opacity .3s;}
+.login-btn:hover{opacity:.9;}
+.login-error{color:#e74c3c;font-size:13px;text-align:center;min-height:18px;}
+.login-credits{text-align:center;margin-top:16px;font-size:12px;color:#aaa;}
+
+</style>
+</head>
+<body>
+
+<!-- 登录验证页 -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <h2>🔒 系统登录</h2>
+    <input type="text" class="login-input" id="loginUser" placeholder="请输入账号" autocomplete="off">
+    <input type="password" class="login-input" id="loginPass" placeholder="请输入密码" autocomplete="off">
+    <button class="login-btn" onclick="doLogin()">登 录</button>
+    <div class="login-error" id="loginError"></div>
+    <div class="login-credits">系统设计制作：刘岳</div>
+  </div>
+</div>
+
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active welcome-screen">
+            <div class="logo-container">
+                <div class="logo-icon">🧒</div>
+                <h1 class="welcome-title">小学生注意力监测系统</h1>
+                <p class="welcome-subtitle">科学测评 · 趣味体验 · 家长易懂<br>专为6-12岁小学生设计的注意力评估工具</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>🎮 趣味测评</h4>
+                    <p>10项趣味小测试，像玩游戏一样了解注意力</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 分年级评估</h4>
+                    <p>低/中/高年级不同难度，公平评估同龄水平</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📈 可视化报告</h4>
+                    <p>雷达图、衰减曲线，直观展示注意力状况</p>
+                </div>
+                <div class="feature-card">
+                    <h4>👨‍👩‍👧 家长建议</h4>
+                    <p>通俗易懂的建议，帮助家长科学引导孩子</p>
+                </div>
+            </div>
+            <button class="btn" onclick="showScreen('form-screen')">开始测评 ✨</button>
+        </div>
+
+        <!-- Form Screen -->
+        <div id="form-screen" class="screen form-screen">
+            <div class="form-container">
+                <div class="progress-bar"><div class="progress-fill" style="width:10%"></div></div>
+                <h2 class="form-title">📋 基本信息</h2>
+                <p class="form-subtitle">填写信息以便精准评估</p>
+                <div class="form-group">
+                    <label>姓名（选填）</label>
+                    <input type="text" id="user-name" placeholder="输入姓名">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>性别</label>
+                        <select id="user-gender">
+                            <option value="">请选择</option>
+                            <option value="male">男</option>
+                            <option value="female">女</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>年龄</label>
+                        <select id="user-age">
+                            <option value="">请选择</option>
+                            <option value="6">6岁</option>
+                            <option value="7">7岁</option>
+                            <option value="8">8岁</option>
+                            <option value="9">9岁</option>
+                            <option value="10">10岁</option>
+                            <option value="11">11岁</option>
+                            <option value="12">12岁</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>年级</label>
+                    <select id="user-grade">
+                        <option value="">请选择</option>
+                        <option value="1">一年级</option>
+                        <option value="2">二年级</option>
+                        <option value="3">三年级</option>
+                        <option value="4">四年级</option>
+                        <option value="5">五年级</option>
+                        <option value="6">六年级</option>
+                    </select>
+                </div>
+                <div class="grade-hint" id="grade-hint" style="display:none;"></div>
+                <div class="test-controls">
+                    <button class="btn btn-secondary" onclick="showScreen('welcome-screen')">返回</button>
+                    <button class="btn" onclick="startTest()">开始测试 🚀</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Screen -->
+        <div id="test-screen" class="screen test-screen">
+            <div class="test-container" id="test-container"></div>
+        </div>
+
+        <!-- Waiting Screen -->
+        <div id="waiting-screen" class="screen waiting-screen">
+            <div class="waiting-spinner"></div>
+            <p class="waiting-text">正在分析测评结果，请稍等...</p>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen results-screen">
+            <div class="results-container">
+                <div class="results-header">
+                    <h1 class="results-title">🎯 注意力测评报告</h1>
+                    <p class="results-subtitle" id="results-subtitle">基于10项专业测试的全面分析</p>
+                </div>
+                <div class="score-overview" id="score-overview"></div>
+                <div class="chart-container">
+                    <h3 class="chart-title">🌟 八维能力雷达图</h3>
+                    <canvas id="radar-chart" class="radar-chart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 class="chart-title">📉 注意力衰减曲线</h3>
+                    <canvas id="decay-chart" class="decay-chart"></canvas>
+                    <p style="text-align:center;color:var(--text-secondary);margin-top:12px;font-size:.85rem;">展示在长时间任务中注意力变化趋势</p>
+                </div>
+                <div class="percentile-label">在同龄小学生中的百分位排名</div>
+                <div class="percentile-bar">
+                    <div class="percentile-fill" id="percentile-fill"></div>
+                    <div class="percentile-marker" id="percentile-marker"></div>
+                </div>
+                <p style="text-align:center;color:var(--accent-l);font-size:1.1rem;margin-bottom:25px;">
+                    综合得分超过了 <strong id="percentile-value">0</strong>% 的同龄小学生
+                </p>
+                <h3 style="color:var(--accent-l);margin-bottom:18px;">📋 各测试详细成绩</h3>
+                <div class="test-results-grid" id="test-results"></div>
+                <div class="recommendations" id="recommendations"></div>
+                <div class="daily-tips">
+                    <h3>🎒 日常专注力小妙招</h3>
+                    <div id="daily-tips-container"></div>
+                </div>
+                <div class="time-management">
+                    <h3>⏰ 作业时间管理建议</h3>
+                    <div id="time-management-container"></div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="location.reload()">重新测评</button>
+                    <button class="btn btn-green" onclick="window.print()">打印报告</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="key-hint" id="key-hint" style="display:none;">
+        <span><kbd>空格</kbd> 确认</span>
+        <span><kbd>←</kbd><kbd>→</kbd> 选择</span>
+    </div>
+
+    <script>
+    // ========== Global State ==========
+    var currentScreen = 'welcome-screen';
+    var currentTest = 0;
+    var testResults = {};
+    var userInfo = {};
+    var gradeGroup = 'mid'; // low/mid/high
+
+    var tests = [
+        {id:'schulte', name:'舒尔特方格', icon:'🔢'},
+        {id:'nback', name:'N-Back记忆测试', icon:'🧠'},
+        {id:'digit-span', name:'数字广度测试', icon:'🔢'},
+        {id:'cpt', name:'持续注意测试', icon:'⏱️'},
+        {id:'task-switch', name:'任务切换测试', icon:'🔄'},
+        {id:'stroop', name:'Stroop色词测试', icon:'🎨'},
+        {id:'flanker', name:'Flanker侧抑制测试', icon:'➡️'},
+        {id:'dual-task', name:'双任务测试', icon:'🎯'},
+        {id:'anti-fatigue', name:'抗疲劳测试', icon:'💪'},
+        {id:'context', name:'上下文干扰测试', icon:'📝'}
+    ];
+
+    // ========== Grade change handler ==========
+    document.getElementById('user-grade').addEventListener('change', function() {
+        var grade = parseInt(this.value);
+        var hint = document.getElementById('grade-hint');
+        if (grade >= 1 && grade <= 2) {
+            gradeGroup = 'low';
+            hint.textContent = '🌈 低年级模式：难度较低，字体更大，更多引导提示';
+            hint.style.display = 'block';
+        } else if (grade >= 3 && grade <= 4) {
+            gradeGroup = 'mid';
+            hint.textContent = '⭐ 中年级模式：中等难度，逐步提升挑战';
+            hint.style.display = 'block';
+        } else if (grade >= 5 && grade <= 6) {
+            gradeGroup = 'high';
+            hint.textContent = '🚀 高年级模式：接近初中水平，全面评估';
+            hint.style.display = 'block';
+        } else {
+            hint.style.display = 'none';
+        }
+    });
+
+    // ========== Screen Management ==========
+    function showScreen(screenId) {
+        var screens = document.querySelectorAll('.screen');
+        for (var i = 0; i < screens.length; i++) { screens[i].classList.remove('active'); }
+        document.getElementById(screenId).classList.add('active');
+        currentScreen = screenId;
+    }
+
+    function startTest() {
+        var grade = document.getElementById('user-grade').value;
+        if (!grade) { alert('请先选择年级哦~'); return; }
+        userInfo = {
+            name: document.getElementById('user-name').value || '同学',
+            gender: document.getElementById('user-gender').value,
+            age: document.getElementById('user-age').value,
+            grade: grade,
+            purpose: 'attention'
+        };
+        if (parseInt(grade) <= 2) gradeGroup = 'low';
+        else if (parseInt(grade) <= 4) gradeGroup = 'mid';
+        else gradeGroup = 'high';
+        currentTest = 0;
+        showScreen('test-screen');
+        loadTest(0);
+    }
+
+    function loadTest(index) {
+        currentTest = index;
+        document.getElementById('key-hint').style.display = 'none';
+        switch(index) {
+            case 0: initSchulteTest(); break;
+            case 1: initNBackTest(); break;
+            case 2: initDigitSpanTest(); break;
+            case 3: initCPTTest(); break;
+            case 4: initTaskSwitchTest(); break;
+            case 5: initStroopTest(); break;
+            case 6: initFlankerTest(); break;
+            case 7: initDualTaskTest(); break;
+            case 8: initAntiFatigueTest(); break;
+            case 9: initContextTest(); break;
+            default: showResults(); break;
+        }
+    }
+
+    function showTestComplete(testName, result, rating) {
+        var container = document.getElementById('test-container');
+        var gc = rating === '优秀' ? 'grade-excellent' : (rating === '良好' ? 'grade-good' : (rating === '一般' ? 'grade-average' : 'grade-poor'));
+        var emoji = rating === '优秀' ? '🌟' : (rating === '良好' ? '👍' : (rating === '一般' ? '😊' : '💪'));
+        var html = '<div class="test-complete-screen">' +
+            '<div class="emoji">' + emoji + '</div>' +
+            '<h2 style="color:var(--accent-l);margin-bottom:8px;">' + testName + ' 完成！</h2>' +
+            '<p style="color:var(--text-secondary);margin-bottom:15px;">' + result + '</p>' +
+            '<span class="grade ' + gc + '" style="font-size:1.1rem;padding:8px 24px;">' + rating + '</span>' +
+            '<p style="color:var(--text-secondary);margin-top:15px;font-size:.9rem;">第 ' + (currentTest + 1) + '/10 项测试</p>' +
+            '<div style="margin-top:30px;">';
+        if (currentTest < tests.length - 1) {
+            html += '<button class="btn" onclick="loadTest(' + (currentTest + 1) + ')">下一项测试 ▶</button>';
+        } else {
+            html += '<button class="btn btn-green" onclick="analyzeResults()">查看分析结果 📊</button>';
+        }
+        html += '</div></div>';
+        container.innerHTML = html;
+    }
+
+    function analyzeResults() {
+        showScreen('waiting-screen');
+        setTimeout(function() { calculateFinalResults(); showResults(); }, 2000);
+    }
+
+    function formatTime(seconds) {
+        var mins = Math.floor(seconds / 60);
+        var secs = seconds % 60;
+        return mins + ':' + (secs < 10 ? '0' : '') + secs;
+    }
+
+    function zScore(p) {
+        if (p <= 0) return -4; if (p >= 1) return 4; if (p === 0.5) return 0;
+        var sign = p < 0.5 ? -1 : 1; var pp = p < 0.5 ? p : 1 - p;
+        var t = Math.sqrt(-2 * Math.log(pp));
+        var c0 = 2.515517, c1 = 0.802853, c2 = 0.010328;
+        var d1 = 1.432788, d2 = 0.189269, d3 = 0.001308;
+        var z = t - (c0 + c1 * t + c2 * t * t) / (1 + d1 * t + d2 * t * t + d3 * t * t * t);
+        return sign * z;
+    }
+
+    function getGradeClass(score) {
+        if (score >= 85) return 'grade-excellent';
+        if (score >= 70) return 'grade-good';
+        if (score >= 55) return 'grade-average';
+        return 'grade-poor';
+    }
+
+    function getRating(score) {
+        if (score >= 85) return '优秀';
+        if (score >= 70) return '良好';
+        if (score >= 55) return '一般';
+        return '需提升';
+    }
+
+    // ========== 1. Schulte Grid ==========
+    var schulteState = {elements:[], current:1, startTime:0, found:[], wrongAttempts:0, total:25};
+
+    function initSchulteTest() {
+        var container = document.getElementById('test-container');
+        var gridSize = gradeGroup === 'low' ? 16 : 25;
+        var gridClass = gradeGroup === 'low' ? 'g4' : 'g5';
+        var numbers = [];
+        for (var i = 1; i <= gridSize; i++) { numbers.push(i.toString()); }
+        numbers.sort(function() { return Math.random() - 0.5; });
+        schulteState = {elements:numbers, current:1, startTime:0, found:[], wrongAttempts:0, total:gridSize};
+        var desc = gradeGroup === 'low' ? '按顺序从1点到' + gridSize + '，慢慢来，点对了就会变绿哦 🌟' : '按顺序从1点到' + gridSize + '，越快越好！';
+        var html = '<div class="test-header">' +
+            '<h2 class="test-name">🔢 舒尔特方格</h2>' +
+            '<p class="test-description">' + desc + '</p>' +
+            '<div class="test-stats">' +
+            '<div class="stat-item"><span>下一个</span><strong id="schulte-target">1</strong></div>' +
+            '<div class="stat-item"><span>已找到</span><strong id="schulte-found">0/' + gridSize + '</strong></div>' +
+            '<div class="stat-item"><span>用时</span><strong id="schulte-time">0.0s</strong></div>' +
+            '</div></div>' +
+            '<div class="schulte-grid ' + gridClass + '" id="schulte-grid"></div>' +
+            '<div class="test-hint">' + (gradeGroup === 'low' ? '🌟 点击数字1，然后点2，一直点到' + gridSize + '，加油！' : '从1开始依次点击，尽量快速准确') + '</div>';
+        container.innerHTML = html;
+        var grid = document.getElementById('schulte-grid');
+        for (var i = 0; i < gridSize; i++) {
+            var cell = document.createElement('div');
+            cell.className = 'schulte-cell';
+            cell.textContent = schulteState.elements[i];
+            cell.dataset.value = schulteState.elements[i];
+            cell.onclick = handleSchulteClick;
+            grid.appendChild(cell);
+        }
+    }
+
+    function handleSchulteClick(e) {
+        var cell = e.target;
+        var value = cell.dataset.value;
+        var expected = schulteState.current.toString();
+        if (schulteState.startTime === 0) { schulteState.startTime = Date.now(); startSchulteTimer(); }
+        if (value === expected) {
+            cell.classList.add('found');
+            schulteState.found.push(value);
+            schulteState.current++;
+            document.getElementById('schulte-target').textContent = schulteState.current;
+            document.getElementById('schulte-found').textContent = schulteState.found.length + '/' + schulteState.total;
+            if (schulteState.found.length === schulteState.total) {
+                var duration = (Date.now() - schulteState.startTime) / 1000;
+                testResults.schulte = {time:duration, rating:getSchulteRating(duration), wrongAttempts:schulteState.wrongAttempts, gridSize:schulteState.total};
+                showTestComplete('舒尔特方格', duration.toFixed(1) + '秒完成' + schulteState.total + '格', getSchulteRating(duration));
+            }
+        } else {
+            cell.classList.add('wrong');
+            schulteState.wrongAttempts++;
+            setTimeout(function() { cell.classList.remove('wrong'); }, 300);
+        }
+    }
+
+    function startSchulteTimer() {
+        var timer = setInterval(function() {
+            if (schulteState.startTime === 0 || schulteState.found.length === schulteState.total) { clearInterval(timer); return; }
+            var elapsed = (Date.now() - schulteState.startTime) / 1000;
+            document.getElementById('schulte-time').textContent = elapsed.toFixed(1) + 's';
+        }, 100);
+    }
+
+    function getSchulteRating(time) {
+        if (gradeGroup === 'low') {
+            if (time < 40) return '优秀'; if (time < 60) return '良好'; if (time < 90) return '一般'; return '需提升';
+        } else if (gradeGroup === 'mid') {
+            if (time < 35) return '优秀'; if (time < 50) return '良好'; if (time < 70) return '一般'; return '需提升';
+        } else {
+            if (time < 30) return '优秀'; if (time < 45) return '良好'; if (time < 65) return '一般'; return '需提升';
+        }
+    }
+
+    // ========== 2. N-Back Test ==========
+    var nbackState = {stimuli:[], position:0, correct:0, total:15, reactions:[], startTime:0, currentIsMatch:false, nLevel:1};
+
+    function initNBackTest() {
+        var container = document.getElementById('test-container');
+        var nLevel = gradeGroup === 'low' ? 1 : 2;
+        var totalTrials = gradeGroup === 'low' ? 15 : 20;
+        var items = gradeGroup === 'low' ? 'ABCD'.split('') : 'ABCDEFGH'.split('');
+        nbackState = {stimuli:[], position:0, correct:0, total:totalTrials, reactions:[], startTime:0, currentIsMatch:false, nLevel:nLevel};
+        // Pre-fill
+        for (var i = 0; i < nLevel; i++) { nbackState.stimuli.push(items[Math.floor(Math.random() * items.length)]); }
+        for (var i = nLevel; i < totalTrials + nLevel + 5; i++) {
+            if (Math.random() < 0.35) {
+                nbackState.stimuli.push(nbackState.stimuli[i - nLevel]);
+            } else {
+                var newStim;
+                do { newStim = items[Math.floor(Math.random() * items.length)]; } while (newStim === nbackState.stimuli[i - nLevel]);
+                nbackState.stimuli.push(newStim);
+            }
+        }
+        var nDesc = nLevel === 1 ? '1个前' : '2个前';
+        var html = '<div class="test-header">' +
+            '<h2 class="test-name">🧠 N-Back记忆测试</h2>' +
+            '<p class="test-description">' + (gradeGroup === 'low' ? '记住刚才出现的字母，看看是不是和前一个一样 🤔' : '判断当前字母是否与<span style="color:var(--accent-l);font-weight:bold;">' + nDesc + '</span>的相同') + '</p>' +
+            '<div class="test-stats">' +
+            '<div class="stat-item"><span>进度</span><strong id="nback-progress">0/' + totalTrials + '</strong></div>' +
+            '<div class="stat-item"><span>正确率</span><strong id="nback-accuracy">0%</strong></div>' +
+            '</div></div>' +
+            '<div class="nback-display">' +
+            '<p class="nback-instruction">当前字母：</p>' +
+            '<div class="nback-stimulus" id="nback-stimulus">' + nbackState.stimuli[0] + '</div>' +
+            '</div>' +
+            '<p class="test-hint">' + (gradeGroup === 'low' ? '一样就点"是"，不一样就点"否" 😊' : '相同按"是"，不同按"否"') + '</p>' +
+            '<div class="nback-buttons">' +
+            '<button class="nback-btn yes" onclick="handleNBackResponse(true)">是 ✓</button>' +
+            '<button class="nback-btn no" onclick="handleNBackResponse(false)">否 ✗</button>' +
+            '</div>';
+        container.innerHTML = html;
+        setTimeout(function() { showNextNBackStimulus(); }, 1000);
+    }
+
+    function showNextNBackStimulus() {
+        if (nbackState.position >= nbackState.total) { calculateNBackResults(); return; }
+        var isMatch = nbackState.position >= nbackState.nLevel && nbackState.stimuli[nbackState.position] === nbackState.stimuli[nbackState.position - nbackState.nLevel];
+        document.getElementById('nback-stimulus').textContent = nbackState.stimuli[nbackState.position];
+        document.getElementById('nback-progress').textContent = (nbackState.position + 1) + '/' + nbackState.total;
+        nbackState.startTime = Date.now();
+        nbackState.currentIsMatch = isMatch;
+    }
+
+    function handleNBackResponse(userSaidMatch) {
+        var reactionTime = Date.now() - nbackState.startTime;
+        var correct = userSaidMatch === nbackState.currentIsMatch;
+        if (correct) nbackState.correct++;
+        nbackState.reactions.push(reactionTime);
+        document.getElementById('nback-accuracy').textContent = Math.round(nbackState.correct / (nbackState.position + 1) * 100) + '%';
+        nbackState.position++;
+        showNextNBackStimulus();
+    }
+
+    function calculateNBackResults() {
+        var avgRT = nbackState.reactions.length > 0 ? nbackState.reactions.reduce(function(a, b) { return a + b; }, 0) / nbackState.reactions.length : 0;
+        var accuracy = nbackState.correct / nbackState.total * 100;
+        testResults.nback = {accuracy:accuracy, avgReactionTime:avgRT, nLevel:nbackState.nLevel, rating:getNBackRating(accuracy)};
+        showTestComplete('N-Back测试', accuracy.toFixed(0) + '% 正确率 (' + nbackState.nLevel + '-Back)', getNBackRating(accuracy));
+    }
+
+    function getNBackRating(accuracy) {
+        if (gradeGroup === 'low') {
+            if (accuracy >= 75) return '优秀'; if (accuracy >= 60) return '良好'; if (accuracy >= 45) return '一般'; return '需提升';
+        }
+        if (accuracy >= 80) return '优秀'; if (accuracy >= 65) return '良好'; if (accuracy >= 50) return '一般'; return '需提升';
+    }
+
+    // ========== 3. Digit Span Test ==========
+    var digitSpanState = {type:'forward', currentLength:3, maxLength:0, trials:0, correct:0, sequences:[], displaying:false, currentSequence:'', reverseMax:0};
+
+    function initDigitSpanTest() {
+        var container = document.getElementById('test-container');
+        var startLen = gradeGroup === 'low' ? 3 : (gradeGroup === 'mid' ? 3 : 4);
+        digitSpanState = {type:'forward', currentLength:startLen, maxLength:0, trials:0, correct:0, sequences:[], displaying:false, currentSequence:'', reverseMax:0, startLen:startLen};
+        var html = '<div class="test-header">' +
+            '<h2 class="test-name">🔢 数字广度测试</h2>' +
+            '<p class="test-description" id="digit-span-instruction">' + (gradeGroup === 'low' ? '记住看到的数字，然后按顺序输入 😊' : '第一阶段：正向记忆 - 记住数字序列') + '</p>' +
+            '<div class="test-stats">' +
+            '<div class="stat-item"><span>当前长度</span><strong id="digit-length">' + startLen + '位</strong></div>' +
+            '<div class="stat-item"><span>阶段</span><strong id="digit-phase">正向</strong></div>' +
+            '</div></div>' +
+            '<div class="digit-display"><div class="digit-sequence" id="digit-sequence"></div></div>' +
+            '<div class="digit-input" id="digit-input" style="display:none;"></div>' +
+            '<div class="test-controls">' +
+            '<button class="btn" id="digit-start-btn" onclick="startDigitSpanTrial()">开始</button>' +
+            '<button class="btn" id="digit-submit-btn" style="display:none;" onclick="submitDigitSpan()">提交</button>' +
+            '</div>';
+        container.innerHTML = html;
+    }
+
+    function startDigitSpanTrial() {
+        if (digitSpanState.displaying) return;
+        digitSpanState.displaying = true;
+        var sequence = '';
+        for (var i = 0; i < digitSpanState.currentLength; i++) { sequence += Math.floor(Math.random() * 10); }
+        digitSpanState.currentSequence = sequence;
+        document.getElementById('digit-start-btn').style.display = 'none';
+        var sequenceEl = document.getElementById('digit-sequence');
+        sequenceEl.style.fontSize = '2.8rem'; sequenceEl.style.color = 'var(--accent-l)';
+        var currentIndex = 0;
+        sequenceEl.textContent = '';
+        document.getElementById('digit-input').style.display = 'none';
+        var interval = setInterval(function() {
+            if (currentIndex < sequence.length) {
+                sequenceEl.textContent = sequence[currentIndex];
+                sequenceEl.style.transform = 'scale(1.5)';
+                setTimeout(function() { sequenceEl.style.transform = 'scale(1)'; }, 200);
+                currentIndex++;
+            } else {
+                clearInterval(interval);
+                setTimeout(function() {
+                    sequenceEl.textContent = digitSpanState.type === 'reverse' ? '请按相反顺序输入' : (gradeGroup === 'low' ? '把数字输进去吧！' : '请输入你记住的数字');
+                    sequenceEl.style.fontSize = '1.3rem'; sequenceEl.style.color = 'var(--text-secondary)';
+                    showDigitInput();
+                    digitSpanState.displaying = false;
+                }, 500);
+            }
+        }, gradeGroup === 'low' ? 1400 : 1200);
+    }
+
+    function showDigitInput() {
+        var inputEl = document.getElementById('digit-input');
+        inputEl.innerHTML = ''; inputEl.style.display = 'flex';
+        for (var i = 0; i < digitSpanState.currentLength; i++) {
+            var input = document.createElement('input');
+            input.type = 'text'; input.maxLength = 1; input.dataset.index = i;
+            input.oninput = function(e) { if (e.target.value && e.target.nextSibling) e.target.nextSibling.focus(); };
+            input.onkeydown = function(e) {
+                if (e.key === 'Backspace' && !e.target.value && e.target.previousSibling) e.target.previousSibling.focus();
+                if (e.key === 'Enter') submitDigitSpan();
+            };
+            inputEl.appendChild(input);
+        }
+        inputEl.firstChild.focus();
+        document.getElementById('digit-submit-btn').style.display = 'inline-block';
+    }
+
+    function submitDigitSpan() {
+        var inputEl = document.getElementById('digit-input');
+        var inputs = inputEl.querySelectorAll('input');
+        var userAnswer = '';
+        for (var i = 0; i < inputs.length; i++) { userAnswer += inputs[i].value; }
+        var correct;
+        if (digitSpanState.type === 'forward') { correct = userAnswer === digitSpanState.currentSequence; }
+        else { var reversed = digitSpanState.currentSequence.split('').reverse().join(''); correct = userAnswer === reversed; }
+        digitSpanState.trials++;
+        if (correct) {
+            digitSpanState.correct++;
+            if (digitSpanState.type === 'forward') digitSpanState.maxLength = Math.max(digitSpanState.maxLength, digitSpanState.currentLength);
+            else digitSpanState.reverseMax = Math.max(digitSpanState.reverseMax, digitSpanState.currentLength);
+        }
+        var maxForward = gradeGroup === 'low' ? 6 : 7;
+        var maxReverse = gradeGroup === 'low' ? 5 : 6;
+        if (digitSpanState.type === 'forward') {
+            if (!correct || digitSpanState.trials >= 2) {
+                if (!correct) { digitSpanState.type = 'reverse'; digitSpanState.currentLength = gradeGroup === 'low' ? 2 : 3; digitSpanState.trials = 0; document.getElementById('digit-phase').textContent = '逆向'; document.getElementById('digit-span-instruction').textContent = gradeGroup === 'low' ? '反过来输入数字！' : '第二阶段：逆向记忆'; }
+                else { digitSpanState.currentLength++; digitSpanState.trials = 0; }
+                if (digitSpanState.currentLength > maxForward && digitSpanState.type === 'forward') { digitSpanState.type = 'reverse'; digitSpanState.currentLength = gradeGroup === 'low' ? 2 : 3; digitSpanState.trials = 0; document.getElementById('digit-phase').textContent = '逆向'; }
+            }
+        } else {
+            if (!correct || digitSpanState.trials >= 2) {
+                if (!correct || digitSpanState.currentLength >= maxReverse) { finishDigitSpanTest(); return; }
+                digitSpanState.currentLength++; digitSpanState.trials = 0;
+            }
+            if (digitSpanState.currentLength > maxReverse) { finishDigitSpanTest(); return; }
+        }
+        document.getElementById('digit-length').textContent = digitSpanState.currentLength + '位';
+        document.getElementById('digit-input').style.display = 'none';
+        document.getElementById('digit-submit-btn').style.display = 'none';
+        document.getElementById('digit-sequence').textContent = '';
+        document.getElementById('digit-sequence').style.fontSize = '2.8rem'; document.getElementById('digit-sequence').style.color = 'var(--accent-l)';
+        document.getElementById('digit-start-btn').style.display = 'inline-block';
+    }
+
+    function finishDigitSpanTest() {
+        var forward = Math.max(digitSpanState.startLen, digitSpanState.maxLength);
+        var reverse = Math.max(2, digitSpanState.reverseMax);
+        testResults.digitSpan = {forwardSpan:forward, reverseSpan:reverse, rating:getDigitSpanRating(forward)};
+        showTestComplete('数字广度测试', '正向 ' + forward + '位 | 逆向 ' + reverse + '位', getDigitSpanRating(forward));
+    }
+
+    function getDigitSpanRating(span) {
+        if (gradeGroup === 'low') { if (span >= 5) return '优秀'; if (span >= 4) return '良好'; if (span >= 3) return '一般'; return '需提升'; }
+        if (span >= 7) return '优秀'; if (span >= 5) return '良好'; if (span >= 4) return '一般'; return '需提升';
+    }
+
+    // ========== 4. CPT ==========
+    var cptState = {letters:[], currentIndex:0, hits:0, misses:0, falseAlarms:0, correctRejections:0, reactions:[], startTime:0, totalTime:90000, lastLetterTime:0, timeoutId:null};
+
+    function initCPTTest() {
+        var container = document.getElementById('test-container');
+        var letters = gradeGroup === 'low' ? 'ACDEFHKMNPRSTWYZ'.split('') : 'ACDEFGHJKMNPRSTUVWYZ'.split('');
+        var totalStim = 90;
+        cptState = {letters:[], currentIndex:0, hits:0, misses:0, falseAlarms:0, correctRejections:0, reactions:[], startTime:Date.now(), totalTime:90000, lastLetterTime:0, timeoutId:null};
+        for (var i = 0; i < totalStim; i++) {
+            if (Math.random() < 0.15 && (i === 0 || cptState.letters[i - 1] !== 'X')) { cptState.letters.push('X'); }
+            else { var letter; do { letter = letters[Math.floor(Math.random() * letters.length)]; } while (letter === 'X'); cptState.letters.push(letter); }
+        }
+        var html = '<div class="test-header">' +
+            '<h2 class="test-name">⏱️ 持续注意测试</h2>' +
+            '<p class="test-description">' + (gradeGroup === 'low' ? '看到字母 <span style="color:var(--warning);font-weight:bold;">X</span> 就按空格！像玩打地鼠一样 🐹' : '快速识别字母 <span style="color:var(--warning);font-weight:bold;">X</span> 并按空格') + '</p>' +
+            '<div class="test-stats">' +
+            '<div class="stat-item"><span>剩余时间</span><strong id="cpt-timer">1:30</strong></div>' +
+            '<div class="stat-item"><span>正确识别</span><strong id="cpt-hits">0</strong></div>' +
+            '<div class="stat-item"><span>误按</span><strong id="cpt-false">0</strong></div>' +
+            '</div></div>' +
+            '<div class="cpt-display">' +
+            '<p class="cpt-instruction">看到 <strong>X</strong> 按 <kbd style="background:var(--primary);padding:4px 12px;border-radius:5px;">空格</kbd></p>' +
+            '<div class="cpt-letter" id="cpt-letter"></div>' +
+            '</div>';
+        container.innerHTML = html;
+        document.getElementById('key-hint').style.display = 'flex';
+        document.onkeydown = handleCPTKey;
+        showNextCPTLetter();
+    }
+
+    function handleCPTKey(e) {
+        if (e.code === 'Space' && currentTest === 3) {
+            e.preventDefault();
+            var currentLetter = cptState.letters[cptState.currentIndex];
+            var reactionTime = Date.now() - cptState.lastLetterTime;
+            if (currentLetter === 'X') { cptState.hits++; cptState.reactions.push(reactionTime); document.getElementById('cpt-hits').textContent = cptState.hits; }
+            else { cptState.falseAlarms++; document.getElementById('cpt-false').textContent = cptState.falseAlarms; }
+        }
+    }
+
+    function showNextCPTLetter() {
+        if (cptState.currentIndex >= cptState.letters.length) { finishCPTTest(); return; }
+        var elapsed = Date.now() - cptState.startTime;
+        var remaining = Math.ceil((cptState.totalTime - elapsed) / 1000);
+        if (remaining <= 0) { finishCPTTest(); return; }
+        document.getElementById('cpt-timer').textContent = formatTime(remaining);
+        document.getElementById('cpt-letter').textContent = cptState.letters[cptState.currentIndex];
+        cptState.lastLetterTime = Date.now();
+        var delay = gradeGroup === 'low' ? (700 + Math.random() * 400) : (600 + Math.random() * 400);
+        cptState.timeoutId = setTimeout(function() {
+            if (cptState.letters[cptState.currentIndex] === 'X') { cptState.misses++; } else { cptState.correctRejections++; }
+            cptState.currentIndex++;
+            showNextCPTLetter();
+        }, delay);
+    }
+
+    function finishCPTTest() {
+        clearTimeout(cptState.timeoutId); document.onkeydown = null;
+        document.getElementById('key-hint').style.display = 'none';
+        var avgRT = cptState.reactions.length > 0 ? cptState.reactions.reduce(function(a, b) { return a + b; }, 0) / cptState.reactions.length : 0;
+        var totalX = cptState.hits + cptState.misses;
+        var hitRate = totalX > 0 ? cptState.hits / totalX : 0;
+        var falseAlarmRate = cptState.falseAlarms / (cptState.correctRejections + cptState.falseAlarms + 0.001);
+        var hAdj = (cptState.hits + 0.5) / (totalX + 1);
+        var fAdj = (cptState.falseAlarms + 0.5) / (cptState.correctRejections + cptState.falseAlarms + 1);
+        var dPrime = zScore(hAdj) - zScore(fAdj);
+        testResults.cpt = {hitRate:hitRate * 100, falseAlarmRate:falseAlarmRate * 100, avgReactionTime:avgRT, dPrime:dPrime, rating:getCPTRating(dPrime)};
+        showTestComplete('持续注意测试', '击中率 ' + (hitRate * 100).toFixed(0) + '%', getCPTRating(dPrime));
+    }
+
+    function getCPTRating(dPrime) {
+        if (gradeGroup === 'low') { if (dPrime >= 2.0) return '优秀'; if (dPrime >= 1.2) return '良好'; if (dPrime >= 0.6) return '一般'; return '需提升'; }
+        if (dPrime >= 2.5) return '优秀'; if (dPrime >= 1.5) return '良好'; if (dPrime >= 0.8) return '一般'; return '需提升';
+    }
+
+    // ========== 5. Task Switching Test ==========
+    var switchState = {currentRule:'parity', trials:[], currentIndex:0, stimuli:[], startTime:0};
+
+    function initTaskSwitchTest() {
+        var container = document.getElementById('test-container');
+        var totalTrials = 18;
+        switchState = {currentRule:'parity', trials:[], currentIndex:0, stimuli:[], startTime:0};
+        for (var i = 0; i < totalTrials; i++) {
+            var num = Math.floor(Math.random() * 9) + 1;
+            var rule = Math.random() < 0.35 ? 'switch' : switchState.currentRule;
+            if (rule === 'switch') { rule = switchState.currentRule === 'parity' ? 'magnitude' : 'parity'; }
+            switchState.stimuli.push({number:num, rule:rule});
+        }
+        var parityDesc = gradeGroup === 'low' ? '双数按 ← 键 | 单数按 → 键' : '偶数 ← | 奇数 →';
+        var magDesc = gradeGroup === 'low' ? '小(1-5)按 ← 键 | 大(6-9)按 → 键' : '≤5 ← | >5 →';
+        var html = '<div class="test-header">' +
+            '<h2 class="test-name">🔄 任务切换测试</h2>' +
+            '<p class="test-description">' + (gradeGroup === 'low' ? '按照规则判断数字，规则会变哦！🤔' : '根据当前规则判断数字') + '</p>' +
+            '<div class="switch-display">' +
+            '<div class="switch-rules">' +
+            '<div class="switch-rule" id="rule-parity"><h4>奇偶判断</h4><span>' + parityDesc + '</span></div>' +
+            '<div class="switch-rule" id="rule-magnitude"><h4>大小判断</h4><span>' + magDesc + '</span></div>' +
+            '</div>' +
+            '<div class="switch-task" id="switch-task">准备</div>' +
+            '</div>' +
+            '<div class="test-stats">' +
+            '<div class="stat-item"><span>进度</span><strong id="switch-progress">0/' + totalTrials + '</strong></div>' +
+            '<div class="stat-item"><span>正确</span><strong id="switch-correct">0</strong></div>' +
+            '</div>' +
+            '<p class="test-hint">' + (gradeGroup === 'low' ? '用 ← → 箭头键回答' : '使用 <kbd>←</kbd> <kbd>→</kbd> 箭头键作答') + '</p>';
+        container.innerHTML = html;
+        updateSwitchRules();
+        setTimeout(showNextSwitchStimulus, 1000);
+    }
+
+    function updateSwitchRules() {
+        document.getElementById('rule-parity').classList.remove('active');
+        document.getElementById('rule-magnitude').classList.remove('active');
+        document.getElementById('rule-' + switchState.currentRule).classList.add('active');
+    }
+
+    function showNextSwitchStimulus() {
+        if (switchState.currentIndex >= switchState.stimuli.length) { finishSwitchTest(); return; }
+        switchState.currentRule = switchState.stimuli[switchState.currentIndex].rule;
+        updateSwitchRules();
+        var taskEl = document.getElementById('switch-task');
+        taskEl.style.opacity = '0';
+        setTimeout(function() {
+            taskEl.textContent = switchState.stimuli[switchState.currentIndex].number;
+            taskEl.style.opacity = '1';
+            switchState.startTime = Date.now();
+        }, 300);
+        document.getElementById('switch-progress').textContent = (switchState.currentIndex + 1) + '/' + switchState.stimuli.length;
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (currentTest !== 4) return;
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        var reactionTime = Date.now() - switchState.startTime;
+        var stim = switchState.stimuli[switchState.currentIndex];
+        var correct;
+        if (switchState.currentRule === 'parity') { correct = (stim.number % 2 === 0 && e.key === 'ArrowLeft') || (stim.number % 2 === 1 && e.key === 'ArrowRight'); }
+        else { correct = (stim.number <= 5 && e.key === 'ArrowLeft') || (stim.number > 5 && e.key === 'ArrowRight'); }
+        switchState.trials.push({rule:switchState.currentRule, reactionTime:reactionTime, correct:correct});
+        if (correct) document.getElementById('switch-correct').textContent = parseInt(document.getElementById('switch-correct').textContent) + 1;
+        switchState.currentIndex++;
+        showNextSwitchStimulus();
+    });
+
+    function finishSwitchTest() {
+        var switchTrials = switchState.trials.filter(function(t) { return t.rule === 'switch'; });
+        var noSwitchTrials = switchState.trials.filter(function(t) { return t.rule !== 'switch'; });
+        var switchRT = switchTrials.length > 0 ? switchTrials.reduce(function(a, b) { return a + b.reactionTime; }, 0) / switchTrials.length : 0;
+        var noSwitchRT = noSwitchTrials.length > 0 ? noSwitchTrials.reduce(function(a, b) { return a + b.reactionTime; }, 0) / noSwitchTrials.length : 0;
+        var switchCost = switchRT - noSwitchRT;
+        var accuracy = switchState.trials.filter(function(t) { return t.correct; }).length / switchState.trials.length * 100;
+        testResults.taskSwitch = {switchCost:switchCost, accuracy:accuracy, avgReactionTime:noSwitchRT, rating:getSwitchRating(switchCost)};
+        showTestComplete('任务切换测试', '切换代价 ' + switchCost.toFixed(0) + 'ms', getSwitchRating(switchCost));
+    }
+
+    function getSwitchRating(cost) {
+        if (gradeGroup === 'low') { if (cost < 180) return '优秀'; if (cost < 300) return '良好'; if (cost < 450) return '一般'; return '需提升'; }
+        if (cost < 120) return '优秀'; if (cost < 230) return '良好'; if (cost < 380) return '一般'; return '需提升';
+    }
+
+    // ========== 6. Stroop Test ==========
+    var stroopState = {trials:[], currentIndex:0, stimuli:[], startTime:0, colors:[{name:'红',hex:'#ef4444'},{name:'绿',hex:'#22c55e'},{name:'蓝',hex:'#3b82f6'},{name:'黄',hex:'#eab308'}]};
+
+    function initStroopTest() {
+        var container = document.getElementById('test-container');
+        stroopState = {trials:[], currentIndex:0, stimuli:[], startTime:0, colors:[{name:'红',hex:'#ef4444'},{name:'绿',hex:'#22c55e'},{name:'蓝',hex:'#3b82f6'},{name:'黄',hex:'#eab308'}]};
+        var colorNames = ['红', '绿', '蓝', '黄'];
+        var trials = [];
+        var totalTrials = 24;
+
+        if (gradeGroup === 'low') {
+            // Low grade: use colored shapes - neutral (no word-color conflict)
+            var shapes = ['●', '■', '▲', '★'];
+            for (var i = 0; i < 12; i++) {
+                var ci = Math.floor(Math.random() * 4);
+                trials.push({word:shapes[ci], inkColor:stroopState.colors[ci].hex, condition:'neutral', correctKey:colorNames[ci]});
+            }
+            for (var i = 0; i < 12; i++) {
+                var wi = Math.floor(Math.random() * 4);
+                var ii; do { ii = Math.floor(Math.random() * 4); } while (ii === wi);
+                trials.push({word:shapes[wi], inkColor:stroopState.colors[ii].hex, condition:'incongruent', correctKey:colorNames[ii]});
+            }
+        } else {
+            for (var i = 0; i < 6; i++) {
+                var ci = Math.floor(Math.random() * 4);
+                trials.push({word:'XXXX', inkColor:stroopState.colors[ci].hex, condition:'neutral', correctKey:colorNames[ci]});
+            }
+            for (var i = 0; i < 9; i++) {
+                var ci = Math.floor(Math.random() * 4);
+                trials.push({word:stroopState.colors[ci].name, inkColor:stroopState.colors[ci].hex, condition:'congruent', correctKey:colorNames[ci]});
+            }
+            for (var i = 0; i < 9; i++) {
+                var wi = Math.floor(Math.random() * 4);
+                var ii; do { ii = Math.floor(Math.random() * 4); } while (ii === wi);
+                trials.push({word:stroopState.colors[wi].name, inkColor:stroopState.colors[ii].hex, condition:'incongruent', correctKey:colorNames[ii]});
+            }
+        }
+        trials.sort(function() { return Math.random() - 0.5; });
+        stroopState.stimuli = trials;
+        var desc = gradeGroup === 'low' ? '说出图形的<span style="font-weight:bold;">颜色</span>，别管形状是什么 🎨' : '说出字的<span style="font-weight:bold;">颜色</span>，忽略字本身的意思';
+        var html = '<div class="test-header">' +
+            '<h2 class="test-name">🎨 Stroop色词测试</h2>' +
+            '<p class="test-description">' + desc + '</p>' +
+            '<div class="test-stats">' +
+            '<div class="stat-item"><span>进度</span><strong id="stroop-progress">0/' + totalTrials + '</strong></div>' +
+            '<div class="stat-item"><span>正确</span><strong id="stroop-correct">0</strong></div>' +
+            '</div></div>' +
+            '<div class="stroop-display"><div class="stroop-word" id="stroop-word">准备</div></div>' +
+            '<div class="color-btns" id="stroop-btns">' +
+            '<div class="color-btn" style="background:#ef4444;" onclick="handleStroopClick(\'红\')">红</div>' +
+            '<div class="color-btn" style="background:#22c55e;" onclick="handleStroopClick(\'绿\')">绿</div>' +
+            '<div class="color-btn" style="background:#3b82f6;" onclick="handleStroopClick(\'蓝\')">蓝</div>' +
+            '<div class="color-btn" style="background:#eab308;" onclick="handleStroopClick(\'黄\')">黄</div>' +
+            '</div>' +
+            '<p class="test-hint"><kbd>1</kbd>红 <kbd>2</kbd>绿 <kbd>3</kbd>蓝 <kbd>4</kbd>黄 或点击颜色按钮</p>';
+        container.innerHTML = html;
+        document.onkeydown = handleStroopKey;
+        setTimeout(showNextStroopStimulus, 1000);
+    }
+
+    function handleStroopClick(colorName) {
+        handleStroopResponse(colorName);
+    }
+
+    function handleStroopKey(e) {
+        if (currentTest !== 5) return;
+        var keyMap = {'1':'红', '2':'绿', '3':'蓝', '4':'黄'};
+        if (!keyMap[e.key]) return;
+        handleStroopResponse(keyMap[e.key]);
+    }
+
+    function handleStroopResponse(answer) {
+        var reactionTime = Date.now() - stroopState.startTime;
+        var stim = stroopState.stimuli[stroopState.currentIndex];
+        var correct = answer === stim.correctKey;
+        stroopState.trials.push({condition:stim.condition, reactionTime:reactionTime, correct:correct});
+        if (correct) document.getElementById('stroop-correct').textContent = parseInt(document.getElementById('stroop-correct').textContent) + 1;
+        stroopState.currentIndex++;
+        showNextStroopStimulus();
+    }
+
+    function showNextStroopStimulus() {
+        if (stroopState.currentIndex >= stroopState.stimuli.length) { finishStroopTest(); return; }
+        var stim = stroopState.stimuli[stroopState.currentIndex];
+        var wordEl = document.getElementById('stroop-word');
+        wordEl.style.opacity = '0';
+        setTimeout(function() {
+            wordEl.textContent = stim.word;
+            wordEl.style.color = stim.inkColor;
+            wordEl.style.opacity = '1';
+            stroopState.startTime = Date.now();
+        }, 300);
+        document.getElementById('stroop-progress').textContent = (stroopState.currentIndex + 1) + '/' + stroopState.stimuli.length;
+    }
+
+    function finishStroopTest() {
+        document.onkeydown = null;
+        var baseline = stroopState.trials.filter(function(t) { return t.condition === 'congruent' || t.condition === 'neutral'; });
+        var incongruent = stroopState.trials.filter(function(t) { return t.condition === 'incongruent'; });
+        var baselineRT = baseline.length > 0 ? baseline.reduce(function(a, b) { return a + b.reactionTime; }, 0) / baseline.length : 0;
+        var incongruentRT = incongruent.length > 0 ? incongruent.reduce(function(a, b) { return a + b.reactionTime; }, 0) / incongruent.length : 0;
+        var interference = incongruentRT - baselineRT;
+        var accuracy = stroopState.trials.filter(function(t) { return t.correct; }).length / stroopState.trials.length * 100;
+        testResults.stroop = {congruentRT:baselineRT, incongruentRT:incongruentRT, interference:interference, accuracy:accuracy, rating:getStroopRating(interference)};
+        showTestComplete('Stroop色词测试', '干扰效应 ' + interference.toFixed(0) + 'ms | 准确率 ' + accuracy.toFixed(0) + '%', getStroopRating(interference));
+    }
+
+    function getStroopRating(interference) {
+        if (gradeGroup === 'low') { if (interference < 150) return '优秀'; if (interference < 250) return '良好'; if (interference < 380) return '一般'; return '需提升'; }
+        if (interference < 100) return '优秀'; if (interference < 180) return '良好'; if (interference < 280) return '一般'; return '需提升';
+    }
+
+    // ========== 7. Flanker Test ==========
+    var flankerState = {trials:[], currentIndex:0, stimuli:[], startTime:0};
+
+    function initFlankerTest() {
+        var container = document.getElementById('test-container');
+        flankerState = {trials:[], currentIndex:0, stimuli:[], startTime:0};
+        var trials = [];
+        // 24 trials: 8×3
+        for (var i = 0; i < 8; i++) { trials.push({condition:'congruent'}); trials.push({condition:'incongruent'}); trials.push({condition:'neutral'}); }
+        trials.sort(function() { return Math.random() - 0.5; });
+        trials.forEach(function(trial) {
+            if (gradeGroup === 'low') {
+                // Use fish/arrow emoji for low grade
+                var leftFish = trial.condition === 'incongruent' ? '🐟🐟🐟' : (trial.condition === 'neutral' ? '💧💧💧' : '🐟🐟🐟');
+                var rightFish = trial.condition === 'incongruent' ? '🐟🐟🐟' : (trial.condition === 'neutral' ? '💧💧💧' : '🐟🐟🐟');
+                var center = trial.condition === 'incongruent' ? (Math.random() > 0.5 ? '◀' : '▶') : (Math.random() > 0.5 ? '◀' : '▶');
+                var direction = center === '▶' ? 'right' : 'left';
+                if (trial.condition === 'congruent') {
+                    leftFish = direction === 'left' ? '🐟🐟🐟' : '🐟🐟🐟';
+                    rightFish = direction === 'right' ? '🐟🐟🐟' : '🐟🐟🐟';
+                }
+                trial.display = leftFish + center + rightFish;
+                trial.correctKey = direction === 'left' ? 'ArrowLeft' : 'ArrowRight';
+            } else {
+                var centerDir = Math.random() > 0.5 ? 'left' : 'right';
+                var center = centerDir === 'left' ? '←' : '→';
+                var flankerLeft, flankerRight;
+                if (trial.condition === 'congruent') {
+                    flankerLeft = center; flankerRight = center;
+                } else if (trial.condition === 'incongruent') {
+                    var opp = centerDir === 'left' ? '→' : '←';
+                    flankerLeft = opp; flankerRight = opp;
+                } else {
+                    flankerLeft = '—'; flankerRight = '—';
+                }
+                trial.display = flankerLeft + flankerLeft + center + flankerRight + flankerRight;
+                trial.correctKey = centerDir === 'left' ? 'ArrowLeft' : 'ArrowRight';
+                trial.centerDir = centerDir;
+            }
+            flankerState.stimuli.push(trial);
+        });
+        var desc = gradeGroup === 'low' ? '看中间的箭头朝哪边，忽略两边的干扰 🐟' : '判断中间箭头方向，忽略两侧干扰';
+        var html = '<div class="test-header">' +
+            '<h2 class="test-name">➡️ Flanker侧抑制测试</h2>' +
+            '<p class="test-description">' + desc + '</p>' +
+            '<div class="test-stats">' +
+            '<div class="stat-item"><span>进度</span><strong id="flanker-progress">0/24</strong></div>' +
+            '<div class="stat-item"><span>正确</span><strong id="flanker-correct">0</strong></div>' +
+            '</div></div>' +
+            '<div class="flanker-display"><div class="flanker-arrows" id="flanker-arrows"><span style="color:var(--text-secondary);">准备</span></div></div>' +
+            '<p class="test-hint"><kbd>←</kbd> 向左 <kbd>→</kbd> 向右</p>';
+        container.innerHTML = html;
+        document.onkeydown = handleFlankerKey;
+        setTimeout(showNextFlankerStimulus, 1000);
+    }
+
+    function handleFlankerKey(e) {
+        if (currentTest !== 6) return;
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        var reactionTime = Date.now() - flankerState.startTime;
+        var stim = flankerState.stimuli[flankerState.currentIndex];
+        var correct = e.key === stim.correctKey;
+        flankerState.trials.push({condition:stim.condition, reactionTime:reactionTime, correct:correct});
+        if (correct) document.getElementById('flanker-correct').textContent = parseInt(document.getElementById('flanker-correct').textContent) + 1;
+        flankerState.currentIndex++;
+        showNextFlankerStimulus();
+    }
+
+    function showNextFlankerStimulus() {
+        if (flankerState.currentIndex >= flankerState.stimuli.length) { finishFlankerTest(); return; }
+        var stim = flankerState.stimuli[flankerState.currentIndex];
+        var arrowsEl = document.getElementById('flanker-arrows');
+        arrowsEl.style.opacity = '0';
+        setTimeout(function() {
+            if (gradeGroup === 'low') {
+                arrowsEl.innerHTML = '<span class="flanker-center">' + stim.display + '</span>';
+            } else {
+                var d = stim.display;
+                arrowsEl.innerHTML = '<span style="color:var(--text-secondary);">' + d[0] + d[1] + '</span>' +
+                    '<span class="flanker-center">' + d[2] + '</span>' +
+                    '<span style="color:var(--text-secondary);">' + d[3] + d[4] + '</span>';
+            }
+            arrowsEl.style.opacity = '1';
+            flankerState.startTime = Date.now();
+        }, 300);
+        document.getElementById('flanker-progress').textContent = (flankerState.currentIndex + 1) + '/24';
+    }
+
+    function finishFlankerTest() {
+        document.onkeydown = null;
+        var congruent = flankerState.trials.filter(function(t) { return t.condition === 'congruent'; });
+        var incongruent = flankerState.trials.filter(function(t) { return t.condition === 'incongruent'; });
+        var congruentRT = congruent.length > 0 ? congruent.reduce(function(a, b) { return a + b.reactionTime; }, 0) / congruent.length : 0;
+        var incongruentRT = incongruent.length > 0 ? incongruent.reduce(function(a, b) { return a + b.reactionTime; }, 0) / incongruent.length : 0;
+        var flankerEffect = incongruentRT - congruentRT;
+        var accuracy = flankerState.trials.filter(function(t) { return t.correct; }).length / flankerState.trials.length * 100;
+        testResults.flanker = {congruentRT:congruentRT, incongruentRT:incongruentRT, flankerEffect:flankerEffect, accuracy:accuracy, rating:getFlankerRating(flankerEffect)};
+        showTestComplete('Flanker测试', '干扰效应 ' + flankerEffect.toFixed(0) + 'ms | 准确率 ' + accuracy.toFixed(0) + '%', getFlankerRating(flankerEffect));
+    }
+
+    function getFlankerRating(effect) {
+        if (gradeGroup === 'low') { if (effect < 80) return '优秀'; if (effect < 150) return '良好'; if (effect < 250) return '一般'; return '需提升'; }
+        if (effect < 40) return '优秀'; if (effect < 75) return '良好'; if (effect < 120) return '一般'; return '需提升';
+    }
+
+    // ========== 8. Dual Task Test ==========
+    var dualState = {targetX:200, targetY:150, velocityX:3, velocityY:2, audioCount:0, userCount:0, running:false, animationId:null, duration:30, startTime:0, audioNumbers:[], correctTracking:0};
+
+    function initDualTaskTest() {
+        var container = document.getElementById('test-container');
+        dualState = {targetX:200, targetY:150, velocityX:(Math.random() - 0.5) * 4, velocityY:(Math.random() - 0.5) * 4, audioCount:0, userCount:0, running:false, animationId:null, duration:30, startTime:0, audioNumbers:[], correctTracking:0};
+        for (var i = 0; i < 4; i++) { dualState.audioNumbers.push(Math.floor(Math.random() * 9) + 1); }
+        var html = '<div class="test-header">' +
+            '<h2 class="test-name">🎯 双任务测试</h2>' +
+            '<p class="test-description">' + (gradeGroup === 'low' ? '一边看住小圆球，一边记住出现的数字！🎮' : '同时追踪移动目标和记录出现的数字') + '</p>' +
+            '<div class="dual-task-container">' +
+            '<div class="dual-status">' +
+            '<div class="dual-status-item"><span>剩余时间</span><strong id="dual-timer">30s</strong></div>' +
+            '<div class="dual-status-item"><span>听到的数字</span><strong id="dual-audio">0个</strong></div>' +
+            '</div>' +
+            '<div class="dual-task-area" id="dual-area"><div class="dual-target" id="dual-target"></div></div>' +
+            '<div class="dual-audio" id="dual-audio-box"><h4>数字任务</h4><p>' + (gradeGroup === 'low' ? '看到数字就按空格！' : '看到数字出现后，用空格键计数') + '</p></div>' +
+            '<div class="test-controls"><button class="btn" onclick="startDualTask()">开始 🏃</button></div>' +
+            '</div>';
+        container.innerHTML = html;
+        document.getElementById('dual-target').style.left = dualState.targetX + 'px';
+        document.getElementById('dual-target').style.top = dualState.targetY + 'px';
+    }
+
+    function startDualTask() {
+        dualState.running = true; dualState.startTime = Date.now();
+        document.querySelector('.test-controls').innerHTML = '<p style="color:var(--text-secondary);">测试进行中...</p>';
+        updateDualTarget(); scheduleAudioNumbers(); startDualTimer();
+    }
+
+    function updateDualTarget() {
+        if (!dualState.running) return;
+        dualState.targetX += dualState.velocityX; dualState.targetY += dualState.velocityY;
+        var area = document.getElementById('dual-area');
+        var maxX = area.offsetWidth - 50; var maxY = area.offsetHeight - 50;
+        if (dualState.targetX <= 0 || dualState.targetX >= maxX) { dualState.velocityX *= -1; dualState.targetX = Math.max(0, Math.min(maxX, dualState.targetX)); }
+        if (dualState.targetY <= 0 || dualState.targetY >= maxY) { dualState.velocityY *= -1; dualState.targetY = Math.max(0, Math.min(maxY, dualState.targetY)); }
+        document.getElementById('dual-target').style.left = dualState.targetX + 'px';
+        document.getElementById('dual-target').style.top = dualState.targetY + 'px';
+        dualState.animationId = requestAnimationFrame(updateDualTarget);
+    }
+
+    function scheduleAudioNumbers() {
+        if (!dualState.running) return;
+        var delay = 4000 + Math.random() * 6000;
+        setTimeout(function() {
+            if (!dualState.running) return;
+            if (dualState.audioCount < dualState.audioNumbers.length) {
+                showAudioNumber(dualState.audioNumbers[dualState.audioCount]);
+                dualState.audioCount++;
+                document.getElementById('dual-audio').textContent = dualState.audioCount + '个';
+            }
+            scheduleAudioNumbers();
+        }, delay);
+    }
+
+    function showAudioNumber(num) {
+        var audioBox = document.getElementById('dual-audio-box');
+        audioBox.style.background = 'rgba(249,115,22,.4)';
+        audioBox.innerHTML = '<h4>出现的数字</h4><p style="font-size:2rem;color:var(--accent-l);">' + num + '</p>';
+        setTimeout(function() {
+            audioBox.style.background = 'rgba(249,115,22,.15)';
+            audioBox.innerHTML = '<h4>数字任务</h4><p>' + (gradeGroup === 'low' ? '看到数字就按空格！' : '看到数字出现后，用空格键计数') + '</p>';
+        }, 1500);
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (currentTest !== 7 || !dualState.running) return;
+        if (e.code === 'Space') { e.preventDefault(); dualState.userCount++; }
+    });
+
+    function startDualTimer() {
+        var timerInterval = setInterval(function() {
+            if (!dualState.running) { clearInterval(timerInterval); return; }
+            var elapsed = Math.floor((Date.now() - dualState.startTime) / 1000);
+            var remaining = Math.max(0, dualState.duration - elapsed);
+            document.getElementById('dual-timer').textContent = remaining + 's';
+            if (remaining <= 0) { clearInterval(timerInterval); finishDualTask(); }
+        }, 1000);
+    }
+
+    function finishDualTask() {
+        dualState.running = false; cancelAnimationFrame(dualState.animationId);
+        var audioScore = Math.max(0, 4 - Math.abs(dualState.userCount - dualState.audioCount));
+        var score = (audioScore / 4 + 0.5) / 2 * 100;
+        testResults.dualTask = {audioAccuracy:audioScore / 4 * 100, totalCount:dualState.userCount, targetCount:dualState.audioCount, rating:getDualTaskRating(score)};
+        showTestComplete('双任务测试', '听觉计数 ' + audioScore + '/4', getDualTaskRating(score));
+    }
+
+    function getDualTaskRating(score) {
+        if (score >= 85) return '优秀'; if (score >= 70) return '良好'; if (score >= 50) return '一般'; return '需提升';
+    }
+
+    // ========== 9. Anti-Fatigue Test ==========
+    var fatigueState = {startTime:0, duration:120, correct:0, total:0, trials:[], currentTask:0, running:false, intervalId:null, currentAnswer:false, taskTypes:['evenOdd','greaterThan5']};
+
+    function initAntiFatigueTest() {
+        var container = document.getElementById('test-container');
+        fatigueState = {startTime:0, duration:120, correct:0, total:0, trials:[], currentTask:0, running:false, intervalId:null, currentAnswer:false, taskTypes:gradeGroup === 'low' ? ['evenOdd'] : ['evenOdd','greaterThan5']};
+        var desc = gradeGroup === 'low' ? '2分钟小测试，看看你能坚持多久！💪' : '2分钟持续注意力任务，评估长时间专注能力';
+        var html = '<div class="test-header">' +
+            '<h2 class="test-name">💪 抗疲劳测试</h2>' +
+            '<p class="test-description">' + desc + '</p>' +
+            '<div class="fatigue-display">' +
+            '<div class="fatigue-timer" id="fatigue-timer">2:00</div>' +
+            '<div class="fatigue-bar"><div class="fatigue-fill" id="fatigue-fill" style="width:100%;"></div></div>' +
+            '<div class="fatigue-counter" id="fatigue-task">准备开始</div>' +
+            '</div>' +
+            '<div class="test-stats">' +
+            '<div class="stat-item"><span>正确</span><strong id="fatigue-correct">0</strong></div>' +
+            '<div class="stat-item"><span>准确率</span><strong id="fatigue-accuracy">0%</strong></div>' +
+            '</div>' +
+            '<p class="test-hint">' + (gradeGroup === 'low' ? '<kbd>1</kbd> 是（双数/对） <kbd>2</kbd> 不是（单数/错）' : '<kbd>1</kbd> 是 <kbd>2</kbd> 否') + '</p>' +
+            '<div class="test-controls"><button class="btn" id="fatigue-start-btn" onclick="startFatigueTest()">开始测试 💪</button></div>';
+        container.innerHTML = html;
+    }
+
+    function startFatigueTest() {
+        fatigueState.running = true; fatigueState.startTime = Date.now();
+        document.getElementById('fatigue-start-btn').style.display = 'none';
+        fatigueState.intervalId = setInterval(updateFatigueDisplay, 100);
+        showFatigueTask();
+    }
+
+    function updateFatigueDisplay() {
+        if (!fatigueState.running) return;
+        var elapsed = Math.floor((Date.now() - fatigueState.startTime) / 1000);
+        var remaining = Math.max(0, fatigueState.duration - elapsed);
+        var progress = (fatigueState.duration - remaining) / fatigueState.duration * 100;
+        document.getElementById('fatigue-timer').textContent = formatTime(remaining);
+        document.getElementById('fatigue-fill').style.width = (100 - progress) + '%';
+        if (remaining <= 0) { clearInterval(fatigueState.intervalId); finishFatigueTest(); }
+    }
+
+    function showFatigueTask() {
+        if (!fatigueState.running) return;
+        var maxNum = gradeGroup === 'low' ? 10 : 18;
+        var num = Math.floor(Math.random() * maxNum) + 1;
+        var taskType = fatigueState.taskTypes[fatigueState.currentTask % fatigueState.taskTypes.length];
+        var correct, instruction;
+        if (taskType === 'evenOdd') {
+            correct = num % 2 === 0;
+            instruction = gradeGroup === 'low' ? num + ' 是双数吗？' : num + ' 是偶数吗？';
+        } else {
+            correct = num > 5;
+            instruction = num + ' 大于5吗？';
+        }
+        fatigueState.currentAnswer = correct; fatigueState.currentTask++;
+        document.getElementById('fatigue-task').textContent = instruction;
+        document.getElementById('fatigue-correct').textContent = fatigueState.correct;
+        var accuracy = fatigueState.total > 0 ? Math.round(fatigueState.correct / fatigueState.total * 100) : 0;
+        document.getElementById('fatigue-accuracy').textContent = accuracy + '%';
+        fatigueState.trials.push({time:Math.floor((Date.now() - fatigueState.startTime) / 1000), correct:false});
+    }
+
+    document.addEventListener('keydown', function fatigueKey(e) {
+        if (currentTest !== 8) return;
+        if (!fatigueState.running) return;
+        if (e.key === '1') {
+            fatigueState.total++;
+            if (fatigueState.currentAnswer) { fatigueState.correct++; fatigueState.trials[fatigueState.trials.length - 1].correct = true; }
+            showFatigueTask();
+        } else if (e.key === '2') {
+            fatigueState.total++;
+            if (!fatigueState.currentAnswer) { fatigueState.correct++; fatigueState.trials[fatigueState.trials.length - 1].correct = true; }
+            showFatigueTask();
+        }
+    });
+
+    function finishFatigueTest() {
+        fatigueState.running = false;
+        var accuracy = fatigueState.total > 0 ? fatigueState.correct / fatigueState.total * 100 : 0;
+        // Calculate decay data
+        var segments = 4;
+        var segLen = Math.floor(fatigueState.trials.length / segments);
+        var decayData = [];
+        for (var s = 0; s < segments; s++) {
+            var segTrials = fatigueState.trials.slice(s * segLen, (s + 1) * segLen);
+            var segCorrect = segTrials.filter(function(t) { return t.correct; }).length;
+            decayData.push(segTrials.length > 0 ? segCorrect / segTrials.length * 100 : 50);
+        }
+        testResults.antiFatigue = {accuracy:accuracy, decayData:decayData, total:fatigueState.total, correct:fatigueState.correct, rating:getFatigueRating(accuracy)};
+        showTestComplete('抗疲劳测试', '准确率 ' + accuracy.toFixed(0) + '%', getFatigueRating(accuracy));
+    }
+
+    function getFatigueRating(accuracy) {
+        if (gradeGroup === 'low') { if (accuracy >= 80) return '优秀'; if (accuracy >= 65) return '良好'; if (accuracy >= 50) return '一般'; return '需提升'; }
+        if (accuracy >= 85) return '优秀'; if (accuracy >= 70) return '良好'; if (accuracy >= 55) return '一般'; return '需提升';
+    }
+
+    // ========== 10. Context Interference Test ==========
+    var contextState = {stimuli:[], currentIndex:0, correct:0, running:false, startTime:0, distractionActive:false, distractions:[], timeoutId:null};
+
+    function initContextTest() {
+        var container = document.getElementById('test-container');
+        var totalStim = 24;
+        contextState = {stimuli:[], currentIndex:0, correct:0, falseAlarms:0, running:false, startTime:0, distractionActive:false, distractions:[], timeoutId:null};
+        var letters = 'ABCDEFGHIJKLMNOPQRSTUVWYZ'.split('');
+        for (var i = 0; i < totalStim; i++) {
+            if (Math.random() < 0.2) { contextState.stimuli.push('M'); }
+            else { var letter; do { letter = letters[Math.floor(Math.random() * letters.length)]; } while (letter === 'M'); contextState.stimuli.push(letter); }
+        }
+        var html = '<div id="context-noise" class="context-noise" style="display:none;"><div class="noise-overlay"></div></div>' +
+            '<div class="test-header">' +
+            '<h2 class="test-name">📝 上下文干扰测试</h2>' +
+            '<p class="test-description">' + (gradeGroup === 'low' ? '看到 <strong style="color:var(--warning);">M</strong> 就按空格！会有干扰出现，别被分心哦 😄' : '模拟课堂环境，评估在干扰下的注意力表现') + '</p>' +
+            '<div class="test-stats">' +
+            '<div class="stat-item"><span>进度</span><strong id="context-progress">0/' + totalStim + '</strong></div>' +
+            '<div class="stat-item"><span>正确识别</span><strong id="context-correct">0</strong></div>' +
+            '<div class="stat-item"><span>误按</span><strong id="context-false">0</strong></div>' +
+            '<div class="stat-item"><span>干扰</span><strong id="context-distraction">无</strong></div>' +
+            '</div></div>' +
+            '<div class="cpt-display">' +
+            '<p class="test-hint">看到 <strong style="color:var(--warning);">M</strong> 请按空格</p>' +
+            '<div class="cpt-letter" id="context-letter"></div>' +
+            '</div>' +
+            '<div class="test-controls"><button class="btn" id="context-start-btn" onclick="startContextTest()">开始（7秒后开启干扰）</button></div>';
+        container.innerHTML = html;
+        document.getElementById('key-hint').style.display = 'flex';
+    }
+
+    function startContextTest() {
+        contextState.running = true; contextState.startTime = Date.now();
+        document.getElementById('context-start-btn').style.display = 'none';
+        document.addEventListener('keydown', handleContextKey);
+        // Distraction schedule aligned with ~21s test duration (24 stimuli × ~900ms)
+        setTimeout(function() { if (contextState.running) activateDistraction(); }, 7000);
+        setTimeout(function() { if (contextState.running) deactivateDistraction(); }, 14000);
+        setTimeout(function() { if (contextState.running) activateDistraction(); }, 16000);
+        showContextStimulus();
+    }
+
+    function activateDistraction() {
+        contextState.distractionActive = true;
+        document.getElementById('context-noise').style.display = 'block';
+        document.getElementById('context-distraction').textContent = '有';
+        var noise = document.getElementById('context-noise');
+        var msgs = gradeGroup === 'low' ? ['注意！', '专心！', '加油！', '看这里！'] : ['注意！', '专心！', '加油！', '看这里！'];
+        for (var i = 0; i < 4; i++) {
+            var distraction = document.createElement('div');
+            distraction.className = 'distraction-text';
+            distraction.textContent = msgs[i];
+            distraction.style.left = Math.random() * 80 + 10 + '%';
+            distraction.style.top = Math.random() * 80 + 10 + '%';
+            noise.appendChild(distraction);
+            contextState.distractions.push(distraction);
+        }
+    }
+
+    function deactivateDistraction() {
+        contextState.distractionActive = false;
+        document.getElementById('context-noise').style.display = 'none';
+        document.getElementById('context-distraction').textContent = '无';
+        contextState.distractions.forEach(function(d) { d.remove(); });
+        contextState.distractions = [];
+    }
+
+    function handleContextKey(e) {
+        if (e.code !== 'Space' || !contextState.running) return;
+        e.preventDefault();
+        var idx = contextState.currentIndex - 1;
+        if (idx < 0 || idx >= contextState.stimuli.length) return;
+        var letter = contextState.stimuli[idx];
+        if (letter === 'M') {
+            contextState.correct++;
+            document.getElementById('context-correct').textContent = contextState.correct;
+            flashContextLetter(true);
+        } else {
+            contextState.falseAlarms++;
+            document.getElementById('context-false').textContent = contextState.falseAlarms;
+            flashContextLetter(false);
+        }
+    }
+
+    function flashContextLetter(isCorrect) {
+        var el = document.getElementById('context-letter');
+        if (!el) return;
+        el.style.transition = 'none';
+        el.style.color = isCorrect ? '#4ade80' : '#f87171';
+        el.style.transform = 'scale(1.18)';
+        setTimeout(function() {
+            el.style.transition = '';
+            el.style.color = '';
+            el.style.transform = '';
+        }, 160);
+    }
+
+    function showContextStimulus() {
+        if (contextState.currentIndex >= contextState.stimuli.length) { finishContextTest(); return; }
+        document.getElementById('context-letter').textContent = contextState.stimuli[contextState.currentIndex];
+        document.getElementById('context-progress').textContent = (contextState.currentIndex + 1) + '/' + contextState.stimuli.length;
+        contextState.currentIndex++;
+        contextState.timeoutId = setTimeout(showContextStimulus, 900);
+    }
+
+    function finishContextTest() {
+        contextState.running = false; clearTimeout(contextState.timeoutId);
+        document.removeEventListener('keydown', handleContextKey); deactivateDistraction();
+        document.getElementById('key-hint').style.display = 'none';
+        var targetCount = contextState.stimuli.filter(function(l) { return l === 'M'; }).length;
+        var nonTargetCount = contextState.stimuli.length - targetCount;
+        var accuracy = targetCount > 0 ? contextState.correct / targetCount * 100 : 0;
+        var falseAlarmRate = nonTargetCount > 0 ? (contextState.falseAlarms / nonTargetCount * 100) : 0;
+        var adjustedScore = Math.max(0, accuracy - falseAlarmRate * 0.5);
+        testResults.context = {accuracy:adjustedScore, rawAccuracy:accuracy, falseAlarms:contextState.falseAlarms, falseAlarmRate:falseAlarmRate, distractionEffect:adjustedScore < 50 ? '显著干扰' : (adjustedScore < 70 ? '轻微干扰' : '无明显干扰'), rating:getContextRating(adjustedScore)};
+        showTestComplete('上下文干扰测试', '准确率 ' + accuracy.toFixed(0) + '% | 误按 ' + contextState.falseAlarms + '次 | ' + testResults.context.distractionEffect, getContextRating(adjustedScore));
+    }
+
+    function getContextRating(accuracy) {
+        if (gradeGroup === 'low') { if (accuracy >= 80) return '优秀'; if (accuracy >= 65) return '良好'; if (accuracy >= 50) return '一般'; return '需提升'; }
+        if (accuracy >= 85) return '优秀'; if (accuracy >= 70) return '良好'; if (accuracy >= 55) return '一般'; return '需提升';
+    }
+
+    // ========== Calculate Final Results ==========
+    function calculateFinalResults() {
+        var dimensions = {focus:0, stability:0, distribution:0, switching:0, breadth:0, antiInterference:0, workingMemory:0, persistence:0};
+        if (testResults.schulte) {
+            var timeFactor = gradeGroup === 'low' ? 0.8 : 1.2;
+            dimensions.focus = Math.max(0, 100 - testResults.schulte.time * timeFactor);
+            dimensions.stability = Math.max(0, 100 - testResults.schulte.wrongAttempts * 8);
+        }
+        if (testResults.nback) { dimensions.workingMemory = testResults.nback.accuracy; }
+        if (testResults.digitSpan) {
+            dimensions.breadth = Math.min(100, testResults.digitSpan.forwardSpan * 12 + testResults.digitSpan.reverseSpan * 5);
+        }
+        if (testResults.cpt) {
+            dimensions.stability = Math.max(0, dimensions.stability + testResults.cpt.dPrime * 18);
+            dimensions.focus = Math.max(0, dimensions.focus + testResults.cpt.hitRate * 0.3);
+        }
+        if (testResults.taskSwitch) { dimensions.switching = Math.max(0, 100 - testResults.taskSwitch.switchCost * (gradeGroup === 'low' ? 0.25 : 0.4)); }
+        if (testResults.stroop) { dimensions.antiInterference = Math.max(0, 100 - testResults.stroop.interference * (gradeGroup === 'low' ? 0.25 : 0.7)); }
+        if (testResults.flanker) {
+            dimensions.antiInterference = Math.max(0, (dimensions.antiInterference + Math.max(0, 100 - testResults.flanker.flankerEffect * (gradeGroup === 'low' ? 0.4 : 1.0))) / 2);
+        }
+        if (testResults.dualTask) { dimensions.distribution = testResults.dualTask.audioAccuracy; }
+        if (testResults.antiFatigue) { dimensions.persistence = testResults.antiFatigue.accuracy; }
+        if (testResults.context) { dimensions.antiInterference = Math.max(0, (dimensions.antiInterference + testResults.context.accuracy) / 2); }
+        testResults.dimensions = dimensions;
+        var total = 0, count = 0;
+        for (var key in dimensions) { total += dimensions[key]; count++; }
+        testResults.overallScore = Math.round(total / count);
+        if (testResults.overallScore >= 85) { testResults.grade = '优秀'; testResults.gradeClass = 'grade-excellent'; }
+        else if (testResults.overallScore >= 70) { testResults.grade = '良好'; testResults.gradeClass = 'grade-good'; }
+        else if (testResults.overallScore >= 55) { testResults.grade = '一般'; testResults.gradeClass = 'grade-average'; }
+        else { testResults.grade = '需提升'; testResults.gradeClass = 'grade-poor'; }
+        testResults.percentile = Math.min(99, Math.max(1, testResults.overallScore + Math.floor(Math.random() * 15 - 7)));
+    }
+
+    // ========== Show Results ==========
+    function showResults() {
+        showScreen('results-screen');
+        var gradeName = gradeGroup === 'low' ? '低年级(1-2年级)' : (gradeGroup === 'mid' ? '中年级(3-4年级)' : '高年级(5-6年级)');
+        document.getElementById('results-subtitle').textContent = userInfo.name + ' | ' + gradeName + ' | 基于10项专业测试的全面分析';
+        var overviewHtml =
+            '<div class="score-card"><h4>综合评分</h4><div class="score" style="color:var(--accent-l);">' + testResults.overallScore + '</div><span class="grade ' + testResults.gradeClass + '">' + testResults.grade + '</span></div>' +
+            '<div class="score-card"><h4>注意力集中度</h4><div class="score" style="color:var(--success);">' + Math.round(testResults.dimensions.focus) + '</div><span class="grade ' + getGradeClass(testResults.dimensions.focus) + '">' + getRating(testResults.dimensions.focus) + '</span></div>' +
+            '<div class="score-card"><h4>工作记忆容量</h4><div class="score" style="color:var(--warning);">' + Math.round(testResults.dimensions.workingMemory) + '</div><span class="grade ' + getGradeClass(testResults.dimensions.workingMemory) + '">' + getRating(testResults.dimensions.workingMemory) + '</span></div>' +
+            '<div class="score-card"><h4>注意力持久性</h4><div class="score" style="color:var(--secondary);">' + Math.round(testResults.dimensions.persistence) + '</div><span class="grade ' + getGradeClass(testResults.dimensions.persistence) + '">' + getRating(testResults.dimensions.persistence) + '</span></div>';
+        document.getElementById('score-overview').innerHTML = overviewHtml;
+        drawRadarChart(); drawDecayChart();
+        document.getElementById('percentile-value').textContent = testResults.percentile;
+        setTimeout(function() {
+            document.getElementById('percentile-fill').style.width = testResults.percentile + '%';
+            document.getElementById('percentile-marker').style.left = (testResults.percentile * 0.8) + '%';
+        }, 500);
+        var testResultsHtml = '';
+        var testDetails = [
+            {name:'舒尔特方格', result:testResults.schulte, display:testResults.schulte ? testResults.schulte.time.toFixed(1) + '秒' : '-'},
+            {name:'N-Back测试', result:testResults.nback, display:testResults.nback ? testResults.nback.accuracy.toFixed(0) + '%' : '-'},
+            {name:'数字广度', result:testResults.digitSpan, display:testResults.digitSpan ? '正向' + testResults.digitSpan.forwardSpan + '位' : '-'},
+            {name:'持续注意', result:testResults.cpt, display:testResults.cpt ? "d'=" + testResults.cpt.dPrime.toFixed(2) : '-'},
+            {name:'任务切换', result:testResults.taskSwitch, display:testResults.taskSwitch ? Math.round(testResults.taskSwitch.switchCost) + 'ms' : '-'},
+            {name:'Stroop效应', result:testResults.stroop, display:testResults.stroop ? Math.round(testResults.stroop.interference) + 'ms' : '-'},
+            {name:'Flanker效应', result:testResults.flanker, display:testResults.flanker ? Math.round(testResults.flanker.flankerEffect) + 'ms' : '-'},
+            {name:'双任务', result:testResults.dualTask, display:testResults.dualTask ? testResults.dualTask.audioAccuracy.toFixed(0) + '%' : '-'},
+            {name:'抗疲劳', result:testResults.antiFatigue, display:testResults.antiFatigue ? testResults.antiFatigue.accuracy.toFixed(0) + '%' : '-'},
+            {name:'上下文干扰', result:testResults.context, display:testResults.context ? testResults.context.accuracy.toFixed(0) + '%' : '-'}
+        ];
+        testDetails.forEach(function(item) {
+            if (item.result) {
+                var rating = item.result.rating || '一般';
+                var gc = rating === '优秀' ? 'grade-excellent' : (rating === '良好' ? 'grade-good' : (rating === '一般' ? 'grade-average' : 'grade-poor'));
+                testResultsHtml += '<div class="test-result-card"><h4>' + item.name + '</h4>' +
+                    '<div class="test-result-item"><span>成绩</span><span>' + item.display + '</span></div>' +
+                    '<div class="test-result-item"><span>评价</span><span class="grade ' + gc + '">' + rating + '</span></div></div>';
+            }
+        });
+        document.getElementById('test-results').innerHTML = testResultsHtml;
+        document.getElementById('recommendations').innerHTML = generateRecommendations();
+        document.getElementById('daily-tips-container').innerHTML = generateDailyTips();
+        document.getElementById('time-management-container').innerHTML = generateTimeManagement();
+        syncReportToCloud();
+    }
+
+    // ========== Supabase 云端同步 ==========
+    var SUPABASE_URL='https://bmgqtxhbzupaujpzghpq.supabase.co';
+    var SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtZ3F0eGhienVwYXVqcHpnaHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwMDQxODQsImV4cCI6MjEwMTU4MDE4NH0.JgiQlUopALIDRYxE72oyPC2NoC0L4HrhH2q9cHW01W0';
+    function syncReportToCloud(){
+      try{
+        var uname='zhuyili_report_'+(userInfo.name||'guest');
+        var bodyData={
+          name:userInfo.name||'匿名',
+          gender:userInfo.gender||'',
+          age:userInfo.age||'',
+          grade:userInfo.grade||'',
+          purpose:userInfo.purpose||'',
+          overallScore:testResults.overallScore,
+          gradeLevel:testResults.grade,
+          percentile:testResults.percentile,
+          dimensions:testResults.dimensions,
+          tests:testResults,
+          reportTime:new Date().toISOString()
+        };
+        var body=JSON.stringify({username:uname,state_data:JSON.stringify(bodyData),updated_at:new Date().toISOString()});
+        fetch(SUPABASE_URL+'/rest/v1/py_user_states?on_conflict=username',{
+          method:'POST',
+          headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
+          body:body
+        }).then(function(resp){
+          if(resp.ok)console.log('[Cloud] 报告已同步到云端');
+        }).catch(function(e){console.error('[Cloud] 同步失败',e);});
+      }catch(e){console.error('[Cloud] 同步异常',e);}
+    }
+
+    // ========== Radar Chart ==========
+    function drawRadarChart() {
+        var canvas = document.getElementById('radar-chart');
+        var ctx = canvas.getContext('2d');
+        var width = canvas.width = 400; var height = canvas.height = 400;
+        var centerX = width / 2; var centerY = height / 2; var radius = 150;
+        var labels = ['注意力集中度', '注意力稳定性', '注意力分配力', '注意力切换力', '注意力广度', '抗干扰能力', '工作记忆容量', '注意力持久性'];
+        var values = [testResults.dimensions.focus, testResults.dimensions.stability, testResults.dimensions.distribution, testResults.dimensions.switching, testResults.dimensions.breadth, testResults.dimensions.antiInterference, testResults.dimensions.workingMemory, testResults.dimensions.persistence];
+        ctx.clearRect(0, 0, width, height);
+        for (var i = 1; i <= 5; i++) {
+            ctx.beginPath(); ctx.strokeStyle = 'rgba(249,115,22,.15)'; ctx.lineWidth = 1;
+            var r = radius * i / 5;
+            for (var j = 0; j <= 8; j++) { var angle = (j / 8) * Math.PI * 2 - Math.PI / 2; var x = centerX + r * Math.cos(angle); var y = centerY + r * Math.sin(angle); if (j === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); }
+            ctx.closePath(); ctx.stroke();
+        }
+        ctx.strokeStyle = 'rgba(249,115,22,.2)';
+        for (var i = 0; i < 8; i++) { var angle = (i / 8) * Math.PI * 2 - Math.PI / 2; ctx.beginPath(); ctx.moveTo(centerX, centerY); ctx.lineTo(centerX + radius * Math.cos(angle), centerY + radius * Math.sin(angle)); ctx.stroke(); }
+        ctx.beginPath();
+        for (var i = 0; i < 8; i++) {
+            var angle = (i / 8) * Math.PI * 2 - Math.PI / 2;
+            var value = Math.min(100, Math.max(0, values[i]));
+            var x = centerX + (radius * value / 100) * Math.cos(angle);
+            var y = centerY + (radius * value / 100) * Math.sin(angle);
+            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(249,115,22,.25)'; ctx.fill();
+        ctx.strokeStyle = 'rgba(45,212,191,.8)'; ctx.lineWidth = 2; ctx.stroke();
+        for (var i = 0; i < 8; i++) {
+            var angle = (i / 8) * Math.PI * 2 - Math.PI / 2;
+            var value = Math.min(100, Math.max(0, values[i]));
+            var x = centerX + (radius * value / 100) * Math.cos(angle);
+            var y = centerY + (radius * value / 100) * Math.sin(angle);
+            ctx.beginPath(); ctx.arc(x, y, 5, 0, Math.PI * 2);
+            ctx.fillStyle = '#2dd4bf'; ctx.fill();
+        }
+        ctx.font = '11px Microsoft YaHei'; ctx.fillStyle = '#fcd34d'; ctx.textAlign = 'center';
+        for (var i = 0; i < 8; i++) {
+            var angle = (i / 8) * Math.PI * 2 - Math.PI / 2;
+            var x = centerX + (radius + 30) * Math.cos(angle);
+            var y = centerY + (radius + 30) * Math.sin(angle);
+            ctx.fillText(labels[i], x, y);
+        }
+    }
+
+    // ========== Decay Chart ==========
+    function drawDecayChart() {
+        var canvas = document.getElementById('decay-chart');
+        var ctx = canvas.getContext('2d');
+        var width = canvas.width = 600; var height = canvas.height = 280;
+        var padding = 50;
+        ctx.clearRect(0, 0, width, height);
+        var decayData = testResults.antiFatigue ? testResults.antiFatigue.decayData : [100, 90, 80, 70];
+        var labels = ['0-30秒', '30-60秒', '60-90秒', '90-120秒'];
+        var maxY = 100; var chartWidth = width - padding * 2; var chartHeight = height - padding * 2;
+        ctx.strokeStyle = 'rgba(249,115,22,.1)'; ctx.lineWidth = 1;
+        for (var i = 0; i <= 5; i++) {
+            var y = padding + (chartHeight / 5) * i;
+            ctx.beginPath(); ctx.moveTo(padding, y); ctx.lineTo(width - padding, y); ctx.stroke();
+            ctx.fillStyle = '#fcd34d'; ctx.font = '11px Microsoft YaHei'; ctx.textAlign = 'right';
+            ctx.fillText((100 - i * 20) + '%', padding - 10, y + 4);
+        }
+        ctx.beginPath(); ctx.strokeStyle = '#f97316'; ctx.lineWidth = 3;
+        for (var i = 0; i < decayData.length; i++) {
+            var x = padding + (chartWidth / (decayData.length - 1)) * i;
+            var y = padding + chartHeight - (decayData[i] / maxY) * chartHeight;
+            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        ctx.lineTo(padding + chartWidth, height - padding); ctx.lineTo(padding, height - padding); ctx.closePath();
+        ctx.fillStyle = 'rgba(249,115,22,.15)'; ctx.fill();
+        for (var i = 0; i < decayData.length; i++) {
+            var x = padding + (chartWidth / (decayData.length - 1)) * i;
+            var y = padding + chartHeight - (decayData[i] / maxY) * chartHeight;
+            ctx.beginPath(); ctx.arc(x, y, 5, 0, Math.PI * 2); ctx.fillStyle = '#2dd4bf'; ctx.fill();
+            ctx.strokeStyle = '#f97316'; ctx.lineWidth = 2; ctx.stroke();
+            ctx.fillStyle = '#fcd34d'; ctx.textAlign = 'center';
+            ctx.fillText(labels[i], x, height - padding + 22);
+            ctx.fillText(decayData[i].toFixed(0) + '%', x, y - 12);
+        }
+        ctx.fillStyle = '#fcd34d'; ctx.textAlign = 'left';
+        ctx.fillText('注意力准确率随时间变化', padding, padding - 12);
+    }
+
+    // ========== Recommendations (Elementary School - Parent Friendly) ==========
+    function generateRecommendations() {
+        var dims = testResults.dimensions;
+        var recs = [];
+        if (dims.focus < 70) {
+            recs.push({icon:'👀', title:'提升注意力集中度', content:'建议每天5分钟"盯着看"游戏：让孩子盯着一个物品看，逐渐延长时间。低年级可以从3分钟开始，高年级5分钟。写作业时用番茄钟（15-25分钟专注+5分钟休息）帮助孩子建立专注习惯。'});
+        }
+        if (dims.persistence < 70) {
+            recs.push({icon:'⏳', title:'增强注意力持久性', content:'从短时间任务开始，逐步延长。低年级15分钟、中年级20分钟、高年级25分钟为一个专注时段。课间提醒孩子喝水、活动，让大脑休息。阅读时逐渐增加章节长度，培养持续阅读习惯。'});
+        }
+        if (dims.workingMemory < 70) {
+            recs.push({icon:'🧩', title:'训练工作记忆', content:'玩"我说你做"游戏：说一串动作让孩子按顺序完成。低年级3个动作，高年级5个。背诵儿歌、古诗、乘法口诀都是很好的训练。也可以玩"翻牌配对"记忆游戏，提升短期记忆能力。'});
+        }
+        if (dims.distribution < 70) {
+            recs.push({icon:'🎪', title:'提升多任务处理', content:'练习"边听边做"：家长念数字，孩子边听边写作业。低年级可以先做简单练习，如边听音乐边画画。逐步增加任务复杂度，培养同时处理多件事的能力。'});
+        }
+        if (dims.switching < 70) {
+            recs.push({icon:'🔄', title:'锻炼认知灵活性', content:'做作业时适当切换科目，比如做完数学做语文，再回来做数学。玩"规则切换"游戏：一会儿按颜色分类，一会儿按形状分类。帮助孩子学会在不同任务间灵活转换。'});
+        }
+        if (dims.antiInterference < 70) {
+            recs.push({icon:'🛡️', title:'增强抗干扰能力', content:'在轻微背景音（轻音乐、白噪音）中做作业，逐步适应。创造安静的学习环境，减少手机、电视等干扰源。练习"忽略游戏"：在有干扰的环境中完成简单任务，训练专注力。'});
+        }
+        if (dims.breadth < 70) {
+            recs.push({icon:'🔭', title:'扩展注意力广度', content:'玩舒尔特方格：每天练习3-5次，记录进步。快速阅读训练：让孩子在规定时间内找出文章中的指定词语。做"找不同"游戏，训练视觉搜索速度。'});
+        }
+        if (dims.stability < 70) {
+            recs.push({icon:'🏔️', title:'提高注意力稳定性', content:'保证充足睡眠：低年级10-11小时，中年级9-10小时，高年级9小时。减少电子屏幕时间，每天不超过1小时。规律作息，固定时间做作业，建立学习节奏。'});
+        }
+        recs.push({icon:'🏃', title:'运动与注意力', content:'每天至少40分钟户外运动（跳绳、跑步、球类），运动能显著提升注意力。研究表明，规律运动的孩子专注力比不运动的孩子高出30%。饭后散步15分钟也有助于提高下午的注意力。'});
+        var html = '<h3>💡 个性化训练建议（家长参考）</h3>';
+        recs.forEach(function(rec) {
+            html += '<div class="recommendation-item"><div class="recommendation-icon">' + rec.icon + '</div>' +
+                '<div class="recommendation-content"><h4>' + rec.title + '</h4><p>' + rec.content + '</p></div></div>';
+        });
+        return html;
+    }
+
+    // ========== Daily Tips ==========
+    function generateDailyTips() {
+        var tips;
+        if (gradeGroup === 'low') {
+            tips = [
+                '写作业前先收拾好桌面，只放书本和文具，减少分心的小东西',
+                '用彩色计时器提醒：红色=专注时间，绿色=休息时间，像红绿灯一样',
+                '读课文时用手指指着字，一个一个读，不容易跳行漏字',
+                '每做完一项作业，给自己画个⭐，攒够5颗换小奖励',
+                '上课听讲时，眼睛看着老师，小手放好，心里跟着老师的问题想答案'
+            ];
+        } else if (gradeGroup === 'mid') {
+            tips = [
+                '写作业前先列清单：今天要做哪些？按顺序打勾完成',
+                '遇到不会的题先跳过，做完会的再回来想，不要在一道题上卡太久',
+                '用25分钟专注+5分钟休息的节奏做作业，效率更高',
+                '每天固定时间做作业，身体会自动进入"学习模式"',
+                '上课时在笔记本上记关键词，既帮助听讲又不容易走神'
+            ];
+        } else {
+            tips = [
+                '制定每日学习计划，把大任务拆成小步骤，逐个完成',
+                '做难题前做3次深呼吸，让自己冷静下来再思考',
+                '使用"番茄工作法"：25分钟专注学习+5分钟休息，4个循环后长休息',
+                '关掉手机通知，把手机放到另一个房间，创造无干扰学习环境',
+                '每晚复盘：今天哪段时间最专注？什么让我分心？明天怎么改进？'
+            ];
+        }
+        var html = '';
+        tips.forEach(function(tip, index) {
+            html += '<div class="daily-tip-item"><div class="daily-tip-number">' + (index + 1) + '</div><div><p>' + tip + '</p></div></div>';
+        });
+        return html;
+    }
+
+    // ========== Time Management ==========
+    function generateTimeManagement() {
+        var blocks;
+        if (gradeGroup === 'low') {
+            blocks = [
+                {time:'15分钟', title:'专注时段', desc:'做一项作业（语文/数学）'},
+                {time:'5分钟', title:'小休息', desc:'站起来活动、喝水、上厕所'},
+                {time:'15分钟', title:'专注时段', desc:'换一项作业做'},
+                {time:'10分钟', title:'较长休息', desc:'吃点水果、做眼保健操'},
+                {time:'15分钟', title:'阅读时间', desc:'读课外书，培养阅读习惯'},
+                {time:'自由', title:'玩耍时间', desc:'作业完成后自由玩耍，作为奖励'}
+            ];
+        } else if (gradeGroup === 'mid') {
+            blocks = [
+                {time:'20分钟', title:'高度专注', desc:'攻克数学难题或英语阅读'},
+                {time:'5分钟', title:'短暂休息', desc:'远眺、眼保健操、活动'},
+                {time:'20分钟', title:'专注学习', desc:'语文阅读理解或作文'},
+                {time:'10分钟', title:'较长休息', desc:'喝水、吃水果、轻微活动'},
+                {time:'20分钟', title:'综合复习', desc:'巩固当天知识点'},
+                {time:'15分钟', title:'课外阅读', desc:'阅读感兴趣的课外书'}
+            ];
+        } else {
+            blocks = [
+                {time:'25分钟', title:'深度学习', desc:'攻克最难的科目'},
+                {time:'5分钟', title:'短暂休息', desc:'远眺、眼保健操'},
+                {time:'25分钟', title:'专注时段', desc:'文理科交替，避免单一疲劳'},
+                {time:'10分钟', title:'较长休息', desc:'活动、吃水果、聊天放松'},
+                {time:'25分钟', title:'巩固复习', desc:'完成作业或专题练习'},
+                {time:'20分钟', title:'课外拓展', desc:'阅读课外书或做思维题'}
+            ];
+        }
+        var html = '';
+        blocks.forEach(function(block) {
+            html += '<div class="time-block"><div class="time-block-time">' + block.time + '</div>' +
+                '<div class="time-block-content"><h4>' + block.title + '</h4><p>' + block.desc + '</p></div></div>';
+        });
+        return html;
+    }
+
+    // ========== Initialize ==========
+    document.addEventListener('DOMContentLoaded', function() { showScreen('welcome-screen'); });
+    </script>
+
+<script>
+// 登录验证
+var LOGIN_USER = 'liulaoshi';
+var LOGIN_PASS = 'peiyou2026';
+function checkLogin(){
+  if(sessionStorage.getItem('sys_login_ok')==='1'){
+    var o=document.getElementById('loginOverlay');
+    if(o){o.style.display='none';}
+  }
+}
+function doLogin(){
+  var u=document.getElementById('loginUser').value;
+  var p=document.getElementById('loginPass').value;
+  var e=document.getElementById('loginError');
+  if(u===LOGIN_USER && p===LOGIN_PASS){
+    sessionStorage.setItem('sys_login_ok','1');
+    var o=document.getElementById('loginOverlay');
+    o.style.opacity='0';
+    setTimeout(function(){o.style.display='none';},400);
+  }else{
+    e.textContent='账号或密码错误，请重试';
+    document.getElementById('loginUser').value='';
+    document.getElementById('loginPass').value='';
+  }
+}
+document.addEventListener('DOMContentLoaded',function(){
+  var u=document.getElementById('loginUser');
+  var p=document.getElementById('loginPass');
+  if(u){u.addEventListener('keydown',function(e){if(e.key==='Enter'){p.focus();}});}
+  if(p){p.addEventListener('keydown',function(e){if(e.key==='Enter'){doLogin();}});}
+  checkLogin();
+});
+</script>
+</body>
+</html>

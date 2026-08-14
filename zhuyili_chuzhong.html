@@ -1167,8 +1167,11 @@ body::after{
         var totalX = cptState.hits + cptState.misses;
         var hitRate = totalX > 0 ? cptState.hits / totalX : 0;
         var falseAlarmRate = cptState.falseAlarms / (cptState.correctRejections + cptState.falseAlarms + 0.001);
-        var dPrime = hitRate > 0 && hitRate < 1 && falseAlarmRate > 0 && falseAlarmRate < 1 ?
-            zScore(hitRate) - zScore(falseAlarmRate) : 0;
+        var dPrime = (function() {
+            var hAdj = (cptState.hits + 0.5) / (totalX + 1);
+            var fAdj = (cptState.falseAlarms + 0.5) / (cptState.correctRejections + cptState.falseAlarms + 1);
+            return zScore(hAdj) - zScore(fAdj);
+        })();
 
         testResults.cpt = {hitRate:hitRate * 100, falseAlarmRate:falseAlarmRate * 100, avgReactionTime:avgRT, dPrime:dPrime, rating:getCPTRating(dPrime)};
         showTestComplete('持续注意测试', '击中率 ' + (hitRate * 100).toFixed(0) + '% | d\'=' + dPrime.toFixed(2), getCPTRating(dPrime));
@@ -1693,7 +1696,7 @@ body::after{
             '<p class="test-hint">看到 <strong style="color:var(--warning);">M</strong> 请按空格键</p>' +
             '<div class="cpt-letter" id="context-letter"></div>' +
             '</div>' +
-            '<div class="test-controls"><button class="btn" id="context-start-btn" onclick="startContextTest()">开始（20秒后开启干扰）</button></div>';
+            '<div class="test-controls"><button class="btn" id="context-start-btn" onclick="startContextTest()">开始（8秒后开启干扰）</button></div>';
 
         container.innerHTML = html;
         document.getElementById('key-hint').style.display = 'flex';
@@ -1705,9 +1708,9 @@ body::after{
         document.getElementById('context-start-btn').style.display = 'none';
         document.addEventListener('keydown', handleContextKey);
 
-        setTimeout(function() { if (contextState.running) activateDistraction(); }, 20000);
-        setTimeout(function() { if (contextState.running) deactivateDistraction(); }, 40000);
-        setTimeout(function() { if (contextState.running) activateDistraction(); }, 55000);
+        setTimeout(function() { if (contextState.running) activateDistraction(); }, 8000);
+        setTimeout(function() { if (contextState.running) deactivateDistraction(); }, 16000);
+        setTimeout(function() { if (contextState.running) activateDistraction(); }, 24000);
 
         showContextStimulus();
     }
