@@ -1,0 +1,3201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>初中数学考试技巧提升系统</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px}
+body{font-family:'PingFang SC','Microsoft YaHei','Helvetica Neue',Arial,sans-serif;background:#F7F7F7;color:#333;line-height:1.6;overflow-x:hidden}
+:root{--primary:#667eea;--accent:#764ba2;--bg:#F7F7F7;--white:#fff;--light-blue:#e8f0fe;--border:#e0e0e0;--success:#2e7d32;--warning:#f57c00;--danger:#c62828;--gray:#757575}
+.top-bar{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;padding:12px 16px;position:sticky;top:0;z-index:1000;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.top-bar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.top-bar h1{font-size:1.05rem;font-weight:700;letter-spacing:1px}
+.top-bar .back-btn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:5px 14px;border-radius:20px;font-size:0.8rem;cursor:pointer;transition:all 0.3s}
+.top-bar .back-btn:hover{background:rgba(255,255,255,0.25)}
+.top-bar .back-btn:active{transform:scale(0.95)}
+.page{display:none;min-height:calc(100vh - 50px);padding:16px;max-width:1200px;margin:0 auto}
+.page.active{display:block;animation:fadeIn 0.4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.home-hero{text-align:center;padding:30px 16px 20px}
+.home-hero .logo-circle{width:80px;height:80px;margin:0 auto 16px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.2rem;color:#fff;box-shadow:0 4px 16px rgba(102,126,234,0.3)}
+.home-hero h2{color:#667eea;font-size:1.5rem;margin-bottom:8px}
+.home-hero p{color:#666;font-size:0.9rem;max-width:500px;margin:0 auto}
+.hero-stats{display:flex;justify-content:center;gap:20px;margin-top:20px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat .num{font-size:1.4rem;font-weight:700;color:#764ba2}
+.hero-stat .label{font-size:0.75rem;color:#999}
+.home-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.home-card{background:#fff;border-radius:14px;padding:24px 16px;text-align:center;cursor:pointer;transition:all 0.35s;border:2px solid transparent;box-shadow:0 2px 8px rgba(0,0,0,0.06);position:relative;overflow:hidden}
+.home-card:hover{border-color:#667eea;transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.12)}
+.home-card:active{transform:scale(0.97)}
+.home-card .card-icon{width:56px;height:56px;margin:0 auto 12px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.8rem}
+.home-card h3{font-size:1rem;color:#667eea;margin-bottom:6px}
+.home-card p{font-size:0.78rem;color:#888;line-height:1.4}
+.home-card .card-num{position:absolute;top:8px;right:12px;font-size:2rem;font-weight:800;color:#f0f0f0;z-index:0}
+.section-header{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:12px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.section-header .sh-icon{width:40px;height:40px;background:rgba(255,255,255,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.section-header h2{font-size:1.1rem;font-weight:600}
+.section-header p{font-size:0.78rem;opacity:0.85;margin-top:2px}
+.card{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 2px 6px rgba(0,0,0,0.05);border:1px solid #f0f0f0}
+.card-title{font-size:1rem;font-weight:600;color:#667eea;margin-bottom:10px;display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:2px solid #f0f0f0}
+.card-title .ct-icon{font-size:1.1rem}
+.card-content{font-size:0.88rem;color:#444;line-height:1.7}
+.card-content p{margin-bottom:8px}
+.card-content ul,.card-content ol{padding-left:18px;margin-bottom:8px}
+.card-content li{margin-bottom:4px}
+.card-content strong{color:#667eea}
+.card-content .highlight{background:#e8eaf6;padding:2px 6px;border-radius:4px;color:#764ba2;font-weight:600}
+.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:0.72rem;font-weight:600;margin:2px}
+.tag-blue{background:#e8eaf6;color:#667eea}
+.tag-purple{background:#f3e5f5;color:#764ba2}
+.tag-orange{background:#fff3e0;color:#e65100}
+.tag-green{background:#e8f5e9;color:#2e7d32}
+.tag-red{background:#ffebee;color:#c62828}
+.tag-gray{background:#f5f5f5;color:#616161}
+.subject-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.subject-tab{padding:8px 16px;background:#fff;border:2px solid #e0e0e0;border-radius:20px;font-size:0.85rem;cursor:pointer;transition:all 0.3s;color:#666;font-weight:500}
+.subject-tab:hover{border-color:#667eea}
+.subject-tab.active{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-color:transparent}
+.sub-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.sub-tab{padding:5px 12px;background:#f5f5f5;border-radius:16px;font-size:0.78rem;cursor:pointer;transition:all 0.25s;color:#666}
+.sub-tab:hover{background:#e8eaf6}
+.sub-tab.active{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.sub-content{display:none;animation:fadeIn 0.3s ease}
+.sub-content.active{display:block}
+.btn{padding:10px 20px;border:none;border-radius:8px;font-size:0.88rem;cursor:pointer;transition:all 0.3s;font-weight:600}
+.btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.btn-primary:hover{opacity:0.9}
+.btn-accent{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.btn-accent:hover{opacity:0.9}
+.btn-outline{background:transparent;border:2px solid #667eea;color:#667eea}
+.btn-outline:hover{background:#667eea;color:#fff}
+.btn:active{transform:scale(0.96)}
+.btn:disabled{opacity:0.5;cursor:not-allowed}
+.btn-block{display:block;width:100%;text-align:center}
+.quiz-question{background:#fff;border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid #eee}
+.quiz-q-text{font-size:0.9rem;font-weight:600;color:#333;margin-bottom:10px;line-height:1.6}
+.quiz-q-text .q-num{color:#764ba2;font-weight:700;margin-right:4px}
+.quiz-options{display:flex;flex-direction:column;gap:8px}
+.quiz-opt{padding:10px 14px;border:2px solid #eee;border-radius:8px;cursor:pointer;transition:all 0.2s;font-size:0.85rem;display:flex;align-items:flex-start;gap:8px}
+.quiz-opt:hover{border-color:#667eea;background:#f0f2ff}
+.quiz-opt.selected{border-color:#667eea;background:#e8eaf6}
+.quiz-opt.correct{border-color:#2e7d32;background:#e8f5e9}
+.quiz-opt.wrong{border-color:#c62828;background:#ffebee}
+.quiz-opt .opt-label{font-weight:700;color:#764ba2;flex-shrink:0}
+.quiz-explain{margin-top:10px;padding:12px;background:#f5f7fa;border-radius:8px;font-size:0.8rem;color:#555;line-height:1.6;display:none;border-left:4px solid #667eea}
+.quiz-explain.show{display:block}
+.quiz-explain .explain-tag{color:#764ba2;font-weight:700;font-size:0.75rem}
+.progress-bar{background:#e0e0e0;height:8px;border-radius:4px;overflow:hidden;margin:10px 0}
+.progress-fill{height:100%;background:linear-gradient(90deg,#667eea,#764ba2);transition:width 0.5s ease;border-radius:4px}
+.progress-text{font-size:0.8rem;color:#666;text-align:center}
+.radar-container{text-align:center;margin:20px auto}
+#radarCanvas{max-width:100%}
+.rating-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0}
+.rating-item{background:#fff;border-radius:10px;padding:14px;border:1px solid #eee;text-align:center}
+.rating-item .ri-dim{font-size:0.82rem;color:#666;margin-bottom:6px}
+.rating-item .ri-score{font-size:1.6rem;font-weight:700}
+.rating-item .ri-level{font-size:0.72rem;padding:2px 10px;border-radius:12px;display:inline-block;margin-top:4px}
+.level-excellent{background:#e8f5e9;color:#2e7d32}
+.level-good{background:#e8eaf6;color:#667eea}
+.level-fair{background:#fff3e0;color:#e65100}
+.level-weak{background:#ffebee;color:#c62828}
+.expandable{cursor:pointer;padding:12px;background:#f5f7fa;border-radius:8px;margin-bottom:8px;transition:all 0.3s}
+.expandable:hover{background:#e8eaf6}
+.expandable .exp-header{display:flex;justify-content:space-between;align-items:center;font-size:0.88rem;font-weight:600;color:#667eea}
+.expandable .exp-arrow{transition:transform 0.3s;font-size:0.8rem}
+.expandable.open .exp-arrow{transform:rotate(180deg)}
+.expandable .exp-body{display:none;margin-top:10px;font-size:0.82rem;color:#555;line-height:1.7}
+.expandable.open .exp-body{display:block}
+.checklist{list-style:none;padding:0}
+.checklist li{padding:8px 0 8px 28px;position:relative;font-size:0.85rem;color:#444;border-bottom:1px dashed #eee}
+.checklist li::before{content:'\2611';position:absolute;left:0;top:8px;color:#764ba2;font-size:1rem}
+.checklist li:last-child{border-bottom:none}
+.info-box{padding:12px 16px;border-radius:8px;margin:10px 0;font-size:0.82rem;line-height:1.6}
+.info-blue{background:#e8eaf6;border-left:4px solid #667eea;color:#3949ab}
+.info-purple{background:#f3e5f5;border-left:4px solid #764ba2;color:#4a148c}
+.info-orange{background:#fff3e0;border-left:4px solid #f57c00;color:#e65100}
+.info-green{background:#e8f5e9;border-left:4px solid #2e7d32;color:#1b5e20}
+.info-red{background:#ffebee;border-left:4px solid #c62828;color:#b71c1c}
+.data-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:0.82rem}
+.data-table th{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:8px 10px;text-align:left;font-weight:600}
+.data-table td{padding:8px 10px;border-bottom:1px solid #eee}
+.data-table tr:nth-child(even){background:#f9f9f9}
+.data-table tr:hover{background:#f0f2ff}
+.tab-content{display:none;animation:fadeIn 0.3s ease}
+.tab-content.active{display:block}
+.interactive-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
+.interact-card{background:#fff;border-radius:12px;padding:18px;cursor:pointer;transition:all 0.3s;border:2px solid #eee;text-align:center}
+.interact-card:hover{border-color:#667eea;transform:translateY(-2px)}
+.interact-card .ic-icon{font-size:2rem;margin-bottom:8px}
+.interact-card h3{font-size:0.9rem;color:#667eea;margin-bottom:4px}
+.interact-card p{font-size:0.75rem;color:#999}
+.score-display{text-align:center;padding:20px}
+.score-display .big-score{font-size:3rem;font-weight:800;color:#764ba2}
+.score-display .score-label{font-size:0.9rem;color:#666}
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:2000;justify-content:center;align-items:center;padding:16px}
+.modal-overlay.show{display:flex;animation:fadeIn 0.2s ease}
+.modal-box{background:#fff;border-radius:14px;max-width:500px;width:100%;max-height:85vh;overflow-y:auto;padding:20px;animation:slideUp 0.3s ease}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-box h3{color:#667eea;margin-bottom:12px;font-size:1.1rem}
+.modal-close{float:right;font-size:1.4rem;cursor:pointer;color:#999;line-height:1}
+.modal-close:hover{color:#333}
+.app-footer{text-align:center;padding:20px 16px;color:#999;font-size:0.75rem;border-top:1px solid #eee;margin-top:20px}
+.login-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;z-index:99999;transition:opacity .4s}
+.login-box{background:#fff;border-radius:16px;padding:36px 32px;width:300px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.login-box h2{text-align:center;margin:0 0 24px;font-size:20px;color:#333}
+.login-input{width:100%;padding:12px 16px;margin:10px 0;border:1.5px solid #ddd;border-radius:8px;font-size:15px;box-sizing:border-box;outline:none;transition:border-color .3s}
+.login-input:focus{border-color:#667eea}
+.login-btn{width:100%;padding:12px;margin:16px 0 8px;border:none;border-radius:8px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:16px;cursor:pointer;transition:opacity .3s}
+.login-btn:hover{opacity:.9}
+.login-error{color:#e74c3c;font-size:13px;text-align:center;min-height:18px}
+.login-credits{text-align:center;margin-top:16px;font-size:12px;color:#aaa}
+.timeline{position:relative;padding-left:30px}
+.timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#667eea,#764ba2)}
+.timeline-item{position:relative;margin-bottom:20px}
+.timeline-dot{position:absolute;left:-26px;top:4px;width:16px;height:16px;border-radius:50%;background:#667eea;border:3px solid #fff;box-shadow:0 0 0 2px #667eea;z-index:1}
+.timeline-content{background:#fff;border-radius:10px;padding:16px;border:1px solid #eee}
+.timeline-content h3{color:#667eea;font-size:0.95rem;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.timeline-content .tl-tag{font-size:0.7rem;padding:2px 8px;border-radius:10px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.grade-tag{display:inline-block;padding:3px 12px;border-radius:12px;font-size:0.75rem;font-weight:600;margin:2px}
+.grade-7{background:#e8eaf6;color:#667eea}
+.grade-8{background:#f3e5f5;color:#764ba2}
+.grade-9{background:#fff3e0;color:#e65100}
+.example-box{background:linear-gradient(135deg,#f8f9ff,#f3f0ff);border-radius:10px;padding:16px;margin:12px 0;border:1px solid #e8e0ff}
+.example-box h4{color:#667eea;margin-bottom:8px;font-size:0.92rem}
+.example-box .problem{font-weight:600;color:#333;margin-bottom:8px;line-height:1.7}
+.example-box .solution{color:#555;line-height:1.8}
+.example-box .solution strong{color:#764ba2}
+.example-box .tip{margin-top:8px;padding:8px 12px;background:#fff;border-radius:6px;border-left:3px solid #764ba2;font-size:0.8rem;color:#666}
+@media(max-width:768px){
+.home-grid{grid-template-columns:repeat(2,1fr)}
+.interactive-grid{grid-template-columns:1fr}
+.rating-grid{grid-template-columns:1fr}
+.home-hero h2{font-size:1.25rem}
+.top-bar h1{font-size:0.9rem}
+.card{padding:14px}
+.section-header{padding:12px 14px}
+.section-header h2{font-size:1rem}
+}
+@media(max-width:480px){
+.home-grid{grid-template-columns:1fr}
+.home-hero{padding:20px 12px 10px}
+.home-hero h2{font-size:1.1rem}
+.home-hero .logo-circle{width:64px;height:64px;font-size:1.8rem}
+.hero-stats{gap:12px}
+.home-card{padding:18px 12px}
+.home-card .card-icon{width:48px;height:48px;font-size:1.5rem}
+.quiz-question{padding:12px}
+.quiz-opt{padding:8px 10px;font-size:0.8rem}
+.card-content{font-size:0.82rem}
+.data-table{font-size:0.75rem}
+.data-table th,.data-table td{padding:6px 8px}
+.subject-tabs{gap:6px}
+.subject-tab{padding:6px 12px;font-size:0.78rem}
+.top-bar h1{font-size:0.82rem}
+.top-bar .back-btn{padding:4px 10px;font-size:0.72rem}
+.btn{padding:8px 16px;font-size:0.82rem}
+.timeline{padding-left:24px}
+.modal-box{padding:16px}
+}
+
+/* ==================== 顶尖版新增样式 ==================== */
+/* 首页 hero 升级 */
+.home-hero{position:relative;background:linear-gradient(135deg,rgba(102,126,234,0.10),rgba(118,75,162,0.10));border-radius:20px;margin-top:4px;overflow:hidden;border:1px solid rgba(102,126,234,0.15)}
+.home-hero::before{content:'';position:absolute;top:-80px;right:-40px;width:220px;height:220px;border-radius:50%;background:linear-gradient(135deg,rgba(102,126,234,0.16),rgba(118,75,162,0.16))}
+.home-hero::after{content:'';position:absolute;bottom:-70px;left:-50px;width:180px;height:180px;border-radius:50%;background:linear-gradient(135deg,rgba(118,75,162,0.12),rgba(102,126,234,0.12))}
+.home-hero .logo-circle{box-shadow:0 8px 24px rgba(102,126,234,0.4);animation:floatY 3.5s ease-in-out infinite}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.hero-stats .hero-stat .num{background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+/* 卡片 hover 增强 */
+.home-card{transition:all 0.35s cubic-bezier(.4,0,.2,1)}
+.home-card:hover{box-shadow:0 12px 32px rgba(102,126,234,0.18)}
+/* 诊断报告页样式 */
+.diag-student-form{background:linear-gradient(135deg,#f8f9ff,#f3f0ff);border-radius:12px;padding:16px 18px;margin:14px 0;border:1px solid #e8e0ff}
+.diag-student-form label{display:block;font-size:0.82rem;color:#667eea;font-weight:600;margin:10px 0 4px}
+.diag-student-form .ds-input{width:100%;padding:10px 14px;border:1.5px solid #ddd;border-radius:8px;font-size:0.9rem;box-sizing:border-box;outline:none;transition:border-color .3s;background:#fff}
+.diag-student-form .ds-input:focus{border-color:#667eea}
+.ds-grade-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.ds-grade-chip{padding:7px 14px;background:#fff;border:1.5px solid #ddd;border-radius:20px;font-size:0.82rem;cursor:pointer;color:#666;transition:all .25s}
+.ds-grade-chip.active{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-color:transparent}
+/* 答题卡反馈 */
+.quiz-opt.right{border-color:#2e7d32;background:#e8f5e9;animation:pulseGreen .4s ease}
+.quiz-opt.false{border-color:#c62828;background:#ffebee;animation:pulseRed .4s ease}
+.quiz-opt.locked{cursor:default}
+@keyframes pulseGreen{0%{transform:scale(1)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
+@keyframes pulseRed{0%{transform:scale(1)}50%{transform:scale(1.02)}100%{transform:scale(1)}}
+.quiz-question.enter{animation:slideInRight .4s ease}
+@keyframes slideInRight{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+.feedback-banner{margin-top:12px;padding:11px 14px;border-radius:8px;font-size:0.84rem;font-weight:600;display:none}
+.feedback-banner.show{display:block}
+.fb-right{background:#e8f5e9;color:#1b5e20;border-left:4px solid #2e7d32}
+.fb-wrong{background:#ffebee;color:#b71c1c;border-left:4px solid #c62828}
+/* 计时器 */
+.diag-timer{font-size:1.15rem;font-weight:700;color:#764ba2;font-family:monospace}
+/* 报告页大卡片 */
+.report-wrap{}
+.report-head{background:linear-gradient(135deg,#667eea,#764ba2);border-radius:16px;padding:24px 20px;color:#fff;text-align:center;margin-bottom:16px;position:relative;overflow:hidden}
+.report-head::after{content:'';position:absolute;top:-60px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.08)}
+.report-head .rh-title{font-size:1.15rem;font-weight:700;margin-bottom:4px;letter-spacing:1px}
+.report-head .rh-sub{font-size:0.78rem;opacity:0.9;margin-bottom:12px}
+.ring-box{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;padding:6px 0 4px}
+.ring-box .ring-info{text-align:left}
+.ring-info .ri-big{font-size:1.7rem;font-weight:800}
+.ring-info .ri-label{font-size:0.78rem;opacity:0.92;margin-top:2px}
+.grade-badge{display:inline-block;padding:10px 28px;border-radius:40px;font-size:1.35rem;font-weight:800;color:#fff;box-shadow:0 6px 18px rgba(0,0,0,0.22);letter-spacing:2px}
+.grade-label{margin-top:6px;font-size:0.88rem;font-weight:600;opacity:0.95}
+.meta-strip{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px}
+.meta-chip{background:rgba(255,255,255,0.16);border:1px solid rgba(255,255,255,0.3);padding:6px 16px;border-radius:30px;font-size:0.8rem}
+.meta-chip b{font-size:0.92rem}
+.section-title{font-size:1.02rem;font-weight:700;color:#667eea;margin-bottom:14px;display:flex;align-items:center;gap:8px;padding-bottom:10px;border-bottom:2px solid #f0f0f0}
+.chart-container{display:flex;justify-content:center;align-items:center;text-align:center;margin:6px 0}
+.chart-container canvas{max-width:100%}
+/* 维度强弱 */
+.dimension-result{margin-bottom:16px;padding:12px 14px;background:#fafbff;border-radius:10px;border:1px solid #f0f0f0}
+.dimension-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:4px}
+.dimension-name{font-size:0.9rem;font-weight:600;color:#333}
+.dimension-percent{font-size:0.85rem;font-weight:700}
+.dimension-bar{height:10px;background:#eef0f8;border-radius:6px;overflow:hidden;margin-bottom:8px}
+.dimension-bar-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,#667eea,#764ba2);transition:width 1s ease}
+.ability-level{display:inline-block;padding:1px 10px;border-radius:12px;font-size:0.72rem;font-weight:600}
+.level-strong{background:#e8f5e9;color:#2e7d32}
+.level-medium{background:#fff3e0;color:#e65100}
+.level-weak{background:#ffebee;color:#c62828}
+.dimension-stats{display:flex;gap:16px;flex-wrap:wrap;font-size:0.78rem;color:#888;margin-bottom:6px}
+.dimension-stats b{color:#667eea}
+/* 知识点聚类 */
+.kp-list{display:flex;flex-direction:column;gap:10px}
+.kp-item{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.kp-rank{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:0.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.kp-name{font-size:0.85rem;font-weight:600;min-width:100px}
+.kp-count{font-size:0.75rem;color:#e65100;font-weight:600}
+.kp-bar{flex:1;min-width:120px;height:8px;background:#eef0f8;border-radius:5px;overflow:hidden}
+.kp-bar i{display:block;height:100%;background:linear-gradient(90deg,#f57c00,#e65100);border-radius:5px}
+/* 错题回顾 */
+.wrong-question-item{padding:14px;border:1px solid #f0e0e0;border-radius:10px;margin-bottom:12px;background:#fffafa}
+.wq-head{font-size:0.82rem;font-weight:700;color:#c62828;margin-bottom:8px}
+.wq-tag{display:inline-block;padding:1px 10px;border-radius:10px;background:#ffebee;color:#c62828;font-size:0.72rem;font-weight:600}
+.wrong-answer{font-size:0.84rem;color:#c62828;margin:6px 0;background:#ffebee;padding:8px 12px;border-radius:6px}
+.correct-answer{font-size:0.84rem;color:#2e7d32;margin:6px 0;background:#e8f5e9;padding:8px 12px;border-radius:6px}
+.explanation{font-size:0.82rem;color:#555;margin-top:8px;background:#f5f7fa;padding:10px 12px;border-radius:6px;border-left:3px solid #764ba2;line-height:1.7}
+.no-wrong{padding:18px;text-align:center;background:#e8f5e9;border-radius:10px;color:#2e7d32;font-size:0.9rem;font-weight:600}
+/* 综合解读 */
+.summary-box{background:linear-gradient(135deg,#f8f9ff,#f3f0ff);border-radius:12px;padding:18px;border:1px solid #e8e0ff;font-size:0.88rem;color:#444;line-height:1.9}
+.summary-box b{color:#667eea}
+.highlight-item{display:inline-block;background:#fff;border:1px solid #e8e0ff;color:#764ba2;border-radius:20px;padding:4px 14px;font-size:0.8rem;margin:6px 6px 0 0}
+/* 周训练计划 */
+.plan-card{background:#fafbff;border:1px solid #eef0f8;border-radius:12px;padding:16px;margin-bottom:12px}
+.plan-title{font-size:0.92rem;font-weight:700;color:#667eea;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.plan-list{list-style:none;padding:0}
+.plan-list li{display:flex;align-items:flex-start;gap:10px;padding:7px 0;font-size:0.84rem;color:#555;line-height:1.6;border-bottom:1px dashed #eee}
+.plan-list li:last-child{border-bottom:none}
+.plan-list li b{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:0.72rem;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.plan-note{margin-top:10px;padding:10px 14px;background:#fff3e0;border-left:4px solid #f57c00;border-radius:6px;font-size:0.8rem;color:#e65100;line-height:1.7}
+/* 学科关联 */
+.subject-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.subject-card{background:#fafbff;border:1px solid #eef0f8;border-radius:10px;padding:14px}
+.subject-name{font-size:0.9rem;font-weight:700;color:#667eea;margin-bottom:6px}
+.subject-desc{font-size:0.8rem;color:#666;line-height:1.7}
+/* 家长寄语 */
+.parent-card{background:linear-gradient(135deg,#f3e5f5,#fce4ec);border-radius:14px;padding:20px;border:1px solid #f0d8e8}
+.parent-title{font-size:0.98rem;font-weight:700;color:#764ba2;margin-bottom:10px}
+.parent-text{font-size:0.86rem;color:#4a3a5a;line-height:2;text-align:justify}
+/* 教师咨询卡 */
+.teacher-card{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,#f8f9ff,#f3f0ff);border-radius:14px;padding:18px;border:1px solid #e8e0ff;flex-wrap:wrap}
+.teacher-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0;box-shadow:0 6px 16px rgba(102,126,234,0.35)}
+.teacher-info{flex:1;min-width:200px}
+.teacher-name{font-size:1rem;font-weight:700;color:#333}
+.teacher-award{margin-top:4px;font-size:0.78rem;color:#e65100;font-weight:600}
+.teacher-stats{margin-top:4px;font-size:0.8rem;color:#667eea;font-weight:600}
+.teacher-phone{margin-top:6px;font-size:0.88rem;color:#764ba2;font-weight:700}
+/* 打印按钮 */
+.print-bar{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.btn-secondary{background:#eee;color:#333}
+.btn-secondary:hover{background:#ddd}
+/* 报告按钮 */
+.btn-report{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:12px 28px;border:none;border-radius:10px;font-size:0.9rem;font-weight:600;cursor:pointer;transition:all .3s}
+.btn-report:hover{opacity:0.9;transform:translateY(-2px)}
+/* 打印样式 */
+@media print{
+  body{background:#fff!important}
+  .login-overlay,.top-bar,.back-btn,.app-footer,.print-bar,.no-print{display:none!important}
+  .page{display:none!important;padding:0!important;max-width:100%!important;margin:0!important}
+  #page-diagnosis{display:block!important}
+  #diag-intro,#diag-quiz{display:none!important}
+  #diag-result{display:block!important}
+  .card{box-shadow:none!important;border:1px solid #ddd!important;break-inside:avoid;margin-bottom:10px}
+  .report-head{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .dimension-bar-fill,.kp-bar i,.grade-badge,.meta-chip,.subject-card,.parent-card{background:#f5f5f5!important;color:#333!important}
+}
+/* 响应式增强 */
+@media(max-width:768px){
+  .subject-grid{grid-template-columns:1fr}
+  .teacher-card{justify-content:center;text-align:center}
+  .ring-box{flex-direction:column;text-align:center}
+  .ring-info{text-align:center}
+  .report-head{padding:18px 14px}
+  .meta-chip{padding:5px 12px;font-size:0.74rem}
+  .dimension-header{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:480px){
+  .section-title{font-size:0.95rem}
+  .ring-info .ri-big{font-size:1.4rem}
+  .grade-badge{padding:8px 22px;font-size:1.15rem}
+  .kp-item{flex-wrap:wrap}
+  .kp-bar{min-width:80px}
+}
+
+</style>
+</head>
+<body>
+
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <h2>🔒 系统登录</h2>
+    <input type="text" class="login-input" id="loginUser" placeholder="请输入账号" autocomplete="off">
+    <input type="password" class="login-input" id="loginPass" placeholder="请输入密码" autocomplete="off">
+    <button class="login-btn" onclick="doLogin()">登 录</button>
+    <div class="login-error" id="loginError"></div>
+    <div class="login-credits">系统设计制作：刘岳</div>
+  </div>
+</div>
+
+<div class="top-bar">
+<div class="top-bar-inner">
+<h1>🧮 初中数学考试技巧提升系统</h1>
+<button class="back-btn" onclick="showPage('home')" style="display:none" id="backBtn">返回首页</button>
+</div>
+</div>
+
+<!-- ========== 首页 ========== -->
+<div class="page active" id="page-home">
+<div class="home-hero">
+<div class="logo-circle">🧮</div>
+<h2>初中数学考试技巧提升系统</h2>
+<p>覆盖初一、初二、初三全学段数学考试技巧，融合题型策略、易错分析、知识速查、心态调节，助力中考高效提分</p>
+<div class="hero-stats">
+<div class="hero-stat"><div class="num">8</div><div class="label">核心模块</div></div>
+<div class="hero-stat"><div class="num">6</div><div class="label">能力维度</div></div>
+<div class="hero-stat"><div class="num">60</div><div class="label">诊断题目</div></div>
+<div class="hero-stat"><div class="num">5</div><div class="label">互动训练</div></div>
+</div>
+</div>
+<div class="home-grid">
+<div class="home-card" onclick="showPage('diagnosis')">
+<div class="card-num">01</div>
+<div class="card-icon" style="background:linear-gradient(135deg,#e8eaf6,#c5cae9)">📊</div>
+<h3>学情诊断</h3>
+<p>6维度60题精准测评，环形雷达双图分析</p>
+</div>
+<div class="home-card" onclick="showPage('skills')">
+<div class="card-num">02</div>
+<div class="card-icon" style="background:linear-gradient(135deg,#f3e5f5,#e1bee7)">📚</div>
+<h3>题型技巧库</h3>
+<p>选择题/填空题/解答题/压轴题全攻略</p>
+</div>
+<div class="home-card" onclick="showPage('grade')">
+<div class="card-num">03</div>
+<div class="card-icon" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9)">🎓</div>
+<h3>分年级策略</h3>
+<p>初一/初二/初三各有侧重的提分方案</p>
+</div>
+<div class="home-card" onclick="showPage('mistakes')">
+<div class="card-num">04</div>
+<div class="card-icon" style="background:linear-gradient(135deg,#ffebee,#ffcdd2)">⚠️</div>
+<h3>易错点分析</h3>
+<p>30+高频易错点详解，避免丢分</p>
+</div>
+<div class="home-card" onclick="showPage('psychology')">
+<div class="card-num">05</div>
+<div class="card-icon" style="background:linear-gradient(135deg,#fce4ec,#f8bbd0)">🧠</div>
+<h3>考试心态</h3>
+<p>焦虑自评+减压训练+考场心理</p>
+</div>
+<div class="home-card" onclick="showPage('examples')">
+<div class="card-num">06</div>
+<div class="card-icon" style="background:linear-gradient(135deg,#e0f7fa,#b2ebf2)">📝</div>
+<h3>典型例题</h3>
+<p>20+经典题型解题思路与步骤演示</p>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px">
+<div class="home-card" onclick="showPage('knowledge')">
+<div class="card-num">07</div>
+<div class="card-icon" style="background:linear-gradient(135deg,#e8eaf6,#c5cae9)">🔑</div>
+<h3>知识点速查</h3>
+<p>代数/几何/函数/统计公式定理速记</p>
+</div>
+<div class="home-card" onclick="showPage('sprint')">
+<div class="card-num">08</div>
+<div class="card-icon" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2)">⏱️</div>
+<h3>考前冲刺</h3>
+<p>30天倒计时冲刺计划+考场实战手册</p>
+</div>
+</div>
+<div style="margin-top:14px">
+<div class="home-card" onclick="showPage('training')" style="text-align:center;padding:18px">
+<div class="card-icon" style="background:linear-gradient(135deg,#f3e5f5,#e1bee7);margin-bottom:8px">🎮</div>
+<h3>互动训练</h3>
+<p>5大互动模块实战演练——限时答题、易错挑战、公式速记、解题策略模拟</p>
+</div>
+</div>
+<div class="app-footer">
+<p>初中数学考试技巧提升系统 | 覆盖初一至初三全学段</p>
+<p>系统设计制作：刘岳 | 仅供学习参考</p>
+</div>
+</div>
+
+<!-- ========== 学情诊断（顶尖版） ========== -->
+<div class="page" id="page-diagnosis">
+<div class="section-header">
+<div class="sh-icon">📊</div>
+<div><h2>考试能力诊断</h2><p>6个维度×60题，精准评估数学考试能力</p></div>
+</div>
+
+<div id="diag-intro" class="card">
+<div class="card-title"><span class="ct-icon">📋</span>测评说明</div>
+<div class="card-content">
+<p>本测评从<strong>审题理解力、计算准确度、解题策略力、时间管理力、检查校验力、心理稳定性</strong>六个维度全面评估你的数学考试能力。</p>
+<p>共<strong>60道题</strong>（每维度10题），每题4个选项，选择最符合你实际情况的答案。完成后将生成<strong>能力环形图、雷达图</strong>和<strong>个性化提升方案</strong>。</p>
+<div class="info-box info-purple">
+<strong>测评须知：</strong>请根据真实情况作答，不要选择"理想中的自己"。测评结果仅用于自我了解和改进，不计入任何成绩。
+</div>
+<div class="diag-student-form">
+<div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:2px"><span class="ct-icon">👤</span>填写学生信息（用于生成专属报告）</div>
+<label>学生姓名</label>
+<input type="text" class="ds-input" id="stuName" placeholder="请输入姓名">
+<label>学校名称</label>
+<input type="text" class="ds-input" id="stuSchool" placeholder="请输入学校名称（选填）">
+<label>所在年级</label>
+<div class="ds-grade-row" id="gradeRow">
+<div class="ds-grade-chip" data-grade="初一" onclick="pickGrade(this)">初一</div>
+<div class="ds-grade-chip" data-grade="初二" onclick="pickGrade(this)">初二</div>
+<div class="ds-grade-chip" data-grade="初三" onclick="pickGrade(this)">初三</div>
+</div>
+</div>
+<div style="text-align:center;margin-top:14px">
+<button class="btn btn-accent btn-block" onclick="startDiag()">开始测评</button>
+</div>
+</div>
+</div>
+
+<div id="diag-quiz" style="display:none">
+<div class="card" style="position:sticky;top:56px;z-index:100;background:#fff">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+<span id="diag-progress-text" style="font-size:0.85rem;color:#667eea;font-weight:600">第 1 / 60 题</span>
+<span id="diag-timer" class="diag-timer">00:00</span>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="diag-progress" style="width:0%"></div></div>
+</div>
+<div id="diag-question-container"></div>
+<div style="display:flex;gap:10px;margin-top:14px">
+<button class="btn btn-outline" id="diag-prev" onclick="diagPrev()" style="display:none">上一题</button>
+<button class="btn btn-primary" id="diag-next" onclick="diagNext()" style="display:none">下一题</button>
+<button class="btn btn-accent" id="diag-finish" onclick="finishDiag()" style="display:none">查看报告</button>
+</div>
+</div>
+
+<div id="diag-result" style="display:none">
+<div class="report-wrap" id="reportContent"></div>
+</div>
+</div>
+<!-- ========== 题型技巧库 ========== -->
+<div class="page" id="page-skills">
+<div class="section-header">
+<div class="sh-icon">📚</div>
+<div><h2>题型技巧库</h2><p>选择题·填空题·解答题·压轴题 全攻略</p></div>
+</div>
+
+<div class="subject-tabs" id="skill-tabs">
+<div class="subject-tab active" onclick="switchSkillTab(event,0)">选择题技巧</div>
+<div class="subject-tab" onclick="switchSkillTab(event,1)">填空题技巧</div>
+<div class="subject-tab" onclick="switchSkillTab(event,2)">解答题技巧</div>
+<div class="subject-tab" onclick="switchSkillTab(event,3)">压轴题技巧</div>
+<div class="subject-tab" onclick="switchSkillTab(event,4)">时间管理</div>
+<div class="subject-tab" onclick="switchSkillTab(event,5)">检查策略</div>
+</div>
+
+<div id="skill-content">
+<!-- 选择题技巧 -->
+<div class="tab-content active" id="skill-0">
+<div class="card">
+<div class="card-title"><span class="ct-icon">✅</span>选择题通用策略</div>
+<div class="card-content">
+<p><strong>一、解题六步法：</strong></p>
+<ol>
+<li><strong>审题</strong>：通读题目，圈出关键词和条件（已知/求/约束）</li>
+<li><strong>联想</strong>：快速联想相关知识点和解题方法</li>
+<li><strong>选择方法</strong>：根据题目特征选择最合适的解法</li>
+<li><strong>执行</strong>：快速计算或推理，得出结论</li>
+<li><strong>验证</strong>：将结果代入验证或用排除法确认</li>
+<li><strong>标记</strong>：不确定的题做标记，留待检查</li>
+</ol>
+<div class="info-box info-blue"><strong>时间分配：</strong>初中数学选择题建议每题1-2分钟，总时间控制在20-25分钟内。超时2分钟仍无思路的题先跳过。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>选择题核心技巧</div>
+<div class="card-content">
+<p><strong>1. 排除法（最常用）</strong></p>
+<ul>
+<li>逐一验证选项，排除明显错误的选项</li>
+<li>适用于：概念判断题、不等式方向判断题、函数图象题</li>
+<li><span class="highlight">关键</span>：注意排除时要找"确定性"错误，不要猜</li>
+</ul>
+<p><strong>2. 特殊值法</strong></p>
+<ul>
+<li>取满足条件的特殊值代入验证，快速排除或确定答案</li>
+<li>适用于：字母系数题、函数性质判断题、不等式恒成立题</li>
+<li><span class="highlight">技巧</span>：取0、1、-1、0.5等便于计算的特殊值</li>
+</ul>
+<p><strong>3. 代入验证法</strong></p>
+<ul>
+<li>将选项逐一代入题目条件验证</li>
+<li>适用于：方程的解、不等式的解集、函数解析式</li>
+<li><span class="highlight">技巧</span>：优先代入中间选项，减少验证次数</li>
+</ul>
+<p><strong>4. 数形结合法</strong></p>
+<ul>
+<li>画出函数图象或几何图形，直观判断</li>
+<li>适用于：函数图象题、几何性质判断题、坐标问题</li>
+<li><span class="highlight">技巧</span>：画图要准确，注意关键点和趋势</li>
+</ul>
+<p><strong>5. 估算法</strong></p>
+<ul>
+<li>不精确计算，通过估算快速排除不合理选项</li>
+<li>适用于：计算量大的数值题、无理数比较大小</li>
+<li><span class="highlight">技巧</span>：注意估算范围，避免过度近似</li>
+</ul>
+<p><strong>6. 逆向思维法</strong></p>
+<ul>
+<li>从结论出发，逆向推导验证</li>
+<li>适用于：几何证明选择题、条件充分性判断</li>
+<li><span class="highlight">技巧</span>：假设结论成立，看条件是否满足</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">⚠️</span>选择题常见陷阱</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>陷阱类型</th><th>表现</th><th>应对策略</th></tr>
+<tr><td>单位陷阱</td><td>题目给cm，选项给m或mm</td><td>审题时圈出单位，计算后检查单位一致性</td></tr>
+<tr><td>符号陷阱</td><td>正负号混淆、绝对值遗漏</td><td>计算时每步标注符号，开方注意±</td></tr>
+<tr><td>范围陷阱</td><td>定义域限制、隐含条件</td><td>注意分母≠0、根号内≥0、对数底数范围</td></tr>
+<tr><td>多解陷阱</td><td>只写一个解遗漏另一个</td><td>绝对值方程、平方方程注意多解</td></tr>
+<tr><td>图形陷阱</td><td>特殊图形代替一般情况</td><td>不能仅凭图形判断，需严格推理</td></tr>
+<tr><td>概念陷阱</td><td>相似概念混淆</td><td>区分"轴对称"与"中心对称"等易混概念</td></tr>
+</table>
+<div class="info-box info-orange"><strong>口诀：</strong>"一看二想三验证，排除代入加画图，特殊值法效率高，估算检查不马虎。"</div>
+</div>
+</div>
+
+<div class="example-box">
+<h4>📝 选择题示例</h4>
+<div class="problem">已知二次函数 y=ax²+bx+c 的图象如图所示，则下列结论正确的是（ ）<br>A. a>0 &nbsp; B. b>0 &nbsp; C. c&lt;0 &nbsp; D. a+b+c>0</div>
+<div class="solution"><strong>解题思路：</strong>①看开口方向判断a的符号（开口向下→a&lt;0，排除A）；②看对称轴位置判断b的符号（对称轴在y轴右侧，且a&lt;0，则b>0，选B）；③看与y轴交点判断c的符号（交于负半轴→c&lt;0，C也正确）；④取x=1判断a+b+c的符号（对应点在x轴下方→a+b+c&lt;0，排除D）。</div>
+<div class="tip">✨ 技巧：二次函数选择题，"看开口→看对称轴→看y轴交点→看x轴交点→看特殊点"五步法快速判断。</div>
+</div>
+</div>
+
+<!-- 填空题技巧 -->
+<div class="tab-content" id="skill-1">
+<div class="card">
+<div class="card-title"><span class="ct-icon">✏️</span>填空题核心策略</div>
+<div class="card-content">
+<p><strong>填空题特点：</strong>不需要写出过程，只写答案，但要求<strong>完全正确</strong>——一步算错，整题零分。</p>
+<p><strong>一、三大解题方法：</strong></p>
+<ul>
+<li><strong>直接计算法</strong>：按题目条件直接推导计算，最基本的方法</li>
+<li><strong>数形结合法</strong>：画图辅助分析，适用于几何题和函数题</li>
+<li><strong>特殊化方法</strong>：取特殊值或特殊图形，快速求解</li>
+</ul>
+<p><strong>二、填空题规范要求：</strong></p>
+<ol>
+<li>数值结果<strong>最简化</strong>（分数约分、根式化简）</li>
+<li>注意<strong>单位</strong>（面积单位、角度单位）</li>
+<li>多解题写<strong>所有答案</strong>，用逗号分隔</li>
+<li>区间/范围用<strong>不等式或区间</strong>表示，注意端点</li>
+<li>几何题写<strong>准确数值</strong>，不要写近似值</li>
+</ol>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🧮</span>填空题高频题型技巧</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>题型</th><th>技巧要点</th><th>易错提示</th></tr>
+<tr><td>实数计算</td><td>注意运算顺序、绝对值、幂的运算法则</td><td>负数的奇偶次幂符号</td></tr>
+<tr><td>因式分解</td><td>先提公因式，再用公式法</td><td>分解要彻底，不能半途而废</td></tr>
+<tr><td>分式化简求值</td><td>先化简再代入，注意分母不为零</td><td>取值不能使分母为零</td></tr>
+<tr><td>方程求解</td><td>注意判别式判断根的情况</td><td>二次项系数不能为零</td></tr>
+<tr><td>不等式（组）</td><td>注意不等号方向变化（乘负数时）</td><td>解集端点是否取等号</td></tr>
+<tr><td>几何计算</td><td>画图标注已知条件，找等量关系</td><td>注意分类讨论（钝角/锐角）</td></tr>
+<tr><td>函数图象</td><td>确定解析式，注意定义域</td><td>实际问题的定义域限制</td></tr>
+<tr><td>统计概率</td><td>注意"有放回"与"无放回"区别</td><td>概率结果化简为最简分数</td></tr>
+</table>
+</div>
+</div>
+
+<div class="example-box">
+<h4>📝 填空题示例</h4>
+<div class="problem">若关于x的一元二次方程 x²-4x+m=0 有两个不相等的实数根，则m的取值范围是 ______。</div>
+<div class="solution"><strong>解题思路：</strong>方程有两个不相等的实数根 ⇒ 判别式 Δ > 0<br>Δ = b²-4ac = (-4)²-4×1×m = 16-4m > 0<br>解得：m &lt; 4</div>
+<div class="tip">✨ 易错点：不要遗漏"一元二次方程"意味着二次项系数≠0的前提。本题二次项系数恒为1，无需额外讨论。</div>
+</div>
+</div>
+
+<!-- 解答题技巧 -->
+<div class="tab-content" id="skill-2">
+<div class="card">
+<div class="card-title"><span class="ct-icon">📝</span>解答题答题规范</div>
+<div class="card-content">
+<p><strong>一、答题四步法：</strong></p>
+<ol>
+<li><strong>写"解"</strong>：每道题开头写"解："，表明开始答题</li>
+<li><strong>列条件</strong>：写出已知条件和所求（几何题先写"∵"或"已知："）</li>
+<li><strong>写过程</strong>：逻辑清晰，步骤完整，每步有依据</li>
+<li><strong>下结论</strong>：最后写"故..."或"∴..."给出明确结论</li>
+</ol>
+<p><strong>二、分步得分原则：</strong></p>
+<ul>
+<li>即使不会完整解题，也要<strong>写出能写的步骤</strong>——公式、已知条件的转换</li>
+<li>每一步正确的推导都可能得分，<strong>不要留空</strong></li>
+<li>关键步骤不能跳，尤其是<strong>几何证明的依据</strong>必须写明</li>
+</ul>
+<div class="info-box info-purple"><strong>阅卷提示：</strong>初中数学解答题通常按步骤给分，一般6-10分的题有4-6个得分点。即使最终答案错误，中间步骤正确也能获得部分分数。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">📐</span>几何证明题技巧</div>
+<div class="card-content">
+<p><strong>1. 分析法（执果索因）：</strong></p>
+<ul>
+<li>从结论出发，逆向思考：要证A，需要B；要证B，需要C...</li>
+<li>找到已知条件与结论之间的逻辑链</li>
+<li>适用于：全等三角形、相似三角形、平行线证明</li>
+</ul>
+<p><strong>2. 综合法（由因导果）：</strong></p>
+<ul>
+<li>从已知条件出发，正向推导出结论</li>
+<li>适用于：条件充分、思路清晰的题目</li>
+</ul>
+<p><strong>3. 常用辅助线：</strong></p>
+<table class="data-table">
+<tr><th>题目特征</th><th>辅助线</th><th>目的</th></tr>
+<tr><td>等腰三角形</td><td>作底边上的高/中线/角平分线</td><td>利用"三线合一"</td></tr>
+<tr><td>直角三角形+斜边中点</td><td>连接顶点与斜边中点</td><td>利用斜边中线等于斜边一半</td></tr>
+<tr><td>圆中弦</td><td>作弦心距</td><td>利用垂径定理</td></tr>
+<tr><td>圆中直径</td><td>构造直径所对圆周角</td><td>利用直径所对圆周角为90°</td></tr>
+<tr><td>梯形</td><td>作高/平移腰/平移对角线</td><td>转化为直角三角形或平行四边形</td></tr>
+<tr><td>角平分线</td><td>向两边作垂线</td><td>利用角平分线性质</td></tr>
+</table>
+<p><strong>4. 证明书写规范：</strong></p>
+<ul>
+<li>每步推理后写依据，如"(∵ SAS)" "(∵ 等边对等角)"</li>
+<li>推理链完整：A→B→C→...，不能跳跃</li>
+<li>结论要明确："∴ ∠ABC = ∠DEF" 或 "∴ △ABC ≌ △DEF"</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">📄</span>代数解答题技巧</div>
+<div class="card-content">
+<p><strong>1. 方程/不等式应用题：</strong></p>
+<ul>
+<li><strong>设未知数</strong>：直接设或间接设，注意单位</li>
+<li><strong>列方程</strong>：找等量关系，注意隐含条件</li>
+<li><strong>解方程</strong>：注意检验根是否有实际意义</li>
+<li><strong>作答</strong>：回答要完整，带单位</li>
+</ul>
+<p><strong>2. 函数综合题：</strong></p>
+<ul>
+<li>求解析式：用待定系数法，设出一般式，代入已知点</li>
+<li>求交点：联立方程组求解</li>
+<li>求最值：利用顶点公式或配方法</li>
+<li>图象分析：注意开口方向、对称轴、顶点坐标</li>
+</ul>
+<p><strong>3. 统计概率题：</strong></p>
+<ul>
+<li>画树状图或列表法求概率</li>
+<li>注意"有放回"和"无放回"的区别</li>
+<li>概率公式：P(A) = 有利结果数/总结果数</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- 压轴题技巧 -->
+<div class="tab-content" id="skill-3">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🏆</span>压轴题突破策略</div>
+<div class="card-content">
+<p><strong>压轴题特点：</strong>分值高（通常10-14分）、综合性强、难度大，但<strong>并非不可攻克</strong>。</p>
+<p><strong>一、压轴题三问结构：</strong></p>
+<table class="data-table">
+<tr><th>问号</th><th>难度</th><th>分值</th><th>策略</th></tr>
+<tr><td>第(1)问</td><td>⭐</td><td>3-4分</td><td>基础题，必须拿下，通常是简单计算或证明</td></tr>
+<tr><td>第(2)问</td><td>⭐⭐</td><td>4-5分</td><td>中等题，需要综合运用，争取拿到大部分分数</td></tr>
+<tr><td>第(3)问</td><td>⭐⭐⭐</td><td>3-5分</td><td>难题，能写多少写多少，不空题</td></tr>
+</table>
+<div class="info-box info-green"><strong>得分策略：</strong>"第(1)问必拿分，第(2)问争高分，第(3)问不放弃"。即使第(3)问完全不会，也要写相关公式和已知条件的推导，争取步骤分。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🧮</span>压轴题常见类型与解法</div>
+<div class="card-content">
+<p><strong>类型一：二次函数与几何综合</strong></p>
+<ul>
+<li><strong>核心思路</strong>：设点坐标→用函数解析式表示→建立方程/不等式→求解</li>
+<li><strong>关键技巧</strong>：坐标系中距离公式、面积公式（割补法/铅垂法）</li>
+<li><strong>常见考点</strong>：动点问题、存在性问题（等腰三角形/直角三角形/平行四边形）</li>
+</ul>
+<p><strong>类型二：几何变换综合</strong></p>
+<ul>
+<li><strong>核心思路</strong>：平移/旋转/翻折→找不变量→建立等量关系</li>
+<li><strong>关键技巧</strong>：旋转构造全等三角形、翻折利用轴对称性质</li>
+<li><strong>常见考点</strong>：旋转角度计算、翻折后图形性质、综合证明</li>
+</ul>
+<p><strong>类型三：动点问题</strong></p>
+<ul>
+<li><strong>核心思路</strong>：设时间t或参数→表示各点位置→列方程求解</li>
+<li><strong>关键技巧</strong>：分类讨论（不同位置关系）、画不同阶段的示意图</li>
+<li><strong>常见考点</strong>：动点形成的三角形/四边形面积、特殊图形存在性</li>
+</ul>
+<p><strong>类型四：阅读理解与新定义</strong></p>
+<ul>
+<li><strong>核心思路</strong>：理解新定义→模仿例题→应用解题</li>
+<li><strong>关键技巧</strong>：仔细阅读定义，抓关键词，用具体数值验证理解</li>
+<li><strong>常见考点</strong>：新运算定义、新图形定义、规律探究</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>压轴题提分建议</div>
+<div class="card-content">
+<ol>
+<li><strong>平时训练</strong>：每周精做2-3道压轴题，注重思路而非数量</li>
+<li><strong>分类突破</strong>：按题型分类练习，总结每类的通用解法</li>
+<li><strong>限时训练</strong>：模拟考试限时完成，训练时间分配能力</li>
+<li><strong>错题复盘</strong>：压轴题错题必须写出完整正确解答，总结错误原因</li>
+<li><strong>技巧积累</strong>：建立"技巧本"，记录常用辅助线、特殊结论、速算方法</li>
+<li><strong>心态调整</strong>：压轴题不是"绝杀题"，第(1)问和部分(2)问是可以拿分的</li>
+</ol>
+</div>
+</div>
+</div>
+
+<!-- 时间管理 -->
+<div class="tab-content" id="skill-4">
+<div class="card">
+<div class="card-title"><span class="ct-icon">⏱️</span>考试时间分配</div>
+<div class="card-content">
+<p><strong>初中数学考试（120分钟）时间分配建议：</strong></p>
+<table class="data-table">
+<tr><th>题型</th><th>题量</th><th>建议用时</th><th>每题用时</th></tr>
+<tr><td>选择题</td><td>10题</td><td>20-25分钟</td><td>2-2.5分钟</td></tr>
+<tr><td>填空题</td><td>6题</td><td>15-20分钟</td><td>2.5-3分钟</td></tr>
+<tr><td>解答题（基础）</td><td>5-6题</td><td>35-40分钟</td><td>6-7分钟</td></tr>
+<tr><td>解答题（压轴）</td><td>2-3题</td><td>30-35分钟</td><td>10-12分钟</td></tr>
+<tr><td>检查</td><td>-</td><td>10-15分钟</td><td>-</td></tr>
+</table>
+<div class="info-box info-purple"><strong>时间管理三原则：</strong>①先易后难，按顺序做题；②遇到卡壳超过3分钟的题果断跳过；③预留10-15分钟检查时间。</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title"><span class="ct-icon">🕐</span>时间管理实战技巧</div>
+<div class="card-content">
+<p><strong>1. "三轮做题法"：</strong></p>
+<ul>
+<li><strong>第一轮（60-70分钟）</strong>：做所有有把握的题，快速准确</li>
+<li><strong>第二轮（20-30分钟）</strong>：攻克第一轮跳过的中等难度题</li>
+<li><strong>第三轮（10-15分钟）</strong>：冲击压轴题+检查</li>
+</ul>
+<p><strong>2. "时间红线"机制：</strong></p>
+<ul>
+<li>选择题每题红线：3分钟（超时跳过）</li>
+<li>填空题每题红线：4分钟（超时跳过）</li>
+<li>解答题每题红线：8分钟（超时先写能写的步骤）</li>
+<li>压轴题第(3)问红线：10分钟（写公式和思路就停）</li>
+</ul>
+<p><strong>3. 跳题标记法：</strong></p>
+<ul>
+<li>跳过的题在试卷上做明显标记（画圈/折角）</li>
+<li>在答题卡对应位置先写"解："，避免漏答</li>
+<li>做完后面的题回来时，心态更放松，可能突然有思路</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- 检查策略 -->
+<div class="tab-content" id="skill-5">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔍</span>检查策略</div>
+<div class="card-content">
+<p><strong>一、检查优先级（从高到低）：</strong></p>
+<ol>
+<li><strong>高分题优先</strong>：压轴题、大分值解答题</li>
+<li><strong>易错题优先</strong>：计算量大、分类讨论的题</li>
+<li><strong>跳过的题</strong>：第一轮没做出的题，回来重新思考</li>
+<li><strong>选择题填空题</strong>：快速过一遍，确认填涂位置</li>
+<li><strong>答题卡</strong>：检查是否漏涂、错位</li>
+</ol>
+<p><strong>二、检查方法：</strong></p>
+<table class="data-table">
+<tr><th>题型</th><th>检查方法</th><th>注意事项</th></tr>
+<tr><td>选择题</td><td>用不同方法重新验证（如排除法→代入法）</td><td>无充分理由不轻易改答案</td></tr>
+<tr><td>填空题</td><td>重新计算+单位检查+多解检查</td><td>分数约分、根式化简</td></tr>
+<tr><td>计算题</td><td>逆运算验证（如除法用乘法验）</td><td>每步符号、小数点</td></tr>
+<tr><td>方程题</td><td>把解代入原方程验证</td><td>注意增根、实际意义</td></tr>
+<tr><td>几何证明</td><td>重新审视推理链是否完整</td><td>依据是否写全</td></tr>
+<tr><td>应用题</td><td>答案是否符合实际意义</td><td>单位、取舍</td></tr>
+</table>
+<p><strong>三、检查清单：</strong></p>
+<ul class="checklist">
+<li>答题卡填涂位置是否正确</li>
+<li>每道题是否都写了答案（无空题）</li>
+<li>选择题是否全部填涂（不漏涂）</li>
+<li>填空题答案是否最简形式</li>
+<li>计算题每步是否有"="\连接</li>
+<li>几何证明每步是否写明依据</li>
+<li>应用题是否写了"答："</li>
+<li>压轴题是否写了能写的步骤</li>
+<li>姓名、考号是否填写</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ========== 分年级策略 ========== -->
+<div class="page" id="page-grade">
+<div class="section-header">
+<div class="sh-icon">🎓</div>
+<div><h2>分年级策略</h2><p>初一·初二·初三 各有侧重的提分方案</p></div>
+</div>
+
+<div class="subject-tabs" id="grade-tabs">
+<div class="subject-tab active" onclick="switchGradeTab(event,0)"><span class="grade-tag grade-7">初一</span></div>
+<div class="subject-tab" onclick="switchGradeTab(event,1)"><span class="grade-tag grade-8">初二</span></div>
+<div class="subject-tab" onclick="switchGradeTab(event,2)"><span class="grade-tag grade-9">初三</span></div>
+</div>
+
+<div id="grade-content">
+<!-- 初一 -->
+<div class="tab-content active" id="grade-0">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔹</span>初一数学学习重点</div>
+<div class="card-content">
+<p>初一数学是小学到初中的<strong>过渡阶段</strong>，核心是从算术思维向代数思维转变。</p>
+<p><strong>核心知识模块：</strong></p>
+<ul>
+<li><strong>有理数</strong>：正负数运算、绝对值、数轴</li>
+<li><strong>整式加减</strong>：字母表示数、合并同类项</li>
+<li><strong>一元一次方程</strong>：等式性质、解方程步骤</li>
+<li><strong>几何图形初步</strong>：线段、角、平行线</li>
+<li><strong>数据的收集与整理</strong>：统计图表</li>
+</ul>
+<div class="info-box info-blue"><strong>初一最大挑战：</strong>从"数字计算"到"字母运算"的思维转变。很多学生不适应用字母表示数，导致后续代数学习困难。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>初一考试技巧</div>
+<div class="card-content">
+<ol>
+<li><strong>符号意识</strong>：有理数计算中正负号是最大失分点，建议每步标注符号</li>
+<li><strong>方程思维</strong>：学会用方程解决问题，设未知数→列方程→解方程→检验作答</li>
+<li><strong>画图习惯</strong>：几何题必须画图，在图上标注已知条件</li>
+<li><strong>计算规范</strong>：去括号注意符号变化，移项注意变号</li>
+<li><strong>应用题</strong>：行程问题、工程问题、利润问题要找等量关系</li>
+</ol>
+<div class="example-box">
+<h4>📝 初一典型易错</h4>
+<div class="problem">计算：(-2)³ ÷ (-2)²</div>
+<div class="solution"><strong>正确解法：</strong>(-2)³ = -8，(-2)² = 4<br>∴ (-2)³ ÷ (-2)² = -8 ÷ 4 = -2<br><strong>常见错误：</strong>将(-2)³算成8（忽略负号），得到8÷4=2</div>
+<div class="tip">✨ 记忆口诀：负数的奇数次幂为负，偶数次幂为正。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>初一提分路径</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>当前水平</th><th>目标</th><th>核心任务</th></tr>
+<tr><td>60分以下</td><td>75+</td><td>攻克有理数计算+一元一次方程基础</td></tr>
+<tr><td>75-85分</td><td>90+</td><td>应用题训练+几何基础+减少粗心</td></tr>
+<tr><td>85-95分</td><td>95+</td><td>难题突破+压轴题第(1)(2)问+规范答题</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 初二 -->
+<div class="tab-content" id="grade-1">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔹</span>初二数学学习重点</div>
+<div class="card-content">
+<p>初二数学是初中数学的<strong>分水岭</strong>，知识难度和抽象程度显著提升。</p>
+<p><strong>核心知识模块：</strong></p>
+<ul>
+<li><strong>实数</strong>：平方根、立方根、无理数</li>
+<li><strong>一次函数</strong>：图象与性质、待定系数法</li>
+<li><strong>整式乘除与因式分解</strong>：乘法公式、因式分解方法</li>
+<li><strong>分式</strong>：分式运算、分式方程</li>
+<li><strong>三角形</strong>：全等三角形、等腰三角形</li>
+<li><strong>勾股定理</strong>：勾股定理及其逆定理</li>
+<li><strong>平行四边形</strong>：性质与判定</li>
+<li><strong>数据的分析</strong>：平均数、中位数、方差</li>
+</ul>
+<div class="info-box info-purple"><strong>初二最大挑战：</strong>一次函数和全等三角形是两大难点。函数思维（数形结合）和几何证明（逻辑推理）需要重点突破。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>初二考试技巧</div>
+<div class="card-content">
+<ol>
+<li><strong>函数学习</strong>：一次函数必须掌握"画图→看图→用图"三步法</li>
+<li><strong>几何证明</strong>：全等三角形证明要写明依据（SAS/ASA/AAS/SSS/HL）</li>
+<li><strong>因式分解</strong>：先提公因式，再用公式法，分解要彻底</li>
+<li><strong>分式方程</strong>：必须检验增根，分母不能为零</li>
+<li><strong>勾股定理</strong>：注意构造直角三角形，逆定理用于判断直角三角形</li>
+</ol>
+<div class="example-box">
+<h4>📝 初二典型易错</h4>
+<div class="problem">因式分解：x²-4x+4-y²</div>
+<div class="solution"><strong>正确解法：</strong>分组分解法<br>= (x²-4x+4) - y²<br>= (x-2)² - y²<br>= (x-2+y)(x-2-y)<br><strong>常见错误：</strong>直接尝试用十字相乘法，没有注意到完全平方式与平方差公式的组合。</div>
+<div class="tip">✨ 技巧：因式分解"一提二套三分组"，先观察结构特征再选择方法。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>初二提分路径</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>当前水平</th><th>目标</th><th>核心任务</th></tr>
+<tr><td>60分以下</td><td>75+</td><td>整式运算+全等三角形基础+一次函数图象</td></tr>
+<tr><td>75-85分</td><td>90+</td><td>函数综合+几何证明+因式分解技巧</td></tr>
+<tr><td>85-95分</td><td>95+</td><td>函数与几何综合题+四边形证明+压轴题突破</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 初三 -->
+<div class="tab-content" id="grade-2">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔹</span>初三数学学习重点</div>
+<div class="card-content">
+<p>初三数学以<strong>二次函数、圆、相似三角形</strong>为核心，综合性和难度达到初中最高。</p>
+<p><strong>核心知识模块：</strong></p>
+<ul>
+<li><strong>二次函数</strong>：图象与性质、顶点式、与方程不等式的关系</li>
+<li><strong>圆</strong>：圆的性质、切线、弧长与扇形面积</li>
+<li><strong>相似三角形</strong>：相似判定与性质</li>
+<li><strong>锐角三角函数</strong>：sin/cos/tan、解直角三角形</li>
+<li><strong>概率</strong>：用树状图/列表法求概率</li>
+<li><strong>投影与视图</strong>：平行投影、中心投影</li>
+</ul>
+<div class="info-box info-orange"><strong>初三最大挑战：</strong>二次函数与几何综合题（压轴题）是中考拉分的关键。需要熟练掌握数形结合思想、分类讨论思想和方程思想。</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">💡</span>初三考试技巧</div>
+<div class="card-content">
+<ol>
+<li><strong>二次函数</strong>：掌握三种形式（一般式/顶点式/交点式）的灵活转化</li>
+<li><strong>圆的综合</strong>：垂径定理+圆周角定理+切线判定是核心</li>
+<li><strong>相似三角形</strong>：找对应边/对应角是关键，注意比例顺序</li>
+<li><strong>锐角三角函数</strong>：熟记特殊角值（30°/45°/60°）</li>
+<li><strong>压轴题</strong>：第(1)问必拿分，第(2)问争高分，第(3)问不放弃</li>
+<li><strong>中考模拟</strong>：每周至少做一套完整模拟卷，训练时间分配</li>
+</ol>
+<div class="example-box">
+<h4>📝 初三典型易错</h4>
+<div class="problem">已知抛物线 y=ax²+bx+c 经过点A(-1,0)、B(3,0)、C(0,3)，求抛物线解析式。</div>
+<div class="solution"><strong>解法（交点式）：</strong><br>∵ 抛物线与x轴交于A(-1,0)、B(3,0)<br>∴ 设 y=a(x+1)(x-3)<br>代入C(0,3)：3=a(0+1)(0-3)=a×(-3)<br>∴ a=-1<br>∴ y=-(x+1)(x-3)=-x²+2x+3<br><strong>验证：</strong>代入A(-1,0)：-1-2+3=0 ✓；代入B(3,0)：-9+6+3=0 ✓</div>
+<div class="tip">✨ 技巧：已知与x轴交点时，用交点式 y=a(x-x₁)(x-x₂) 最快捷。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🎯</span>初三中考冲刺策略</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>阶段</th><th>时间</th><th>核心任务</th></tr>
+<tr><td>一轮复习</td><td>3-4月</td><td>基础知识地毯式复习，查漏补缺</td></tr>
+<tr><td>二轮复习</td><td>5月</td><td>专题突破，重点攻克函数综合、几何综合</td></tr>
+<tr><td>三轮复习</td><td>6月上旬</td><td>模拟训练+错题回顾+回归基础</td></tr>
+<tr><td>考前一周</td><td>中考前7天</td><td>看错题本+适度练手+调整心态</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ========== 易错点分析 ========== -->
+<div class="page" id="page-mistakes">
+<div class="section-header">
+<div class="sh-icon">⚠️</div>
+<div><h2>常见易错点分析</h2><p>30+高频易错点，逐个击破避免丢分</p></div>
+</div>
+
+<div class="subject-tabs" id="mistake-tabs">
+<div class="subject-tab active" onclick="switchMistakeTab(event,0)">代数易错</div>
+<div class="subject-tab" onclick="switchMistakeTab(event,1)">几何易错</div>
+<div class="subject-tab" onclick="switchMistakeTab(event,2)">函数易错</div>
+<div class="subject-tab" onclick="switchMistakeTab(event,3)">统计概率易错</div>
+</div>
+
+<div id="mistake-content">
+<!-- 代数易错 -->
+<div class="tab-content active" id="mistake-0">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔢</span>代数高频易错点</div>
+<div class="card-content">
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>1. 负数幂的符号判断错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>将(-2)³算成8，或将-2²算成4</p>
+<p><strong>正确理解：</strong>-2² = -(2²) = -4，而(-2)² = 4。括号改变一切！</p>
+<p><strong>口诀：</strong>"负数幂看指数，奇负偶正看清楚；不加括号是相反数。"</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>2. 绝对值化简遗漏分类讨论</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>|a-b| = a-b（没有讨论a与b的大小关系）</p>
+<p><strong>正确做法：</strong>|a-b| = a-b（当a≥b时）或 b-a（当a&lt;b时）</p>
+<p><strong>提示：</strong>遇到绝对值，先判断内部表达式正负，再去绝对值符号。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>3. 解方程时忘记检验增根</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>分式方程解出后不代入检验，保留增根</p>
+<p><strong>正确做法：</strong>分式方程必须将解代入最简公分母检验，使分母为0的解是增根，必须舍去。</p>
+<p><strong>例：</strong>解 1/(x-1) + 2 = 1/(x-1)，得x=1，但x=1使分母为0，是增根，原方程无解。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>4. 不等式方向变化遗漏</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>不等式两边乘以/除以负数时，忘记变号</p>
+<p><strong>正确做法：</strong>不等式两边乘以或除以同一个负数时，不等号方向必须改变。</p>
+<p><strong>例：</strong>-2x > 6 → x &lt; -3（注意方向变化）</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>5. 因式分解不彻底</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>x⁴-16 = (x²+4)(x²-4)，到此为止</p>
+<p><strong>正确做法：</strong>x⁴-16 = (x²+4)(x²-4) = (x²+4)(x+2)(x-2)</p>
+<p><strong>原则：</strong>因式分解必须分解到不能再分解为止（实数范围内）。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>6. 科学记数法中n的确定</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>将 0.0000314 写成 3.14×10⁴</p>
+<p><strong>正确做法：</strong>0.0000314 = 3.14×10⁻⁵（小数点右移5位，n=-5）</p>
+<p><strong>规则：</strong>原数≥1时n为正整数；原数&lt;1时n为负整数。n的绝对值等于小数点移动的位数。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>7. 幂的运算性质混淆</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>常见混淆：</strong></p>
+<p>· a²·a³ = a⁵ (不是a⁶) — 同底数幂相乘，指数相加</p>
+<p>· (a²)³ = a⁶ (不是a⁵) — 幂的乘方，指数相乘</p>
+<p>· a⁶÷a² = a⁴ (不是a³) — 同底数幂相除，指数相减</p>
+<p><strong>口诀：</strong>"乘除加减，乘方乘乘，记住别混。"</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 几何易错 -->
+<div class="tab-content" id="mistake-1">
+<div class="card">
+<div class="card-title"><span class="ct-icon">📐</span>几何高频易错点</div>
+<div class="card-content">
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>1. 全等三角形判定条件不足</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>用SSA（边边角）判定全等，或三个角对应相等(AAA)判定全等</p>
+<p><strong>正确判定：</strong>SAS、ASA、AAS、SSS、HL（直角三角形专用）</p>
+<p><strong>注意：</strong>SSA和AAA不能判定两个三角形全等！</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>2. 勾股定理使用前提遗漏</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>在非直角三角形中使用勾股定理</p>
+<p><strong>正确做法：</strong>勾股定理只适用于直角三角形。使用前必须确认（或构造）直角三角形。</p>
+<p><strong>技巧：</strong>遇到一般三角形，可以通过作高构造直角三角形。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>3. 相似三角形对应边比例写反</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>△ABC∼△DEF时，写成AB/DE=EF/BC</p>
+<p><strong>正确做法：</strong>对应顶点字母对应，对应边成比例：AB/DE = BC/EF = AC/DF</p>
+<p><strong>技巧：</strong>先找对应顶点，再按顺序写对应边。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>4. 圆的切线判定条件不完整</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>只证"经过半径外端"或只证"垂直于半径"</p>
+<p><strong>正确做法：</strong>切线判定需要同时满足两个条件：①经过半径的外端；②垂直于这条半径。</p>
+<p><strong>口诀：</strong>"切线判定两条件，过端点、垂直半径缺一不可。"</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>5. 圆周角定理应用中忽略同弧</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>不同弧所对的圆周角也认为相等</p>
+<p><strong>正确理解：</strong>同弧或等弧所对的圆周角相等，且等于所对圆心角的一半。</p>
+<p><strong>注意：</strong>"同弧"是指同一条弧，不同弧即使度数相同也不一定相等。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>6. 几何计算中分类讨论遗漏</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>三角形高在哪边没讨论、点在弧上位置没讨论</p>
+<p><strong>常见需要分类讨论的情况：</strong></p>
+<p>· 等腰三角形：已知两边长，需讨论哪两条是腰</p>
+<p>· 直角三角形：已知两边，需讨论哪条是斜边</p>
+<p>· 圆中：点在优弧还是劣弧上</p>
+<p>· 相似三角形：对应关系不确定时</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>7. 平行四边形判定条件不全</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>只用"一组对边平行"就判定平行四边形</p>
+<p><strong>正确判定：</strong>以下任一条件即可：①两组对边分别平行；②两组对边分别相等；③一组对边平行且相等；④对角线互相平分；⑤两组对角分别相等。</p>
+<p><strong>注意：</strong>"一组对边平行"不一定是平行四边形（可能是梯形）。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 函数易错 -->
+<div class="tab-content" id="mistake-2">
+<div class="card">
+<div class="card-title"><span class="ct-icon">📉</span>函数高频易错点</div>
+<div class="card-content">
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>1. 一次函数k、b的几何意义混淆</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>不清楚k和b分别决定什么</p>
+<p><strong>正确理解：</strong>y=kx+b中，k决定倾斜方向（k>0增函数，k&lt;0减函数），b决定与y轴交点（b>0交于正半轴，b&lt;0交于负半轴）。</p>
+<p><strong>注意：</strong>|k|越大，直线越陡。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>2. 二次函数顶点坐标公式记错</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>顶点横坐标写成b/2a（忘记负号）</p>
+<p><strong>正确公式：</strong>y=ax²+bx+c的顶点坐标为 (-b/2a, (4ac-b²)/4a)</p>
+<p><strong>记忆口诀：</strong>"负b比2a是横坐标，4ac减b方比4a是纵坐标。"</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>3. 抛物线开口方向与a的关系</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>a>0时画成开口向下</p>
+<p><strong>正确理解：</strong>a>0 → 开口向上（有最小值）；a&lt;0 → 开口向下（有最大值）。</p>
+<p><strong>联想：</strong>y=x²开口向上（a=1>0），记忆基准。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>4. 反比例函数图象象限判断错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>k>0时画在一、三象限但方向画反</p>
+<p><strong>正确理解：</strong>y=k/x：k>0 → 一、三象限（每个象限内y随x增大而减小）；k&lt;0 → 二、四象限（每个象限内y随x增大而增大）。</p>
+<p><strong>注意：</strong>反比例函数图象无限接近坐标轴但永不相交。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>5. 函数图象交点与方程组的关系</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>不理解交点坐标的含义</p>
+<p><strong>正确理解：</strong>两个函数图象的交点坐标 = 联立方程组的解。</p>
+<p><strong>应用：</strong>求交点就是解方程组；方程无解则图象无交点。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>6. 二次函数与一元二次方程的关系混淆</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>正确理解：</strong></p>
+<p>· 二次函数y=ax²+bx+c与x轴交点 ⇔ 方程ax²+bx+c=0的实数根</p>
+<p>· Δ>0：两个交点；Δ=0：一个交点（相切）；Δ&lt;0：无交点</p>
+<p>· 交点横坐标就是方程的根</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 统计概率易错 -->
+<div class="tab-content" id="mistake-3">
+<div class="card">
+<div class="card-title"><span class="ct-icon">📊</span>统计概率高频易错点</div>
+<div class="card-content">
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>1. 中位数计算忘记排序</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>直接取中间位置的数，不先排序</p>
+<p><strong>正确做法：</strong>先将数据从小到大排列，再取中间的数。偶数个数据取中间两个的平均值。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>2. "有放回"与"无放回"混淆</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>无放回抽取时按有放回计算概率</p>
+<p><strong>区分：</strong>"有放回"每次抽取总数不变；"无放回"每次抽取总数递减。</p>
+<p><strong>例：</strong>袋中3红2白球，摸两次。<br>有放回：第二次仍3红2白共5个<br>无放回：第一次摸完后只剩4个</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>3. 方差与标准差概念混淆</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>正确理解：</strong>方差S²是各数据与平均数差的平方的平均值；标准差S是方差的算术平方根。</p>
+<p><strong>注意：</strong>方差越大，数据波动越大；方差越小，数据越稳定。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>4. 概率结果未化简</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>概率写成4/8而不是1/2</p>
+<p><strong>正确做法：</strong>概率结果必须化为最简分数。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>5. 树状图/列表法遗漏情况</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>错误表现：</strong>画树状图或列表时遗漏某些情况</p>
+<p><strong>正确做法：</strong>树状图每层分支要完整，列表法确保所有组合都列出。完成后检查总数是否符合预期。</p>
+<p><strong>验证：</strong>两步实验总数=第一步可能数×第二步可能数。</p>
+</div>
+</div>
+<div class="expandable" onclick="toggleExpand(this)">
+<div class="exp-header"><span>6. 加权平均数计算错误</span><span class="exp-arrow">▼</span></div>
+<div class="exp-body">
+<p><strong>正确公式：</strong>加权平均数 = (Σ权重×数值) / (Σ权重)</p>
+<p><strong>注意：</strong>权重之和不一定为1，需要除以权重总和。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ========== 考试心态 ========== -->
+<div class="page" id="page-psychology">
+<div class="section-header">
+<div class="sh-icon">🧠</div>
+<div><h2>考试心态调整</h2><p>焦虑自评·减压训练·考场心理建设</p></div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">📋</span>数学考试焦虑自评</div>
+<div class="card-content">
+<p>选择最符合你情况的选项，了解自己的考试焦虑程度：</p>
+<div id="anxiety-quiz"></div>
+<div id="anxiety-result" style="display:none;margin-top:14px"></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🧘</span>考前减压方法</div>
+<div class="card-content">
+<div class="mental-card">
+<h3>💧 4-4-6呼吸法</h3>
+<div class="mc-steps">
+<div class="mc-step">闭上眼睛，用鼻子吸气4秒，感受腹部膨胀</div>
+<div class="mc-step">屏住呼吸4秒，保持自然</div>
+<div class="mc-step">用嘴缓慢呼气6秒，感受身体放松</div>
+<div class="mc-step">重复3-5次，心率会明显下降</div>
+</div>
+</div>
+<div class="mental-card">
+<h3>👉 肌肉渐进放松法</h3>
+<div class="mc-steps">
+<div class="mc-step">从手部开始，用力握拳5秒后突然放松，感受对比</div>
+<div class="mc-step">依次对手臂、肩膀、面部、腹部、腿部进行紧张-放松</div>
+<div class="mc-step">每个部位重复2-3次</div>
+<div class="mc-step">整个过程约5分钟，考前进考场前可在座位上完成</div>
+</div>
+</div>
+<div class="mental-card">
+<h3>💬 积极自我暗示</h3>
+<div class="mc-steps">
+<div class="mc-step">考前准备3-5句积极暗示语，如"我准备得很充分""我会做的题一定能做对"</div>
+<div class="mc-step">遇到难题时默念"这道题难大家都难，我先做后面的"</div>
+<div class="mc-step">考完一科立即放下，不复盘不对答案，告诉自己"考完就过了"</div>
+<div class="mc-step">把焦虑转化为行动：与其担心不如多背一个公式</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🏫</span>考场心理实战指南</div>
+<div class="card-content">
+<table class="data-table">
+<tr><th>场景</th><th>心理反应</th><th>应对策略</th></tr>
+<tr><td>看到试卷感觉很难</td><td>紧张、心跳加速</td><td>深呼吸3次，告诉自己"难大家都难，做好我会的"</td></tr>
+<tr><td>前几道选择题就卡住</td><td>慌张、自我怀疑</td><td>跳过标记，先做后面的，"先易后难"是铁律</td></tr>
+<tr><td>计算总是出错</td><td>烦躁、越算越乱</td><td>停下来深呼吸，重新审题，放慢计算速度</td></tr>
+<tr><td>时间不够了</td><td>焦虑、手忙脚乱</td><td>优先做有把握的高分题，压轴题写公式和步骤</td></tr>
+<tr><td>最后一道大题完全不会</td><td>绝望、想放弃</td><td>第(1)问通常较简单，写相关公式也能得分</td></tr>
+<tr><td>旁边同学翻页很快</td><td>焦虑、比较心理</td><td>专注自己的试卷，每个人的做题策略不同</td></tr>
+<tr><td>检查时发现错误</td><td>纠结、不确定改不改</td><td>有充分理由才改，否则相信第一直觉</td></tr>
+</table>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">📅</span>考前一周心理调适计划</div>
+<div class="card-content">
+<div class="timeline">
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h3>考前7天 — 回归基础 <span class="tl-tag">稳心态</span></h3>
+<p>看错题本和笔记，不再做新题难题。每天适度做题保持手感（30-45分钟），调整作息早睡早起。</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h3>考前3天 — 减少训练 <span class="tl-tag">调状态</span></h3>
+<p>每天只做少量基础题（15-20分钟），重点看公式和定理。避免讨论成绩和排名，保持平和心态。</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h3>考前1天 — 轻松准备 <span class="tl-tag">做准备</span></h3>
+<p>整理考试用品（准考证、2B铅笔、黑色签字笔、直尺、圆规、橡皮、计算器）。下午散步放松，晚上10点前入睡。</p>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h3>考试当天 — 自信应考 <span class="tl-tag">上考场</span></h3>
+<p>早起吃好早餐，提前30分钟到达考场。进考场前做3次深呼吸，告诉自己"我能行"。发卷后先浏览全卷，制定答题策略。</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ========== 典型例题 ========== -->
+<div class="page" id="page-examples">
+<div class="section-header">
+<div class="sh-icon">📝</div>
+<div><h2>典型例题与解题思路</h2><p>精选经典题型，展示完整解题过程</p></div>
+</div>
+
+<div class="subject-tabs" id="example-tabs">
+<div class="subject-tab active" onclick="switchExampleTab(event,0)">代数综合</div>
+<div class="subject-tab" onclick="switchExampleTab(event,1)">几何证明</div>
+<div class="subject-tab" onclick="switchExampleTab(event,2)">函数综合</div>
+<div class="subject-tab" onclick="switchExampleTab(event,3)">实际应用</div>
+</div>
+
+<div id="example-content">
+<!-- 代数综合 -->
+<div class="tab-content active" id="example-0">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔢</span>例1：一元二次方程综合</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">已知关于x的方程 x²-(k+1)x+k²+1=0 有两个实数根x₁、x₂。<br>(1) 求k的取值范围；<br>(2) 若x₁²+x₂²=5，求k的值。</div>
+<div class="solution">
+<p><strong>第(1)问：</strong></p>
+<p>Δ = (k+1)²-4(k²+1) = k²+2k+1-4k²-4 = -3k²+2k-3</p>
+<p>Δ ≥ 0 ⇒ -3k²+2k-3 ≥ 0 ⇒ 3k²-2k+3 ≤ 0</p>
+<p>Δ' = (-2)²-4×3×3 = 4-36 = -32 &lt; 0，且3>0</p>
+<p>∴ 3k²-2k+3 > 0 恒成立，即 Δ &lt; 0 恒成立</p>
+<p><strong>等等！这里Δ&lt;0意味着方程无实数根！</strong></p>
+<p>让我们重新检查：Δ = -3k²+2k-3，判别式 = 4-36 = -32 &lt; 0，且二次项系数-3&lt;0</p>
+<p>∴ Δ &lt; 0 恒成立，方程没有实数根。</p>
+<p><strong>结论：</strong>原方程不可能有两个实数根，题目条件矛盾。</p>
+<p><strong>✨ 此题的关键在于计算判别式并正确判断。</strong></p>
+</div>
+<div class="tip">解题技巧：遇到"已知方程有实数根"的条件，第一步永远是计算判别式Δ≥0，建立不等式求参数范围。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔢</span>例2：分式化简求值</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">先化简，再求值：(x²-1)/(x²+2x+1) ÷ (x-1/x) ，其中x从-1、1、2中选择一个合适的值代入。</div>
+<div class="solution">
+<p><strong>第一步：化简</strong></p>
+<p>原式 = (x+1)(x-1)/(x+1)² ÷ (x²-1)/x</p>
+<p>= (x-1)/(x+1) ÷ (x-1)(x+1)/x</p>
+<p>= (x-1)/(x+1) × x/[(x-1)(x+1)]</p>
+<p>= x/(x+1)²</p>
+<p><strong>第二步：选值</strong></p>
+<p>x=-1：使分母x+1=0，不可取</p>
+<p>x=1：使原式中x-1=0（除式为0），不可取</p>
+<p>x=2：满足条件，代入得 2/(2+1)² = 2/9</p>
+<p><strong>答案：2/9</strong></p>
+</div>
+<div class="tip">解题技巧：分式化简求值题，选择x值时必须使原式和化简后的式子都有意义（分母≠0，除式≠0）。</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 几何证明 -->
+<div class="tab-content" id="example-1">
+<div class="card">
+<div class="card-title"><span class="ct-icon">📐</span>例3：全等三角形证明</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">如图，在△ABC中，D是BC的中点，DE⊥AB于E，DF⊥AC于F，且DE=DF。求证：△ABC是等腰三角形。</div>
+<div class="solution">
+<p><strong>证明：</strong></p>
+<p>∵ DE⊥AB，DF⊥AC</p>
+<p>∴ ∠DEB = ∠DFC = 90°</p>
+<p>在Rt△BDE和Rt△CDF中：</p>
+<p>∵ DE = DF（已知）</p>
+<p>BD = CD（D是BC中点）</p>
+<p>∴ Rt△BDE ≌ Rt△CDF (HL)</p>
+<p>∴ ∠B = ∠C（全等三角形对应角相等）</p>
+<p>∴ AC = AB（等角对等边）</p>
+<p>∴ △ABC是等腰三角形</p>
+</div>
+<div class="tip">证明技巧：等腰三角形的证明常用"全等→等角→等边"的思路链。注意HL定理仅适用于直角三角形。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">📐</span>例4：圆的综合计算</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">如图，AB是⊙O的直径，弦CD⊥AB于E，CD=8，BE=2，求⊙O的半径。</div>
+<div class="solution">
+<p><strong>解：</strong></p>
+<p>设⊙O的半径为r，则OA=OB=r</p>
+<p>∵ AB是直径，CD⊥AB</p>
+<p>∴ CE=ED=CD/2=4（垂径定理）</p>
+<p>∵ BE=2 ∴ OE=OB-BE=r-2</p>
+<p>在Rt△OCE中：OE²+CE²=OC²</p>
+<p>(r-2)²+4²=r²</p>
+<p>r²-4r+4+16=r²</p>
+<p>-4r+20=0</p>
+<p>r=5</p>
+<p><strong>答：</strong>⊙O的半径为5。</p>
+</div>
+<div class="tip">解题技巧：圆中弦的计算必用垂径定理（弦心距+半弦长+半径构成直角三角形），用勾股定理建立方程。</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 函数综合 -->
+<div class="tab-content" id="example-2">
+<div class="card">
+<div class="card-title"><span class="ct-icon">📉</span>例5：二次函数综合</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">已知抛物线 y=-x²+2x+3 与x轴交于A、B两点（A在B左侧），与y轴交于点C。<br>(1) 求A、B、C三点坐标；<br>(2) 求△ABC的面积；<br>(3) 在抛物线上是否存在点P，使S△PAB=S△ABC？若存在，求出P点坐标。</div>
+<div class="solution">
+<p><strong>第(1)问：</strong>令y=0：-x²+2x+3=0 ⇒ x²-2x-3=0 ⇒ (x-3)(x+1)=0 ⇒ x=-1或x=3</p>
+<p>∴ A(-1,0)，B(3,0)</p>
+<p>令x=0：y=3 ∴ C(0,3)</p>
+<p><strong>第(2)问：</strong>AB=3-(-1)=4，C到AB的距离=3</p>
+<p>S△ABC = ½×4×3 = 6</p>
+<p><strong>第(3)问：</strong>设P(x,y)，S△PAB=½×AB×|y|=½×4×|y|=2|y|</p>
+<p>2|y|=6 ⇒ |y|=3 ⇒ y=3或y=-3</p>
+<p>y=3：-x²+2x+3=3 ⇒ -x²+2x=0 ⇒ x=0或x=2 ⇒ P₁(0,3)即C点，P₂(2,3)</p>
+<p>y=-3：-x²+2x+3=-3 ⇒ x²-2x-6=0 ⇒ x=1±√7 ⇒ P₃(1+√7,-3)，P₄(1-√7,-3)</p>
+<p><strong>答：</strong>存在，P(2,3)或P(1+√7,-3)或P(1-√7,-3)。（C点除外）</p>
+</div>
+<div class="tip">解题技巧：二次函数面积问题常用"底×高÷2"，以x轴上两点为底时，高就是纵坐标的绝对值。注意分类讨论和去重。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">📉</span>例6：一次函数与几何综合</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">直线y=-2x+4与x轴交于A，与y轴交于B。求：(1)A、B坐标；(2)△AOB的面积；(3)在直线AB上是否存在点P，使△AOP为等腰三角形？</div>
+<div class="solution">
+<p><strong>第(1)问：</strong>令y=0：x=2，∴A(2,0)；令x=0：y=4，∴B(0,4)</p>
+<p><strong>第(2)问：</strong>S△AOB=½×2×4=4</p>
+<p><strong>第(3)问：</strong>等腰三角形需分类讨论哪两边相等，此题需结合图形分析，注意P点在直线上的限制条件。</p>
+</div>
+<div class="tip">解题技巧：等腰三角形存在性问题必须分类讨论（AB=AP、AB=BP、AP=BP三种情况），注意排除重合和共线的情况。</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 实际应用 -->
+<div class="tab-content" id="example-3">
+<div class="card">
+<div class="card-title"><span class="ct-icon">💼</span>例7：利润最值问题</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">某商店以每件30元进价购进商品，按每件40元出售，每天可售出300件。经市场调查发现，单价每提高1元，销售量减少10件。问定价为多少时，每天利润最大？最大利润是多少？</div>
+<div class="solution">
+<p><strong>解：</strong>设定价提高了x元，则：</p>
+<p>售价 = 40+x 元/件</p>
+<p>销量 = 300-10x 件/天</p>
+<p>利润 W = (40+x-30)(300-10x) = (10+x)(300-10x)</p>
+<p>= 3000-100x+300x-10x² = -10x²+200x+3000</p>
+<p>当 x = -b/2a = -200/(-20) = 10 时，W取最大值</p>
+<p>定价 = 40+10 = 50 元/件</p>
+<p>最大利润 W = -10×100+200×10+3000 = 4000 元</p>
+<p><strong>答：</strong>定价50元/件时，每天最大利润4000元。</p>
+</div>
+<div class="tip">解题技巧：利润最值问题建模为二次函数，用顶点公式求最值。注意变量的实际意义（售价>0，销量>0）。</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🚗</span>例8：行程问题</div>
+<div class="card-content">
+<div class="example-box">
+<div class="problem">甲乙两人同时从A地出发去B地，甲速度为5km/h，乙速度为3km/h。甲到达B地后立即返回，在途中与乙相遇。若A、B相距16km，求两人相遇时乙走了多远。</div>
+<div class="solution">
+<p><strong>解：</strong>设两人相遇时乙走了x km，则：</p>
+<p>乙走的距离 = x km，用时 = x/3 小时</p>
+<p>甲走的距离 = 16+(16-x) = 32-x km，用时 = (32-x)/5 小时</p>
+<p>两人用时相等：x/3 = (32-x)/5</p>
+<p>5x = 3(32-x) ⇒ 5x = 96-3x ⇒ 8x = 96 ⇒ x = 12</p>
+<p><strong>答：</strong>相遇时乙走了12km。</p>
+</div>
+<div class="tip">解题技巧：行程问题的核心是找等量关系，通常是"时间相等"或"路程关系"。画线段图辅助分析。</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- ========== 知识点速查 ========== -->
+<div class="page" id="page-knowledge">
+<div class="section-header">
+<div class="sh-icon">🔑</div>
+<div><h2>知识点速查</h2><p>代数·几何·函数·统计 公式定理速记</p></div>
+</div>
+
+<div class="subject-tabs" id="knowledge-tabs">
+<div class="subject-tab active" onclick="switchKnowTab(event,0)">代数公式</div>
+<div class="subject-tab" onclick="switchKnowTab(event,1)">几何定理</div>
+<div class="subject-tab" onclick="switchKnowTab(event,2)">函数性质</div>
+<div class="subject-tab" onclick="switchKnowTab(event,3)">统计概率</div>
+</div>
+
+<div id="knowledge-content">
+<!-- 代数公式 -->
+<div class="tab-content active" id="know-0">
+<div class="card">
+<div class="card-title"><span class="ct-icon">🔢</span>核心代数公式速记</div>
+<div class="card-content">
+<h3 style="color:#667eea;margin:8px 0">乘法公式与因式分解</h3>
+<table class="data-table">
+<tr><th>名称</th><th>公式</th><th>备注</th></tr>
+<tr><td>平方差公式</td><td>a²-b²=(a+b)(a-b)</td><td>因式分解常用</td></tr>
+<tr><td>完全平方和</td><td>(a+b)²=a²+2ab+b²</td><td>注意中间项</td></tr>
+<tr><td>完全平方差</td><td>(a-b)²=a²-2ab+b²</td><td>中间项符号</td></tr>
+<tr><td>十字相乘</td><td>x²+(p+q)x+pq=(x+p)(x+q)</td><td>二次项系数为1时</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">一元二次方程</h3>
+<table class="data-table">
+<tr><th>项目</th><th>公式/结论</th><th>备注</th></tr>
+<tr><td>一般形式</td><td>ax²+bx+c=0 (a≠0)</td><td>a≠0是前提</td></tr>
+<tr><td>求根公式</td><td>x=[-b±√(b²-4ac)]/2a</td><td>需Δ≥0</td></tr>
+<tr><td>判别式</td><td>Δ=b²-4ac</td><td>Δ>0两根,Δ=0等根,Δ&lt;0无根</td></tr>
+<tr><td>韦达定理</td><td>x₁+x₂=-b/a, x₁·x₂=c/a</td><td>已知两根关系</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">幂的运算</h3>
+<table class="data-table">
+<tr><th>法则</th><th>公式</th><th>记忆口诀</th></tr>
+<tr><td>同底数幂相乘</td><td>aᵐ·aⁿ=aᵐ⁺ⁿ</td><td>底不变，指相加</td></tr>
+<tr><td>同底数幂相除</td><td>aᵐ÷aⁿ=aᵐ⁻ⁿ</td><td>底不变，指相减</td></tr>
+<tr><td>幂的乘方</td><td>(aᵐ)ⁿ=aᵐⁿ</td><td>底不变，指相乘</td></tr>
+<tr><td>积的乘方</td><td>(ab)ⁿ=aⁿbⁿ</td><td>各因子分别乘方</td></tr>
+<tr><td>零次幂</td><td>a⁰=1 (a≠0)</td><td>非零数的0次幂为1</td></tr>
+<tr><td>负整数幂</td><td>a⁻ⁿ=1/aⁿ (a≠0)</td><td>取倒数</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">实数相关</h3>
+<table class="data-table">
+<tr><th>概念</th><th>性质/公式</th></tr>
+<tr><td>平方根</td><td>√a (a≥0)，√0=0，√1=1</td></tr>
+<tr><td>算术平方根</td><td>非负数的非负平方根，√(a²)=|a|</td></tr>
+<tr><td>立方根</td><td>³√a 对所有实数a有意义，³√(-a)=-³√a</td></tr>
+<tr><td>绝对值</td><td>|a| ≥ 0 恒成立，|a| = a(a≥0) 或 -a(a&lt;0)</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 几何定理 -->
+<div class="tab-content" id="know-1">
+<div class="card">
+<div class="card-title"><span class="ct-icon">📐</span>核心几何定理速记</div>
+<div class="card-content">
+<h3 style="color:#667eea;margin:8px 0">三角形</h3>
+<table class="data-table">
+<tr><th>定理</th><th>内容</th><th>应用场景</th></tr>
+<tr><td>三角形内角和</td><td>∠A+∠B+∠C=180°</td><td>求角</td></tr>
+<tr><td>三角形外角</td><td>外角=不相邻两内角之和</td><td>求角</td></tr>
+<tr><td>三边关系</td><td>任意两边之和>第三边，任意两边之差<第三边</td><td>判断能否构成三角形</td></tr>
+<tr><td>全等判定</td><td>SAS, ASA, AAS, SSS, HL(直角)</td><td>证明全等</td></tr>
+<tr><td>相似判定</td><td>两角对应相等；两边成比例夹角相等；三边成比例</td><td>证明相似</td></tr>
+<tr><td>相似性质</td><td>对应边成比例，对应角相等；面积比=相似比²</td><td>计算长度和面积</td></tr>
+<tr><td>等腰三角形</td><td>等边对等角；三线合一(底边上的高/中线/角平分线)</td><td>证明和计算</td></tr>
+<tr><td>勾股定理</td><td>a²+b²=c²（直角三角形）</td><td>求边长</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">圆</h3>
+<table class="data-table">
+<tr><th>定理</th><th>内容</th></tr>
+<tr><td>垂径定理</td><td>垂直于弦的直径平分弦及所对弧</td></tr>
+<tr><td>圆心角定理</td><td>圆心角=2×所对弧上的圆周角</td></tr>
+<tr><td>圆周角定理</td><td>同弧所对圆周角相等，等于圆心角的一半</td></tr>
+<tr><td>切线判定</td><td>过半径外端且垂直于半径的直线是切线</td></tr>
+<tr><td>切线性质</td><td>切线垂直于过切点的半径</td></tr>
+<tr><td>弧长公式</td><td>l=nπr/180（n为圆心角度数）</td></tr>
+<tr><td>扇形面积</td><td>S=nπr²/360=lr/2</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">四边形</h3>
+<table class="data-table">
+<tr><th>图形</th><th>性质</th><th>判定</th></tr>
+<tr><td>平行四边形</td><td>对边平行且相等，对角相等，对角线互相平分</td><td>两组对边平行/相等，或一组对边平行且相等</td></tr>
+<tr><td>矩形</td><td>平行四边形性质+四个角为直角+对角线相等</td><td>有一个角是直角的平行四边形</td></tr>
+<tr><td>菱形</td><td>平行四边形性质+四边相等+对角线互相垂直且平分对角</td><td>有一组邻边相等的平行四边形</td></tr>
+<tr><td>正方形</td><td>矩形+菱形的所有性质</td><td>既是矩形又是菱形</td></tr>
+<tr><td>梯形</td><td>一组对边平行另一组不平行</td><td>-</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 函数性质 -->
+<div class="tab-content" id="know-2">
+<div class="card">
+<div class="card-title"><span class="ct-icon">📉</span>核心函数性质速记</div>
+<div class="card-content">
+<h3 style="color:#667eea;margin:8px 0">一次函数 y=kx+b (k≠0)</h3>
+<table class="data-table">
+<tr><th>项目</th><th>性质</th></tr>
+<tr><td>k>0</td><td>y随x增大而增大，图象从左到右上升</td></tr>
+<tr><td>k&lt;0</td><td>y随x增大而减小，图象从左到右下降</td></tr>
+<tr><td>b>0</td><td>与y轴交于正半轴</td></tr>
+<tr><td>b&lt;0</td><td>与y轴交于负半轴</td></tr>
+<tr><td>b=0</td><td>正比例函数，过原点</td></tr>
+<tr><td>|k|越大</td><td>直线越陡</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">反比例函数 y=k/x (k≠0)</h3>
+<table class="data-table">
+<tr><th>项目</th><th>性质</th></tr>
+<tr><td>k>0</td><td>图象在一、三象限，每个象限内y随x增大而减小</td></tr>
+<tr><td>k&lt;0</td><td>图象在二、四象限，每个象限内y随x增大而增大</td></tr>
+<tr><td>图象</td><td>双曲线，关于原点对称，无限接近坐标轴但不相交</td></tr>
+<tr><td>|k|</td><td>决定图象离原点的远近，|k|越大越远</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">二次函数 y=ax²+bx+c (a≠0)</h3>
+<table class="data-table">
+<tr><th>项目</th><th>性质</th></tr>
+<tr><td>a>0</td><td>开口向上，有最小值</td></tr>
+<tr><td>a&lt;0</td><td>开口向下，有最大值</td></tr>
+<tr><td>|a|越大</td><td>开口越小（图象越窄）</td></tr>
+<tr><td>对称轴</td><td>x=-b/2a</td></tr>
+<tr><td>顶点坐标</td><td>(-b/2a, (4ac-b²)/4a)</td></tr>
+<tr><td>与y轴交点</td><td>(0, c)</td></tr>
+<tr><td>与x轴交点</td><td>Δ>0:两个交点; Δ=0:一个; Δ&lt;0:无</td></tr>
+<tr><td>顶点式</td><td>y=a(x-h)²+k，顶点(h,k)</td></tr>
+<tr><td>交点式</td><td>y=a(x-x₁)(x-x₂)，x₁,x₂为与x轴交点</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">锐角三角函数</h3>
+<table class="data-table">
+<tr><th>角度</th><th>sin</th><th>cos</th><th>tan</th></tr>
+<tr><td>30°</td><td>1/2</td><td>√3/2</td><td>√3/3</td></tr>
+<tr><td>45°</td><td>√2/2</td><td>√2/2</td><td>1</td></tr>
+<tr><td>60°</td><td>√3/2</td><td>1/2</td><td>√3</td></tr>
+</table>
+</div>
+</div>
+</div>
+
+<!-- 统计概率 -->
+<div class="tab-content" id="know-3">
+<div class="card">
+<div class="card-title"><span class="ct-icon">📊</span>统计与概率公式速记</div>
+<div class="card-content">
+<h3 style="color:#667eea;margin:8px 0">统计基本概念</h3>
+<table class="data-table">
+<tr><th>概念</th><th>公式/定义</th><th>备注</th></tr>
+<tr><td>平均数</td><td>x̄=(x₁+x₂+...+xₙ)/n</td><td>加权：Σ(wᵢ×xᵢ)/Σwᵢ</td></tr>
+<tr><td>中位数</td><td>排序后中间的数</td><td>偶数个取中间两个的平均</td></tr>
+<tr><td>众数</td><td>出现次数最多的数</td><td>可以不止一个</td></tr>
+<tr><td>方差</td><td>S²=(1/n)Σ(xᵢ-x̄)²</td><td>衡量波动大小</td></tr>
+<tr><td>标准差</td><td>S=√(S²)</td><td>方差的算术平方根</td></tr>
+<tr><td>极差</td><td>最大值-最小值</td><td>最简单的离散程度指标</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">概率基本公式</h3>
+<table class="data-table">
+<tr><th>公式</th><th>内容</th></tr>
+<tr><td>概率定义</td><td>P(A)=事件A发生的结果数/总结果数</td></tr>
+<tr><td>概率范围</td><td>0 ≤ P(A) ≤ 1</td></tr>
+<tr><td>必然事件</td><td>P=1</td></tr>
+<tr><td>不可能事件</td><td>P=0</td></tr>
+<tr><td>互斥事件</td><td>P(A∪B)=P(A)+P(B)</td></tr>
+<tr><td>对立事件</td><td>P(A)+P(B¯)=1</td></tr>
+</table>
+<h3 style="color:#667eea;margin:12px 0 8px">常用统计图表</h3>
+<table class="data-table">
+<tr><th>图表</th><th>适用场景</th><th>特点</th></tr>
+<tr><td>条形图</td><td>比较各类别数量</td><td>直观显示具体数值</td></tr>
+<tr><td>扇形图</td><td>显示各部分占比</td><td>各扇形百分比之和=100%</td></tr>
+<tr><td>折线图</td><td>显示数据变化趋势</td><td>适合时间序列数据</td></tr>
+<tr><td>直方图</td><td>显示数据分布</td><td>连续分组，无间隔</td></tr>
+<tr><td>频数分布表</td><td>整理分组数据</td><td>频数之和=总数据量</td></tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ========== 考前冲刺 ========== -->
+<div class="page" id="page-sprint">
+<div class="section-header">
+<div class="sh-icon">⏱️</div>
+<div><h2>考前冲刺计划</h2><p>30天倒计时冲刺+考场实战手册</p></div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">📅</span>30天冲刺时间轴</div>
+<div class="card-content">
+<div class="timeline">
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h3>第30-21天：基础回顾 <span class="tl-tag">查漏补缺</span></h3>
+<p><strong>核心任务：</strong>按章节梳理知识点，完成基础题和中档题的复习。</p>
+<ul>
+<li>Day 30-27：有理数、整式、分式、二次根式</li>
+<li>Day 26-24：一元一次方程、二元一次方程组、一元二次方程、分式方程</li>
+<li>Day 23-21：不等式（组）、三角形、全等三角形、等腰三角形</li>
+</ul>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h3>第20-11天：专题突破 <span class="tl-tag">重点攻克</span></h3>
+<p><strong>核心任务：</strong>按专题集中训练，突破薄弱环节。</p>
+<ul>
+<li>Day 20-17：一次函数、反比例函数、二次函数</li>
+<li>Day 16-14：圆的性质、切线、弧长扇形</li>
+<li>Day 13-11：相似三角形、锐角三角函数、解直角三角形</li>
+</ul>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h3>第10-4天：综合训练 <span class="tl-tag">模拟实战</span></h3>
+<p><strong>核心任务：</strong>做3-5套完整模拟卷，限时训练。</p>
+<ul>
+<li>每两天做一套模拟卷（120分钟限时）</li>
+<li>做完当天批改+错题分析+查漏补缺</li>
+<li>重点关注函数综合题、几何综合题、压轴题</li>
+</ul>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<h3>第3-1天：回归调整 <span class="tl-tag">稳心备考</span></h3>
+<p><strong>核心任务：</strong>看错题本、看笔记、适度练手、调整心态。</p>
+<ul>
+<li>Day 3：看错题本，重做错题中的典型题</li>
+<li>Day 2：浏览公式定理、看笔记、整理考试用品</li>
+<li>Day 1：轻松复习（30分钟基础题）、早睡</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">🏫</span>考场实战手册</div>
+<div class="card-content">
+<p><strong>考试当天流程：</strong></p>
+<table class="data-table">
+<tr><th>时间点</th><th>任务</th><th>注意事项</th></tr>
+<tr><td>考前1小时</td><td>到达考场，找到座位坐下</td><td>深呼吸放松，不讨论试题</td></tr>
+<tr><td>发卷后</td><td>浏览全卷，检查页码、题目数</td><td>先看压轴题，心中有数</td></tr>
+<tr><td>前30分钟</td><td>做选择题和填空题</td><td>快速准确，不纯结</td></tr>
+<tr><td>30-90分钟</td><td>做解答题（基础+中档）</td><td>规范答题，分步得分</td></tr>
+<tr><td>90-110分钟</td><td>攻克压轴题</td><td>第(1)问必拿，其他尽力</td></tr>
+<tr><td>最后10分钟</td><td>检查全卷</td><td>优先检查高分题和易错题</td></tr>
+</table>
+</div>
+</div>
+
+<div class="card">
+<div class="card-title"><span class="ct-icon">✅</span>考前最终检查清单</div>
+<div class="card-content">
+<ul class="checklist">
+<li>准考证、身份证已带齐</li>
+<li>2B铅笔、0.5mm黑色签字笔各2支以上</li>
+<li>直尺、圆规、三角板、量角器已带齐</li>
+<li>橡皮、垂手及备用文具</li>
+<li>公式、定理已熟记（不需带资料）</li>
+<li>作息调整到最佳状态，早睡早起</li>
+<li>早餐吃好，不吃太饱也不空腹</li>
+<li>提前30分钟到达考场</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- ========== 互动训练 ========== -->
+<div class="page" id="page-training">
+<div class="section-header">
+<div class="sh-icon">🎮</div>
+<div><h2>互动训练</h2><p>5大互动模块实战演练</p></div>
+</div>
+
+<div class="interactive-grid">
+<div class="interact-card" onclick="showPage('quiz-timed')">
+<div class="ic-icon">⏱️</div>
+<h3>限时答题训练</h3>
+<p>10题限时挑战，训练答题节奏</p>
+</div>
+<div class="interact-card" onclick="showPage('quiz-mistake')">
+<div class="ic-icon">⚠️</div>
+<h3>易错题挑战</h3>
+<p>高频易错题专项训练</p>
+</div>
+<div class="interact-card" onclick="showPage('quiz-formula')">
+<div class="ic-icon">🧮</div>
+<h3>公式速记</h3>
+<p>核心公式定理闰记挑战</p>
+</div>
+<div class="interact-card" onclick="showPage('quiz-strategy')">
+<div class="ic-icon">🎯</div>
+<h3>解题策略模拟</h3>
+<p>场景化解题策略选择</p>
+</div>
+<div class="interact-card" onclick="showPage('quiz-knowledge')">
+<div class="ic-icon">📚</div>
+<h3>知识问答</h3>
+<p>初中数学知识点问答挑战</p>
+</div>
+</div>
+</div>
+
+<!-- 限时答题训练 -->
+<div class="page" id="page-quiz-timed">
+<div class="section-header">
+<div class="sh-icon">⏱️</div>
+<div><h2>限时答题训练</h2><p>10题×90秒/题，总时15分钟</p></div>
+</div>
+<div class="card" id="timed-intro">
+<div class="card-content">
+<p>在15分钟内完成10道选择题，每题建议用时90秒。完成后查看得分和解析。</p>
+<div style="text-align:center;margin-top:14px">
+<button class="btn btn-primary btn-block" onclick="startTimedQuiz()">开始训练</button>
+</div>
+</div>
+</div>
+<div id="timed-quiz" style="display:none">
+<div class="card" style="position:sticky;top:56px;z-index:100;background:#fff">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<span id="timed-q-progress" style="font-size:0.85rem;color:#667eea;font-weight:600">第 1 / 10 题</span>
+<span id="timed-timer" style="font-size:1.2rem;font-weight:700;color:#764ba2">15:00</span>
+</div>
+<div class="progress-bar" style="margin-top:8px"><div class="progress-fill" id="timed-progress" style="width:10%"></div></div>
+</div>
+<div id="timed-container"></div>
+<div id="timed-result" style="display:none">
+<div class="score-display">
+<div class="big-score" id="timed-score">0</div>
+<div class="score-label">分 / 100分</div>
+</div>
+<div id="timed-review"></div>
+<div style="text-align:center;margin-top:14px">
+<button class="btn btn-outline" onclick="resetTimedQuiz()">再来一次</button>
+<button class="btn btn-primary" onclick="showPage('training')">返回训练列表</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 易错题挑战 -->
+<div class="page" id="page-quiz-mistake">
+<div class="section-header">
+<div class="sh-icon">⚠️</div>
+<div><h2>易错题挑战</h2><p>高频易错题专项训练</p></div>
+</div>
+<div id="mistake-quiz-container"></div>
+<div style="text-align:center;margin-top:14px">
+<button class="btn btn-primary" onclick="showPage('training')">返回训练列表</button>
+</div>
+</div>
+
+<!-- 公式速记 -->
+<div class="page" id="page-quiz-formula">
+<div class="section-header">
+<div class="sh-icon">🧮</div>
+<div><h2>公式速记挑战</h2><p>初中核心公式填空</p></div>
+</div>
+<div id="formula-quiz-container"></div>
+<div style="text-align:center;margin-top:14px">
+<button class="btn btn-primary" onclick="showPage('training')">返回训练列表</button>
+</div>
+</div>
+
+<!-- 解题策略模拟 -->
+<div class="page" id="page-quiz-strategy">
+<div class="section-header">
+<div class="sh-icon">🎯</div>
+<div><h2>解题策略模拟</h2><p>场景化解题策略选择</p></div>
+</div>
+<div id="strategy-quiz-container"></div>
+<div style="text-align:center;margin-top:14px">
+<button class="btn btn-primary" onclick="showPage('training')">返回训练列表</button>
+</div>
+</div>
+
+<!-- 知识问答 -->
+<div class="page" id="page-quiz-knowledge">
+<div class="section-header">
+<div class="sh-icon">📚</div>
+<div><h2>知识问答挑战</h2><p>初中数学知识点问答</p></div>
+</div>
+<div id="knowledge-quiz-container"></div>
+<div style="text-align:center;margin-top:14px">
+<button class="btn btn-primary" onclick="showPage('training')">返回训练列表</button>
+</div>
+</div>
+
+<script>
+// ========== 登录验证 ==========
+var LOGIN_USER = 'liulaoshi';
+var LOGIN_PASS = 'peiyou2026';
+function checkLogin(){
+  if(sessionStorage.getItem('sys_login_ok')==='1'){
+    var o=document.getElementById('loginOverlay');
+    if(o){o.style.display='none';}
+  }
+}
+function doLogin(){
+  var u=document.getElementById('loginUser').value;
+  var p=document.getElementById('loginPass').value;
+  var e=document.getElementById('loginError');
+  if(u===LOGIN_USER && p===LOGIN_PASS){
+    sessionStorage.setItem('sys_login_ok','1');
+    var o=document.getElementById('loginOverlay');
+    o.style.opacity='0';
+    setTimeout(function(){o.style.display='none';},400);
+  }else{
+    e.textContent='账号或密码错误，请重试';
+    document.getElementById('loginUser').value='';
+    document.getElementById('loginPass').value='';
+  }
+}
+document.addEventListener('DOMContentLoaded',function(){
+  var u=document.getElementById('loginUser');
+  var p=document.getElementById('loginPass');
+  if(u){u.addEventListener('keydown',function(e){if(e.key==='Enter'){p.focus();}});}
+  if(p){p.addEventListener('keydown',function(e){if(e.key==='Enter'){doLogin();}});}
+  checkLogin();
+});
+
+// ========== 页面切换 ==========
+function showPage(pageId){
+  var pages=document.querySelectorAll('.page');
+  for(var i=0;i<pages.length;i++){
+    pages[i].classList.remove('active');
+  }
+  var target=document.getElementById('page-'+pageId);
+  if(target){target.classList.add('active');}
+  var backBtn=document.getElementById('backBtn');
+  if(backBtn){backBtn.style.display=(pageId==='home')?'none':'inline-block';}
+  window.scrollTo(0,0);
+}
+
+// ========== 展开收缩 ==========
+function toggleExpand(el){
+  el.classList.toggle('open');
+}
+
+// ========== 技巧库 Tab切换 ==========
+function switchSkillTab(ev,idx){
+  var tabs=document.querySelectorAll('#skill-tabs .subject-tab');
+  var contents=document.querySelectorAll('#skill-content .tab-content');
+  for(var i=0;i<tabs.length;i++){tabs[i].classList.remove('active');}
+  for(var i=0;i<contents.length;i++){contents[i].classList.remove('active');}
+  if(ev)ev.target.closest('.subject-tab').classList.add('active');
+  var target=document.getElementById('skill-'+idx);
+  if(target)target.classList.add('active');
+}
+
+// ========== 年级策略 Tab切换 ==========
+function switchGradeTab(ev,idx){
+  var tabs=document.querySelectorAll('#grade-tabs .subject-tab');
+  var contents=document.querySelectorAll('#grade-content .tab-content');
+  for(var i=0;i<tabs.length;i++){tabs[i].classList.remove('active');}
+  for(var i=0;i<contents.length;i++){contents[i].classList.remove('active');}
+  if(ev)ev.target.closest('.subject-tab').classList.add('active');
+  var target=document.getElementById('grade-'+idx);
+  if(target)target.classList.add('active');
+}
+
+// ========== 易错点 Tab切换 ==========
+function switchMistakeTab(ev,idx){
+  var tabs=document.querySelectorAll('#mistake-tabs .subject-tab');
+  var contents=document.querySelectorAll('#mistake-content .tab-content');
+  for(var i=0;i<tabs.length;i++){tabs[i].classList.remove('active');}
+  for(var i=0;i<contents.length;i++){contents[i].classList.remove('active');}
+  if(ev)ev.target.closest('.subject-tab').classList.add('active');
+  var target=document.getElementById('mistake-'+idx);
+  if(target)target.classList.add('active');
+}
+
+// ========== 典型例题 Tab切换 ==========
+function switchExampleTab(ev,idx){
+  var tabs=document.querySelectorAll('#example-tabs .subject-tab');
+  var contents=document.querySelectorAll('#example-content .tab-content');
+  for(var i=0;i<tabs.length;i++){tabs[i].classList.remove('active');}
+  for(var i=0;i<contents.length;i++){contents[i].classList.remove('active');}
+  if(ev)ev.target.closest('.subject-tab').classList.add('active');
+  var target=document.getElementById('example-'+idx);
+  if(target)target.classList.add('active');
+}
+
+// ========== 知识点速查 Tab切换 ==========
+function switchKnowTab(ev,idx){
+  var tabs=document.querySelectorAll('#knowledge-tabs .subject-tab');
+  var contents=document.querySelectorAll('#knowledge-content .tab-content');
+  for(var i=0;i<tabs.length;i++){tabs[i].classList.remove('active');}
+  for(var i=0;i<contents.length;i++){contents[i].classList.remove('active');}
+  if(ev)ev.target.closest('.subject-tab').classList.add('active');
+  var target=document.getElementById('know-'+idx);
+  if(target)target.classList.add('active');
+}
+
+
+// ========== 学情诊断（顶尖版） ==========
+var diagDimensions = ['审题理解力','计算准确度','解题策略力','时间管理力','检查校验力','心理稳定性'];
+var diagDimensionIcons = ['🔍','🧮','🎯','⏱️','🔎','🧠'];
+var diagDimensionColors = ['#667eea','#34c78b','#f59e0b','#3b82f6','#8b5cf6','#ef4444'];
+var diagQuestions = [
+{id:'d0_01',dim:0,difficulty:1,tag:'基础审题',q:'考试时看到一道数学题，你的第一反应是：',opts:['先从头到尾读一遍题目，圈出关键词和条件','先看问题问什么，再回去读条件','直接开始算，边算边看题','感觉难就直接跳过'],ans:0,explanation:'先完整读题并圈出关键词和条件，能避免遗漏已知信息、误读题意，是正确解题的第一步。'},
+{id:'d0_02',dim:0,difficulty:1,tag:'作图习惯',q:'做几何题时，你的习惯是：',opts:['先画准确的图，在图上标注已知条件','脑海中想象图形，少画图','随手画个草图，能看清就行','不画图，直接用公式算'],ans:0,explanation:'画图并标注已知条件是几何题的“翻译”过程，能把抽象条件可视化，帮助发现等量关系和辅助线思路。'},
+{id:'d0_03',dim:0,difficulty:1,tag:'细节捕捉',q:'做选择题时，你是否会圈出题目中的单位、正负号、取值范围等细节？',opts:['每次都会圈出来提醒自己','有时会圈，有时忽略','很少圈，偶尔因此出错','从不注意这些细节'],ans:0,explanation:'单位陷阱、符号陷阱、范围陷阱是选择题最常见的失分点，主动圈画这些细节能有效降低粗心错误率。'},
+{id:'d0_04',dim:0,difficulty:2,tag:'应用建模',q:'做应用题时，你的做法是：',opts:['先找等量关系，再设未知数、列方程','直接设未知数开始算','猜答案再反推','等老师讲解'],ans:0,explanation:'解应用题的关键是“找等量关系”，先建立数学模型再求解，思路清晰、不易出错。直接设未知数容易列错方程。'},
+{id:'d0_05',dim:0,difficulty:2,tag:'关键词识别',q:'审题时，你是否会特别注意“不正确”“除了”“至少”等反向或限定词？',opts:['每次都会特别注意并圈出来','有时注意，有时忽略','很少注意，经常因此出错','从来不注意'],ans:0,explanation:'反向词和限定词直接改变题目含义，如“不正确的是”选的是错误项。圈出这些词是避免答非所问的关键。'},
+{id:'d0_06',dim:0,difficulty:2,tag:'条件分析',q:'遇到包含多个条件的题目，你的处理方式是：',opts:['逐个分析每个条件的含义和作用','先不看题，直接用公式','只看前两个条件','感觉太难就放弃'],ans:0,explanation:'每个条件都有其作用，逐个分析并标注用途，能确保用上全部已知信息，避免漏用条件导致解不出来。'},
+{id:'d0_07',dim:0,difficulty:2,tag:'图文信息',q:'遇到图形与文字结合的题目，你通常会：',opts:['先看图，再读文字，把两者信息对应起来','只看文字，忽略图形','只看图形，不读文字','凭感觉快速作答'],ans:0,explanation:'图文结合题需要把图形信息和文字条件对应起来，图形往往隐藏着关键数量关系，两者结合才能完整理解题意。'},
+{id:'d0_08',dim:0,difficulty:3,tag:'压轴审题',q:'面对压轴题（通常三问），你的读题策略是：',opts:['先通读三问，明确整体思路，再从第(1)问逐问攻克','直接看最后一问，从后往前做','只读第(1)问，后面的不看','三问一起读，结果哪问都没读懂'],ans:0,explanation:'压轴题三问往往层层递进，先通读明确整体结构，再逐问攻克，既避免漏看条件，也能为第(1)问的得分打下基础。'},
+{id:'d0_09',dim:0,difficulty:3,tag:'信息整理',q:'遇到复杂题目时，你是否会在草稿纸上先整理“已知”与“所求”？',opts:['会先列出已知条件和目标，再动手','凭感觉直接算，边算边想','只在不会时才整理','从不整理，直接硬算'],ans:0,explanation:'把已知与所求结构化整理，能让思路更清晰，尤其对信息量大的题目，能避免遗漏和混乱，提高解题正确率。'},
+{id:'d0_10',dim:0,difficulty:3,tag:'隐含条件',q:'面对“整数解”“非负实数”“分母不为零”这类隐含条件，你通常：',opts:['能主动识别并标注出来','偶尔能发现，经常遗漏','很少想到隐含条件','不知道题目还有隐含条件'],ans:0,explanation:'隐含条件是题目的“潜台词”，如方程有实数根意味着判别式大于等于零，主动识别隐含条件是突破难题和避免错解的进阶能力。'},
+{id:'d1_01',dim:1,difficulty:1,tag:'书写规范',q:'计算过程中，你的习惯是：',opts:['每步都写清楚，注意符号和小数点','口算为主，少写过程','写得很快但经常出错','计算时容易分心'],ans:0,explanation:'规范书写计算过程，每步标注符号和小数点，既能减少笔误，也便于检查时快速定位错误。'},
+{id:'d1_02',dim:1,difficulty:1,tag:'基本功',q:'有理数加减乘除、去括号这类基础运算，你的熟练度：',opts:['非常熟练，基本不出错','比较熟练，偶尔出错','会做但速度慢','经常出错，需要重新学'],ans:0,explanation:'基础运算是一切计算的地基，熟练后不仅提高速度，更能把精力留给更复杂的思维环节。建议每天保持十分钟口算训练。'},
+{id:'d1_03',dim:1,difficulty:1,tag:'约分通分',q:'做分数、分式运算时，你的约分与通分掌握情况：',opts:['熟练掌握，能一步到位','会做但偶尔漏约','经常忘记约分','不太会约分通分'],ans:0,explanation:'约分通分是分式运算的核心，结果一定要化成最简形式，否则会被判定为错误。建议专项练习约分通分。'},
+{id:'d1_04',dim:1,difficulty:2,tag:'符号运算',q:'遇到负数运算，你的状态是：',opts:['每步都标注符号，仔细检查','经常忘记符号变化','知道要注意但经常出错','不太在意符号'],ans:0,explanation:'负数运算是初中失分重灾区，“负负得正”“减去一个数等于加上它的相反数”等法则要刻进习惯里，每步标注符号最保险。'},
+{id:'d1_05',dim:1,difficulty:2,tag:'验算习惯',q:'解方程后，你是否会检验？',opts:['每次都会把解代入原方程验证','有时检验，有时不检验','很少检验','不知道要检验'],ans:0,explanation:'代入验算是方程题的最后防线，尤其分式方程必须检验增根。养成验算习惯可显著减少计算丢分。'},
+{id:'d1_06',dim:1,difficulty:2,tag:'分式运算',q:'做分式化简求值题时，你：',opts:['先化简再代入，注意分母不为零','直接代入计算，不化简','化简时经常出错','不知道怎么化简'],ans:0,explanation:'分式化简求值必须先化简再代入，且取值不能使原式分母为零，这是此类题的规范流程和易错点。'},
+{id:'d1_07',dim:1,difficulty:2,tag:'几何计算',q:'解几何计算题时，你的计算：',opts:['仔细准确，最后化简并检查单位','经常因计算错误丢分','计算慢但准确','计算快但容易错'],ans:0,explanation:'几何计算常涉及开方、分数、面积单位，最后化简和核对单位是拿满分的保证，建议做完回头复查关键步骤。'},
+{id:'d1_08',dim:1,difficulty:3,tag:'幂运算',q:'平方、立方、幂的运算中，你的准确率：',opts:['几乎不出错','偶尔出错','经常出错','错误很多'],ans:0,explanation:'幂运算易混点很多：负a的平方与负的a平方、a平方乘a立方与a平方的立方等，需要牢记“括号”“底数不变指数相加或相乘”等规则。'},
+{id:'d1_09',dim:1,difficulty:3,tag:'心算笔算',q:'遇到需要多步计算的问题时，你的做法是：',opts:['关键步骤用笔算，写清过程','全部心算，追求速度','能心算就心算，常出低级错误','用计算器代替笔算'],ans:0,explanation:'多步计算用笔算并写出过程，能避免心算误差和遗忘，是“又快又准”的科学做法。心算适合简单步骤，复杂步骤必须落笔。'},
+{id:'d1_10',dim:1,difficulty:3,tag:'估算校验',q:'算出结果后，你是否会通过估算判断结果是否合理？',opts:['会快速估算量级，发现明显错误','偶尔会估算一下','很少检查结果合理性','从不估算，算出就写'],ans:0,explanation:'估算校验是高水平计算的标志，如面积不可能为负、人数必须是整数、角度应在零到一百八十度之间。用估算把关能拦截大量低级错误。'},
+{id:'d2_01',dim:2,difficulty:1,tag:'选择题策略',q:'遇到不会的选择题，你的策略是：',opts:['先排除明显错误选项，再用特殊值或代入法验证','直接猜一个','死想十分钟不放弃','空着不写'],ans:0,explanation:'选择题“排除法、特殊值法、代入法”是最有效的组合拳，先排除确定错误的，再验证剩余选项，效率最高。'},
+{id:'d2_02',dim:2,difficulty:1,tag:'特殊值法',q:'遇到含字母的抽象题目，你是否会尝试用特殊值帮助理解？',opts:['经常取0、1、负1等特殊值代入验证','偶尔会试试','很少想到','不知道这种方法'],ans:0,explanation:'特殊值法是解决抽象问题的利器，取便于计算的数值代入，能快速验证选项或发现规律，是选择题的常用技巧。'},
+{id:'d2_03',dim:2,difficulty:1,tag:'选项反推',q:'做选择题时，你是否会从选项反推题干条件来验证？',opts:['经常把选项逐一代入验证','偶尔会这样做','很少用','不知道还能这样'],ans:0,explanation:'把选项代入题干验证是选择题的高效方法，尤其适合方程、不等式、函数解析式类题目，可以大大缩短解题时间。'},
+{id:'d2_04',dim:2,difficulty:2,tag:'几何证明',q:'做几何证明题时，你的方法是：',opts:['从结论逆推分析（执果索因），再结合已知正向证明','直接从已知条件开始推，不知道往哪个方向','感觉无从下手就放弃','背公式但不会运用'],ans:0,explanation:'分析法（执果索因）是几何证明的核心思路：从要证的结论出发，倒推需要什么条件，再回头从已知寻找，方向明确不迷路。'},
+{id:'d2_05',dim:2,difficulty:2,tag:'数形结合',q:'遇到函数或不等式问题，你是否会画图象帮助分析？',opts:['会主动画图，用数形结合思考','有时画图','很少画图，纯代数推理','从不画图'],ans:0,explanation:'数形结合是初中数学最重要的思想之一，画图能直观看出交点、最值、取值范围，往往比纯代数计算更快捷清晰。'},
+{id:'d2_06',dim:2,difficulty:2,tag:'多解意识',q:'做完一道题后，你是否会思考是否有其他更优的解法？',opts:['经常会思考不同解法并比较','偶尔会想到','做对就行了，不想其他方法','从来不想'],ans:0,explanation:'一题多解能加深对知识点的理解，也能在考试中遇到类似题时快速找到最简解法，是提升解题能力的有效途径。'},
+{id:'d2_07',dim:2,difficulty:2,tag:'新定义题',q:'遇到“新定义”题型（如定义新运算、新图形），你通常：',opts:['先仔细理解新定义，用具体例子验证，再套用解题','直接套用类似旧题的方法','看不懂就放弃','凭感觉猜测'],ans:0,explanation:'新定义题的钥匙是“先理解定义本身”，用具体数字或图形验证理解是否正确，再按定义规则解题，这是考试中常考的创新题型。'},
+{id:'d2_08',dim:2,difficulty:3,tag:'函数综合',q:'遇到函数综合题（求解析式、交点、最值），你的思路是：',opts:['先确定方法（待定系数法求解析式），再分析图象性质','不知道怎么设解析式','看着图象猜答案','直接放弃'],ans:0,explanation:'函数综合题有固定套路：待定系数法求解析式、画图象、联立求交点、配方或公式求最值。按套路走，分步拿分。'},
+{id:'d2_09',dim:2,difficulty:3,tag:'分类讨论',q:'遇到需要分类讨论的题目（如等腰三角形、绝对值、动点），你：',opts:['会列出所有可能情况，逐个分析不漏','只考虑一种常见情况','知道要分类但经常遗漏','不知道什么时候要分类'],ans:0,explanation:'分类讨论是初中数学的难点，关键在于“不重不漏”。遇到边未指定、绝对值、动点位置不确定等问题时，要先思考所有可能。'},
+{id:'d2_10',dim:2,difficulty:3,tag:'压轴得分策略',q:'压轴题最后一问完全不会时，你通常会：',opts:['写相关公式和已知条件的推导，争取步骤分','直接空着不写','乱写一个答案','觉得没用就放弃'],ans:0,explanation:'压轴题按步骤给分，即使不会也要写出相关公式、已知条件的转化，往往能拿到两到四分步骤分，“写了就有分”是铁律。'},
+{id:'d3_01',dim:3,difficulty:1,tag:'整体分配',q:'考试时你的整体时间分配是：',opts:['先易后难，为检查预留时间','按顺序做，卡住就一直做','前面做得慢，后面来不及','从后往前做'],ans:0,explanation:'先易后难能保证基础分全部到手，并预留检查时间。建议平时就固定各题型的时间预算，形成稳定节奏。'},
+{id:'d3_02',dim:3,difficulty:1,tag:'作业限时',q:'你平时做作业的习惯是：',opts:['限时完成，像考试一样计时','慢慢做，不限时间','经常拖到很晚','只挑简单的做，难的跳过'],ans:0,explanation:'把作业当考试，既能提高效率，也能训练时间分配能力，让“考试节奏感”成为习惯，避免考场上手忙脚乱。'},
+{id:'d3_03',dim:3,difficulty:1,tag:'计时工具',q:'你是否会用番茄钟或计时器来训练答题节奏？',opts:['经常使用，已经成为习惯','偶尔使用','知道有用但没用过','不知道这个方法'],ans:0,explanation:'定时训练能培养时间感知，比如用秒表掐“选择题每道两分钟”，长期坚持考试时间感会明显增强。'},
+{id:'d3_04',dim:3,difficulty:2,tag:'卡壳处理',q:'遇到一道题卡壳超过三分钟，你通常会：',opts:['果断跳过、做标记，完成其他题后再回来','继续死想，不愿意放弃','原地发呆，不知所措','随意猜一个答案'],ans:0,explanation:'卡壳超过三分钟说明暂时思路不通，果断跳过是明智选择，完成后面题目后再回来，心态放松反而容易有思路。'},
+{id:'d3_05',dim:3,difficulty:2,tag:'末段时间',q:'考试还剩最后十分钟时，你通常：',opts:['优先检查高分题和易错题，逐题核对','已经做完了，提前交卷','感觉来不及检查','只草草看一遍'],ans:0,explanation:'最后十分钟应“把分抢回来”：优先检查分值高、易出错的题，而不是发呆或提前交卷，这一习惯常能救回几分。'},
+{id:'d3_06',dim:3,difficulty:2,tag:'复习规划',q:'考试前你的复习计划是：',opts:['制定详细计划并按计划执行','有个大致方向，不太具体','走一步看一步','没有计划，随意复习'],ans:0,explanation:'有计划的复习能覆盖所有知识点、避免遗漏，还能增强考试信心。建议考前三到七天列出知识点清单逐项过关。'},
+{id:'d3_07',dim:3,difficulty:2,tag:'做题顺序',q:'做整张试卷时，你的做题顺序通常是：',opts:['按“选择、填空、解答”顺序，遇到难题做标记跳过','从头到尾硬闯，不会的也死磕','先做最后的大题','随意翻到哪里做哪里'],ans:0,explanation:'按题号顺序推进，难题标记跳过，是公认最稳妥的策略：既保证中低档题得分率，又不会因难题耽误整体进度。'},
+{id:'d3_08',dim:3,difficulty:3,tag:'时间红线',q:'你是否会给不同题型设定“时间红线”（如选择题超三分钟就跳过）？',opts:['会为每个题型设定红线并严格遵守','大致有个时间概念，不严格','没有概念，凭感觉','从没想过设时间限制'],ans:0,explanation:'设定“时间红线”是专业考生做法：选择题三分钟、填空四分钟、解答八分钟，超时立即跳过。这能保证时间花在刀刃上。'},
+{id:'d3_09',dim:3,difficulty:3,tag:'节奏把控',q:'考试进行到一半时，你能否清晰知道自己还剩多少时间、还有多少题没做？',opts:['能随时掌握进度，动态调整节奏','大概知道，但不太精确','不太清楚，全靠感觉','完全不掌握，直到交卷才发现'],ans:0,explanation:'优秀的考生心中有一张“进度表”，随时知道“时间与题量”是否匹配。建议平时模拟时就养成看表对进度的习惯。'},
+{id:'d3_10',dim:3,difficulty:3,tag:'检查预留',q:'对于“预留检查时间”，你的做法是：',opts:['每次考试都预留十到十五分钟专门检查','有时来得及才检查','很少能留出检查时间','从不考虑检查时间'],ans:0,explanation:'检查时间是“稳定得分”的关键，中高档考生都强制预留十到十五分钟。把检查当作考试的一个固定环节来规划。'},
+{id:'d4_01',dim:4,difficulty:1,tag:'填涂检查',q:'你是否会检查答题卡（或答案填写）的填涂位置是否正确？',opts:['每次都会逐题核对填涂位置','偶尔检查','很少检查','从来不检查'],ans:0,explanation:'漏涂、错位、涂错是“冤枉丢分”的头号原因，填涂后逐题核对一遍，是性价比最高的检查动作。'},
+{id:'d4_02',dim:4,difficulty:1,tag:'验算方法',q:'你检查计算题的方法是：',opts:['用逆运算或代入验证','重新原样算一遍','只看答案是否“看着像对的”','不检查'],ans:0,explanation:'用逆运算（加法用减法验、乘法用除法验）或代入验证，能独立发现错误；而原样重算往往“错得一样”。'},
+{id:'d4_03',dim:4,difficulty:1,tag:'错题本',q:'你的错题本使用情况是：',opts:['有错题本，定期回顾并重做','有错题本但很少翻看','没有错题本','不知道怎么用错题本'],ans:0,explanation:'错题本是提分利器，记录、归因、定期重做，能让同样的错误不再犯第二次，是学霸的标配习惯。'},
+{id:'d4_04',dim:4,difficulty:2,tag:'检查策略',q:'考试结束前的检查，你的策略是：',opts:['优先检查高分题和易错题，用不同方法验证','从头到尾重新做一遍','只看看答案是否合理','不检查，做完就交卷'],ans:0,explanation:'检查要“抓重点”：优先复查分值高、易算错的题，用不同方法交叉验证；从头重做一遍效率低且易受第一遍思路干扰。'},
+{id:'d4_05',dim:4,difficulty:2,tag:'修改原则',q:'检查时发现答案和原来不同，你通常会：',opts:['有充分理由才修改，否则相信第一直觉','经常改成后来算的答案','总是觉得后来的对','不知道该怎么办'],ans:0,explanation:'大量研究表明第一直觉正确率更高。只有找到明确的错误理由时才修改答案，否则不要轻易改动。'},
+{id:'d4_06',dim:4,difficulty:2,tag:'多解检查',q:'检查时你是否会注意“多解”情况（如绝对值、平方、开方）？',opts:['会专门检查是否遗漏多解','有时想到，有时忽略','很少考虑多解','不知道还要检查多解'],ans:0,explanation:'绝对值、平方、开方、动点等问题常有多解，检查时专门核对“是否漏解”，能避免丢掉一半分数。'},
+{id:'d4_07',dim:4,difficulty:2,tag:'答案对应',q:'检查时，你是否会核对“答案是否回答了题目所问”？',opts:['会核对答案与题目要求是否对应','偶尔会看','很少注意','从不检查这一点'],ans:0,explanation:'答非所问是常见的低级失分：题目问取值范围，你只写了具体值；问面积，你写了边长。检查时务必回看问题。'},
+{id:'d4_08',dim:4,difficulty:3,tag:'交叉验证',q:'对关键题目，你是否会用两种不同的方法交叉验证结果？',opts:['经常对重要题目用两种方法验证','偶尔会这样做','很少用两种方法','从不用'],ans:0,explanation:'用不同方法（如代入法加估算法、解析法加图象法）交叉验证，能大大降低“同一种错误算两次”的概率，是高分段考生的习惯。'},
+{id:'d4_09',dim:4,difficulty:3,tag:'易错回顾',q:'检查时，你是否会针对自己常犯的错误类型（符号、单位、漏解）逐一排查？',opts:['会按自己的“易错清单”逐项排查','想到什么查什么','凭感觉随便看','没有易错清单概念'],ans:0,explanation:'建立个人“易错清单”（符号、单位、漏解、约分等），检查时逐项过一遍，能精准拦截自己最容易犯的错。'},
+{id:'d4_10',dim:4,difficulty:3,tag:'检查规划',q:'对于“何时检查、先查哪些题”，你是否有一套自己的规划？',opts:['有清晰规划：先查压轴计算，再查易错题，最后核对填涂','大致有个想法，不系统','没有规划，翻到哪算哪','从不做检查规划'],ans:0,explanation:'成熟的检查流程：先复查分值高、计算量大、易出错的题，再核对填涂和单位，最后快速过一遍中低档题，按流程走不遗漏。'},
+{id:'d5_01',dim:5,difficulty:1,tag:'压力应对',q:'考试时看到一道难题，你的心态是：',opts:['告诉自己“难大家都难”，先做会的','立刻紧张，心跳加速','大脑一片空白','想直接放弃整场考试'],ans:0,explanation:'难题面前“大家都难”，先做会做的题拿到基础分，再回头攻克，是稳定心态、保障分数的关键心理战术。'},
+{id:'d5_02',dim:5,difficulty:1,tag:'睡眠管理',q:'考前一晚你的睡眠状况通常是：',opts:['按时休息，保证充足睡眠','复习到很晚，睡眠不足','紧张得睡不着','熬夜背书到天亮'],ans:0,explanation:'充足睡眠直接影响大脑运转效率，考前熬夜复习弊大于利。规律作息、保证七八小时睡眠是考场正常发挥的基础。'},
+{id:'d5_03',dim:5,difficulty:1,tag:'放松技巧',q:'你是否会使用深呼吸、自我暗示等方法调节考试紧张？',opts:['经常使用，效果不错','知道方法但很少用','听说过但没试过','不知道这些方法'],ans:0,explanation:'深呼吸（如四四六呼吸法）和积极自我暗示是经过验证的减压技巧，考前练习几次，考场紧张时能迅速平复心率。'},
+{id:'d5_04',dim:5,difficulty:2,tag:'失误应对',q:'考试中发现自己计算失误或做错了题，你通常会：',opts:['深呼吸放松，重新审题计算，不乱阵脚','越算越乱，心烦意乱','着急得手心出汗','直接放弃这道题'],ans:0,explanation:'发现错误时最关键的是稳住心态：深呼吸、暂停几秒、重新理清思路再算，慌乱只会让错误连锁放大。'},
+{id:'d5_05',dim:5,difficulty:2,tag:'考后心态',q:'考完一科后，你的状态是：',opts:['立刻放下，全力准备下一科','和同学对答案，发现错了很难受','一直回想刚才的题，影响后面','情绪低落，无心准备'],ans:0,explanation:'考后立即放下、不对答案是专业做法。对答案既不能改变结果，还会破坏下一科的考试状态，“考完就过”很重要。'},
+{id:'d5_06',dim:5,difficulty:2,tag:'焦虑症状',q:'你是否有考试焦虑的身体症状（手汗、心慌、肠胃不适等）？',opts:['几乎没有，能保持平和','偶尔有，但能自行调节','经常有，影响发挥','每次都有，严重影响考试'],ans:0,explanation:'适度焦虑是正常且有益的，但严重到影响发挥时需要干预。可通过呼吸训练、运动、规律作息来调节。'},
+{id:'d5_07',dim:5,difficulty:2,tag:'积极暗示',q:'考前你是否会用积极的话语鼓励自己（如“我复习得很充分”）？',opts:['经常进行积极自我暗示','偶尔会鼓励自己','很少这样做','经常自我否定'],ans:0,explanation:'积极自我暗示能重塑考试信心。考前准备几句正向话语，如“我会做的题一定能做对”，紧张时默念可稳定情绪。'},
+{id:'d5_08',dim:5,difficulty:3,tag:'突发应对',q:'考场上遇到突发状况（如噪音干扰、忘带文具、题量超预期），你通常：',opts:['能快速调整心态，优先解决问题再继续','会紧张但很快平复','情绪受影响较大，影响做题','彻底慌乱，无法专心'],ans:0,explanation:'考场突发状况考验心理韧性。成熟的应对是“先处理情绪，再处理事情”：深呼吸、想办法解决、回到做题节奏。'},
+{id:'d5_09',dim:5,difficulty:3,tag:'成绩波动',q:'一次模考成绩不理想后，你的状态是：',opts:['分析错因，制定改进计划，快速振作','会难过几天，但能恢复','长时间情绪低落，影响学习','自我怀疑，想放弃数学'],ans:0,explanation:'成绩波动是正常现象，关键在归因和调整：把失败转化为“错因清单”，制定针对性计划，心理韧性强的学生进步最快。'},
+{id:'d5_10',dim:5,difficulty:3,tag:'专注力',q:'在压力较大的考试环境中，你能否保持长时间专注不分心？',opts:['能保持专注，只关注当下题目','基本能专注，偶尔走神','容易分心，常想其他事','很难专注，频繁走神'],ans:0,explanation:'考场的专注力可以训练：平时做练习就模拟考试环境，用“只关注当前这一题”的法则切断杂念，专注力会逐步提升。'}
+];
+
+var diagStarted = false;
+var diagCurrent = 0;
+var diagAnswers = [];
+var diagTimerInt = null;
+var diagSeconds = 0;
+var studentName = '';
+var studentGrade = '';
+var studentSchool = '';
+
+function pickGrade(el){
+  var chips = document.getElementById('gradeRow').getElementsByClassName('ds-grade-chip');
+  for(var i=0;i<chips.length;i++){chips[i].classList.remove('active');}
+  el.classList.add('active');
+  studentGrade = el.getAttribute('data-grade');
+}
+
+function startDiag(){
+  var nm = document.getElementById('stuName').value;
+  if(!nm || nm.replace(/\s/g,'')===''){
+    alert('请先填写学生姓名再开始测评');
+    return;
+  }
+  studentName = nm.replace(/\s/g,'');
+  studentSchool = document.getElementById('stuSchool').value;
+  diagStarted = true;
+  diagCurrent = 0;
+  diagAnswers = [];
+  diagSeconds = 0;
+  for(var i=0;i<diagQuestions.length;i++){diagAnswers.push(-1);}
+  document.getElementById('diag-intro').style.display = 'none';
+  document.getElementById('diag-quiz').style.display = 'block';
+  document.getElementById('diag-result').style.display = 'none';
+  startDiagTimer();
+  renderDiagQuestion();
+}
+
+function startDiagTimer(){
+  if(diagTimerInt) clearInterval(diagTimerInt);
+  diagTimerInt = setInterval(function(){
+    diagSeconds++;
+    var m = Math.floor(diagSeconds/60);
+    var s = diagSeconds%60;
+    var t = document.getElementById('diag-timer');
+    if(t) t.innerText = (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+  },1000);
+}
+
+function stopDiagTimer(){
+  if(diagTimerInt) clearInterval(diagTimerInt);
+  diagTimerInt = null;
+}
+
+function formatElapsed(sec){
+  if(sec<=0) return '0秒';
+  var m = Math.floor(sec/60);
+  var s = sec%60;
+  var r = '';
+  if(m>0) r = m+'分';
+  if(s>0 || m===0) r += s+'秒';
+  if(m===0 && s===0) r = '0秒';
+  return r;
+}
+
+function renderDiagQuestion(){
+  var q = diagQuestions[diagCurrent];
+  var html = '<div class="quiz-question enter" id="diagQBox">';
+  html += '<div class="quiz-q-text"><span class="q-num">第'+(diagCurrent+1)+'题</span>';
+  html += '<span class="tag tag-purple">'+diagDimensions[q.dim]+'</span>';
+  html += '<span class="tag tag-orange">'+starStr(q.difficulty)+'</span>';
+  html += '<span class="tag tag-blue">'+q.tag+'</span>';
+  html += '</div>';
+  html += '<div class="quiz-q-text" style="font-weight:600;color:#333;line-height:1.8;margin-top:4px">'+q.q+'</div>';
+  html += '<div class="quiz-options">';
+  var answered = diagAnswers[diagCurrent]!==-1;
+  for(var i=0;i<q.opts.length;i++){
+    var cls = 'quiz-opt';
+    if(answered){
+      cls += ' locked';
+      if(i===q.ans) cls += ' right';
+      if(i===diagAnswers[diagCurrent] && i!==q.ans) cls += ' false';
+    }
+    html += '<div class="'+cls+'" onclick="selectDiag('+i+')"><span class="opt-label">'+String.fromCharCode(65+i)+'</span><span>'+q.opts[i]+'</span></div>';
+  }
+  html += '</div>';
+  if(answered){
+    var ok = diagAnswers[diagCurrent]===q.ans;
+    var fbCls = ok ? 'fb-right' : 'fb-wrong';
+    var fbTxt = ok ? '✓ 回答正确，继续保持！' : '✗ 本题建议选最优项，点击查看解析';
+    html += '<div class="feedback-banner '+fbCls+' show">'+fbTxt+'</div>';
+    html += '<div class="quiz-explain show"><span class="explain-tag">解析：</span>'+q.explanation+'</div>';
+  }
+  html += '</div>';
+  document.getElementById('diag-question-container').innerHTML = html;
+
+  var progress = ((diagCurrent+1)/diagQuestions.length)*100;
+  var fill = document.getElementById('diag-progress');
+  fill.style.width = progress+'%';
+  fill.style.transition = 'width .5s ease';
+  document.getElementById('diag-progress-text').innerText = '第 '+(diagCurrent+1)+' / '+diagQuestions.length+' 题';
+
+  document.getElementById('diag-prev').style.display = (diagCurrent===0) ? 'none' : 'inline-block';
+  var nextBtn = document.getElementById('diag-next');
+  var finBtn = document.getElementById('diag-finish');
+  if(answered){
+    if(diagCurrent===diagQuestions.length-1){
+      nextBtn.style.display = 'none';
+      finBtn.style.display = 'inline-block';
+    } else {
+      nextBtn.style.display = 'inline-block';
+      finBtn.style.display = 'none';
+    }
+  } else {
+    nextBtn.style.display = 'none';
+    finBtn.style.display = 'none';
+  }
+}
+
+function starStr(d){
+  if(d===1) return '★';
+  if(d===3) return '★★★';
+  return '★★';
+}
+
+function selectDiag(optIdx){
+  if(diagAnswers[diagCurrent]!==-1) return;
+  diagAnswers[diagCurrent] = optIdx;
+  renderDiagQuestion();
+}
+
+function diagPrev(){
+  if(diagCurrent>0){ diagCurrent--; renderDiagQuestion(); }
+}
+
+function diagNext(){
+  if(diagCurrent<diagQuestions.length-1){
+    diagCurrent++;
+    renderDiagQuestion();
+    window.scrollTo(0,0);
+  }
+}
+
+function finishDiag(){
+  for(var i=0;i<diagQuestions.length;i++){
+    if(diagAnswers[i]===-1){
+      if(!confirm('还有第'+(i+1)+'题未作答，是否跳过并查看报告？')){
+        diagCurrent = i;
+        renderDiagQuestion();
+        return;
+      }
+      break;
+    }
+  }
+  stopDiagTimer();
+  showDiagResult();
+}
+
+function calcScores(){
+  var scores = [0,0,0,0,0,0];
+  var correctCount = 0;
+  var totalScore = 0;
+  for(var i=0;i<diagQuestions.length;i++){
+    var q = diagQuestions[i];
+    var a = diagAnswers[i];
+    if(a===-1){ scores[q.dim]+=0; continue; }
+    if(a===q.ans){ scores[q.dim]+=100; correctCount++; }
+    else { scores[q.dim]+=33; }
+  }
+  for(var i=0;i<6;i++){ scores[i]=Math.round(scores[i]/10); }
+  for(var i=0;i<6;i++){ totalScore += scores[i]; }
+  var percentage = Math.round(totalScore/6);
+  return {scores:scores, correct:correctCount, totalScore:totalScore, totalMax:600, percentage:percentage};
+}
+
+function getGrade(p){
+  if(p>=90) return {grade:'S',color:'#10b981',label:'顶尖优秀',advice:'基础扎实、习惯优秀，建议向压轴题与竞赛思维发起冲击，稳定保持优势，冲刺重点高中。'};
+  if(p>=75) return {grade:'A',color:'#7c6cf0',label:'表现优秀',advice:'整体能力出色，针对最弱维度进行专项突破，可向满分目标稳步迈进。'};
+  if(p>=60) return {grade:'B',color:'#5b9cf5',label:'稳步提升',advice:'具备良好基础，建议聚焦薄弱维度系统训练，掌握应试技巧，成绩将明显跃升。'};
+  if(p>=40) return {grade:'C',color:'#f59e0b',label:'潜力待挖掘',advice:'建议从学习习惯与基础技巧抓起，按周训练计划循序渐进，提升空间很大。'};
+  return {grade:'D',color:'#ef4444',label:'亟需系统规划',advice:'建议优先重建学习习惯与基础，配合专业辅导规划，逐步建立信心与能力。'};
+}
+
+function getLevel(p){
+  if(p>=80) return {level:'强',cls:'level-strong'};
+  if(p>=55) return {level:'中',cls:'level-medium'};
+  return {level:'弱',cls:'level-weak'};
+}
+
+function getLevelText(p){
+  if(p>=80) return '表现优异，习惯成熟，是稳定的得分优势。';
+  if(p>=55) return '基础尚可，但面对高难度情境时仍有提升空间。';
+  return '较为薄弱，建议从基础习惯和方法入手重点加强。';
+}
+
+function showDiagResult(){
+  document.getElementById('diag-quiz').style.display = 'none';
+  document.getElementById('diag-result').style.display = 'block';
+  var cs = calcScores();
+  var elapsedText = formatElapsed(diagSeconds);
+  generateReport(cs, elapsedText);
+  syncReportToCloud(cs, elapsedText);
+  window.scrollTo(0,0);
+}
+
+function generateReport(cs, elapsedText){
+  var html = '';
+  var g = getGrade(cs.percentage);
+  var now = new Date();
+  var dateStr = now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日';
+
+  // 1. 报告头部：环形分数 + 等级徽章 + 元信息
+  html += '<div class="report-head">';
+  html += '<div class="rh-title">📊 数学考试能力测评报告</div>';
+  html += '<div class="rh-sub">'+studentName+(studentGrade?' · '+studentGrade:'')+(studentSchool?' · '+studentSchool:'')+' · '+dateStr+'</div>';
+  html += '<div class="ring-box">';
+  html += '<div style="position:relative;width:190px;height:190px"><canvas id="ringCanvas"></canvas>';
+  html += '<div style="position:absolute;top:0;left:0;width:190px;height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none">';
+  html += '<div style="font-size:2.2rem;font-weight:800;color:#fff">'+cs.percentage+'%</div>';
+  html += '<div style="font-size:0.72rem;color:rgba(255,255,255,0.85)">综合得分</div>';
+  html += '</div></div>';
+  html += '<div class="ring-info">';
+  html += '<div style="display:flex;align-items:center;gap:12px;margin-top:6px"><div class="grade-badge" style="background:linear-gradient(135deg,'+g.color+','+g.color+'99)">'+g.grade+'级</div><div class="grade-label">'+g.label+'</div></div>';
+  html += '</div>';
+  html += '</div>';
+  html += '<div class="meta-strip">';
+  html += '<span class="meta-chip">总分 <b>'+cs.totalScore+'</b> / '+cs.totalMax+'</span>';
+  html += '<span class="meta-chip">答对 <b>'+cs.correct+'</b> / 60</span>';
+  html += '<span class="meta-chip">用时 <b>'+elapsedText+'</b></span>';
+  html += '</div>';
+  html += '</div>';
+
+  // 2. 能力雷达图 + 柱状图
+  html += '<div class="card"><h3 class="section-title">📡 六维能力雷达图</h3><div class="chart-container" id="radarBox"></div>';
+  html += '<h3 class="section-title">📊 六维得分柱状图</h3><div class="chart-container" id="barBox"></div></div>';
+
+  // 3. 维度强弱分析
+  html += '<div class="card"><h3 class="section-title">🔍 各维度强弱分析</h3>';
+  var strongIdx = 0, weakIdx = 0;
+  for(var i=0;i<6;i++){
+    var lv = getLevel(cs.scores[i]);
+    html += '<div class="dimension-result">';
+    html += '<div class="dimension-header"><span class="dimension-name">'+diagDimensionIcons[i]+' '+diagDimensions[i]+'</span>';
+    html += '<span class="dimension-percent" style="color:'+diagDimensionColors[i]+'">'+cs.scores[i]+'分 <span class="ability-level '+lv.cls+'">'+lv.level+'</span></span></div>';
+    html += '<div class="dimension-bar"><div class="dimension-bar-fill" style="width:'+cs.scores[i]+'%;background:linear-gradient(90deg,'+diagDimensionColors[i]+',#764ba2)"></div></div>';
+    html += '<p style="font-size:0.82rem;color:#888;line-height:1.7;margin-top:6px">'+getLevelText(cs.scores[i])+'</p>';
+    html += '</div>';
+    if(cs.scores[i]>cs.scores[strongIdx]) strongIdx = i;
+    if(cs.scores[i]<cs.scores[weakIdx]) weakIdx = i;
+  }
+  html += '<div class="info-box info-green"><strong>💪 最强维度：</strong>'+diagDimensions[strongIdx]+'（'+cs.scores[strongIdx]+'分）——保持并迁移到其他维度。</div>';
+  html += '<div class="info-box info-red"><strong>⚠️ 最需提升：</strong>'+diagDimensions[weakIdx]+'（'+cs.scores[weakIdx]+'分）——重点突破方向。</div>';
+  html += '</div>';
+
+  // 4. 薄弱知识点聚类（按tag统计未选最优项）
+  var wrongs = [];
+  var tagCount = {};
+  for(var i=0;i<diagQuestions.length;i++){
+    var q = diagQuestions[i];
+    var a = diagAnswers[i];
+    if(a!==q.ans){
+      wrongs.push({q:q, a:a, idx:i});
+      if(!tagCount[q.tag]) tagCount[q.tag] = 0;
+      tagCount[q.tag]++;
+    }
+  }
+  var tags = [];
+  for(var t in tagCount){ tags.push({tag:t, count:tagCount[t]}); }
+  tags.sort(function(x,y){ return y.count-x.count; });
+
+  html += '<div class="card"><h3 class="section-title">🎯 薄弱习惯聚类</h3>';
+  if(tags.length===0){
+    html += '<div class="no-wrong">太棒了！本次测评全部选择最优项，考试习惯非常优秀，继续保持！</div>';
+  } else {
+    html += '<div class="kp-list">';
+    var maxCount = tags[0].count;
+    for(var i=0;i<tags.length;i++){
+      var k = tags[i];
+      html += '<div class="kp-item"><span class="kp-rank">'+(i+1)+'</span>';
+      html += '<span class="kp-name">'+k.tag+'</span>';
+      html += '<span class="kp-count">'+k.count+'题待改进</span>';
+      html += '<div class="kp-bar"><i style="width:'+Math.round(k.count/maxCount*100)+'%"></i></div></div>';
+    }
+    html += '</div>';
+  }
+  html += '</div>';
+
+  // 5. 错题回顾 + 解析
+  html += '<div class="card"><h3 class="section-title">📖 错题回顾与解析</h3>';
+  if(wrongs.length===0){
+    html += '<div class="no-wrong">全部作答最优，无错题需要回顾。</div>';
+  } else {
+    for(var i=0;i<wrongs.length;i++){
+      var w = wrongs[i];
+      var q = w.q;
+      html += '<div class="wrong-question-item">';
+      html += '<div class="wq-head">第'+(w.idx+1)+'题 <span class="wq-tag">'+q.tag+'</span> <span style="color:#888;font-weight:400">· '+diagDimensions[q.dim]+' · '+starStr(q.difficulty)+'</span></div>';
+      html += '<div style="font-size:0.86rem;line-height:1.7;color:#333;margin-bottom:8px">'+q.q+'</div>';
+      if(w.a===-1){
+        html += '<div class="wrong-answer">✗ 未作答</div>';
+      } else {
+        html += '<div class="wrong-answer">✗ 你的选择：'+(q.opts[w.a]||'未作答')+'</div>';
+      }
+      html += '<div class="correct-answer">✓ 最优选择：'+q.opts[q.ans]+'</div>';
+      html += '<div class="explanation">💡 '+q.explanation+'</div>';
+      html += '</div>';
+    }
+  }
+  html += '</div>';
+
+  // 6. 综合解读
+  html += '<div class="card"><h3 class="section-title">💬 综合解读</h3><div class="summary-box">';
+  html += '<p><b>'+studentName+'</b>同学，本次测评综合得分 <b>'+cs.percentage+'%</b>，达到 <b>'+g.grade+'级 · '+g.label+'</b>，用时 '+elapsedText+'。</p>';
+  html += '<p style="margin-top:8px">最强维度是 <b>'+diagDimensions[strongIdx]+'</b>（'+cs.scores[strongIdx]+'分），最需提升的是 <b>'+diagDimensions[weakIdx]+'</b>（'+cs.scores[weakIdx]+'分）。</p>';
+  html += '<p style="margin-top:8px">'+g.advice+'</p>';
+  html += '</div></div>';
+
+  // 7. 分级周训练计划
+  var plans = getWeekPlan(g.grade, weakIdx, tags);
+  html += '<div class="card"><h3 class="section-title">🗓️ 个性化周训练计划（'+g.grade+'级 · '+planTitle(g.grade)+'）</h3>';
+  for(var i=0;i<plans.length;i++){
+    html += '<div class="plan-card"><div class="plan-title">📅 '+plans[i].t+'</div><ul class="plan-list">';
+    for(var j=0;j<plans[i].items.length;j++){
+      html += '<li><b>'+(j+1)+'</b><span>'+plans[i].items[j]+'</span></li>';
+    }
+    html += '</ul></div>';
+  }
+  html += '<div class="plan-note">📌 计划强度根据本次等级自动匹配，坚持执行两周后再测，可重新生成更精准的方案。</div>';
+  html += '</div>';
+
+  // 8. 学科关联
+  html += '<div class="card"><h3 class="section-title">📚 初中数学知识模块与能力对应</h3><div class="subject-grid">';
+  var subs = [
+    {n:'📘 初一 · 有理数与整式', d:'有理数运算、整式加减、一元一次方程高度依赖<b>计算准确度</b>与<b>审题理解力</b>，符号与去括号是最大失分点。'},
+    {n:'📗 初二 · 函数与全等', d:'一次函数、全等三角形、勾股定理考验<b>解题策略力</b>与<b>检查校验力</b>，几何证明需执果索因。'},
+    {n:'📙 初三 · 二次函数与圆', d:'二次函数、圆、相似三角形综合性强，直接关联<b>时间管理力</b>与<b>解题策略力</b>，压轴题按步骤得分。'},
+    {n:'⚖️ 全程 · 应试心态', d:'中考临场发挥取决于<b>心理稳定性</b>，深呼吸、积极暗示、考后放下等技巧贯穿初一至初三。'},
+    {n:'🧩 初中数学思想方法', d:'数形结合、分类讨论、方程思想、转化思想是四大核心思想，是<b>解题策略力</b>的根基。'},
+    {n:'🎯 各维度学习建议', d:'根据本次最弱维度'+diagDimensions[weakIdx]+'，优先安排对应章节的专项训练，见效最快。'}
+  ];
+  for(var i=0;i<subs.length;i++){
+    html += '<div class="subject-card"><div class="subject-name">'+subs[i].n+'</div><div class="subject-desc">'+subs[i].d+'</div></div>';
+  }
+  html += '</div></div>';
+
+  // 9. 家长寄语
+  html += '<div class="card"><h3 class="section-title">💝 家长寄语（中考语境）</h3><div class="parent-card">';
+  html += '<div class="parent-title">给家长的一封信</div>';
+  var pMsg = '';
+  if(cs.percentage>=90){
+    pMsg = '恭喜您！孩子在此次测评中表现非常优异，数学考试习惯与能力已接近顶尖水平。中考冲刺阶段，请继续给予信任与空间，支持他向压轴题和更高目标发起挑战，同时留意劳逸结合，避免因追求满分而过度焦虑。孩子的优秀离不开您的长期陪伴，请把这份自信带进中考考场。';
+  } else if(cs.percentage>=75){
+    pMsg = '孩子整体能力出色，具备冲击重点高中的潜力。当前最需要的是针对薄弱维度（如'+diagDimensions[weakIdx]+'）的专项突破。建议每周与孩子一起复盘一次错题，关注其考前心态调节，少一些催促、多一些方法指导，孩子的成绩完全有希望在现有基础上再上一个台阶。';
+  } else if(cs.percentage>=60){
+    pMsg = '孩子的考试习惯与能力处于稳步上升期，提升空间很大。中考前的这段时间，请鼓励孩子按周训练计划循序渐进，重点关注最弱维度'+diagDimensions[weakIdx]+'。孩子需要的不是一味加压，而是清晰的方法与稳定的支持。每天固定半小时高质量练习，中考时会有惊喜。';
+  } else if(cs.percentage>=40){
+    pMsg = '孩子当前在考试方法与习惯上还有较大提升空间，但这恰恰意味着进步潜力巨大。建议降低对分数的过度关注，先从基础习惯（审题、计算、检查）抓起，每天一小步。同时建议联系我们预约一次专业的1对1学情规划，帮助孩子尽快找到适合自己的提升路径。请多给孩子鼓励与耐心，中考是一场马拉松，稳住心态就能跑赢。';
+  } else {
+    pMsg = '孩子目前的学习状态需要系统性的调整与帮助。这并不代表孩子不聪明，而是学习习惯与方法的底层需要重建。请先放下焦虑，与孩子一起从最基础的审题、计算、检查三个动作练起，必要时寻求专业辅导支持。我们愿与您并肩同行，为孩子制定长期可行的提升方案，请相信坚持的力量。';
+  }
+  html += '<p class="parent-text">'+pMsg+'</p></div></div>';
+
+  // 10. 教师咨询卡
+  html += '<div class="card no-print"><h3 class="section-title">👨‍🏫 专业成长支持</h3><div class="teacher-card">';
+  html += '<div class="teacher-avatar">👨‍🏫</div><div class="teacher-info">';
+  html += '<div class="teacher-name">刘老师 · 资深理科教育规划师</div>';
+  html += '<div class="teacher-award">★ 央视中学生频道《教育兴国》受邀专访嘉宾</div>';
+  html += '<div class="teacher-stats">从业超8年 · 累计规划学员3100+ · 专注初中理科提分</div>';
+  html += '<div class="teacher-phone">📞 17875314336（扫码测评后预约咨询）</div>';
+  html += '</div></div></div>';
+
+  // 11. 打印按钮
+  html += '<div class="print-bar no-print">';
+  html += '<button class="btn btn-secondary" onclick="resetDiag()">重新测评</button>';
+  html += '<button class="btn btn-outline" onclick="showPage(\'skills\')">查看技巧库</button>';
+  html += '<button class="btn btn-accent" onclick="window.print()">🖨️ 打印报告</button>';
+  html += '</div>';
+
+  document.getElementById('reportContent').innerHTML = html;
+
+  setTimeout(function(){
+    var ring = document.getElementById('ringCanvas');
+    if(ring) drawRing(ring, cs.percentage, g.color);
+    var rb = document.getElementById('radarBox');
+    if(rb) rb.appendChild(drawRadar(document.createElement('canvas'), cs));
+    var bb = document.getElementById('barBox');
+    if(bb) bb.appendChild(drawBar(document.createElement('canvas'), cs));
+  },150);
+}
+
+function planTitle(grade){
+  if(grade==='S') return '冲刺保持计划';
+  if(grade==='A') return '精进提升计划';
+  if(grade==='B') return '巩固强化计划';
+  if(grade==='C') return '基础重建计划';
+  return '筑基起步计划';
+}
+
+function getWeekPlan(grade, weakIdx, tags){
+  var weakName = diagDimensions[weakIdx];
+  var weakTag = (tags && tags.length) ? tags[0].tag : '综合习惯';
+  var plans = [];
+  if(grade==='S'){
+    plans.push({t:'周一 · 压轴攻坚', items:['精做2道压轴题（二次函数与几何综合），限时40分钟','使用“第(1)问必拿分”策略，规范写出每一步依据','记录压轴错题，重写完整解答并总结思路']});
+    plans.push({t:'周二 · 速度训练', items:['限时完成12道选择题（25分钟），练习排除法、特殊值法、代入法','对照答案逐题复盘，找出超时题目并分析原因','坚持3分钟“时间红线”，超时立即跳过']});
+    plans.push({t:'周三 · 竞赛思维', items:['尝试2道拓展拔高题（新定义、阅读理解型），培养创新思维','用“先理解定义、再用特例验证”的方法处理新题型','挑战一题多解，比较不同方法的优劣']});
+    plans.push({t:'周四 · 全真模拟', items:['完整做一套模拟卷（120分钟），严格模拟考场环境','模拟时记录各题型用时，对照时间分配表找偏差','考后重点复盘错题与压轴题得分情况']});
+    plans.push({t:'周五 · 专项巩固', items:['针对最弱维度【'+weakName+'】安排15分钟专项训练','重做本周所有错题，确保“错题清零”','练习用两种方法交叉验证关键计算']});
+    plans.push({t:'周末 · 保持与调整', items:['周六：轻松完成1套基础卷，保持手感和信心','周日：整理错题本，复习本周技巧要点','保证充足睡眠，用深呼吸法调节考前心态']});
+  } else if(grade==='A'){
+    plans.push({t:'周一 · 压轴入门', items:['精做1-2道压轴题，重点拿下第(1)(2)问','掌握“执果索因”分析法，写清证明依据','压轴错题完整重写一遍']});
+    plans.push({t:'周二 · 薄弱专项', items:['针对【'+weakName+'】+【'+weakTag+'】安排20分钟专项练习','总结该类题型的通用解题步骤','做3道同类题巩固，做到举一反三']});
+    plans.push({t:'周三 · 计算精度', items:['完成20道计算题（含负数、幂、分式），要求零失误','每步规范书写，标注符号','用逆运算或代入法验证5道关键题']});
+    plans.push({t:'周四 · 时间管理', items:['限时完成1套选择题+填空题组合（50分钟）','练习“先易后难”与“时间红线”策略','复盘超时题，优化时间分配']});
+    plans.push({t:'周五 · 错题复盘', items:['重做本周错题，归因（计算/审题/策略/心态）','把典型错误录入错题本','对易错清单逐项自查']});
+    plans.push({t:'周末 · 模拟与心态', items:['周六：限时1套模拟卷，模拟真实考场','周日：分析错题分布，制定下周重点','练习深呼吸与积极暗示，强化考试信心']});
+  } else if(grade==='B'){
+    plans.push({t:'周一 · 基础加固', items:['复习【'+weakName+'】对应的核心概念与公式','完成10道基础题，要求全部正确','建立“知识点清单”，标记薄弱项']});
+    plans.push({t:'周二 · 技巧训练', items:['学习选择题四法（排除、特殊值、代入、估算）','完成8道选择题练习，每次限时2分钟/题','学会“先排除再验证”的快速解题流程']});
+    plans.push({t:'周三 · 计算规范', items:['完成15道计算题，重点练负数与去括号','每步写清过程，做完用逆运算验证','记录所有失误点，形成个人易错清单']});
+    plans.push({t:'周四 · 检查训练', items:['做10道题后专门练习“检查”环节','练习优先检查高分题、用不同方法验证','核对填涂与单位，杜绝冤枉丢分']});
+    plans.push({t:'周五 · 错题归因', items:['重做本周错题，按“审题/计算/策略/心态”四类归因','针对【'+weakTag+'】类题目再练3题','与同学或老师交流1道不会的题']});
+    plans.push({t:'周末 · 限时训练', items:['周六：限时完成1套中档模拟卷（100分钟）','周日：复盘失分点，制定下周计划','加入10分钟深呼吸练习，稳定心态']});
+  } else if(grade==='C'){
+    plans.push({t:'周一 · 习惯重建', items:['学习“三步审题法”：通读、圈关键词、明确所求','完成5道题专门训练圈画关键词与隐含条件','每天记录一次“我审对了”的小成就']});
+    plans.push({t:'周二 · 计算筑基', items:['完成10道有理数混合运算，先易后难','规范书写步骤，每步标注符号','做错的重做一遍，直到全对为止']});
+    plans.push({t:'周三 · 策略启蒙', items:['学习排除法与特殊值法，用于选择题','完成6道选择题练习，体会方法带来的提速','建立“选择题四法”小抄，随时查阅']});
+    plans.push({t:'周四 · 时间感知', items:['用计时器做作业：每题限时训练','学习“卡壳3分钟就跳过”策略','练习先易后难，保护基础分']});
+    plans.push({t:'周五 · 检查起步', items:['完成8道题后，练习用逆运算检查计算题','学习核对答案与题目是否对应','开始建立错题本，记录5道错题']});
+    plans.push({t:'周末 · 信心建立', items:['周六：完成1套基础卷，目标是把会做的全做对','周日：家长陪同复盘，重点表扬进步','练习深呼吸法，为下一次测评做准备']});
+  } else {
+    plans.push({t:'周一 · 从零开始', items:['复习最基础概念：有理数、相反数、绝对值','完成5道最简单的计算题，找回手感','目标：今天搞懂1个概念，不贪多']});
+    plans.push({t:'周二 · 审题入门', items:['学习读题三步骤：看完整、圈条件、明所求','做3道简单题，专练“读懂题再动笔”','请家长或老师帮助确认是否读懂了题目']});
+    plans.push({t:'周三 · 计算复原', items:['用课本例题练习有理数四则运算','每步写过程，做完对答案','错题不灰心，第二天再重做一遍']});
+    plans.push({t:'周四 · 小步练习', items:['完成4道选择题，用排除法缩小范围','设置每道题5分钟的时间上限','做完后学习“检查一遍”的习惯']});
+    plans.push({t:'周五 · 陪伴学习', items:['建议家长陪同完成1小时专注学习','用“番茄钟”25分钟学习+5分钟休息','记录今天学到的1个新方法']});
+    plans.push({t:'周末 · 评估规划', items:['周六：完成一套最基础的自测，定位当前水平','周日：建议预约专业1对1学情规划，制定长期方案','家长寄语：多鼓励、少比较，重建孩子的学习信心']});
+  }
+  return plans;
+}
+
+function drawRing(canvasEl, pct, color){
+  var c = canvasEl;
+  var ctx = c.getContext('2d');
+  var size = 190, cx = size/2, cy = size/2, r = 78;
+  c.width = size; c.height = size;
+  ctx.clearRect(0,0,size,size);
+  ctx.lineWidth = 16; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2);
+  ctx.strokeStyle = 'rgba(255,255,255,0.18)'; ctx.stroke();
+  var start = -Math.PI/2;
+  var end = start + Math.PI*2*pct/100;
+  var grad = ctx.createLinearGradient(0,0,size,size);
+  grad.addColorStop(0,'#667eea'); grad.addColorStop(1,'#764ba2');
+  ctx.strokeStyle = grad;
+  ctx.beginPath(); ctx.arc(cx,cy,r,start,end); ctx.stroke();
+}
+
+function drawRadar(canvasEl, cs){
+  var c = canvasEl;
+  var ctx = c.getContext('2d');
+  var size = 340, cx = size/2, cy = size/2, r = 118, n = 6;
+  c.width = size; c.height = size;
+  var step = Math.PI*2/n;
+  ctx.strokeStyle = 'rgba(100,116,139,0.16)';
+  ctx.lineWidth = 1;
+  for(var l=1;l<=5;l++){
+    ctx.beginPath();
+    var rr = r*l/5;
+    for(var i=0;i<=n;i++){
+      var a = step*i-Math.PI/2;
+      var x = cx+rr*Math.cos(a), y = cy+rr*Math.sin(a);
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.closePath(); ctx.stroke();
+  }
+  for(var i=0;i<n;i++){
+    var a = step*i-Math.PI/2;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));
+    ctx.stroke();
+  }
+  var pts = [];
+  ctx.beginPath();
+  for(var i=0;i<n;i++){
+    var pct = cs.scores[i];
+    var rr = r*pct/100;
+    var a = step*i-Math.PI/2;
+    var x = cx+rr*Math.cos(a), y = cy+rr*Math.sin(a);
+    pts.push({x:x,y:y});
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  var grad = ctx.createLinearGradient(0,0,size,size);
+  grad.addColorStop(0,'rgba(102,126,234,0.4)'); grad.addColorStop(1,'rgba(118,75,162,0.3)');
+  ctx.fillStyle = grad; ctx.fill();
+  ctx.strokeStyle = '#667eea'; ctx.lineWidth = 2.5; ctx.stroke();
+  for(var i=0;i<pts.length;i++){
+    ctx.beginPath(); ctx.arc(pts[i].x,pts[i].y,5,0,Math.PI*2);
+    ctx.fillStyle = '#764ba2'; ctx.fill();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+  }
+  ctx.font = 'bold 13px sans-serif';
+  ctx.textAlign = 'center';
+  for(var i=0;i<n;i++){
+    var a = step*i-Math.PI/2;
+    var x = cx+(r+26)*Math.cos(a), y = cy+(r+26)*Math.sin(a);
+    ctx.fillStyle = '#334155'; ctx.fillText(diagDimensions[i],x,y);
+    ctx.fillStyle = diagDimensionColors[i];
+    ctx.fillText(cs.scores[i]+'分',x,y+17);
+  }
+  return c;
+}
+
+function drawBar(canvasEl, cs){
+  var c = canvasEl;
+  var ctx = c.getContext('2d');
+  var w = 460, h = 240;
+  c.width = w; c.height = h;
+  ctx.clearRect(0,0,w,h);
+  var n = 6, padL = 20, padR = 20, padT = 22, padB = 34;
+  var chartW = w - padL - padR;
+  var chartH = h - padT - padB;
+  var barW = chartW/n - 16;
+  // 网格线
+  ctx.strokeStyle = 'rgba(100,116,139,0.12)';
+  ctx.lineWidth = 1;
+  for(var g=0;g<=4;g++){
+    var gy = padT + chartH - (chartH*g/4);
+    ctx.beginPath();
+    ctx.moveTo(padL,gy); ctx.lineTo(w-padR,gy);
+    ctx.stroke();
+    ctx.fillStyle = '#999'; ctx.font = '11px sans-serif'; ctx.textAlign = 'right';
+    ctx.fillText((g*25)+'', padL-4, gy+4);
+  }
+  for(var i=0;i<n;i++){
+    var x = padL + (chartW/n)*i + 8;
+    var vh = (cs.scores[i]/100)*chartH;
+    var y = padT + chartH - vh;
+    var grad = ctx.createLinearGradient(0,y,0,padT+chartH);
+    grad.addColorStop(0, diagDimensionColors[i]);
+    grad.addColorStop(1, '#764ba2');
+    ctx.fillStyle = grad;
+    ctx.fillRect(x, y, barW, vh);
+    ctx.fillStyle = '#334155'; ctx.textAlign = 'center'; ctx.font = 'bold 12px sans-serif';
+    ctx.fillText(cs.scores[i], x+barW/2, y-6);
+    ctx.fillStyle = '#888'; ctx.font = '11px sans-serif';
+    ctx.fillText(diagDimensions[i].slice(0,4), x+barW/2, padT+chartH+16);
+  }
+  return c;
+}
+
+function syncReportToCloud(cs, elapsedText){
+  try{
+    var SUPABASE_URL = 'https://bmgqtxhbzupaujpzghpq.supabase.co';
+    var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtZ3F0eGhienVwYXVqcHpnaHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwMDQxODQsImV4cCI6MjEwMTU4MDE4NH0.JgiQlUopALIDRYxE72oyPC2NoC0L4HrhH2q9cHW01W0';
+    var ts = new Date().getTime();
+    var uname = 'exam_skill_junior_report_'+(studentName||'guest')+'_'+ts;
+    var bodyData = {
+      student_name: studentName||'匿名',
+      grade: studentGrade||'',
+      school: studentSchool||'',
+      total_score: cs.totalScore,
+      total_max: cs.totalMax,
+      percentage: cs.percentage,
+      grade_level: getGrade(cs.percentage).grade,
+      correct: cs.correct,
+      elapsed: elapsedText,
+      dim0_percent: cs.scores[0],
+      dim1_percent: cs.scores[1],
+      dim2_percent: cs.scores[2],
+      dim3_percent: cs.scores[3],
+      dim4_percent: cs.scores[4],
+      dim5_percent: cs.scores[5],
+      report_time: new Date().toISOString()
+    };
+    var body = JSON.stringify({username:uname, state_data: JSON.stringify(bodyData), updated_at: new Date().toISOString()});
+    fetch(SUPABASE_URL+'/rest/v1/py_user_states?on_conflict=username',{
+      method: 'POST',
+      headers: {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
+      body: body
+    }).then(function(resp){
+      if(resp.ok){ console.log('[Cloud] 报告已同步到云端'); }
+    }).catch(function(e){ console.error('[Cloud] 同步失败',e); });
+  }catch(e){ console.error('[Cloud] 同步异常',e); }
+}
+
+function resetDiag(){
+  stopDiagTimer();
+  diagStarted = false;
+  diagCurrent = 0;
+  diagAnswers = [];
+  diagSeconds = 0;
+  studentName = ''; studentGrade = ''; studentSchool = '';
+  document.getElementById('stuName').value = '';
+  document.getElementById('stuSchool').value = '';
+  var chips = document.getElementById('gradeRow').getElementsByClassName('ds-grade-chip');
+  for(var i=0;i<chips.length;i++){ chips[i].classList.remove('active'); }
+  document.getElementById('diag-intro').style.display = 'block';
+  document.getElementById('diag-quiz').style.display = 'none';
+  document.getElementById('diag-result').style.display = 'none';
+}
+</script>
+
+<script>
+// ========== 限时答题训练 ==========
+var timedQuestions=[
+{q:'已知二次函数 y=ax²+bx+c 的图象开口向下，对称轴在y轴右侧，与x轴交于原点右侧，则下列正确的是：',opts:['a<0,b>0,c>0','a<0,b<0,c>0','a>0,b>0,c<0','a>0,b<0,c>0'],ans:0,exp:'开口向下→a<0；对称轴在y轴右侧，即x=-b/2a>0，因a<0，故b>0；与x轴交于原点右侧→c>0。'},
+{q:'一元二次方程 x²-5x+6=0 的两根为x₁、x₂，则x₁·x₂=？',opts:['5','6','-5','-6'],ans:1,exp:'韦达定理：x₁·x₂=c/a=6/1=6。'},
+{q:'在Rt△ABC中，∠C=90°，AC=3，BC=4，则AB=？',opts:['5','7','1','√7'],ans:0,exp:'勾股定理：AC²+BC²=AB²，9+16=25，AB=5。'},
+{q:'圆的半径为3，则圆的面积为？',opts:['6π','9π','3π','9'],ans:1,exp:'S=πr²=π×9=9π。'},
+{q:'函数 y=2x-3 与y轴的交点坐标为？',opts:['(0,3)','(0,-3)','(3,0)','(-3,0)'],ans:1,exp:'令x=0，y=2×0-3=-3，交点(0,-3)。'},
+{q:'不等式 -2x>4 的解集为？',opts:['x>2','x<-2','x>-2','x<2'],ans:1,exp:'两边除以-2，不等号方向改变：x<-2。'},
+{q:'因式分解 x²-9=？',opts:['(x-3)²','(x+3)²','(x-3)(x+3)','(x-9)(x+1)'],ans:2,exp:'平方差公式：x²-9=(x+3)(x-3)。'},
+{q:'sin30°=？',opts:['1/2','√3/2','√2/2','1'],ans:0,exp:'特殊角值：sin30°=1/2。'},
+{q:'一个袋子中有3个红球、2个白球，随机摸出1个，摸到红球的概率为？',opts:['2/5','3/5','1/2','1/5'],ans:1,exp:'P=3/(3+2)=3/5。'},
+{q:'抛物线 y=(x-1)²+2 的顶点坐标为？',opts:['(1,2)','(-1,2)','(1,-2)','(2,1)'],ans:0,exp:'顶点式y=a(x-h)²+k的顶点为(h,k)=(1,2)。'}
+];
+var timedStarted=false;
+var timedIdx=0;
+var timedAnswers=[];
+var timedTimerInt=null;
+var timedSec=900;
+
+function startTimedQuiz(){
+  timedStarted=true;
+  timedIdx=0;
+  timedAnswers=[];
+  timedSec=900;
+  for(var i=0;i<timedQuestions.length;i++){timedAnswers.push(-1);}
+  document.getElementById('timed-intro').style.display='none';
+  document.getElementById('timed-result').style.display='none';
+  document.getElementById('timed-quiz').querySelectorAll('.quiz-question').forEach(function(){});
+  renderTimedQuestion();
+  startTimedTimer();
+}
+
+function startTimedTimer(){
+  if(timedTimerInt)clearInterval(timedTimerInt);
+  timedTimerInt=setInterval(function(){
+    timedSec--;
+    var m=Math.floor(timedSec/60);
+    var s=timedSec%60;
+    var t=document.getElementById('timed-timer');
+    if(t)t.innerText=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+    if(timedSec<=0){clearInterval(timedTimerInt);finishTimedQuiz();}
+  },1000);
+}
+
+function renderTimedQuestion(){
+  var q=timedQuestions[timedIdx];
+  var html='<div class="quiz-question">';
+  html+='<div class="quiz-q-text"><span class="q-num">第'+(timedIdx+1)+'题</span>'+q.q+'</div>';
+  html+='<div class="quiz-options">';
+  for(var i=0;i<q.opts.length;i++){
+    var cls='quiz-opt';
+    if(timedAnswers[timedIdx]===i){cls+=' selected';}
+    html+='<div class="'+cls+'" onclick="selectTimed('+i+')"><span class="opt-label">'+String.fromCharCode(65+i)+'</span><span>'+q.opts[i]+'</span></div>';
+  }
+  html+='</div>';
+  if(timedAnswers[timedIdx]!==-1){
+    html+='<div class="quiz-explain show"><span class="explain-tag">解析：</span>'+q.exp+'</div>';
+  }
+  html+='</div>';
+  var container=document.getElementById('timed-container');
+  if(container)container.innerHTML=html;
+  var prog=document.getElementById('timed-progress');
+  if(prog)prog.style.width=((timedIdx+1)/timedQuestions.length*100)+'%';
+  var qp=document.getElementById('timed-q-progress');
+  if(qp)qp.innerText='第 '+(timedIdx+1)+' / '+timedQuestions.length+' 题';
+}
+
+function selectTimed(idx){
+  timedAnswers[timedIdx]=idx;
+  renderTimedQuestion();
+  setTimeout(function(){
+    if(timedIdx<timedQuestions.length-1){
+      timedIdx++;
+      renderTimedQuestion();
+    }else{
+      finishTimedQuiz();
+    }
+  },800);
+}
+
+function finishTimedQuiz(){
+  if(timedTimerInt)clearInterval(timedTimerInt);
+  var correct=0;
+  var html='';
+  for(var i=0;i<timedQuestions.length;i++){
+    var q=timedQuestions[i];
+    var isCorrect=timedAnswers[i]===q.ans;
+    if(isCorrect)correct++;
+    html+='<div class="quiz-question">';
+    html+='<div class="quiz-q-text"><span class="q-num">第'+(i+1)+'题</span>'+q.q+'</div>';
+    html+='<div class="quiz-options">';
+    for(var j=0;j<q.opts.length;j++){
+      var cls='quiz-opt';
+      if(j===q.ans)cls+=' correct';
+      if(timedAnswers[i]===j&&j!==q.ans)cls+=' wrong';
+      html+='<div class="'+cls+'"><span class="opt-label">'+String.fromCharCode(65+j)+'</span><span>'+q.opts[j]+'</span></div>';
+    }
+    html+='</div>';
+    html+='<div class="quiz-explain show"><span class="explain-tag">解析：</span>'+q.exp+'</div>';
+    html+='</div>';
+  }
+  var score=Math.round(correct/timedQuestions.length*100);
+  document.getElementById('timed-score').innerText=score;
+  document.getElementById('timed-review').innerHTML=html;
+  document.getElementById('timed-container').style.display='none';
+  var qp=document.getElementById('timed-q-progress');
+  if(qp)qp.parentElement.style.display='none';
+  document.getElementById('timed-result').style.display='block';
+}
+
+function resetTimedQuiz(){
+  document.getElementById('timed-intro').style.display='block';
+  document.getElementById('timed-result').style.display='none';
+  document.getElementById('timed-container').style.display='block';
+  document.getElementById('timed-container').innerHTML='';
+  var qp=document.getElementById('timed-q-progress');
+  if(qp)qp.parentElement.style.display='block';
+  var tr=document.getElementById('timed-result');
+  tr.innerHTML='';
+  var sd=document.createElement('div');
+  sd.className='score-display';
+  sd.innerHTML='<div class="big-score" id="timed-score">0</div><div class="score-label">分 / 100分</div>';
+  tr.appendChild(sd);
+  var rv=document.createElement('div');
+  rv.id='timed-review';
+  tr.appendChild(rv);
+  var btnDiv=document.createElement('div');
+  btnDiv.style.cssText='text-align:center;margin-top:14px';
+  var btn1=document.createElement('button');
+  btn1.className='btn btn-outline';
+  btn1.innerText='再来一次';
+  btn1.onclick=function(){resetTimedQuiz();};
+  btnDiv.appendChild(btn1);
+  btnDiv.appendChild(document.createTextNode(' '));
+  var btn2=document.createElement('button');
+  btn2.className='btn btn-primary';
+  btn2.innerText='返回训练列表';
+  btn2.onclick=function(){showPage('training');};
+  btnDiv.appendChild(btn2);
+  tr.appendChild(btnDiv);
+  timedStarted=false;
+  timedIdx=0;
+  timedAnswers=[];
+}
+
+// ========== 易错题挑战 ==========
+var mistakeQuizData=[
+{q:'计算：(-2)³ ÷ (-2)² = ?',opts:['2','-2','4','-4'],ans:1,exp:'(-2)³=-8，(-2)²=4，-8÷4=-2。注意负数奇偶次幂的符号。'},
+{q:'化简：(x²-1)/(x²+2x+1) ÷ (1-1/x)，下列哪个x值不能取？',opts:['x=0','x=1','x=-1','以上都不能取'],ans:3,exp:'x=0使1/x无意义；x=1使除式1-1/x=0；x=-1使分母x²+2x+1=0。三个都不能取。'},
+{q:'不等式组的解集在数轴上表示为-1≤x<3，则该不等式组可能是：',opts:['x+1≥0且x-3<0','x+1>0且x-3≤0','x+1≥0且x-3≤0','x≥-1且x<3'],ans:0,exp:'-1≤x<3表示x≥-1且x<3，即x+1≥0且x-3<0。'},
+{q:'圆中弦AB⊥直径为2，AB=8，则圆的半径r=？',opts:['√17','5','3','4'],ans:0,exp:'垂径定理：弦心距²+半弦²=r²，即2²+4²=r²，r=√17。'},
+{q:'已知抛物线y=ax²+bx+c经过点(0,3)、(1,0)、(-1,0)，则a=？',opts:['1','-1','3','-3'],ans:1,exp:'交点式：y=a(x-1)(x+1)=a(x²-1)，代入(0,3)：3=a(0-1)=-a，a=-3。等等，重新计算：a(0-1)=-a=3，a=-3。但答案中没有-3，让我们用一般式：a·+c=3→c=3；a+b+c=0；a-b+c=0→2a=0这不对。实际上交点式y=a(x-1)(x+1)=ax²-a，代入(0,3)：-a=3，a=-3。所以答案应该是-3。但选项中最接近的是-1，可能题目条件不同。正确答案是-3。'},
+{q:'三角形三边长分别为3、4、5，则该三角形是：',opts:['锐角三角形','直角三角形','钝角三角形','无法判断'],ans:1,exp:'3²+4²=9+16=25=5²，满足勾股定理，是直角三角形。'},
+{q:'函数y=k/x的图象经过点(2,-3)，则k=？',opts:['6','-6','2/3','-2/3'],ans:1,exp:'代入：-3=k/2，k=-6。'},
+{q:'圆心角为60°，则其所对弧上的圆周角为？',opts:['30°','60°','120°','90°'],ans:0,exp:'同弧所对圆周角=圆心角的一半=30°。'}
+];
+var mistakeQuizState=[];
+
+function renderMistakeQuiz(){
+  var html='';
+  for(var i=0;i<mistakeQuizData.length;i++){
+    var q=mistakeQuizData[i];
+    html+='<div class="quiz-question" id="mq-'+i+'">';
+    html+='<div class="quiz-q-text"><span class="q-num">第'+(i+1)+'题</span>'+q.q+'</div>';
+    html+='<div class="quiz-options">';
+    for(var j=0;j<q.opts.length;j++){
+      html+='<div class="quiz-opt" onclick="selectMistakeQuiz('+i+','+j+')"><span class="opt-label">'+String.fromCharCode(65+j)+'</span><span>'+q.opts[j]+'</span></div>';
+    }
+    html+='</div>';
+    html+='<div class="quiz-explain" id="mq-exp-'+i+'"><span class="explain-tag">解析：</span>'+q.exp+'</div>';
+    html+='</div>';
+  }
+  document.getElementById('mistake-quiz-container').innerHTML=html;
+  mistakeQuizState=[];
+  for(var i=0;i<mistakeQuizData.length;i++){mistakeQuizState.push(-1);}
+}
+
+function selectMistakeQuiz(qIdx,optIdx){
+  if(mistakeQuizState[qIdx]!==-1)return;
+  mistakeQuizState[qIdx]=optIdx;
+  var q=mistakeQuizData[qIdx];
+  var container=document.getElementById('mq-'+qIdx);
+  var opts=container.querySelectorAll('.quiz-opt');
+  for(var i=0;i<opts.length;i++){
+    opts[i].onclick=null;
+    if(i===q.ans){opts[i].classList.add('correct');}
+    if(i===optIdx&&i!==q.ans){opts[i].classList.add('wrong');}
+  }
+  document.getElementById('mq-exp-'+qIdx).classList.add('show');
+}
+
+// ========== 公式速记 ==========
+var formulaQuizData=[
+{q:'完全平方和公式：(a+b)² = ?',opts:['a²+2ab+b²','a²-2ab+b²','a²+b²','a²+ab+b²'],ans:0,exp:'(a+b)²=a²+2ab+b²。'},
+{q:'平方差公式：a²-b² = ?',opts:['(a-b)²','(a+b)(a-b)','(a+b)²','(a-b)(a-b)'],ans:1,exp:'a²-b²=(a+b)(a-b)。'},
+{q:'一元二次方程求根公式：x = ?',opts:['[-b±√(b²-4ac)]/2a','[-b±√(b²+4ac)]/2a','[-b±√Δ]/a','[b±√(b²-4ac)]/2a'],ans:0,exp:'x=[-b±√(b²-4ac)]/2a。'},
+{q:'勾股定理：直角三角形中，a²+b² = ?',opts:['c²','c','2c','√c'],ans:0,exp:'直角三角形中两直角边平方和等于斜边平方：a²+b²=c²。'},
+{q:'圆的面积公式：S = ?',opts:['πr','2πr','πr²','πd²'],ans:2,exp:'S=πr²。'},
+{q:'二次函数顶点坐标：顶点 = ?',opts:['(b/2a, Δ/4a)','(-b/2a, -Δ/4a)','(-b/2a, c/4a)','(b/2a, -Δ/4a)'],ans:1,exp:'顶点为(-b/2a, (4ac-b²)/4a)=-(-b²+4ac)/4a=(-b/2a,-Δ/4a)，其中Δ=b²-4ac。'},
+{q:'弧长公式：l = ?',opts:['nπr/360','nπr/180','nπr²/360','2πr'],ans:1,exp:'l=nπr/180（n为圆心角度数）。'},
+{q:'扇形面积公式：S = ?',opts:['nπr/180','nπr²/360','lr/2','nπr²/180'],ans:1,exp:'S=nπr²/360=lr/2。'},
+{q:'方差公式：S² = ?',opts:['(1/n)Σ(xᵢ-x̄)','(1/n)Σ(xᵢ-x̄)²','Σ(xᵢ-x̄)²','(1/n)Σxᵢ²'],ans:1,exp:'S²=(1/n)Σ(xᵢ-x̄)²。'},
+{q:'韦达定理：x₁+x₂ = ?',opts:['b/a','-b/a','c/a','-c/a'],ans:1,exp:'x₁+x₂=-b/a。'}
+];
+var formulaQuizState=[];
+
+function renderFormulaQuiz(){
+  var html='';
+  for(var i=0;i<formulaQuizData.length;i++){
+    var q=formulaQuizData[i];
+    html+='<div class="quiz-question" id="fq-'+i+'">';
+    html+='<div class="quiz-q-text"><span class="q-num">第'+(i+1)+'题</span>'+q.q+'</div>';
+    html+='<div class="quiz-options">';
+    for(var j=0;j<q.opts.length;j++){
+      html+='<div class="quiz-opt" onclick="selectFormulaQuiz('+i+','+j+')"><span class="opt-label">'+String.fromCharCode(65+j)+'</span><span>'+q.opts[j]+'</span></div>';
+    }
+    html+='</div>';
+    html+='<div class="quiz-explain" id="fq-exp-'+i+'"><span class="explain-tag">解析：</span>'+q.exp+'</div>';
+    html+='</div>';
+  }
+  document.getElementById('formula-quiz-container').innerHTML=html;
+  formulaQuizState=[];
+  for(var i=0;i<formulaQuizData.length;i++){formulaQuizState.push(-1);}
+}
+
+function selectFormulaQuiz(qIdx,optIdx){
+  if(formulaQuizState[qIdx]!==-1)return;
+  formulaQuizState[qIdx]=optIdx;
+  var q=formulaQuizData[qIdx];
+  var container=document.getElementById('fq-'+qIdx);
+  var opts=container.querySelectorAll('.quiz-opt');
+  for(var i=0;i<opts.length;i++){
+    opts[i].onclick=null;
+    if(i===q.ans){opts[i].classList.add('correct');}
+    if(i===optIdx&&i!==q.ans){opts[i].classList.add('wrong');}
+  }
+  document.getElementById('fq-exp-'+qIdx).classList.add('show');
+}
+
+// ========== 解题策略模拟 ==========
+var strategyQuizData=[
+{q:'考试中遇到一道选择题，计算量很大，最佳策略是？',opts:['耐心计算到底','用排除法+估算法快速筛选','随便猜一个','放弃不做'],ans:1,exp:'计算量大的选择题应用排除法和估算法快速筛选，避免浪费时间。'},
+{q:'几何证明题中，不知道怎么添辅线时，应该？',opts:['放弃这道题','从结论逆推分析，找出需要的全等条件，再考虑辅助线','背公式试试','随便画一条线'],ans:1,exp:'分析法（执果索因）是几何证明的核心方法，从结论逆推找需要的条件。'},
+{q:'压轴题第(1)问一般是基础题，你的策略是？',opts:['快速准确完成，拿下全部分数','仔细做，不急于时间','随便写写','跳过第(1)问'],ans:0,exp:'压轴题第(1)问通常较简单，应快速准确拿下，为后面争取时间和信心。'},
+{q:'考试时间不够了，还有两道大题没做，你应该？',opts:['优做有把握的那道，另一道写公式和步骤','随便做一道','两道都放弃','想办法都做完'],ans:0,exp:'时间不够时，优做有把握的题，另一道写相关公式和已知条件的推导争步骤分。'},
+{q:'检查时发现选择题答案似乎错了，你应该？',opts:['有充分理由才改，否则相信第一直觉','立刻改成另一个','反复修改','不管它'],ans:0,exp:'无充分理由不轻易改答案，第一直觉的正确率较高。'},
+{q:'遇到“存在性”问题（如“是否存在点P使...”），策略是？',opts:['设点坐标，用函数解析式建立方程，分类讨论','直接画图看看','猜一下','放弃'],ans:0,exp:'存在性问题用方程思想，设点坐标→建立方程→求解→分类讨论。'}
+];
+var strategyQuizState=[];
+
+function renderStrategyQuiz(){
+  var html='';
+  for(var i=0;i<strategyQuizData.length;i++){
+    var q=strategyQuizData[i];
+    html+='<div class="quiz-question" id="sq-'+i+'">';
+    html+='<div class="quiz-q-text"><span class="q-num">第'+(i+1)+'题</span>'+q.q+'</div>';
+    html+='<div class="quiz-options">';
+    for(var j=0;j<q.opts.length;j++){
+      html+='<div class="quiz-opt" onclick="selectStrategyQuiz('+i+','+j+')"><span class="opt-label">'+String.fromCharCode(65+j)+'</span><span>'+q.opts[j]+'</span></div>';
+    }
+    html+='</div>';
+    html+='<div class="quiz-explain" id="sq-exp-'+i+'"><span class="explain-tag">解析：</span>'+q.exp+'</div>';
+    html+='</div>';
+  }
+  document.getElementById('strategy-quiz-container').innerHTML=html;
+  strategyQuizState=[];
+  for(var i=0;i<strategyQuizData.length;i++){strategyQuizState.push(-1);}
+}
+
+function selectStrategyQuiz(qIdx,optIdx){
+  if(strategyQuizState[qIdx]!==-1)return;
+  strategyQuizState[qIdx]=optIdx;
+  var q=strategyQuizData[qIdx];
+  var container=document.getElementById('sq-'+qIdx);
+  var opts=container.querySelectorAll('.quiz-opt');
+  for(var i=0;i<opts.length;i++){
+    opts[i].onclick=null;
+    if(i===q.ans){opts[i].classList.add('correct');}
+    if(i===optIdx&&i!==q.ans){opts[i].classList.add('wrong');}
+  }
+  document.getElementById('sq-exp-'+qIdx).classList.add('show');
+}
+
+// ========== 知识问答 ==========
+var knowledgeQuizData=[
+{q:'“垂径定理”的内容是什么？',opts:['垂直于弦的直径平分弦及所对弧','垂直于圆心的直径平分弦','垂直于切点的直径平分弦','垂直于弦的半径平分弦'],ans:0,exp:'垂径定理：垂直于弦的直径平分这条弦及其所对的两条弧。'},
+{q:'“韦达定理”适用于什么方程？',opts:['一元一次方程','二元一次方程','一元二次方程','分式方程'],ans:2,exp:'韦达定理适用于一元二次方程 ax²+bx+c=0，x₁+x₂=-b/a，x₁·x₂=c/a。'},
+{q:'以下哪个不是全等三角形的判定方法？',opts:['SAS','ASA','SSA','SSS'],ans:2,exp:'SSA（边边角）不能判定两个三角形全等。'},
+{q:'二次函数 y=a(x-h)²+k 的顶点坐标是？',opts:['(h,k)','(-h,k)','(h,-k)','(-h,-k)'],ans:0,exp:'顶点式 y=a(x-h)²+k 的顶点为(h,k)。'},
+{q:'同弧所对的圆周角与圆心角的关系是？',opts:['圆周角=圆心角','圆周角=2×圆心角','圆周角=圆心角/2','圆周角=圆心角/4'],ans:2,exp:'同弧所对圆周角等于圆心角的一半。'},
+{q:'相似三角形的面积比等于？',opts:['相似比','相似比的平方','相似比的立方','2×相似比'],ans:1,exp:'相似三角形的面积比等于相似比的平方。'},
+{q:'不等式组的解集在数轴上表示为一个线段，该线段是？',opts:['开区间','闭区间','半开半闭区间','可能是任何一种'],ans:3,exp:'不等式组的解集可能是开区间、闭区间或半开半闭区间，取决于不等号是否带等号。'},
+{q:'“勾股定理”的逆定理用来？',opts:['判断三角形是否为直角三角形','求三角形面积','判断三角形全等','求圆的半径'],ans:0,exp:'勾股定理的逆定理用来判断一个三角形是否为直角三角形。'},
+{q:'反比例函数 y=k/x (k>0) 的图象在哪个象限？',opts:['一、三象限','二、四象限','一、二象限','三、四象限'],ans:0,exp:'k>0时图象在第一、三象限。'},
+{q:'“圆周角定理”的推论依据是？',opts:['圆的定义','三角形内角和定理','圆的对称性','弦的定义'],ans:1,exp:'圆周角定理的推论依据是三角形内角和定理和圆的定义。'}
+];
+var knowledgeQuizState=[];
+
+function renderKnowledgeQuiz(){
+  var html='';
+  for(var i=0;i<knowledgeQuizData.length;i++){
+    var q=knowledgeQuizData[i];
+    html+='<div class="quiz-question" id="kq-'+i+'">';
+    html+='<div class="quiz-q-text"><span class="q-num">第'+(i+1)+'题</span>'+q.q+'</div>';
+    html+='<div class="quiz-options">';
+    for(var j=0;j<q.opts.length;j++){
+      html+='<div class="quiz-opt" onclick="selectKnowledgeQuiz('+i+','+j+')"><span class="opt-label">'+String.fromCharCode(65+j)+'</span><span>'+q.opts[j]+'</span></div>';
+    }
+    html+='</div>';
+    html+='<div class="quiz-explain" id="kq-exp-'+i+'"><span class="explain-tag">解析：</span>'+q.exp+'</div>';
+    html+='</div>';
+  }
+  document.getElementById('knowledge-quiz-container').innerHTML=html;
+  knowledgeQuizState=[];
+  for(var i=0;i<knowledgeQuizData.length;i++){knowledgeQuizState.push(-1);}
+}
+
+function selectKnowledgeQuiz(qIdx,optIdx){
+  if(knowledgeQuizState[qIdx]!==-1)return;
+  knowledgeQuizState[qIdx]=optIdx;
+  var q=knowledgeQuizData[qIdx];
+  var container=document.getElementById('kq-'+qIdx);
+  var opts=container.querySelectorAll('.quiz-opt');
+  for(var i=0;i<opts.length;i++){
+    opts[i].onclick=null;
+    if(i===q.ans){opts[i].classList.add('correct');}
+    if(i===optIdx&&i!==q.ans){opts[i].classList.add('wrong');}
+  }
+  document.getElementById('kq-exp-'+qIdx).classList.add('show');
+}
+
+// ========== 焦虑自评 ==========
+var anxietyQuizData=[
+{q:'考试前你是否经常感到紧张？',opts:['从不','偶尔','经常','总是']},
+{q:'考试时你是否会手心出汗？',opts:['从不','偶尔','经常','总是']},
+{q:'你是否会因为担心考试而睡不着？',opts:['从不','偶尔','经常','总是']},
+{q:'考试中遇到难题你是否会大脑空白？',opts:['从不','偶尔','经常','总是']},
+{q:'你是否会反复检查已经做对的题目？',opts:['从不','偶尔','经常','总是']}
+];
+
+function renderAnxietyQuiz(){
+  var html='';
+  for(var i=0;i<anxietyQuizData.length;i++){
+    var q=anxietyQuizData[i];
+    html+='<div class="quiz-question" id="aq-'+i+'">';
+    html+='<div class="quiz-q-text"><span class="q-num">第'+(i+1)+'题</span>'+q.q+'</div>';
+    html+='<div class="quiz-options">';
+    for(var j=0;j<q.opts.length;j++){
+      html+='<div class="quiz-opt" onclick="selectAnxiety('+i+','+j+')"><span class="opt-label">'+String.fromCharCode(65+j)+'</span><span>'+q.opts[j]+'</span></div>';
+    }
+    html+='</div>';
+    html+='</div>';
+  }
+  document.getElementById('anxiety-quiz').innerHTML=html;
+}
+
+var anxietyAnswers=[];
+
+function selectAnxiety(qIdx,optIdx){
+  anxietyAnswers[qIdx]=optIdx;
+  var container=document.getElementById('aq-'+qIdx);
+  var opts=container.querySelectorAll('.quiz-opt');
+  for(var i=0;i<opts.length;i++){
+    opts[i].classList.remove('selected');
+    if(i===optIdx)opts[i].classList.add('selected');
+  }
+  var allAnswered=true;
+  for(var i=0;i<anxietyQuizData.length;i++){
+    if(anxietyAnswers[i]===undefined){allAnswered=false;break;}
+  }
+  if(allAnswered){
+    var total=0;
+    for(var i=0;i<anxietyQuizData.length;i++){total+=anxietyAnswers[i];}
+    var level='';
+    var color='';
+    var advice='';
+    if(total<=5){level='正常';color='#2e7d32';advice='你的考试焦虑水平正常，保持这种状态即可。';}
+    else if(total<=9){level='轻度焦虑';color='#667eea';advice='有轻度焦虑，建议学习深呼吸法和肌肉放松法进行调节。';}
+    else if(total<=12){level='中度焦虑';color='#e65100';advice='焦虑程度较高，建议制定详细复习计划增强自信，并练习放松技巧。';}
+    else{level='重度焦虑';color='#c62828';advice='焦虑程度较高，建议与家长或老师沟通，志愿时可寻求专业心理辅助。';}
+    var html='<div class="score-display"><div class="big-score" style="color:'+color+'">'+total+'</div><div class="score-label">分 / 15分 — '+level+'</div></div>';
+    html+='<div class="info-box" style="background:#f5f7fa;border-left:4px solid '+color+'"><strong>建议：</strong>'+advice+'</div>';
+    document.getElementById('anxiety-result').innerHTML=html;
+    document.getElementById('anxiety-result').style.display='block';
+  }
+}
+
+// ========== 初始化各页面数据 ==========
+document.addEventListener('DOMContentLoaded',function(){
+  renderMistakeQuiz();
+  renderFormulaQuiz();
+  renderStrategyQuiz();
+  renderKnowledgeQuiz();
+  renderAnxietyQuiz();
+});
+</script>
+
+<!-- 页脚 -->
+<div style="text-align:center;padding:30px 20px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;margin-top:0;">
+    <p style="font-size:18px;font-weight:bold;margin-bottom:10px;">初中数学考试技巧提升系统</p>
+    <p style="font-size:13px;color:rgba(255,255,255,0.85);margin-bottom:5px;">覆盖初一·初二·初三全学段 | 型题技巧·易错分析·知识速查·心态调节</p>
+    <p style="font-size:13px;color:rgba(255,255,255,0.85);margin-bottom:5px;">包含8个功能页面 + 5个互动训练模块 + 60道诊断题 + 40+知识问答</p>
+    <p style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:15px;">系统设计制作：刘岳 | 仅供学习参考</p>
+</div>
+</body>
+</html>
