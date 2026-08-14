@@ -1739,11 +1739,29 @@ body::after{
     function handleContextKey(e) {
         if (e.code !== 'Space' || !contextState.running) return;
         e.preventDefault();
-        var letter = contextState.stimuli[contextState.currentIndex];
+        var idx = contextState.currentIndex - 1;
+        if (idx < 0 || idx >= contextState.stimuli.length) return;
+        var letter = contextState.stimuli[idx];
         if (letter === 'M') {
             contextState.correct++;
             document.getElementById('context-correct').textContent = contextState.correct;
+            flashContextLetter(true);
+        } else {
+            flashContextLetter(false);
         }
+    }
+
+    function flashContextLetter(isCorrect) {
+        var el = document.getElementById('context-letter');
+        if (!el) return;
+        el.style.transition = 'none';
+        el.style.color = isCorrect ? '#4ade80' : '#f87171';
+        el.style.transform = 'scale(1.18)';
+        setTimeout(function() {
+            el.style.transition = '';
+            el.style.color = '';
+            el.style.transform = '';
+        }, 160);
     }
 
     function showContextStimulus() {
