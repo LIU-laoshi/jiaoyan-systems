@@ -1352,32 +1352,91 @@ function ocrDelImg(i){
     setOcrStatus('', '已移除1张，剩余 ' + ocrImages.length + ' 张，可继续点击「开始识别」。');
   }
 }
+var OCR_GH = 'https://liu-laoshi.github.io/jiaoyan-systems/ocr/';
+var OCR_ENGINE_SRCS = [
+  OCR_GH + 'tesseract.min.js',
+  'https://unpkg.com/tesseract.js@4.1.4/dist/tesseract.min.js',
+  'https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js'
+];
+var OCR_WORKER_OPTS = [
+  {
+    workerPath: OCR_GH + 'worker.min.js',
+    corePath: OCR_GH + 'tesseract-core.wasm.js',
+    langPath: OCR_GH + 'tessdata/'
+  },
+  {
+    workerPath: 'https://unpkg.com/tesseract.js@4.1.4/dist/worker.min.js',
+    corePath: 'https://unpkg.com/tesseract.js-core@6.1.2/tesseract-core.wasm.js',
+    langPath: 'https://unpkg.com/@tesseract.js-data/chi_sim@1.0.0/4.0.0_best_int/'
+  }
+];
+function loadScriptSeq(urls, idx){
+  if(idx >= urls.length){ return Promise.reject(new Error('\u6240\u6709\u955c\u50cf\u5747\u52a0\u8f7d\u5931\u8d25')); }
+  return new Promise(function(resolve, reject){
+    var s = document.createElement('script');
+    s.src = urls[idx];
+    s.async = true;
+    s.onload = function(){ resolve(); };
+    s.onerror = function(){
+      if(s.parentNode){ s.parentNode.removeChild(s); }
+      loadScriptSeq(urls, idx + 1).then(resolve, reject);
+    };
+    document.head.appendChild(s);
+  });
+}
 function ensureTesseract(){
   if(window.Tesseract){
     tesseractReady = true;
     return Promise.resolve();
   }
   if(tesseractLoading){ return tesseractLoading; }
-  tesseractLoading = new Promise(function(resolve, reject){
-    var s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js';
-    s.async = true;
-    s.onload = function(){ tesseractReady = true; resolve(); };
-    s.onerror = function(){ tesseractLoading = null; reject(new Error('引擎加载失败')); };
-    document.head.appendChild(s);
+  tesseractLoading = loadScriptSeq(OCR_ENGINE_SRCS, 0).then(function(){
+    tesseractReady = true;
+  }).catch(function(){
+    tesseractLoading = null;
+    throw new Error('\u8bc6\u522b\u5f15\u64ce\u52a0\u8f7d\u5931\u8d25');
   });
   return tesseractLoading;
+}
+function ocrShowProgress(m){
+  try{
+    if(!m || !m.status){ return; }
+    var st = String(m.status);
+    var pct = (typeof m.progress === 'number') ? Math.round(m.progress * 100) : '';
+    var tip = '';
+    if(st.indexOf('core') !== -1){ tip = '\u6b63\u5728\u4e0b\u8f7d\u8bc6\u522b\u6838\u5fc3 ' + pct + '%'; }
+    else if(st.indexOf('lang') !== -1 || st.indexOf('traineddata') !== -1){ tip = '\u6b63\u5728\u4e0b\u8f7d\u4e2d\u6587\u8bed\u8a00\u5305 ' + pct + '%'; }
+    else if(st.indexOf('initial') !== -1){ tip = '\u6b63\u5728\u521d\u59cb\u5316\u8bc6\u522b\u5f15\u64ce ' + pct + '%'; }
+    else if(st.indexOf('recogn') !== -1){ tip = '\u6b63\u5728\u8bc6\u522b\u6587\u5b57 ' + pct + '%'; }
+    if(tip){ setOcrStatus('loading', tip + '\uff0c\u8bf7\u4fdd\u6301\u7f51\u7edc\u7545\u901a\u2026\u2026'); }
+  }catch(e){}
+}
+function createWorkerOne(opt){
+  return Tesseract.createWorker('chi_sim', 1, {
+    workerPath: opt.workerPath,
+    corePath: opt.corePath,
+    langPath: opt.langPath,
+    logger: ocrShowProgress
+  });
+}
+function createWorkerRetry(idx){
+  if(idx >= OCR_WORKER_OPTS.length){
+    return Promise.reject(new Error('\u8bc6\u522b\u5f15\u64ce\u521d\u59cb\u5316\u5931\u8d25\uff0c\u8bf7\u68c0\u67e5\u7f51\u7edc\u540e\u91cd\u8bd5\uff1b\u4e5f\u53ef\u624b\u52a8\u5f55\u5165\u9898\u76ee'));
+  }
+  return createWorkerOne(OCR_WORKER_OPTS[idx]).catch(function(){
+    return createWorkerRetry(idx + 1);
+  });
 }
 function startOCR(){
   if(ocrRunning){ return; }
   if(ocrImages.length === 0){
-    setOcrStatus('err', '请先选择试卷图片');
+    setOcrStatus('err', '\u8bf7\u5148\u9009\u62e9\u8bd5\u5377\u56fe\u7247');
     return;
   }
   ocrRunning = true;
-  setOcrStatus('loading', '正在下载识别引擎与中文语言包，首次使用约需1-2分钟，请保持网络畅通；下载完成后将逐张扫描' + ocrImages.length + '张图片……');
+  setOcrStatus('loading', '\u6b63\u5728\u52a0\u8f7d\u8bc6\u522b\u5f15\u64ce\uff0c\u9996\u6b21\u4f7f\u7528\u9700\u4e0b\u8f7d\u8bc6\u522b\u6838\u5fc3\u4e0e\u4e2d\u6587\u8bed\u8a00\u5305\uff0c\u8bf7\u4fdd\u6301\u7f51\u7edc\u7545\u901a\uff1b\u4e0b\u8f7d\u5b8c\u6210\u540e\u5c06\u9010\u5f20\u626b\u63cf' + ocrImages.length + '\u5f20\u56fe\u7247\u2026\u2026');
   ensureTesseract().then(function(){
-    return Tesseract.createWorker('chi_sim');
+    return createWorkerRetry(0);
   }).then(function(worker){
     var allParsed = [];
     var rawTexts = [];
