@@ -1,0 +1,2390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="renderer" content="webkit">
+<title>学生试卷个性化分析系统</title>
+<style>
+/* ========== 基础样式 ========== */
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
+body{
+  font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei','微软雅黑','Noto Sans SC',sans-serif;
+  background:#eef2f7;
+  color:#1e293b;
+  font-size:15px;
+  line-height:1.6;
+}
+a{text-decoration:none;color:inherit;}
+input,select,textarea{
+  font-family:inherit;
+  font-size:15px;
+  color:#1e293b;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  padding:9px 12px;
+  background:#fff;
+  width:100%;
+  outline:none;
+  transition:border-color .2s;
+}
+input:focus,select:focus,textarea:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.12);}
+input.err{border-color:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,.12);}
+button{font-family:inherit;cursor:pointer;border:none;}
+.hidden{display:none !important;}
+
+/* ========== 页面容器 ========== */
+.page{display:none;}
+.page.active{display:block;}
+.container{max-width:980px;margin:0 auto;padding:16px 14px 70px;}
+.footer-sign{
+  text-align:center;
+  color:#94a3b8;
+  font-size:12px;
+  padding:18px 10px 26px;
+  background:#eef2f7;
+}
+
+/* ========== 顶部导航 ========== */
+.topnav{
+  background:linear-gradient(135deg,#1e3a8a 0%,#3b82f6 100%);
+  color:#fff;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 10px rgba(30,58,138,.25);
+}
+.nav-inner{max-width:980px;margin:0 auto;padding:0 14px;display:flex;align-items:center;gap:10px;height:54px;}
+.nav-brand{
+  font-size:17px;font-weight:700;white-space:nowrap;
+  background:rgba(255,255,255,.15);
+  padding:5px 12px;border-radius:8px;
+}
+.nav-inner nav{display:flex;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap;flex:1;}
+.nav-link{
+  padding:7px 13px;
+  border-radius:8px;
+  color:#dbeafe;
+  font-size:14px;
+  flex-shrink:0;
+}
+.nav-link.active{background:#fff;color:#1e3a8a;font-weight:600;}
+.nav-link:active{opacity:.8;}
+
+/* ========== 卡片 ========== */
+.card{
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 1px 4px rgba(15,23,42,.06),0 4px 16px rgba(15,23,42,.06);
+  padding:18px;
+  margin-bottom:16px;
+}
+.card-title{
+  font-size:16px;font-weight:700;color:#1e3a8a;
+  padding-bottom:10px;margin-bottom:12px;
+  border-bottom:2px solid #eef2f7;
+  display:flex;align-items:center;gap:8px;
+}
+.card-title .bar{width:4px;height:16px;background:#3b82f6;border-radius:2px;}
+
+/* ========== 按钮 ========== */
+.btn{
+  display:inline-block;
+  border-radius:9px;
+  padding:10px 18px;
+  font-size:14px;
+  font-weight:600;
+  text-align:center;
+  transition:opacity .15s,transform .1s;
+  min-height:40px;
+}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;}
+.btn-outline{background:#fff;color:#1e3a8a;border:1px solid #3b82f6;}
+.btn-danger{background:#ef4444;color:#fff;}
+.btn-ghost{background:#eef2f7;color:#475569;}
+.btn-warn{background:#f59e0b;color:#fff;}
+.btn-sm{padding:6px 12px;font-size:13px;min-height:32px;border-radius:7px;}
+.btn-block{display:block;width:100%;}
+.btn[disabled]{opacity:.5;pointer-events:none;}
+
+/* ========== 登录页 ========== */
+.login-wrap{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#1e3a8a 0%,#3b82f6 60%,#60a5fa 100%);
+  padding:20px;
+}
+.login-card{
+  width:100%;
+  max-width:400px;
+  background:#fff;
+  border-radius:18px;
+  box-shadow:0 20px 60px rgba(15,23,42,.35);
+  padding:32px 28px;
+}
+.login-logo{
+  width:64px;height:64px;
+  margin:0 auto 14px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#1e3a8a,#3b82f6);
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:30px;
+}
+.login-title{text-align:center;font-size:20px;font-weight:700;color:#1e3a8a;margin-bottom:4px;}
+.login-sub{text-align:center;font-size:13px;color:#94a3b8;margin-bottom:24px;}
+.form-item{margin-bottom:16px;}
+.form-item label{display:block;font-size:13px;color:#64748b;margin-bottom:6px;font-weight:600;}
+.login-tip{color:#ef4444;font-size:13px;text-align:center;min-height:20px;margin-top:4px;}
+.login-foot{text-align:center;margin-top:18px;font-size:12px;color:#94a3b8;}
+.foot-red{color:#dc2626;}
+
+/* ========== 表单网格 ========== */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-grid .full{grid-column:1 / -1;}
+.form-item label{display:block;font-size:13px;color:#64748b;margin-bottom:6px;font-weight:600;}
+.form-item label .req{color:#ef4444;margin-left:2px;}
+.form-item .hint{font-size:12px;color:#94a3b8;margin-top:4px;}
+@media (max-width:560px){.form-grid{grid-template-columns:1fr;}}
+
+/* ========== 步骤条 ========== */
+.steps{display:flex;align-items:center;justify-content:center;gap:0;margin:4px 0 16px;}
+.step-item{display:flex;align-items:center;gap:6px;font-size:13px;color:#94a3b8;}
+.step-dot{
+  width:26px;height:26px;border-radius:50%;
+  background:#e2e8f0;color:#64748b;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;
+}
+.step-item.on .step-dot{background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;}
+.step-item.on{color:#1e3a8a;font-weight:600;}
+.step-line{width:34px;height:2px;background:#e2e8f0;margin:0 6px;}
+@media (max-width:480px){.step-line{width:16px;}.step-item{font-size:12px;}}
+
+/* ========== 题目表格/录入 ========== */
+.tbl{width:100%;border-collapse:collapse;font-size:14px;}
+.tbl th{background:#1e3a8a;color:#fff;padding:8px 6px;font-weight:600;text-align:center;white-space:nowrap;}
+.tbl td{border-bottom:1px solid #eef2f7;padding:8px 6px;text-align:center;vertical-align:middle;}
+.tbl tr:nth-child(even) td{background:#f8fafc;}
+.q-row input,.q-row select{min-width:60px;}
+.q-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.warn-line{background:#fef3c7;color:#b45309;border-radius:8px;padding:8px 12px;font-size:13px;margin-top:10px;display:none;}
+.warn-line.show{display:block;}
+
+/* ========== OCR 上传试卷图片自动识别 ========== */
+.ocr-block{background:#f0f7ff;border:1px dashed #3b82f6;border-radius:12px;padding:14px;margin-bottom:14px;}
+.ocr-head{display:flex;align-items:center;gap:8px;font-weight:700;color:#1e3a8a;font-size:15px;margin-bottom:10px;}
+.ocr-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.ocr-toolbar input[type=file]{flex:1;min-width:150px;border:1px solid #cbd5e1;background:#fff;border-radius:8px;padding:8px;font-size:13px;}
+.ocr-preview{margin-top:10px;}
+.ocr-status{border-radius:8px;padding:9px 12px;font-size:13px;margin-top:10px;display:none;line-height:1.7;}
+.ocr-status.ocr-loading{display:block;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;}
+.ocr-status.ocr-ok{display:block;background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;}
+.ocr-status.ocr-warn{display:block;background:#fffbeb;color:#b45309;border:1px solid #fde68a;}
+.ocr-status.ocr-err{display:block;background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;}
+.ocr-tip{font-size:12px;color:#94a3b8;margin-top:8px;}
+.ocr-table-wrap{overflow-x:auto;margin-top:10px;}
+.ocr-desc{font-size:12px;color:#64748b;max-width:230px;text-align:left;word-break:break-all;}
+
+/* ========== 标签 ========== */
+.tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:600;}
+.tag-green{background:#dcfce7;color:#15803d;}
+.tag-blue{background:#dbeafe;color:#1d4ed8;}
+.tag-amber{background:#fef3c7;color:#b45309;}
+.tag-red{background:#fee2e2;color:#b91c1c;}
+.tag-gray{background:#f1f5f9;color:#64748b;}
+
+/* ========== 概览统计 ========== */
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px;}
+.stat-card{
+  background:linear-gradient(135deg,#1e3a8a,#3b82f6);
+  color:#fff;border-radius:14px;padding:16px;
+}
+.stat-card .num{font-size:30px;font-weight:800;}
+.stat-card .lbl{font-size:13px;opacity:.9;margin-top:2px;}
+.recent-card{
+  background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;
+  padding:12px 14px;margin-bottom:10px;cursor:pointer;transition:box-shadow .2s;
+}
+.recent-card:active{box-shadow:0 2px 10px rgba(30,58,138,.2);}
+.recent-card .r1{display:flex;justify-content:space-between;align-items:center;}
+.recent-card .rname{font-weight:700;color:#1e3a8a;font-size:15px;}
+.recent-card .rdate{font-size:12px;color:#94a3b8;}
+.recent-card .r2{font-size:13px;color:#64748b;margin-top:4px;}
+.arrow{color:#3b82f6;font-size:16px;}
+
+/* ========== 记录列表 ========== */
+.record-item{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(15,23,42,.06);padding:14px;margin-bottom:12px;}
+.record-item .top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;}
+.record-item .sname{font-size:16px;font-weight:700;color:#1e3a8a;}
+.record-item .meta{font-size:12px;color:#94a3b8;margin-top:4px;}
+.record-item .ops{display:flex;gap:8px;margin-top:10px;}
+.search-bar{position:relative;margin-bottom:14px;}
+.search-bar input{padding-left:38px;}
+.search-bar .ico{position:absolute;left:12px;top:9px;color:#94a3b8;font-size:15px;}
+.empty{text-align:center;color:#94a3b8;padding:36px 10px;font-size:14px;}
+.empty .big{font-size:44px;display:block;margin-bottom:10px;}
+
+/* ========== 报告页 ========== */
+.report-toolbar{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;}
+.report-head{
+  background:linear-gradient(135deg,#1e3a8a,#3b82f6);
+  color:#fff;border-radius:14px;padding:22px;margin-bottom:16px;
+}
+.report-head .hname{font-size:24px;font-weight:800;}
+.report-head .hmeta{font-size:13px;opacity:.92;margin-top:6px;line-height:1.8;}
+.score-row{display:flex;align-items:center;gap:20px;margin-top:16px;flex-wrap:wrap;}
+.score-big{font-size:42px;font-weight:800;}
+.score-big small{font-size:16px;font-weight:400;opacity:.8;}
+.score-tag{background:rgba(255,255,255,.2);padding:6px 14px;border-radius:999px;font-weight:700;}
+.score-line{margin-top:12px;font-size:14px;}
+.encourage{background:#fff;border-radius:10px;color:#1e3a8a;padding:10px 14px;margin-top:14px;font-size:14px;}
+.summ-line{background:#fefce8;border:1px solid #fde68a;border-radius:10px;padding:10px 14px;margin-top:10px;font-size:14px;color:#854d0e;}
+.chart-box{width:100%;position:relative;}
+.chart-box canvas{display:block;}
+.kp-item{border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-top:10px;}
+.kp-item .row1{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
+.kp-item .kname{font-weight:700;font-size:14px;}
+.kp-item .krate{font-size:13px;color:#64748b;}
+.kp-item .ksug{font-size:13px;color:#475569;margin-top:6px;background:#f8fafc;border-radius:8px;padding:8px 10px;}
+.plain-line{font-size:14px;color:#475569;margin-top:8px;}
+.plain-line b{color:#1e3a8a;}
+.loss-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px dashed #e2e8f0;}
+.loss-item:last-child{border-bottom:none;}
+.loss-num{width:26px;height:26px;border-radius:50%;background:#fee2e2;color:#b91c1c;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0;}
+.loss-mid{flex:1;font-size:14px;}
+.loss-mid .l1{font-weight:600;}
+.loss-mid .l2{font-size:12px;color:#94a3b8;}
+.loss-val{font-size:15px;font-weight:800;color:#b91c1c;flex-shrink:0;}
+.sug-list{counter-reset:sug;margin-top:4px;}
+.sug-list li{list-style:none;position:relative;padding:9px 0 9px 38px;font-size:14px;color:#334155;border-bottom:1px dashed #eef2f7;}
+.sug-list li:last-child{border-bottom:none;}
+.sug-list li::before{
+  counter-increment:sug;content:counter(sug);
+  position:absolute;left:0;top:9px;width:26px;height:26px;border-radius:50%;
+  background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;
+}
+.path-list{margin-top:4px;}
+.path-item{
+  display:flex;gap:12px;align-items:flex-start;
+  background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;
+  padding:11px 12px;margin-top:9px;font-size:14px;
+}
+.path-item .step-no{
+  flex-shrink:0;width:30px;height:30px;border-radius:9px;
+  background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;
+}
+.report-sign{text-align:center;color:#94a3b8;font-size:12px;margin-top:18px;padding-top:12px;border-top:1px dashed #e2e8f0;}
+.pill{display:inline-block;background:#f1f5f9;border-radius:6px;padding:1px 8px;font-size:12px;color:#64748b;margin-left:4px;}
+
+/* ========== 模态框 ========== */
+.mask{
+  display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:999;
+  background:rgba(15,23,42,.55);
+  align-items:center;justify-content:center;padding:20px;
+}
+.mask.show{display:flex;}
+.modal{
+  background:#fff;border-radius:16px;width:100%;max-width:380px;
+  box-shadow:0 20px 60px rgba(15,23,42,.4);overflow:hidden;
+  animation:pop .18s ease-out;
+}
+@keyframes pop{from{transform:scale(.92);opacity:0;}to{transform:scale(1);opacity:1;}}
+.modal-title{background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;padding:14px 18px;font-size:16px;font-weight:700;}
+.modal-body{padding:18px;font-size:14px;color:#334155;line-height:1.7;}
+.modal-actions{display:flex;gap:10px;padding:0 18px 18px;}
+.modal-actions .btn{flex:1;}
+
+/* ========== 云端同步 ========== */
+.sync-box{text-align:center;padding:14px 6px;}
+.sync-ico{font-size:50px;margin-bottom:8px;}
+.sync-time{font-size:13px;color:#94a3b8;margin:10px 0 16px;}
+.sync-status{border-radius:10px;padding:12px;font-size:14px;margin-top:12px;display:none;}
+.sync-status.ok{display:block;background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;}
+.sync-status.err{display:block;background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;}
+.sync-status.warn{display:block;background:#fffbeb;color:#b45309;border:1px solid #fde68a;}
+.pc-tip{font-size:12px;color:#94a3b8;margin-top:14px;line-height:1.7;}
+
+/* ========== 打印适配 ========== */
+@media print{
+  .topnav,.report-toolbar,.footer-sign,.page-footer,.mask{display:none !important;}
+  body{background:#fff;}
+  .page{display:none !important;}
+  #reportPage{display:block !important;}
+  .container{padding:0;max-width:none;}
+  .card,.report-head{box-shadow:none;border:1px solid #e2e8f0;break-inside:avoid;}
+  .report-head{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .tbl th{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .sug-list li::before,.path-item .step-no,.modal-title{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  canvas{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= 登录页 ================= -->
+<div class="login-wrap" id="loginPage">
+  <div class="login-card">
+    <div class="login-logo">分</div>
+    <div class="login-title">学生试卷个性化分析系统</div>
+    <div class="login-sub">教师 · 家长 · 单人精准诊断</div>
+    <div class="form-item">
+      <label>账号</label>
+      <input type="text" id="loginUser" autocomplete="off" placeholder="请输入账号">
+    </div>
+    <div class="form-item">
+      <label>密码</label>
+      <input type="password" id="loginPass" placeholder="请输入密码">
+    </div>
+    <div class="login-tip" id="loginTip"></div>
+    <button class="btn btn-primary btn-block" onclick="doLogin()">登 录</button>
+    <div class="login-foot">系统设计制作：刘岳<br><span class="foot-red">本系统受版权保护，仅供授权使用</span></div>
+  </div>
+</div>
+
+<!-- ================= 顶部导航 ================= -->
+<header class="topnav" id="topnav" style="display:none;">
+  <div class="nav-inner">
+    <div class="nav-brand">试卷分析</div>
+    <nav>
+      <a class="nav-link active" id="nav_workbench" onclick="goNav('workbench')">工作台</a>
+      <a class="nav-link" id="nav_new" onclick="goNav('new')">新建分析</a>
+      <a class="nav-link" id="nav_records" onclick="goNav('records')">分析记录</a>
+      <a class="nav-link" id="nav_sync" onclick="goNav('sync')">云端同步</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= 工作台 ================= -->
+<div class="page" id="workbench">
+  <div class="container">
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="num" id="totalCount">0</div>
+        <div class="lbl">分析记录总数</div>
+      </div>
+      <div class="stat-card" style="background:linear-gradient(135deg,#1d4ed8,#60a5fa);">
+        <div class="num" id="rateAvg">—</div>
+        <div class="lbl">最近一次平均得分率</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="bar"></span>快捷操作</div>
+      <button class="btn btn-primary btn-block" onclick="goNav('new')">＋ 新建分析</button>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="bar"></span>最近分析</div>
+      <div id="recentList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 新建分析（三步向导） ================= -->
+<div class="page" id="newPage">
+  <div class="container">
+    <div class="card">
+      <div class="card-title"><span class="bar"></span>新建分析</div>
+      <div class="steps">
+        <div class="step-item on" id="st1"><span class="step-dot">1</span>试卷信息</div>
+        <div class="step-line"></div>
+        <div class="step-item" id="st2"><span class="step-dot">2</span>题目配置</div>
+        <div class="step-line"></div>
+        <div class="step-item" id="st3"><span class="step-dot">3</span>得分录入</div>
+      </div>
+      <div id="draftTip" class="warn-line"></div>
+
+      <!-- 第一步 试卷信息 -->
+      <div id="step1Box">
+        <div class="form-grid">
+          <div class="form-item full">
+            <label>试卷名称<span class="req">*</span></label>
+            <input type="text" id="f_paperName" placeholder="如：七年级数学期中试卷">
+          </div>
+          <div class="form-item">
+            <label>学科<span class="req">*</span></label>
+            <select id="f_subject">
+              <option>语文</option><option>数学</option><option>英语</option>
+              <option>物理</option><option>化学</option><option>生物</option>
+              <option>道法</option><option>历史</option><option>地理</option>
+            </select>
+          </div>
+          <div class="form-item">
+            <label>年级</label>
+            <input type="text" id="f_grade" placeholder="如：七年级">
+          </div>
+          <div class="form-item">
+            <label>考试类型</label>
+            <select id="f_examType">
+              <option>单元测</option><option>月考</option><option>期中</option>
+              <option>期末</option><option>模拟考</option><option>升学考</option>
+            </select>
+          </div>
+          <div class="form-item">
+            <label>总分（满分）</label>
+            <input type="number" id="f_totalScore" min="1" value="100">
+          </div>
+          <div class="form-item">
+            <label>考试日期</label>
+            <input type="date" id="f_date">
+          </div>
+          <div class="form-item">
+            <label>学生姓名<span class="req">*</span></label>
+            <input type="text" id="f_studentName" placeholder="必填">
+          </div>
+          <div class="form-item">
+            <label>学生班级（可空）</label>
+            <input type="text" id="f_studentClass" placeholder="如：初二(3)班">
+          </div>
+        </div>
+        <div id="step1Err" class="login-tip"></div>
+        <div style="display:flex;gap:10px;margin-top:14px;">
+          <button class="btn btn-ghost" onclick="clearDraftNow()">重新开始</button>
+          <button class="btn btn-primary" style="flex:1;" onclick="step1Next()">下一步：题目配置</button>
+        </div>
+      </div>
+
+      <!-- 第二步 题目配置 -->
+      <div id="step2Box" style="display:none;">
+        <!-- 上传试卷图片自动识别 -->
+        <div class="ocr-block">
+          <div class="ocr-head">📷 上传试卷图片自动识别</div>
+          <div class="ocr-toolbar">
+            <input type="file" id="ocrFile" accept="image/*" onchange="ocrOnFile(this)">
+            <button class="btn btn-primary" onclick="startOCR()">开始识别</button>
+          </div>
+          <div class="ocr-preview" id="ocrPreview"></div>
+          <div class="ocr-status" id="ocrStatus"></div>
+          <div class="ocr-table-wrap" id="ocrTableWrap" style="display:none;">
+            <table class="tbl">
+              <thead>
+                <tr>
+                  <th style="width:60px;">题号</th>
+                  <th style="width:70px;">分值</th>
+                  <th style="width:88px;">题型</th>
+                  <th style="width:70px;">难度</th>
+                  <th style="min-width:110px;">知识点</th>
+                  <th style="min-width:150px;">题干说明</th>
+                  <th style="width:56px;">操作</th>
+                </tr>
+              </thead>
+              <tbody id="ocrTbody"></tbody>
+            </table>
+            <div class="q-actions">
+              <button class="btn btn-primary btn-sm" onclick="syncOcr()">✓ 同步修改到题目列表</button>
+              <button class="btn btn-warn btn-sm" onclick="startOCR()">重新识别</button>
+              <button class="btn btn-ghost btn-sm" onclick="clearOCRResult()">清空识别结果</button>
+            </div>
+          </div>
+          <div class="ocr-tip">说明：识别结果可能受试卷清晰度影响，请对照试卷校对题号与分值</div>
+        </div>
+        <div class="warn-line" id="sumWarn" style="display:block;background:#eef2f7;color:#334155;"></div>
+        <div style="overflow-x:auto;">
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th style="width:50px;">题号</th>
+                <th style="width:70px;">分值</th>
+                <th style="width:88px;">题型</th>
+                <th style="min-width:110px;">知识点</th>
+                <th style="width:64px;">难度</th>
+                <th style="min-width:90px;">考查能力</th>
+                <th style="width:50px;">操作</th>
+              </tr>
+            </thead>
+            <tbody id="qTbody"></tbody>
+          </table>
+        </div>
+        <div class="q-actions">
+          <button class="btn btn-outline btn-sm" onclick="addQuestion()">＋ 添加一题</button>
+          <button class="btn btn-outline btn-sm" onclick="addQuick(5)">＋ 快速添加5题</button>
+          <button class="btn btn-warn btn-sm" onclick="saveDraftNow()">保存草稿</button>
+        </div>
+        <div id="step2Err" class="login-tip"></div>
+        <div style="display:flex;gap:10px;margin-top:14px;">
+          <button class="btn btn-ghost" onclick="gotoStep(1)">上一步</button>
+          <button class="btn btn-primary" style="flex:1;" onclick="step2Next()">下一步：得分录入</button>
+        </div>
+      </div>
+
+      <!-- 第三步 得分录入 -->
+      <div id="step3Box" style="display:none;">
+        <div class="warn-line" id="scoreStat" style="display:block;background:#eef2f7;color:#334155;"></div>
+        <div style="overflow-x:auto;">
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th>题号</th>
+                <th>题型</th>
+                <th>知识点</th>
+                <th>难度</th>
+                <th>满分</th>
+                <th style="width:110px;">该生得分</th>
+              </tr>
+            </thead>
+            <tbody id="gotTbody"></tbody>
+          </table>
+        </div>
+        <div id="step3Err" class="login-tip"></div>
+        <div style="display:flex;gap:10px;margin-top:14px;">
+          <button class="btn btn-ghost" onclick="gotoStep(2)">上一步</button>
+          <button class="btn btn-primary" style="flex:1;" onclick="generateReport()">生成分析报告</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 分析记录 ================= -->
+<div class="page" id="recordsPage">
+  <div class="container">
+    <div class="card">
+      <div class="card-title"><span class="bar"></span>分析记录</div>
+      <div class="search-bar">
+        <span class="ico">🔍</span>
+        <input type="text" id="recordSearch" placeholder="按学生姓名 / 试卷名搜索" oninput="renderRecords()">
+      </div>
+      <div id="recordList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 云端同步 ================= -->
+<div class="page" id="syncPage">
+  <div class="container">
+    <div class="card">
+      <div class="card-title"><span class="bar"></span>云端同步</div>
+      <div class="sync-box">
+        <div class="sync-ico">☁️</div>
+        <div style="font-weight:700;font-size:16px;color:#1e3a8a;">跨设备备份与恢复</div>
+        <div class="sync-time" id="syncTime">尚未同步</div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="doBackup()">☁ 备份到云端</button>
+          <button class="btn btn-outline" onclick="doRestore()">⬇ 从云端恢复</button>
+        </div>
+        <div class="sync-status" id="syncStatus"></div>
+        <div class="pc-tip">说明：备份会将本机全部分析记录上传至云端；恢复会用云端数据覆盖本机全部记录，请谨慎操作。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 分析报告 ================= -->
+<div class="page" id="reportPage">
+  <div class="container">
+    <div class="report-toolbar">
+      <button class="btn btn-ghost btn-sm" onclick="backToList()">← 返回</button>
+      <button class="btn btn-primary btn-sm" onclick="window.print()">🖨 打印报告</button>
+    </div>
+    <div id="reportContent"></div>
+    <div class="report-sign">系统设计制作：刘岳</div>
+  </div>
+</div>
+
+<!-- ================= 页脚署名 ================= -->
+<div class="footer-sign page-footer" id="pageFooter" style="display:none;">系统设计制作：刘岳</div>
+
+<!-- ================= 模态框 ================= -->
+<div class="mask" id="modalMask">
+  <div class="modal">
+    <div class="modal-title" id="modalTitle">提示</div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-actions" id="modalActions"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   安全防护模块
+   ============================================================ */
+(function(){
+  var host = window.location.hostname || '';
+  var white = ['liu-laoshi.github.io','localhost','127.0.0.1'];
+  var okFlag = false;
+  for(var i=0;i<white.length;i++){
+    if(host === white[i] || host.indexOf(white[i]) >= 0){ okFlag = true; break; }
+  }
+  /* 允许本机直接打开文件（file:// 协议时 host 为空）以便本地试用 */
+  if(host === ''){ okFlag = true; }
+  if(!okFlag){
+    document.write('<div style="position:fixed;top:0;left:0;right:0;bottom:0;background:#1e293b;color:#fca5a5;display:flex;align-items:center;justify-content:center;font-size:18px;z-index:99999;font-family:sans-serif;">未授权访问</div>');
+    throw new Error('未授权访问');
+  }
+  console.log('%c本系统代码受版权保护，未经授权禁止复制、转载、二次开发或用于商业用途；系统设计制作：刘岳 | © 2026 保留所有权利', 'color:#f59e0b;font-size:14px;font-weight:bold;');
+
+  /* 禁用右键 */
+  document.addEventListener('contextmenu', function(e){
+    if(e.preventDefault){ e.preventDefault(); }
+    return false;
+  });
+  /* 禁用 F12 / Ctrl+Shift+I/J/C / Ctrl+U / Ctrl+S */
+  document.addEventListener('keydown', function(e){
+    var k = e.keyCode || e.which;
+    var ctrl = e.ctrlKey || e.metaKey;
+    var shift = e.shiftKey;
+    if(k === 123){ e.preventDefault(); return false; }
+    if(ctrl && shift && (k === 73 || k === 74 || k === 67)){ e.preventDefault(); return false; }
+    if(ctrl && (k === 85 || k === 83)){ e.preventDefault(); return false; }
+    return true;
+  });
+  /* 禁止复制 / 剪切 / 拖拽文本（输入框与文本域除外） */
+  function isEditable(t){
+    var n = (t && t.tagName) ? t.tagName.toUpperCase() : '';
+    return (n === 'INPUT' || n === 'TEXTAREA' || (t && t.isContentEditable));
+  }
+  document.addEventListener('copy', function(e){ if(!isEditable(e.target)){ e.preventDefault(); } });
+  document.addEventListener('cut', function(e){ if(!isEditable(e.target)){ e.preventDefault(); } });
+  document.addEventListener('dragstart', function(e){ if(!isEditable(e.target)){ e.preventDefault(); } });
+})();
+</script>
+
+<script>
+/* ============================================================
+   学生试卷个性化分析系统 —— 应用主脚本
+   ============================================================ */
+var REC_KEY = 'sjfx_records';
+var DRAFT_KEY = 'sjfx_current';
+var SYNC_KEY = 'sjfx_sync_time';
+var LOGIN_KEY = 'sjfx_login_ok';
+var SUBJECTS = ['语文','数学','英语','物理','化学','生物','道法','历史','地理'];
+var TYPES = ['单选','多选','填空','判断','计算','解答','作文','实验','其他'];
+var DIFFS = ['易','中','难'];
+var SUPABASE_URL = 'https://bmgqtxhbzupaujpzghpq.supabase.co';
+var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtZ3F0eGhienVwYXVqcHpnaHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwMDQxODQsImV4cCI6MjEwMTU4MDE4NH0.JgiQlUopALIDRYxE72oyPC2NoC0L4HrhH2q9cHW01W0';
+
+var curReportId = null;
+var curStep = 1;
+var draft = null;
+var ocrImageData = null;
+var ocrParsedList = [];
+var ocrAppendStart = -1;
+var ocrAppendCount = 0;
+var ocrRunning = false;
+var tesseractReady = false;
+var tesseractLoading = null;
+
+/* ========== 基础工具 ========== */
+function genId(){
+  return 'sj_' + new Date().getTime().toString(36) + Math.floor(Math.random() * 100000).toString(36);
+}
+function todayStr(){
+  var d = new Date();
+  var m = ('0' + (d.getMonth() + 1)).slice(-2);
+  var day = ('0' + d.getDate()).slice(-2);
+  return d.getFullYear() + '-' + m + '-' + day;
+}
+function fmtDate(v){
+  if(!v){ return ''; }
+  var dt = new Date(v);
+  if(isNaN(dt.getTime())){ return v; }
+  var m = ('0' + (dt.getMonth() + 1)).slice(-2);
+  var day = ('0' + dt.getDate()).slice(-2);
+  return dt.getFullYear() + '-' + m + '-' + day;
+}
+function esc(s){
+  if(s === null || s === undefined){ return ''; }
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function parseNum(v){
+  var n = parseFloat(v);
+  return isNaN(n) ? 0 : n;
+}
+
+/* ========== 本地存储 ========== */
+function loadRecords(){
+  var s = localStorage.getItem(REC_KEY);
+  if(!s){ return []; }
+  try { return JSON.parse(s) || []; } catch(e){ return []; }
+}
+function saveRecords(list){
+  localStorage.setItem(REC_KEY, JSON.stringify(list));
+}
+function loadDraft(){
+  var s = localStorage.getItem(DRAFT_KEY);
+  if(!s){ return null; }
+  try { return JSON.parse(s); } catch(e){ return null; }
+}
+function saveDraft(d){
+  localStorage.setItem(DRAFT_KEY, JSON.stringify(d));
+}
+function clearDraft(){
+  localStorage.removeItem(DRAFT_KEY);
+}
+
+/* ========== 页面切换 ========== */
+function showPage(name){
+  var pages = ['workbench','newPage','recordsPage','syncPage','reportPage'];
+  for(var i=0;i<pages.length;i++){
+    document.getElementById(pages[i]).classList.remove('active');
+  }
+  var target = document.getElementById(name);
+  if(target){ target.classList.add('active'); }
+  document.getElementById('loginPage').style.display = 'none';
+  document.getElementById('topnav').style.display = 'block';
+  document.getElementById('pageFooter').style.display = 'block';
+  var navs = ['workbench','new','records','sync'];
+  for(var j=0;j<navs.length;j++){
+    var el = document.getElementById('nav_' + navs[j]);
+    if(el){ el.classList.remove('active'); }
+  }
+  var act = '';
+  if(name === 'workbench'){ act = 'workbench'; }
+  else if(name === 'newPage'){ act = 'new'; }
+  else if(name === 'recordsPage'){ act = 'records'; }
+  else if(name === 'syncPage'){ act = 'sync'; }
+  var actEl = document.getElementById('nav_' + act);
+  if(actEl){ actEl.classList.add('active'); }
+  window.scrollTo(0, 0);
+}
+function goNav(name){
+  if(sessionStorage.getItem(LOGIN_KEY) !== '1'){ showLogin(); return; }
+  if(name === 'workbench'){ renderWorkbench(); showPage('workbench'); }
+  else if(name === 'new'){ startNew(); }
+  else if(name === 'records'){ renderRecords(); showPage('recordsPage'); }
+  else if(name === 'sync'){ renderSync(); showPage('syncPage'); }
+}
+function showLogin(){
+  document.getElementById('loginPage').style.display = 'flex';
+  document.getElementById('topnav').style.display = 'none';
+  document.getElementById('pageFooter').style.display = 'block';
+  var pages = ['workbench','newPage','recordsPage','syncPage','reportPage'];
+  for(var i=0;i<pages.length;i++){
+    document.getElementById(pages[i]).classList.remove('active');
+  }
+}
+
+/* ========== 登录 ========== */
+function doLogin(){
+  var u = document.getElementById('loginUser').value.trim();
+  var p = document.getElementById('loginPass').value;
+  var tip = document.getElementById('loginTip');
+  if(u === '' || p === ''){ tip.innerHTML = '请输入账号和密码'; return; }
+  if(u === 'liulaoshi' && p === 'peiyou2026'){
+    sessionStorage.setItem(LOGIN_KEY, '1');
+    tip.innerHTML = '';
+    document.getElementById('loginUser').value = '';
+    document.getElementById('loginPass').value = '';
+    renderWorkbench();
+    showPage('workbench');
+  } else {
+    tip.innerHTML = '账号或密码错误，请重试';
+  }
+}
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Enter' && document.getElementById('loginPage').style.display !== 'none'){
+    doLogin();
+  }
+});
+
+/* ========== 工作台 ========== */
+function recordRate(r){
+  var qs = r.questions || [];
+  var full = 0, got = 0;
+  for(var i=0;i<qs.length;i++){
+    full += parseNum(qs[i].score);
+    var g = parseNum(qs[i].got);
+    var f = parseNum(qs[i].score);
+    if(g > f){ g = f; }
+    got += g;
+  }
+  return full > 0 ? (got / full * 100) : 0;
+}
+function renderWorkbench(){
+  var list = loadRecords();
+  document.getElementById('totalCount').textContent = list.length;
+  var recentBox = document.getElementById('recentList');
+  if(list.length === 0){
+    document.getElementById('rateAvg').textContent = '—';
+    recentBox.innerHTML = '<div class="empty"><span class="big">📋</span>暂无分析记录<br>点击「新建分析」开始第一次诊断</div>';
+    return;
+  }
+  var sorted = list.slice().sort(function(a,b){ return (b.createTime||0) - (a.createTime||0); });
+  var lastRate = recordRate(sorted[0]);
+  document.getElementById('rateAvg').textContent = Math.round(lastRate) + '%';
+  var html = '';
+  for(var i=0;i<Math.min(3, sorted.length);i++){
+    var r = sorted[i];
+    var rate = recordRate(r);
+    html += '<div class="recent-card" onclick="viewReport(\'' + r.id + '\')">'
+      + '<div class="r1"><span class="rname">' + esc(r.studentName) + '</span><span class="arrow">›</span></div>'
+      + '<div class="r2">' + esc(r.paperName) + ' · ' + esc(r.subject) + ' · ' + Math.round(rate) + '%</div>'
+      + '<div class="r2" style="margin-top:2px;">' + esc(fmtDate(r.date)) + ' · 点击查看报告</div>'
+      + '</div>';
+  }
+  recentBox.innerHTML = html;
+}
+
+/* ========== 新建分析（向导） ========== */
+function freshDraft(){
+  return {
+    id: null,
+    paperName: '',
+    subject: '语文',
+    grade: '',
+    examType: '月考',
+    totalScore: 100,
+    date: todayStr(),
+    studentName: '',
+    studentClass: '',
+    questions: [],
+    createTime: null,
+    updateTime: null
+  };
+}
+function startNew(){
+  if(sessionStorage.getItem(LOGIN_KEY) !== '1'){ showLogin(); return; }
+  var saved = loadDraft();
+  if(saved && saved.questions && saved.questions.length > 0){
+    draft = saved;
+    var tip = document.getElementById('draftTip');
+    tip.innerHTML = '已载入上次未完成的草稿（' + esc(saved.paperName || '未命名') + '），可继续编辑或点击「重新开始」清空。';
+    tip.classList.add('show');
+  } else {
+    draft = freshDraft();
+    saveDraft(draft);
+    document.getElementById('draftTip').classList.remove('show');
+  }
+  curStep = 1;
+  fillStep1();
+  gotoStep(1);
+  showPage('newPage');
+}
+function clearDraftNow(){
+  modalConfirm('重新开始', '确定清空当前草稿并重新开始吗？', function(){
+    draft = freshDraft();
+    saveDraft(draft);
+    document.getElementById('draftTip').classList.remove('show');
+    curStep = 1;
+    fillStep1();
+    gotoStep(1);
+  });
+}
+function fillStep1(){
+  document.getElementById('f_paperName').value = draft.paperName || '';
+  document.getElementById('f_subject').value = draft.subject || '语文';
+  document.getElementById('f_grade').value = draft.grade || '';
+  document.getElementById('f_examType').value = draft.examType || '月考';
+  document.getElementById('f_totalScore').value = draft.totalScore || 100;
+  document.getElementById('f_date').value = draft.date || todayStr();
+  document.getElementById('f_studentName').value = draft.studentName || '';
+  document.getElementById('f_studentClass').value = draft.studentClass || '';
+  document.getElementById('step1Err').innerHTML = '';
+}
+function saveStep1(){
+  draft.paperName = document.getElementById('f_paperName').value.trim();
+  draft.subject = document.getElementById('f_subject').value;
+  draft.grade = document.getElementById('f_grade').value.trim();
+  draft.examType = document.getElementById('f_examType').value;
+  draft.totalScore = parseNum(document.getElementById('f_totalScore').value);
+  draft.date = document.getElementById('f_date').value;
+  draft.studentName = document.getElementById('f_studentName').value.trim();
+  draft.studentClass = document.getElementById('f_studentClass').value.trim();
+}
+function step1Next(){
+  saveStep1();
+  var err = document.getElementById('step1Err');
+  if(!draft.paperName){ err.innerHTML = '请填写试卷名称'; return; }
+  if(!draft.studentName){ err.innerHTML = '请填写学生姓名'; return; }
+  if(!draft.totalScore || draft.totalScore <= 0){ err.innerHTML = '总分须为大于0的数字'; return; }
+  if(!draft.date){ err.innerHTML = '请选择考试日期'; return; }
+  err.innerHTML = '';
+  saveDraft(draft);
+  gotoStep(2);
+}
+function defaultQuestion(idx){
+  return {
+    no: String(idx),
+    score: 0,
+    type: '单选',
+    knowledge: '',
+    difficulty: '易',
+    ability: '',
+    got: 0
+  };
+}
+function renderStep2(){
+  var tb = document.getElementById('qTbody');
+  var html = '';
+  for(var i=0;i<draft.questions.length;i++){
+    var q = draft.questions[i];
+    var typeOpts = '';
+    for(var t=0;t<TYPES.length;t++){
+      typeOpts += '<option' + (q.type === TYPES[t] ? ' selected' : '') + '>' + TYPES[t] + '</option>';
+    }
+    var diffOpts = '';
+    for(var d=0;d<DIFFS.length;d++){
+      diffOpts += '<option' + (q.difficulty === DIFFS[d] ? ' selected' : '') + '>' + DIFFS[d] + '</option>';
+    }
+    html += '<tr class="q-row">'
+      + '<td><input type="text" value="' + esc(q.no) + '" data-idx="' + i + '" data-f="no" oninput="qField(this)"></td>'
+      + '<td><input type="number" min="0" value="' + (q.score||0) + '" data-idx="' + i + '" data-f="score" oninput="qField(this)"></td>'
+      + '<td><select data-idx="' + i + '" data-f="type" onchange="qField(this)">' + typeOpts + '</select></td>'
+      + '<td><input type="text" value="' + esc(q.knowledge) + '" data-idx="' + i + '" data-f="knowledge" placeholder="必填" oninput="qField(this)"></td>'
+      + '<td><select data-idx="' + i + '" data-f="difficulty" onchange="qField(this)">' + diffOpts + '</select></td>'
+      + '<td><input type="text" value="' + esc(q.ability) + '" data-idx="' + i + '" data-f="ability" placeholder="可空" oninput="qField(this)"></td>'
+      + '<td><button class="btn btn-danger btn-sm" onclick="delQuestion(' + i + ')">删除</button></td>'
+      + '</tr>';
+  }
+  tb.innerHTML = html;
+  updateSum();
+}
+function qField(el){
+  var idx = parseInt(el.getAttribute('data-idx'), 10);
+  var f = el.getAttribute('data-f');
+  var q = draft.questions[idx];
+  if(!q){ return; }
+  if(f === 'score' || f === 'no'){
+    q[f] = parseNum(el.value);
+  } else {
+    q[f] = el.value;
+  }
+  updateSum();
+  saveDraft(draft);
+}
+function delQuestion(idx){
+  if(draft.questions.length <= 1){ modalAlert('提示', '至少保留一道题目'); return; }
+  draft.questions.splice(idx, 1);
+  renderStep2();
+  saveDraft(draft);
+}
+function addQuestion(){
+  var nextNo = draft.questions.length + 1;
+  draft.questions.push(defaultQuestion(String(nextNo)));
+  renderStep2();
+  saveDraft(draft);
+}
+function addQuick(n){
+  for(var i=0;i<n;i++){
+    draft.questions.push(defaultQuestion(String(draft.questions.length + 1)));
+  }
+  renderStep2();
+  saveDraft(draft);
+}
+function updateSum(){
+  var full = 0;
+  for(var i=0;i<draft.questions.length;i++){
+    full += parseNum(draft.questions[i].score);
+  }
+  var total = parseNum(draft.totalScore);
+  var warn = document.getElementById('sumWarn');
+  var msg = '共 ' + draft.questions.length + ' 道题，题目分值合计：<b>' + full + '</b> 分，设定总分：<b>' + total + '</b> 分';
+  if(full !== total){
+    msg += '　<span style="color:#b45309;">⚠ 与设定总分不一致，请检查题目分值</span>';
+    warn.style.background = '#fef3c7';
+  } else {
+    warn.style.background = '#ecfdf5';
+    msg += '　<span style="color:#047857;">✓ 总分一致</span>';
+  }
+  warn.innerHTML = msg;
+}
+function saveDraftNow(){
+  saveStep1();
+  saveDraft(draft);
+  modalAlert('提示', '草稿已保存，可随时通过「新建分析」继续编辑。');
+}
+function step2Next(){
+  saveStep1();
+  var err = document.getElementById('step2Err');
+  if(draft.questions.length === 0){ err.innerHTML = '请至少添加一道题目'; return; }
+  for(var i=0;i<draft.questions.length;i++){
+    var q = draft.questions[i];
+    if(!q.knowledge || !q.knowledge.trim()){ err.innerHTML = '第 ' + (i+1) + ' 题的「知识点」不能为空'; return; }
+    if(parseNum(q.score) <= 0){ err.innerHTML = '第 ' + (i+1) + ' 题的分值须大于0'; return; }
+  }
+  err.innerHTML = '';
+  saveDraft(draft);
+  gotoStep(3);
+}
+function renderStep3(){
+  var tb = document.getElementById('gotTbody');
+  var html = '';
+  for(var i=0;i<draft.questions.length;i++){
+    var q = draft.questions[i];
+    html += '<tr>'
+      + '<td>' + esc(q.no) + '</td>'
+      + '<td>' + esc(q.type) + '</td>'
+      + '<td>' + esc(q.knowledge) + '</td>'
+      + '<td>' + esc(q.difficulty) + '</td>'
+      + '<td>' + parseNum(q.score) + '</td>'
+      + '<td><input type="number" min="0" inputmode="decimal" value="' + (q.got!==undefined ? q.got : '') + '" data-idx="' + i + '" placeholder="0-' + parseNum(q.score) + '" oninput="gotField(this)" onblur="gotBlur(this)"></td>'
+      + '</tr>';
+  }
+  tb.innerHTML = html;
+  updateScoreStat();
+}
+function gotField(el){
+  var idx = parseInt(el.getAttribute('data-idx'), 10);
+  var q = draft.questions[idx];
+  if(!q){ return; }
+  var v = el.value;
+  var full = parseNum(q.score);
+  el.classList.remove('err');
+  if(v === ''){ q.got = 0; updateScoreStat(); return; }
+  if(!isFinite(Number(v))){ el.classList.add('err'); return; }
+  var n = parseNum(v);
+  if(n > full){
+    el.classList.add('err');
+  } else {
+    q.got = n;
+  }
+  updateScoreStat();
+}
+function gotBlur(el){
+  var idx = parseInt(el.getAttribute('data-idx'), 10);
+  var q = draft.questions[idx];
+  if(!q){ return; }
+  var n = parseNum(el.value);
+  var full = parseNum(q.score);
+  if(n > full){ n = full; }
+  if(n < 0){ n = 0; }
+  q.got = n;
+  el.value = (n === 0 && el.value === '') ? '0' : n;
+  el.classList.remove('err');
+  updateScoreStat();
+}
+function updateScoreStat(){
+  var got = 0, full = 0;
+  for(var i=0;i<draft.questions.length;i++){
+    var q = draft.questions[i];
+    full += parseNum(q.score);
+    var g = parseNum(q.got);
+    var f = parseNum(q.score);
+    if(g > f){ g = f; }
+    got += g;
+  }
+  var rate = full > 0 ? (got / full * 100) : 0;
+  var stat = document.getElementById('scoreStat');
+  stat.innerHTML = '已录得分合计：<b>' + got + '</b> 分　·　总得分率：<b>' + Math.round(rate) + '%</b>　·　共 ' + draft.questions.length + ' 题';
+}
+function gotoStep(n){
+  curStep = n;
+  document.getElementById('step1Box').style.display = n === 1 ? 'block' : 'none';
+  document.getElementById('step2Box').style.display = n === 2 ? 'block' : 'none';
+  document.getElementById('step3Box').style.display = n === 3 ? 'block' : 'none';
+  var sts = [document.getElementById('st1'), document.getElementById('st2'), document.getElementById('st3')];
+  for(var i=0;i<3;i++){ sts[i].classList.remove('on'); }
+  if(n >= 1){ sts[0].classList.add('on'); }
+  if(n >= 2){ sts[1].classList.add('on'); }
+  if(n >= 3){ sts[2].classList.add('on'); }
+  if(n === 2){ renderStep2(); }
+  if(n === 3){ renderStep3(); }
+  window.scrollTo(0, 0);
+}
+
+/* ========== 上传试卷图片自动识别（OCR） ========== */
+function setOcrStatus(cls, msg){
+  var el = document.getElementById('ocrStatus');
+  el.className = 'ocr-status';
+  if(cls){ el.classList.add('ocr-' + cls); }
+  el.innerHTML = msg;
+}
+function ocrOnFile(input){
+  var f = input.files && input.files[0];
+  if(!f){ return; }
+  if(f.type.indexOf('image/') !== 0){
+    setOcrStatus('err', '请选择图片文件');
+    return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(e){
+    ocrImageData = e.target.result;
+    var box = document.getElementById('ocrPreview');
+    box.innerHTML = '<img src="' + ocrImageData + '" alt="试卷预览" style="max-height:200px;max-width:100%;border-radius:10px;border:1px solid #e2e8f0;">';
+    setOcrStatus('', '已选择图片，点击「开始识别」进行扫描。');
+  };
+  reader.readAsDataURL(f);
+}
+function ensureTesseract(){
+  if(window.Tesseract){
+    tesseractReady = true;
+    return Promise.resolve();
+  }
+  if(tesseractLoading){ return tesseractLoading; }
+  tesseractLoading = new Promise(function(resolve, reject){
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js';
+    s.async = true;
+    s.onload = function(){ tesseractReady = true; resolve(); };
+    s.onerror = function(){ tesseractLoading = null; reject(new Error('引擎加载失败')); };
+    document.head.appendChild(s);
+  });
+  return tesseractLoading;
+}
+function startOCR(){
+  if(ocrRunning){ return; }
+  if(!ocrImageData){
+    setOcrStatus('err', '请先选择试卷图片');
+    return;
+  }
+  ocrRunning = true;
+  setOcrStatus('loading', '正在下载识别引擎与中文语言包，首次使用约需1-2分钟，请保持网络畅通；识别完成后会自动解析题目……');
+  ensureTesseract().then(function(){
+    return Tesseract.createWorker('chi_sim');
+  }).then(function(worker){
+    return worker.recognize(ocrImageData).then(function(res){
+      try{ worker.terminate(); }catch(e){}
+      return res.data.text;
+    });
+  }).then(function(text){
+    ocrRunning = false;
+    var parsed = parseOCRText(text);
+    if(parsed.length === 0){
+      setOcrStatus('warn', '未从图片中识别出题目，请尝试更清晰的试卷图片，或直接手动录入题目。');
+      return;
+    }
+    ocrParsedList = parsed;
+    ocrAppendStart = draft.questions.length;
+    ocrAppendCount = parsed.length;
+    for(var i=0;i<parsed.length;i++){
+      var p = parsed[i];
+      draft.questions.push({
+        no: String(p.no || (ocrAppendStart + i + 1)),
+        score: p.score || 0,
+        type: p.type || '解答',
+        knowledge: '',
+        difficulty: p.difficulty || '中',
+        ability: '',
+        got: 0
+      });
+    }
+    renderStep2();
+    saveDraft(draft);
+    renderOcrParsed();
+    document.getElementById('ocrTableWrap').style.display = 'block';
+    setOcrStatus('ok', '识别完成：共解析出 <b>' + parsed.length + '</b> 道题，已自动追加到下方题目列表；请对照「待确认」表逐题校对（补填知识点、修正分值），确认后点击「同步修改到题目列表」。');
+  }).catch(function(){
+    ocrRunning = false;
+    setOcrStatus('err', '识别功能需联网加载识别引擎，请检查网络后重试；也可手动录入题目');
+  });
+}
+function matchQStart(line){
+  var m1 = line.match(/^\s*(\d{1,3})\s*[\.、．。)）]/);
+  if(m1){
+    var rest = line.slice(m1[0].length);
+    if(!/^\d/.test(rest)){ return m1[1]; }
+  }
+  var m2 = line.match(/^\s*[（(]\s*(\d{1,3})\s*[)）]/);
+  if(m2){ return m2[1]; }
+  var m3 = line.match(/^\s*第\s*(\d{1,3})\s*题/);
+  if(m3){ return m3[1]; }
+  return null;
+}
+function extractScore(line){
+  var m = line.match(/[（(]\s*(\d{1,3})\s*分\s*[)）]|满分\s*(\d{1,3})|分值\s*(\d{1,3})|(\d{1,3})\s*分/);
+  if(!m){ return 0; }
+  for(var i=1;i<m.length;i++){
+    if(m[i]){ return parseInt(m[i], 10) || 0; }
+  }
+  return 0;
+}
+function parseOCRText(text){
+  var result = [];
+  if(!text || typeof text !== 'string'){ return result; }
+  var lines = text.split(/\r?\n/);
+  var cur = null;
+  var secScore = 0;
+  var sectionRe = /^[一二三四五六七八九十百]+\s*[、.．。]/;
+  var secScoreRe = /每[题空]\s*(\d{1,3})\s*分/;
+  for(var i=0;i<lines.length;i++){
+    var line = lines[i].trim();
+    if(!line){ continue; }
+    if(sectionRe.test(line)){
+      if(cur){ result.push(cur); cur = null; }
+      var ss = line.match(secScoreRe);
+      secScore = ss ? (parseInt(ss[1], 10) || 0) : 0;
+      continue;
+    }
+    var no = matchQStart(line);
+    if(no){
+      if(cur){ result.push(cur); }
+      cur = {no: no, score: 0, type: '解答', knowledge: '', difficulty: '中', ability: '', desc: line};
+      var sc = extractScore(line);
+      cur.score = sc > 0 ? sc : secScore;
+      continue;
+    }
+    if(cur){
+      if(cur.desc.length < 80){
+        cur.desc += line;
+      }
+      if(cur.score === 0){
+        var sc2 = extractScore(line);
+        if(sc2 > 0){ cur.score = sc2; }
+        else if(secScore > 0){ cur.score = secScore; }
+      }
+    }
+  }
+  if(cur){ result.push(cur); }
+  for(var j=0;j<result.length;j++){
+    if(result[j].desc.length > 84){ result[j].desc = result[j].desc.slice(0, 84) + '…'; }
+  }
+  return result;
+}
+function renderOcrParsed(){
+  var tb = document.getElementById('ocrTbody');
+  var html = '';
+  for(var i=0;i<ocrParsedList.length;i++){
+    var p = ocrParsedList[i];
+    var typeOpts = '';
+    for(var t=0;t<TYPES.length;t++){
+      typeOpts += '<option' + (p.type === TYPES[t] ? ' selected' : '') + '>' + TYPES[t] + '</option>';
+    }
+    var diffOpts = '';
+    for(var d=0;d<DIFFS.length;d++){
+      diffOpts += '<option' + (p.difficulty === DIFFS[d] ? ' selected' : '') + '>' + DIFFS[d] + '</option>';
+    }
+    html += '<tr>'
+      + '<td><input type="text" value="' + esc(p.no) + '" data-i="' + i + '" data-f="no" oninput="ocrField(this)"></td>'
+      + '<td><input type="number" min="0" value="' + (p.score || 0) + '" data-i="' + i + '" data-f="score" oninput="ocrField(this)"></td>'
+      + '<td><select data-i="' + i + '" data-f="type" onchange="ocrField(this)">' + typeOpts + '</select></td>'
+      + '<td><select data-i="' + i + '" data-f="difficulty" onchange="ocrField(this)">' + diffOpts + '</select></td>'
+      + '<td><input type="text" value="' + esc(p.knowledge) + '" data-i="' + i + '" data-f="knowledge" placeholder="待补填知识点" oninput="ocrField(this)"></td>'
+      + '<td class="ocr-desc">' + esc(p.desc) + '</td>'
+      + '<td><button class="btn btn-danger btn-sm" onclick="ocrDel(' + i + ')">删除</button></td>'
+      + '</tr>';
+  }
+  tb.innerHTML = html;
+}
+function ocrField(el){
+  var i = parseInt(el.getAttribute('data-i'), 10);
+  var f = el.getAttribute('data-f');
+  var p = ocrParsedList[i];
+  if(!p){ return; }
+  if(f === 'score' || f === 'no'){ p[f] = parseNum(el.value); }
+  else { p[f] = el.value; }
+}
+function ocrDel(i){
+  ocrParsedList.splice(i, 1);
+  renderOcrParsed();
+  if(ocrParsedList.length === 0){
+    setOcrStatus('warn', '识别结果已清空，可在题目列表中手动编辑。');
+  }
+}
+function syncOcr(){
+  if(ocrParsedList.length === 0){
+    setOcrStatus('warn', '暂无可同步的识别结果');
+    return;
+  }
+  for(var i=0;i<ocrParsedList.length;i++){
+    var idx = ocrAppendStart + i;
+    var p = ocrParsedList[i];
+    if(idx < draft.questions.length){
+      draft.questions[idx].no = String(p.no || (idx + 1));
+      draft.questions[idx].score = p.score || 0;
+      draft.questions[idx].type = p.type || '解答';
+      draft.questions[idx].difficulty = p.difficulty || '中';
+      draft.questions[idx].knowledge = (p.knowledge || '').trim();
+    } else {
+      draft.questions.push({
+        no: String(p.no || (idx + 1)),
+        score: p.score || 0,
+        type: p.type || '解答',
+        knowledge: (p.knowledge || '').trim(),
+        difficulty: p.difficulty || '中',
+        ability: '',
+        got: 0
+      });
+    }
+  }
+  renderStep2();
+  saveDraft(draft);
+  setOcrStatus('ok', '已同步到题目列表，请在下方逐题校对（题号、分值、知识点、难度）后继续下一步。');
+}
+function clearOCRResult(){
+  if(ocrAppendStart >= 0 && ocrAppendCount > 0 && draft.questions.length >= ocrAppendStart + ocrAppendCount){
+    draft.questions.splice(ocrAppendStart, ocrAppendCount);
+    renderStep2();
+    saveDraft(draft);
+  }
+  ocrParsedList = [];
+  ocrAppendStart = -1;
+  ocrAppendCount = 0;
+  document.getElementById('ocrTbody').innerHTML = '';
+  document.getElementById('ocrTableWrap').style.display = 'none';
+  document.getElementById('ocrPreview').innerHTML = '';
+  document.getElementById('ocrFile').value = '';
+  ocrImageData = null;
+  setOcrStatus('', '');
+}
+
+/* ========== 生成并保存记录 ========== */
+function generateReport(){
+  saveStep1();
+  var err = document.getElementById('step3Err');
+  if(!draft.paperName){ err.innerHTML = '请先返回第一步填写试卷名称'; return; }
+  if(!draft.studentName){ err.innerHTML = '请先返回第一步填写学生姓名'; return; }
+  if(draft.questions.length === 0){ err.innerHTML = '没有可分析的题目'; return; }
+  for(var i=0;i<draft.questions.length;i++){
+    var q = draft.questions[i];
+    var full = parseNum(q.score);
+    var g = parseNum(q.got);
+    if(g > full){
+      err.innerHTML = '第 ' + (i+1) + ' 题得分超过满分，请修正后再生成报告';
+      return;
+    }
+    if(!q.knowledge || !q.knowledge.trim()){
+      err.innerHTML = '第 ' + (i+1) + ' 题缺少知识点，请返回第二步补充';
+      return;
+    }
+  }
+  err.innerHTML = '';
+  var rec = JSON.parse(JSON.stringify(draft));
+  for(var j=0;j<rec.questions.length;j++){
+    var f = parseNum(rec.questions[j].score);
+    var gg = parseNum(rec.questions[j].got);
+    if(gg > f){ gg = f; }
+    if(gg < 0){ gg = 0; }
+    rec.questions[j].got = gg;
+  }
+  var now = Date.now();
+  if(!rec.id){
+    rec.id = genId();
+    rec.createTime = now;
+  }
+  rec.updateTime = now;
+  var list = loadRecords();
+  var found = false;
+  for(var k=0;k<list.length;k++){
+    if(list[k].id === rec.id){ list[k] = rec; found = true; break; }
+  }
+  if(!found){ list.push(rec); }
+  saveRecords(list);
+  clearDraft();
+  document.getElementById('draftTip').classList.remove('show');
+  curReportId = rec.id;
+  renderReport(rec);
+  showPage('reportPage');
+}
+
+/* ========== 分析引擎 ========== */
+function analyzeRecord(rec){
+  var qs = rec.questions || [];
+  var out = {
+    totalFull: 0, totalGot: 0, rate: 0, grade: '', gradeText: '',
+    klist: [], tlist: [], dlist: [], loss: [], best: null, worst: null, summary: ''
+  };
+  var kmap = {}, tmap = {}, dmap = {};
+  for(var i=0;i<qs.length;i++){
+    var q = qs[i];
+    var full = parseNum(q.score);
+    var got = parseNum(q.got);
+    if(got > full){ got = full; }
+    if(got < 0){ got = 0; }
+    out.totalFull += full;
+    out.totalGot += got;
+    var k = (q.knowledge || '').trim();
+    if(k){
+      if(!kmap[k]){ kmap[k] = {full:0, got:0, count:0}; }
+      kmap[k].full += full; kmap[k].got += got; kmap[k].count++;
+    }
+    var t = q.type || '其他';
+    if(!tmap[t]){ tmap[t] = {full:0, got:0, count:0}; }
+    tmap[t].full += full; tmap[t].got += got; tmap[t].count++;
+    var d = q.difficulty || '中';
+    if(!dmap[d]){ dmap[d] = {full:0, got:0, count:0}; }
+    dmap[d].full += full; dmap[d].got += got; dmap[d].count++;
+    out.loss.push({no: q.no, full: full, got: got, loss: full - got, knowledge: k, difficulty: d, type: t});
+  }
+  out.rate = out.totalFull > 0 ? (out.totalGot / out.totalFull * 100) : 0;
+
+  var ks = [];
+  for(var kk in kmap){
+    ks.push({name: kk, full: kmap[kk].full, got: kmap[kk].got, count: kmap[kk].count, rate: kmap[kk].full > 0 ? (kmap[kk].got / kmap[kk].full * 100) : 0});
+  }
+  ks.sort(function(a,b){ return b.rate - a.rate; });
+  for(var m=0;m<ks.length;m++){
+    var r = ks[m].rate;
+    if(r >= 85){ ks[m].tag = '牢固'; ks[m].cls = 'tag-green'; }
+    else if(r >= 70){ ks[m].tag = '良好'; ks[m].cls = 'tag-blue'; }
+    else if(r >= 55){ ks[m].tag = '一般'; ks[m].cls = 'tag-amber'; }
+    else { ks[m].tag = '薄弱'; ks[m].cls = 'tag-red'; }
+    ks[m].sug = knowledgeSug(ks[m].tag, ks[m].name, ks[m].rate);
+  }
+  out.klist = ks;
+
+  var ts = [];
+  for(var tt in tmap){
+    ts.push({name: tt, full: tmap[tt].full, got: tmap[tt].got, count: tmap[tt].count, rate: tmap[tt].full > 0 ? (tmap[tt].got / tmap[tt].full * 100) : 0});
+  }
+  ts.sort(function(a,b){ return b.rate - a.rate; });
+  out.tlist = ts;
+
+  var ds = [];
+  for(var di=0;di<DIFFS.length;di++){
+    var dname = DIFFS[di];
+    if(dmap[dname]){
+      ds.push({name: dname, full: dmap[dname].full, got: dmap[dname].got, count: dmap[dname].count, rate: dmap[dname].full > 0 ? (dmap[dname].got / dmap[dname].full * 100) : 0});
+    }
+  }
+  out.dlist = ds;
+
+  out.loss.sort(function(a,b){ return b.loss - a.loss; });
+  out.loss = out.loss.slice(0, 5);
+
+  if(ks.length > 0){
+    out.best = ks[0];
+    out.worst = ks[ks.length - 1];
+  }
+
+  /* 等级与激励 */
+  var r2 = out.rate;
+  if(r2 >= 90){ out.grade = '优秀'; out.gradeText = '表现出色！继续保持这份认真与专注，向更高目标冲刺！'; }
+  else if(r2 >= 80){ out.grade = '良好'; out.gradeText = '基础扎实，进步空间依然很大，再接再厉！'; }
+  else if(r2 >= 70){ out.grade = '中等'; out.gradeText = '整体尚可，针对薄弱点精准发力，成绩会更上一层楼！'; }
+  else if(r2 >= 60){ out.grade = '及格'; out.gradeText = '基础底线已守住，需要加大针对性训练，稳住并提升！'; }
+  else { out.grade = '待提高'; out.gradeText = '别灰心，找到问题就是进步的开始，按学习路径逐步攻克！'; }
+
+  out.summary = buildSummary(out);
+  return out;
+}
+function knowledgeSug(tag, name, rate){
+  var rr = Math.round(rate);
+  if(tag === '牢固'){ return '《' + name + '》掌握扎实（' + rr + '%），可挑战综合与拓展题，保持并扩大优势。'; }
+  if(tag === '良好'){ return '《' + name + '》基础较好（' + rr + '%），建议通过错题归类与变式练习，向满分靠拢。'; }
+  if(tag === '一般'){ return '《' + name + '》基本掌握但欠熟练（' + rr + '%），建议每周安排专项练习该知识点中等难度题三次以上。'; }
+  return '《' + name + '》为薄弱项（' + rr + '%），建议回归课本梳理概念，每天做5道该知识点基础题，并纳入错题本定期重做。';
+}
+function buildSummary(res){
+  var parts = [];
+  if(res.best && res.worst && res.best.name !== res.worst.name){
+    if(res.best.rate >= 85){
+      parts.push('《' + res.best.name + '》掌握较好（' + Math.round(res.best.rate) + '%）');
+    }
+    parts.push('《' + res.worst.name + '》掌握偏弱（' + Math.round(res.worst.rate) + '%）需重点加强');
+  } else if(res.worst){
+    parts.push('《' + res.worst.name + '》仅' + Math.round(res.worst.rate) + '%需重点加强');
+  } else {
+    parts.push('建议全面巩固基础知识');
+  }
+  var head = '';
+  if(res.rate >= 90){ head = '整体表现优秀'; }
+  else if(res.rate >= 80){ head = '整体表现良好'; }
+  else if(res.rate >= 70){ head = '整体表现中等'; }
+  else if(res.rate >= 60){ head = '整体表现及格'; }
+  else { head = '整体表现有待提高'; }
+  return head + '，' + parts.join('，') + '。';
+}
+function buildSugList(res){
+  var sug = [];
+  var worstName = res.worst ? res.worst.name : '薄弱知识点';
+  if(res.worst){
+    sug.push('回归课本：系统梳理《' + worstName + '》的概念、公式与典型例题，先理解再记忆。');
+  }
+  sug.push('每日一练：针对薄弱知识点每天完成5道基础题加3道中等题，坚持两周形成肌肉记忆。');
+  sug.push('错题本：将本卷失分题（尤其失分榜前5题）整理进错题本，标注错误原因，每周重做一次。');
+  sug.push('限时训练：每周安排一次限时答题，提升解题速度与时间分配能力，减少无谓失分。');
+  sug.push('主动求助：对反复出错的题，及时向老师或家长求助，讲清楚思路后再独立重做。');
+  return sug;
+}
+function buildPathList(res){
+  var worstName = res.worst ? res.worst.name : '薄弱知识点';
+  var steps = [];
+  steps.push('第一步·补基础：回归课本，系统梳理《' + worstName + '》相关概念、公式与例题，理解后再记忆。');
+  steps.push('第二步·专项练：每天完成5道《' + worstName + '》基础题加3道中等题，坚持一周。');
+  steps.push('第三步·错题攻：将本卷失分题整理进错题本，标注错误原因，隔天与周末各重做一次。');
+  steps.push('第四步·综合题：每周完成一套含中档综合题的练习，检验知识迁移与综合运用能力。');
+  steps.push('第五步·模拟检：限时重做本卷错题或同难度模拟卷，检验掌握度提升情况并调整计划。');
+  return steps;
+}
+
+/* ========== 升学衔接分析（对标中考 / 高考） ========== */
+function kp(kw, freq, note){ return {kw: kw, freq: freq, note: note}; }
+function mergeDict(a, b){
+  var out = {};
+  var allSub = [];
+  for(var s in a){ allSub.push(s); }
+  for(var s2 in b){ if(allSub.indexOf(s2) < 0){ allSub.push(s2); } }
+  for(var i=0;i<allSub.length;i++){
+    var sub = allSub[i];
+    var listA = a[sub] || [];
+    var listB = b[sub] || [];
+    var both = listA.concat(listB);
+    var arr = [];
+    var seen = {};
+    for(var j=0;j<both.length;j++){
+      if(!seen[both[j].kw]){ seen[both[j].kw] = 1; arr.push(both[j]); }
+    }
+    if(arr.length > 0){ out[sub] = arr; }
+  }
+  return out;
+}
+var EXAM_DICT = {};
+EXAM_DICT['初中衔接'] = {
+  '语文': [
+    kp('古诗文', '高频', '古诗文默写与鉴赏为中考必考，占分比重高'),
+    kp('文言文', '高频', '文言文阅读为中考必考题型，需积累实词、虚词与翻译'),
+    kp('现代文', '高频', '现代文阅读在中考占分大，重在概括主旨与赏析'),
+    kp('记叙文', '高频', '中考常考文体，需把握主旨、梳理情节与人物'),
+    kp('作文', '高频', '中考作文分值高，需立意明确、结构完整'),
+    kp('议论文', '中频', '需掌握论点、论据与论证方法'),
+    kp('说明文', '中频', '需掌握说明方法、说明顺序与信息提取'),
+    kp('字音', '中频', '中考基础题，重在平时积累'),
+    kp('名著', '中频', '中考名著考查范围固定，需按考纲梳理'),
+    kp('综合性学习', '中频', '中考常考语文实践类题目')
+  ],
+  '数学': [
+    kp('二次函数', '高频', '二次函数为中考压轴题常考，占分比重高'),
+    kp('函数', '高频', '一次函数、反比例函数与二次函数是中考核心'),
+    kp('方程', '高频', '一元一次方程与一元二次方程是中考必考基础'),
+    kp('不等式', '高频', '一元一次不等式（组）为中考必考'),
+    kp('三角形', '高频', '全等三角形与相似三角形是中考几何重点'),
+    kp('圆', '高频', '圆的有关性质与切线为中考必考'),
+    kp('几何', '高频', '三角形、四边形与圆构成中考几何主体'),
+    kp('统计与概率', '中频', '中考统计概率题较易，应保证拿满'),
+    kp('实数', '中频', '实数与代数式运算是中考基础'),
+    kp('锐角三角函数', '中频', '常与解直角三角形结合考查'),
+    kp('因式分解', '中频', '整式运算与因式分解为中考基础必考'),
+    kp('代数式', '中频', '整式运算与化简求值是中考常考')
+  ],
+  '英语': [
+    kp('词汇', '高频', '中考词汇量约1600词，是听说读写的基础'),
+    kp('语法', '高频', '语法单项与完形填空在中考占比高'),
+    kp('时态', '高频', '一般现在、过去、将来时等是中考重点'),
+    kp('阅读理解', '高频', '阅读占中考分值最大，重在信息定位与推理'),
+    kp('完形填空', '高频', '中考必考题型，综合考查词法与语境'),
+    kp('书面表达', '高频', '中考作文需句型正确、结构完整'),
+    kp('从句', '中频', '宾语从句与定语从句是中考难点'),
+    kp('听力', '中频', '中考听力约占20分，需平时多练'),
+    kp('非谓语', '中频', '不定式与动名词是中考高频考点'),
+    kp('情景交际', '中频', '口语交际题需掌握常用表达')
+  ],
+  '物理': [
+    kp('力学', '高频', '力与运动、压强浮力是中考物理主体'),
+    kp('电学', '高频', '电路分析与欧姆定律是中考物理重点'),
+    kp('欧姆定律', '高频', '中考电学核心，常与实验题结合'),
+    kp('电路', '高频', '串并联电路识别是中考电学基础'),
+    kp('电功率', '中频', '电功率计算是中考高频考点'),
+    kp('压强', '中频', '固体与液体压强是中考常考'),
+    kp('浮力', '中频', '需掌握阿基米德原理及其应用'),
+    kp('运动和力', '中频', '牛顿第一定律与二力平衡是中考基础'),
+    kp('声光热', '中频', '声、光、热现象是中考基础题来源'),
+    kp('能量', '中频', '功与机械能是中考常考内容')
+  ],
+  '化学': [
+    kp('化学方程式', '高频', '方程式书写与配平是中考必考'),
+    kp('元素', '高频', '常见元素及其化合物是中考主体'),
+    kp('酸碱盐', '高频', '酸碱盐是中考化学重难点'),
+    kp('实验', '高频', '气体制备与实验探究是中考必考'),
+    kp('化学用语', '高频', '化学式与化合价是中考基础'),
+    kp('金属', '中频', '金属活动性顺序是中考常考'),
+    kp('溶液', '中频', '溶解度与溶质质量分数是中考常考'),
+    kp('质量守恒', '中频', '质量守恒定律是化学计算基础'),
+    kp('燃料', '中频', '燃料与能源是中考常考知识点')
+  ]
+};
+EXAM_DICT['高中衔接'] = {
+  '语文': [
+    kp('文言文', '高频', '高考文言文占分约20分，需积累实词虚词与句式'),
+    kp('古诗词', '高频', '高考必考，需掌握意象、手法与情感分析'),
+    kp('现代文', '高频', '论述类与文学类文本阅读在高考占比大'),
+    kp('作文', '高频', '高考作文60分，需立意深刻、结构清晰'),
+    kp('语言文字运用', '高频', '高考语用题覆盖面广，需积累成语与病句'),
+    kp('名篇名句', '中频', '高考默写范围固定，需准确默写'),
+    kp('论述类文本', '中频', '高考必考，重在逻辑论证分析'),
+    kp('实用类文本', '中频', '高考文本阅读，需信息整合能力')
+  ],
+  '数学': [
+    kp('导数', '高频', '函数与导数是高考压轴常考，应用能力是高分关键'),
+    kp('函数', '高频', '函数性质与图像是高考核心基础'),
+    kp('三角函数', '高频', '三角函数与解三角形是高考必考'),
+    kp('数列', '高频', '等差等比数列是高考必考'),
+    kp('立体几何', '高频', '高考必考，重在空间想象与向量法'),
+    kp('解析几何', '高频', '圆锥曲线是高考压轴常客'),
+    kp('圆锥曲线', '高频', '高考压轴题常考，运算要求高'),
+    kp('概率统计', '中频', '高考必考，重在分布列与期望'),
+    kp('不等式', '中频', '常与函数综合考查'),
+    kp('平面向量', '中频', '高考常考，注意与三角结合'),
+    kp('集合', '中频', '高考基础送分题'),
+    kp('复数', '中频', '高考基础题，较易'),
+    kp('排列组合', '中频', '高考常考计数原理')
+  ],
+  '英语': [
+    kp('阅读理解', '高频', '高考阅读分值最高，需训练主旨与细节理解'),
+    kp('完形填空', '高频', '高考必考，重在语境与逻辑推理'),
+    kp('语法填空', '高频', '高考必考题型，考查词法与句法'),
+    kp('书面表达', '高频', '高考作文需结构清晰、要点齐全'),
+    kp('词汇', '高频', '高考词汇量约3500词，是各项能力基础'),
+    kp('语法', '高频', '高考语法重在综合运用'),
+    kp('读后续写', '中频', '新高考题型，需衔接逻辑与语言积累'),
+    kp('七选五', '中频', '高考阅读填空，重在连贯与衔接'),
+    kp('听力', '中频', '高考听力约占20分'),
+    kp('短文改错', '中频', '需掌握常见错误类型')
+  ],
+  '物理': [
+    kp('力学', '高频', '牛顿运动定律与能量是高考主体'),
+    kp('牛顿运动定律', '高频', '高考力学核心'),
+    kp('电磁学', '高频', '电场、磁场与电磁感应是高考重难点'),
+    kp('电磁感应', '高频', '高考压轴常考'),
+    kp('电场', '高频', '电场性质与带电粒子运动是高考重点'),
+    kp('磁场', '高频', '洛伦兹力与圆周运动是高考难点'),
+    kp('功能关系', '中频', '动能定理与机械能守恒是高考常考'),
+    kp('热学', '中频', '高考选考模块，需掌握气体定律'),
+    kp('光学', '中频', '高考选考，需掌握折射与全反射'),
+    kp('原子物理', '中频', '高考选考，需掌握能级与衰变'),
+    kp('动量', '中频', '动量守恒是高考选考常考'),
+    kp('交流电', '中频', '高考常考交变电流')
+  ],
+  '化学': [
+    kp('化学反应原理', '高频', '高考必考，涵盖速率、平衡与电离'),
+    kp('电化学', '高频', '原电池与电解池是高考常考'),
+    kp('有机化学', '高频', '有机推断是高考必考大题'),
+    kp('实验', '高频', '实验综合是高考必考'),
+    kp('元素化合物', '高频', '常见元素化合物是推断题基础'),
+    kp('氧化还原', '高频', '氧化还原反应是化学核心概念'),
+    kp('离子反应', '高频', '离子方程式书写与离子共存常考'),
+    kp('化学平衡', '高频', '平衡常数与平衡移动是高考重点'),
+    kp('物质结构', '中频', '高考选考模块，需掌握电子排布'),
+    kp('化学计算', '中频', '守恒法与关系式法常考')
+  ]
+};
+EXAM_DICT['中考冲刺'] = EXAM_DICT['初中衔接'];
+EXAM_DICT['高考冲刺'] = EXAM_DICT['高中衔接'];
+EXAM_DICT['升学衔接参考'] = mergeDict(EXAM_DICT['初中衔接'], EXAM_DICT['高中衔接']);
+function getStage(grade){
+  var g = (grade || '').trim();
+  if(!g){ return '升学衔接参考'; }
+  if(g.indexOf('高三') >= 0){ return '高考冲刺'; }
+  if(g.indexOf('初三') >= 0 || g.indexOf('九年级') >= 0){ return '中考冲刺'; }
+  if(g.indexOf('高一') >= 0 || g.indexOf('高二') >= 0){ return '高中衔接'; }
+  if(g.indexOf('初一') >= 0 || g.indexOf('初二') >= 0 || g.indexOf('七年级') >= 0 || g.indexOf('八年级') >= 0 || g.indexOf('小学') >= 0){ return '初中衔接'; }
+  return '升学衔接参考';
+}
+function stageMeta(stage){
+  if(stage === '中考冲刺'){ return {label: '对标中考 · 中考冲刺', target: '中考'}; }
+  if(stage === '高考冲刺'){ return {label: '对标高考 · 高考冲刺', target: '高考'}; }
+  if(stage === '初中衔接'){ return {label: '对标中考 · 初中衔接', target: '中考'}; }
+  if(stage === '高中衔接'){ return {label: '对标高考 · 高中衔接', target: '高考'}; }
+  return {label: '对标中高考 · 升学衔接参考', target: '中高考'};
+}
+function examAdvice(rate, freq){
+  if(freq === '高频'){
+    if(rate >= 85){ return '对口高频考点，掌握良好，可保持并适当拓展综合题'; }
+    if(rate >= 70){ return '对口高频考点，基础尚可，建议加强中档题训练以稳拿分'; }
+    if(rate >= 60){ return '对口高频考点，当前得分偏低，建议尽快查漏补缺'; }
+    return '该考点是高频考点，当前掌握不足，建议优先专项突破';
+  }
+  if(rate >= 85){ return '对口考点掌握良好，可保持'; }
+  if(rate >= 70){ return '对口考点基础尚可，建议巩固提升'; }
+  if(rate >= 60){ return '对口考点得分偏低，建议查漏补缺'; }
+  return '该考点掌握不足，建议回归课本夯实基础';
+}
+function buildExamSummary(rows, target){
+  var hitKws = [];
+  var weakHigh = [];
+  var strong = [];
+  for(var i=0;i<rows.length;i++){
+    var r = rows[i];
+    hitKws.push(r.kw);
+    if(r.freq === '高频' && r.rate < 70){ weakHigh.push(r.kw); }
+    if(r.rate >= 85){ strong.push(r.kw); }
+  }
+  var text = '该生试卷知识点与' + target + '高频考点匹配 ' + rows.length + ' 项（' + hitKws.join('、') + '）';
+  if(weakHigh.length > 0){
+    text += '，其中『' + weakHigh.join('』『') + '』等高频考点得分率偏低，是影响' + target + '成绩的关键短板，建议优先专项突破';
+  } else if(strong.length > 0){
+    text += '，各对口考点掌握良好，可在保持优势基础上挑战更高分';
+  } else {
+    text += '，建议结合薄弱知识点继续查漏补缺';
+  }
+  text += '。';
+  return text;
+}
+function matchExam(res, rec){
+  var stage = getStage(rec.grade);
+  var meta = stageMeta(stage);
+  var dict = EXAM_DICT[stage] || {};
+  var subjDict = dict[rec.subject] || [];
+  var rows = [];
+  var unmatched = [];
+  var map = {};
+  for(var i=0;i<res.klist.length;i++){
+    var k = res.klist[i];
+    var hit = null;
+    for(var j=0;j<subjDict.length;j++){
+      if(k.name.indexOf(subjDict[j].kw) >= 0){ hit = subjDict[j]; break; }
+    }
+    if(hit){
+      if(!map[hit.kw]){
+        map[hit.kw] = {kw: hit.kw, freq: hit.freq, note: hit.note, full: 0, got: 0, count: 0};
+      }
+      map[hit.kw].full += k.full;
+      map[hit.kw].got += k.got;
+      map[hit.kw].count += k.count;
+    } else {
+      unmatched.push(k);
+    }
+  }
+  for(var key in map){
+    var m = map[key];
+    m.rate = m.full > 0 ? (m.got / m.full * 100) : 0;
+    rows.push(m);
+  }
+  rows.sort(function(a,b){ return ((b.freq === '高频') ? 1 : 0) - ((a.freq === '高频') ? 1 : 0) || b.rate - a.rate; });
+  var summary = buildExamSummary(rows, meta.target);
+  return {stage: stage, stageLabel: meta.label, target: meta.target, rows: rows, unmatched: unmatched, summary: summary};
+}
+
+/* ========== 报告渲染 ========== */
+function viewReport(id){
+  var list = loadRecords();
+  for(var i=0;i<list.length;i++){
+    if(list[i].id === id){
+      curReportId = id;
+      renderReport(list[i]);
+      showPage('reportPage');
+      return;
+    }
+  }
+  modalAlert('提示', '未找到该分析记录，可能已被删除。');
+}
+function backToList(){
+  showPage('workbench');
+  renderWorkbench();
+}
+function renderReport(rec){
+  var res = analyzeRecord(rec);
+  var html = '';
+
+  /* 头部总览 */
+  html += '<div class="report-head">'
+    + '<div class="hname">' + esc(rec.studentName) + '　<span style="font-size:14px;font-weight:400;">' + esc(rec.studentClass || '') + '</span></div>'
+    + '<div class="hmeta">' + esc(rec.paperName) + '　·　' + esc(rec.subject)
+    + (rec.grade ? '　·　' + esc(rec.grade) : '')
+    + (rec.examType ? '　·　' + esc(rec.examType) : '')
+    + '　·　' + esc(fmtDate(rec.date)) + '</div>'
+    + '<div class="score-row">'
+    + '<div class="score-big">' + Math.round(res.totalGot) + '<small> / ' + Math.round(res.totalFull) + ' 分</small></div>'
+    + '<div class="score-tag">得分率 ' + Math.round(res.rate) + '%</div>'
+    + '<div class="score-tag" style="background:#f59e0b;">等级：' + res.grade + '</div>'
+    + '</div>'
+    + '<div class="encourage">' + res.gradeText + '</div>'
+    + '<div class="summ-line">📌 一句话总结：' + res.summary + '</div>'
+    + '</div>';
+
+  /* 知识点掌握度 */
+  html += '<div class="card"><div class="card-title"><span class="bar"></span>知识点掌握度诊断</div>';
+  if(res.klist.length === 0){
+    html += '<div class="empty">暂无知识点数据</div>';
+  } else {
+    if(res.klist.length >= 4){
+      html += '<div class="chart-box"><canvas id="cvKp"></canvas></div>';
+    } else {
+      html += '<div class="chart-box"><canvas id="cvKp"></canvas></div>';
+    }
+    for(var i=0;i<res.klist.length;i++){
+      var k = res.klist[i];
+      html += '<div class="kp-item">'
+        + '<div class="row1"><span class="kname">' + esc(k.name) + '<span class="pill">' + k.count + '题</span></span>'
+        + '<span><span class="tag ' + k.cls + '">' + k.tag + '</span>　<span class="krate">' + Math.round(k.rate) + '%</span></span></div>'
+        + '<div class="ksug">💡 ' + k.sug + '</div>'
+        + '</div>';
+    }
+  }
+  html += '</div>';
+
+  /* 升学衔接分析（对标中考 / 高考） */
+  var exam = matchExam(res, rec);
+  html += '<div class="card"><div class="card-title"><span class="bar"></span>升学衔接诊断（' + exam.stageLabel + '）</div>';
+  if(exam.rows.length === 0){
+    html += '<div class="empty">暂未匹配到明确的中考/高考高频考点，建议按常规知识点查漏补缺</div>';
+  } else {
+    html += '<div style="overflow-x:auto;"><table class="tbl">'
+      + '<thead><tr><th style="min-width:110px;">考点</th><th style="width:70px;">考频</th><th style="width:92px;">该生得分率</th><th style="min-width:170px;">对接' + exam.target + '建议</th></tr></thead><tbody>';
+    for(var ei=0; ei<exam.rows.length; ei++){
+      var er = exam.rows[ei];
+      html += '<tr>'
+        + '<td style="text-align:left;">' + esc(er.kw) + '<div style="font-size:11px;color:#94a3b8;">' + esc(er.note) + '</div></td>'
+        + '<td>' + (er.freq === '高频' ? '<span class="tag tag-red">高频</span>' : '<span class="tag tag-amber">中频</span>') + '</td>'
+        + '<td style="font-weight:700;color:' + (er.rate < 70 ? '#b91c1c' : '#1e3a8a') + ';">' + Math.round(er.rate) + '%</td>'
+        + '<td style="text-align:left;font-size:13px;">' + examAdvice(er.rate, er.freq) + '</td>'
+        + '</tr>';
+    }
+    html += '</tbody></table></div>';
+    if(exam.unmatched.length > 0){
+      var umNames = [];
+      for(var ui=0; ui<exam.unmatched.length; ui++){ umNames.push(exam.unmatched[ui].name); }
+      html += '<div class="plain-line" style="font-size:13px;color:#94a3b8;margin-top:10px;">未匹配到明确考点的知识点：' + esc(umNames.join('、')) + '（已按常规知识点计入总分分析）</div>';
+    }
+    html += '<div class="plain-line" style="margin-top:10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px;"><b>升学定位总结：</b>' + exam.summary + '</div>';
+  }
+  html += '</div>';
+
+  /* 题型表现 */
+  html += '<div class="card"><div class="card-title"><span class="bar"></span>题型表现分析</div>';
+  if(res.tlist.length === 0){
+    html += '<div class="empty">暂无题型数据</div>';
+  } else {
+    html += '<div class="chart-box"><canvas id="cvType"></canvas></div>';
+    var bestT = res.tlist[0];
+    var worstT = res.tlist[res.tlist.length - 1];
+    html += '<div class="plain-line">简评：<b>' + esc(bestT.name) + '</b> 题得分率最高（' + Math.round(bestT.rate) + '%），'
+      + '<b>' + esc(worstT.name) + '</b> 题得分率最低（' + Math.round(worstT.rate) + '%），建议针对低分题型加强练习。</div>';
+  }
+  html += '</div>';
+
+  /* 难度分层 */
+  html += '<div class="card"><div class="card-title"><span class="bar"></span>难度分层分析</div>';
+  if(res.dlist.length === 0){
+    html += '<div class="empty">暂无难度数据</div>';
+  } else {
+    html += '<div class="chart-box"><canvas id="cvDiff"></canvas></div>';
+    var hints = '';
+    for(var di=0;di<res.dlist.length;di++){
+      var dd = res.dlist[di];
+      if(dd.name === '易'){
+        hints += dd.rate >= 85 ? '基础题得分率' + Math.round(dd.rate) + '%，基础扎实，基本不失分。'
+          : '基础题失分较多（仅' + Math.round(dd.rate) + '%），需先抓稳基础，避免白白丢分。';
+      } else if(dd.name === '中'){
+        hints += '中档题得分率' + Math.round(dd.rate) + '%，是拉开差距的关键，需加强题型方法积累。';
+      } else {
+        hints += '难题得分率' + Math.round(dd.rate) + '%，' + (dd.rate >= 50 ? '具备一定攻坚能力，可挑战综合压轴题。' : '难题卡壳明显，建议先保证中低档题全对，再逐步尝试难题。');
+      }
+      if(di < res.dlist.length - 1){ hints += '　'; }
+    }
+    html += '<div class="plain-line">' + hints + '</div>';
+  }
+  html += '</div>';
+
+  /* 失分TOP榜 */
+  html += '<div class="card"><div class="card-title"><span class="bar"></span>失分TOP榜（前5）</div>';
+  if(res.loss.length === 0 || res.loss[0].loss <= 0){
+    html += '<div class="empty">本卷无失分，全部得分！🎉</div>';
+  } else {
+    html += '<div>';
+    for(var li=0;li<res.loss.length;li++){
+      var lq = res.loss[li];
+      if(lq.loss <= 0){ continue; }
+      html += '<div class="loss-item">'
+        + '<span class="loss-num">' + (li+1) + '</span>'
+        + '<div class="loss-mid"><div class="l1">第' + esc(lq.no) + '题　·　' + esc(lq.knowledge) + '　<span class="pill">' + esc(lq.difficulty) + '</span></div>'
+        + '<div class="l2">' + esc(lq.type) + '　·　' + lossTip(lq) + '</div></div>'
+        + '<span class="loss-val">- ' + Math.round(lq.loss) + '分</span>'
+        + '</div>';
+    }
+    html += '</div>';
+  }
+  html += '</div>';
+
+  /* 优势与薄弱 */
+  html += '<div class="card"><div class="card-title"><span class="bar"></span>优势与薄弱清单</div>';
+  html += '<div class="plain-line" style="font-weight:700;color:#15803d;">✅ 掌握最好的知识点</div>';
+  if(res.klist.length === 0){
+    html += '<div class="plain-line">暂无数据</div>';
+  } else {
+    var top3 = res.klist.slice(0, Math.min(3, res.klist.length));
+    for(var a=0;a<top3.length;a++){
+      html += '<div class="plain-line">· ' + esc(top3[a].name) + '（' + Math.round(top3[a].rate) + '%）<span class="tag tag-green">' + top3[a].tag + '</span></div>';
+    }
+  }
+  html += '<div class="plain-line" style="font-weight:700;color:#b91c1c;margin-top:12px;">⚠ 最薄弱的知识点</div>';
+  if(res.klist.length === 0){
+    html += '<div class="plain-line">暂无数据</div>';
+  } else {
+    var len = res.klist.length;
+    var bot3 = res.klist.slice(Math.max(0, len - 3), len).slice().reverse();
+    for(var b=0;b<bot3.length;b++){
+      html += '<div class="plain-line">· ' + esc(bot3[b].name) + '（' + Math.round(bot3[b].rate) + '%）<span class="tag ' + bot3[b].cls + '">' + bot3[b].tag + '</span>　<span style="color:#b91c1c;">重点提醒</span></div>';
+    }
+  }
+  html += '</div>';
+
+  /* 学习建议 */
+  var sugList = buildSugList(res);
+  html += '<div class="card"><div class="card-title"><span class="bar"></span>个性化学习建议</div><ol class="sug-list">';
+  for(var s=0;s<sugList.length;s++){
+    html += '<li>' + sugList[s] + '</li>';
+  }
+  html += '</ol></div>';
+
+  /* 学习路径 */
+  var pathList = buildPathList(res);
+  html += '<div class="card"><div class="card-title"><span class="bar"></span>下一步学习路径</div><div class="path-list">';
+  for(var p=0;p<pathList.length;p++){
+    html += '<div class="path-item"><span class="step-no">' + (p+1) + '</span><span>' + pathList[p] + '</span></div>';
+  }
+  html += '</div></div>';
+
+  document.getElementById('reportContent').innerHTML = html;
+
+  /* 绘制图表 */
+  setTimeout(function(){ drawReportCharts(res); }, 30);
+}
+function lossTip(q){
+  if(q.loss <= 0){ return '本小题满分'; }
+  if(q.difficulty === '易'){ return '基础题失分，建议回归课本夯实概念'; }
+  if(q.difficulty === '难'){ return '难题失分，建议先保中低档题，再逐步攻坚'; }
+  return '中档题失分，建议总结解题方法，专项突破';
+}
+function drawReportCharts(res){
+  if(res.klist.length >= 4){
+    drawRadar('cvKp', kLabels(res.klist), ratesOf(res.klist));
+  } else {
+    drawBarH('cvKp', kLabels(res.klist), ratesOf(res.klist));
+  }
+  drawBarH('cvType', typeLabels(res.tlist), ratesOf(res.tlist));
+  /* 难度分组柱状：该档得分率 vs 全卷得分率 */
+  var dnames = [], dvals = [];
+  for(var i=0;i<res.dlist.length;i++){ dnames.push(res.dlist[i].name); dvals.push(res.dlist[i].rate); }
+  var series = [
+    {name: '该档得分率', values: dvals, color: '#3b82f6'},
+    {name: '全卷得分率', values: [res.rate, res.rate, res.rate], color: '#f59e0b'}
+  ];
+  drawGroupBar('cvDiff', dnames, series);
+}
+function ratesOf(list){
+  var a = [];
+  for(var i=0;i<list.length;i++){ a.push(Math.round(list[i].rate)); }
+  return a;
+}
+function kLabels(list){
+  var a = [];
+  for(var i=0;i<list.length;i++){
+    var n = list[i].name;
+    if(n.length > 7){ n = n.slice(0, 7) + '…'; }
+    a.push(n);
+  }
+  return a;
+}
+function typeLabels(list){
+  var a = [];
+  for(var i=0;i<list.length;i++){ a.push(list[i].name); }
+  return a;
+}
+
+/* ========== Canvas 图表 ========== */
+function initCanvas(cid, h){
+  var cv = document.getElementById(cid);
+  if(!cv){ return null; }
+  var box = cv.parentElement;
+  var w = (box && box.clientWidth) ? box.clientWidth : 300;
+  var dpr = window.devicePixelRatio || 1;
+  cv.width = Math.round(w * dpr);
+  cv.height = Math.round(h * dpr);
+  cv.style.width = w + 'px';
+  cv.style.height = h + 'px';
+  var ctx = cv.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return {ctx: ctx, w: w, h: h};
+}
+
+/* 雷达图 */
+function drawRadar(cid, labels, values){
+  var n = labels.length;
+  if(n === 0){ return; }
+  var h = 320;
+  var s = initCanvas(cid, h);
+  if(!s){ return; }
+  var ctx = s.ctx, w = s.w, H = s.h;
+  ctx.clearRect(0, 0, w, H);
+  var cx = w / 2, cy = H / 2 - 8;
+  var R = Math.min(w, H) / 2 - 70;
+  if(R < 70){ R = 70; }
+  /* 网格多边形 */
+  for(var g=1;g<=4;g++){
+    var r = R * g / 4;
+    ctx.beginPath();
+    for(var i=0;i<=n;i++){
+      var ang = -Math.PI / 2 + i * 2 * Math.PI / n;
+      var x = cx + r * Math.cos(ang), y = cy + r * Math.sin(ang);
+      if(i === 0){ ctx.moveTo(x, y); } else { ctx.lineTo(x, y); }
+    }
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+  /* 轴线 */
+  for(var a=0;a<n;a++){
+    var ang2 = -Math.PI / 2 + a * 2 * Math.PI / n;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + R * Math.cos(ang2), cy + R * Math.sin(ang2));
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+  /* 标签 */
+  ctx.fillStyle = '#334155';
+  ctx.font = '12px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  for(var la=0;la<n;la++){
+    var ang3 = -Math.PI / 2 + la * 2 * Math.PI / n;
+    var lx = cx + (R + 16) * Math.cos(ang3);
+    var ly = cy + (R + 16) * Math.sin(ang3);
+    ctx.fillText(labels[la], lx, ly);
+  }
+  /* 数值多边形 */
+  ctx.beginPath();
+  for(var v=0;v<=n;v++){
+    var vi = v % n;
+    var rr = R * (values[vi] / 100);
+    if(rr < 0){ rr = 0; }
+    if(rr > R){ rr = R; }
+    var ang4 = -Math.PI / 2 + vi * 2 * Math.PI / n;
+    var px = cx + rr * Math.cos(ang4), py = cy + rr * Math.sin(ang4);
+    if(v === 0){ ctx.moveTo(px, py); } else { ctx.lineTo(px, py); }
+  }
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(59,130,246,0.22)';
+  ctx.fill();
+  ctx.strokeStyle = '#1e3a8a';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  /* 顶点数值 */
+  ctx.fillStyle = '#1e3a8a';
+  ctx.font = 'bold 11px "PingFang SC","Microsoft YaHei",sans-serif';
+  for(var vv=0;vv<n;vv++){
+    var ang5 = -Math.PI / 2 + vv * 2 * Math.PI / n;
+    var rv = R * (values[vv] / 100);
+    var qx = cx + rv * Math.cos(ang5), qy = cy + rv * Math.sin(ang5);
+    ctx.fillText(Math.round(values[vv]) + '%', qx, qy - 6);
+  }
+}
+
+/* 横向柱状图 */
+function drawBarH(cid, labels, values){
+  var n = labels.length;
+  if(n === 0){ return; }
+  var bh = 24, gap = 18;
+  var h = 40 + n * (bh + gap);
+  var s = initCanvas(cid, h);
+  if(!s){ return; }
+  var ctx = s.ctx, w = s.w;
+  ctx.clearRect(0, 0, w, s.h);
+  var left = 90;
+  var right = 40;
+  var maxW = w - left - right;
+  if(maxW < 60){ maxW = 60; }
+  var top = 16;
+  ctx.font = '12px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.textBaseline = 'middle';
+  /* 刻度 */
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '10px "PingFang SC","Microsoft YaHei",sans-serif';
+  for(var t=0;t<=4;t++){
+    var x0 = left + maxW * t / 4;
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x0, top);
+    ctx.lineTo(x0, top + n * (bh + gap));
+    ctx.stroke();
+    ctx.fillStyle = '#94a3b8';
+    ctx.textAlign = 'center';
+    ctx.fillText((t * 25) + '', x0, top + n * (bh + gap) + 12);
+  }
+  for(var i=0;i<n;i++){
+    var y = top + i * (bh + gap) + bh / 2;
+    var v = Math.max(0, Math.min(100, values[i]));
+    var bw = maxW * v / 100;
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#334155';
+    ctx.font = '12px "PingFang SC","Microsoft YaHei",sans-serif';
+    ctx.fillText(labels[i], left - 8, y);
+    var color = v < 60 ? '#f59e0b' : '#3b82f6';
+    if(v >= 85){ color = '#1e3a8a'; }
+    var grad = ctx.createLinearGradient(left, 0, left + bw, 0);
+    grad.addColorStop(0, color);
+    grad.addColorStop(1, color === '#1e3a8a' ? '#3b82f6' : '#93c5fd');
+    ctx.fillStyle = grad;
+    var r = Math.min(5, bh / 2);
+    var rectX = left, rectY = y - bh / 2;
+    var rectW = bw > 0 ? bw : 2;
+    ctx.beginPath();
+    ctx.moveTo(rectX + r, rectY);
+    ctx.lineTo(rectX + rectW - r, rectY);
+    ctx.quadraticCurveTo(rectX + rectW, rectY, rectX + rectW, rectY + r);
+    ctx.lineTo(rectX + rectW, rectY + bh - r);
+    ctx.quadraticCurveTo(rectX + rectW, rectY + bh, rectX + rectW - r, rectY + bh);
+    ctx.lineTo(rectX + r, rectY + bh);
+    ctx.quadraticCurveTo(rectX, rectY + bh, rectX, rectY + bh - r);
+    ctx.lineTo(rectX, rectY + r);
+    ctx.quadraticCurveTo(rectX, rectY, rectX + r, rectY);
+    ctx.fill();
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#1e3a8a';
+    ctx.font = 'bold 11px "PingFang SC","Microsoft YaHei",sans-serif';
+    ctx.fillText(Math.round(v) + '%', left + bw + 6, y);
+  }
+}
+
+/* 分组柱状图（各档得分率 vs 全卷得分率） */
+function drawGroupBar(cid, labels, series){
+  var n = labels.length;
+  if(n === 0){ return; }
+  var h = 260;
+  var s = initCanvas(cid, h);
+  if(!s){ return; }
+  var ctx = s.ctx, w = s.w;
+  ctx.clearRect(0, 0, w, s.h);
+  var left = 42, right = 16, top = 16, bottom = 54;
+  var chartW = w - left - right;
+  var chartH = s.h - top - bottom;
+  if(chartW < 60){ chartW = 60; }
+  /* 网格 */
+  for(var t=0;t<=4;t++){
+    var y0 = top + chartH - chartH * t / 4;
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(left, y0);
+    ctx.lineTo(left + chartW, y0);
+    ctx.stroke();
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '10px "PingFang SC","Microsoft YaHei",sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText((t * 25) + '', left - 6, y0);
+  }
+  var groupW = chartW / n;
+  var barGap = 6;
+  var barW = (groupW * 0.62 - barGap * (series.length - 1)) / series.length;
+  if(barW < 8){ barW = 8; }
+  var maxVal = 100;
+  ctx.font = '12px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.textBaseline = 'middle';
+  for(var i=0;i<n;i++){
+    var gx = left + groupW * i + groupW * 0.19;
+    var totalBW = barW * series.length + barGap * (series.length - 1);
+    var startX = gx + (groupW * 0.62 - totalBW) / 2;
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#334155';
+    ctx.fillText(labels[i], gx + groupW * 0.31, top + chartH + 14);
+    for(var si=0;si<series.length;si++){
+      var v = Math.max(0, Math.min(maxVal, series[si].values[i]));
+      var bH = chartH * v / maxVal;
+      var bx = startX + si * (barW + barGap);
+      var by = top + chartH - bH;
+      ctx.fillStyle = series[si].color;
+      ctx.fillRect(bx, by, barW, bH);
+      ctx.fillStyle = series[si].color;
+      ctx.font = 'bold 10px "PingFang SC","Microsoft YaHei",sans-serif';
+      ctx.textAlign = 'center';
+      if(bH > 18){
+        ctx.fillText(Math.round(v) + '%', bx + barW / 2, by - 8);
+      } else {
+        ctx.fillText(Math.round(v) + '%', bx + barW / 2, by + 10);
+      }
+    }
+  }
+  /* 图例 */
+  var lx = left;
+  ctx.font = '11px "PingFang SC","Microsoft YaHei",sans-serif';
+  ctx.textAlign = 'left';
+  for(var si2=0;si2<series.length;si2++){
+    ctx.fillStyle = series[si2].color;
+    ctx.fillRect(lx, top + chartH + 30, 12, 12);
+    ctx.fillStyle = '#334155';
+    ctx.fillText(series[si2].name, lx + 17, top + chartH + 36);
+    lx += 22 + ctx.measureText(series[si2].name).width;
+  }
+}
+
+/* ========== 分析记录 ========== */
+function renderRecords(){
+  var kw = document.getElementById('recordSearch').value.trim().toLowerCase();
+  var list = loadRecords();
+  var box = document.getElementById('recordList');
+  if(list.length === 0){
+    box.innerHTML = '<div class="empty"><span class="big">🗂</span>暂无分析记录<br>点击「新建分析」创建第一份报告</div>';
+    return;
+  }
+  var arr = list.slice().sort(function(a,b){ return (b.updateTime||0) - (a.updateTime||0); });
+  if(kw){
+    arr = arr.filter(function(r){
+      return (r.studentName || '').toLowerCase().indexOf(kw) >= 0 || (r.paperName || '').toLowerCase().indexOf(kw) >= 0;
+    });
+  }
+  if(arr.length === 0){
+    box.innerHTML = '<div class="empty">未找到匹配「' + esc(kw) + '」的记录</div>';
+    return;
+  }
+  var html = '';
+  for(var i=0;i<arr.length;i++){
+    var r = arr[i];
+    var rate = recordRate(r);
+    html += '<div class="record-item">'
+      + '<div class="top">'
+      + '<div><div class="sname">' + esc(r.studentName) + (r.studentClass ? ' <span style="font-size:12px;color:#94a3b8;">' + esc(r.studentClass) + '</span>' : '') + '</div>'
+      + '<div class="meta">' + esc(r.paperName) + ' · ' + esc(r.subject) + (r.grade ? ' · ' + esc(r.grade) : '') + ' · ' + esc(r.examType) + ' · ' + esc(fmtDate(r.date)) + '</div></div>'
+      + '<div style="text-align:right;"><div style="font-size:18px;font-weight:800;color:#1e3a8a;">' + Math.round(rate) + '%</div><div style="font-size:11px;color:#94a3b8;">' + Math.round(recordRateFull(r)) + '/' + Math.round(recordRateFullAll(r)) + '分</div></div>'
+      + '</div>'
+      + '<div class="ops">'
+      + '<button class="btn btn-primary btn-sm" onclick="viewReport(\'' + r.id + '\')">查看报告</button>'
+      + '<button class="btn btn-outline btn-sm" onclick="editRecord(\'' + r.id + '\')">编辑</button>'
+      + '<button class="btn btn-danger btn-sm" onclick="delRecord(\'' + r.id + '\')">删除</button>'
+      + '</div>'
+      + '</div>';
+  }
+  box.innerHTML = html;
+}
+function recordRateFull(r){
+  var qs = r.questions || [];
+  var got = 0;
+  for(var i=0;i<qs.length;i++){ got += parseNum(qs[i].got); }
+  return got;
+}
+function recordRateFullAll(r){
+  var qs = r.questions || [];
+  var full = 0;
+  for(var i=0;i<qs.length;i++){ full += parseNum(qs[i].score); }
+  return full;
+}
+function editRecord(id){
+  var list = loadRecords();
+  for(var i=0;i<list.length;i++){
+    if(list[i].id === id){
+      draft = JSON.parse(JSON.stringify(list[i]));
+      saveDraft(draft);
+      document.getElementById('draftTip').innerHTML = '正在编辑记录「' + esc(draft.studentName) + ' - ' + esc(draft.paperName) + '」，修改后生成报告将覆盖原记录。';
+      document.getElementById('draftTip').classList.add('show');
+      curStep = 1;
+      fillStep1();
+      gotoStep(1);
+      showPage('newPage');
+      return;
+    }
+  }
+  modalAlert('提示', '未找到该记录。');
+}
+function delRecord(id){
+  var list = loadRecords();
+  var target = null;
+  for(var i=0;i<list.length;i++){
+    if(list[i].id === id){ target = list[i]; break; }
+  }
+  if(!target){ return; }
+  modalConfirm('删除记录', '确定要删除「' + esc(target.studentName) + ' - ' + esc(target.paperName) + '」这条分析记录吗？删除后不可恢复。', function(){
+    var l2 = loadRecords();
+    var idx = -1;
+    for(var j=0;j<l2.length;j++){
+      if(l2[j].id === id){ idx = j; break; }
+    }
+    if(idx >= 0){
+      l2.splice(idx, 1);
+      saveRecords(l2);
+      modalAlert('提示', '记录已删除。');
+      renderRecords();
+    }
+  });
+}
+
+/* ========== 云端同步 ========== */
+function renderSync(){
+  var t = localStorage.getItem(SYNC_KEY);
+  document.getElementById('syncTime').textContent = t ? ('最近同步：' + t) : '尚未同步';
+  document.getElementById('syncStatus').className = 'sync-status';
+}
+function setSyncStatus(cls, msg){
+  var el = document.getElementById('syncStatus');
+  el.className = 'sync-status ' + cls;
+  el.innerHTML = msg;
+}
+function doBackup(){
+  setSyncStatus('', '');
+  var list = loadRecords();
+  var payload = {username: 'sjfx_all_data', state_data: JSON.stringify(list)};
+  fetch(SUPABASE_URL + '/rest/v1/py_user_states?on_conflict=username', {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates'
+    },
+    body: JSON.stringify(payload)
+  }).then(function(resp){
+    if(resp.ok){
+      var now = new Date();
+      var mm = ('0' + (now.getMonth() + 1)).slice(-2);
+      var dd = ('0' + now.getDate()).slice(-2);
+      var hh = ('0' + now.getHours()).slice(-2);
+      var mi = ('0' + now.getMinutes()).slice(-2);
+      var tstr = now.getFullYear() + '-' + mm + '-' + dd + ' ' + hh + ':' + mi;
+      localStorage.setItem(SYNC_KEY, tstr);
+      document.getElementById('syncTime').textContent = '最近同步：' + tstr;
+      setSyncStatus('ok', '✔ 备份成功：已将本机 ' + list.length + ' 条分析记录上传至云端。');
+    } else {
+      setSyncStatus('err', '✘ 备份失败（状态码 ' + resp.status + '），请检查网络后重试。');
+    }
+  }).catch(function(){
+    setSyncStatus('err', '✘ 备份失败：网络异常或服务不可用，请稍后重试。');
+  });
+}
+function doRestore(){
+  setSyncStatus('', '');
+  modalConfirm('从云端恢复', '恢复将用云端数据覆盖本机全部分析记录，是否继续？', function(){
+    fetch(SUPABASE_URL + '/rest/v1/py_user_states?username=eq.sjfx_all_data&select=state_data', {
+      method: 'GET',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY
+      }
+    }).then(function(resp){
+      if(!resp.ok){ throw new Error(String(resp.status)); }
+      return resp.json();
+    }).then(function(data){
+      if(!data || data.length === 0){
+        setSyncStatus('warn', '⚠ 云端暂无备份数据，可先执行「备份到云端」。');
+        return;
+      }
+      var row = data[0];
+      var recs = [];
+      try { recs = JSON.parse(row.state_data) || []; } catch(e){ recs = []; }
+      saveRecords(recs);
+      var now = new Date();
+      var mm = ('0' + (now.getMonth() + 1)).slice(-2);
+      var dd = ('0' + now.getDate()).slice(-2);
+      var hh = ('0' + now.getHours()).slice(-2);
+      var mi = ('0' + now.getMinutes()).slice(-2);
+      var tstr = now.getFullYear() + '-' + mm + '-' + dd + ' ' + hh + ':' + mi;
+      localStorage.setItem(SYNC_KEY, tstr);
+      document.getElementById('syncTime').textContent = '最近同步：' + tstr;
+      setSyncStatus('ok', '✔ 恢复成功：已从云端恢复 ' + recs.length + ' 条分析记录到本机。');
+    }).catch(function(e){
+      setSyncStatus('err', '✘ 恢复失败：' + (e && e.message ? '网络异常（' + e.message + '）' : '网络异常') + '，请稍后重试。');
+    });
+  });
+}
+
+/* ========== 模态框 ========== */
+function modalConfirm(title, msg, onOk){
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalBody').innerHTML = msg;
+  document.getElementById('modalActions').innerHTML = ''
+    + '<button class="btn btn-ghost" onclick="modalClose()">取消</button>'
+    + '<button class="btn btn-danger" onclick="modalOk()">确定</button>';
+  modalOkCallback = onOk;
+  document.getElementById('modalMask').classList.add('show');
+}
+function modalAlert(title, msg){
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalBody').innerHTML = msg;
+  document.getElementById('modalActions').innerHTML = '<button class="btn btn-primary" onclick="modalClose()">知道了</button>';
+  modalOkCallback = null;
+  document.getElementById('modalMask').classList.add('show');
+}
+var modalOkCallback = null;
+function modalOk(){
+  var cb = modalOkCallback;
+  modalOkCallback = null;
+  modalClose();
+  if(typeof cb === 'function'){ cb(); }
+}
+function modalClose(){
+  document.getElementById('modalMask').classList.remove('show');
+}
+
+/* ========== 初始化 ========== */
+window.addEventListener('DOMContentLoaded', function(){
+  if(sessionStorage.getItem(LOGIN_KEY) === '1'){
+    renderWorkbench();
+    showPage('workbench');
+  } else {
+    showLogin();
+  }
+});
+</script>
+</body>
+</html>
