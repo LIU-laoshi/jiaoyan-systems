@@ -1,0 +1,2249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高一空间思维检测系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --p: #ffffff;
+            --s: #f6f8ff;
+            --a: #eef1ff;
+            --h: #667eea;
+            --h2: #764ba2;
+            --t: #1e293b;
+            --tm: #64748b;
+            --ok: #10b981;
+            --w: #f59e0b;
+            --r: #ef4444;
+            --gl: #a8c0ff;
+            --gp: #c4b5fd;
+            --grad: linear-gradient(135deg, #667eea 0%, #764ba2 55%, #f093fb 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--grad);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: var(--t);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn .5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: .35; transform: scale(1); }
+            50% { opacity: .6; transform: scale(1.15); }
+        }
+
+        @keyframes dimFlash {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(102,126,234,.6); }
+            50% { transform: scale(1.06); box-shadow: 0 0 0 12px rgba(102,126,234,0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(102,126,234,0); }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 24px;
+            box-shadow: 0 18px 40px -14px rgba(0, 0, 0, 0.22);
+            padding: 34px;
+            margin-bottom: 18px;
+            backdrop-filter: blur(8px);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .3s ease;
+            color: #fff;
+            background: linear-gradient(135deg, var(--h), var(--h2));
+            box-shadow: 0 10px 22px rgba(102, 126, 234, 0.35);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(102, 126, 234, 0.45);
+        }
+
+        .btn-secondary {
+            background: rgba(100, 116, 139, 0.12);
+            color: var(--tm);
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(100, 116, 139, 0.2);
+            color: var(--t);
+        }
+
+        .footer-sign {
+            text-align: center;
+            margin-top: 22px;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: .88rem;
+            letter-spacing: 1px;
+        }
+
+        /* ===== 登录页 ===== */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--grad);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            transition: opacity .4s;
+        }
+
+        .login-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px 34px 30px;
+            width: 320px;
+            text-align: center;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn .6s ease;
+        }
+
+        .login-logo svg {
+            width: 86px;
+            height: 86px;
+            margin-bottom: 6px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .login-box h2 {
+            margin: 0 0 6px;
+            font-size: 22px;
+            color: var(--t);
+            font-weight: 800;
+        }
+
+        .login-sub {
+            font-size: 12px;
+            color: var(--tm);
+            margin-bottom: 20px;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 13px 16px;
+            margin: 8px 0;
+            border: 1.8px solid #e5e7f0;
+            border-radius: 12px;
+            font-size: 15px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color .3s, box-shadow .3s;
+        }
+
+        .login-input:focus {
+            border-color: var(--h);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.12);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            margin: 14px 0 8px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--h), var(--h2));
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity .3s, transform .2s;
+        }
+
+        .login-btn:hover {
+            opacity: .9;
+            transform: translateY(-1px);
+        }
+
+        .login-error {
+            color: #e74c3c;
+            font-size: 13px;
+            text-align: center;
+            min-height: 18px;
+        }
+
+        .login-credits {
+            text-align: center;
+            margin-top: 14px;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        /* ===== 欢迎页 ===== */
+        .welcome-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .welcome-icon {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 18px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .welcome-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--h), var(--h2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.02rem;
+            color: var(--tm);
+            line-height: 2;
+            text-align: center;
+        }
+
+        .dimension-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin: 26px 0;
+        }
+
+        .dimension-item {
+            background: linear-gradient(135deg, #f5f7fa, #eef1ff);
+            border: 1px solid rgba(102, 126, 234, 0.12);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            transition: all .3s ease;
+        }
+
+        .dimension-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.16);
+        }
+
+        .dimension-icon {
+            font-size: 2rem;
+            margin-bottom: 6px;
+        }
+
+        .dimension-name {
+            font-weight: 700;
+            color: var(--t);
+            font-size: .92rem;
+        }
+
+        .dimension-desc {
+            font-size: .74rem;
+            color: var(--tm);
+            margin-top: 4px;
+            line-height: 1.6;
+        }
+
+        .welcome-footer {
+            text-align: center;
+            margin-top: 18px;
+            color: var(--tm);
+            font-size: .85rem;
+        }
+
+        /* ===== 信息页 ===== */
+        .main-title {
+            text-align: center;
+            font-size: 1.7em;
+            color: var(--t);
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--tm);
+            font-size: 1em;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--tm);
+            font-weight: 600;
+            font-size: .92em;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 13px 16px;
+            background: #fafbff;
+            border: 2px solid #e5e7f0;
+            border-radius: 12px;
+            color: var(--t);
+            font-size: 1em;
+            outline: none;
+            transition: border-color .3s, box-shadow .3s;
+        }
+
+        .form-input:focus {
+            border-color: var(--h);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 13px 16px;
+            background: #fafbff;
+            border: 2px solid #e5e7f0;
+            border-radius: 12px;
+            color: var(--t);
+            font-size: 1em;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        /* ===== 答题页 ===== */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .quiz-progress {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: .88em;
+            color: var(--tm);
+        }
+
+        .progress-text b {
+            color: var(--h);
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #eef0f8;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--h), var(--h2));
+            border-radius: 6px;
+            transition: width .7s cubic-bezier(.4, 0, .2, 1);
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 22px;
+            background: rgba(255, 255, 255, 0.35);
+            border-radius: 6px;
+        }
+
+        .quiz-timer {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            color: #92400e;
+            font-size: .95em;
+            white-space: nowrap;
+        }
+
+        .dimension-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--h), var(--h2));
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: .9rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 18px rgba(102, 126, 234, 0.3);
+        }
+
+        .dimension-badge.flash {
+            animation: dimFlash .7s ease;
+        }
+
+        .question-card {
+            background: #f8fafc;
+            border: 1px solid #eef0f8;
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 18px;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--h), var(--h2));
+            color: #fff;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: .85rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .question-text {
+            font-size: 1.12rem;
+            color: var(--t);
+            line-height: 1.75;
+            margin-bottom: 18px;
+        }
+
+        .question-svg {
+            display: flex;
+            justify-content: center;
+            margin: 14px 0;
+        }
+
+        .question-svg svg {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: #fff;
+            border: 2px solid #e5e7f0;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all .3s ease;
+            text-align: left;
+        }
+
+        .option-btn:hover {
+            border-color: var(--h);
+            background: #f0f4ff;
+        }
+
+        .option-btn.selected {
+            border-color: var(--h);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.12), rgba(118, 75, 162, 0.12));
+        }
+
+        .option-btn.correct {
+            border-color: var(--ok);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .option-btn.wrong {
+            border-color: var(--r);
+            background: rgba(239, 68, 68, 0.08);
+        }
+
+        .option-btn.locked {
+            cursor: default;
+        }
+
+        .option-btn.locked:hover {
+            border-color: #e5e7f0;
+            background: #fff;
+        }
+
+        .option-btn.locked.correct:hover {
+            border-color: var(--ok);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .option-btn.locked.wrong:hover {
+            border-color: var(--r);
+            background: rgba(239, 68, 68, 0.08);
+        }
+
+        .option-letter {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eef0f8;
+            border-radius: 50%;
+            font-weight: 800;
+            color: var(--tm);
+            flex-shrink: 0;
+            transition: all .28s;
+        }
+
+        .option-btn.selected .option-letter {
+            background: linear-gradient(135deg, var(--h), var(--h2));
+            color: #fff;
+        }
+
+        .option-btn.correct .option-letter {
+            background: var(--ok);
+            color: #fff;
+        }
+
+        .option-btn.wrong .option-letter {
+            background: var(--r);
+            color: #fff;
+        }
+
+        .option-text {
+            flex: 1;
+            font-size: .98rem;
+            color: #334155;
+        }
+
+        .feedback-box {
+            margin-top: 16px;
+            padding: 14px 18px;
+            border-radius: 14px;
+            font-size: .95em;
+            line-height: 1.75;
+            animation: fadeIn .4s ease;
+        }
+
+        .feedback-correct {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #065f46;
+        }
+
+        .feedback-wrong {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.28);
+            color: #991b1b;
+        }
+
+        .feedback-box .fb-title {
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .feedback-box .fb-exp {
+            margin-top: 6px;
+            padding-top: 8px;
+            border-top: 1px dashed rgba(100, 116, 139, 0.25);
+            color: var(--tm);
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .btn-nav {
+            flex: 1;
+        }
+
+        /* ===== 报告页通用 ===== */
+        .section-title {
+            font-size: 1.22em;
+            color: var(--h);
+            margin: 4px 0 16px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.18);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .student-name {
+            font-size: 1.85em;
+            color: var(--h);
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .student-grade {
+            color: var(--tm);
+            font-size: 1em;
+        }
+
+        .score-top {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin: 26px 0;
+        }
+
+        .ring-wrap {
+            position: relative;
+            width: 190px;
+            height: 190px;
+        }
+
+        .ring-wrap canvas {
+            width: 190px;
+            height: 190px;
+        }
+
+        .ring-center {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 190px;
+            height: 190px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ring-score {
+            font-size: 2.6em;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--h), var(--h2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .ring-label {
+            font-size: .78em;
+            color: var(--tm);
+            margin-top: 6px;
+        }
+
+        .grade-badge {
+            display: inline-block;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--h), var(--h2));
+            border-radius: 52px;
+            font-size: 1.7em;
+            font-weight: 900;
+            color: #fff;
+            box-shadow: 0 10px 28px rgba(102, 126, 234, 0.4);
+        }
+
+        .grade-label {
+            text-align: center;
+            color: var(--tm);
+            margin-top: 10px;
+            font-size: .95em;
+        }
+
+        .meta-strip {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .meta-chip {
+            background: #fafbff;
+            border: 1px solid rgba(102, 126, 234, 0.14);
+            padding: 9px 18px;
+            border-radius: 22px;
+            font-size: .85em;
+            color: var(--tm);
+        }
+
+        .meta-chip b {
+            color: var(--h);
+        }
+
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            margin: 16px 0;
+            overflow-x: auto;
+        }
+
+        .chart-container canvas {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .dimension-result {
+            background: #fafbff;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 14px;
+            animation: fadeIn .5s ease;
+        }
+
+        .dimension-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .dimension-name {
+            font-weight: 700;
+            font-size: 1em;
+            color: var(--t);
+        }
+
+        .dimension-percent {
+            font-size: 1.35em;
+            font-weight: 900;
+            color: var(--h);
+        }
+
+        .dimension-bar {
+            height: 10px;
+            background: #eef0f8;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .dimension-bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 1.1s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .dimension-stats {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            font-size: .86em;
+            color: var(--tm);
+            margin-bottom: 8px;
+        }
+
+        .dimension-stats span b {
+            color: var(--t);
+        }
+
+        .ability-level {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 18px;
+            font-size: .8em;
+            font-weight: 700;
+            margin-left: 6px;
+        }
+
+        .level-strong {
+            background: rgba(16, 185, 129, 0.14);
+            color: #065f46;
+        }
+
+        .level-medium {
+            background: rgba(245, 158, 11, 0.15);
+            color: #92400e;
+        }
+
+        .level-weak {
+            background: rgba(239, 68, 68, 0.12);
+            color: #991b1b;
+        }
+
+        .kp-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .kp-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #fff;
+            border: 1px solid #eef0f8;
+            border-radius: 14px;
+            padding: 12px 16px;
+        }
+
+        .kp-rank {
+            width: 30px;
+            height: 30px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--r), #f97316);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: .85em;
+            flex-shrink: 0;
+        }
+
+        .kp-name {
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .kp-count {
+            color: var(--tm);
+            font-size: .85em;
+        }
+
+        .kp-bar {
+            width: 70px;
+            height: 8px;
+            background: #eef0f8;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .kp-bar i {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, #ef4444, #f97316);
+            border-radius: 6px;
+        }
+
+        .wrong-question-item {
+            background: rgba(239, 68, 68, 0.05);
+            border-left: 4px solid var(--r);
+            padding: 16px 18px;
+            margin-bottom: 14px;
+            border-radius: 0 14px 14px 0;
+        }
+
+        .wq-head {
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .wq-tag {
+            font-size: .75em;
+            background: rgba(239, 68, 68, 0.12);
+            color: #c2410c;
+            padding: 2px 10px;
+            border-radius: 12px;
+        }
+
+        .wrong-answer {
+            color: #dc2626;
+            margin: 4px 0;
+            font-size: .92em;
+        }
+
+        .correct-answer {
+            color: #059669;
+            margin: 4px 0;
+            font-size: .92em;
+        }
+
+        .explanation {
+            color: var(--tm);
+            font-size: .9em;
+            margin-top: 10px;
+            line-height: 1.8;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 10px 14px;
+            border-radius: 10px;
+        }
+
+        .no-wrong {
+            padding: 22px;
+            text-align: center;
+            color: var(--ok);
+            background: rgba(16, 185, 129, 0.07);
+            border-radius: 16px;
+            font-weight: 600;
+        }
+
+        .summary-box {
+            background: #fafbff;
+            border: 1px solid rgba(102, 126, 234, 0.12);
+            border-radius: 16px;
+            padding: 20px;
+            line-height: 1.9;
+        }
+
+        .highlight-item {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.12);
+            color: var(--h);
+            padding: 4px 14px;
+            border-radius: 16px;
+            margin: 4px;
+            font-size: .85em;
+            font-weight: 600;
+        }
+
+        .plan-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.09), rgba(118, 75, 162, 0.09));
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 14px;
+        }
+
+        .plan-title {
+            font-weight: 800;
+            font-size: 1.05em;
+            color: var(--h);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .plan-list {
+            list-style: none;
+            display: grid;
+            gap: 10px;
+        }
+
+        .plan-list li {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            font-size: .93em;
+            line-height: 1.7;
+        }
+
+        .plan-list li b {
+            color: var(--h);
+            flex-shrink: 0;
+            background: rgba(102, 126, 234, 0.12);
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .8em;
+        }
+
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .subject-card {
+            background: #fafbff;
+            border: 1px solid rgba(102, 126, 234, 0.12);
+            border-radius: 16px;
+            padding: 18px;
+            transition: all .3s;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 26px rgba(102, 126, 234, 0.14);
+        }
+
+        .subject-name {
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--t);
+            font-size: 1em;
+        }
+
+        .subject-desc {
+            font-size: .86em;
+            color: var(--tm);
+            line-height: 1.7;
+        }
+
+        .parent-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(91, 156, 245, 0.08));
+            border: 1px solid rgba(16, 185, 129, 0.18);
+            border-radius: 20px;
+            padding: 24px;
+        }
+
+        .parent-title {
+            font-weight: 800;
+            color: #065f46;
+            margin-bottom: 12px;
+            font-size: 1.08em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .parent-text {
+            font-size: .95em;
+            color: var(--t);
+            line-height: 2;
+        }
+
+        .teacher-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.08));
+            border-radius: 20px;
+            padding: 22px;
+            flex-wrap: wrap;
+        }
+
+        .teacher-avatar {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--h), var(--h2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.9rem;
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35);
+        }
+
+        .teacher-info {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .teacher-name {
+            font-weight: 800;
+            font-size: 1.05em;
+        }
+
+        .teacher-award {
+            color: var(--w);
+            font-size: .85em;
+            margin: 4px 0;
+        }
+
+        .teacher-stats {
+            color: var(--tm);
+            font-size: .82em;
+        }
+
+        .teacher-phone {
+            color: var(--h);
+            font-weight: 700;
+            margin-top: 5px;
+            font-size: .9em;
+        }
+
+        .print-bar {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 26px 0 10px;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 680px) {
+            .container {
+                padding: 14px 10px;
+            }
+
+            .card {
+                padding: 22px 16px;
+                border-radius: 20px;
+            }
+
+            .welcome-title {
+                font-size: 1.7rem;
+            }
+
+            .dimension-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .subject-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .score-top {
+                gap: 20px;
+            }
+
+            .question-card {
+                padding: 20px 16px;
+            }
+        }
+
+        /* ===== 打印样式 ===== */
+        @media print {
+            body {
+                background: #fff !important;
+            }
+
+            .login-overlay, .print-bar, .no-print {
+                display: none !important;
+            }
+
+            .container {
+                padding: 0;
+                max-width: 100%;
+            }
+
+            .card {
+                box-shadow: none !important;
+                border: 1px solid #e2e6ef !important;
+                break-inside: avoid;
+                margin-bottom: 14px;
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                background: #fff;
+            }
+
+            .page {
+                display: none !important;
+            }
+
+            .page.active {
+                display: block !important;
+            }
+
+            .btn {
+                display: none !important;
+            }
+
+            @page {
+                margin: 1.2cm;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 登录验证页 -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="login-logo">
+      <svg viewBox="0 0 120 120" fill="none">
+        <circle cx="60" cy="60" r="55" stroke="url(#lg)" stroke-width="4"/>
+        <path d="M60 20L95 45V95H25V45L60 20Z" fill="url(#lg)" opacity="0.18"/>
+        <path d="M60 20L95 45V95H25V45L60 20Z" stroke="url(#lg)" stroke-width="3"/>
+        <circle cx="60" cy="60" r="8" fill="url(#lg)"/>
+        <line x1="60" y1="20" x2="60" y2="52" stroke="url(#lg)" stroke-width="2" stroke-dasharray="4 4"/>
+        <line x1="25" y1="45" x2="95" y2="45" stroke="url(#lg)" stroke-width="2" stroke-dasharray="4 4"/>
+        <line x1="25" y1="45" x2="25" y2="95" stroke="url(#lg)" stroke-width="2" stroke-dasharray="4 4"/>
+        <line x1="95" y1="45" x2="95" y2="95" stroke="url(#lg)" stroke-width="2" stroke-dasharray="4 4"/>
+        <defs><linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#667eea"/><stop offset="100%" stop-color="#764ba2"/></linearGradient></defs>
+      </svg>
+    </div>
+    <h2>高一空间思维检测</h2>
+    <div class="login-sub">专业 · 科学 · 六维深度测评 · 高一专属</div>
+    <input type="text" class="login-input" id="loginUser" placeholder="请输入账号" autocomplete="off">
+    <input type="password" class="login-input" id="loginPass" placeholder="请输入密码" autocomplete="off">
+    <button class="login-btn" onclick="doLogin()">登 录</button>
+    <div class="login-error" id="loginError"></div>
+    <div class="login-credits">系统设计制作：刘岳</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- 欢迎页 -->
+<div class="page active" id="welcomePage">
+  <div class="card">
+    <div class="welcome-header">
+      <div class="welcome-icon">
+        <svg viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="60" r="55" stroke="url(#wg)" stroke-width="4"/>
+          <path d="M60 20L95 45V95H25V45L60 20Z" fill="url(#wg)" opacity="0.18"/>
+          <path d="M60 20L95 45V95H25V45L60 20Z" stroke="url(#wg)" stroke-width="3"/>
+          <circle cx="60" cy="60" r="8" fill="url(#wg)"/>
+          <line x1="60" y1="20" x2="60" y2="52" stroke="url(#wg)" stroke-width="2" stroke-dasharray="4 4"/>
+          <line x1="25" y1="45" x2="95" y2="45" stroke="url(#wg)" stroke-width="2" stroke-dasharray="4 4"/>
+          <line x1="25" y1="45" x2="25" y2="95" stroke="url(#wg)" stroke-width="2" stroke-dasharray="4 4"/>
+          <line x1="95" y1="45" x2="95" y2="95" stroke="url(#wg)" stroke-width="2" stroke-dasharray="4 4"/>
+          <defs><linearGradient id="wg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#667eea"/><stop offset="100%" stop-color="#764ba2"/></linearGradient></defs>
+        </svg>
+      </div>
+      <h1 class="welcome-title">高一空间思维检测</h1>
+      <p class="welcome-subtitle">本测评系统专为高一学生设计，基于人教A版必修第二册《立体几何初步》知识体系，从六大维度科学评估空间思维能力。<br>共60道进阶题目，预计用时30-40分钟，系统将生成专属分析报告。</p>
+    </div>
+    <div class="dimension-grid" id="welcomeDimGrid"></div>
+    <button class="btn btn-start" onclick="goToPage('infoPage')">开始测评 →</button>
+    <div class="welcome-footer">六大维度 · 60道题目 · 即时对错反馈 · 智能分析报告 · 云端同步</div>
+  </div>
+  <div class="footer-sign">系统设计制作：刘岳</div>
+</div>
+
+<!-- 基本信息页 -->
+<div class="page" id="infoPage">
+  <div class="card">
+    <h2 class="main-title">基本信息</h2>
+    <p class="subtitle">请填写学生基本信息，用于生成个性化报告与学习建议</p>
+    <div class="form-group">
+      <label class="form-label">学生姓名 *</label>
+      <input type="text" class="form-input" id="studentName" placeholder="请输入学生姓名">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">年级 *</label>
+        <select class="form-select" id="studentGrade">
+          <option value="高一">高一</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">学校（选填）</label>
+        <input type="text" class="form-input" id="schoolName" placeholder="请输入学校名称">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">性别（选填）</label>
+        <select class="form-select" id="studentGender">
+          <option value="">请选择</option>
+          <option value="男">男</option>
+          <option value="女">女</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">选科方向（选填）</label>
+        <select class="form-select" id="studentSubject">
+          <option value="">请选择</option>
+          <option value="物理方向">物理方向（首选物理）</option>
+          <option value="历史方向">历史方向（首选历史）</option>
+        </select>
+      </div>
+    </div>
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" onclick="goToPage('welcomePage')">上一步</button>
+      <button class="btn" onclick="startQuiz()">开始答题 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- 答题页 -->
+<div class="page" id="testPage">
+  <div class="card">
+    <div class="quiz-header">
+      <div class="quiz-progress">
+        <div class="progress-text">
+          <span>题目 <b id="currentQ">1</b> / <b id="totalQ">60</b></span>
+          <span>已答 <b id="answeredQ">0</b> / <b id="totalQ2">60</b></span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill" style="width:2%"></div>
+        </div>
+      </div>
+      <div class="quiz-timer" id="timer">⏱️ <span id="timeDisplay">30:00</span></div>
+    </div>
+
+    <div class="dimension-badge" id="dimensionBadge">空间感知</div>
+
+    <div class="question-card">
+      <span class="question-number" id="questionNumber">第 1 题</span>
+      <p class="question-text" id="questionText"></p>
+      <div class="question-svg" id="questionSvg"></div>
+      <div class="options-grid" id="optionsGrid"></div>
+      <div class="feedback-box hidden" id="feedbackBox"></div>
+    </div>
+
+    <div class="quiz-navigation">
+      <button class="btn btn-secondary btn-nav" id="prevBtn" onclick="prevQuestion()">← 上一题</button>
+      <button class="btn btn-primary btn-nav" id="nextBtn" onclick="nextQuestion()">下一题 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- 结果页 -->
+<div class="page" id="resultPage">
+  <div id="reportContent"></div>
+</div>
+
+</div>
+
+<script>
+        // ==================== 全局变量 ====================
+        var currentQuestionIndex = 0;
+        var userAnswers = [];
+        var timerInterval = null;
+        var remainingTime = 1800;
+        var studentInfo = { name: '', grade: '', school: '', gender: '', subject: '' };
+        var quizStartTime = 0;
+
+        // 维度配置
+        var dimensions = [
+            { id: 'perception', name: '空间感知', short: '感知', icon: '📐', color: '#667eea', subjects: '几何体结构、点线面关系', description: '几何体结构识别与点线面位置关系' },
+            { id: 'rotation', name: '心理旋转', short: '旋转', icon: '🔄', color: '#8b5cf6', subjects: '旋转体、旋转对称', description: '旋转体形成与旋转对称变换' },
+            { id: 'visualization', name: '空间可视化', short: '可视化', icon: '✂️', color: '#06b6d4', subjects: '三视图、直观图、截面、展开图', description: '三视图、直观图、截面与展开图' },
+            { id: 'reasoning', name: '空间推理', short: '推理', icon: '🧠', color: '#f59e0b', subjects: '线面平行垂直、空间角', description: '线面平行垂直判定与空间角推理' },
+            { id: 'orientation', name: '空间定向', short: '定向', icon: '👁️', color: '#10b981', subjects: '投影、斜二测画法、方位判断', description: '投影方向、斜二测规则与方位判断' },
+            { id: 'imagination', name: '空间想象', short: '想象', icon: '🎯', color: '#ef4444', subjects: '组合体、折叠展开、体积面积', description: '组合体、动态变换与体积面积综合' }
+        ];
+
+        // ==================== 题目数据（60题） ====================
+        var questions = [
+            // ===== 空间感知 perception（10题） =====
+            { dimension: 'perception', question: '五棱柱共有多少个面？', svg: 'prism5', options: ['A. 5个','B. 6个','C. 7个','D. 8个'], answer: 2, difficulty: 1, tag: '棱柱结构', explanation: '五棱柱有5个侧面和2个底面（上、下底面），共5+2=7个面，故选C。' },
+            { dimension: 'perception', question: '圆台的上、下底面是（　）。', svg: 'frustum_circles', options: ['A. 两个全等的圆','B. 两个相似且平行的圆','C. 一个圆一个椭圆','D. 两个相交的圆'], answer: 1, difficulty: 1, tag: '圆台结构', explanation: '圆台由棱台、圆锥等用平行于底面的平面截得，上、下底面是两个相似且平行的圆（不全等），故选B。' },
+            { dimension: 'perception', question: '关于棱台，下列说法正确的是（　）。', svg: 'prism_frustum', options: ['A. 棱台各侧棱延长后不一定交于一点','B. 棱台的上下底面是全等多边形','C. 棱台由棱锥用平行于底面的平面截去上部所得','D. 棱台的侧面都是矩形'], answer: 2, difficulty: 1, tag: '棱台结构', explanation: '棱台是由棱锥用平行于底面的平面截去上部后得到的几何体，侧棱延长后必交于一点，上下底面是相似多边形，侧面是梯形，故选C。' },
+            { dimension: 'perception', question: '正方体ABCD-A₁B₁C₁D₁中，直线A₁C₁与直线BD的位置关系是（　）。', svg: 'cube_relation', options: ['A. 平行','B. 相交','C. 异面','D. 重合'], answer: 2, difficulty: 2, tag: '异面直线', explanation: 'A₁C₁在上底面内，BD在下底面内，两条直线不共面、不相交、不平行，属于异面直线，故选C。' },
+            { dimension: 'perception', question: '正三棱锥的底面是（　）。', svg: 'tri_pyramid', options: ['A. 任意三角形','B. 直角三角形','C. 正三角形','D. 等腰直角三角形'], answer: 2, difficulty: 2, tag: '棱锥结构', explanation: '正三棱锥底面是正三角形，且顶点在底面正三角形中心的正上方，侧面是全等的等腰三角形，故选C。' },
+            { dimension: 'perception', question: '空间中，若三个点共线，则它们（　）。', svg: 'line_plane_points', options: ['A. 只能确定一个平面','B. 不能确定平面','C. 能确定无数个平面','D. 能确定两个平面'], answer: 2, difficulty: 2, tag: '基本事实', explanation: '过一条直线（含三个共线点）的平面有无数个，所以三个共线的点能确定无数个平面，故选C。' },
+            { dimension: 'perception', question: '下列命题正确的是（　）。', svg: 'line_pair_plane', options: ['A. 两条异面直线能确定一个平面','B. 经过两条平行直线有且只有一个平面','C. 一条直线和一个点总能确定一个平面','D. 两条相交直线不一定能确定平面'], answer: 1, difficulty: 2, tag: '基本事实', explanation: '公理2的推论：经过两条平行直线有且只有一个平面；两条相交直线也能确定唯一平面；异面直线不能确定平面；直线外的点才能与该直线确定平面，故选B。' },
+            { dimension: 'perception', question: '长方体中，与某一条棱垂直且相交的棱共有（　）。', svg: 'cuboid_edge', options: ['A. 2条','B. 4条','C. 6条','D. 8条'], answer: 1, difficulty: 3, tag: '长方体', explanation: '以长方体的一条棱AB为例，与AB相交且垂直的棱为从A、B两端出发的4条棱（共面的2条与相邻面的2条），故选B。' },
+            { dimension: 'perception', question: '两个不重合的平面若有一个公共点，则它们（　）。', svg: 'two_planes', options: ['A. 只有一个公共点','B. 有且只有一条过该点的公共直线','C. 没有公共直线','D. 有无数个公共点且不共线'], answer: 1, difficulty: 3, tag: '基本事实', explanation: '公理3：如果两个平面有一个公共点，那么它们有且只有一条过该点的公共直线，故选B。' },
+            { dimension: 'perception', question: '正方体共有（　）条棱、（　）个顶点。', svg: 'cube_struct', options: ['A. 12条棱、8个顶点','B. 8条棱、12个顶点','C. 6条棱、8个顶点','D. 12条棱、6个顶点'], answer: 0, difficulty: 3, tag: '正方体', explanation: '正方体有6个面、12条棱、8个顶点，故选A。' },
+            // ===== 心理旋转 rotation（10题） =====
+            { dimension: 'rotation', question: '半圆以它的直径为轴旋转一周，所形成的几何体是（　）。', svg: 'sphere_rotate', options: ['A. 球','B. 半球','C. 圆柱','D. 圆锥'], answer: 0, difficulty: 1, tag: '旋转体', explanation: '半圆以直径为轴旋转一周，扫出的轨迹正好形成一个球，故选A。' },
+            { dimension: 'rotation', question: '直角三角形以它的一条直角边为轴旋转一周，所形成的几何体是（　）。', svg: 'cone_rotate', options: ['A. 圆柱','B. 圆锥','C. 圆台','D. 球'], answer: 1, difficulty: 1, tag: '旋转体', explanation: '直角三角形以直角边为轴旋转一周，斜边扫出圆锥侧面，另一条直角边扫出底面圆，形成圆锥，故选B。' },
+            { dimension: 'rotation', question: '矩形以它的一条边为轴旋转一周，所形成的几何体是（　）。', svg: 'cylinder_rotate', options: ['A. 圆柱','B. 圆锥','C. 圆台','D. 棱柱'], answer: 0, difficulty: 1, tag: '旋转体', explanation: '矩形以一条边为轴旋转一周，对边扫出圆柱侧面，另两边扫出两个底面圆，形成圆柱，故选A。' },
+            { dimension: 'rotation', question: '直角梯形以垂直于底边的腰为轴旋转一周，所形成的几何体是（　）。', svg: 'frustum_rotate', options: ['A. 圆柱','B. 圆锥','C. 圆台','D. 球'], answer: 2, difficulty: 2, tag: '旋转体', explanation: '直角梯形以垂直于底边的腰为轴旋转一周，两底分别扫出大小两个圆，斜腰扫出侧面，形成圆台，故选C。' },
+            { dimension: 'rotation', question: '正六棱柱绕其中心轴旋转多少度后能与原位置重合？', svg: 'hex_prism', options: ['A. 30°','B. 45°','C. 60°','D. 90°'], answer: 2, difficulty: 2, tag: '旋转对称', explanation: '正六棱柱底面是正六边形，旋转360°÷6=60°后底面与自身重合，从而整个棱柱与原位置重合，故选C。' },
+            { dimension: 'rotation', question: '将圆柱绕其轴旋转180°，原来的一条母线会转到（　）。', svg: 'cylinder_axis', options: ['A. 原来的位置','B. 与原来相对的位置','C. 与原来垂直的位置','D. 无法确定'], answer: 1, difficulty: 2, tag: '旋转对称', explanation: '圆柱绕轴旋转180°，每条母线转到其相对位置（对侧的母线处），故选B。' },
+            { dimension: 'rotation', question: '将圆锥绕其轴旋转90°，底面圆周上一点A会转到（　）。', svg: 'cone_axis_rotate', options: ['A. 仍在A处','B. 转到圆心','C. 转到圆周上距A为1/4圆周处','D. 无法确定'], answer: 2, difficulty: 2, tag: '旋转对称', explanation: '圆锥绕轴旋转90°，底面圆上的点A随底面圆旋转90°，转到圆周上距A为1/4圆周的位置，故选C。' },
+            { dimension: 'rotation', question: '将等边三角形绕其一条边旋转一周，所形成的几何体是（　）。', svg: 'eq_tri_rotate', options: ['A. 一个圆锥','B. 两个共底圆锥','C. 圆柱','D. 球'], answer: 1, difficulty: 3, tag: '旋转体', explanation: '等边三角形绕底边旋转，两条腰分别扫出以A、B为顶点的两个圆锥侧面，两圆锥共用一个底面圆，形成两个共底圆锥，故选B。' },
+            { dimension: 'rotation', question: '将正四面体绕连接一个顶点与其对面中心的直线旋转120°，能否与原位置重合？', svg: 'tetra_rotate', options: ['A. 能重合','B. 不能重合','C. 部分重合','D. 无法确定'], answer: 0, difficulty: 3, tag: '旋转对称', explanation: '正四面体绕顶点与对面中心连线旋转120°，恰为该四面体的旋转对称变换，旋转后与原位置重合，故选A。' },
+            { dimension: 'rotation', question: '将正方形绕其一条对角线旋转一周，所形成的几何体是（　）。', svg: 'square_diag', options: ['A. 一个圆锥','B. 两个共底圆锥','C. 圆柱','D. 球'], answer: 1, difficulty: 3, tag: '旋转体', explanation: '正方形绕对角线旋转，对角线两侧的两个等腰直角三角形分别扫出两个圆锥，两圆锥共用一个以对角线为直径的底面圆，故选B。' },
+            // ===== 空间可视化 visualization（10题） =====
+            { dimension: 'visualization', question: '下列正方体展开图中，不能围成正方体的是（　）。', svg: 'cube_net_field', options: ['A. 1-4-1型','B. 田字形','C. 2-3-1型','D. 3-3型'], answer: 1, difficulty: 1, tag: '展开图', explanation: '田字形（2×2）四个面共用一个顶点，折叠时四个面会挤在一起，无法构成正方体，故选B。' },
+            { dimension: 'visualization', question: '圆柱的侧面展开图是（　）。', svg: 'cylinder_unfold', options: ['A. 矩形','B. 扇形','C. 三角形','D. 梯形'], answer: 0, difficulty: 1, tag: '展开图', explanation: '沿圆柱的一条母线剪开展平，侧面展开图是一个矩形（长为底面周长2πr，宽为高h），故选A。' },
+            { dimension: 'visualization', question: '圆锥的侧面展开图是（　）。', svg: 'cone_unfold', options: ['A. 矩形','B. 扇形','C. 圆形','D. 梯形'], answer: 1, difficulty: 1, tag: '展开图', explanation: '沿圆锥的一条母线剪开展平，侧面展开图是一个扇形（半径为母线长，弧长为底面周长），故选B。' },
+            { dimension: 'visualization', question: '用一个平面去截正方体，截面最多是几边形？', svg: 'cube_section_max', options: ['A. 四边形','B. 五边形','C. 六边形','D. 七边形'], answer: 2, difficulty: 2, tag: '截面', explanation: '正方体有6个面，一个平面最多与6个面相交，所以截面最多是六边形，故选C。' },
+            { dimension: 'visualization', question: '用一个不垂直于轴、也不经过轴的平面斜截圆柱，截面形状是（　）。', svg: 'cylinder_slant', options: ['A. 圆','B. 矩形','C. 椭圆','D. 抛物线'], answer: 2, difficulty: 2, tag: '截面', explanation: '平面与圆柱侧面的所有母线相交且不垂直时，截面为椭圆，故选C。' },
+            { dimension: 'visualization', question: '正方体的正视图、侧视图、俯视图都是（　）。', svg: 'cube_views', options: ['A. 正方形','B. 长方形','C. 三角形','D. 圆'], answer: 0, difficulty: 2, tag: '三视图', explanation: '从正方体的三个方向正投影，投影都是与棱长相等的正方形，故选A。' },
+            { dimension: 'visualization', question: '一个几何体的正视图和侧视图都是三角形，俯视图是圆，这个几何体是（　）。', svg: 'views_cone', options: ['A. 圆锥','B. 三棱锥','C. 半球','D. 圆柱'], answer: 0, difficulty: 2, tag: '三视图', explanation: '圆锥的正视图、侧视图为等腰三角形，俯视图为带圆心的圆，故选A。' },
+            { dimension: 'visualization', question: '斜二测画法中，一个水平放置的圆的直观图是（　）。', svg: 'circle_oblique', options: ['A. 圆','B. 椭圆','C. 直线','D. 抛物线'], answer: 1, difficulty: 3, tag: '直观图', explanation: '圆在斜二测画法下的直观图一般是一个椭圆（平行于x轴方向不变、y方向压缩），故选B。' },
+            { dimension: 'visualization', question: '三棱柱沿一条侧棱剪开后，侧面展开图是（　）。', svg: 'prism_unfold', options: ['A. 矩形','B. 三角形','C. 梯形','D. 扇形'], answer: 0, difficulty: 3, tag: '展开图', explanation: '三棱柱的三个矩形侧面沿一条侧棱剪开展平，拼成一个大的矩形，故选A。' },
+            { dimension: 'visualization', question: '正方体共有多少种不同的展开图（旋转、翻转后相同视为一种）？', svg: 'cube_nets', options: ['A. 8种','B. 10种','C. 11种','D. 12种'], answer: 2, difficulty: 3, tag: '展开图', explanation: '正方体共有11种不同的展开图，这是立体几何中的经典结论，故选C。' },
+            // ===== 空间推理 reasoning（10题） =====
+            { dimension: 'reasoning', question: '线面平行判定定理：平面外一条直线与此平面内的一条直线平行，则该直线与此平面（　）。', svg: 'line_plane_parallel', options: ['A. 平行','B. 垂直','C. 相交','D. 位置关系不确定'], answer: 0, difficulty: 1, tag: '线面平行', explanation: '线面平行判定定理：平面外一条直线与此平面内的一条直线平行，则该直线与此平面平行，故选A。' },
+            { dimension: 'reasoning', question: '线面垂直判定定理：一条直线与一个平面内的两条相交直线都垂直，则该直线与此平面（　）。', svg: 'line_plane_vertical', options: ['A. 垂直','B. 平行','C. 斜交','D. 位置关系不确定'], answer: 0, difficulty: 1, tag: '线面垂直', explanation: '线面垂直判定定理：一条直线与平面内的两条相交直线都垂直，则该直线与此平面垂直，故选A。' },
+            { dimension: 'reasoning', question: '面面平行判定：一个平面内的两条相交直线分别平行于另一个平面，则这两个平面（　）。', svg: 'plane_plane_parallel', options: ['A. 平行','B. 垂直','C. 相交','D. 重合'], answer: 0, difficulty: 1, tag: '面面平行', explanation: '面面平行判定定理：一个平面内的两条相交直线分别平行于另一个平面，则这两个平面平行，故选A。' },
+            { dimension: 'reasoning', question: '面面垂直判定：如果一个平面经过另一个平面的垂线，那么这两个平面（　）。', svg: 'plane_plane_vertical', options: ['A. 垂直','B. 平行','C. 相交但不垂直','D. 重合'], answer: 0, difficulty: 2, tag: '面面垂直', explanation: '面面垂直判定定理：一个平面经过另一个平面的垂线，则这两个平面垂直，故选A。' },
+            { dimension: 'reasoning', question: '垂直于同一个平面的两条直线（　）。', svg: 'two_lines_vertical', options: ['A. 平行','B. 相交','C. 异面','D. 垂直'], answer: 0, difficulty: 2, tag: '线面垂直性质', explanation: '线面垂直的性质定理：垂直于同一个平面的两条直线平行，故选A。' },
+            { dimension: 'reasoning', question: '正方体ABCD-A₁B₁C₁D₁中，直线A₁B与直线BC₁所成角的余弦值为（　）。', svg: 'cube_angle_60', options: ['A. √2/2','B. 1/2','C. √3/2','D. √3/3'], answer: 1, difficulty: 2, tag: '异面直线所成角', explanation: '取向量A₁B=(1,0,-1)、BC₁=(0,1,1)，cosθ=|0+0-1|/(√2×√2)=1/2，故所成角为60°，余弦值为1/2，故选B。' },
+            { dimension: 'reasoning', question: '线面垂直的性质：如果一条直线垂直于一个平面，那么它垂直于这个平面内的（　）。', svg: 'line_in_plane', options: ['A. 任意一条直线','B. 仅与它平行的直线','C. 仅一条直线','D. 仅与它相交的直线'], answer: 0, difficulty: 2, tag: '线面垂直性质', explanation: '线面垂直的性质定理：如果一条直线垂直于一个平面，那么它垂直于这个平面内的任意一条直线，故选A。' },
+            { dimension: 'reasoning', question: '面面垂直的性质：如果两个平面垂直，那么一个平面内垂直于它们交线的直线（　）。', svg: 'plane_vertical_prop', options: ['A. 垂直于另一个平面','B. 平行于另一个平面','C. 在另一个平面内','D. 与另一个平面斜交'], answer: 0, difficulty: 3, tag: '面面垂直性质', explanation: '面面垂直的性质定理：两个平面垂直时，一个平面内垂直于交线的直线垂直于另一个平面，故选A。' },
+            { dimension: 'reasoning', question: '长方体的一条体对角线与交于同一顶点的三条棱所成角分别为α、β、γ，则cos²α+cos²β+cos²γ=（　）。', svg: 'cuboid_diag_cos', options: ['A. 1','B. 2','C. 3','D. 0'], answer: 0, difficulty: 3, tag: '长方体对角线', explanation: '设长、宽、高为a、b、c，体对角线长d=√(a²+b²+c²)，则cos²α=a²/d²、cos²β=b²/d²、cos²γ=c²/d²，三者之和=(a²+b²+c²)/d²=1，故选A。' },
+            { dimension: 'reasoning', question: '正方体ABCD-A₁B₁C₁D₁中，直线BD₁与平面ABCD所成角的正切值为（　）。', svg: 'cube_diag_angle', options: ['A. √2','B. √2/2','C. 1','D. √2/3'], answer: 1, difficulty: 3, tag: '线面角', explanation: '设棱长为1，BD₁在底面ABCD内的射影为BD=√2，DD₁=1，故tanθ=DD₁/BD=1/√2=√2/2，故选B。' },
+            // ===== 空间定向 orientation（10题） =====
+            { dimension: 'orientation', question: '斜二测画法中，y轴与x轴的夹角为（　）。', svg: 'oblique_axis', options: ['A. 30°','B. 45°','C. 60°','D. 90°'], answer: 1, difficulty: 1, tag: '斜二测画法', explanation: '斜二测画法规定：y轴与x轴成45°角（或135°），z轴竖直，故选B。' },
+            { dimension: 'orientation', question: '斜二测画法中，平行于x轴的线段长度（　）。', svg: 'oblique_x', options: ['A. 保持不变','B. 变为原来的一半','C. 变为原来的2倍','D. 变为原来的√2倍'], answer: 0, difficulty: 1, tag: '斜二测画法', explanation: '斜二测画法规则：平行于x轴的线段长度不变，平行于y轴的线段长度减半，故选A。' },
+            { dimension: 'orientation', question: '正视图、侧视图、俯视图都是圆的几何体是（　）。', svg: 'views_sphere', options: ['A. 球','B. 圆柱','C. 圆锥','D. 圆台'], answer: 0, difficulty: 1, tag: '三视图', explanation: '球从任何方向的正投影都是圆，三视图均为圆，故选A。' },
+            { dimension: 'orientation', question: '斜二测画法中，平行于y轴的线段长度（　）。', svg: 'oblique_y', options: ['A. 保持不变','B. 变为原来的一半','C. 变为原来的2倍','D. 变为原来的√2倍'], answer: 1, difficulty: 2, tag: '斜二测画法', explanation: '斜二测画法规则：平行于y轴的线段长度变为原来的一半，故选B。' },
+            { dimension: 'orientation', question: '斜二测画法中，平行于z轴的线段长度（　）。', svg: 'oblique_z', options: ['A. 保持不变','B. 变为原来的一半','C. 变为原来的2倍','D. 变为原来的√2倍'], answer: 0, difficulty: 2, tag: '斜二测画法', explanation: '斜二测画法中，z轴竖直，平行于z轴的线段长度不变，故选A。' },
+            { dimension: 'orientation', question: '一个几何体的正视图和侧视图都是矩形，俯视图是圆，这个几何体是（　）。', svg: 'views_cylinder', options: ['A. 圆柱','B. 圆锥','C. 球','D. 圆台'], answer: 0, difficulty: 2, tag: '三视图', explanation: '圆柱的正视图、侧视图为矩形，俯视图为圆，故选A。' },
+            { dimension: 'orientation', question: '由三视图还原几何体时，正视图反映物体的（　）。', svg: 'views_correct', options: ['A. 长和高','B. 长和宽','C. 宽和高','D. 高'], answer: 0, difficulty: 2, tag: '三视图', explanation: '三视图中，正视图反映长和高，俯视图反映长和宽，侧视图反映宽和高，故选A。' },
+            { dimension: 'orientation', question: '斜二测画法中，水平放置的正三角形的直观图是（　）。', svg: 'triangle_oblique', options: ['A. 等边三角形','B. 等腰三角形（不一定等边）','C. 直角三角形','D. 任意三角形'], answer: 1, difficulty: 3, tag: '直观图', explanation: '正三角形在斜二测画法中，与x轴平行的底边长度不变，顶点到该边的"高"方向长度减半，所得直观图仍是等腰三角形，但不一定是等边三角形，故选B。' },
+            { dimension: 'orientation', question: '一个几何体的正视图、侧视图、俯视图都是正方形，这个几何体可能是（　）。', svg: 'views_cube', options: ['A. 正方体','B. 球','C. 圆锥','D. 圆柱'], answer: 0, difficulty: 3, tag: '三视图', explanation: '三视图都是正方形的几何体可能是正方体（也可能是正四棱柱等），选项中只有正方体符合，故选A。' },
+            { dimension: 'orientation', question: '斜二测画法中，原图中平行于x轴的线段在直观图中（　）。', svg: 'oblique_x_line', options: ['A. 平行于x′轴且长度不变','B. 平行于y′轴','C. 长度变为一半','D. 倾斜45°'], answer: 0, difficulty: 3, tag: '直观图', explanation: '斜二测画法规则：平行于x轴的线段在直观图中平行于x′轴且长度不变，故选A。' },
+            // ===== 空间想象 imagination（10题） =====
+            { dimension: 'imagination', question: '底面半径为r、高为h的圆柱的体积为（　）。', svg: 'cyl_volume', options: ['A. πr²h','B. 2πrh','C. πrl','D. (4/3)πr³'], answer: 0, difficulty: 1, tag: '圆柱体积', explanation: '圆柱体积公式V=πr²h（底面积×高），故选A。' },
+            { dimension: 'imagination', question: '底面半径为r、高为h的圆锥的体积为（　）。', svg: 'cone_volume', options: ['A. (1/3)πr²h','B. πr²h','C. πrl','D. 2πrh'], answer: 0, difficulty: 1, tag: '圆锥体积', explanation: '圆锥体积公式V=(1/3)πr²h（等底等高的圆柱体积的1/3），故选A。' },
+            { dimension: 'imagination', question: '半径为R的球的表面积为（　）。', svg: 'sphere_surface', options: ['A. 4πR²','B. 2πR²','C. πR²','D. (4/3)πR³'], answer: 0, difficulty: 1, tag: '球的表面积', explanation: '球的表面积公式S=4πR²，故选A。' },
+            { dimension: 'imagination', question: '一个长方体的长、宽、高分别为3、4、5，则它的体对角线长为（　）。', svg: 'cuboid_diag', options: ['A. 5√2','B. √50','C. √41','D. 12'], answer: 0, difficulty: 2, tag: '长方体对角线', explanation: '长方体体对角线长d=√(3²+4²+5²)=√50=5√2，故选A。' },
+            { dimension: 'imagination', question: '底面半径为r、母线长为l的圆锥的侧面积为（　）。', svg: 'cone_lateral', options: ['A. πrl','B. 2πrl','C. πr²','D. πl²'], answer: 0, difficulty: 2, tag: '圆锥侧面积', explanation: '圆锥侧面展开为扇形，面积S=πrl（底面周长一半×母线长），故选A。' },
+            { dimension: 'imagination', question: '一个圆柱的侧面展开图是正方形，底面半径为r，则该圆柱的高为（　）。', svg: 'cyl_unfold_square', options: ['A. 2πr','B. πr','C. 4πr','D. r'], answer: 0, difficulty: 2, tag: '展开图', explanation: '侧面展开为正方形时，高等于底面周长2πr，故选A。' },
+            { dimension: 'imagination', question: '用一个平面切去正方体的一角，所得几何体最多有（　）条棱。', svg: 'cube_cut_corner', options: ['A. 15条','B. 13条','C. 14条','D. 16条'], answer: 0, difficulty: 2, tag: '组合体', explanation: '正方体原有12条棱，切去一个角后截面为三角形新增3条棱，且原棱被截断处仍保留，共12+3=15条棱，故选A。' },
+            { dimension: 'imagination', question: '棱长为3的大正方体挖去正中心一个棱长为1的小正方体后，表面积比原来（　）。', svg: 'cube_hollow', options: ['A. 增加6','B. 增加5','C. 增加4','D. 不变'], answer: 0, difficulty: 3, tag: '组合体', explanation: '挖去中心小正方体后，其6个面全部裸露出来，每个面面积为1，表面积共增加6×1=6，故选A。' },
+            { dimension: 'imagination', question: '底面边长为a、高为h的正四棱锥的体积为（　）。', svg: 'pyramid_volume', options: ['A. (1/3)a²h','B. a²h','C. (1/6)a²h','D. (2/3)a²h'], answer: 0, difficulty: 3, tag: '锥体体积', explanation: '四棱锥体积V=(1/3)×底面积×高=(1/3)a²h，故选A。' },
+            { dimension: 'imagination', question: '圆台的上、下底面半径分别为r、R（R>r），高为h，则其体积为（　）。', svg: 'frustum_volume', options: ['A. (1/3)πh(r²+rR+R²)','B. πh(r²+R²)','C. (1/2)πh(r²+R²)','D. (1/3)πh(R²-r²)'], answer: 0, difficulty: 3, tag: '台体体积', explanation: '圆台体积公式V=(1/3)πh(r²+rR+R²)，其中r、R为上下底面半径，故选A。' },
+        ];
+
+        // ==================== SVG图形生成函数（48个原有+9个新增） ====================
+        function generateSVG(type) {
+            var svgs = {
+                'prism5': '<svg width="200" height="140" viewBox="0 0 200 140"><polygon points="100,30 155,55 155,105 100,125 45,105 45,55" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="100,20 150,45 150,95 100,115 50,95 50,45" fill="#e0f2fe" stroke="#667eea" stroke-width="2" opacity="0.5"/><line x1="50" y1="45" x2="45" y2="55" stroke="#764ba2" stroke-width="2"/><line x1="100" y1="20" x2="100" y2="30" stroke="#764ba2" stroke-width="2"/><line x1="150" y1="45" x2="155" y2="55" stroke="#764ba2" stroke-width="2"/><text x="60" y="135" fill="#64748b" font-size="12">五棱柱</text></svg>',
+                'frustum_circles': '<svg width="200" height="150" viewBox="0 0 200 150"><ellipse cx="100" cy="45" rx="45" ry="16" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><ellipse cx="100" cy="115" rx="70" ry="24" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="55" y1="45" x2="30" y2="115" stroke="#764ba2" stroke-width="2"/><line x1="145" y1="45" x2="170" y2="115" stroke="#764ba2" stroke-width="2"/><text x="45" y="40" fill="#667eea" font-size="12">上底</text><text x="120" y="132" fill="#764ba2" font-size="12">下底</text></svg>',
+                'prism_frustum': '<svg width="200" height="140" viewBox="0 0 200 140"><polygon points="60,35 140,35 120,105 80,105" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="60,35 100,15 160,20 140,35" fill="#e0f2fe" stroke="#667eea" stroke-width="2" opacity="0.5"/><line x1="60" y1="35" x2="100" y2="15" stroke="#764ba2" stroke-width="2"/><line x1="140" y1="35" x2="160" y2="20" stroke="#764ba2" stroke-width="2"/><line x1="80" y1="105" x2="120" y2="105" stroke="#764ba2" stroke-width="2" stroke-dasharray="4,4"/><text x="75" y="130" fill="#64748b" font-size="12">棱台（截去上部）</text></svg>',
+                'cube_relation': '<svg width="200" height="150" viewBox="0 0 200 150"><polygon points="90,30 150,60 150,115 90,140 30,115 30,60" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="90,30 30,60 90,85 150,60" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="30" y1="60" x2="150" y2="60" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,5"/><line x1="45" y1="85" x2="135" y2="120" stroke="#10b981" stroke-width="2" stroke-dasharray="5,5"/><text x="135" y="55" fill="#ef4444" font-size="11">A₁C₁</text><text x="100" y="120" fill="#10b981" font-size="11">BD</text><text x="70" y="150" fill="#64748b" font-size="12">异面直线</text></svg>',
+                'tri_pyramid': '<svg width="200" height="150" viewBox="0 0 200 150"><polygon points="60,115 140,115 100,90" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="100,30 60,115 100,90" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><polygon points="100,30 140,115 100,90" fill="#e0f2fe" stroke="#667eea" stroke-width="2" opacity="0.6"/><line x1="100" y1="30" x2="100" y2="90" stroke="#764ba2" stroke-width="2" stroke-dasharray="4,4"/><text x="95" y="25" fill="#764ba2" font-size="12">顶点</text><text x="95" y="140" fill="#64748b" font-size="12">正三棱锥</text></svg>',
+                'line_plane_points': '<svg width="200" height="120" viewBox="0 0 200 120"><line x1="30" y1="60" x2="170" y2="60" stroke="#667eea" stroke-width="2"/><circle cx="70" cy="60" r="5" fill="#ef4444"/><circle cx="100" cy="60" r="5" fill="#ef4444"/><circle cx="130" cy="60" r="5" fill="#ef4444"/><text x="55" y="50" fill="#ef4444" font-size="11">A</text><text x="92" y="50" fill="#ef4444" font-size="11">B</text><text x="123" y="50" fill="#ef4444" font-size="11">C</text><text x="60" y="105" fill="#64748b" font-size="12">三点共线→无数个平面</text></svg>',
+                'line_pair_plane': '<svg width="200" height="130" viewBox="0 0 200 130"><polygon points="40,95 170,85 160,40 50,50" fill="#f0f9ff" stroke="#667eea" stroke-width="1.5"/><line x1="60" y1="70" x2="150" y2="62" stroke="#ef4444" stroke-width="2"/><line x1="70" y1="95" x2="160" y2="87" stroke="#ef4444" stroke-width="2"/><text x="140" y="55" fill="#ef4444" font-size="11">a∥b</text><text x="55" y="120" fill="#64748b" font-size="12">两平行线确定平面</text></svg>',
+                'cuboid_edge': '<svg width="200" height="140" viewBox="0 0 200 140"><polygon points="40,60 120,60 120,110 40,110" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="40,60 70,35 150,35 120,60" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><polygon points="120,60 150,35 150,85 120,110" fill="#e0f2fe" stroke="#667eea" stroke-width="2" opacity="0.6"/><line x1="40" y1="60" x2="120" y2="60" stroke="#ef4444" stroke-width="3"/><text x="80" y="55" fill="#ef4444" font-size="11">AB</text><text x="50" y="135" fill="#64748b" font-size="12">与棱垂直相交的棱有4条</text></svg>',
+                'two_planes': '<svg width="200" height="130" viewBox="0 0 200 130"><polygon points="30,90 170,80 150,35 50,45" fill="#f0f9ff" stroke="#667eea" stroke-width="1.5"/><polygon points="40,100 160,95 175,60 55,65" fill="#e0f2fe" stroke="#667eea" stroke-width="1.5" opacity="0.5"/><line x1="60" y1="50" x2="140" y2="88" stroke="#ef4444" stroke-width="3"/><text x="135" y="85" fill="#ef4444" font-size="11">交线</text><text x="55" y="120" fill="#64748b" font-size="12">两面交于一条直线</text></svg>',
+                'cube_struct': '<svg width="200" height="150" viewBox="0 0 200 150"><polygon points="90,30 150,60 150,115 90,140 30,115 30,60" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="90,30 30,60 90,85 150,60" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="30" y1="115" x2="90" y2="140" stroke="#667eea" stroke-width="2"/><line x1="150" y1="115" x2="90" y2="140" stroke="#667eea" stroke-width="2"/><text x="55" y="145" fill="#64748b" font-size="12">6面·12棱·8顶点</text></svg>',
+                'sphere_rotate': '<svg width="200" height="130" viewBox="0 0 200 130"><path d="M50,65 A50,50 0 0,1 150,65" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="50" y1="65" x2="150" y2="65" stroke="#764ba2" stroke-width="2"/><circle cx="100" cy="65" r="3" fill="#ef4444"/><path d="M100,65 A50,50 0 0,0 50,65" fill="none" stroke="#764ba2" stroke-width="1.5" stroke-dasharray="4,4"/><text x="20" y="120" fill="#64748b" font-size="12">半圆绕直径→球</text></svg>',
+                'cone_rotate': '<svg width="200" height="150" viewBox="0 0 200 150"><line x1="80" y1="110" x2="80" y2="30" stroke="#764ba2" stroke-width="2" stroke-dasharray="5,5"/><polygon points="80,30 160,110 80,110" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><ellipse cx="80" cy="110" rx="80" ry="14" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><text x="165" y="105" fill="#64748b" font-size="11">直角边为轴</text><text x="60" y="145" fill="#64748b" font-size="12">直角三角形→圆锥</text></svg>',
+                'cylinder_rotate': '<svg width="200" height="150" viewBox="0 0 200 150"><line x1="80" y1="30" x2="80" y2="120" stroke="#764ba2" stroke-width="2" stroke-dasharray="5,5"/><ellipse cx="80" cy="30" rx="60" ry="16" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><ellipse cx="80" cy="120" rx="60" ry="16" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="20" y1="30" x2="20" y2="120" stroke="#667eea" stroke-width="2"/><line x1="140" y1="30" x2="140" y2="120" stroke="#667eea" stroke-width="2"/><text x="160" y="90" fill="#764ba2" font-size="11">边为轴</text><text x="45" y="150" fill="#64748b" font-size="12">矩形→圆柱</text></svg>',
+                'frustum_rotate': '<svg width="200" height="150" viewBox="0 0 200 150"><line x1="80" y1="30" x2="80" y2="120" stroke="#764ba2" stroke-width="2" stroke-dasharray="5,5"/><ellipse cx="80" cy="30" rx="50" ry="13" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><ellipse cx="80" cy="120" rx="80" ry="18" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="30" y1="30" x2="0" y2="120" stroke="#667eea" stroke-width="2"/><line x1="130" y1="30" x2="160" y2="120" stroke="#667eea" stroke-width="2"/><text x="165" y="85" fill="#64748b" font-size="11">直角腰为轴</text><text x="40" y="150" fill="#64748b" font-size="12">直角梯形→圆台</text></svg>',
+                'hex_prism': '<svg width="200" height="140" viewBox="0 0 200 140"><polygon points="100,20 145,40 145,75 100,95 55,75 55,40" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="100,35 135,50 135,80 100,95 65,80 65,50" fill="#e0f2fe" stroke="#667eea" stroke-width="2" opacity="0.6"/><line x1="100" y1="20" x2="100" y2="35" stroke="#764ba2" stroke-width="2"/><line x1="145" y1="40" x2="135" y2="50" stroke="#764ba2" stroke-width="2"/><line x1="55" y1="40" x2="65" y2="50" stroke="#764ba2" stroke-width="2"/><line x1="55" y1="75" x2="65" y2="80" stroke="#764ba2" stroke-width="2"/><line x1="145" y1="75" x2="135" y2="80" stroke="#764ba2" stroke-width="2"/><line x1="100" y1="95" x2="100" y2="95" stroke="#764ba2" stroke-width="2"/><text x="60" y="135" fill="#64748b" font-size="12">正六棱柱（旋转60°重合）</text></svg>',
+                'cylinder_axis': '<svg width="200" height="140" viewBox="0 0 200 140"><ellipse cx="100" cy="35" rx="65" ry="16" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><ellipse cx="100" cy="110" rx="65" ry="16" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="35" y1="35" x2="35" y2="110" stroke="#667eea" stroke-width="2"/><line x1="165" y1="35" x2="165" y2="110" stroke="#667eea" stroke-width="2"/><line x1="100" y1="20" x2="100" y2="125" stroke="#764ba2" stroke-width="2" stroke-dasharray="5,5"/><path d="M55,110 A65,16 0 0,0 145,110" fill="none" stroke="#ef4444" stroke-width="2"/><text x="110" y="130" fill="#64748b" font-size="11">绕轴转180°</text></svg>',
+                'cone_axis_rotate': '<svg width="200" height="140" viewBox="0 0 200 140"><line x1="100" y1="25" x2="100" y2="105" stroke="#764ba2" stroke-width="2" stroke-dasharray="5,5"/><polygon points="100,25 160,105 40,105" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><ellipse cx="100" cy="105" rx="60" ry="14" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><circle cx="60" cy="105" r="5" fill="#ef4444"/><text x="50" y="100" fill="#ef4444" font-size="11">A</text><path d="M60,105 A60,14 0 1,1 55,105" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4"/><text x="50" y="135" fill="#64748b" font-size="12">旋转90°到1/4圆周处</text></svg>',
+                'eq_tri_rotate': '<svg width="200" height="150" viewBox="0 0 200 150"><polygon points="100,25 170,115 30,115" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><line x1="30" y1="115" x2="170" y2="115" stroke="#ef4444" stroke-width="2"/><ellipse cx="100" cy="115" rx="70" ry="14" fill="#e0f2fe" stroke="#ef4444" stroke-width="1.5"/><text x="50" y="145" fill="#64748b" font-size="12">绕底边→两个共底圆锥</text></svg>',
+                'tetra_rotate': '<svg width="200" height="150" viewBox="0 0 200 150"><polygon points="100,30 155,105 45,105" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="100,30 100,135 155,105" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="100" y1="30" x2="100" y2="105" stroke="#764ba2" stroke-width="2" stroke-dasharray="4,4"/><text x="105" y="25" fill="#764ba2" font-size="11">顶点</text><text x="95" y="150" fill="#64748b" font-size="12">绕高旋转120°重合</text></svg>',
+                'square_diag': '<svg width="200" height="140" viewBox="0 0 200 140"><polygon points="100,25 165,80 100,135 35,80" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><line x1="35" y1="80" x2="165" y2="80" stroke="#ef4444" stroke-width="2"/><ellipse cx="100" cy="80" rx="65" ry="12" fill="#e0f2fe" stroke="#ef4444" stroke-width="1.5"/><text x="45" y="120" fill="#64748b" font-size="12">绕对角线→两共底圆锥</text></svg>',
+                'cube_net_field': '<svg width="220" height="120" viewBox="0 0 220 120"><g transform="translate(10,10)"><text x="25" y="0" fill="#64748b" font-size="10">1-4-1型</text><rect x="10" y="10" width="25" height="25" fill="#f0f9ff" stroke="#667eea"/><rect x="35" y="10" width="25" height="25" fill="#f0f9ff" stroke="#667eea"/><rect x="60" y="10" width="25" height="25" fill="#f0f9ff" stroke="#667eea"/><rect x="85" y="10" width="25" height="25" fill="#f0f9ff" stroke="#667eea"/><rect x="35" y="35" width="25" height="25" fill="#f0f9ff" stroke="#667eea"/></g><g transform="translate(130,10)"><text x="25" y="0" fill="#ef4444" font-size="10">田字形✗</text><rect x="10" y="10" width="25" height="25" fill="#fde2e2" stroke="#ef4444"/><rect x="35" y="10" width="25" height="25" fill="#fde2e2" stroke="#ef4444"/><rect x="10" y="35" width="25" height="25" fill="#fde2e2" stroke="#ef4444"/><rect x="35" y="35" width="25" height="25" fill="#fde2e2" stroke="#ef4444"/></g></svg>',
+                'cylinder_unfold': '<svg width="220" height="120" viewBox="0 0 220 120"><ellipse cx="45" cy="40" rx="30" ry="11" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><ellipse cx="45" cy="100" rx="30" ry="11" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="15" y1="40" x2="15" y2="100" stroke="#667eea" stroke-width="2"/><line x1="75" y1="40" x2="75" y2="100" stroke="#667eea" stroke-width="2"/><rect x="110" y="35" width="95" height="55" fill="#f0f9ff" stroke="#764ba2" stroke-width="2"/><text x="135" y="67" fill="#764ba2" font-size="12">矩形</text><text x="125" y="115" fill="#64748b" font-size="11">侧面展开</text></svg>',
+                'cone_unfold': '<svg width="220" height="120" viewBox="0 0 220 120"><polygon points="45,30 80,100 10,100" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><ellipse cx="45" cy="100" rx="35" ry="10" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><path d="M130,60 A50,50 0 0,1 220,60 Z" fill="#f0f9ff" stroke="#764ba2" stroke-width="2"/><line x1="130" y1="60" x2="220" y2="60" stroke="#764ba2" stroke-width="2"/><text x="145" y="55" fill="#764ba2" font-size="11">扇形</text><text x="30" y="115" fill="#64748b" font-size="11">圆锥→扇形</text></svg>',
+                'cube_section_max': '<svg width="200" height="150" viewBox="0 0 200 150"><polygon points="90,30 150,60 150,115 90,140 30,115 30,60" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="90,30 30,60 90,85 150,60" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><polygon points="45,70 75,115 105,115 135,70 90,45" fill="#fde2e2" stroke="#ef4444" stroke-width="2" opacity="0.7"/><text x="55" y="120" fill="#ef4444" font-size="11">六边形截面</text></svg>',
+                'cylinder_slant': '<svg width="200" height="140" viewBox="0 0 200 140"><ellipse cx="60" cy="35" rx="45" ry="14" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><ellipse cx="60" cy="115" rx="45" ry="14" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="15" y1="35" x2="15" y2="115" stroke="#667eea" stroke-width="2"/><line x1="105" y1="35" x2="105" y2="115" stroke="#667eea" stroke-width="2"/><ellipse cx="60" cy="75" rx="50" ry="22" fill="none" stroke="#ef4444" stroke-width="2" transform="rotate(-15,60,75)"/><text x="120" y="80" fill="#ef4444" font-size="12">斜截面→椭圆</text></svg>',
+                'cube_views': '<svg width="220" height="110" viewBox="0 0 220 110"><g transform="translate(20,10)"><text x="20" y="0" fill="#64748b" font-size="10">正视</text><rect x="10" y="10" width="40" height="40" fill="#f0f9ff" stroke="#667eea"/></g><g transform="translate(90,10)"><text x="20" y="0" fill="#64748b" font-size="10">侧视</text><rect x="10" y="10" width="40" height="40" fill="#f0f9ff" stroke="#667eea"/></g><g transform="translate(160,10)"><text x="20" y="0" fill="#64748b" font-size="10">俯视</text><rect x="10" y="10" width="40" height="40" fill="#f0f9ff" stroke="#667eea"/></g><text x="85" y="100" fill="#64748b" font-size="12">三视图都是正方形</text></svg>',
+                'views_cone': '<svg width="220" height="110" viewBox="0 0 220 110"><g transform="translate(10,10)"><text x="15" y="0" fill="#64748b" font-size="10">正视</text><polygon points="25,10 40,55 10,55" fill="#f0f9ff" stroke="#667eea"/></g><g transform="translate(70,10)"><text x="15" y="0" fill="#64748b" font-size="10">侧视</text><polygon points="25,10 40,55 10,55" fill="#f0f9ff" stroke="#667eea"/></g><g transform="translate(140,10)"><text x="15" y="0" fill="#64748b" font-size="10">俯视</text><circle cx="25" cy="30" r="18" fill="#f0f9ff" stroke="#667eea"/><circle cx="25" cy="30" r="2" fill="#ef4444"/></g><text x="70" y="105" fill="#64748b" font-size="12">三角形+圆→圆锥</text></svg>',
+                'circle_oblique': '<svg width="200" height="120" viewBox="0 0 200 120"><circle cx="60" cy="60" r="35" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><text x="40" y="105" fill="#64748b" font-size="11">原图（圆）</text><ellipse cx="145" cy="60" rx="35" ry="22" fill="#f0f9ff" stroke="#ef4444" stroke-width="2"/><text x="125" y="105" fill="#64748b" font-size="11">直观图（椭圆）</text></svg>',
+                'prism_unfold': '<svg width="220" height="120" viewBox="0 0 220 120"><polygon points="45,25 75,40 75,105 45,90" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="45,25 20,40 20,105 45,90" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><rect x="110" y="25" width="100" height="55" fill="#f0f9ff" stroke="#764ba2" stroke-width="2"/><line x1="143" y1="25" x2="143" y2="80" stroke="#764ba2" stroke-width="1" stroke-dasharray="4,4"/><line x1="177" y1="25" x2="177" y2="80" stroke="#764ba2" stroke-width="1" stroke-dasharray="4,4"/><text x="130" y="55" fill="#764ba2" font-size="11">三侧面拼矩形</text></svg>',
+                'cube_nets': '<svg width="220" height="120" viewBox="0 0 220 120"><g transform="translate(10,10)"><rect x="5" y="20" width="22" height="22" fill="#f0f9ff" stroke="#667eea"/><rect x="27" y="20" width="22" height="22" fill="#f0f9ff" stroke="#667eea"/><rect x="49" y="20" width="22" height="22" fill="#f0f9ff" stroke="#667eea"/><rect x="27" y="42" width="22" height="22" fill="#f0f9ff" stroke="#667eea"/></g><g transform="translate(120,10)"><rect x="5" y="10" width="22" height="22" fill="#f0f9ff" stroke="#667eea"/><rect x="27" y="10" width="22" height="22" fill="#f0f9ff" stroke="#667eea"/><rect x="49" y="10" width="22" height="22" fill="#f0f9ff" stroke="#667eea"/><rect x="27" y="32" width="22" height="22" fill="#f0f9ff" stroke="#667eea"/><rect x="49" y="32" width="22" height="22" fill="#f0f9ff" stroke="#667eea"/></g><text x="45" y="115" fill="#64748b" font-size="12">正方体展开图共11种</text></svg>',
+                'line_plane_parallel': '<svg width="200" height="130" viewBox="0 0 200 130"><polygon points="30,100 175,90 160,45 45,55" fill="#f0f9ff" stroke="#667eea" stroke-width="1.5"/><line x1="50" y1="70" x2="150" y2="62" stroke="#764ba2" stroke-width="2"/><line x1="70" y1="35" x2="140" y2="30" stroke="#ef4444" stroke-width="2"/><text x="75" y="28" fill="#ef4444" font-size="11">a（平面外）</text><text x="35" y="115" fill="#64748b" font-size="12">a∥b⇒a∥α</text></svg>',
+                'line_plane_vertical': '<svg width="200" height="130" viewBox="0 0 200 130"><polygon points="30,100 175,90 160,45 45,55" fill="#f0f9ff" stroke="#667eea" stroke-width="1.5"/><line x1="100" y1="30" x2="100" y2="100" stroke="#ef4444" stroke-width="2.5"/><line x1="80" y1="60" x2="120" y2="60" stroke="#764ba2" stroke-width="2"/><line x1="70" y1="80" x2="120" y2="90" stroke="#764ba2" stroke-width="2"/><text x="105" y="55" fill="#ef4444" font-size="11">l⊥α</text><text x="40" y="120" fill="#64748b" font-size="12">l⊥两相交直线⇒l⊥α</text></svg>',
+                'plane_plane_parallel': '<svg width="200" height="130" viewBox="0 0 200 130"><polygon points="30,95 175,85 160,40 45,50" fill="#f0f9ff" stroke="#667eea" stroke-width="1.5"/><polygon points="40,80 170,72 155,30 50,38" fill="#e0f2fe" stroke="#ef4444" stroke-width="1.5" opacity="0.5"/><line x1="70" y1="55" x2="140" y2="48" stroke="#764ba2" stroke-width="2"/><line x1="80" y1="70" x2="130" y2="55" stroke="#764ba2" stroke-width="2"/><text x="35" y="115" fill="#64748b" font-size="12">α内两相交线∥β⇒α∥β</text></svg>',
+                'plane_plane_vertical': '<svg width="200" height="130" viewBox="0 0 200 130"><polygon points="30,100 175,90 160,45 45,55" fill="#f0f9ff" stroke="#667eea" stroke-width="1.5"/><polygon points="90,30 95,110 60,105 55,25" fill="#e0f2fe" stroke="#764ba2" stroke-width="1.5"/><line x1="70" y1="65" x2="120" y2="60" stroke="#ef4444" stroke-width="2.5"/><text x="60" y="25" fill="#ef4444" font-size="11">l⊥α，l⊂β</text><text x="30" y="120" fill="#64748b" font-size="12">面过垂线⇒两面垂直</text></svg>',
+                'two_lines_vertical': '<svg width="200" height="130" viewBox="0 0 200 130"><polygon points="30,100 175,90 160,45 45,55" fill="#f0f9ff" stroke="#667eea" stroke-width="1.5"/><line x1="70" y1="30" x2="90" y2="90" stroke="#ef4444" stroke-width="2.5"/><line x1="130" y1="30" x2="120" y2="90" stroke="#ef4444" stroke-width="2.5"/><text x="55" y="25" fill="#ef4444" font-size="11">a</text><text x="135" y="25" fill="#ef4444" font-size="11">b</text><text x="30" y="120" fill="#64748b" font-size="12">a⊥α且b⊥α⇒a∥b</text></svg>',
+                'cube_angle_60': '<svg width="200" height="150" viewBox="0 0 200 150"><polygon points="90,30 150,60 150,115 90,140 30,115 30,60" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="90,30 30,60 90,85 150,60" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="45" y1="72" x2="120" y2="105" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,5"/><line x1="60" y1="45" x2="135" y2="78" stroke="#10b981" stroke-width="2" stroke-dasharray="5,5"/><text x="70" y="100" fill="#ef4444" font-size="11">A₁B</text><text x="120" y="45" fill="#10b981" font-size="11">BC₁</text><text x="50" y="150" fill="#64748b" font-size="12">A₁B与BC₁成60°</text></svg>',
+                'line_in_plane': '<svg width="200" height="130" viewBox="0 0 200 130"><polygon points="30,100 175,90 160,45 45,55" fill="#f0f9ff" stroke="#667eea" stroke-width="1.5"/><line x1="100" y1="30" x2="100" y2="100" stroke="#ef4444" stroke-width="2.5"/><line x1="60" y1="70" x2="140" y2="62" stroke="#764ba2" stroke-width="2"/><text x="105" y="55" fill="#ef4444" font-size="11">l⊥α</text><text x="35" y="120" fill="#64748b" font-size="12">l垂直α内任意直线</text></svg>',
+                'plane_vertical_prop': '<svg width="200" height="130" viewBox="0 0 200 130"><polygon points="30,100 175,90 160,45 45,55" fill="#f0f9ff" stroke="#667eea" stroke-width="1.5"/><polygon points="90,30 95,110 60,105 55,25" fill="#e0f2fe" stroke="#764ba2" stroke-width="1.5"/><line x1="65" y1="105" x2="55" y2="30" stroke="#ef4444" stroke-width="2.5"/><text x="50" y="25" fill="#ef4444" font-size="11">l⊥交线</text><text x="25" y="122" fill="#64748b" font-size="12">l⊥交线且l⊂α⇒l⊥β</text></svg>',
+                'cuboid_diag_cos': '<svg width="200" height="140" viewBox="0 0 200 140"><polygon points="40,60 120,60 120,110 40,110" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="40,60 70,35 150,35 120,60" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><polygon points="120,60 150,35 150,85 120,110" fill="#e0f2fe" stroke="#667eea" stroke-width="2" opacity="0.6"/><line x1="70" y1="35" x2="40" y2="110" stroke="#ef4444" stroke-width="2.5"/><text x="55" y="40" fill="#ef4444" font-size="11">体对角线</text><text x="40" y="140" fill="#64748b" font-size="12">cos²α+cos²β+cos²γ=1</text></svg>',
+                'cube_diag_angle': '<svg width="200" height="150" viewBox="0 0 200 150"><polygon points="90,30 150,60 150,115 90,140 30,115 30,60" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="90,30 30,60 90,85 150,60" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="30" y1="60" x2="150" y2="115" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="5,5"/><line x1="30" y1="60" x2="90" y2="140" stroke="#764ba2" stroke-width="2" stroke-dasharray="4,4"/><text x="135" y="120" fill="#ef4444" font-size="11">BD₁</text><text x="60" y="140" fill="#764ba2" font-size="11">BD</text><text x="45" y="150" fill="#64748b" font-size="12">tanθ=√2/2</text></svg>',
+                'oblique_axis': '<svg width="200" height="140" viewBox="0 0 200 140"><line x1="30" y1="110" x2="175" y2="110" stroke="#667eea" stroke-width="2"/><line x1="100" y1="110" x2="100" y2="20" stroke="#10b981" stroke-width="2"/><line x1="100" y1="110" x2="155" y2="55" stroke="#ef4444" stroke-width="2"/><text x="178" y="115" fill="#667eea" font-size="12">x</text><text x="95" y="18" fill="#10b981" font-size="12">z</text><text x="160" y="52" fill="#ef4444" font-size="12">y</text><path d="M100,110 Q115,100 122,96" fill="none" stroke="#64748b" stroke-width="1"/><text x="120" y="100" fill="#64748b" font-size="11">45°</text></svg>',
+                'oblique_x': '<svg width="200" height="120" viewBox="0 0 200 120"><line x1="30" y1="70" x2="175" y2="70" stroke="#667eea" stroke-width="2"/><line x1="60" y1="70" x2="150" y2="70" stroke="#ef4444" stroke-width="3"/><text x="70" y="62" fill="#ef4444" font-size="11">长度不变</text><text x="60" y="110" fill="#64748b" font-size="12">平行x轴线段长度不变</text></svg>',
+                'views_sphere': '<svg width="220" height="110" viewBox="0 0 220 110"><circle cx="40" cy="50" r="28" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><circle cx="110" cy="50" r="28" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><circle cx="180" cy="50" r="28" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><text x="20" y="100" fill="#64748b" font-size="11">正视图</text><text x="90" y="100" fill="#64748b" font-size="11">侧视图</text><text x="160" y="100" fill="#64748b" font-size="11">俯视图</text></svg>',
+                'oblique_y': '<svg width="200" height="120" viewBox="0 0 200 120"><line x1="30" y1="70" x2="175" y2="70" stroke="#667eea" stroke-width="2"/><line x1="100" y1="70" x2="145" y2="30" stroke="#ef4444" stroke-width="3"/><text x="120" y="60" fill="#ef4444" font-size="11">减半</text><text x="55" y="110" fill="#64748b" font-size="12">平行y轴线段长度减半</text></svg>',
+                'oblique_z': '<svg width="200" height="120" viewBox="0 0 200 120"><line x1="30" y1="70" x2="175" y2="70" stroke="#667eea" stroke-width="2"/><line x1="100" y1="70" x2="100" y2="15" stroke="#ef4444" stroke-width="3"/><text x="105" y="40" fill="#ef4444" font-size="11">竖直不变</text><text x="55" y="110" fill="#64748b" font-size="12">平行z轴线段长度不变</text></svg>',
+                'views_cylinder': '<svg width="220" height="110" viewBox="0 0 220 110"><g transform="translate(15,10)"><text x="15" y="0" fill="#64748b" font-size="10">正视</text><rect x="5" y="10" width="45" height="40" fill="#f0f9ff" stroke="#667eea"/></g><g transform="translate(85,10)"><text x="15" y="0" fill="#64748b" font-size="10">侧视</text><rect x="5" y="10" width="45" height="40" fill="#f0f9ff" stroke="#667eea"/></g><g transform="translate(160,10)"><text x="15" y="0" fill="#64748b" font-size="10">俯视</text><circle cx="27" cy="30" r="20" fill="#f0f9ff" stroke="#667eea"/></g><text x="80" y="105" fill="#64748b" font-size="12">矩形+圆→圆柱</text></svg>',
+                'views_correct': '<svg width="220" height="110" viewBox="0 0 220 110"><g transform="translate(15,10)"><text x="12" y="0" fill="#ef4444" font-size="10">正视图</text><rect x="5" y="10" width="60" height="40" fill="#f0f9ff" stroke="#667eea"/><text x="20" y="65" fill="#64748b" font-size="9">长·高</text></g><g transform="translate(100,10)"><text x="12" y="0" fill="#64748b" font-size="10">俯视图</text><rect x="5" y="10" width="60" height="40" fill="#f0f9ff" stroke="#667eea"/><text x="20" y="65" fill="#64748b" font-size="9">长·宽</text></g><g transform="translate(180,55)"><text x="8" y="0" fill="#64748b" font-size="9">侧视·宽高</text></g><text x="70" y="105" fill="#64748b" font-size="12">正视图反映长和高</text></svg>',
+                'triangle_oblique': '<svg width="200" height="120" viewBox="0 0 200 120"><polygon points="60,90 140,90 100,40" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="60,90 140,90 105,55" fill="#fde2e2" stroke="#ef4444" stroke-width="2"/><text x="40" y="115" fill="#64748b" font-size="11">原：正三角形</text><text x="150" y="70" fill="#ef4444" font-size="11">直观图</text></svg>',
+                'views_cube': '<svg width="220" height="110" viewBox="0 0 220 110"><g transform="translate(15,10)"><text x="15" y="0" fill="#64748b" font-size="10">正视</text><rect x="5" y="10" width="40" height="40" fill="#f0f9ff" stroke="#667eea"/></g><g transform="translate(85,10)"><text x="15" y="0" fill="#64748b" font-size="10">侧视</text><rect x="5" y="10" width="40" height="40" fill="#f0f9ff" stroke="#667eea"/></g><g transform="translate(155,10)"><text x="15" y="0" fill="#64748b" font-size="10">俯视</text><rect x="5" y="10" width="40" height="40" fill="#f0f9ff" stroke="#667eea"/></g><text x="80" y="105" fill="#64748b" font-size="12">三视图都正方形→正方体</text></svg>',
+                'oblique_x_line': '<svg width="200" height="120" viewBox="0 0 200 120"><line x1="30" y1="70" x2="175" y2="70" stroke="#667eea" stroke-width="2"/><line x1="60" y1="70" x2="150" y2="70" stroke="#ef4444" stroke-width="3"/><text x="55" y="105" fill="#64748b" font-size="12">∥x轴：长度不变，仍水平</text></svg>',
+                'cyl_volume': '<svg width="200" height="140" viewBox="0 0 200 140"><ellipse cx="100" cy="35" rx="65" ry="16" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><ellipse cx="100" cy="110" rx="65" ry="16" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="35" y1="35" x2="35" y2="110" stroke="#667eea" stroke-width="2"/><line x1="165" y1="35" x2="165" y2="110" stroke="#667eea" stroke-width="2"/><line x1="100" y1="110" x2="140" y2="110" stroke="#ef4444" stroke-width="2"/><text x="115" y="105" fill="#ef4444" font-size="11">r</text><line x1="175" y1="35" x2="175" y2="110" stroke="#10b981" stroke-width="2"/><text x="178" y="75" fill="#10b981" font-size="11">h</text><text x="55" y="135" fill="#64748b" font-size="12">V=πr²h</text></svg>',
+                'cone_volume': '<svg width="200" height="140" viewBox="0 0 200 140"><polygon points="100,25 160,105 40,105" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><ellipse cx="100" cy="105" rx="60" ry="14" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="100" y1="105" x2="145" y2="105" stroke="#ef4444" stroke-width="2"/><text x="115" y="100" fill="#ef4444" font-size="11">r</text><line x1="100" y1="25" x2="100" y2="105" stroke="#10b981" stroke-width="2" stroke-dasharray="4,4"/><text x="80" y="65" fill="#10b981" font-size="11">h</text><text x="55" y="135" fill="#64748b" font-size="12">V=(1/3)πr²h</text></svg>',
+                'sphere_surface': '<svg width="200" height="130" viewBox="0 0 200 130"><circle cx="100" cy="60" r="45" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><ellipse cx="100" cy="60" rx="45" ry="16" fill="none" stroke="#667eea" stroke-width="1.5" stroke-dasharray="4,4"/><line x1="100" y1="60" x2="145" y2="60" stroke="#ef4444" stroke-width="2"/><text x="130" y="52" fill="#ef4444" font-size="11">R</text><text x="70" y="120" fill="#64748b" font-size="12">S=4πR²</text></svg>',
+                'cuboid_diag': '<svg width="200" height="140" viewBox="0 0 200 140"><polygon points="40,60 120,60 120,110 40,110" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="40,60 70,35 150,35 120,60" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><polygon points="120,60 150,35 150,85 120,110" fill="#e0f2fe" stroke="#667eea" stroke-width="2" opacity="0.6"/><line x1="70" y1="35" x2="120" y2="110" stroke="#ef4444" stroke-width="2.5"/><text x="60" y="60" fill="#ef4444" font-size="11">d</text><text x="40" y="140" fill="#64748b" font-size="12">d=√(3²+4²+5²)=5√2</text></svg>',
+                'cone_lateral': '<svg width="200" height="140" viewBox="0 0 200 140"><polygon points="60,25 120,105 15,105" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><ellipse cx="65" cy="105" rx="55" ry="13" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="60" y1="25" x2="15" y2="105" stroke="#764ba2" stroke-width="2"/><text x="15" y="55" fill="#764ba2" font-size="11">l</text><path d="M120,40 A55,55 0 0,1 205,80" fill="#f0f9ff" stroke="#ef4444" stroke-width="2"/><text x="150" y="35" fill="#ef4444" font-size="11">扇形</text><text x="55" y="135" fill="#64748b" font-size="12">S侧=πrl</text></svg>',
+                'cyl_unfold_square': '<svg width="220" height="120" viewBox="0 0 220 120"><ellipse cx="40" cy="55" rx="25" ry="10" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><ellipse cx="40" cy="105" rx="25" ry="10" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="15" y1="55" x2="15" y2="105" stroke="#667eea" stroke-width="2"/><line x1="65" y1="55" x2="65" y2="105" stroke="#667eea" stroke-width="2"/><rect x="95" y="20" width="75" height="75" fill="#f0f9ff" stroke="#764ba2" stroke-width="2"/><text x="115" y="60" fill="#764ba2" font-size="12">正方形</text><text x="115" y="110" fill="#64748b" font-size="11">h=2πr</text></svg>',
+                'cube_cut_corner': '<svg width="200" height="150" viewBox="0 0 200 150"><polygon points="90,30 150,60 150,115 90,140 30,115 30,60" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="90,30 30,60 90,85 150,60" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><polygon points="60,45 90,60 60,75" fill="#fde2e2" stroke="#ef4444" stroke-width="2"/><text x="45" y="100" fill="#ef4444" font-size="11">切去一角</text><text x="45" y="150" fill="#64748b" font-size="12">12+3=15条棱</text></svg>',
+                'cube_hollow': '<svg width="200" height="150" viewBox="0 0 200 150"><polygon points="90,30 150,60 150,115 90,140 30,115 30,60" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="90,30 30,60 90,85 150,60" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><circle cx="90" cy="80" r="20" fill="#fff" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4"/><text x="85" y="85" fill="#ef4444" font-size="10">空</text><text x="40" y="150" fill="#64748b" font-size="12">挖去中心块→表面积增6</text></svg>',
+                'pyramid_volume': '<svg width="200" height="140" viewBox="0 0 200 140"><polygon points="60,115 140,115 140,85 60,85" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="100,30 60,85 100,100 140,85" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><polygon points="100,30 140,85 140,115 100,100" fill="#e0f2fe" stroke="#667eea" stroke-width="2" opacity="0.6"/><line x1="100" y1="30" x2="100" y2="85" stroke="#764ba2" stroke-width="2" stroke-dasharray="4,4"/><text x="105" y="75" fill="#764ba2" font-size="11">h</text><text x="65" y="100" fill="#667eea" font-size="11">a</text><text x="55" y="135" fill="#64748b" font-size="12">V=(1/3)a²h</text></svg>',
+                'frustum_volume': '<svg width="200" height="140" viewBox="0 0 200 140"><ellipse cx="100" cy="35" rx="45" ry="13" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><ellipse cx="100" cy="115" rx="80" ry="18" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><line x1="55" y1="35" x2="20" y2="115" stroke="#667eea" stroke-width="2"/><line x1="145" y1="35" x2="180" y2="115" stroke="#667eea" stroke-width="2"/><line x1="100" y1="35" x2="100" y2="115" stroke="#10b981" stroke-width="2" stroke-dasharray="4,4"/><text x="105" y="80" fill="#10b981" font-size="11">h</text><text x="85" y="140" fill="#64748b" font-size="12">V=(1/3)πh(r²+rR+R²)</text></svg>',
+            };
+            return svgs[type] || '<svg width="150" height="100" viewBox="0 0 150 100"><rect x="25" y="25" width="100" height="60" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/></svg>';
+        }
+
+        // ==================== 页面切换 ====================
+        function goToPage(pageId) {
+            var pages = document.querySelectorAll('.page');
+            for (var i = 0; i < pages.length; i++) {
+                pages[i].className = 'page';
+            }
+            document.getElementById(pageId).className = 'page active';
+            window.scrollTo(0, 0);
+        }
+
+        function getDimById(id) {
+            for (var i = 0; i < dimensions.length; i++) {
+                if (dimensions[i].id === id) return dimensions[i];
+            }
+            return dimensions[0];
+        }
+
+        function initWelcome() {
+            var html = '';
+            for (var i = 0; i < dimensions.length; i++) {
+                var d = dimensions[i];
+                html += '<div class="dimension-item">';
+                html += '<div class="dimension-icon">' + d.icon + '</div>';
+                html += '<div class="dimension-name">' + d.name + '</div>';
+                html += '<div class="dimension-desc">' + d.description + '</div>';
+                html += '</div>';
+            }
+            document.getElementById('welcomeDimGrid').innerHTML = html;
+        }
+
+        // ==================== 答题流程 ====================
+        function startQuiz() {
+            var name = document.getElementById('studentName').value.trim();
+            studentInfo = {
+                name: name || '匿名学生',
+                grade: document.getElementById('studentGrade').value || '',
+                school: document.getElementById('schoolName').value.trim(),
+                gender: document.getElementById('studentGender').value,
+                subject: document.getElementById('studentSubject').value
+            };
+
+            userAnswers = new Array(questions.length);
+            for (var i = 0; i < userAnswers.length; i++) userAnswers[i] = null;
+            currentQuestionIndex = 0;
+            remainingTime = 1800;
+            quizStartTime = new Date().getTime();
+
+            goToPage('testPage');
+            renderQuestion();
+            startTimer();
+        }
+
+        function renderQuestion() {
+            var q = questions[currentQuestionIndex];
+            var dim = getDimById(q.dimension);
+
+            document.getElementById('currentQ').textContent = currentQuestionIndex + 1;
+            document.getElementById('totalQ').textContent = questions.length;
+            document.getElementById('totalQ2').textContent = questions.length;
+            document.getElementById('progressFill').style.width = ((currentQuestionIndex + 1) / questions.length * 100) + '%';
+
+            var answeredCount = 0;
+            for (var i = 0; i < userAnswers.length; i++) {
+                if (userAnswers[i] !== null) answeredCount++;
+            }
+            document.getElementById('answeredQ').textContent = answeredCount;
+
+            document.getElementById('dimensionBadge').textContent = dim.icon + ' ' + dim.name;
+            document.getElementById('questionNumber').textContent = '第 ' + (currentQuestionIndex + 1) + ' 题 · ' + dim.name;
+            document.getElementById('questionText').textContent = q.question;
+            document.getElementById('questionSvg').innerHTML = generateSVG(q.svg);
+
+            var optionsHtml = '';
+            for (var idx = 0; idx < q.options.length; idx++) {
+                optionsHtml += '<div class="option-btn" id="opt_' + idx + '" onclick="selectOption(' + idx + ')">' +
+                    '<span class="option-letter">' + String.fromCharCode(65 + idx) + '</span>' +
+                    '<span class="option-text">' + q.options[idx].substring(3) + '</span></div>';
+            }
+            document.getElementById('optionsGrid').innerHTML = optionsHtml;
+            document.getElementById('feedbackBox').className = 'feedback-box hidden';
+            document.getElementById('feedbackBox').innerHTML = '';
+
+            // 若该题已作答，恢复锁定与反馈状态
+            if (userAnswers[currentQuestionIndex] !== null) {
+                lockQuestion(userAnswers[currentQuestionIndex], true);
+            }
+
+            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+            document.getElementById('nextBtn').textContent = currentQuestionIndex === questions.length - 1 ? '提交答卷 ✓' : '下一题 →';
+        }
+
+        function selectOption(idx) {
+            if (userAnswers[currentQuestionIndex] !== null) return;
+            userAnswers[currentQuestionIndex] = idx;
+            lockQuestion(idx, false);
+        }
+
+        function lockQuestion(idx, isRestore) {
+            var q = questions[currentQuestionIndex];
+            var options = document.querySelectorAll('.option-btn');
+            var correctIdx = q.answer;
+
+            for (var i = 0; i < options.length; i++) {
+                options[i].classList.add('locked');
+                options[i].setAttribute('onclick', '');
+                if (i === idx) {
+                    options[i].classList.add('selected');
+                    if (i === correctIdx) {
+                        options[i].classList.add('correct');
+                    } else {
+                        options[i].classList.add('wrong');
+                    }
+                }
+                if (i === correctIdx && idx !== correctIdx) {
+                    options[i].classList.add('correct');
+                }
+            }
+
+            // 显示即时反馈
+            var fb = document.getElementById('feedbackBox');
+            var isCorrect = idx === correctIdx;
+            if (isCorrect) {
+                fb.className = 'feedback-box feedback-correct';
+                fb.innerHTML = '<div class="fb-title">✓ 回答正确</div><div class="fb-exp">💡 ' + q.explanation + '</div>';
+            } else {
+                fb.className = 'feedback-box feedback-wrong';
+                fb.innerHTML = '<div class="fb-title">✗ 回答错误</div>' +
+                    '<div>正确答案：' + q.options[correctIdx] + '</div>' +
+                    '<div class="fb-exp">💡 ' + q.explanation + '</div>';
+            }
+            fb.style.display = 'block';
+
+            // 更新已答数量
+            var answeredCount = 0;
+            for (var i = 0; i < userAnswers.length; i++) {
+                if (userAnswers[i] !== null) answeredCount++;
+            }
+            document.getElementById('answeredQ').textContent = answeredCount;
+
+            // 维度切换动效
+            var badge = document.getElementById('dimensionBadge');
+            badge.classList.remove('flash');
+            void badge.offsetWidth;
+            badge.classList.add('flash');
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (userAnswers[currentQuestionIndex] === null) {
+                alert('请先选择本题的答案');
+                return;
+            }
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                submitQuiz();
+            }
+        }
+
+        // ==================== 计时 ====================
+        function startTimer() {
+            updateTimerDisplay();
+            timerInterval = setInterval(function() {
+                remainingTime--;
+                updateTimerDisplay();
+                if (remainingTime <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            var minutes = Math.floor(remainingTime / 60);
+            var seconds = remainingTime % 60;
+            document.getElementById('timeDisplay').textContent =
+                (minutes < 10 ? '0' : '') + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+        }
+
+        function getElapsedText() {
+            var sec = Math.round((new Date().getTime() - quizStartTime) / 1000);
+            if (sec < 60) return sec + '秒';
+            var m = Math.floor(sec / 60);
+            var s = sec % 60;
+            return m + '分' + (s < 10 ? '0' : '') + s + '秒';
+        }
+
+        // ==================== 评分与辅助 ====================
+        function getGrade(p) {
+            if (p >= 90) return { grade: 'S', color: '#10b981', label: '空间天赋卓越', advice: '空间思维极为突出，高一阶段即可挑战立体几何综合探究题，为后续数学学习打下坚实基础' };
+            if (p >= 75) return { grade: 'A', color: '#7c6cf0', label: '空间能力优秀', advice: '空间能力优秀，宜强化薄弱维度，向必修立体几何综合题与组合体面积体积挑战发起冲击' };
+            if (p >= 60) return { grade: 'B', color: '#5b9cf5', label: '空间能力良好', advice: '基础良好，针对薄弱知识点进行专项突破，稳步提升空间想象与推理能力' };
+            if (p >= 40) return { grade: 'C', color: '#f59e0b', label: '空间能力待提升', advice: '建议系统训练，夯实基本立体图形与点线面关系基础，循序渐进提升空间思维' };
+            return { grade: 'D', color: '#ef4444', label: '空间能力需关注', advice: '建议从基本立体图形识别开始，配合实物模型与专业引导，循序渐进打好空间思维基础' };
+        }
+
+        function getLevel(p) {
+            if (p >= 80) return { level: '强', cls: 'level-strong' };
+            if (p >= 50) return { level: '中', cls: 'level-medium' };
+            return { level: '弱', cls: 'level-weak' };
+        }
+
+        function getLevelText(p) {
+            if (p >= 80) return '表现出色，空间直觉敏锐，能够快速完成立体几何与组合体的复杂想象任务。';
+            if (p >= 50) return '基础较为扎实，但面对必修立体几何中的空间角、截面与展开图综合问题时仍有一定提升空间。';
+            return '较为薄弱，需要加强基本立体图形感知与三视图训练，打好必修立体几何基础。';
+        }
+
+        function calculateAllScores() {
+            var dimScores = {};
+            var dimMax = {};
+            var dimCorrect = {};
+            for (var i = 0; i < dimensions.length; i++) {
+                dimScores[dimensions[i].id] = 0;
+                dimMax[dimensions[i].id] = 0;
+                dimCorrect[dimensions[i].id] = 0;
+            }
+            var totalScore = 0;
+            var totalMax = 0;
+            var totalCorrect = 0;
+
+            for (var i = 0; i < questions.length; i++) {
+                var q = questions[i];
+                dimMax[q.dimension] += q.difficulty;
+                totalMax += q.difficulty;
+                if (userAnswers[i] !== null && userAnswers[i] === q.answer) {
+                    dimScores[q.dimension] += q.difficulty;
+                    dimCorrect[q.dimension]++;
+                    totalScore += q.difficulty;
+                    totalCorrect++;
+                }
+            }
+
+            var dims = {};
+            for (var i = 0; i < dimensions.length; i++) {
+                var d = dimensions[i];
+                var max = dimMax[d.id];
+                dims[d.id] = {
+                    name: d.name,
+                    short: d.short,
+                    icon: d.icon,
+                    color: d.color,
+                    subjects: d.subjects,
+                    score: dimScores[d.id],
+                    maxScore: max,
+                    correct: dimCorrect[d.id],
+                    total: 10,
+                    percentage: max > 0 ? Math.round(dimScores[d.id] / max * 100) : 0
+                };
+            }
+
+            return {
+                dimensions: dims,
+                totalScore: totalScore,
+                totalMaxScore: totalMax,
+                overallPercentage: totalMax > 0 ? Math.round(totalScore / totalMax * 100) : 0,
+                totalCorrect: totalCorrect,
+                totalQuestions: questions.length
+            };
+        }
+
+        // ==================== 图表绘制 ====================
+        function drawRing(canvasEl, pct, color) {
+            var c = canvasEl;
+            var ctx = c.getContext('2d');
+            var size = 190, cx = size / 2, cy = size / 2, r = 78;
+            c.width = size;
+            c.height = size;
+            ctx.clearRect(0, 0, size, size);
+            ctx.lineWidth = 16;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.arc(cx, cy, r, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(100,116,139,.12)';
+            ctx.stroke();
+            var start = -Math.PI / 2;
+            var end = start + Math.PI * 2 * pct / 100;
+            var grad = ctx.createLinearGradient(0, 0, size, size);
+            grad.addColorStop(0, '#667eea');
+            grad.addColorStop(1, '#764ba2');
+            ctx.strokeStyle = grad;
+            ctx.beginPath();
+            ctx.arc(cx, cy, r, start, end);
+            ctx.stroke();
+        }
+
+        function drawRadar(canvasEl, scores) {
+            var c = canvasEl;
+            var ctx = c.getContext('2d');
+            var size = 340, cx = size / 2, cy = size / 2, r = 118, n = 6;
+            c.width = size;
+            c.height = size;
+            var keys = [];
+            var labels = [];
+            var colors = [];
+            for (var id in scores.dimensions) {
+                keys.push(id);
+                labels.push(scores.dimensions[id].short);
+                colors.push(scores.dimensions[id].color);
+            }
+            var step = Math.PI * 2 / n;
+            ctx.strokeStyle = 'rgba(100,116,139,.16)';
+            ctx.lineWidth = 1;
+            for (var l = 1; l <= 5; l++) {
+                ctx.beginPath();
+                var rr = r * l / 5;
+                for (var i = 0; i <= n; i++) {
+                    var a = step * i - Math.PI / 2;
+                    var x = cx + rr * Math.cos(a);
+                    var y = cy + rr * Math.sin(a);
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.stroke();
+            }
+            for (var i = 0; i < n; i++) {
+                var a = step * i - Math.PI / 2;
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a));
+                ctx.stroke();
+            }
+            var pts = [];
+            ctx.beginPath();
+            for (var i = 0; i < n; i++) {
+                var pct = scores.dimensions[keys[i]].percentage;
+                var rr = r * pct / 100;
+                var a = step * i - Math.PI / 2;
+                var x = cx + rr * Math.cos(a);
+                var y = cy + rr * Math.sin(a);
+                pts.push({ x: x, y: y });
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            var grad = ctx.createLinearGradient(0, 0, size, size);
+            grad.addColorStop(0, 'rgba(102,126,234,.4)');
+            grad.addColorStop(1, 'rgba(118,75,162,.3)');
+            ctx.fillStyle = grad;
+            ctx.fill();
+            ctx.strokeStyle = '#667eea';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+            for (var i = 0; i < pts.length; i++) {
+                ctx.beginPath();
+                ctx.arc(pts[i].x, pts[i].y, 5, 0, Math.PI * 2);
+                ctx.fillStyle = '#667eea';
+                ctx.fill();
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+            ctx.font = 'bold 13px sans-serif';
+            ctx.textAlign = 'center';
+            for (var i = 0; i < n; i++) {
+                var a = step * i - Math.PI / 2;
+                var x = cx + (r + 26) * Math.cos(a);
+                var y = cy + (r + 26) * Math.sin(a);
+                ctx.fillStyle = '#334155';
+                ctx.fillText(labels[i], x, y);
+                ctx.fillStyle = colors[i];
+                ctx.fillText(scores.dimensions[keys[i]].percentage + '%', x, y + 17);
+            }
+            return c;
+        }
+
+        function drawBar(canvasEl, scores) {
+            var c = canvasEl;
+            var ctx = c.getContext('2d');
+            var w = 460, h = 230;
+            c.width = w;
+            c.height = h;
+            var keys = [];
+            var labels = [];
+            var colors = [];
+            for (var id in scores.dimensions) {
+                keys.push(id);
+                labels.push(scores.dimensions[id].short);
+                colors.push(scores.dimensions[id].color);
+            }
+            var bw = 46, gap = 26, sx = 40, sy = h - 40, maxH = 130;
+            ctx.font = 'bold 12px sans-serif';
+            for (var i = 0; i < keys.length; i++) {
+                var pct = scores.dimensions[keys[i]].percentage;
+                var bh = maxH * pct / 100;
+                var x = sx + i * (bw + gap);
+                var grad = ctx.createLinearGradient(0, sy - bh, 0, sy);
+                grad.addColorStop(0, colors[i]);
+                grad.addColorStop(1, colors[i] + '88');
+                ctx.fillStyle = grad;
+                ctx.fillRect(x, sy - bh, bw, bh);
+                ctx.fillStyle = '#334155';
+                ctx.textAlign = 'center';
+                ctx.fillText(pct + '%', x + bw / 2, sy - bh - 8);
+                ctx.fillStyle = '#64748b';
+                ctx.font = '11px sans-serif';
+                ctx.fillText(labels[i], x + bw / 2, sy + 18);
+                ctx.font = 'bold 12px sans-serif';
+            }
+            ctx.strokeStyle = 'rgba(100,116,139,.15)';
+            ctx.beginPath();
+            ctx.moveTo(sx - 5, sy);
+            ctx.lineTo(w - 10, sy);
+            ctx.stroke();
+            return c;
+        }
+
+        // ==================== 提交与结果 ====================
+        function submitQuiz() {
+            var s = calculateAllScores();
+            showResults(s);
+        }
+
+        function showResults(scores) {
+            if (timerInterval) clearInterval(timerInterval);
+            var elapsed = getElapsedText();
+            goToPage('resultPage');
+            generateReport(studentInfo, scores, elapsed);
+            syncReportToCloud(scores, elapsed);
+        }
+
+        function getWrongList() {
+            var wrongs = [];
+            for (var i = 0; i < questions.length; i++) {
+                var q = questions[i];
+                if (userAnswers[i] !== null && userAnswers[i] !== q.answer) {
+                    var dim = getDimById(q.dimension);
+                    wrongs.push({ qi: i, q: q, ua: userAnswers[i], dimName: dim.name, short: dim.short, color: dim.color });
+                }
+            }
+            return wrongs;
+        }
+
+        function buildKpCluster(wrongs) {
+            var map = {};
+            for (var i = 0; i < wrongs.length; i++) {
+                var tag = wrongs[i].q.tag;
+                if (!map[tag]) map[tag] = { tag: tag, count: 0, names: [] };
+                map[tag].count++;
+                if (map[tag].names.indexOf(wrongs[i].short) < 0) map[tag].names.push(wrongs[i].short);
+            }
+            var arr = [];
+            for (var t in map) arr.push(map[t]);
+            arr.sort(function (a, b) { return b.count - a.count; });
+            return arr;
+        }
+
+        function getSubjectAdvice(scores) {
+            var s = [], d = [];
+            for (var id in scores.dimensions) {
+                var dim = scores.dimensions[id];
+                if (dim.percentage >= 80) s.push(dim.name);
+                if (dim.percentage < 55) d.push(dim.name);
+            }
+            return { s: s, d: d };
+        }
+
+        function getWeekPlan(grade, weak, weakTags) {
+            var plans = [];
+            var weakName = weak ? weak.name : '空间推理';
+            var tag0 = weakTags.length ? weakTags[0] : '立体几何基础';
+            var tag1 = weakTags.length > 1 ? weakTags[1] : '空间向量';
+            if (grade === 'S') {
+                plans.push({ t: '🚀 精英进阶计划', items: ['针对必修立体几何综合题与组合体面积体积进行高强度训练', '每周完成2套空间图形推理与截面动态分析', '尝试用空间想象直接推演复杂旋转体与组合体，挑战数学培优班' ] });
+                plans.push({ t: '📐 学科深化计划', items: ['在物理受力分析与化学分子结构中主动运用空间思维', '尝试自主设计几何模型并给同学讲解，检验掌握程度', '参与数学建模或思维类拓展活动，培养高阶空间能力' ] });
+            } else if (grade === 'A') {
+                plans.push({ t: '⭐ 强化提升计划', items: ['针对' + tag0 + '等薄弱知识点进行专项突破练习', '每周2次立体几何综合训练（三视图+截面+旋转体）', '建立错题本，记录每次空间推理的思维误区' ] });
+                plans.push({ t: '📚 能力拓展计划', items: ['挑战必修立体几何综合题与组合体体积面积问题', '用积木、折纸动手制作立体模型强化空间想象', '尝试快速心算图形旋转、展开后的位置关系' ] });
+            } else if (grade === 'B') {
+                plans.push({ t: '📈 稳步提升计划', items: ['从' + tag0 + '入手，先攻克最容易提分的知识点', '每周3次、每次20分钟的空间图形基础训练', '做错题后合上书，在脑中重新复现图形结构' ] });
+                plans.push({ t: '📝 习惯养成计划', items: ['每天利用碎片时间做3-5道空间图形小题', '用方格纸绘制立体图形的三视图与展开图', '周末复习本周错题，总结易错图形类型' ] });
+            } else if (grade === 'C') {
+                plans.push({ t: '📉 系统训练计划', items: ['从基本立体图形识别、斜二测画法与三视图认知开始巩固', '每周3-4次基础训练，每次15-20分钟', '配合三视图、展开图的实物演示（折纸、积木）学习' ] });
+                plans.push({ t: '🎯 夯实基础计划', items: ['先掌握棱柱棱锥棱台圆柱圆锥圆台球的结构特征', '用身边实物（纸盒、书本、笔筒）观察立体图形结构', '建议安排专业老师进行1对1空间思维引导' ] });
+            } else {
+                plans.push({ t: '🎯 重点关注计划', items: ['建议尽快进行专业评估，制定专属提升方案', '从认识基本图形、空间方位感知开始，循序渐进', '用实物教具（积木、折纸、魔方）辅助训练' ] });
+                plans.push({ t: '❤️ 陪伴鼓励计划', items: ['降低难度预期，以建立兴趣和信心为先', '每次完成小任务给予积极鼓励，缓解学业压力', '建议预约专业测评师进行深入沟通与规划' ] });
+            }
+            return plans;
+        }
+
+        function generateReport(info, scores, elapsedText) {
+            var g = getGrade(scores.overallPercentage);
+            var wrongs = getWrongList();
+            var kp = buildKpCluster(wrongs);
+            var html = '';
+
+            // 总分卡片
+            html += '<div class="card" style="text-align:center">';
+            html += '<div style="text-align:center"><div class="student-name">' + info.name + ' 的测评报告</div>';
+            html += '<div class="student-grade">' + (info.grade || '未填写年级') + ' · ' + (info.school || '未填写学校') + '</div></div>';
+            html += '<div class="score-top">';
+            html += '<div class="ring-wrap"><canvas id="ringCanvas"></canvas><div class="ring-center"><div class="ring-score">' + scores.overallPercentage + '%</div><div class="ring-label">综合得分</div></div></div>';
+            html += '<div style="text-align:center"><div class="grade-badge" style="background:linear-gradient(135deg,' + g.color + ',' + g.color + '99)">' + g.grade + '级</div><div class="grade-label">' + g.label + '</div></div>';
+            html += '</div>';
+            html += '<div class="meta-strip">';
+            html += '<span class="meta-chip">总得分 <b>' + scores.totalScore + '</b> / ' + scores.totalMaxScore + '</span>';
+            html += '<span class="meta-chip">答对 <b>' + scores.totalCorrect + '</b> / ' + questions.length + '</span>';
+            html += '<span class="meta-chip">用时 <b>' + elapsedText + '</b></span>';
+            html += '</div></div>';
+
+            // 能力图
+            html += '<div class="card"><h3 class="section-title">📊 能力雷达图</h3><div class="chart-container" id="radarBox"></div>';
+            html += '<h3 class="section-title">📈 六维得分对比</h3><div class="chart-container" id="barBox"></div></div>';
+
+            // 维度分析
+            html += '<div class="card"><h3 class="section-title">🔍 各维度强弱分析</h3>';
+            var keys = [];
+            for (var id in scores.dimensions) keys.push(id);
+            for (var i = 0; i < keys.length; i++) {
+                var dim = scores.dimensions[keys[i]];
+                var lv = getLevel(dim.percentage);
+                html += '<div class="dimension-result">';
+                html += '<div class="dimension-header"><span class="dimension-name">' + dim.icon + ' ' + dim.name + '</span>';
+                html += '<span class="dimension-percent">' + dim.percentage + '% <span class="ability-level ' + lv.cls + '">' + lv.level + '</span></span></div>';
+                html += '<div class="dimension-bar"><div class="dimension-bar-fill" style="width:' + dim.percentage + '%;background:' + dim.color + '"></div></div>';
+                html += '<div class="dimension-stats"><span>答对 <b>' + dim.correct + '</b> / ' + dim.total + '</span><span>得分 <b>' + dim.score + '</b> / ' + dim.maxScore + '</span><span>关联学科 <b>' + dim.subjects + '</b></span></div>';
+                html += '<p style="font-size:.9em;color:var(--tm);line-height:1.8">' + getLevelText(dim.percentage) + '</p>';
+                html += '</div>';
+            }
+            html += '</div>';
+
+            // 知识点错题聚类
+            html += '<div class="card"><h3 class="section-title">🎯 薄弱知识点聚类</h3>';
+            if (kp.length === 0) {
+                html += '<div class="no-wrong">太棒了！本次测评没有做错的题目，继续保持！</div>';
+            } else {
+                html += '<div class="kp-list">';
+                var maxCount = kp[0].count;
+                for (var i = 0; i < kp.length; i++) {
+                    var k = kp[i];
+                    html += '<div class="kp-item"><span class="kp-rank">' + (i + 1) + '</span>';
+                    html += '<span class="kp-name">' + k.tag + '</span>';
+                    html += '<span class="kp-count">错' + k.count + '题</span>';
+                    html += '<div class="kp-bar"><i style="width:' + Math.round(k.count / maxCount * 100) + '%"></i></div></div>';
+                }
+                html += '</div>';
+            }
+            html += '</div>';
+
+            // 错题回顾
+            html += '<div class="card"><h3 class="section-title">📖 错题回顾与解析</h3>';
+            if (wrongs.length === 0) {
+                html += '<div class="no-wrong">全部答对，非常优秀！继续保持高水平空间思维。</div>';
+            } else {
+                for (var i = 0; i < wrongs.length; i++) {
+                    var w = wrongs[i];
+                    html += '<div class="wrong-question-item">';
+                    html += '<div class="wq-head">第' + (w.qi + 1) + '题 <span class="wq-tag">' + w.q.tag + '</span><span style="color:var(--tm);font-weight:400;font-size:.82em">· ' + w.dimName + '</span></div>';
+                    html += '<div style="font-size:.92em;margin-bottom:8px">' + w.q.question + '</div>';
+                    if (w.q.svg) html += '<div style="display:flex;justify-content:center;margin:10px 0">' + generateSVG(w.q.svg) + '</div>';
+                    html += '<div class="wrong-answer">✗ 你的答案：' + (w.q.options[w.ua] || '未作答') + '</div>';
+                    html += '<div class="correct-answer">✓ 正确答案：' + w.q.options[w.q.answer] + '</div>';
+                    html += '<div class="explanation">💡 ' + w.q.explanation + '</div>';
+                    html += '</div>';
+                }
+            }
+            html += '</div>';
+
+            // 综合解读
+            html += '<div class="card"><h3 class="section-title">💬 综合解读</h3>';
+            html += '<div class="summary-box">';
+            var strong = null, weak = null;
+            for (var i = 0; i < keys.length; i++) {
+                var dim = scores.dimensions[keys[i]];
+                if (!strong || dim.percentage > strong.percentage) strong = dim;
+                if (!weak || dim.percentage < weak.percentage) weak = dim;
+            }
+            html += '<p><b>' + info.name + '</b> 本次测评综合得分 <b>' + scores.overallPercentage + '%</b>，达到 <b>' + g.grade + '级 · ' + g.label + '</b>。';
+            html += '最强维度是 <b>' + strong.short + '</b>（' + strong.percentage + '%），最需提升的是 <b>' + weak.short + '</b>（' + weak.percentage + '%）。</p>';
+            html += '<p style="margin-top:8px">' + g.advice + '。</p>';
+            html += '<div style="margin-top:12px">';
+            var sa = getSubjectAdvice(scores);
+            if (sa.s.length) html += '<span class="highlight-item">优势可迁移：' + sa.s.join('、') + '</span>';
+            if (sa.d.length) html += '<span class="highlight-item">重点提升：' + sa.d.join('、') + '</span>';
+            html += '</div></div></div>';
+
+            // 周训练计划
+            html += '<div class="card"><h3 class="section-title">🗓️ 个性化周训练计划</h3>';
+            var weakTags = kp.length ? kp.slice(0, 2) : [];
+            var planTags = [];
+            for (var i = 0; i < weakTags.length; i++) planTags.push(weakTags[i].tag);
+            if (planTags.length === 0) planTags.push('空间综合训练');
+            var plans = getWeekPlan(g.grade, weak, planTags);
+            for (var i = 0; i < plans.length; i++) {
+                html += '<div class="plan-card"><div class="plan-title">' + plans[i].t + '</div><ul class="plan-list">';
+                for (var j = 0; j < plans[i].items.length; j++) {
+                    html += '<li><b>' + (j + 1) + '</b><span>' + plans[i].items[j] + '</span></li>';
+                }
+                html += '</ul></div>';
+            }
+            html += '</div>';
+
+            // 学科关联与选科建议（3+1+2）
+            html += '<div class="card"><h3 class="section-title">📚 学科关联与选科建议</h3><div class="subject-grid">';
+            var subs = [
+                { n: '📐 数学', d: '必修立体几何是空间思维的主战场。' + strong.short + '优秀可直接迁移到表面积体积、空间角等综合题。' },
+                { n: '⚡ 物理', d: '受力分析、光的反射折射、电场磁场方向判断等需要空间想象能力，尤其' + weak.short + '不足时建议加强训练。' },
+                { n: '🧪 化学', d: '甲烷正四面体、有机物空间构型、晶体结构都依赖立体想象能力，是高一分科衔接的重要基础。' },
+                { n: '🎨 通用技术', d: '三视图、机械制图、工程图纸是空间可视化能力的直接应用，也是工科专业学习的重要基础。' }
+            ];
+            for (var i = 0; i < subs.length; i++) {
+                html += '<div class="subject-card"><div class="subject-name">' + subs[i].n + '</div><div class="subject-desc">' + subs[i].d + '</div></div>';
+            }
+            html += '</div>';
+            var selAdvice = '';
+            if (scores.overallPercentage >= 75) selAdvice = '空间能力优秀，对高一必修立体几何掌握良好，后续学习空间向量与解析几何有优势，可考虑物理方向及理工类（计算机、机械、建筑、航空航天等）专业方向。';
+            else if (scores.overallPercentage >= 55) selAdvice = '空间能力中等，必修立体几何基础较扎实，建议结合数学、物理成绩综合规划选科，可优先物理+化学，兼顾生物或地理搭配。';
+            else selAdvice = '空间能力相对薄弱，建议在高一阶段通过系统训练夯实必修立体几何基础，同时结合兴趣与各科成绩综合规划选科，循序渐进提升空间思维。';
+            html += '<div class="plan-card" style="margin-top:16px"><div class="plan-title">🎓 3+1+2选科建议</div><p style="font-size:.93em;line-height:1.9;color:var(--t)">' + selAdvice + '</p></div>';
+            html += '</div>';
+
+            // 家长寄语
+            html += '<div class="card"><h3 class="section-title">💝 家长寄语</h3><div class="parent-card">';
+            html += '<div class="parent-title">给家长的一封信</div>';
+            var pMsg = '';
+            if (scores.overallPercentage >= 75) {
+                pMsg = '恭喜您！孩子在高一阶段的空间思维方面表现出较强的天赋和潜力，对必修《立体几何初步》掌握扎实，这对后续数学及物理等理科学习是巨大的优势。建议在保持优势的同时，鼓励孩子挑战更高层次的思维训练，引导他将这种能力迁移到物理、化学等学科中。同时注意劳逸结合，帮助孩子在高一适应期内保持良好的心态与节奏，稳步向目标大学迈进。';
+            } else if (scores.overallPercentage >= 55) {
+                pMsg = '孩子的空间思维能力处于中等水平，仍有很大提升空间。空间思维是可以通过科学训练显著提升的能力，建议每天安排15-20分钟的空间图形练习，多做折纸、拼搭、观察立体模型等活动。高一正是打好立体几何基础的关键期，请多给予孩子耐心与鼓励，合理安排训练与复习时间，进步往往就在坚持之中。';
+            } else {
+                pMsg = '孩子的空间思维能力目前相对薄弱，这并不代表孩子不聪明，而是说明这一能力需要更多针对性训练。高一立体几何是后续学习的基础，建议降低训练难度、以兴趣培养为先，用魔方、积木、拼图等实物激发空间想象。同时建议您联系我们，安排一次专业的空间思维1对1诊断与辅导，帮助孩子尽快找到提升路径。请多给孩子鼓励与陪伴，尊重他的成长节奏，学业路上家长的理解就是孩子最大的底气。';
+            }
+            html += '<p class="parent-text">' + pMsg + '</p></div></div>';
+
+            // 教师咨询卡
+            html += '<div class="card no-print"><h3 class="section-title">👨‍🏫 专业成长支持</h3><div class="teacher-card">';
+            html += '<div class="teacher-avatar">👨‍🏫</div><div class="teacher-info">';
+            html += '<div class="teacher-name">刘老师 · 资深理科教育规划师</div>';
+            html += '<div class="teacher-award">★ 央视受邀专访嘉宾</div>';
+            html += '<div class="teacher-stats">从业8年 · 学员3100+ · 专注空间思维与理科培优</div>';
+            html += '<div class="teacher-phone">📞 17875314336（测评后可预约一对一咨询）</div>';
+            html += '</div></div></div>';
+
+            // 打印按钮
+            html += '<div class="print-bar no-print">';
+            html += '<button class="btn btn-secondary" onclick="restart()">重新测评</button>';
+            html += '<button class="btn" onclick="window.print()">🖨️ 打印报告</button>';
+            html += '</div>';
+            html += '<div class="footer-sign no-print">系统设计制作：刘岳</div>';
+
+            document.getElementById('reportContent').innerHTML = html;
+
+            setTimeout(function () {
+                var ring = document.getElementById('ringCanvas');
+                if (ring) drawRing(ring, scores.overallPercentage, g.color);
+                var rb = document.getElementById('radarBox');
+                if (rb) rb.appendChild(drawRadar(document.createElement('canvas'), scores));
+                var bb = document.getElementById('barBox');
+                if (bb) bb.appendChild(drawBar(document.createElement('canvas'), scores));
+            }, 120);
+        }
+
+        // ==================== 云端同步（Supabase） ====================
+        function syncReportToCloud(scores, elapsedText) {
+            try {
+                var SUPABASE_URL = 'https://bmgqtxhbzupaujpzghpq.supabase.co';
+                var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJtZ3F0eGhienVwYXVqcHpnaHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYwMDQxODQsImV4cCI6MjEwMTU4MDE4NH0.JgiQlUopALIDRYxE72oyPC2NoC0L4HrhH2q9cHW01W0';
+                var uname = 'kongjian_gy_report_' + (studentInfo.name || 'guest');
+                var bodyData = {
+                    student_name: studentInfo.name || '匿名',
+                    grade: studentInfo.grade || '',
+                    school: studentInfo.school || '',
+                    total_score: scores.totalScore,
+                    total_max: scores.totalMaxScore,
+                    percentage: scores.overallPercentage,
+                    grade_level: getGrade(scores.overallPercentage).grade,
+                    correct: scores.totalCorrect,
+                    elapsed: elapsedText,
+                    perception: scores.dimensions.perception.percentage,
+                    rotation: scores.dimensions.rotation.percentage,
+                    visualization: scores.dimensions.visualization.percentage,
+                    reasoning: scores.dimensions.reasoning.percentage,
+                    orientation: scores.dimensions.orientation.percentage,
+                    imagination: scores.dimensions.imagination.percentage,
+                    report_time: new Date().toISOString()
+                };
+                var body = JSON.stringify({ username: uname, state_data: JSON.stringify(bodyData), updated_at: new Date().toISOString() });
+                fetch(SUPABASE_URL + '/rest/v1/py_user_states?on_conflict=username', {
+                    method: 'POST',
+                    headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json', 'Prefer': 'resolution=merge-duplicates' },
+                    body: body
+                }).then(function (resp) {
+                    if (resp.ok) console.log('[Cloud] 报告已同步到云端');
+                }).catch(function (e) { console.error('[Cloud] 同步失败', e); });
+            } catch (e) { console.error('[Cloud] 同步异常', e); }
+        }
+
+        // ==================== 重新测评 ====================
+        function restart() {
+            studentInfo = { name: '', grade: '', school: '', gender: '', subject: '' };
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            remainingTime = 1800;
+            quizStartTime = 0;
+            document.getElementById('studentName').value = '';
+            document.getElementById('schoolName').value = '';
+            document.getElementById('studentGender').value = '';
+            document.getElementById('studentSubject').value = '';
+            document.getElementById('studentGrade').selectedIndex = 0;
+            if (timerInterval) clearInterval(timerInterval);
+            goToPage('welcomePage');
+        }
+
+        // ==================== 登录验证 ====================
+        var LOGIN_USER = 'liulaoshi';
+        var LOGIN_PASS = 'peiyou2026';
+
+        function doLogin() {
+            var u = document.getElementById('loginUser').value.trim();
+            var p = document.getElementById('loginPass').value.trim();
+            var err = document.getElementById('loginError');
+            if (u === '' || p === '') {
+                err.textContent = '请输入账号和密码';
+                return;
+            }
+            if (u === LOGIN_USER && p === LOGIN_PASS) {
+                sessionStorage.setItem('sys_login_ok', '1');
+                document.getElementById('loginOverlay').style.display = 'none';
+                initWelcome();
+            } else {
+                err.textContent = '账号或密码错误，请重新输入';
+                document.getElementById('loginPass').value = '';
+            }
+        }
+
+        function checkLogin() {
+            var ok = sessionStorage.getItem('sys_login_ok');
+            if (ok === '1') {
+                document.getElementById('loginOverlay').style.display = 'none';
+                initWelcome();
+            }
+        }
+
+        // 回车键提交登录
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                var overlay = document.getElementById('loginOverlay');
+                if (overlay && overlay.style.display !== 'none') {
+                    doLogin();
+                }
+            }
+        });
+
+        // 页面加载时检查登录状态并初始化欢迎页
+        checkLogin();
+    </script>
+</body>
+</html>
