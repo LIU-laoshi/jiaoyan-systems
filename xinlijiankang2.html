@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<title>中学生心理健康诊断系统2.0</title>
+<style>
+:root{
+--pri:#3AA6A0;--pri-d:#2E8B85;--pri-l:#7FD1CB;--pri-soft:#E3F6F4;
+--acc:#6BAED6;--acc-soft:#E8F3FB;
+--warn:#F0A13A;--alert:#E85D5D;--alert-soft:#FDECEC;
+--bg1:#E9F7F2;--bg2:#EAF3FB;--bg3:#F3EFFB;
+--card:rgba(255,255,255,0.78);--card-bd:rgba(255,255,255,0.85);
+--txt:#2B3A3A;--txt-l:#6B7F7E;--txt-ll:#A3B4B3;
+--bd:#E3EEEC;--sh:0 10px 34px rgba(58,166,160,0.12);--sh-lg:0 18px 50px rgba(58,166,160,0.20);
+--r:18px;--r-sm:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+background:linear-gradient(160deg,var(--bg1) 0%,var(--bg2) 50%,var(--bg3) 100%) fixed;background-attachment:fixed;
+color:var(--txt);line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh}
+#app{max-width:660px;margin:0 auto;min-height:100vh;position:relative;padding-bottom:40px}
+.page{display:none;padding:18px 16px;animation:fadeIn .4s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes pulse{0%,80%,100%{transform:scale(.55);opacity:.35}40%{transform:scale(1);opacity:1}}
+@keyframes popIn{0%{opacity:0;transform:scale(.85)}100%{opacity:1;transform:scale(1)}}
+@keyframes barGrow{from{width:0}}
+@keyframes ringIn{from{stroke-dashoffset:377}to{stroke-dashoffset:var(--off)}}
+
+/* ===== 顶部 ===== */
+.hero{position:relative;overflow:hidden;border-radius:0 0 26px 26px;margin:-18px -16px 22px;
+background:linear-gradient(135deg,#4FB8A6 0%,#3AA6A0 40%,#4E9FD0 100%);
+color:#fff;padding:34px 22px 30px;text-align:center;box-shadow:0 12px 40px rgba(58,166,160,.35)}
+.hero:before{content:'';position:absolute;top:-70px;right:-50px;width:220px;height:220px;border-radius:50%;
+background:rgba(255,255,255,.10)}
+.hero:after{content:'';position:absolute;bottom:-90px;left:-40px;width:200px;height:200px;border-radius:50%;
+background:rgba(255,255,255,.08)}
+.hero h1{font-size:24px;font-weight:700;letter-spacing:1px;position:relative;z-index:1;text-shadow:0 2px 10px rgba(0,0,0,.12)}
+.hero .sub{font-size:13px;opacity:.95;margin-top:6px;position:relative;z-index:1}
+.hero .badge-row{margin-top:12px;position:relative;z-index:1}
+.hero .h-badge{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.35);
+padding:3px 12px;border-radius:20px;font-size:12px;margin:3px}
+
+/* ===== 卡片 ===== */
+.card{background:var(--card);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+border:1px solid var(--card-bd);border-radius:var(--r);padding:22px;margin-bottom:16px;
+box-shadow:var(--sh);transition:transform .2s ease,box-shadow .2s ease}
+.card:hover{transform:translateY(-2px);box-shadow:var(--sh-lg)}
+.card h2{font-size:17px;margin-bottom:12px;color:var(--txt);display:flex;align-items:center;gap:8px}
+.card h2:before{content:'';width:5px;height:18px;border-radius:3px;background:linear-gradient(180deg,var(--pri),var(--acc))}
+.card h3{font-size:15px;margin-bottom:8px;color:var(--txt)}
+.card p{font-size:14px;color:var(--txt-l);margin-bottom:8px;line-height:1.75}
+.ref-list{font-size:12.5px;color:var(--txt-l);line-height:1.95;padding-left:0;list-style:none}
+.ref-list li{padding:3px 0 3px 22px;position:relative}
+.ref-list li:before{content:'';position:absolute;left:4px;top:12px;width:8px;height:8px;border-radius:50%;
+background:linear-gradient(135deg,var(--pri),var(--acc))}
+.soft-note{font-size:13px;color:var(--txt-l);background:rgba(255,255,255,.6);border-radius:12px;padding:14px 16px;line-height:1.8}
+.soft-note b{color:var(--txt)}
+
+/* ===== 按钮 ===== */
+.btn{display:inline-block;padding:13px 34px;border:none;border-radius:14px;font-size:15px;cursor:pointer;
+transition:all .22s;text-decoration:none;text-align:center;font-family:inherit}
+.btn-primary{background:linear-gradient(135deg,var(--pri),var(--acc));color:#fff;font-weight:600;
+box-shadow:0 8px 22px rgba(58,166,160,.32)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(58,166,160,.4)}
+.btn-primary:active{transform:translateY(0)}
+.btn-primary:disabled{background:var(--txt-ll);box-shadow:none;cursor:not-allowed}
+.btn-secondary{background:#fff;color:var(--pri);border:2px solid var(--pri-soft)}
+.btn-secondary:hover{background:var(--pri-soft)}
+.btn-ghost{background:rgba(255,255,255,.7);color:var(--txt-l);border:1px solid var(--bd)}
+.btn-ghost:hover{color:var(--pri);border-color:var(--pri-l)}
+.btn-block{display:block;width:100%;margin-top:16px}
+.btn-lg{padding:16px 44px;font-size:16px;border-radius:16px}
+.btn-row{display:flex;gap:12px}
+.btn-row .btn{flex:1}
+.btn-sm{padding:8px 18px;font-size:13px;border-radius:10px}
+
+/* ===== 学段选择 ===== */
+.stage-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+.stage-card{position:relative;border-radius:18px;padding:26px 16px;text-align:center;cursor:pointer;border:2px solid transparent;
+background:#fff;box-shadow:var(--sh);transition:all .22s;overflow:hidden}
+.stage-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg)}
+.stage-card.sel{border-color:var(--pri);background:linear-gradient(160deg,var(--pri-soft),#fff);box-shadow:0 10px 30px rgba(58,166,160,.22)}
+.stage-card .s-emoji{font-size:42px;display:block;margin-bottom:8px}
+.stage-card .s-name{font-size:18px;font-weight:700;color:var(--txt)}
+.stage-card .s-desc{font-size:12px;color:var(--txt-l);margin-top:6px;line-height:1.6}
+.stage-card .s-tick{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--pri);
+color:#fff;font-size:13px;line-height:22px;text-align:center;display:none}
+.stage-card.sel .s-tick{display:block}
+
+/* ===== 表单 ===== */
+.field-label{font-size:14px;font-weight:600;color:var(--txt);margin:14px 0 8px;display:flex;align-items:center;gap:6px}
+.field-label .fl-ico{font-size:16px}
+.radio-group{display:flex;flex-wrap:wrap;gap:9px}
+.radio-item{padding:9px 18px;border:2px solid var(--bd);border-radius:12px;cursor:pointer;font-size:14px;
+transition:all .18s;background:#fff;color:var(--txt)}
+.radio-item:hover{border-color:var(--pri-l);background:var(--pri-soft);transform:translateY(-1px)}
+.radio-item.selected{border-color:var(--pri);background:linear-gradient(135deg,var(--pri),var(--acc));color:#fff;
+font-weight:600;box-shadow:0 6px 16px rgba(58,166,160,.3)}
+.guide-list{counter-reset:g}
+.guide-list li{list-style:none;position:relative;padding:7px 0 7px 34px;font-size:14px;color:var(--txt-l);line-height:1.7}
+.guide-list li:before{counter-increment:g;content:counter(g);position:absolute;left:0;top:8px;width:24px;height:24px;
+border-radius:50%;background:linear-gradient(135deg,var(--pri),var(--acc));color:#fff;font-size:12px;
+font-weight:600;text-align:center;line-height:24px}
+
+/* ===== 答题 ===== */
+.progress-wrap{background:rgba(255,255,255,.8);border:1px solid var(--bd);border-radius:22px;height:12px;
+overflow:hidden;margin-bottom:8px;box-shadow:inset 0 1px 3px rgba(0,0,0,.05)}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--pri),var(--acc),var(--pri-l));
+background-size:200% 100%;animation:barGrow .5s ease;border-radius:22px;position:relative;transition:width .35s ease}
+.progress-fill:after{content:'';position:absolute;top:0;right:0;width:24px;height:100%;
+background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.5))}
+.progress-text{font-size:12px;color:var(--txt-l);text-align:right;margin-bottom:14px}
+.dim-header{display:flex;align-items:center;gap:10px;margin:22px 0 4px;padding-top:14px;border-top:1px solid rgba(58,166,160,.15)}
+.dim-header:first-child{border-top:none;padding-top:0}
+.dim-icon{font-size:22px}
+.dim-name{font-size:16px;font-weight:700;color:var(--txt)}
+.dim-desc{font-size:12.5px;color:var(--txt-l);margin:2px 0 12px;padding-left:32px}
+.q-card{background:rgba(255,255,255,.85);border:1px solid var(--bd);border-radius:14px;padding:16px;
+margin-bottom:12px;transition:box-shadow .2s;position:relative;overflow:hidden}
+.q-card:before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--pri),var(--acc));opacity:0;transition:opacity .2s}
+.q-card.answered:before{opacity:1}
+.q-text{font-size:14.5px;line-height:1.65;margin-bottom:12px;color:var(--txt);padding-right:6px}
+.q-num{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:26px;padding:0 6px;
+background:linear-gradient(135deg,var(--pri),var(--acc));color:#fff;border-radius:8px;font-size:12.5px;
+font-weight:700;margin-right:8px;vertical-align:1px}
+.q-options{display:flex;flex-wrap:wrap;gap:8px}
+.opt-btn{flex:1;min-width:62px;padding:9px 4px;border:2px solid var(--bd);border-radius:12px;background:#fff;
+color:var(--txt);cursor:pointer;font-size:13px;transition:all .18s;text-align:center}
+.opt-btn:hover{border-color:var(--pri-l);background:var(--pri-soft);transform:translateY(-1px)}
+.opt-btn.selected{border-color:var(--pri);background:linear-gradient(135deg,var(--pri),var(--acc));color:#fff;
+font-weight:600;box-shadow:0 5px 14px rgba(58,166,160,.3);transform:scale(1.03)}
+.nav-btns{display:flex;justify-content:space-between;margin-top:22px;gap:10px}
+.answer-hint{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;color:var(--txt-ll);margin-top:14px}
+
+/* ===== 加载 ===== */
+.loading-wrap{text-align:center;padding:70px 20px}
+.ring{width:64px;height:64px;margin:0 auto 22px;border-radius:50%;border:5px solid var(--pri-soft);
+border-top-color:var(--pri);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{margin-top:22px;font-size:15px;color:var(--txt-l)}
+.loading-tips{font-size:12.5px;color:var(--txt-ll);margin-top:8px}
+
+/* ===== 结果 ===== */
+.gauge-wrap{text-align:center;padding:10px 0 0}
+.level-badge{display:inline-block;padding:7px 22px;border-radius:22px;font-size:16px;font-weight:700;color:#fff;
+margin:10px 0 6px;box-shadow:0 6px 18px rgba(0,0,0,.14);animation:popIn .5s ease}
+.score-note{font-size:13px;color:var(--txt-l);text-align:center;margin-bottom:4px}
+.crisis-alert{background:linear-gradient(135deg,#E85D5D,#F08A5D);color:#fff;padding:22px;border-radius:18px;
+margin:16px 0;text-align:center;box-shadow:0 10px 30px rgba(232,93,93,.35);position:relative;overflow:hidden;animation:popIn .5s ease}
+.crisis-alert:before{content:'⚠';position:absolute;top:-14px;right:6px;font-size:90px;opacity:.12}
+.crisis-alert h3{font-size:19px;color:#fff;margin-bottom:8px}
+.crisis-alert p{font-size:14px;color:#fff;opacity:.97;line-height:1.75}
+.crisis-hotline{font-size:26px;font-weight:800;margin:12px 0;letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,.2)}
+.dim-card{background:rgba(255,255,255,.85);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:12px;
+transition:transform .2s}
+.dim-card:hover{transform:translateX(3px)}
+.dim-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px}
+.dim-card-title{font-size:15px;font-weight:700;display:flex;align-items:center;gap:7px;color:var(--txt)}
+.dim-score-bar{width:100%;height:8px;background:rgba(58,166,160,.12);border-radius:5px;margin:8px 0;overflow:hidden}
+.dim-score-fill{height:100%;border-radius:5px;transition:width .8s cubic-bezier(.22,.61,.36,1);animation:barGrow .8s ease}
+.dim-level-tag{font-size:12px;padding:3px 12px;border-radius:14px;color:#fff;font-weight:600;white-space:nowrap}
+.dim-meta{display:flex;justify-content:space-between;font-size:11.5px;color:var(--txt-ll);margin-bottom:8px;gap:8px;flex-wrap:wrap}
+.dim-advice{font-size:13px;color:var(--txt-l);line-height:1.75;margin-top:6px;padding:12px 14px;background:rgba(255,255,255,.7);
+border-radius:12px;border-left:3px solid var(--pri)}
+.dim-advice strong{color:var(--txt)}
+.rec-card{background:linear-gradient(135deg,var(--acc-soft),#fff);border-left:4px solid var(--acc);border-radius:0 12px 12px 0;
+padding:13px 16px;margin-bottom:9px}
+.rec-card.warn{background:linear-gradient(135deg,var(--alert-soft),#fff);border-left-color:var(--alert)}
+.rec-card.good{background:linear-gradient(135deg,var(--pri-soft),#fff);border-left-color:var(--pri)}
+.rec-card h4{font-size:14px;color:var(--txt);margin-bottom:4px}
+.rec-card p{font-size:13px;color:var(--txt-l);line-height:1.7;margin:0}
+.pair-card{background:rgba(255,255,255,.85);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:10px}
+.pair-head{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;margin-bottom:10px}
+.pair-head .ph-ico{width:30px;height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff}
+.pair-rows{display:flex;flex-wrap:wrap;gap:8px}
+.pair-tag{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:20px;font-size:12.5px;font-weight:600}
+.res-card{display:flex;align-items:center;gap:13px;padding:14px;background:rgba(255,255,255,.85);border-radius:14px;
+margin-bottom:9px;border:1px solid var(--bd);transition:transform .2s}
+.res-card:hover{transform:translateY(-2px)}
+.res-icon{font-size:26px;width:44px;height:44px;border-radius:12px;background:var(--pri-soft);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.res-info{flex:1;min-width:0}
+.res-name{font-size:14px;font-weight:600;color:var(--txt)}
+.res-desc{font-size:12px;color:var(--txt-l)}
+.res-num{font-size:16px;font-weight:800;color:var(--pri);white-space:nowrap}
+.res-num a{color:var(--pri);text-decoration:none}
+.disclaimer{font-size:11.5px;color:var(--txt-ll);line-height:1.8;padding:16px;background:rgba(255,255,255,.6);
+border-radius:12px;margin-top:16px;border:1px dashed var(--bd)}
+canvas{display:block;margin:0 auto;max-width:100%}
+.chart-box{text-align:center;overflow-x:auto;padding:6px 0}
+
+/* ===== 历史记录 ===== */
+.hist-card{display:flex;align-items:center;gap:12px;padding:14px;background:rgba(255,255,255,.85);border:1px solid var(--bd);
+border-radius:14px;margin-bottom:9px;cursor:pointer;transition:all .2s}
+.hist-card:hover{transform:translateX(3px);box-shadow:var(--sh)}
+.hist-date{font-size:13px;font-weight:700;color:var(--txt)}
+.hist-sub{font-size:11.5px;color:var(--txt-ll);margin-top:2px}
+.hist-score{margin-left:auto;text-align:center}
+.hist-score .hs{font-size:20px;font-weight:800}
+.hist-bar{width:70px;height:6px;border-radius:3px;background:var(--bd);overflow:hidden;margin-top:4px}
+.hist-bar i{display:block;height:100%;border-radius:3px}
+.hist-empty{text-align:center;color:var(--txt-ll);font-size:13px;padding:26px 0}
+
+/* ===== 登录 ===== */
+.login-overlay{position:fixed;top:0;left:0;width:100%;height:100%;
+background:linear-gradient(140deg,#2FA89B 0%,#3A9BC4 55%,#6B7ED1 100%);display:flex;align-items:center;justify-content:center;z-index:99999;transition:opacity .4s}
+.login-overlay:before{content:'';position:absolute;top:-80px;left:-80px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.08)}
+.login-overlay:after{content:'';position:absolute;bottom:-120px;right:-60px;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,.06)}
+.login-box{background:rgba(255,255,255,.96);border-radius:22px;padding:38px 32px;width:318px;position:relative;
+box-shadow:0 26px 70px rgba(0,0,0,.28);text-align:center;z-index:1}
+.login-logo{font-size:46px;margin-bottom:6px;display:block}
+.login-box h2{text-align:center;margin:0 0 4px;font-size:21px;color:#2B3A3A}
+.login-box .lg-sub{font-size:12px;color:var(--txt-ll);margin-bottom:18px}
+.login-input{width:100%;padding:13px 16px;margin:9px 0;border:1.5px solid var(--bd);border-radius:12px;font-size:15px;
+box-sizing:border-box;outline:none;transition:border-color .3s,box-shadow .3s;background:#F7FAF9}
+.login-input:focus{border-color:var(--pri);box-shadow:0 0 0 3px rgba(58,166,160,.15);background:#fff}
+.login-btn{width:100%;padding:13px;margin:16px 0 8px;border:none;border-radius:12px;
+background:linear-gradient(135deg,var(--pri),var(--acc));color:#fff;font-size:16px;font-weight:600;cursor:pointer;
+transition:opacity .3s,transform .2s;box-shadow:0 8px 20px rgba(58,166,160,.3)}
+.login-btn:hover{opacity:.92;transform:translateY(-1px)}
+.login-error{color:#E85D5D;font-size:13px;text-align:center;min-height:20px}
+.login-credits{text-align:center;margin-top:16px;font-size:11.5px;color:#8FA3A1}
+
+/* ===== 其他 ===== */
+.foot-note{text-align:center;font-size:11.5px;color:var(--txt-ll);padding:18px 0 10px}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(58,166,160,.25),transparent);margin:18px 0}
+.tag-pill{display:inline-block;background:var(--pri-soft);color:var(--pri-d);padding:3px 12px;border-radius:20px;font-size:12px;margin:2px}
+.toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:rgba(43,58,58,.92);color:#fff;
+padding:11px 22px;border-radius:12px;font-size:13.5px;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.2);
+opacity:0;transition:opacity .3s,top .3s;pointer-events:none}
+.toast.show{opacity:1;top:26px}
+
+/* ===== 打印 ===== */
+@media print{
+body{background:#fff !important}
+.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{display:none !important}
+.page.active{display:block !important}
+#page-result.active{display:block !important}
+.btn,.foot-note,.toast,.no-print{display:none !important}
+.card{box-shadow:none;border:1px solid #ddd;-webkit-backdrop-filter:none;backdrop-filter:none}
+canvas{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<!-- 登录验证页 -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <span class="login-logo">🌿</span>
+    <h2>中学生心理健康诊断系统</h2>
+    <div class="lg-sub">V2.0 顶尖版 · 守护每一颗青春的心</div>
+    <input type="text" class="login-input" id="loginUser" placeholder="请输入账号" autocomplete="off">
+    <input type="password" class="login-input" id="loginPass" placeholder="请输入密码" autocomplete="off">
+    <button class="login-btn" onclick="doLogin()">登 录</button>
+    <div class="login-error" id="loginError"></div>
+    <div class="login-credits">系统设计制作：刘岳</div>
+  </div>
+</div>
+
+<div id="app">
+
+<!-- 欢迎页 -->
+<div id="page-welcome" class="page">
+<div class="hero">
+<h1>中学生心理健康诊断系统</h1>
+<p class="sub">V2.0 顶尖版 · 分初中/高中双学段测评 · 行业顶尖设计</p>
+<div class="badge-row"><span class="h-badge">📚 双学段题库</span><span class="h-badge">🧭 10大维度</span><span class="h-badge">🗺️ 60题/学段</span></div>
+</div>
+<div class="card">
+<h2>系统简介</h2>
+<p>本系统综合参考<strong>9大国内外权威心理评估量表</strong>，针对初中生与高中生的身心发展特点分别编制双套情境化题库，覆盖<strong>情绪健康、学业心理、人际关系、自我认知、心理韧性、行为适应、网络依赖、睡眠质量、青春期适应、危机预警</strong>共10大维度，为中学生提供科学、全面、贴合真实校园情境的心理健康自评。</p>
+<p style="margin-top:6px">测评采用四级评分制，约需<strong>10-12分钟</strong>完成。结果将生成个性化心理健康报告：综合指数、雷达图、优势/薄弱维度、家长学校协同建议，并可一键打印。</p>
+</div>
+<div class="card">
+<h2>专业参考量表</h2>
+<ul class="ref-list">
+<li>中学生心理健康量表(MSSMHS) · 中科院心理所王极盛编制</li>
+<li>患者健康问卷-9(PHQ-9) · 国家卫健委推荐抑郁筛查工具</li>
+<li>广泛性焦虑障碍量表-7(GAD-7) · 国际通用焦虑筛查量表</li>
+<li>心理韧性量表(CD-RISC) · Connor &amp; Davidson编制，于肖楠/张建新中文修订</li>
+<li>自尊量表(SES) · Rosenberg编制</li>
+<li>智能手机依赖倾向量表(SAPS) · 青少年版中文修订</li>
+<li>匹兹堡睡眠质量指数(PSQI) · Buysse等编制</li>
+<li>自杀行为筛查问卷(SBSQ)</li>
+<li>中小学生心理健康筛查技术规范(T/JPMA 027-2024)</li>
+</ul>
+</div>
+<div class="card">
+<h2>隐私与免责声明</h2>
+<div class="soft-note">
+1. 本测评为自评工具，结果仅供参考，<b>不构成医学诊断</b>。<br>
+2. 测评数据仅在本地浏览器处理，<b>不上传任何服务器</b>。<br>
+3. 如结果显示需要关注，建议及时联系学校心理老师或专业机构。<br>
+4. 题库基于公开发表专业量表改编，条目已做学段适龄化处理。
+</div>
+</div>
+<button class="btn btn-primary btn-lg btn-block" onclick="goStage()">开始测评</button>
+</div>
+
+<!-- 学段选择 -->
+<div id="page-stage" class="page">
+<div class="hero">
+<h1>选择学段</h1>
+<p class="sub">系统将为你匹配对应学段的专属题库</p>
+</div>
+<div class="stage-grid">
+<div class="stage-card" id="stage-junior" onclick="selStage('junior')">
+<span class="s-tick">✓</span>
+<span class="s-emoji">🌱</span>
+<div class="s-name">初中版</div>
+<div class="s-desc">适配初一至初三<br>小升初适应 · 青春期早期 · 同伴关系 · 中考压力 · 手机管理</div>
+</div>
+<div class="stage-card" id="stage-senior" onclick="selStage('senior')">
+<span class="s-tick">✓</span>
+<span class="s-emoji">🌊</span>
+<div class="s-name">高中版</div>
+<div class="s-desc">适配高一至高三<br>高考压力 · 选科焦虑 · 内卷竞争 · 睡眠管理 · 情绪调节</div>
+</div>
+</div>
+<button class="btn btn-primary btn-lg btn-block" onclick="goInfo()" style="margin-top:20px">下一步：基本信息 →</button>
+</div>
+
+<!-- 基本信息 -->
+<div id="page-info" class="page">
+<div class="hero">
+<h1>基本信息</h1>
+<p class="sub" id="stage-tag"></p>
+</div>
+<div class="card">
+<div class="field-label"><span class="fl-ico">📅</span>年级</div>
+<div class="radio-group" id="grade-group"></div>
+<div class="field-label"><span class="fl-ico">👤</span>性别</div>
+<div class="radio-group" id="gender-group">
+<div class="radio-item" onclick="selectRadio(this,'gender-group')">男</div>
+<div class="radio-item" onclick="selectRadio(this,'gender-group')">女</div>
+</div>
+</div>
+<div class="card">
+<h2>测评指南</h2>
+<ol class="guide-list">
+<li>请根据<strong>最近两周</strong>的真实感受选择最符合的选项。</li>
+<li>每题四个选项：<strong>从不 / 偶尔 / 经常 / 总是</strong>，选择最贴近实际的一项。</li>
+<li>答案无对错之分，请如实作答，结果才具参考价值。</li>
+<li>全部共<strong>60题</strong>，分<strong>5组</strong>完成，每组可翻页返回修改。</li>
+<li>如感不适可随时停止，已填内容不会保存。</li>
+</ol>
+</div>
+<button class="btn btn-primary btn-lg btn-block" onclick="startQuiz()">进入测评</button>
+<button class="btn btn-ghost btn-block" onclick="showPage('page-stage')">返回上一步</button>
+</div>
+
+<!-- 答题页 -->
+<div id="page-quiz" class="page">
+<div id="quiz-content"></div>
+</div>
+
+<!-- 加载页 -->
+<div id="page-loading" class="page">
+<div class="loading-wrap">
+<div class="ring"></div>
+<div class="loading-text">正在分析您的测评结果...</div>
+<div class="loading-tips">基于量表常模进行多维度综合评估</div>
+</div>
+</div>
+
+<!-- 结果页 -->
+<div id="page-result" class="page">
+<div id="result-content"></div>
+</div>
+
+<!-- 危机预警独立页 -->
+<div id="page-crisis" class="page">
+<div id="crisis-content"></div>
+</div>
+
+</div>
+<div class="foot-note no-print">中学生心理健康诊断系统 V2.0 · 仅供参考，不构成医学诊断</div>
+<div class="toast" id="toast"></div>
+
+<script>
+
+var DIMENSIONS=[{"name": "情绪健康", "icon": "🌿", "desc": "评估近期情绪状态与调节能力，含抑郁/焦虑倾向筛查", "ref": "PHQ-9/GAD-7/MSSMHS"}, {"name": "学业心理", "icon": "📚", "desc": "评估学业压力、考试焦虑与学习动力状态", "ref": "MSSMHS学习压力维度"}, {"name": "人际关系", "icon": "🤝", "desc": "评估同伴关系、亲子沟通与社交适应", "ref": "MSSMHS人际关系维度"}, {"name": "自我认知", "icon": "🔍", "desc": "评估自尊水平、自我效能与自我接纳程度", "ref": "SES自尊量表"}, {"name": "心理韧性", "icon": "💪", "desc": "评估抗挫折能力、乐观性与压力应对方式", "ref": "CD-RISC心理韧性量表"}, {"name": "行为适应", "icon": "🧭", "desc": "评估冲动控制、规则遵守与问题应对方式", "ref": "MSSMHS适应不良维度"}, {"name": "网络依赖", "icon": "📱", "desc": "评估手机/网络使用是否过度及依赖倾向", "ref": "SAPS智能手机依赖量表"}, {"name": "睡眠质量", "icon": "😴", "desc": "评估睡眠质量与生活节律规律性", "ref": "PSQI睡眠质量指数"}, {"name": "青春期适应", "icon": "🌱", "desc": "评估对青春期身心变化的适应与身份认同", "ref": "发展心理学理论"}, {"name": "危机预警", "icon": "🆘", "desc": "筛查自伤意念、无助感与求助意愿", "ref": "PHQ-9第9题/SBSQ"}];
+var BANK_JUNIOR=[{"dim": 0, "text": "最近两周，我经常感到心情低落、闷闷不乐", "rev": false}, {"dim": 0, "text": "我容易因为小事紧张、焦虑或坐立不安", "rev": false}, {"dim": 0, "text": "和同学闹矛盾后，我很难让自己平静下来", "rev": false}, {"dim": 0, "text": "我觉得自己的情绪像过山车，一会儿高兴一会儿低落", "rev": false}, {"dim": 0, "text": "我对未来感到悲观或没有希望", "rev": false}, {"dim": 0, "text": "我能较快地从难过或愤怒中恢复平静", "rev": true}, {"dim": 1, "text": "上了初中后科目变多，我觉得学习压力很大", "rev": false}, {"dim": 1, "text": "一想到考试或成绩排名我就紧张害怕", "rev": false}, {"dim": 1, "text": "我常常觉得作业和任务多到喘不过气", "rev": false}, {"dim": 1, "text": "我对学习有明确的目标和动力", "rev": true}, {"dim": 1, "text": "上课时我的注意力难以集中，容易走神", "rev": false}, {"dim": 1, "text": "我担心成绩下降会让父母或老师失望", "rev": false}, {"dim": 2, "text": "刚升入初中或新班级，我觉得很难交到新朋友", "rev": false}, {"dim": 2, "text": "有同学对我说过不好听的话或故意排挤我", "rev": false}, {"dim": 2, "text": "我不知道该怎样和同学建立友谊", "rev": false}, {"dim": 2, "text": "我和父母之间经常争吵或冷战", "rev": false}, {"dim": 2, "text": "我在学校里有可以信任的朋友", "rev": true}, {"dim": 2, "text": "我能和父母坦诚交流我的想法和感受", "rev": true}, {"dim": 3, "text": "我觉得自己在很多方面不如别人", "rev": false}, {"dim": 3, "text": "我对自己的外貌或身材不满意", "rev": false}, {"dim": 3, "text": "我觉得自己没有什么值得骄傲的优点", "rev": false}, {"dim": 3, "text": "我相信自己有能力做好想做的事", "rev": true}, {"dim": 3, "text": "我太在意别人对我的看法和评价", "rev": false}, {"dim": 3, "text": "我清楚自己的优点和不足，能接纳自己", "rev": true}, {"dim": 4, "text": "遇到困难时我很容易放弃", "rev": false}, {"dim": 4, "text": "考砸了或被老师批评后，我很长时间无法恢复", "rev": false}, {"dim": 4, "text": "面对挫折我能积极想办法解决", "rev": true}, {"dim": 4, "text": "我觉得经历困难让我变得更坚强", "rev": true}, {"dim": 4, "text": "遇到解决不了的问题时，我会主动求助", "rev": true}, {"dim": 4, "text": "我对自己应对困难的能力有信心", "rev": true}, {"dim": 5, "text": "我经常做冲动的事，事后会后悔", "rev": false}, {"dim": 5, "text": "面对困难我倾向于回避而不是面对", "rev": false}, {"dim": 5, "text": "我经常不遵守学校或家里的规定", "rev": false}, {"dim": 5, "text": "我能遵守学校纪律和家庭约定", "rev": true}, {"dim": 5, "text": "遇到问题我选择逃避而不是解决", "rev": false}, {"dim": 5, "text": "我能为自己的决定和行为负责", "rev": true}, {"dim": 6, "text": "我每天花在手机或网络上的时间超过4小时", "rev": false}, {"dim": 6, "text": "不上网的时候我会感到烦躁或坐立不安", "rev": false}, {"dim": 6, "text": "因为玩手机，我的作业经常写到很晚", "rev": false}, {"dim": 6, "text": "我尝试过减少使用手机但没有成功", "rev": false}, {"dim": 6, "text": "我上网主要是为了逃避现实中的烦恼", "rev": false}, {"dim": 6, "text": "我能控制自己的手机和上网时间", "rev": true}, {"dim": 7, "text": "我很难入睡或睡眠质量不好", "rev": false}, {"dim": 7, "text": "我经常熬夜到11点以后才睡觉", "rev": false}, {"dim": 7, "text": "早上我起床困难，白天上课没精神", "rev": false}, {"dim": 7, "text": "我的作息比较规律，睡眠充足", "rev": true}, {"dim": 7, "text": "我经常做噩梦或半夜醒来后难以再入睡", "rev": false}, {"dim": 7, "text": "我上课经常打瞌睡", "rev": false}, {"dim": 8, "text": "我对自己身体的变化感到困惑或不安", "rev": false}, {"dim": 8, "text": "我不知道该如何与异性同学正常相处", "rev": false}, {"dim": 8, "text": "我因为身高或身体发育比别人慢而自卑", "rev": false}, {"dim": 8, "text": "我能坦然接受自己在青春期的身心变化", "rev": true}, {"dim": 8, "text": "我对自己的身份和未来方向感到迷茫", "rev": false}, {"dim": 8, "text": "我在意别人对我青春期变化的议论", "rev": false}, {"dim": 9, "text": "我有过想要伤害自己的想法", "rev": false}, {"dim": 9, "text": "我觉得活着没什么意思，不想继续了", "rev": false}, {"dim": 9, "text": "遇到困难时我不知道该向谁求助", "rev": false}, {"dim": 9, "text": "我曾经有过伤害自己的行为", "rev": false}, {"dim": 9, "text": "我经常觉得自己是家人的负担", "rev": false}, {"dim": 9, "text": "当感到痛苦时，我愿意向信任的人寻求帮助", "rev": true}];
+var BANK_SENIOR=[{"dim": 0, "text": "最近两周，我经常感到心情低落、闷闷不乐", "rev": false}, {"dim": 0, "text": "我容易感到紧张、焦虑或坐立不安", "rev": false}, {"dim": 0, "text": "压力大的时候我容易情绪失控或崩溃", "rev": false}, {"dim": 0, "text": "我经常感到莫名的烦躁或不安", "rev": false}, {"dim": 0, "text": "我对未来感到悲观或没有希望", "rev": false}, {"dim": 0, "text": "我能较快地从难过或愤怒中恢复平静", "rev": true}, {"dim": 1, "text": "高考或升学压力让我经常感到喘不过气", "rev": false}, {"dim": 1, "text": "每次考试排名公布前，我都特别紧张焦虑", "rev": false}, {"dim": 1, "text": "我觉得身边的同学都在内卷，让我压力很大", "rev": false}, {"dim": 1, "text": "我对学习有明确的目标和动力", "rev": true}, {"dim": 1, "text": "我经常感到学习很累，甚至不想去上学", "rev": false}, {"dim": 1, "text": "我能合理安排学习与休息，保持自己的节奏", "rev": true}, {"dim": 2, "text": "我觉得在班里很难找到真正理解我的朋友", "rev": false}, {"dim": 2, "text": "和同学之间因为竞争，关系变得有些疏远", "rev": false}, {"dim": 2, "text": "我害怕在同学面前发言或被关注", "rev": false}, {"dim": 2, "text": "我和父母之间经常争吵或冷战", "rev": false}, {"dim": 2, "text": "我在学校里有可以信任的朋友", "rev": true}, {"dim": 2, "text": "我能和父母坦诚交流我的想法和感受", "rev": true}, {"dim": 3, "text": "我觉得自己在很多方面不如别人", "rev": false}, {"dim": 3, "text": "我常拿自己和成绩更好的同学比较，感到自卑", "rev": false}, {"dim": 3, "text": "我觉得自己没有什么值得骄傲的优点", "rev": false}, {"dim": 3, "text": "我相信自己有能力实现目标", "rev": true}, {"dim": 3, "text": "我太在意别人对我的看法和评价", "rev": false}, {"dim": 3, "text": "我清楚自己的优点和不足，能接纳自己", "rev": true}, {"dim": 4, "text": "遇到困难时我很容易放弃", "rev": false}, {"dim": 4, "text": "一次失利后，我很长时间无法走出阴影", "rev": false}, {"dim": 4, "text": "面对挫折我能积极想办法解决", "rev": true}, {"dim": 4, "text": "我觉得经历困难让我变得更坚强", "rev": true}, {"dim": 4, "text": "遇到解决不了的问题时，我会主动求助", "rev": true}, {"dim": 4, "text": "我对自己应对困难的能力有信心", "rev": true}, {"dim": 5, "text": "我经常做冲动的事，事后会后悔", "rev": false}, {"dim": 5, "text": "面对压力我倾向于逃避而不是面对", "rev": false}, {"dim": 5, "text": "我经常不遵守学校或家里的规定", "rev": false}, {"dim": 5, "text": "我能遵守学校纪律和家庭约定", "rev": true}, {"dim": 5, "text": "遇到问题我选择拖延而不是解决", "rev": false}, {"dim": 5, "text": "我能为自己的决定和行为负责", "rev": true}, {"dim": 6, "text": "我每天花在手机或网络上的时间超过4小时", "rev": false}, {"dim": 6, "text": "不看手机时我会感到焦虑或烦躁", "rev": false}, {"dim": 6, "text": "深夜我经常刷手机停不下来，影响第二天的状态", "rev": false}, {"dim": 6, "text": "我尝试过减少使用手机但没有成功", "rev": false}, {"dim": 6, "text": "我上网主要是为了逃避现实中的烦恼", "rev": false}, {"dim": 6, "text": "我能控制自己的手机和上网时间", "rev": true}, {"dim": 7, "text": "我很难入睡或睡眠质量不好", "rev": false}, {"dim": 7, "text": "我经常熬夜到凌晨12点以后", "rev": false}, {"dim": 7, "text": "早上我起床困难，白天精力不足", "rev": false}, {"dim": 7, "text": "我的作息比较规律，睡眠充足", "rev": true}, {"dim": 7, "text": "我经常因为失眠而白天精神恍惚", "rev": false}, {"dim": 7, "text": "我常常要靠午睡补觉，还是觉得累", "rev": false}, {"dim": 8, "text": "我对自己身体的变化感到困惑或不安", "rev": false}, {"dim": 8, "text": "我不知道该如何与异性正常交往", "rev": false}, {"dim": 8, "text": "我对早恋或情感问题感到困惑迷茫", "rev": false}, {"dim": 8, "text": "我能坦然接受自己在青春期的身心变化", "rev": true}, {"dim": 8, "text": "我对自己的未来方向（选科/专业）感到迷茫", "rev": false}, {"dim": 8, "text": "我能合理安排学习和感情，不被其困扰", "rev": true}, {"dim": 9, "text": "我有过想要伤害自己的想法", "rev": false}, {"dim": 9, "text": "我觉得活着没什么意思，不想继续了", "rev": false}, {"dim": 9, "text": "遇到困难时我不知道该向谁求助", "rev": false}, {"dim": 9, "text": "我曾经有过伤害自己的行为", "rev": false}, {"dim": 9, "text": "我经常觉得自己让家人或老师失望", "rev": false}, {"dim": 9, "text": "当感到痛苦时，我愿意向信任的人寻求帮助", "rev": true}];
+var ADVICE={"0": {"good": {"title": "情绪状态良好", "text": "你的情绪管理能力较好，能较好地调节自己的情绪。继续保持积极的情绪调节习惯，如规律运动、兴趣培养、与好友倾诉等。偶尔的情绪波动是青春期的正常现象，不必过度担心。"}, "mild": {"title": "存在轻度情绪困扰", "text": "你偶尔会出现情绪波动，这在青春期较为常见。建议通过运动、音乐、写日记等方式释放负面情绪，练习4-7-8呼吸法（吸气4秒-屏气7秒-呼气8秒）。保持规律作息和适度社交有助于情绪稳定。"}, "moderate": {"title": "存在中度情绪困扰", "text": "你近期的情绪状态需要关注。建议尝试情绪日记法记录情绪变化规律，每天进行10分钟正念练习或渐进式肌肉放松。如果情绪低落或焦虑持续超过两周且影响学习和生活，请主动向学校心理老师或家长求助，这不是软弱的表现。"}, "severe": {"title": "存在较严重情绪困扰", "text": "你近期的情绪状态令人担忧，可能存在较明显的抑郁或焦虑倾向。强烈建议尽快联系学校心理老师或专业心理咨询师进一步评估。你可以先拨打心理援助热线倾诉，也可告诉信任的家人或老师。请记住：寻求帮助是勇敢的表现，你不需要独自承受。", "family": "家长请务必重视：孩子可能正在经历较明显的情绪困扰。请多倾听、少评判，避免指责\"想太多\"。主动与孩子沟通并陪同其接受学校心理辅导或专业评估，必要时就医。让孩子知道：无论成绩如何，你都是被爱和接纳的。", "school": "班主任与心理老师请关注：该生情绪状态存在明显风险信号。建议安排一对一心理辅导，建立个案追踪，与家长保持及时沟通，观察其课堂表现与同伴交往变化，避免公开施压。"}}, "1": {"good": {"title": "学业心理状态良好", "text": "你对学习态度积极，能较好应对学业压力。继续保持良好的学习习惯和时间管理策略，在追求进步的同时注意劳逸结合。"}, "mild": {"title": "存在轻度学业压力", "text": "你在学习上存在一定压力。建议制定合理学习计划，把大目标分解为小步骤逐步完成。适当安排休息和放松时间，尝试番茄工作法（专注25分钟+休息5分钟）提高效率，减少拖延带来的焦虑。"}, "moderate": {"title": "存在中度学业压力", "text": "你面临较大的学业压力，可能存在考试焦虑或学业倦怠。建议学习认知重评策略（把\"我考不好\"转化为\"我可以从错误中学习\"），考前做放松练习。注意力难集中时可减少干扰源、分段学习，必要时向老师或同学寻求学业支持。"}, "severe": {"title": "学业心理状态需重点关注", "text": "你的学业心理状态需要重点关注，可能存在较严重的学业倦怠或考试焦虑。建议与班主任或心理老师面谈，共同探讨学业困难原因，制定个性化学习支持方案，同时排查是否存在其他情绪问题影响学习状态。", "family": "家长请关注：孩子对学业压力已呈现明显困扰。请降低对分数的过度关注，多肯定孩子的努力过程而非结果。与学校沟通共同为孩子减负，保证其休息与放松时间，切勿将焦虑传导给孩子。", "school": "教师请关注：该生存在明显学业压力或倦怠信号。建议调整对其的评价方式，安排阶段性小目标帮助重建信心，必要时转介心理辅导，避免当众比较排名。"}}, "2": {"good": {"title": "人际关系良好", "text": "你的人际关系总体良好，有可以信任的朋友，与父母沟通顺畅。继续保持积极的社交习惯，主动维护友谊，同时学会设立健康的人际边界。"}, "mild": {"title": "存在轻度人际困扰", "text": "你在人际交往中偶尔感到不适。建议主动参加班级或社团活动，练习\"破冰\"话题技巧，从一对一社交开始逐步建立友谊，学会倾听和表达同理心。与父母沟通可挑选双方都放松的时机。"}, "moderate": {"title": "存在中度人际困扰", "text": "你在人际关系方面存在一定困扰。建议练习主动倾听，用\"我信息\"表达法（\"我感到…因为…我希望…\"）改善沟通。如果感到被排挤，请告诉信任的老师——校园欺凌不应被默默忍受。"}, "severe": {"title": "人际关系需重点关注", "text": "你在人际关系方面存在明显困扰，可能感到孤独或被排斥。建议尽快联系学校心理老师或社工，获取社交技能辅导和朋辈支持。如果你正在经历校园欺凌，请立即告诉班主任或家长，你有权获得安全的校园环境。", "family": "家长请关注：孩子可能正在经历明显的人际困扰或孤独感。请耐心倾听其校园社交情况，警惕被排挤、欺凌的迹象。与班主任保持沟通，必要时寻求心理支持，避免简单回应\"多交朋友就好了\"。", "school": "教师请关注：该生在人际方面存在明显困难信号。建议关注其课间活动与同伴交往情况，排查欺凌风险，安排朋辈支持或团体辅导，营造接纳的班级氛围。"}}, "3": {"good": {"title": "自我认知积极", "text": "你对自己有较清晰的认识，自尊水平较高，能接纳自己的优点和不足。继续保持积极的自我评价和成长型思维，相信能力可以通过努力提升。"}, "mild": {"title": "存在轻度自我认知偏差", "text": "你偶尔会对自己感到不满。建议每天记录3件做得好的事，练习发现自身闪光点。减少与他人不必要的比较，多关注自己的成长轨迹。每个人都有独特的价值。"}, "moderate": {"title": "自我评价偏低", "text": "你的自我评价偏低，可能存在自尊问题。建议通过优势清单（列出自己的5个优点）、成就日记等方式重建自我认知，关注进步而非完美，把失败视为学习机会。如持续自我否定，建议寻求心理辅导。"}, "severe": {"title": "自我认知需重点关注", "text": "你的自我认知状态需要关注，可能存在较严重的自卑倾向。建议尽快寻求学校心理老师的帮助，通过认知行为方法调整不合理的自我评价。请记住：你的价值不取决于成绩、外貌或他人的评价，你本身就值得被尊重和关爱。", "family": "家长请关注：孩子自我评价明显偏低，可能长期自我否定。请多给予具体、真诚的肯定（针对努力与品质，而非只夸结果），避免比较和批评式教育，帮助孩子发现并放大自己的优势。", "school": "教师请关注：该生自我评价偏低。建议多创造展示其优势的机会，给予正向反馈，安排其担任力所能及的班级任务以积累成功体验，避免当众批评。"}}, "4": {"good": {"title": "心理韧性较强", "text": "你具备较强的心理韧性，能积极应对挫折，具有乐观心态和主动求助意识。继续保持面对挑战的勇气，把困难视为成长的契机。"}, "mild": {"title": "心理韧性有待提升", "text": "你在面对挫折时恢复较慢。建议学习\"ABC认知模型\"（事件-信念-结果）：影响你情绪的不是事件本身，而是你对事件的看法。尝试把\"失败\"看作\"暂时未成功\"，提升抗挫能力。"}, "moderate": {"title": "心理韧性需加强", "text": "你的心理韧性需要加强，面对困难时容易放弃。建议通过设定小目标逐步挑战自己，练习成长型思维。建立至少一个可以倾诉的支持来源（朋友、家人或老师），主动求助也是韧性的表现。"}, "severe": {"title": "心理韧性较弱", "text": "你在面对困难时容易放弃，心理韧性较弱。建议寻求心理辅导，学习压力应对技能和问题解决策略，建立积极的自我对话（\"我可以一步步来\"替代\"我不行\"），通过积累小的成功体验逐步增强自信。", "family": "家长请关注：孩子面对挫折时显得脆弱易放弃。请减少包办代替，允许孩子在安全范围内试错，与孩子一起复盘失败、肯定努力过程，帮助其积累\"我能行\"的体验。", "school": "教师请关注：该生抗挫能力较弱。建议给予\"跳一跳够得着\"的任务逐步建立成功体验，及时肯定其坚持的过程，进行挫折教育引导。"}}, "5": {"good": {"title": "行为适应良好", "text": "你的行为适应能力良好，能遵守规则并为自己的行为负责。继续保持良好的行为习惯和自我管理能力。"}, "mild": {"title": "偶尔出现行为偏差", "text": "你偶尔会出现冲动或回避行为。建议练习\"停-想-做\"三步法（暂停-思考后果-行动），做决定前给自己30秒冷静时间，建立日常行为清单帮助自我管理。"}, "moderate": {"title": "行为适应需改善", "text": "你的行为适应需要改善，可能存在较多冲动或回避行为。建议制定每日行为清单，练习延迟满足能力，寻求老师或家长的正向反馈，用积极行为替代消极行为模式。"}, "severe": {"title": "行为适应存在明显困难", "text": "你的行为适应存在明显困难，可能影响学习和人际关系。建议尽快联系学校心理老师或专业咨询师，进行行为评估和干预方案制定，通过行为契约、自我监控等方法逐步改善。", "family": "家长请关注：孩子行为适应存在明显困难。请与孩子共同制定清晰、一致的家庭规则与奖惩约定，保持耐心和一致性，避免体罚或冷暴力，必要时寻求专业行为辅导。", "school": "教师请关注：该生行为适应困难明显。建议与其建立信任关系，明确行为边界并给予及时正向强化，必要时转介心理老师进行行为干预评估。"}}, "6": {"good": {"title": "网络使用合理", "text": "你能合理控制手机和网络使用，没有明显依赖倾向。继续保持健康的数字生活习惯，把网络作为工具而非逃避现实的手段。"}, "mild": {"title": "存在轻度过度使用", "text": "你在手机使用方面存在一定过度。建议设置每日屏幕时间限制（如3小时内），学习和睡眠时段把手机放在另一个房间，用闹钟提醒定时休息眼睛和活动身体。"}, "moderate": {"title": "存在手机依赖倾向", "text": "你可能存在手机依赖倾向。建议制定\"数字排毒\"计划（如每天2小时无手机时间），寻找替代性的线下活动（运动、阅读、面对面社交）。关注自己使用手机的真实需求（无聊？焦虑？逃避？），用更健康的方式满足。"}, "severe": {"title": "可能存在严重网络依赖", "text": "你可能存在较严重的手机/网络依赖，已影响学习或生活。建议寻求专业帮助，与家长共同制定手机使用协议，必要时进行网络成瘾专业评估。戒断初期可能不适，但坚持2-3周后依赖感会明显减轻。", "family": "家长请关注：孩子网络使用已明显失控并影响生活。建议与孩子平等协商制定使用约定（时间、场景），家长以身作则减少屏幕使用，多安排亲子共同活动替代虚拟世界，必要时寻求专业干预。", "school": "教师请关注：该生可能存在较严重的网络依赖。建议了解其网络使用背后的需求（逃避压力/社交补偿），安排替代性的活动与朋辈互动，与家长协同制定管控方案。"}}, "7": {"good": {"title": "睡眠质量良好", "text": "你的睡眠质量良好，作息规律。继续保持健康的睡眠习惯，睡前避免使用电子设备，保证7-9小时的充足睡眠。"}, "mild": {"title": "睡眠偶有不佳", "text": "你的睡眠偶尔受到影响。建议保持固定就寝时间（每天波动不超过1小时），睡前1小时避免使用电子设备（蓝光会抑制褪黑素分泌），营造安静黑暗的睡眠环境。"}, "moderate": {"title": "睡眠质量需改善", "text": "你的睡眠质量需要改善，可能影响白天精力和学习效率。建议学习睡眠卫生知识：避免睡前饮用含咖啡因饮料，尝试4-7-8呼吸法帮助入睡（重复3-4次）。如持续失眠超过1个月建议就医。"}, "severe": {"title": "存在明显睡眠问题", "text": "你存在明显的睡眠问题，可能严重影响日常生活和学习。建议尽快就医检查，排除睡眠障碍（如失眠症等）。同时调整作息习惯，避免长期依赖药物入睡，在医生指导下制定改善方案。", "family": "家长请关注：孩子存在明显睡眠问题，可能影响身心发育与学习。请帮助营造规律的作息环境，睡前减少电子设备使用，关注是否存在焦虑情绪诱因，必要时陪同就医。", "school": "教师请关注：该生睡眠问题明显，白天精力不足。建议适度调整其课业负担预期，避免早读体罚式惩罚，了解是否存在学业压力导致的入睡困难。"}}, "8": {"good": {"title": "青春期适应良好", "text": "你能较好地适应青春期的身心变化，对自我身份有较清晰的认识。继续保持积极的自我接纳，探索自己的兴趣和未来方向。"}, "mild": {"title": "青春期适应偶有困惑", "text": "你对青春期的一些变化感到不太适应。建议通过阅读科普书籍或与信任的人交流，了解青春期身心变化的正常规律。每个人发育节奏不同，不必与他人比较。"}, "moderate": {"title": "青春期适应存在困扰", "text": "你在青春期适应方面存在一定困扰。建议与家长、校医或心理老师交流，获取正确的青春期健康知识和心理支持。对身份和未来的迷茫是正常的探索过程，不必急于给自己下定义。"}, "severe": {"title": "青春期适应需重点关注", "text": "你在青春期适应方面存在明显困扰，可能影响自我认同和社交功能。建议尽快寻求学校心理老师或青少年心理咨询师的帮助，探索身份认同、自我接纳和未来规划。", "family": "家长请关注：孩子对青春期变化适应困难，可能存在明显困惑或自卑。请主动开展青春期教育沟通，接纳孩子的身体变化与情绪波动，避免取笑或回避敏感话题，必要时寻求专业支持。", "school": "教师请关注：该生青春期适应存在明显困扰。建议开展青春期健康教育主题班会，营造包容的同伴环境，对有情感或身份困惑的学生提供一对一引导。"}}, "9": {"good": {"title": "当前无危机信号", "text": "当前未发现明显的心理危机信号。请继续保持积极心态和良好的求助意识。当遇到困难时，向信任的人倾诉是健康的应对方式，全国24小时心理援助热线随时为你服务。"}, "mild": {"title": "存在一定无助感", "text": "你近期可能承受了较多压力，感到难以应对。建议主动向信任的人倾诉，或联系学校心理老师获取支持。当你感到孤立无援时请记住：全国24小时心理援助热线 400-161-9995 随时可以拨打，你的感受很重要。"}, "moderate": {"title": "需要及时关注", "text": "你近期的心理状态需要及时关注。建议尽快联系学校心理老师或拨打心理援助热线进行咨询。请不要独自承受痛苦，寻求帮助是解决问题的第一步。全国24小时心理援助热线：400-161-9995。"}, "severe": {"title": "危机预警", "text": "你在此次测评中触发了危机预警信号。请立即采取行动：拨打全国24小时心理援助热线 400-161-9995，或联系你信任的家人、老师。你的感受很重要，你不需要独自面对。请相信，现在的痛苦是可以缓解的，寻求帮助是勇敢的表现。", "family": "⚠ 家长立即行动：孩子在测评中触发危机预警，可能存在自伤风险！请立即与孩子沟通并保持陪伴，收起可能造成伤害的物品，尽快联系学校心理老师或专业心理危机干预机构，必要时陪同就医。切勿忽视或斥责。", "school": "⚠ 教师立即行动：该生触发危机预警，请立即启动校园心理危机干预流程，安排专人陪护，第一时间通知家长并转介专业机构，建立紧急联络与后续随访机制。"}}};
+var RESOURCES=[{"icon": "🆘", "name": "希望24热线", "desc": "全国24小时心理援助", "num": "400-161-9995"}, {"icon": "📞", "name": "共青团12355", "desc": "青少年心理咨询与维权", "num": "12355"}, {"icon": "🏥", "name": "广州市心理援助热线", "desc": "广州市精神卫生中心", "num": "020-81899120"}, {"icon": "🆘", "name": "北京心理危机干预中心", "desc": "24小时心理危机干预", "num": "010-82951332"}, {"icon": "📧", "name": "教育部学生心理援助", "desc": "教育部学生服务热线", "num": "010-67440033"}, {"icon": "🌐", "name": "广州未成年人心理援助", "desc": "广州市未成年人心理咨询中心", "num": "020-86335253"}];
+var QUESTION_PAGES=[{"dims": [0, 1]}, {"dims": [2, 3]}, {"dims": [4, 5]}, {"dims": [6, 7]}, {"dims": [8, 9]}];
+var GRADE_MAP={junior:['初一','初二','初三'],senior:['高一','高二','高三']};
+var STAGE_NAMES={junior:'初中版',senior:'高中版'};
+var STAGE_LABEL={junior:'🌱 初中版题库',senior:'🌊 高中版题库'};
+var LABELS=['从不','偶尔','经常','总是'];
+
+var STAGE='';
+var QUESTIONS=[];
+var answers=[];
+var userInfo={stage:'',grade:'',gender:''};
+var quizPage=0;
+
+function showPage(id){
+  var pages=document.querySelectorAll('.page');
+  for(var i=0;i<pages.length;i++)pages[i].classList.remove('active');
+  var p=document.getElementById(id);
+  if(p)p.classList.add('active');
+  window.scrollTo(0,0);
+}
+function goStage(){showPage('page-stage')}
+function selStage(s){
+  STAGE=s;
+  var cards=document.querySelectorAll('.stage-card');
+  for(var i=0;i<cards.length;i++)cards[i].classList.remove('sel');
+  document.getElementById('stage-'+s).classList.add('sel');
+  showToast('已选择'+STAGE_NAMES[s]+'题库');
+}
+function goInfo(){
+  if(!STAGE){alert('请先选择学段');return;}
+  document.getElementById('stage-tag').textContent=STAGE_LABEL[STAGE]+' · 共60题 · 10大维度';
+  var gg=document.getElementById('grade-group');
+  var opts=GRADE_MAP[STAGE];
+  var html='';
+  for(var i=0;i<opts.length;i++)html+='<div class="radio-item" onclick="selectRadio(this,\'grade-group\')">'+opts[i]+'</div>';
+  gg.innerHTML=html;
+  showPage('page-info');
+}
+function selectRadio(el,groupId){
+  var group=document.getElementById(groupId);
+  var items=group.querySelectorAll('.radio-item');
+  for(var i=0;i<items.length;i++)items[i].classList.remove('selected');
+  el.classList.add('selected');
+}
+function startQuiz(){
+  var grade=document.querySelector('#grade-group .selected');
+  var gender=document.querySelector('#gender-group .selected');
+  if(!grade||!gender){alert('请先选择年级和性别');return;}
+  userInfo.stage=STAGE;
+  userInfo.grade=grade.textContent;
+  userInfo.gender=gender.textContent;
+  QUESTIONS=(STAGE==='junior')?BANK_JUNIOR:BANK_SENIOR;
+  answers=[];
+  for(var i=0;i<QUESTIONS.length;i++)answers.push(0);
+  quizPage=0;
+  renderQuizPage();
+  showPage('page-quiz');
+}
+function renderQuizPage(){
+  var page=QUESTION_PAGES[quizPage];
+  var answered=0;
+  for(var i=0;i<answers.length;i++)if(answers[i]>0)answered++;
+  var pct=Math.round((answered/QUESTIONS.length)*100);
+  var html='';
+  html+='<div class="progress-wrap"><div class="progress-fill" style="width:'+pct+'%"></div></div>';
+  html+='<div class="progress-text">已完成 '+answered+'/'+QUESTIONS.length+' 题 ('+pct+'%) · 第'+(quizPage+1)+'/'+QUESTION_PAGES.length+'页</div>';
+  for(var d=0;d<page.dims.length;d++){
+    var dimIdx=page.dims[d];
+    var dim=DIMENSIONS[dimIdx];
+    if(d===0)html+='<div class="dim-header">';
+    else html+='<div class="dim-header" style="margin-top:20px;">';
+    html+='<span class="dim-icon">'+dim.icon+'</span><span class="dim-name">'+dim.name+'</span></div>';
+    html+='<div class="dim-desc">'+dim.desc+'</div>';
+    for(var i=0;i<QUESTIONS.length;i++){
+      if(QUESTIONS[i].dim===dimIdx){
+        var sel=answers[i];
+        html+='<div class="q-card'+(sel>0?' answered':'')+'">';
+        html+='<div class="q-text"><span class="q-num">'+(i+1)+'</span>'+QUESTIONS[i].text+'</div>';
+        html+='<div class="q-options">';
+        for(var s=1;s<=4;s++){
+          var cls='opt-btn'+(sel===s?' selected':'');
+          html+='<button class="'+cls+'" onclick="selectAnswer('+i+','+s+',this)">'+LABELS[s-1]+'</button>';
+        }
+        html+='</div></div>';
+      }
+    }
+  }
+  html+='<div class="nav-btns">';
+  if(quizPage>0)html+='<button class="btn btn-secondary" onclick="prevQuizPage()">← 上一页</button>';
+  else html+='<span></span>';
+  if(quizPage<QUESTION_PAGES.length-1)html+='<button class="btn btn-primary" onclick="nextQuizPage()">下一页 →</button>';
+  else html+='<button class="btn btn-primary" onclick="submitAssessment()">提交测评 →</button>';
+  html+='</div>';
+  html+='<div class="answer-hint">答题后可返回修改 · 全部完成即可提交</div>';
+  document.getElementById('quiz-content').innerHTML=html;
+  window.scrollTo(0,0);
+}
+function selectAnswer(qIdx,score,btn){
+  answers[qIdx]=score;
+  var parent=btn.parentNode;
+  var btns=parent.getElementsByTagName('button');
+  for(var i=0;i<btns.length;i++)btns[i].classList.remove('selected');
+  btn.classList.add('selected');
+  var card=btn;
+  while(card&&card.className.indexOf('q-card')<0)card=card.parentNode;
+  if(card&&card.className.indexOf('answered')<0)card.className+=' answered';
+  var answered=0;
+  for(var i=0;i<answers.length;i++)if(answers[i]>0)answered++;
+  var pct=Math.round((answered/QUESTIONS.length)*100);
+  var pf=document.querySelector('.progress-fill');
+  var pt=document.querySelector('.progress-text');
+  if(pf)pf.style.width=pct+'%';
+  if(pt)pt.innerHTML='已完成 '+answered+'/'+QUESTIONS.length+' 题 ('+pct+'%) · 第'+(quizPage+1)+'/'+QUESTION_PAGES.length+'页';
+}
+function isPageComplete(){
+  var page=QUESTION_PAGES[quizPage];
+  for(var i=0;i<QUESTIONS.length;i++){
+    if(page.dims.indexOf(QUESTIONS[i].dim)>=0&&answers[i]===0)return false;
+  }
+  return true;
+}
+function nextQuizPage(){
+  if(!isPageComplete()){showToast('请先完成本页所有题目再继续');return;}
+  quizPage++;
+  renderQuizPage();
+}
+function prevQuizPage(){quizPage--;renderQuizPage()}
+function submitAssessment(){
+  if(!isPageComplete()){showToast('请先完成本页所有题目');return;}
+  showPage('page-loading');
+  setTimeout(function(){renderResults()},1500);
+}
+function getColor(s){
+  if(s<26)return '#3AA6A0';
+  if(s<51)return '#F0A13A';
+  if(s<76)return '#F0804A';
+  return '#E85D5D';
+}
+function getLevel(s){
+  if(s<26)return{level:'良好',desc:'心理健康状态良好，继续保持',color:'#3AA6A0'};
+  if(s<51)return{level:'轻度关注',desc:'存在轻微心理困扰，建议关注',color:'#F0A13A'};
+  if(s<76)return{level:'中度关注',desc:'需要重点关注和支持',color:'#F0804A'};
+  return{level:'高度关注',desc:'建议尽快寻求专业帮助',color:'#E85D5D'};
+}
+function getAdviceKey(s){
+  if(s<26)return'good';
+  if(s<51)return'mild';
+  if(s<76)return'moderate';
+  return'severe';
+}
+function calcScores(){
+  var scores=[];
+  for(var d=0;d<DIMENSIONS.length;d++){
+    var sum=0,cnt=0;
+    for(var i=0;i<QUESTIONS.length;i++){
+      if(QUESTIONS[i].dim===d){
+        var raw=answers[i];
+        if(QUESTIONS[i].rev)raw=5-raw;
+        sum+=raw;cnt++;
+      }
+    }
+    var pct=Math.round((sum/(cnt*4))*100);
+    scores.push(pct);
+  }
+  return scores;
+}
+function calcOverall(scores){
+  var sum=0;
+  for(var i=0;i<scores.length;i++)sum+=scores[i];
+  return Math.round(sum/scores.length);
+}
+function checkCrisis(){
+  var alerts=[];
+  for(var i=0;i<QUESTIONS.length;i++){
+    if(QUESTIONS[i].dim===9&&answers[i]>=3){
+      alerts.push({idx:i,text:QUESTIONS[i].text,score:answers[i]});
+    }
+  }
+  return alerts;
+}
+function showToast(msg){
+  var t=document.getElementById('toast');
+  if(!t)return;
+  t.textContent=msg;
+  t.className='toast show';
+  clearTimeout(showToast._t);
+  showToast._t=setTimeout(function(){t.className='toast'},2200);
+}
+
+function drawGauge(canvas,score){
+  var ctx=canvas.getContext('2d');
+  var dpr=window.devicePixelRatio||1;
+  var w=280,h=158;
+  canvas.width=w*dpr;canvas.height=h*dpr;
+  canvas.style.width=w+'px';canvas.style.height=h+'px';
+  ctx.scale(dpr,dpr);
+  var cx=w/2,cy=h-18,r=104,lw=20;
+  ctx.lineCap='round';
+  ctx.beginPath();
+  ctx.arc(cx,cy,r,Math.PI,0);
+  ctx.strokeStyle='rgba(58,166,160,0.14)';
+  ctx.lineWidth=lw;
+  ctx.stroke();
+  var end=Math.PI+(score/100)*Math.PI;
+  var grad=ctx.createLinearGradient(cx-r,0,cx+r,0);
+  var c1=getColor(score);
+  grad.addColorStop(0,'#3AA6A0');
+  grad.addColorStop(1,c1);
+  ctx.beginPath();
+  ctx.arc(cx,cy,r,Math.PI,end);
+  ctx.strokeStyle=grad;
+  ctx.lineWidth=lw;
+  ctx.stroke();
+  ctx.fillStyle='#2B3A3A';
+  ctx.font='bold 44px sans-serif';
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(Math.round(score),cx,cy-46);
+  ctx.font='13px sans-serif';
+  ctx.fillStyle='#6B7F7E';
+  ctx.fillText('心理健康综合指数',cx,cy-12);
+  ctx.font='11px sans-serif';
+  ctx.fillStyle='#A3B4B3';
+  ctx.fillText('0',cx-r+14,cy+4);
+  ctx.fillText('100',cx+r-28,cy+4);
+}
+function drawRadar(canvas,scores){
+  var ctx=canvas.getContext('2d');
+  var dpr=window.devicePixelRatio||1;
+  var size=360;
+  canvas.width=size*dpr;canvas.height=size*dpr;
+  canvas.style.width=size+'px';canvas.style.height=size+'px';
+  ctx.scale(dpr,dpr);
+  var cx=size/2,cy=size/2,maxR=118,n=scores.length;
+  ctx.strokeStyle='rgba(58,166,160,0.16)';
+  ctx.lineWidth=1;
+  for(var r=1;r<=4;r++){
+    ctx.beginPath();
+    for(var i=0;i<=n;i++){
+      var a=(i/n)*Math.PI*2-Math.PI/2;
+      var x=cx+Math.cos(a)*(maxR*r/4);
+      var y=cy+Math.sin(a)*(maxR*r/4);
+      if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+  }
+  for(var i=0;i<n;i++){
+    var a=(i/n)*Math.PI*2-Math.PI/2;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+Math.cos(a)*maxR,cy+Math.sin(a)*maxR);
+    ctx.stroke();
+  }
+  var sum=0;
+  for(var i=0;i<n;i++)sum+=scores[i];
+  var avg=sum/n;
+  ctx.beginPath();
+  for(var i=0;i<n;i++){
+    var a=(i/n)*Math.PI*2-Math.PI/2;
+    var r=(scores[i]/100)*maxR;
+    var x=cx+Math.cos(a)*r;
+    var y=cy+Math.sin(a)*r;
+    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  var fillC;
+  if(avg<26)fillC='rgba(58,166,160,0.25)';
+  else if(avg<51)fillC='rgba(240,161,58,0.25)';
+  else if(avg<76)fillC='rgba(240,128,74,0.25)';
+  else fillC='rgba(232,93,93,0.3)';
+  ctx.fillStyle=fillC;
+  ctx.fill();
+  ctx.strokeStyle=getColor(avg);
+  ctx.lineWidth=2.4;
+  ctx.stroke();
+  for(var i=0;i<n;i++){
+    var a=(i/n)*Math.PI*2-Math.PI/2;
+    var r=(scores[i]/100)*maxR;
+    var x=cx+Math.cos(a)*r;
+    var y=cy+Math.sin(a)*r;
+    ctx.beginPath();
+    ctx.arc(x,y,4.5,0,Math.PI*2);
+    ctx.fillStyle=getColor(scores[i]);
+    ctx.fill();
+    ctx.strokeStyle='#fff';
+    ctx.lineWidth=2;
+    ctx.stroke();
+  }
+  ctx.font='bold 12px sans-serif';
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  for(var i=0;i<n;i++){
+    var a=(i/n)*Math.PI*2-Math.PI/2;
+    var lr=maxR+24;
+    var x=cx+Math.cos(a)*lr;
+    var y=cy+Math.sin(a)*lr;
+    var name=DIMENSIONS[i].name;
+    if(x<cx-12)ctx.textAlign='right';
+    else if(x>cx+12)ctx.textAlign='left';
+    else ctx.textAlign='center';
+    ctx.fillStyle=getColor(scores[i]);
+    ctx.fillText(name,x,y);
+  }
+}
+
+var OVERALL=0;var LEVEL={level:'',desc:'',color:''};
+function pad(n){return (n<10?'0':'')+n}
+function saveHistory(){
+  try{
+    var hist=[];
+    try{hist=JSON.parse(localStorage.getItem('xinli_hist2')||'[]')}catch(e){}
+    var rec={t:new Date().getTime(),stage:userInfo.stage,grade:userInfo.grade,gender:userInfo.gender,overall:OVERALL,level:LEVEL.level};
+    hist.unshift(rec);
+    if(hist.length>10)hist=hist.slice(0,10);
+    localStorage.setItem('xinli_hist2',JSON.stringify(hist));
+  }catch(e){}
+}
+function renderHistory(){
+  var html='';
+  var hist=[];
+  try{hist=JSON.parse(localStorage.getItem('xinli_hist2')||'[]')}catch(e){}
+  if(hist.length===0){
+    html+='<div class="hist-empty">暂无历史记录 · 完成一次测评后将自动保存在本机</div>';
+  }else{
+    for(var i=0;i<hist.length;i++){
+      var h=hist[i];
+      var d=new Date(h.t);
+      var ds=pad(d.getMonth()+1)+'-'+pad(d.getDate())+' '+pad(d.getHours())+':'+pad(d.getMinutes());
+      var color=getColor(h.overall);
+      html+='<div class="hist-card">';
+      html+='<div><div class="hist-date">'+(STAGE_NAMES[h.stage]||'')+' · '+h.grade+' · '+h.gender+'</div>';
+      html+='<div class="hist-sub">'+ds+' · '+h.level+'</div></div>';
+      html+='<div class="hist-score"><div class="hs" style="color:'+color+'">'+h.overall+'</div>';
+      html+='<div class="hist-bar"><i style="width:'+h.overall+'%;background:'+color+'"></i></div></div>';
+      html+='</div>';
+    }
+  }
+  return html;
+}
+function renderResults(){
+  var scores=calcScores();
+  OVERALL=calcOverall(scores);
+  LEVEL=getLevel(OVERALL);
+  var crisisAlerts=checkCrisis();
+  var html='';
+  html+='<div class="hero"><h1>心理健康诊断报告</h1>';
+  html+='<p class="sub">'+STAGE_LABEL[userInfo.stage]+' · '+userInfo.grade+' · '+userInfo.gender+'</p></div>';
+  if(crisisAlerts.length>0){
+    html+='<div class="crisis-alert">';
+    html+='<h3>🚨 危机预警</h3>';
+    html+='<p>你在本次测评中触发了危机预警信号，请立即采取行动：</p>';
+    html+='<div class="crisis-hotline">400-161-9995</div>';
+    html+='<p>全国24小时心理援助热线 · 随时为你服务</p>';
+    html+='<p style="margin-top:10px;font-size:13px;opacity:.95">你的感受很重要，你不需要独自面对。<br>请相信，寻求帮助是勇敢的表现。</p>';
+    html+='<button class="btn btn-primary btn-lg" style="background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.5);margin-top:12px" onclick="renderCrisis('+crisisAlerts.length+')">查看危机预警专页 →</button>';
+    html+='</div>';
+  }
+  html+='<div class="card">';
+  html+='<div class="gauge-wrap"><canvas id="gaugeCanvas"></canvas></div>';
+  html+='<div style="text-align:center;margin-top:6px">';
+  html+='<span class="level-badge" style="background:'+LEVEL.color+';">'+LEVEL.level+'</span>';
+  html+='<p style="font-size:14px;color:var(--txt-l);margin-top:8px">'+LEVEL.desc+'</p>';
+  html+='</div></div>';
+  html+='<div class="card"><h2>十大维度雷达图</h2>';
+  html+='<div class="chart-box"><canvas id="radarCanvas"></canvas></div>';
+  html+='<p style="font-size:11.5px;color:var(--txt-ll);text-align:center;margin-top:6px">数值越低代表该维度状态越好 · 越接近中心越健康</p>';
+  html+='</div>';
+  html+='<div class="card"><h2>维度详情分析</h2>';
+  for(var d=0;d<DIMENSIONS.length;d++){
+    var key=getAdviceKey(scores[d]);
+    var adv=ADVICE[d][key];
+    var lv=getLevel(scores[d]);
+    html+='<div class="dim-card">';
+    html+='<div class="dim-card-header">';
+    html+='<div class="dim-card-title"><span>'+DIMENSIONS[d].icon+'</span>'+DIMENSIONS[d].name+'</div>';
+    html+='<span class="dim-level-tag" style="background:'+getColor(scores[d])+';">'+lv.level+'</span>';
+    html+='</div>';
+    html+='<div class="dim-score-bar"><div class="dim-score-fill" style="width:'+scores[d]+'%;background:'+getColor(scores[d])+'"></div></div>';
+    html+='<div class="dim-meta"><span>得分：'+scores[d]+' / 100</span><span>参考：'+DIMENSIONS[d].ref+'</span></div>';
+    html+='<div class="dim-advice"><strong>'+adv.title+'</strong><br>'+adv.text+'</div>';
+    if(key==='severe'&&adv.family){
+      html+='<div class="rec-card warn" style="margin-top:10px"><h4>👨‍👩‍👧 给家长的建议</h4><p>'+adv.family+'</p></div>';
+    }
+    if(key==='severe'&&adv.school){
+      html+='<div class="rec-card warn" style="margin-top:8px"><h4>🏫 给学校的建议</h4><p>'+adv.school+'</p></div>';
+    }
+    html+='</div>';
+  }
+  html+='</div>';
+  var sortedDims=[];
+  for(var i=0;i<scores.length;i++)sortedDims.push({idx:i,score:scores[i]});
+  sortedDims.sort(function(a,b){return b.score-a.score});
+  html+='<div class="card"><h2>维度表现一览</h2>';
+  html+='<div class="pair-card"><div class="pair-head"><span class="ph-ico" style="background:linear-gradient(135deg,#3AA6A0,#6BAED6)">✓</span>优势维度（状态最好的3项）</div>';
+  html+='<div class="pair-rows">';
+  for(var i=sortedDims.length-1;i>=Math.max(0,sortedDims.length-3);i--){
+    var d=sortedDims[i].idx;
+    html+='<span class="pair-tag" style="background:var(--pri-soft);color:var(--pri-d)">'+DIMENSIONS[d].icon+' '+DIMENSIONS[d].name+' '+sortedDims[i].score+'分</span>';
+  }
+  html+='</div></div>';
+  html+='<div class="pair-card"><div class="pair-head"><span class="ph-ico" style="background:linear-gradient(135deg,#F0804A,#E85D5D)">!</span>重点关注维度</div>';
+  html+='<div class="pair-rows">';
+  var topCount=0;
+  for(var i=0;i<sortedDims.length&&topCount<3;i++){
+    if(sortedDims[i].score>=51){
+      var d=sortedDims[i].idx;
+      html+='<span class="pair-tag" style="background:var(--alert-soft);color:#E85D5D">'+DIMENSIONS[d].icon+' '+DIMENSIONS[d].name+' '+sortedDims[i].score+'分</span>';
+      topCount++;
+    }
+  }
+  if(topCount===0)html+='<span style="font-size:13px;color:var(--txt-l)">🎉 当前各维度均在良好范围，继续保持！</span>';
+  html+='</div></div>';
+  html+='</div>';
+  html+='<div class="card"><h2>行动建议</h2>';
+  if(OVERALL>=76){
+    html+='<div class="rec-card warn"><h4>1. 立即寻求专业支持</h4><p>你的整体心理状态需要专业关注。建议尽快预约学校心理老师面谈，或前往当地精神卫生中心/心理科进行专业评估。心理援助热线可提供即时倾听和支持。</p></div>';
+  }
+  if(OVERALL>=51){
+    html+='<div class="rec-card warn"><h4>2. 建立社会支持网络</h4><p>识别至少一个可以倾诉的对象（家人、老师或好友），在感到压力或低落时主动表达。如果不确定该向谁说，可以先拨打心理热线匿名倾诉。</p></div>';
+  }
+  html+='<div class="rec-card"><h4>3. 学习情绪调节技能</h4><p>尝试4-7-8呼吸放松法、正念冥想、运动释放等方法。每天10分钟正念练习可有效降低焦虑和抑郁水平。</p></div>';
+  html+='<div class="rec-card"><h4>4. 保持健康生活方式</h4><p>保证规律作息和7-9小时睡眠，每周3次以上适度运动，减少不必要的屏幕时间。良好的身体状态是心理健康的基础。</p></div>';
+  html+='<div class="rec-card"><h4>5. 定期自我监测</h4><p>建议每学期进行一次心理健康自评，对比历史记录观察变化趋势。及时关注自身状态波动，早发现、早调整。</p></div>';
+  html+='</div>';
+  html+='<div class="card"><h2>专业心理援助资源</h2>';
+  html+='<p style="font-size:13px;color:var(--txt-l);margin-bottom:12px">以下热线均为免费服务。当你感到痛苦或无助时，请随时联系。</p>';
+  for(var i=0;i<RESOURCES.length;i++){
+    var r=RESOURCES[i];
+    html+='<div class="res-card"><div class="res-icon">'+r.icon+'</div>';
+    html+='<div class="res-info"><div class="res-name">'+r.name+'</div><div class="res-desc">'+r.desc+'</div></div>';
+    html+='<div class="res-num"><a href="tel:'+r.num.replace(/-/g,'')+'">'+r.num+'</a></div></div>';
+  }
+  html+='</div>';
+  html+='<div class="card"><h2>本机历史记录</h2>'+renderHistory()+'</div>';
+  html+='<div class="btn-row">';
+  html+='<button class="btn btn-primary no-print" onclick="window.print()">🖨 打印报告</button>';
+  html+='<button class="btn btn-secondary no-print" onclick="restart()">重新测评</button>';
+  html+='</div>';
+  html+='<div class="disclaimer">本报告由系统自动生成，仅供参考，不构成医学诊断。如需专业评估，请前往学校心理辅导室或专业医疗机构。</div>';
+  document.getElementById('result-content').innerHTML=html;
+  saveHistory();
+  showPage('page-result');
+  setTimeout(function(){
+    try{var gc=document.getElementById('gaugeCanvas');if(gc)drawGauge(gc,OVERALL);}catch(e){}
+    try{var rc=document.getElementById('radarCanvas');if(rc)drawRadar(rc,scores);}catch(e){}
+  },120);
+}
+function renderCrisis(crisisCount){
+  var alerts=checkCrisis();
+  var html='';
+  html+='<div class="hero" style="background:linear-gradient(135deg,#E85D5D,#F08A5D);box-shadow:0 12px 40px rgba(232,93,93,.35)"><h1>🆘 心理危机预警专页</h1><p class="sub">你的安全与感受是最重要的</p></div>';
+  html+='<div class="card" style="border:2px solid rgba(232,93,93,.4)">';
+  html+='<h2 style="color:#E85D5D">请立即行动</h2>';
+  html+='<p>你在测评中触发了危机预警信号，可能存在自伤风险。请<strong>立即</strong>采取以下行动：</p>';
+  html+='<div style="text-align:center;margin:18px 0"><div class="crisis-hotline">400-161-9995</div>';
+  html+='<a class="btn btn-primary btn-lg" style="background:linear-gradient(135deg,#E85D5D,#F08A5D);margin-top:8px" href="tel:4001619995">📞 立即拨打援助热线</a></div>';
+  html+='<div class="soft-note" style="border:1px solid rgba(232,93,93,.3);background:#FDECEC">';
+  html+='<b>你可以这样做：</b><br>1. 立即联系你信任的家人、老师或朋友，不要独自面对。<br>2. 拨打上方心理援助热线，24小时有人倾听。<br>3. 远离可能伤害自己的物品和场所。<br>4. 请相信：现在的痛苦是暂时的，是可以缓解的。寻求帮助是勇敢的表现。';
+  html+='</div></div>';
+  html+='<div class="card"><h2>本次触发的信号</h2>';
+  if(alerts.length>0){
+    for(var i=0;i<alerts.length;i++){
+      html+='<div class="dim-card"><div class="q-text"><span class="q-num">'+(alerts[i].idx+1)+'</span>'+alerts[i].text+'</div>';
+      html+='<div style="font-size:12px;color:#E85D5D">你的选择：'+LABELS[alerts[i].score-1]+'</div></div>';
+    }
+  }
+  html+='</div>';
+  html+='<div class="card"><h2>心理援助资源</h2>';
+  for(var i=0;i<RESOURCES.length;i++){
+    var r=RESOURCES[i];
+    html+='<div class="res-card"><div class="res-icon">'+r.icon+'</div>';
+    html+='<div class="res-info"><div class="res-name">'+r.name+'</div><div class="res-desc">'+r.desc+'</div></div>';
+    html+='<div class="res-num"><a href="tel:'+r.num.replace(/-/g,'')+'">'+r.num+'</a></div></div>';
+  }
+  html+='</div>';
+  html+='<button class="btn btn-secondary btn-block" onclick="showPage(\'page-result\')">返回测评报告</button>';
+  html+='<button class="btn btn-ghost btn-block" onclick="window.print()">🖨 打印本页</button>';
+  document.getElementById('crisis-content').innerHTML=html;
+  showPage('page-crisis');
+}
+function restart(){
+  STAGE='';
+  QUESTIONS=[];
+  answers=[];
+  userInfo={stage:'',grade:'',gender:''};
+  quizPage=0;
+  var cards=document.querySelectorAll('.stage-card');
+  for(var i=0;i<cards.length;i++)cards[i].classList.remove('sel');
+  var groups=['grade-group','gender-group'];
+  for(var g=0;g<groups.length;g++){
+    var items=document.querySelectorAll('#'+groups[g]+' .radio-item');
+    for(var j=0;j<items.length;j++)items[j].classList.remove('selected');
+  }
+  showPage('page-welcome');
+}
+
+var LOGIN_USER='liulaoshi';
+var LOGIN_PASS='peiyou2026';
+function checkLogin(){
+  if(sessionStorage.getItem('xinli_login2')==='1'){
+    var o=document.getElementById('loginOverlay');
+    if(o)o.style.display='none';
+  }
+}
+function doLogin(){
+  var u=document.getElementById('loginUser').value;
+  var p=document.getElementById('loginPass').value;
+  var e=document.getElementById('loginError');
+  if(u===LOGIN_USER&&p===LOGIN_PASS){
+    sessionStorage.setItem('xinli_login2','1');
+    var o=document.getElementById('loginOverlay');
+    if(o){o.style.opacity='0';setTimeout(function(){o.style.display='none'},400);}
+  }else{
+    e.textContent='账号或密码错误，请重试';
+    document.getElementById('loginUser').value='';
+    document.getElementById('loginPass').value='';
+  }
+}
+document.addEventListener('DOMContentLoaded',function(){
+  var w=document.getElementById('page-welcome');
+  if(w)w.classList.add('active');
+  var u=document.getElementById('loginUser');
+  var p=document.getElementById('loginPass');
+  if(u)u.addEventListener('keydown',function(e){if(e.key==='Enter'){p.focus();}});
+  if(p)p.addEventListener('keydown',function(e){if(e.key==='Enter'){doLogin();}});
+  checkLogin();
+});
+
+</script>
+</body>
+</html>
