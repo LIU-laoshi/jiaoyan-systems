@@ -1394,7 +1394,7 @@
             { dimension: 'reasoning', question: '面面平行判定：一个平面内的两条相交直线分别平行于另一个平面，则这两个平面（　）。', svg: 'plane_plane_parallel', options: ['A. 平行','B. 垂直','C. 相交','D. 重合'], answer: 0, difficulty: 1, tag: '面面平行', explanation: '面面平行判定定理：一个平面内的两条相交直线分别平行于另一个平面，则这两个平面平行，故选A。' },
             { dimension: 'reasoning', question: '面面垂直判定：如果一个平面经过另一个平面的垂线，那么这两个平面（　）。', svg: 'plane_plane_vertical', options: ['A. 垂直','B. 平行','C. 相交但不垂直','D. 重合'], answer: 0, difficulty: 2, tag: '面面垂直', explanation: '面面垂直判定定理：一个平面经过另一个平面的垂线，则这两个平面垂直，故选A。' },
             { dimension: 'reasoning', question: '垂直于同一个平面的两条直线（　）。', svg: 'two_lines_vertical', options: ['A. 平行','B. 相交','C. 异面','D. 垂直'], answer: 0, difficulty: 2, tag: '线面垂直性质', explanation: '线面垂直的性质定理：垂直于同一个平面的两条直线平行，故选A。' },
-            { dimension: 'reasoning', question: '正方体ABCD-A₁B₁C₁D₁中，直线A₁B与直线BC₁所成角的余弦值为（　）。', svg: 'cube_angle_60', options: ['A. √2/2','B. 1/2','C. √3/2','D. √3/3'], answer: 1, difficulty: 2, tag: '异面直线所成角', explanation: '取向量A₁B=(1,0,-1)、BC₁=(0,1,1)，cosθ=|0+0-1|/(√2×√2)=1/2，故所成角为60°，余弦值为1/2，故选B。' },
+            { dimension: 'reasoning', question: '正方体ABCD-A₁B₁C₁D₁中，直线A₁B与直线BC₁所成角的余弦值为（　）。', svg: 'cube_angle_60', options: ['A. √2/2','B. 1/2','C. √3/2','D. √3/3'], answer: 1, difficulty: 2, tag: '相交直线所成角', explanation: '连接A₁C₁，则A₁B、BC₁、A₁C₁均为面对角线（长√2），△A₁BC₁为等边三角形，故∠A₁BC₁=60°，所成角余弦值为cos60°=1/2，故选B。' },
             { dimension: 'reasoning', question: '线面垂直的性质：如果一条直线垂直于一个平面，那么它垂直于这个平面内的（　）。', svg: 'line_in_plane', options: ['A. 任意一条直线','B. 仅与它平行的直线','C. 仅一条直线','D. 仅与它相交的直线'], answer: 0, difficulty: 2, tag: '线面垂直性质', explanation: '线面垂直的性质定理：如果一条直线垂直于一个平面，那么它垂直于这个平面内的任意一条直线，故选A。' },
             { dimension: 'reasoning', question: '面面垂直的性质：如果两个平面垂直，那么一个平面内垂直于它们交线的直线（　）。', svg: 'plane_vertical_prop', options: ['A. 垂直于另一个平面','B. 平行于另一个平面','C. 在另一个平面内','D. 与另一个平面斜交'], answer: 0, difficulty: 3, tag: '面面垂直性质', explanation: '面面垂直的性质定理：两个平面垂直时，一个平面内垂直于交线的直线垂直于另一个平面，故选A。' },
             { dimension: 'reasoning', question: '长方体的一条体对角线与交于同一顶点的三条棱所成角分别为α、β、γ，则cos²α+cos²β+cos²γ=（　）。', svg: 'cuboid_diag_cos', options: ['A. 1','B. 2','C. 3','D. 0'], answer: 0, difficulty: 3, tag: '长方体对角线', explanation: '设长、宽、高为a、b、c，体对角线长d=√(a²+b²+c²)，则cos²α=a²/d²、cos²β=b²/d²、cos²γ=c²/d²，三者之和=(a²+b²+c²)/d²=1，故选A。' },
@@ -1959,7 +1959,7 @@
             var plans = [];
             var weakName = weak ? weak.name : '空间推理';
             var tag0 = weakTags.length ? weakTags[0] : '立体几何基础';
-            var tag1 = weakTags.length > 1 ? weakTags[1] : '空间向量';
+            var tag1 = weakTags.length > 1 ? weakTags[1] : '空间角';
             if (grade === 'S') {
                 plans.push({ t: '🚀 精英进阶计划', items: ['针对必修立体几何综合题与组合体面积体积进行高强度训练', '每周完成2套空间图形推理与截面动态分析', '尝试用空间想象直接推演复杂旋转体与组合体，挑战数学培优班' ] });
                 plans.push({ t: '📐 学科深化计划', items: ['在物理受力分析与化学分子结构中主动运用空间思维', '尝试自主设计几何模型并给同学讲解，检验掌握程度', '参与数学建模或思维类拓展活动，培养高阶空间能力' ] });
@@ -2104,7 +2104,7 @@
             }
             html += '</div>';
             var selAdvice = '';
-            if (scores.overallPercentage >= 75) selAdvice = '空间能力优秀，对高一必修立体几何掌握良好，后续学习空间向量与解析几何有优势，可考虑物理方向及理工类（计算机、机械、建筑、航空航天等）专业方向。';
+            if (scores.overallPercentage >= 75) selAdvice = '空间能力优秀，对高一必修立体几何掌握良好，后续学习解析几何与立体几何深化内容有优势，可考虑物理方向及理工类（计算机、机械、建筑、航空航天等）专业方向。';
             else if (scores.overallPercentage >= 55) selAdvice = '空间能力中等，必修立体几何基础较扎实，建议结合数学、物理成绩综合规划选科，可优先物理+化学，兼顾生物或地理搭配。';
             else selAdvice = '空间能力相对薄弱，建议在高一阶段通过系统训练夯实必修立体几何基础，同时结合兴趣与各科成绩综合规划选科，循序渐进提升空间思维。';
             html += '<div class="plan-card" style="margin-top:16px"><div class="plan-title">🎓 3+1+2选科建议</div><p style="font-size:.93em;line-height:1.9;color:var(--t)">' + selAdvice + '</p></div>';
