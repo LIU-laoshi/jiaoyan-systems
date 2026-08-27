@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>高中补课课时规划系统 · 1对1/1对3</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;background:#eef1f6;color:#2b3446;font-size:14px;line-height:1.6}
+/* ===== 顶部 ===== */
+.topbar{background:linear-gradient(135deg,#0b1f43,#123a77 50%,#1e5aa8);color:#fff;padding:36px 20px 30px;text-align:center;position:relative;overflow:hidden}
+.topbar::before{content:'';position:absolute;top:-80px;right:-50px;width:230px;height:230px;border-radius:50%;background:rgba(255,255,255,.05)}
+.topbar::after{content:'';position:absolute;bottom:-90px;left:-40px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.04)}
+.topbar h1{font-size:25px;letter-spacing:3px;position:relative;z-index:1}
+.topbar .sub{font-size:13px;opacity:.85;margin-top:8px;letter-spacing:1px;position:relative;z-index:1}
+.topbar .badges{margin-top:12px;position:relative;z-index:1}
+.topbar .badge{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.32);padding:3px 12px;border-radius:20px;font-size:12px;margin:0 4px}
+.container{max-width:1000px;margin:0 auto;padding:16px 14px 50px}
+/* ===== 卡片 ===== */
+.card{background:#fff;border-radius:16px;padding:22px 20px;margin-bottom:16px;box-shadow:0 3px 18px rgba(11,31,67,.07)}
+.card-title{font-size:16px;font-weight:800;color:#0b1f43;display:flex;align-items:center;margin-bottom:16px}
+.card-title .num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:linear-gradient(135deg,#0b1f43,#1e5aa8);color:#fff;border-radius:9px;font-size:15px;margin-right:10px;flex-shrink:0}
+.card-title .t{flex:1}
+.card-title .hint{font-size:12px;color:#9aa4b8;font-weight:400}
+/* ===== 步骤条 ===== */
+.steps{display:flex;margin-bottom:16px;background:#fff;border-radius:14px;padding:15px 12px;box-shadow:0 2px 12px rgba(11,31,67,.06)}
+.step-item{flex:1;text-align:center;position:relative;cursor:pointer}
+.step-item .s-dot{width:32px;height:32px;border-radius:50%;background:#e3e8f1;color:#98a3b8;display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;transition:all .3s}
+.step-item .s-label{font-size:12px;color:#98a3b8;margin-top:5px}
+.step-item .s-desc{font-size:11px;color:#b9c2d2;margin-top:2px}
+.step-item.active .s-dot{background:linear-gradient(135deg,#0b1f43,#1e5aa8);color:#fff;box-shadow:0 4px 12px rgba(30,90,168,.35)}
+.step-item.active .s-label{color:#0b1f43;font-weight:700}
+.step-item.done .s-dot{background:#27ae60;color:#fff}
+.step-item.done .s-label{color:#27ae60}
+/* ===== 选择卡 ===== */
+.grade-opts{display:flex;gap:12px}
+.grade-opt{flex:1;text-align:center;padding:18px 10px;border:2px solid #dfe6f1;border-radius:14px;cursor:pointer;transition:all .2s;background:#fff}
+.grade-opt .g-ic{font-size:28px}
+.grade-opt .g-name{font-weight:800;font-size:16px;color:#0b1f43;margin-top:8px}
+.grade-opt .g-desc{font-size:11px;color:#98a3b8;margin-top:5px;line-height:1.5}
+.grade-opt.active{border-color:#1e5aa8;background:#f0f6ff;box-shadow:0 5px 16px rgba(30,90,168,.14)}
+.opt-2{display:flex;gap:12px}
+.opt-2 .mode-opt{flex:1;text-align:center;padding:16px 10px;border:2px solid #dfe6f1;border-radius:14px;cursor:pointer;transition:all .2s;background:#fff}
+.mode-opt .m-ic{font-size:24px}
+.mode-opt .m-name{font-weight:800;font-size:15px;color:#0b1f43;margin-top:6px}
+.mode-opt .m-desc{font-size:11px;color:#98a3b8;margin-top:4px}
+.mode-opt.active{border-color:#1e5aa8;background:#f0f6ff;box-shadow:0 5px 16px rgba(30,90,168,.14)}
+/* ===== 表单 ===== */
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:13px;font-weight:700;color:#3a465c;margin-bottom:7px}
+.form-group .hint{font-size:12px;color:#9aa4b8;margin-top:5px;line-height:1.6}
+select,input[type=number]{width:100%;padding:12px 12px;border:2px solid #dfe6f1;border-radius:11px;font-size:14px;background:#fff;transition:border-color .2s;font-family:inherit}
+select:focus,input:focus{outline:none;border-color:#1e5aa8}
+select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,#7b88a1 50%),linear-gradient(135deg,#7b88a1 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 15px) 50%;background-size:5px 5px;background-repeat:no-repeat}
+.input-row{display:flex;gap:12px}
+.input-row .input-col{flex:1}
+/* ===== 科目 ===== */
+.subj-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:10px}
+.subj-opt{border:2px solid #e2e8f2;border-radius:13px;padding:13px 8px;text-align:center;cursor:pointer;transition:all .2s;background:#fff;position:relative}
+.subj-opt .s-ic{font-size:22px}
+.subj-opt .s-name{font-weight:700;font-size:13px;margin-top:5px;color:#333}
+.subj-opt .s-full{font-size:11px;color:#98a3b8;margin-top:2px}
+.subj-opt.active{border-color:#1e5aa8;background:#f0f6ff;box-shadow:0 4px 12px rgba(30,90,168,.13)}
+.subj-opt .sel-badge{position:absolute;top:6px;right:8px;width:18px;height:18px;border-radius:50%;background:#1e5aa8;color:#fff;font-size:11px;display:none;align-items:center;justify-content:center}
+.subj-opt.active .sel-badge{display:inline-flex}
+/* ===== 分数表 ===== */
+.score-table{width:100%;border-collapse:collapse;margin-top:4px}
+.score-table th{background:#f2f6fc;color:#3a465c;font-size:12px;padding:10px 6px;border:1px solid #e4eaf3;text-align:center}
+.score-table td{border:1px solid #e4eaf3;padding:8px 6px;text-align:center;font-size:13px}
+.score-table input{width:76px;text-align:center;padding:8px 4px;border:2px solid #e2e8f2;border-radius:8px;font-size:14px}
+.score-table .subj-cell{font-weight:700;text-align:left;padding-left:12px}
+.score-table .gap-cell{font-weight:800;color:#1e5aa8}
+.score-table .bar-cell{min-width:120px}
+.mini-bar{height:8px;background:#edf1f7;border-radius:5px;overflow:hidden;margin-top:2px}
+.mini-bar i{display:block;height:100%;background:linear-gradient(90deg,#1e5aa8,#3f86d6);border-radius:5px}
+/* ===== 按钮 ===== */
+.btn{display:inline-block;padding:12px 26px;border:none;border-radius:11px;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,#0b1f43,#1e5aa8);color:#fff;box-shadow:0 6px 16px rgba(30,90,168,.28)}
+.btn-outline{background:#fff;color:#0b1f43;border:2px solid #0b1f43}
+.btn-ghost{background:#f2f5fa;color:#5a6b8a;border:1px solid #dde5f0}
+.btn-main{display:block;width:100%;max-width:380px;margin:20px auto 0;padding:14px;background:linear-gradient(135deg,#0b1f43,#1e5aa8);color:#fff;border:none;border-radius:13px;font-size:16px;font-weight:800;letter-spacing:2px;cursor:pointer;box-shadow:0 8px 22px rgba(30,90,168,.3);transition:transform .2s}
+.btn-main:active{transform:scale(.98)}
+.btn-sec{display:block;width:100%;max-width:380px;margin:12px auto 0;padding:12px;background:#fff;color:#0b1f43;border:2px solid #0b1f43;border-radius:13px;font-size:15px;font-weight:600;cursor:pointer}
+.nav-row{display:flex;justify-content:space-between;gap:12px;margin-top:18px}
+.nav-row .btn{flex:1}
+/* ===== 结果区 ===== */
+.report-head{background:linear-gradient(135deg,#0b1f43,#123a77 50%,#1e5aa8);color:#fff;border-radius:18px;padding:30px 24px;position:relative;overflow:hidden;margin-bottom:16px}
+.report-head::after{content:'';position:absolute;top:-55px;right:30px;width:190px;height:190px;border:2px solid rgba(255,255,255,.1);border-radius:50%}
+.report-head .rh-title{font-size:23px;font-weight:800;letter-spacing:2px;position:relative;z-index:1}
+.report-head .rh-sub{font-size:12px;opacity:.85;margin-top:8px;position:relative;z-index:1;line-height:1.8}
+.report-head .rh-tags{margin-top:12px;position:relative;z-index:1}
+.report-head .rh-tag{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);padding:3px 11px;border-radius:16px;font-size:12px;margin:2px 4px 2px 0}
+.report-section{background:#fff;border-radius:16px;padding:22px 20px;margin-bottom:14px;box-shadow:0 3px 14px rgba(11,31,67,.06)}
+.report-section h2{font-size:17px;color:#0b1f43;font-weight:800;margin-bottom:15px;display:flex;align-items:center}
+.report-section h2::before{content:'';width:5px;height:20px;background:linear-gradient(180deg,#0b1f43,#1e5aa8);border-radius:3px;margin-right:10px;display:inline-block}
+.report-section h3{font-size:14px;color:#123a77;margin:14px 0 8px;font-weight:700}
+/* KPI */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.kpi{background:linear-gradient(180deg,#f7faff,#eef4fd);border:1px solid #e0e9f6;border-radius:14px;padding:16px 12px;text-align:center}
+.kpi .k-label{font-size:12px;color:#7b88a1}
+.kpi .k-val{font-size:30px;font-weight:800;color:#0b1f43;margin-top:5px;letter-spacing:-.5px}
+.kpi .k-val.gold{color:#c8862a}
+.kpi .k-val.blue{color:#1e5aa8}
+.kpi .k-sub{font-size:11px;color:#aab4c6;margin-top:4px}
+/* 状态色 */
+.tag-ok{display:inline-block;background:#e8f7ee;color:#1e8e4a;padding:3px 12px;border-radius:14px;font-size:12px;font-weight:700}
+.tag-warn{display:inline-block;background:#fdf3e3;color:#c8862a;padding:3px 12px;border-radius:14px;font-size:12px;font-weight:700}
+.tag-danger{display:inline-block;background:#fdebec;color:#c0392b;padding:3px 12px;border-radius:14px;font-size:12px;font-weight:700}
+/* 数据表 */
+.data-table{width:100%;border-collapse:collapse}
+.data-table th{background:#f2f6fc;color:#3a465c;font-size:12px;padding:10px 8px;border:1px solid #e4eaf3;text-align:center}
+.data-table td{border:1px solid #e4eaf3;padding:9px 8px;text-align:center;font-size:13px}
+.data-table .hl{font-weight:800;color:#0b1f43}
+.data-table .gold{color:#c8862a;font-weight:800}
+.data-table .green{color:#1e8e4a;font-weight:800}
+.data-table .red{color:#c0392b;font-weight:800}
+.data-table tr:hover td{background:#fafcff}
+.stage-row{position:relative}
+.stage-row .warn-flag{color:#c0392b;font-weight:700;font-size:12px}
+/* 手动调整 */
+.adjust-table{width:100%;border-collapse:collapse}
+.adjust-table th{background:#f2f6fc;color:#3a465c;font-size:12px;padding:9px 8px;border:1px solid #e4eaf3;text-align:center}
+.adjust-table td{border:1px solid #e4eaf3;padding:8px;text-align:center;font-size:13px}
+.adjust-table input{width:74px;text-align:center;padding:7px 4px;border:2px solid #d7e0ee;border-radius:8px;font-size:14px}
+.adjust-table input.warn-input{border-color:#e67e22;background:#fff9f0}
+.adjust-table .step-btn{width:30px;height:30px;border:none;border-radius:8px;background:#f0f4fb;color:#0b1f43;font-size:16px;font-weight:800;cursor:pointer}
+.adjust-table .step-btn:active{background:#dbe6f5}
+/* 可行性 */
+.feas-box{border-radius:14px;padding:18px 20px;margin-top:6px;border:2px solid}
+.feas-box.ok{background:#f0faf4;border-color:#bfe8cf}
+.feas-box.warn{background:#fffaf0;border-color:#f3ddb2}
+.feas-box.danger{background:#fdf1f1;border-color:#f0c6c2}
+.feas-box .feas-title{font-size:15px;font-weight:800;margin-bottom:6px}
+.feas-box.ok .feas-title{color:#1e8e4a}
+.feas-box.warn .feas-title{color:#c8862a}
+.feas-box.danger .feas-title{color:#c0392b}
+.feas-box p{font-size:13px;color:#556;line-height:1.8}
+.feas-box .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+/* 提示条 */
+.notice{background:#f0f6ff;border-left:4px solid #1e5aa8;border-radius:10px;padding:13px 16px;font-size:13px;color:#33507a;line-height:1.8;margin-top:8px}
+.notice b{color:#0b1f43}
+/* 进度条 */
+.pg{height:16px;background:#eef2f8;border-radius:9px;overflow:hidden;margin-top:10px;position:relative}
+.pg i{display:block;height:100%;background:linear-gradient(90deg,#0b1f43,#1e5aa8,#3f86d6);border-radius:9px;transition:width .6s}
+.pg i.warn{background:linear-gradient(90deg,#e67e22,#f0a94a)}
+.pg i.danger{background:linear-gradient(90deg,#c0392b,#e0675e)}
+.pg .pg-txt{position:absolute;top:0;left:0;right:0;text-align:center;font-size:11px;color:#fff;font-weight:700;line-height:16px;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+/* 每周建议 */
+.week-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:6px}
+.week-card{background:#f7faff;border:1px solid #e4ecf8;border-radius:12px;padding:12px;text-align:center}
+.week-card .w-name{font-size:12px;color:#7b88a1}
+.week-card .w-val{font-size:18px;font-weight:800;color:#0b1f43;margin-top:4px}
+.week-card .w-sub{font-size:11px;color:#aab4c6;margin-top:3px}
+.footer-note{text-align:center;color:#9aa4b8;font-size:12px;padding:18px 0 6px;line-height:1.8}
+@media print{.topbar,.steps,.nav-row,.no-print{display:none!important}.card,.report-section{box-shadow:none;border:1px solid #ddd}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <h1>高中补课课时规划系统</h1>
+  <div class="sub">1对1 · 1对3 课时需求精算 · 学期/寒暑假分阶段排课 · 目标分数达成规划</div>
+  <div class="badges">
+    <span class="badge">2小时/次课</span>
+    <span class="badge">广东新高考 3+1+2</span>
+    <span class="badge">教研级提分模型</span>
+  </div>
+</div>
+
+<div class="container">
+  <!-- 步骤条 -->
+  <div class="steps" id="stepsBar">
+    <div class="step-item" data-s="1"><div class="s-dot" id="dot1">1</div><div class="s-label">基本信息</div><div class="s-desc">年级 / 班型 / 周期</div></div>
+    <div class="step-item" data-s="2"><div class="s-dot" id="dot2">2</div><div class="s-label">科目与目标</div><div class="s-desc">选科 · 当前分 · 目标分</div></div>
+    <div class="step-item" data-s="3"><div class="s-dot" id="dot3">3</div><div class="s-label">课时规划</div><div class="s-desc">阶段明细 · 手动调整</div></div>
+  </div>
+
+  <!-- ===== Step1 基本信息 ===== -->
+  <div id="step1" class="step-pane">
+    <div class="card">
+      <div class="card-title"><span class="num">1</span><span class="t">选择年级</span></div>
+      <div class="grade-opts" id="gradeOpts">
+        <div class="grade-opt" data-g="1"><div class="g-ic">📘</div><div class="g-name">高一</div><div class="g-desc">9科全学<br>夯实基础 · 均衡补差</div></div>
+        <div class="grade-opt" data-g="2"><div class="g-ic">📗</div><div class="g-name">高二</div><div class="g-desc">3+1+2 选科<br>主科+选科攻坚</div></div>
+        <div class="grade-opt" data-g="3"><div class="g-ic">📕</div><div class="g-name">高三</div><div class="g-desc">一轮/二轮/冲刺<br>高考目标倒排</div></div>
+      </div>
+      <div class="form-group" style="margin-top:14px"><span class="hint">高三年级将自动启用「高考冲刺」节奏权重，阶段默认每周课次更高、临考阶段分配更多课时。</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="num">2</span><span class="t">选择班型与周期</span></div>
+      <div class="form-group">
+        <label>上课班型（直接影响课时需求量）</label>
+        <div class="opt-2" id="classOpts">
+          <div class="mode-opt active" data-c="1"><div class="m-ic">🧑‍🏫</div><div class="m-name">1对1 私教</div><div class="m-desc">个性化系数 1.00 · 完全因材施教</div></div>
+          <div class="mode-opt" data-c="3"><div class="m-ic">👥</div><div class="m-name">1对3 小班</div><div class="m-desc">个性化系数 1.30 · 兼顾多人进度</div></div>
+        </div>
+        <div class="hint" id="classHint">1对3 因需兼顾三人进度与个性化程度，同等提分目标所需课时约为 1对1 的 1.3 倍。</div>
+      </div>
+      <div class="input-row">
+        <div class="input-col">
+          <div class="form-group">
+            <label>起始节点</label>
+            <select id="startNode"></select>
+          </div>
+        </div>
+        <div class="input-col">
+          <div class="form-group">
+            <label>目标节点</label>
+            <select id="endNode"></select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>每周可上课次（排课容量基准，默认按阶段类型自动设定）</label>
+        <select id="weeklyCap">
+          <option value="auto" selected>自动（学期2次 / 寒假4次 / 暑假5次）</option>
+          <option value="1">固定 1 次/周</option>
+          <option value="2">固定 2 次/周</option>
+          <option value="3">固定 3 次/周</option>
+          <option value="4">固定 4 次/周</option>
+          <option value="5">固定 5 次/周</option>
+          <option value="6">固定 6 次/周</option>
+          <option value="7">固定 7 次/周</option>
+        </select>
+      </div>
+      <div class="nav-row">
+        <button class="btn btn-primary" onclick="goStep(2)">下一步：选科与分数 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Step2 科目与分数 ===== -->
+  <div id="step2" class="step-pane" style="display:none">
+    <div class="card">
+      <div class="card-title"><span class="num">3</span><span class="t">选择补课科目</span><span class="hint">可多选，未选科目不计入课时</span></div>
+      <div class="subj-opts" id="subjOpts"></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="num">4</span><span class="t">填写当前分与目标分</span><span class="hint">目标分需高于当前分才产生课时需求</span></div>
+      <div style="overflow-x:auto"><table class="score-table" id="scoreTable" style="min-width:520px">
+        <thead><tr><th style="width:110px">科目</th><th>当前分</th><th>目标分</th><th>提分空间</th><th style="width:150px">达成进度</th></tr></thead>
+        <tbody id="scoreTbody"></tbody>
+      </table></div>
+      <div class="nav-row">
+        <button class="btn btn-outline" onclick="goStep(1)">← 上一步</button>
+        <button class="btn btn-primary" onclick="computePlan()">生成课时规划 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Step3 结果 ===== -->
+  <div id="step3" class="step-pane" style="display:none">
+    <div class="report-head">
+      <div class="rh-title" id="rTitle">课时规划方案</div>
+      <div class="rh-sub" id="rSub"></div>
+      <div class="rh-tags" id="rTags"></div>
+    </div>
+
+    <div class="report-section">
+      <h2>核心指标</h2>
+      <div class="kpi-grid" id="kpiGrid"></div>
+      <div class="notice no-print" id="modelNote"></div>
+    </div>
+
+    <div class="report-section">
+      <h2>分科课时需求</h2>
+      <div style="overflow-x:auto"><table class="data-table" id="subjResultTable" style="min-width:560px"></table></div>
+    </div>
+
+    <div class="report-section">
+      <h2>分阶段课时分配</h2>
+      <div style="overflow-x:auto"><table class="data-table" id="stageTable" style="min-width:640px"></table></div>
+      <div class="feas-box" id="feasBox"></div>
+    </div>
+
+    <div class="report-section">
+      <h2>每周排课建议</h2>
+      <div class="week-grid" id="weekGrid"></div>
+      <div class="notice">每次课按 <b>2 小时</b> 计算。阶段课时 = 每周课次 × 周数 × 2 小时；若某阶段排课时超出容量上限，建议增加该阶段每周课次或并入相邻假期集中补强。</div>
+    </div>
+
+    <div class="report-section">
+      <h2>手动调整各阶段课时</h2>
+      <p style="font-size:13px;color:#7b88a1;margin-bottom:12px">直接修改下方各阶段课时数，系统将实时重算总课时、总次课与目标达成度。改完后可打印或导出方案。</p>
+      <div style="overflow-x:auto"><table class="adjust-table" id="adjustTable" style="min-width:640px"></table></div>
+      <div class="feas-box" id="adjustBox"></div>
+      <div class="nav-row no-print">
+        <button class="btn btn-outline" onclick="goStep(2)">← 修改参数</button>
+        <button class="btn btn-ghost" onclick="resetAdjust()">重置为推荐值</button>
+        <button class="btn btn-primary" onclick="window.print()">🖨 打印 / 导出 PDF</button>
+      </div>
+    </div>
+
+    <div class="footer-note">本系统课时需求基于教研级分段提分模型估算，实际进度受学生基础、配合度与作业质量影响，建议每 4 周复盘校准一次。<br>高中补课课时规划系统 · 为 1对1 / 1对3 教学管理设计</div>
+  </div>
+</div>
+<script>
+/* ================= 数据定义 ================= */
+var SUBJECTS=[
+  {id:'yu',name:'语文',full:150,ic:'📝'},
+  {id:'shu',name:'数学',full:150,ic:'📐'},
+  {id:'ying',name:'英语',full:150,ic:'🔤'},
+  {id:'wu',name:'物理',full:100,ic:'⚛️'},
+  {id:'hua',name:'化学',full:100,ic:'🧪'},
+  {id:'sheng',name:'生物',full:100,ic:'🧬'},
+  {id:'zheng',name:'政治',full:100,ic:'⚖️'},
+  {id:'shi',name:'历史',full:100,ic:'🏛️'},
+  {id:'di',name:'地理',full:100,ic:'🌏'}
+];
+/* 阶段结构（广东学制）：type=sem学期 / win寒假 / sum暑假 */
+var STAGES=[
+  {id:'g1s1',name:'高一上学期',type:'sem',weeks:20,tlabel:'学期'},
+  {id:'g1w1',name:'高一寒假',type:'win',weeks:4,tlabel:'寒假'},
+  {id:'g1s2',name:'高一下学期',type:'sem',weeks:20,tlabel:'学期'},
+  {id:'g1su',name:'高一暑假',type:'sum',weeks:8,tlabel:'暑假'},
+  {id:'g2s1',name:'高二上学期',type:'sem',weeks:20,tlabel:'学期'},
+  {id:'g2w1',name:'高二寒假',type:'win',weeks:4,tlabel:'寒假'},
+  {id:'g2s2',name:'高二下学期',type:'sem',weeks:20,tlabel:'学期'},
+  {id:'g2su',name:'高二暑假',type:'sum',weeks:8,tlabel:'暑假'},
+  {id:'g3s1',name:'高三上学期·一轮',type:'sem',weeks:20,tlabel:'学期'},
+  {id:'g3w1',name:'高三寒假',type:'win',weeks:4,tlabel:'寒假'},
+  {id:'g3s2',name:'高三下学期·冲刺',type:'sem',weeks:16,tlabel:'冲刺'}
+];
+/* 提分系数：每提升1分所需课时（分段非线性，分数越高边际成本越大） */
+var BAND150=[[0,60,0.8],[60,90,1.2],[90,110,1.6],[110,130,2.2],[130,145,3.2],[145,151,4.5]];
+var BAND100=[[0,40,0.6],[40,60,0.9],[60,75,1.3],[75,85,1.8],[85,95,2.6],[95,101,3.8]];
+var CLASS_RATE={1:1.0,3:1.3};
+var TYPE_W={sem:1.0,win:1.4,sum:1.7};
+
+/* ================= 全局状态 ================= */
+var curGrade=1, classMode=1, weeklyCapMode='auto';
+var selectedSubjects={};   /* id -> {cur,target} */
+var currentPlan=null;      /* 最近一次计算结果 */
+
+/* ================= 工具函数 ================= */
+function $(id){return document.getElementById(id);}
+function round1(v){return Math.round(v*10)/10;}
+function fmt(v){return Math.round(v);}
+/* 单科课时估算：分段积分 */
+function subjectHours(cur,target,full){
+  if(target<=cur)return 0;
+  var bands=(full>=150)?BAND150:BAND100;
+  var h=0,i,lo,hi,rate,a,b;
+  for(i=0;i<bands.length;i++){
+    lo=bands[i][0];hi=bands[i][1];rate=bands[i][2];
+    a=Math.max(cur,lo);b=Math.min(target,hi);
+    if(b>a)h+=(b-a)*rate;
+  }
+  return h;
+}
+/* 默认每周课次（按阶段类型+年级） */
+function defaultWeekly(type,grade){
+  if(grade===3){
+    if(type==='sem')return 3;
+    if(type==='win')return 5;
+    return 6;
+  }
+  if(type==='sem')return 2;
+  if(type==='win')return 4;
+  return 5;
+}
+/* 实际每周课次（考虑容量模式） */
+function weeklyOf(type,grade){
+  if(weeklyCapMode!=='auto')return parseInt(weeklyCapMode,10);
+  return defaultWeekly(type,grade);
+}
+function esc(v){return String(v).replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* ================= 初始化下拉 ================= */
+function initSelects(){
+  var sOpts='',eOpts='',i;
+  for(i=0;i<STAGES.length;i++){
+    sOpts+='<option value="'+i+'">'+STAGES[i].name+'（开始）</option>';
+  }
+  for(i=0;i<STAGES.length;i++){
+    var label=(i===STAGES.length-1)?(STAGES[i].name+'（高考）'):(STAGES[i].name+'（结束）');
+    eOpts+='<option value="'+i+'">'+label+'</option>';
+  }
+  $('startNode').innerHTML=sOpts;
+  $('endNode').innerHTML=eOpts;
+  $('endNode').value=STAGES.length-1;
+}
+
+/* ================= 年级 / 班型 / 步骤 ================= */
+function bindChoices(){
+  var gs=document.querySelectorAll('.grade-opt'),i;
+  for(i=0;i<gs.length;i++){
+    gs[i].onclick=function(){
+      var g=parseInt(this.getAttribute('data-g'),10);
+      curGrade=g;
+      var j,arr=document.querySelectorAll('.grade-opt');
+      for(j=0;j<arr.length;j++)arr[j].className='grade-opt';
+      this.className='grade-opt active';
+      renderSubjects();
+    };
+  }
+  var cs=document.querySelectorAll('.mode-opt'),k;
+  for(k=0;k<cs.length;k++){
+    cs[k].onclick=function(){
+      classMode=parseInt(this.getAttribute('data-c'),10);
+      var j,arr=document.querySelectorAll('.mode-opt');
+      for(j=0;j<arr.length;j++)arr[j].className='mode-opt';
+      this.className='mode-opt active';
+      var txt=(classMode===1)?'1对1 完全个性化，系数 1.00：课时=理论需求 × 1.00。':'1对3 兼顾三人进度，系数 1.30：课时=理论需求 × 1.30，课时量更高但单生成本更低。';
+      $('classHint').textContent=txt;
+    };
+  }
+  /* 步骤条点击 */
+  var ss=document.querySelectorAll('.step-item'),m;
+  for(m=0;m<ss.length;m++){
+    ss[m].onclick=function(){
+      var st=parseInt(this.getAttribute('data-s'),10);
+      if(st===3&&!currentPlan){alert('请先完成参数填写并生成规划');return;}
+      goStep(st);
+    };
+  }
+  $('weeklyCap').onchange=function(){weeklyCapMode=this.value;};
+}
+
+/* ================= 科目选择与分数表 ================= */
+function renderSubjects(){
+  var html='',i,s;
+  for(i=0;i<SUBJECTS.length;i++){
+    s=SUBJECTS[i];
+    var active=(selectedSubjects[s.id])?' active':'';
+    html+='<div class="subj-opt'+active+'" data-id="'+s.id+'" onclick="toggleSubj(\''+s.id+'\')">'+
+      '<span class="sel-badge">✓</span><div class="s-ic">'+s.ic+'</div>'+
+      '<div class="s-name">'+s.name+'</div><div class="s-full">满分 '+s.full+'</div></div>';
+  }
+  $('subjOpts').innerHTML=html;
+  renderScoreTable();
+}
+function toggleSubj(id){
+  if(selectedSubjects[id]){delete selectedSubjects[id];}
+  else{
+    var s=getSubj(id);
+    selectedSubjects[id]={cur:'',target:'',full:s.full};
+  }
+  renderSubjects();
+}
+function getSubj(id){
+  var i;
+  for(i=0;i<SUBJECTS.length;i++)if(SUBJECTS[i].id===id)return SUBJECTS[i];
+  return null;
+}
+function renderScoreTable(){
+  var ids=[],k,html='';
+  for(k in selectedSubjects){if(selectedSubjects.hasOwnProperty(k))ids.push(k);}
+  if(ids.length===0){
+    $('scoreTbody').innerHTML='<tr><td colspan="5" style="color:#9aa4b8;padding:18px">请先在上方勾选需要补课的科目</td></tr>';
+    return;
+  }
+  var i,s,sub;
+  for(i=0;i<ids.length;i++){
+    s=selectedSubjects[ids[i]];sub=getSubj(ids[i]);
+    var curVal=(s.cur==='')?'':s.cur,tgtVal=(s.target==='')?'':s.target;
+    html+='<tr>'+
+      '<td class="subj-cell">'+sub.ic+' '+sub.name+'<div style="font-size:11px;color:#9aa4b8;font-weight:400">满分'+sub.full+'</div></td>'+
+      '<td><input type="number" min="0" max="'+sub.full+'" value="'+curVal+'" placeholder="当前" data-id="'+sub.id+'" data-field="cur" oninput="onScore(this)"></td>'+
+      '<td><input type="number" min="0" max="'+sub.full+'" value="'+tgtVal+'" placeholder="目标" data-id="'+sub.id+'" data-field="target" oninput="onScore(this)"></td>'+
+      '<td class="gap-cell" id="gap-'+sub.id+'">—</td>'+
+      '<td class="bar-cell"><div class="mini-bar"><i id="mini-'+sub.id+'" style="width:0%"></i></div></td>'+
+      '</tr>';
+  }
+  $('scoreTbody').innerHTML=html;
+}
+function onScore(el){
+  var id=el.getAttribute('data-id'),field=el.getAttribute('data-field');
+  var v=el.value===''?'':parseInt(el.value,10);
+  selectedSubjects[id][field]=v;
+  updateGap(id);
+}
+function updateGap(id){
+  var s=selectedSubjects[id],sub=getSubj(id);
+  var gapEl=$('gap-'+id),miniEl=$('mini-'+id);
+  if(!gapEl)return;
+  if(s.cur===''||s.target===''||isNaN(s.cur)||isNaN(s.target)){
+    gapEl.textContent='—';
+    if(miniEl)miniEl.style.width='0%';
+    return;
+  }
+  var gap=Math.max(0,s.target-s.cur);
+  gapEl.textContent=(gap>0)?('+'+gap+' 分'):'已达/超目标';
+  var pct=Math.min(100,Math.round(gap/(sub.full*0.6)*100));
+  if(miniEl)miniEl.style.width=pct+'%';
+}
+
+/* ================= 步骤导航 ================= */
+function goStep(n){
+  var i;
+  for(i=1;i<=3;i++){
+    $('step'+i).style.display=(i===n)?'block':'none';
+    var dot=$('dot'+i);
+    dot.className='s-dot';
+    dot.style.background='';
+    if(i<n){dot.className='s-dot';dot.style.background='#27ae60';dot.style.color='#fff';}
+    if(i===n){dot.className='s-dot';dot.style.background='linear-gradient(135deg,#0b1f43,#1e5aa8)';dot.style.color='#fff';}
+  }
+  window.scrollTo(0,0);
+}
+</script>
+<script>
+/* ================= 计算引擎 ================= */
+function computePlan(){
+  var ids=[],k,i,err=[];
+  for(k in selectedSubjects){if(selectedSubjects.hasOwnProperty(k))ids.push(k);}
+  if(ids.length===0){alert('请至少选择一个补课科目');goStep(2);return;}
+  var start=parseInt($('startNode').value,10);
+  var end=parseInt($('endNode').value,10);
+  if(end<start){alert('目标节点需晚于起始节点');return;}
+  /* 校验分数 */
+  var subjPlans=[],totalHours=0;
+  for(i=0;i<ids.length;i++){
+    var s=selectedSubjects[ids[i]],sub=getSubj(ids[i]);
+    var cur=s.cur,tgt=s.target;
+    if(cur===''||tgt===''||isNaN(cur)||isNaN(tgt)){err.push(sub.name+'分数未填全');continue;}
+    if(tgt<=cur){err.push(sub.name+'目标分应高于当前分');continue;}
+    var raw=subjectHours(cur,tgt,sub.full);
+    var hours=Math.round(raw*CLASS_RATE[classMode]);
+    subjPlans.push({id:sub.id,name:sub.name,ic:sub.ic,full:sub.full,cur:cur,tgt:tgt,gap:tgt-cur,raw:round1(raw),hours:hours,sessions:Math.max(1,Math.round(hours/2))});
+    totalHours+=hours;
+  }
+  if(subjPlans.length===0){alert('请修正分数填写：'+(err.length?err.join('；'):''));return;}
+  /* 阶段序列 */
+  var stages=[],si;
+  for(si=start;si<=end;si++)stages.push(STAGES[si]);
+  /* 权重分配 */
+  var weights=[],sumW=0,w;
+  for(si=0;si<stages.length;si++){
+    w=stages[si].weeks*TYPE_W[stages[si].type];
+    if(si===stages.length-1)w*=1.30;
+    else if(si===stages.length-2)w*=1.15;
+    weights.push(w);sumW+=w;
+  }
+  var alloc=[],assigned=0;
+  for(si=0;si<stages.length;si++){
+    if(si===stages.length-1){alloc.push(totalHours-assigned);}
+    else{
+      var a=Math.round(totalHours*weights[si]/sumW);
+      alloc.push(a);assigned+=a;
+    }
+  }
+  /* 容量与每周课次 */
+  for(si=0;si<stages.length;si++){
+    var wk=weeklyOf(stages[si].type,curGrade);
+    stages[si].weekly=wk;
+    stages[si].cap=stages[si].weeks*wk*2;
+    stages[si].alloc=alloc[si];
+    stages[si].sessions=Math.max(0,Math.round(alloc[si]/2));
+    stages[si].over=(alloc[si]>stages[si].cap);
+    stages[si].pct=totalHours>0?Math.round(alloc[si]/totalHours*100):0;
+  }
+  var totalCap=0;
+  for(si=0;si<stages.length;si++)totalCap+=stages[si].cap;
+  var plan={start:start,end:end,grade:curGrade,classMode:classMode,
+    subjPlans:subjPlans,totalHours:totalHours,totalSessions:Math.max(1,Math.round(totalHours/2)),
+    stages:stages,totalCap:totalCap,
+    spanMonths:spanMonths(start,end)};
+  currentPlan=plan;
+  goStep(3);
+  renderResult();
+}
+
+/* 周期跨度估算（月） */
+function spanMonths(start,end){
+  var m=0,si;
+  for(si=start;si<=end;si++)m+=STAGES[si].weeks;
+  return Math.round(m/4.3*10)/10;
+}
+
+/* ================= 结果渲染 ================= */
+function renderResult(){
+  var p=currentPlan;
+  if(!p)return;
+  /* 头部 */
+  var gradeName=(p.grade===1)?'高一':((p.grade===2)?'高二':'高三');
+  var clsName=(p.classMode===1)?'1对1':'1对3';
+  $('rTitle').textContent=gradeName+' · '+clsName+' 课时规划方案';
+  $('rSub').textContent='周期：'+STAGES[p.start].name+' → '+STAGES[p.end].name+'（约 '+p.spanMonths+' 个月 / '+sumWeeks(p)+' 周）｜'+p.subjPlans.length+' 科补课｜每次课 2 小时';
+  $('rTags').innerHTML='<span class="rh-tag">'+gradeName+'</span><span class="rh-tag">'+clsName+'</span><span class="rh-tag">'+p.subjPlans.length+' 科</span><span class="rh-tag">2h/次</span>';
+  /* KPI */
+  var rate=classMode===1?1.0:1.3;
+  var kpiHtml=''+
+    '<div class="kpi"><div class="k-label">总需求课时</div><div class="k-val">'+p.totalHours+'</div><div class="k-sub">按班型系数 '+rate+' 折算</div></div>'+
+    '<div class="kpi"><div class="k-label">总课时 · 次数</div><div class="k-val gold">'+p.totalSessions+'<span style="font-size:14px"> 次</span></div><div class="k-sub">每次 2 小时，重点关注次课数</div></div>'+
+    '<div class="kpi"><div class="k-label">平均每周课次</div><div class="k-val blue">'+avgWeekly(p)+'</div><div class="k-sub">按周期跨度折算</div></div>'+
+    '<div class="kpi"><div class="k-label">周期跨度</div><div class="k-val blue">'+p.spanMonths+'<span style="font-size:14px"> 月</span></div><div class="k-sub">'+sumWeeks(p)+' 周 · '+p.stages.length+' 个阶段</div></div>'+
+    '<div class="kpi"><div class="k-label">总提升空间</div><div class="k-val" style="color:#1e8e4a">+'+totalGap(p)+'<span style="font-size:14px"> 分</span></div><div class="k-sub">'+p.subjPlans.length+' 科合计</div></div>';
+  $('kpiGrid').innerHTML=kpiHtml;
+  $('modelNote').innerHTML='<b>模型说明：</b>课时需求按「分段提分模型」估算——分数越高、提分难度越大（低分段每 10 分约 8 课时，高分段每 10 分需 30+ 课时）；再按班型系数折算（1对1 ×1.00 / 1对3 ×1.30），并分配到各学期与寒暑假阶段。';
+  /* 分科表 */
+  var sh='<thead><tr><th>科目</th><th>当前分</th><th>目标分</th><th>提分</th><th>所需课时</th><th>所需次课(2h)</th><th>单科难度</th></tr></thead><tbody>';
+  var i,sp;
+  for(i=0;i<p.subjPlans.length;i++){
+    sp=p.subjPlans[i];
+    var diff=(sp.gap>=50?'高':(sp.gap>=25?'中':'低'));
+    sh+='<tr><td class="hl">'+sp.ic+' '+sp.name+'</td><td>'+sp.cur+'</td><td>'+sp.target+'</td><td class="green">+'+sp.gap+'</td><td class="hl">'+sp.hours+'</td><td class="gold">'+sp.sessions+' 次</td><td>'+diff+'</td></tr>';
+  }
+  sh+='<tr style="background:#f6f9ff"><td class="hl">合计</td><td colspan="3"></td><td class="hl">'+p.totalHours+'</td><td class="gold">'+p.totalSessions+' 次</td><td></td></tr></tbody>';
+  $('subjResultTable').innerHTML=sh;
+  /* 阶段表 */
+  var st='<thead><tr><th>阶段</th><th>类型</th><th>周数</th><th>每周课次</th><th>阶段课时</th><th>阶段次课</th><th>占总比</th><th>容量诊断</th></tr></thead><tbody>';
+  var si,sg;
+  for(si=0;si<p.stages.length;si++){
+    sg=p.stages[si];
+    var capTxt=sg.over?'<span class="warn-flag">⚠ 超容量</span>':'<span class="green">✓ 可排</span>';
+    st+='<tr class="stage-row"><td class="hl">'+sg.name+'</td><td>'+sg.tlabel+'</td><td>'+sg.weeks+'</td><td>'+sg.weekly+' 次/周</td><td class="hl">'+sg.alloc+'</td><td class="gold">'+sg.sessions+' 次</td><td>'+sg.pct+'%</td><td>'+capTxt+'</td></tr>';
+  }
+  st+='</tbody>';
+  $('stageTable').innerHTML=st;
+  /* 可行性 */
+  var ratio=p.totalCap>=p.totalHours?(p.totalCap/p.totalHours):(p.totalHours/p.totalCap);
+  var feas;
+  if(p.totalCap>=p.totalHours*1.15){feas={cls:'ok',t:'✓ 排课容量充裕',d:'当前每周排课节奏可完整覆盖目标课时需求，且留有 '+Math.round(p.totalCap-p.totalHours)+' 课时余量，可适当放缓或增加巩固课时。'};}
+  else if(p.totalCap>=p.totalHours){feas={cls:'ok',t:'✓ 排课容量可行',d:'每周排课节奏刚好覆盖目标课时需求，按推荐执行即可。'};}
+  else{feas={cls:'danger',t:'⚠ 排课容量不足',d:'目标课时需 '+p.totalHours+' 课时，但按当前每周课次最多可排 '+p.totalCap+' 课时，缺口 '+Math.round(p.totalHours-p.totalCap)+' 课时。建议：① 提高每周课次（改选固定更高档）；② 延长周期至更多假期阶段；③ 适当下调目标分。'};}
+  $('feasBox').innerHTML='<div class="feas-title">'+feas.t+'</div><p>'+feas.d+'</p>';
+  $('feasBox').className='feas-box '+feas.cls;
+  /* 每周排课建议 */
+  var wg='';
+  for(si=0;si<p.stages.length;si++){
+    sg=p.stages[si];
+    wg+='<div class="week-card"><div class="w-name">'+sg.name+'</div><div class="w-val">'+sg.weekly+' 次/周</div><div class="w-sub">'+sg.weeks+' 周 × '+sg.weekly+' 次 = '+sg.sessions+' 次课</div></div>';
+  }
+  $('weekGrid').innerHTML=wg;
+  /* 手动调整表 */
+  renderAdjust(p);
+}
+
+function sumWeeks(p){var s=0,i;for(i=0;i<p.stages.length;i++)s+=p.stages[i].weeks;return s;}
+function totalGap(p){var s=0,i;for(i=0;i<p.subjPlans.length;i++)s+=p.subjPlans[i].gap;return s;}
+function avgWeekly(p){
+  var weeks=sumWeeks(p);
+  if(weeks<=0)return 0;
+  return Math.round(p.totalHours/weeks*10)/10;
+}
+
+/* ================= 手动调整 ================= */
+function renderAdjust(p){
+  var html='<thead><tr><th>阶段</th><th>建议课时</th><th>调整后课时</th><th>次课(2h)</th><th>每周课次</th></tr></thead><tbody>';
+  var i,sg;
+  for(i=0;i<p.stages.length;i++){
+    sg=p.stages[i];
+    html+='<tr>'+
+      '<td class="hl">'+sg.name+'</td>'+
+      '<td class="gold">'+sg.alloc+'</td>'+
+      '<td><button class="step-btn" onclick="adj(\''+sg.id+'\',-2)">−</button> <input type="number" id="adj-'+sg.id+'" value="'+sg.alloc+'" min="0" max="999" onchange="recalcAdjust()" oninput="recalcAdjust()"> <button class="step-btn" onclick="adj(\''+sg.id+'\',2)">+</button></td>'+
+      '<td id="adjSess-'+sg.id+'">'+sg.sessions+' 次</td>'+
+      '<td id="adjWeek-'+sg.id+'">'+sg.weekly+' 次/周</td>'+
+      '</tr>';
+  }
+  html+='</tbody>';
+  $('adjustTable').innerHTML=html;
+}
+function adj(id,delta){
+  var el=$('adj-'+id);
+  var v=parseInt(el.value,10)||0;
+  el.value=Math.max(0,v+delta);
+  recalcAdjust();
+}
+function recalcAdjust(){
+  var p=currentPlan;
+  if(!p)return;
+  var total=0,i,sg;
+  for(i=0;i<p.stages.length;i++){
+    sg=p.stages[i];
+    var el=$('adj-'+sg.id);
+    var v=el?Math.max(0,parseInt(el.value,10)||0):sg.alloc;
+    var sessEl=$('adjSess-'+sg.id),weekEl=$('adjWeek-'+sg.id);
+    if(sessEl)sessEl.textContent=Math.round(v/2)+' 次';
+    if(weekEl)weekEl.textContent=(sg.weeks>0?Math.round(v/sg.weeks*10)/10:0)+' 次/周';
+    if(v>sg.cap&&weekEl)weekEl.style.color='#c0392b';
+    else if(weekEl)weekEl.style.color='';
+    total+=v;
+  }
+  var need=p.totalHours;
+  var gap=total-need;
+  var pct=need>0?Math.round(total/need*100):0;
+  var box=$('adjustBox');
+  if(gap>=0){
+    box.className='feas-box ok';
+    box.innerHTML='<div class="feas-title">✓ 已覆盖目标课时</div><p>调整后总课时 <b>'+total+'</b> 课时（需求 '+need+'），超出 '+gap+' 课时，达成度 <b>'+pct+'%</b>。总次课约 <b>'+Math.round(total/2)+'</b> 次（每次 2 小时）。</p>';
+  }else{
+    box.className='feas-box danger';
+    box.innerHTML='<div class="feas-title">⚠ 课时不足</div><p>调整后总课时 <b>'+total+'</b> 课时，距目标课时需求还差 <b>'+Math.abs(gap)+'</b> 课时（达成度 '+pct+'%）。建议提高部分阶段课时或延长周期。</p>';
+  }
+}
+function resetAdjust(){
+  if(!currentPlan)return;
+  var i,sg=currentPlan.stages;
+  for(i=0;i<sg.length;i++){
+    var el=$('adj-'+sg[i].id);
+    if(el)el.value=sg[i].alloc;
+  }
+  recalcAdjust();
+}
+
+/* ================= 启动 ================= */
+initSelects();
+bindChoices();
+renderSubjects();
+$('endNode').value=STAGES.length-1;
+</script>
+</body>
+</html>
