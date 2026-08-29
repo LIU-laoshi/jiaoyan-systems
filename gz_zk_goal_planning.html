@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>广州市初中生各科成绩目标规划系统</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;background:#f0f2f5;color:#333;font-size:14px;line-height:1.6}
+/* ===== 顶部 ===== */
+.topbar{background:linear-gradient(135deg,#0f2b5b,#1a4a8a 55%,#2a6cb8);color:#fff;padding:34px 20px 26px;text-align:center;position:relative;overflow:hidden}
+.topbar::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.06)}
+.topbar::after{content:'';position:absolute;bottom:-80px;left:-40px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.05)}
+.topbar h1{font-size:24px;letter-spacing:2px;position:relative;z-index:1}
+.topbar .sub{font-size:13px;opacity:.85;margin-top:8px;letter-spacing:1px;position:relative;z-index:1}
+.topbar .badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);padding:3px 12px;border-radius:20px;font-size:12px;margin-top:10px;position:relative;z-index:1}
+.container{max-width:920px;margin:0 auto;padding:16px 14px 40px}
+/* ===== 卡片 ===== */
+.card{background:#fff;border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 2px 14px rgba(15,43,91,.06)}
+.card-title{font-size:16px;font-weight:700;color:#0f2b5b;display:flex;align-items:center;margin-bottom:14px}
+.card-title .num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:linear-gradient(135deg,#0f2b5b,#2a6cb8);color:#fff;border-radius:8px;font-size:14px;margin-right:10px;flex-shrink:0}
+/* ===== 欢迎页 ===== */
+.hero-icon{font-size:52px;text-align:center;margin-bottom:10px}
+.hero-intro{color:#666;font-size:14px;line-height:1.9;text-align:center;max-width:640px;margin:0 auto 6px}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:18px}
+.feature{background:#f7f9fc;border:1px solid #e6ecf5;border-radius:12px;padding:14px 14px 12px}
+.feature .ic{font-size:22px}
+.feature .ft{font-weight:700;color:#0f2b5b;font-size:14px;margin:6px 0 4px}
+.feature .fd{font-size:12px;color:#777;line-height:1.6}
+.btn-main{display:block;width:100%;max-width:360px;margin:22px auto 0;padding:14px;background:linear-gradient(135deg,#0f2b5b,#2a6cb8);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:700;letter-spacing:2px;cursor:pointer;box-shadow:0 6px 18px rgba(15,43,91,.25);transition:transform .2s}
+.btn-main:active{transform:scale(.98)}
+.btn-sec{display:block;width:100%;max-width:360px;margin:12px auto 0;padding:12px;background:#fff;color:#0f2b5b;border:2px solid #0f2b5b;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer}
+/* ===== 按钮 ===== */
+.btn{display:inline-block;padding:10px 22px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,#0f2b5b,#2a6cb8);color:#fff}
+.btn-outline{background:#fff;color:#0f2b5b;border:2px solid #0f2b5b}
+.btn-ghost{background:#f2f5fa;color:#5a6b8a;border:1px solid #dde5f0}
+.btn-danger{background:#fff;color:#c0392b;border:1px solid #e8b4ad}
+.btn-sm{padding:6px 14px;font-size:13px;border-radius:8px}
+.btn:active{transform:scale(.97)}
+/* ===== 表单 ===== */
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-size:13px;font-weight:600;color:#445;margin-bottom:6px}
+.form-group .hint{font-size:12px;color:#999;margin-top:4px;line-height:1.6}
+input[type=text],input[type=number],select{width:100%;padding:11px 12px;border:2px solid #dde5f0;border-radius:10px;font-size:14px;background:#fff;transition:border-color .2s}
+input:focus,select:focus{outline:none;border-color:#2a6cb8}
+.input-row{display:flex;gap:10px}
+.input-row .input-col{flex:1}
+/* 年级按钮 */
+.grade-opts{display:flex;gap:10px}
+.grade-opt{flex:1;text-align:center;padding:16px 10px;border:2px solid #dde5f0;border-radius:12px;cursor:pointer;transition:all .2s;background:#fff}
+.grade-opt .g-ic{font-size:26px}
+.grade-opt .g-name{font-weight:700;font-size:15px;color:#0f2b5b;margin-top:6px}
+.grade-opt .g-desc{font-size:11px;color:#999;margin-top:4px}
+.grade-opt.active{border-color:#0f2b5b;background:#f0f5ff;box-shadow:0 4px 14px rgba(15,43,91,.12)}
+/* 学科选择 */
+.subj-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.subj-opt{border:2px solid #e4e9f2;border-radius:12px;padding:12px 10px;text-align:center;cursor:pointer;transition:all .2s;background:#fff}
+.subj-opt .s-ic{font-size:22px}
+.subj-opt .s-name{font-weight:600;font-size:13px;margin-top:4px;color:#333}
+.subj-opt .s-meta{font-size:11px;color:#999;margin-top:2px}
+.subj-opt.active{border-color:#2a6cb8;background:#eef4ff}
+.subj-opt.disabled{opacity:.4;cursor:not-allowed}
+/* 模式选择 */
+.mode-opts{display:flex;gap:10px}
+.mode-opt{flex:1;text-align:center;padding:14px 8px;border:2px solid #dde5f0;border-radius:12px;cursor:pointer;transition:all .2s;background:#fff}
+.mode-opt .m-ic{font-size:22px}
+.mode-opt .m-name{font-weight:700;font-size:14px;margin-top:4px;color:#0f2b5b}
+.mode-opt .m-desc{font-size:11px;color:#999;margin-top:3px}
+.mode-opt.active{border-color:#0f2b5b;background:#f0f5ff}
+/* 分数输入表 */
+.score-table{width:100%;border-collapse:collapse}
+.score-table th{background:#f4f7fb;color:#445;font-size:12px;padding:9px 6px;border:1px solid #e6ecf5;text-align:center}
+.score-table td{border:1px solid #e6ecf5;padding:8px 6px;text-align:center;font-size:13px}
+.score-table input{width:70px;text-align:center;padding:7px 4px;border:2px solid #dde5f0;border-radius:8px;font-size:14px}
+.score-table .subj-name{font-weight:600;text-align:left;padding-left:10px}
+.score-table .full-col{color:#999;font-size:12px}
+/* 节点 */
+.node-list{margin-top:6px}
+.node-item{display:flex;align-items:center;gap:8px;background:#f7f9fc;border:1px solid #e6ecf5;border-radius:10px;padding:9px 10px;margin-bottom:8px}
+.node-item .n-idx{width:24px;height:24px;background:#0f2b5b;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.node-item input{flex:2;min-width:80px}
+.node-item .node-days{flex:1;min-width:90px;text-align:center;color:#555;font-size:13px}
+.node-item .node-del{cursor:pointer;color:#c0392b;font-size:18px;padding:0 4px}
+.node-preset{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.node-preset .tag{background:#f0f5ff;border:1px solid #c9dbf5;color:#1a4a8a;padding:6px 12px;border-radius:8px;font-size:12px;cursor:pointer}
+/* ===== 步骤条 ===== */
+.steps{display:flex;margin-bottom:16px;background:#fff;border-radius:12px;padding:14px 10px;box-shadow:0 2px 10px rgba(15,43,91,.05)}
+.step-item{flex:1;text-align:center;position:relative}
+.step-item .s-dot{width:30px;height:30px;border-radius:50%;background:#e4e9f2;color:#999;display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;transition:all .3s}
+.step-item .s-label{font-size:11px;color:#999;margin-top:5px}
+.step-item.active .s-dot{background:linear-gradient(135deg,#0f2b5b,#2a6cb8);color:#fff}
+.step-item.active .s-label{color:#0f2b5b;font-weight:600}
+.step-item.done .s-dot{background:#2ecc71;color:#fff}
+/* ===== 报告 ===== */
+.report-wrap{max-width:920px;margin:0 auto;padding:16px 14px 40px}
+.report-head{background:linear-gradient(135deg,#0f2b5b,#1a4a8a 60%,#2a6cb8);color:#fff;border-radius:16px;padding:28px 24px;position:relative;overflow:hidden;margin-bottom:16px}
+.report-head::after{content:'';position:absolute;top:-50px;right:30px;width:180px;height:180px;border:2px solid rgba(255,255,255,.12);border-radius:50%}
+.report-head .rh-top{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:1}
+.report-head .rh-title{font-size:22px;font-weight:800;letter-spacing:2px}
+.report-head .rh-sub{font-size:12px;opacity:.85;margin-top:6px}
+.report-head .rh-meta{text-align:right;font-size:12px;line-height:2;opacity:.9;position:relative;z-index:1}
+.report-head .rh-id{background:rgba(255,255,255,.15);padding:4px 12px;border-radius:6px;font-family:monospace;font-size:12px;display:inline-block;margin-top:4px}
+.report-section{background:#fff;border-radius:14px;padding:22px 20px;margin-bottom:14px;box-shadow:0 2px 12px rgba(15,43,91,.05)}
+.report-section h2{font-size:17px;color:#0f2b5b;font-weight:800;margin-bottom:14px;display:flex;align-items:center}
+.report-section h2::before{content:'';width:5px;height:20px;background:linear-gradient(180deg,#0f2b5b,#2a6cb8);border-radius:3px;margin-right:10px;display:inline-block}
+.report-section h3{font-size:14px;color:#1a4a8a;margin:14px 0 8px;font-weight:700}
+/* 总览数字 */
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.ov-item{background:#f7f9fc;border-radius:12px;padding:14px;text-align:center;border:1px solid #e8eef7}
+.ov-item .ov-label{font-size:12px;color:#888}
+.ov-item .ov-val{font-size:26px;font-weight:800;color:#0f2b5b;margin-top:4px}
+.ov-item .ov-val.highlight{color:#2a6cb8}
+.ov-item .ov-val.warn{color:#e67e22}
+.ov-item .ov-val.danger{color:#c0392b}
+.ov-item .ov-val.ok{color:#27ae60}
+.ov-item .ov-sub{font-size:11px;color:#aaa;margin-top:3px}
+/* 进度条 */
+.bar{height:14px;background:#eef2f8;border-radius:8px;overflow:hidden;margin-top:8px}
+.bar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,#0f2b5b,#2a6cb8);transition:width .8s}
+.bar-fill.green{background:linear-gradient(90deg,#27ae60,#2ecc71)}
+.bar-fill.orange{background:linear-gradient(90deg,#e67e22,#f39c12)}
+.bar-fill.red{background:linear-gradient(90deg,#c0392b,#e74c3c)}
+/* 雷达图容器 */
+.chart-box{text-align:center;margin:10px 0}
+.chart-box canvas{max-width:100%}
+/* 表格 */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{background:#f4f7fb;color:#445;padding:9px 8px;border:1px solid #e6ecf5;text-align:center;font-weight:600}
+.tbl td{padding:9px 8px;border:1px solid #e6ecf5;text-align:center}
+.tbl td.l{text-align:left}
+.tbl tr:nth-child(even) td{background:#fafbfd}
+/* 徽章 */
+.tag-badge{display:inline-block;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:600}
+.tag-p1{background:#fdecea;color:#c0392b}
+.tag-p2{background:#fef5e7;color:#e67e22}
+.tag-p3{background:#eaf2fb;color:#1a4a8a}
+.tag-p4{background:#eafaf1;color:#27ae60}
+/* 学科方案卡 */
+.subj-plan{border:1px solid #e6ecf5;border-radius:12px;margin-bottom:12px;overflow:hidden}
+.subj-plan .sp-head{display:flex;align-items:center;padding:13px 14px;background:#f7f9fc;border-bottom:1px solid #e6ecf5}
+.subj-plan .sp-ic{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;margin-right:12px;flex-shrink:0}
+.subj-plan .sp-name{font-size:15px;font-weight:700;color:#0f2b5b}
+.subj-plan .sp-meta{font-size:11px;color:#888;margin-top:2px}
+.subj-plan .sp-body{padding:14px}
+.subj-plan .sp-body p{font-size:13px;color:#555;margin-bottom:10px;line-height:1.8}
+.subj-plan .sp-band{background:#f7f9fc;border-left:4px solid #2a6cb8;border-radius:6px;padding:10px 12px;margin-bottom:10px}
+.subj-plan .sp-band .b-title{font-weight:700;color:#0f2b5b;font-size:13px}
+.subj-plan .sp-band .b-range{font-size:12px;color:#2a6cb8;margin-left:6px}
+.subj-plan .sp-band ul{margin:8px 0 0 18px}
+.subj-plan .sp-band li{font-size:13px;color:#555;line-height:1.8}
+.subj-module{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.subj-module .mod{background:#eef4ff;color:#1a4a8a;padding:4px 10px;border-radius:6px;font-size:12px}
+/* 时间轴 */
+.timeline{position:relative;margin:16px 0 8px;padding-left:30px}
+.timeline::before{content:'';position:absolute;left:10px;top:6px;bottom:6px;width:3px;background:linear-gradient(180deg,#0f2b5b,#2a6cb8);border-radius:2px}
+.tl-item{position:relative;margin-bottom:18px}
+.tl-item::before{content:'';position:absolute;left:-26px;top:4px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid #2a6cb8}
+.tl-item.end::before{background:#27ae60;border-color:#27ae60}
+.tl-item .tl-name{font-weight:700;font-size:14px;color:#0f2b5b}
+.tl-item .tl-days{font-size:12px;color:#999;margin-left:6px}
+.tl-item .tl-scores{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tl-item .tl-score{background:#f7f9fc;border:1px solid #e6ecf5;border-radius:8px;padding:5px 9px;font-size:12px}
+.tl-item .tl-score b{color:#2a6cb8}
+/* 提示框 */
+.alert{border-radius:10px;padding:12px 14px;margin:10px 0;font-size:13px;line-height:1.7}
+.alert-info{background:#eaf2fb;color:#1a4a8a;border:1px solid #c9dbf5}
+.alert-warn{background:#fef5e7;color:#9a6b16;border:1px solid #f3ddb5}
+.alert-ok{background:#eafaf1;color:#1e8449;border:1px solid #c4ebd2}
+.alert-danger{background:#fdecea;color:#a93226;border:1px solid #f0c6c1}
+/* 保存栏 */
+.save-bar{position:sticky;bottom:12px;display:flex;gap:10px;justify-content:center;margin-top:6px;background:rgba(255,255,255,.96);border-radius:14px;padding:12px;box-shadow:0 4px 20px rgba(15,43,91,.15)}
+/* 弹窗 */
+.modal-mask{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(10,20,40,.55);z-index:9999;display:none;align-items:center;justify-content:center;padding:16px}
+.modal-mask.show{display:flex}
+.modal{background:#fff;border-radius:16px;max-width:480px;width:100%;max-height:86vh;overflow-y:auto;padding:22px}
+.modal h3,.modal h2{color:#0f2b5b;font-size:17px;margin-bottom:14px}
+.modal-close{float:right;cursor:pointer;color:#aaa;font-size:22px;line-height:1}
+/* 历史列表 */
+.hist-item{display:flex;align-items:center;gap:10px;background:#f7f9fc;border:1px solid #e6ecf5;border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.hist-item .h-info{flex:1;min-width:0}
+.hist-item .h-name{font-weight:600;font-size:14px;color:#333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hist-item .h-meta{font-size:11px;color:#999;margin-top:2px}
+.hist-item .h-actions{display:flex;gap:6px;flex-shrink:0}
+/* 报告操作栏 */
+.report-actions{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+/* 页脚 */
+.footer{text-align:center;color:#aaa;font-size:11px;padding:20px 10px 30px;line-height:1.8}
+.footer .gold{color:#b8860b}
+/* 打印 */
+@media print{
+.topbar,.save-bar,.report-actions,.steps,.btn-main,.btn-sec{display:none!important}
+.report-wrap{padding:0}
+.report-section{box-shadow:none;border:1px solid #eee;page-break-inside:avoid}
+.report-head{background:#0f2b5b!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{background:#fff}
+}
+@media (max-width:600px){
+.score-table input{width:56px}
+.topbar h1{font-size:20px}
+.report-head .rh-meta{display:none}
+.grade-opts{flex-wrap:wrap}
+.grade-opt{min-width:90px}
+}
+/* 无障碍与动效偏好 */
+a:focus-visible,input:focus-visible,button:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #2a6cb8;outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<!-- 顶部 -->
+<div class="topbar">
+<h1>广州市初中生各科成绩目标规划系统</h1>
+<div class="sub">GROWTH GOAL PLANNING SYSTEM · 基于广州新中考"8科810分"计分体系</div>
+<div class="badge">单科 · 多科 · 全科 · 初一至初三全学段目标规划</div>
+</div>
+
+<div class="container" id="pageHome">
+<div class="card">
+<div class="hero-icon">🎯</div>
+<div class="hero-intro">
+本系统依据<strong>广州新中考"8科810分"计分体系</strong>，以当前年级真实成绩为起点，
+面向<strong>单科、多科、全科</strong>三种规划场景，输入<strong>目标分数</strong>与<strong>阶段性时间节点</strong>后，
+自动生成<strong>专业的学科提升方案分析报告</strong>，涵盖差距诊断、梯度定位、阶段目标分解、学科专项提升策略与执行建议。
+</div>
+<div class="feature-grid">
+<div class="feature"><div class="ic">📚</div><div class="ft">全学段覆盖</div><div class="fd">初一·初二·初三，不同年级匹配差异化科目范围与规划重点</div></div>
+<div class="feature"><div class="ic">🧮</div><div class="ft">多模式分析</div><div class="fd">单科精进 / 多科联动 / 全科统筹，灵活适配各类规划诉求</div></div>
+<div class="feature"><div class="ic">🗓️</div><div class="ft">节点化推进</div><div class="fd">自定义时间节点，自动拆解阶段目标，让提升路径可落地、可检验</div></div>
+<div class="feature"><div class="ic">📊</div><div class="ft">专业报告</div><div class="fd">差距诊断 + 梯度定位 + 雷达对比 + 学科专项策略 + 优先级排序，行业级分析报告</div></div>
+</div>
+<button class="btn-main" onclick="startPlan()">开始制定成绩目标规划</button>
+<button class="btn-sec" onclick="openCollege()">🏫 高中梯度参考</button>
+<button class="btn-sec" onclick="openHistory()">📋 查看历史报告</button>
+</div>
+<div class="footer">
+本系统依据广州市招生考试委员会办公室官方政策构建，报告仅供学习规划参考<br>
+<span class="gold">★ 8科810分计分体系 · 梯度投档控制线 · 广州中考全学段规划 ★</span>
+</div>
+</div>
+
+<!-- 向导 -->
+<div class="container" id="pageWizard" style="display:none">
+<div class="steps" id="stepsBar"></div>
+
+<!-- Step1 基本信息 -->
+<div class="card" id="step1">
+<div class="card-title"><span class="num">1</span>选择年级与基本信息</div>
+<div class="form-group">
+<label>当前就读年级</label>
+<div class="grade-opts" id="gradeOpts"></div>
+</div>
+<div class="form-group">
+<label>学生姓名（可选）</label>
+<input type="text" id="inpName" placeholder="请输入学生姓名，如：李明">
+<div class="hint">不填写则以"未署名"生成报告；报告编号将自动生成，便于归档。</div>
+</div>
+<div class="alert alert-info" style="margin-bottom:16px">广州中考年级科目范围：<b>初一</b>6科（语文/数学/英语/道法/历史/体育，满分640）；<b>初二</b>7科（+物理，满分740）；<b>初三</b>8科（+化学，满分810）。全科模式将按所选年级自动纳入对应计分科目。</div>
+<div style="text-align:center;margin-top:8px"><button class="btn btn-primary" onclick="goStep(2)">下一步 →</button></div>
+</div>
+
+<!-- Step2 规划模式与科目 -->
+<div class="card" id="step2" style="display:none">
+<div class="card-title"><span class="num">2</span>选择规划模式与科目</div>
+<div class="form-group">
+<label>规划模式</label>
+<div class="mode-opts" id="modeOpts"></div>
+<div class="hint">单科：聚焦1门学科深度规划；多科：自由选择2门及以上组合规划；全科：自动纳入当前年级全部应考科目。</div>
+</div>
+<div class="form-group">
+<label>选择规划科目</label>
+<div class="subj-opts" id="subjOpts"></div>
+<div class="hint" id="subjHint"></div>
+</div>
+<div style="text-align:center;margin-top:8px">
+<button class="btn btn-outline" onclick="goStep(1)">← 上一步</button>
+<button class="btn btn-primary" onclick="goStep(3)">下一步 →</button>
+</div>
+</div>
+
+<!-- Step3 成绩输入 -->
+<div class="card" id="step3" style="display:none">
+<div class="card-title"><span class="num">3</span>输入当前成绩与目标成绩</div>
+<div class="alert alert-info">请如实填写各科<strong>最近一次正式考试成绩</strong>（当前成绩）与<strong>规划期末要达到的目标成绩</strong>。目标分数不得超过科目满分；总分将自动汇总计算。</div>
+<div style="overflow-x:auto">
+<table class="score-table" id="scoreTable"><caption>各科成绩输入表</caption><tr><th>科目</th><th>满分</th><th>当前成绩</th><th>目标成绩</th><th>需提升</th><th>计分方式</th></tr></table>
+</div>
+<div style="text-align:center;margin-top:8px">
+<button class="btn btn-outline" onclick="goStep(2)">← 上一步</button>
+<button class="btn btn-primary" onclick="goStep(4)">下一步 →</button>
+</div>
+</div>
+
+<!-- Step4 时间节点 -->
+<div class="card" id="step4" style="display:none">
+<div class="card-title"><span class="num">4</span>设定阶段性时间节点</div>
+<div class="alert alert-info">设定从当前到目标达成之间的<strong>关键考试 / 阶段节点</strong>。系统将按各节点距今天数比例，把总分提升目标<strong>自动分解到每个节点</strong>，形成可检验的阶段目标。</div>
+<div class="node-list" id="nodeList"></div>
+<div class="node-preset" id="nodePreset"></div>
+<div style="text-align:center;margin-top:8px">
+<button class="btn btn-ghost" onclick="addNode()">+ 添加自定义节点</button>
+</div>
+<div style="text-align:center;margin-top:14px">
+<button class="btn btn-outline" onclick="goStep(3)">← 上一步</button>
+<button class="btn btn-primary" onclick="generateReport()">🎯 生成提升方案报告</button>
+</div>
+</div>
+</div>
+
+<!-- 报告 -->
+<div id="reportPage" style="display:none">
+<div class="report-actions" style="max-width:920px;margin:14px auto 0;padding:0 14px;display:flex;gap:10px;flex-wrap:wrap">
+<button class="btn btn-ghost" onclick="backHome()">← 返回首页</button>
+<button class="btn btn-outline" onclick="editPlan()">✏️ 修改规划</button>
+<button class="btn btn-primary" onclick="saveReport()">💾 保存报告</button>
+<button class="btn btn-outline" onclick="window.print()">🖨️ 打印 / 导出PDF</button>
+<button class="btn btn-ghost" onclick="openHistory()">📋 历史报告</button>
+</div>
+<div id="reportBody"></div>
+<div class="save-bar">
+<button class="btn btn-primary" onclick="saveReport()">💾 保存本次报告</button>
+<button class="btn btn-outline" onclick="window.print()">🖨️ 打印 / 导出PDF</button>
+<button class="btn btn-ghost" onclick="backHome()">返回首页</button>
+</div>
+</div>
+
+<!-- 高中梯度参考 -->
+<div class="container" id="pageCollege" style="display:none">
+<div class="card">
+<div class="card-title"><span class="num">🏫</span>高中梯度参考</div>
+<div class="alert alert-info"><b>想考什么层次的普通高中，各科需要达到多少分？</b>系统按2026年广州中考梯度投档控制线，自动匹配各梯度所需的<strong>中考总分区间（满分810）</strong>，并拆解到<strong>语数英、物理、化学、道法、历史、体育共8科的目标分区间</strong>；填入当前成绩可同步生成差距分析。数据为规划参考模型，实际录取线以当年官方公布为准。</div>
+
+<!-- 第1步：当前成绩 -->
+<div id="colStep1">
+<div class="form-group">
+<label>当前各科成绩（可选，用于差距分析）</label>
+<div class="hint">不填写则仅展示各梯度目标分值模型；填写后自动生成"当前总分 → 目标梯度"差距分析。8个计分科目原始分直接计入总分。</div>
+<div style="overflow-x:auto"><table class="score-table" id="colScore"><caption>当前各科成绩输入表</caption><tr><th>科目</th><th>满分</th><th>当前成绩</th><th>计分方式</th></tr></table></div>
+</div>
+<div style="text-align:center;margin-top:10px"><button class="btn btn-primary" onclick="genCollegeResult()">🎯 生成高中梯度目标方案</button></div>
+</div>
+
+<!-- 第2步：结果 -->
+<div id="colResult" style="display:none">
+<div id="colResultBody"></div>
+<div style="text-align:center;margin-top:14px">
+<button class="btn btn-outline" onclick="backFromCollegeResult()">← 修改参数</button>
+<button class="btn btn-primary" onclick="backHome()">🏠 返回首页</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- 历史弹窗 -->
+<div class="modal-mask" id="histModal" onclick="if(event.target===this)closeHistory()">
+<div class="modal">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h2 style="margin-bottom:0">📋 历史报告</h2>
+<span class="modal-close" onclick="closeHistory()">×</span>
+</div>
+<div id="histList"></div>
+</div>
+</div>
+
+<!-- 报告查看弹窗 -->
+<div class="modal-mask" id="viewModal" onclick="if(event.target===this)closeView()">
+<div class="modal" style="max-width:860px">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h2 style="margin-bottom:0">📄 历史报告详情</h2>
+<span class="modal-close" onclick="closeView()">×</span>
+</div>
+<div id="viewBody" style="max-height:70vh;overflow-y:auto"></div>
+</div>
+</div>
+
+<script>
+var SUBJECT_DATA={"语文": {"full": 140, "type": "笔试", "diff": 0.7, "color": "#C0392B", "nature": "厚积薄发·长期积累型", "desc": "广州中考语文满分140分，考试时长120分钟。由积累与运用（约6题28分）、阅读与鉴赏（约13题52分）、写作与表达（1题60分）三大部分构成，另有附加题整本书阅读约1题8分（计入总分但全卷总分不超140分）。语文分值高、稳定度好，是中考总分的基本盘。", "modules": ["积累与运用", "现代文阅读", "古诗文阅读（文言文/古诗词）", "名著阅读（整本书阅读）", "写作与表达（60分）", "附加题"], "exam": "广州中考语文结构：积累与运用约6题28分（含字音字形、词语运用、语病、古诗文默写等）+阅读与鉴赏约13题52分（含古诗文阅读、现代文阅读、名著阅读）+写作与表达1题60分。附加题整本书阅读约1题8分计入总分但全卷不超140分。作文60分占比最高，立意与卷面是区分度重点。", "bands": [{"range": "60分以下", "title": "基础严重薄弱", "level": 1, "diagnosis": "字词、古诗文默写等基础积累严重缺失，文言文读不懂，作文写不满或严重跑题，阅读题基本无从下笔。", "strategy": ["先保默写分：古诗文名句默写反复过关，利用晨读每日背诵+默写高频篇目", "基础选择抢分：字音字形、词语运用按专题整理错题，每天10分钟过关", "作文建立\"保底框架\"：学会总分总结构，先保证审题不跑偏、字数写到600字以上", "每周精读2篇中考满分作文，积累5个万能素材与开头结尾句式"], "focus": "默写拿满、基础题抢分、作文保底结构", "hours": 1.8}, {"range": "60-89分", "title": "基础薄弱", "level": 2, "diagnosis": "有基础但知识不成体系，文言实词虚词积累不足，现代文答题缺乏术语，作文立意浅、语言平淡。", "strategy": ["文言文专项：按实词、虚词、特殊句式整理高频清单，每天精读1篇课外文言文", "名著阅读抓重点：梳理12部必读名著的核心情节、人物与主题", "现代文答题模板：作用题、含义题、赏析题各归纳答题角度", "作文从\"保结构\"升级到\"有亮点\"：训练事例紧扣观点与材料意识"], "focus": "文言积累、名著梳理、答题模板、作文升级", "hours": 1.6}, {"range": "90-109分", "title": "中等水平", "level": 3, "diagnosis": "各板块基本过关但缺乏拔高能力，现代文主观题语言不规范，作文立意中规中矩，名著阅读细节题易失分。", "strategy": ["主观题规范作答：按\"观点+文本依据+分析\"完整逻辑组织语言", "作文求\"深刻\"：训练从现象到本质的立意提升，积累辩证素材", "名著细节深挖：关注人物形象变化、经典情节的深层内涵", "限时整卷：120分钟全真模拟，训练时间分配与节奏"], "focus": "主观题规范、作文深刻度、名著细节、整卷限时", "hours": 1.4}, {"range": "110分以上", "title": "优秀水平", "level": 4, "diagnosis": "基础扎实、素养良好，冲刺方向是减少非智力失分、作文冲击高分档（110+）、阅读题做到\"答满答准\"。", "strategy": ["作文冲击高分：打磨个性化素材库，训练思辨型与任务驱动型作文，向50+冲刺", "阅读\"满分意识\"：对照参考答案找采分点差距，规范术语表达", "附加题整本书阅读拿满：名著主题、人物、写法深挖，争取附加8分", "保持手感：每周1套限时整卷，重点复盘失分点"], "focus": "作文高分、附加题拿满、非智力失分控制", "hours": 1.2}]}, "数学": {"full": 150, "type": "笔试", "diff": 0.85, "color": "#2874A6", "nature": "逻辑思维·分档明显型", "desc": "广州中考数学满分150分，考试时长120分钟。全卷25题：单选题10题40分+填空题6题24分+解答题9题86分。压轴题（第25题等）区分度高，是拉开分差的核心科目，提分路径清晰、性价比高。", "modules": ["数与式", "方程与不等式", "函数（一次/反比例/二次函数）", "三角形与四边形", "圆", "图形的变换与相似", "概率与统计", "综合与实践"], "exam": "广州中考数学结构：单选10题40分+填空6题24分+解答9题86分，共25题，考试时长120分钟。解答题涵盖计算、证明、实际应用与压轴综合题，压轴题常为二次函数与几何综合，前23题多为中等以下难度，基础分占比高。", "bands": [{"range": "60分以下", "title": "基础严重薄弱", "level": 1, "diagnosis": "核心概念未建立，数与式、方程等主干知识断层，计算能力不足，选择题正确率低。", "strategy": ["放弃难题主攻基础：先拿实数的运算、整式分式、简单方程等送分题", "计算能力专项：每天10道基础计算题限时完成，保证正确率", "基础题定位：掌握选择题1-8题、填空题1-4题对应的核心考点", "建立错题本，每周复盘同类错误"], "focus": "基础模块抢分、计算能力、错题复盘", "hours": 2.0}, {"range": "60-89分", "title": "基础薄弱", "level": 2, "diagnosis": "基础概念基本掌握但综合运用差，中档解答题失分多，几何证明与函数图像分析能力不足。", "strategy": ["中档题突破：方程与不等式应用、三角形全等相似、一次/反比例函数专题训练", "解答题规范：按\"设-列-解-答\"完整书写，避免过程分流失", "函数图像专项：从图像读取信息，训练数形结合思想", "限时训练：选择题+填空题45分钟内完成"], "focus": "中档题突破、解答题规范、函数图像", "hours": 1.8}, {"range": "90-109分", "title": "中等水平", "level": 3, "diagnosis": "主干知识较扎实，但压轴题（第24/25题）无从下手，二次函数综合与几何动点问题失分多，运算量大时易出错。", "strategy": ["压轴题\"抢步骤分\"：第24/25题第一问必拿，第二问学会常见思路与设元", "二次函数综合专项：最值问题、存在性问题、与几何结合问题分类训练", "几何动点问题：掌握\"化动为静\"与分类讨论思想", "每周1套整卷模拟，训练考场时间分配"], "focus": "压轴抢分、二次函数综合、整卷速度", "hours": 1.6}, {"range": "110分以上", "title": "优秀水平", "level": 4, "diagnosis": "基础与中档题已稳固，目标是压轴题拿高分、满分意识，以及减少粗心失分。", "strategy": ["压轴专项：二次函数与几何综合、动态几何、开放探究题高频题型", "解答题满分意识：对照标准答案补齐采分点，规范几何证明过程", "错因分类：建立\"概念/计算/审题/方法\"四类错因，精准改进", "保持手感：每周1套限时整卷，稳定在130分+节奏"], "focus": "压轴突破、满分意识、错因分类", "hours": 1.4}]}, "英语": {"full": 140, "type": "听说+笔试", "diff": 0.75, "color": "#1E8449", "nature": "听说读写·提分稳定型", "desc": "广州中考英语满分140分=听说考试30分+笔试110分（笔试100分钟）。听说含模仿朗读、听选、回答、复述、询问等题型；笔试含语言运用25分、阅读35分、项目情境读写综合20分、写作30分（含书面表达20分）。听说30分是广州考生的得分优势区。", "modules": ["听说考试（30分）", "语言运用（25分）", "阅读理解（35分）", "项目情境读写综合（20分）", "书面表达（20分）", "写作"], "exam": "广州中考英语结构：听说30分（模仿朗读1题8分+听选6题9分+回答4题4分+复述1题7分+询问1题1分+回答1题1分）+笔试110分（语言运用25分+阅读35分+项目情境读写综合20分+写作30分含书面表达20分）。笔试时长100分钟，听说单独机考。", "bands": [{"range": "60分以下", "title": "基础严重薄弱", "level": 1, "diagnosis": "词汇量严重不足（初中核心词汇未过关），基本语法结构未建立，听说读写全面困难。", "strategy": ["词汇攻坚：每天30个初中核心词，用音标+例句记忆并滚动复习", "基础语法：时态、语态、基本句型、简单从句系统补课", "听说专项：每天跟读模仿15分钟，从单词到句子逐步进阶", "先抓送分题：听力基础题、语言运用中的固定搭配"], "focus": "词汇积累、基础语法、听说入门", "hours": 1.8}, {"range": "60-89分", "title": "基础薄弱", "level": 2, "diagnosis": "词汇量约达到核心词大部，阅读能看懂大意但细节题失分，语法填空语境理解差，写作中式英语明显。", "strategy": ["词汇提量：过一遍中考1600词，重点掌握高频熟词与短语搭配", "语言运用专项：完形填空与语法填空训练上下文逻辑推理", "阅读理解方法：定位原文、排除干扰项，训练细节题准确率", "书面表达入门：掌握\"审题-列要点-成文\"三步法，先写对再写好"], "focus": "词汇提量、完形逻辑、阅读定位、写作入门", "hours": 1.6}, {"range": "90-109分", "title": "中等水平", "level": 3, "diagnosis": "词汇量达标，阅读基本过关但主旨推断题弱，写作语言平淡，听说流畅度不足、复述题失分。", "strategy": ["阅读拔高：主旨题、推断题、词义猜测题专项训练", "写作提分：积累高级句式（从句、非谓语、连接词），让表达更地道", "听说冲刺：练\"三遍法\"（先听大意-再听细节-复述），提升流利度与复述完整性", "项目情境读写综合：训练图表/邮件/通知等情境类读写任务"], "focus": "阅读推断、写作升级、听说流利度、情境读写", "hours": 1.4}, {"range": "110分以上", "title": "优秀水平", "level": 4, "diagnosis": "语言能力较强，冲刺高分靠听说满分、书面表达高分档和阅读全对的稳定性。", "strategy": ["听说冲满分：模拟机考环境练习，注意语音语调、内容完整性与时间把控", "书面表达冲高分档：训练行文逻辑、高级表达与卷面规范", "阅读保持全对：限时精读训练，提升长难句分析速度", "整卷限时模拟：笔试100分钟节奏稳定在125分+"], "focus": "听说满分、书面表达高分、稳定性", "hours": 1.2}]}, "物理": {"full": 100, "type": "笔试+实验", "diff": 0.85, "color": "#7D3C98", "nature": "模型思维·实验并重型", "desc": "广州中考物理满分100分=笔试90分+实验操作10分（笔试60分钟）。含选择题、填空题、作图题、实验探究题、计算题。初二开始学习，电学与力学是两大主干，实验操作考试单独组织，10分计入总分。", "modules": ["声光热", "物态变化", "运动和力", "压强浮力", "功和机械能", "电路与欧姆定律", "电功率与家庭电路", "电与磁", "实验操作"], "exam": "广州中考物理结构：笔试90分（单选、多选、填空、作图、实验探究、计算），考试时长60分钟，另有实验操作考试10分。电学与力学占比高，实验探究题是区分度高地，作图与读数细节易丢分。", "bands": [{"range": "40分以下", "title": "基础严重薄弱", "level": 1, "diagnosis": "物理概念模糊，受力分析、电路基础等基本功缺失，计算题与实验题基本空白。", "strategy": ["概念重建：从速度、密度、力的概念开始系统补基础", "运动与力专项：二力平衡、摩擦力、牛顿第一定律反复训练", "选择题抢分：排除法+定性分析，先拿单选基础分", "实验操作保分：熟悉基本仪器使用（天平、量筒、电流表电压表）"], "focus": "概念重建、运动与力、选择题抢分", "hours": 1.8}, {"range": "40-59分", "title": "基础薄弱", "level": 2, "diagnosis": "基础概念基本掌握，但压强浮力、功与机械能综合情境题分析不清，电路识别能力弱，计算题规范不足。", "strategy": ["压强浮力专项：液体压强、浮力计算（阿基米德原理）高频模型", "功和机械能：功、功率、机械效率计算专题", "电路基础：串并联识别、电流表电压表使用、欧姆定律计算", "计算题规范：按\"已知-求-解-答\"四步书写，减少过程失分"], "focus": "压强浮力、功和机械能、电路基础、计算规范", "hours": 1.6}, {"range": "60-74分", "title": "中等水平", "level": 3, "diagnosis": "主干知识较扎实，但电功率综合、多过程复杂情境题失分多，实验探究题答题不完整。", "strategy": ["电功率专项：额定功率、实际功率、电热综合计算", "实验探究题突破：控制变量法、评估与改进、数据处理规范", "作图题规范：光的反射折射、力的示意图、电路图连接", "整卷限时：60分钟全真模拟，优化时间分配"], "focus": "电功率、实验探究、作图规范、整卷限时", "hours": 1.4}, {"range": "75分以上", "title": "优秀水平", "level": 4, "diagnosis": "基础扎实，冲刺高分关键是压轴计算题满分、实验操作满分和计算准确率。", "strategy": ["压轴计算专项：力电综合、电学动态变化、多过程能量分析", "实验操作冲刺：熟练规范完成实验，关注操作细节与结论表述", "计算准确率：限时高强度计算训练，杜绝低级失误", "保持整卷手感：每周1套限时卷，复盘失分点"], "focus": "压轴计算、实验满分、计算准确率", "hours": 1.2}]}, "化学": {"full": 70, "type": "笔试+实验", "diff": 0.8, "color": "#CA6F1E", "nature": "知识网络·短期见效型", "desc": "广州中考化学满分70分=笔试60分+实验操作10分（笔试60分钟）。化学初三才开课，全体考生起点相同，是短期提分潜力最大的科目。含选择题与非选择题（推断、实验、计算），规律性强、背诵加理解即可快速见效。", "modules": ["物质构成的奥秘", "身边的化学物质（空气/水/碳/金属）", "酸碱盐", "化学方程式", "化学实验", "化学与社会"], "exam": "广州中考化学结构：笔试60分（选择题+非选择题），考试时长60分钟，另有实验操作考试10分。酸碱盐是难点，推断题、实验探究题与化学计算题区分度高，基础概念题占比大。", "bands": [{"range": "30分以下", "title": "基础严重薄弱", "level": 1, "diagnosis": "化学式、化学方程式书写等基础缺失，元素化合物性质混乱，实验题与计算题基本空白。", "strategy": ["化学用语过关：元素符号、化学式、化学方程式书写专项训练", "基础概念梳理：物质构成、变化与性质、物质分类系统学习", "选择题抢分：基础概念题与常识题先拿分", "实验基础：常见仪器名称与用途、基本操作规范"], "focus": "化学用语、基础概念、选择题抢分", "hours": 1.6}, {"range": "30-42分", "title": "基础薄弱", "level": 2, "diagnosis": "基础知识碎片化，化学方程式配平与计算薄弱，推断题分析不清，实验题规范不足。", "strategy": ["方程式与计算专项：化学式计算、方程式计算步骤规范", "元素化合物梳理：空气氧气、水、碳及碳的氧化物、金属性质归纳", "推断题方法：抓特征反应、特征颜色与特殊条件", "实验探究题：掌握气体制备（氧气/二氧化碳）的原理、装置与操作"], "focus": "方程式计算、元素化合物、推断题、实验规范", "hours": 1.5}, {"range": "43-52分", "title": "中等水平", "level": 3, "diagnosis": "主干知识较扎实，但酸碱盐综合、实验方案评价失分多，实验操作细节与计算准确率需提升。", "strategy": ["酸碱盐专项：复分解反应条件、盐的性质、除杂与鉴别专题", "实验方案评价：训练可行性、安全性与操作规范性判断", "计算题规范：守恒法、关系式法解综合计算", "限时整卷：60分钟模拟，优化时间分配"], "focus": "酸碱盐、实验评价、计算规范、整卷限时", "hours": 1.3}, {"range": "53分以上", "title": "优秀水平", "level": 4, "diagnosis": "基础扎实，冲刺目标是压轴推断与实验设计满分、实验操作满分、保持满分率。", "strategy": ["压轴推断专项：多步物质转化推断，训练综合思维", "实验设计拔高：开放实验方案设计与评价，关注环保与定量", "实验操作冲刺：熟练规范，争取实验10分全拿", "保持手感：每周1套限时卷，复盘失分点"], "focus": "压轴推断、实验设计、实验满分", "hours": 1.1}]}, "道法": {"full": 70, "type": "笔试", "diff": 0.68, "color": "#148F77", "nature": "时政结合·术语表达型", "desc": "广州中考道德与法治（道法）满分70分，考试时长60分钟。单选17题34分+非选择题3题36分。突出学科核心素养与广州本地时政热点结合，非选择题材料分析注重观点与术语化表达，是提分较快、性价比高的科目。", "modules": ["成长的节拍", "友谊与师长", "走进社会生活", "遵守社会规则", "勇担社会责任", "文明与家园", "国情国策", "时事热点"], "exam": "广州中考道德与法治结构：单选17题34分+非选择题3题36分，考试时长60分钟。非选择题以时事材料分析、情境探究为主，注重\"观点+依据+分析\"的规范作答，开卷/闭卷按当年官方政策执行。", "bands": [{"range": "30分以下", "title": "基础严重薄弱", "level": 1, "diagnosis": "学科概念框架未建立，基本观点表述不清，非选择题无从下手或答非所问。", "strategy": ["框架构建：按\"道德-法律-国情\"三大板块梳理知识导图", "核心观点理解：情绪调控、诚信、规则、责任等主线概念", "选择题方法：排除法+关键词定位，先拿基础分", "答题术语入门：积累\"权利与义务\"\"公平正义\"等学科表达"], "focus": "知识框架、核心概念、答题术语", "hours": 1.4}, {"range": "30-42分", "title": "基础薄弱", "level": 2, "diagnosis": "基本概念有掌握但体系化不足，材料分析题原理与材料结合差，时政热点积累少。", "strategy": ["材料题方法：\"观点+材料分析+回归知识\"三段式作答", "法律常识专题：宪法、未成年人保护、权利义务梳理", "时政积累：每周关注广州本地与全国重大政策、热点事件", "国情板块：经济建设、文化建设、生态文明与民族团结等主线"], "focus": "三段式答题、法律常识、时政积累、国情主线", "hours": 1.3}, {"range": "43-52分", "title": "中等水平", "level": 3, "diagnosis": "主干知识较扎实，但开放性设问应变不足，评析类、建议类题型薄弱，答题不够学术化。", "strategy": ["开放性设问训练：评析类、建议类、启示类题型专项", "答题升级：从罗列观点到\"观点+论证+升华\"高质量作答", "情境探究题：训练结合材料多角度、多主体分析", "限时整卷：60分钟模拟，优化时间分配"], "focus": "开放性设问、答题升级、多角度分析、整卷限时", "hours": 1.2}, {"range": "53分以上", "title": "优秀水平", "level": 4, "diagnosis": "基础扎实，冲刺高分靠非选择题满分、时政结合深度与语言表达精准度。", "strategy": ["非选择题冲满分：追求观点新、论证深、表达准", "时政深度结合：重大政策与学科观点的双向打通", "保持整卷手感：每周1套限时卷，复盘采分点", "关注评分标准：研究参考答案的采分点设置"], "focus": "非选满分、时政深度、采分点", "hours": 1.0}]}, "历史": {"full": 70, "type": "笔试", "diff": 0.72, "color": "#B7950B", "nature": "史料思维·记忆与思辨并重型", "desc": "广州中考历史满分70分，考试时长60分钟。单选20题40分+非选择题3题30分。突出时空观念与史料实证核心素养，材料题（含开放性小短文）是拉分重点，情境新、材料活。", "modules": ["中国古代史", "中国近代史", "中国现代史", "世界古代史", "世界近代史", "世界现代史", "史料研读"], "exam": "广州中考历史结构：单选20题40分+非选择题3题30分，考试时长60分钟。非选择题以史料阅读、情境分析与开放性小短文为主，注重阶段特征概括与史论结合。", "bands": [{"range": "30分以下", "title": "基础严重薄弱", "level": 1, "diagnosis": "历史时空观念薄弱，重大事件时间线混乱，材料题读不懂、答非所问。", "strategy": ["时空框架重建：按\"时间轴+阶段特征\"梳理中外历史大事", "核心史实理解：朝代更替、近代抗争、新中国成立等主线事件", "选择题方法：排除法+时间定位法，先排除明显错误项", "材料题入门：学会找材料关键词、分点作答"], "focus": "时间轴、阶段特征、材料阅读入门", "hours": 1.5}, {"range": "30-42分", "title": "基础薄弱", "level": 2, "diagnosis": "主干史实基本掌握但阶段特征提炼不足，材料题概括能力弱，原因/影响类问题答不全。", "strategy": ["阶段特征专题：每个重要时期总结政治/经济/思想/外交四大维度特征", "材料题规范：训练\"概括-分析-评价\"三层作答逻辑", "原因影响类：学会从多角度（政治、经济、思想、国际背景）作答", "选择题强化：每周精练2套选择题，错题归类"], "focus": "阶段特征、材料概括、多角度作答", "hours": 1.4}, {"range": "43-52分", "title": "中等水平", "level": 3, "diagnosis": "基础知识较扎实，但开放性小短文立意浅、论证单薄，新情境材料应变不足。", "strategy": ["小短文专项：掌握\"论点-论据-论证\"结构，训练从材料提炼观点", "新情境材料训练：学会迁移所学知识分析陌生材料", "比较题突破：中西对比、古今对比专题", "整卷限时：60分钟模拟，提升作答效率"], "focus": "小短文、新情境迁移、比较题、整卷限时", "hours": 1.3}, {"range": "53分以上", "title": "优秀水平", "level": 4, "diagnosis": "基础与能力俱佳，冲刺高分的重点是开放性小短文拿高分档、选择题全对与答题语言学术化。", "strategy": ["小短文冲高分：训练宏观立意与微观史实结合，追求史论结合", "学术语言提升：答题用语向历史学科术语靠拢", "保持整卷手感：重点复盘非选择题采分点", "关注热点：中考常考的重大周年、重要会议与改革开放成就"], "focus": "小短文高分、学术语言、采分点", "hours": 1.1}]}, "体育": {"full": 70, "type": "综评+统考", "diff": 0.6, "color": "#1F618D", "nature": "体能技能·稳定得分型", "desc": "广州中考体育满分70分=综合评价20分+现场统一考试50分。综合评价含体育课出勤与表现、平时锻炼情况等；现场统考含必考项目（如中长跑）与选考项目（足球/篮球/排球/跳绳/实心球/引体向上/仰卧起坐等）。体育是最容易通过长期坚持训练稳定得分、性价比极高的科目。", "modules": ["综合评价（20分）", "必考项目（中长跑）", "球类选考（足球/篮球/排球）", "力量与素质类（引体向上/仰卧起坐/跳绳/实心球）", "考前冲刺训练", "日常体能积累"], "exam": "广州中考体育：综合评价20分（依据体育课出勤、课堂表现与平时锻炼情况评定）+现场统考50分。现场统考通常设必考项目（如800米/1000米跑）与选考项目，各项目按成绩档次赋分，需提前选定选考项并针对性训练。", "bands": [{"range": "35分以下", "title": "基础严重薄弱", "level": 1, "diagnosis": "体能基础差，长跑等项目成绩严重滞后，日常锻炼习惯缺失，综合评价分低。", "strategy": ["从\"动起来\"开始：每天固定30分钟慢跑或快走，先建立锻炼习惯", "长跑入门：采用\"走跑结合\"训练法，逐步提升耐力", "选考项调研：了解各选考项目评分标准，选择最适合自己的项目", "综合评价保分：保证体育课出勤与课堂表现，争取平时分"], "focus": "锻炼习惯、耐力入门、选考定项、综评保分", "hours": 1.0}, {"range": "35-49分", "title": "基础薄弱", "level": 2, "diagnosis": "有一定锻炼基础但项目成绩不稳定，专项技术不规范，长跑速度与选考项得分偏低。", "strategy": ["长跑提分：每周3次间歇跑+长距离跑结合，稳定达标", "选考项技术规范：纠正技术动作，提升项目成绩档次", "力量素质：引体向上/仰卧起坐/跳绳每日定量训练", "记录成绩：每2周测一次项目成绩，对照评分表找差距"], "focus": "长跑达标、选考技术、力量训练、成绩追踪", "hours": 0.9}, {"range": "50-59分", "title": "中等水平", "level": 3, "diagnosis": "项目成绩较稳定但距满分有差距，选考项与必考项存在某一项短板，考前冲刺策略欠缺。", "strategy": ["补短板专项：集中攻克得分最低的项目，按评分标准逐分提升", "选考项冲满分：技术精细化训练，向满分成绩档次冲击", "考前模拟：按中考流程全真模拟测试，熟悉考试节奏", "体能保持：每周3-4次系统训练，防止状态下滑"], "focus": "短板攻克、选考满分、考前模拟、状态保持", "hours": 0.8}, {"range": "60分以上", "title": "优秀水平", "level": 4, "diagnosis": "项目成绩优秀，冲刺目标是必考+选考全满分，并确保综合评价满分。", "strategy": ["冲刺全满分：必考选考项目稳定在满分档次，训练精益求精", "综合评价拿满：保持体育课全勤与优秀课堂表现", "赛前状态管理：科学训练防伤病，保证考试当天最佳状态", "保持训练节奏：每周2-3次维持性训练，稳定高水平"], "focus": "满分冲刺、综评满分、状态管理", "hours": 0.6}]}};
+var GRADE_NOTES={"初一": {"key": "夯基筑底·适应衔接期", "desc": "初一以小学到初中衔接、夯实基础为核心。此阶段应重点完成：①尽快适应初中科目增多的学习节奏，建立自主预习复习习惯；②夯实语数英主科基础（初一主科合计430分是基本盘）；③道法、历史注重习惯与积累，体育从入学即开始日常锻炼积累（综合评价需长期保持）。", "risk": "初一常见风险：①小升初过渡期不适应导致成绩波动，基础未夯实；②科目增多后平均用力，主科投入不足；③忽视体育平时锻炼，到初三才临时突击；④手机等电子产品占用学习时间，习惯养成失败。"}, "初二": {"key": "分化关键·物理入门期", "desc": "初二是初中分化的关键期，新增物理学科（满分100分）。此阶段应重点完成：①把数学从\"算术思维\"升级到\"代数与几何思维\"，防范初二数学\"滑坡\"；②物理入门期打牢概念与实验基础；③道法、历史逐步建立学科体系；④体育进入系统训练，选考项提前定项；⑤防止青春叛逆期造成的学业下滑。", "risk": "初二常见风险：①\"初二现象\"——叛逆、厌学导致成绩断崖式下滑；②物理入门未跟上，形成畏难情绪；③数学几何证明薄弱拖累总分；④偏科苗头未及时纠正；⑤体育锻炼三天打鱼两天晒网。"}, "初三": {"key": "冲刺决胜·全面提分期", "desc": "初三进入中考冲刺期，新增化学（满分70分），8科全部计入总分（810分）。此阶段应重点完成：①一轮复习全面排查知识漏洞，二轮专题突破，三轮模拟强化；②一模（约690分制笔试）定位全市排名（2026年全市平均431分、第一梯度参考577分），校准目标；③体育现场统考（50分）优先冲刺，尽早拿满分减少后期压力；④目标分数必须落到每个阶段节点，动态校准。", "risk": "初三常见风险：①一轮复习贪多求快，漏洞未清；②盲目刷套卷不做复盘，低效重复；③体育项目临考突击，动作不规范丢分；④心态波动导致一模、二模发挥失常；⑤目标不切实际或缺乏节点检验。"}};
+var REF_LINES={"year": 2026, "note": "2026年广州市普通高中梯度投档控制线：第一梯度712分（按考生成绩降序前10%划定）、第二梯度672分、第三梯度632分、第四梯度592分、第五梯度552分、第六梯度512分、公办普高最低录取参考线492分；梯度间隔40分。", "gradients": [{"name": "第一梯度", "line": 712, "note": "按考生成绩降序前10%位置划定，对应省实、华附、广附、二中、执信等头部名校"}, {"name": "第二梯度", "line": 672, "note": "对应广大附中、铁一、六中、真光等优质示范性高中"}, {"name": "第三梯度", "line": 632, "note": "对应优质区属示范性高中"}, {"name": "第四梯度", "line": 592, "note": "对应区属示范性高中"}, {"name": "第五梯度", "line": 552, "note": "普通高中参考"}, {"name": "第六梯度", "line": 512, "note": "普通高中参考"}, {"name": "公办普高线", "line": 492, "note": "公办普通高中最低录取参考线"}]};
+var FUEN_NOTE="广州中考8个录取计分科目合计810分，各科原始分直接计入录取总分（无等级赋分）：语文140分（120分钟）、数学150分（120分钟）、英语140分（含听说30分+笔试110分，笔试100分钟）、物理100分（笔试90分+实验10分，笔试60分钟）、化学70分（笔试60分+实验10分，笔试60分钟）、道德与法治70分（60分钟）、历史70分（60分钟）、体育70分（综合评价20分+现场统考50分）。其中英语听说考试与物理、化学实验操作考试单独组织，成绩按比例计入对应科目总分。2026年广州市中考报名约15.1万人，普通高中招生计划101720个，普高率约67.3%。";
+var TARGET_LEVELS=[{"key": "d1", "name": "第一梯度", "full": "省实·华附·广附·二中·执信等头部名校", "icon": "🏆", "desc": "第一梯度投档控制线712分（按考生成绩降序前10%划定）。对应省实、华附、广附、二中、执信等头部名校，2026年头部校录取线约737-740分（如省实荔湾740、华附石牌739、广大附738、二中737），是广州中考第一梯队目标。", "low": 712, "high": 746, "subjects": {"语文": [123, 129], "数学": [131, 139], "英语": [123, 129], "物理": [87, 93], "化学": [61, 65], "道法": [61, 65], "历史": [61, 65], "体育": [60, 66]}}, {"key": "d2", "name": "第二梯度", "full": "广大附中·铁一·六中·真光等优质示范性高中", "icon": "🌟", "desc": "第二梯度投档控制线672分。对应广大附中、铁一、六中、真光等优质示范性高中，是广州中考重点班与优质公办高中的主流目标。", "low": 672, "high": 711, "subjects": {"语文": [117, 123], "数学": [124, 132], "英语": [117, 123], "物理": [82, 88], "化学": [58, 62], "道法": [58, 62], "历史": [58, 62], "体育": [57, 63]}}, {"key": "d3", "name": "第三梯度", "full": "优质区属示范性高中", "icon": "🎖️", "desc": "第三梯度投档控制线632分。对应各区优质区属示范性高中，是多数初中生的重点目标，考入后大概率进入普高优质层次。", "low": 632, "high": 671, "subjects": {"语文": [110, 116], "数学": [117, 125], "英语": [110, 116], "物理": [77, 83], "化学": [54, 58], "道法": [54, 58], "历史": [54, 58], "体育": [53, 59]}}, {"key": "d4", "name": "第四梯度", "full": "区属示范性高中", "icon": "🏅", "desc": "第四梯度投档控制线592分。对应各区示范性高中，是中考录取的重要分水岭，达到该线基本可进入公办优质高中序列。", "low": 592, "high": 631, "subjects": {"语文": [103, 109], "数学": [109, 117], "英语": [103, 109], "物理": [72, 78], "化学": [51, 55], "道法": [51, 55], "历史": [51, 55], "体育": [50, 56]}}, {"key": "d5", "name": "第五梯度", "full": "普通高中", "icon": "📘", "desc": "第五梯度投档控制线552分。对应普通高中录取层次，是确保\"有普高可上\"的重要参考线。", "low": 552, "high": 591, "subjects": {"语文": [96, 102], "数学": [102, 110], "英语": [96, 102], "物理": [68, 74], "化学": [47, 51], "道法": [47, 51], "历史": [47, 51], "体育": [46, 52]}}, {"key": "d6", "name": "第六梯度", "full": "普通高中", "icon": "📗", "desc": "第六梯度投档控制线512分。对应普通高中录取层次，达到该线意味着进入普高批次的基本门槛。", "low": 512, "high": 551, "subjects": {"语文": [89, 95], "数学": [94, 102], "英语": [89, 95], "物理": [63, 69], "化学": [44, 48], "道法": [44, 48], "历史": [44, 48], "体育": [43, 49]}}, {"key": "pub", "name": "公办普高线", "full": "公办普通高中最低录取参考线", "icon": "🎓", "desc": "2026年公办普通高中最低录取参考线492分（民办普高412分）。达到该线即具备公办普高录取资格，是中考的基本\"保底线\"，低于此线将滑入民办普高或中职渠道。", "low": 492, "high": 511, "subjects": {"语文": [84, 90], "数学": [89, 97], "英语": [84, 90], "物理": [59, 65], "化学": [41, 45], "道法": [41, 45], "历史": [41, 45], "体育": [40, 46]}}];
+var COLLEGE_NOTE="本模块为广州中考高中梯度目标参考模型：总分与各科目标分基于2026年广州中考梯度投档控制线及历年录取情况测算，仅供参考。实际录取分数线每年随试题难度、报考人数与招生计划波动，请以广州市招生考试委员会办公室当年官方公布为准。8个录取计分科目（语文/数学/英语/物理/化学/道德与法治/历史/体育）原始分直接计入总分（总分810分），各科目标分为原始分。";
+/* ==================== 全局状态 ==================== */
+var ALL_SUBJECTS = ['语文','数学','英语','物理','化学','道法','历史','体育'];
+var SUBJ_ICON = {'语文':'📖','数学':'📐','英语':'🌍','物理':'⚡','化学':'🧪','道法':'⚖️','历史':'🏛️','体育':'🏃'};
+var PLAN = {
+  grade:'初三', name:'',
+  mode:'all', subjects:[], curScores:{}, targetScores:{},
+  nodes:[], ts:''
+};
+var CUR_STEP = 1;
+var TOTAL_STEPS = 4;
+var HIST_KEY = 'gz_zk_goal_reports_v1';
+var MAX_HIST = 10;
+
+/* ==================== 工具函数 ==================== */
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function pad2(n){return n<10?'0'+n:''+n}
+function fmtDate(d){return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())}
+function todayStr(){return fmtDate(new Date())}
+function addDays(days){
+  var d=new Date(); d.setDate(d.getDate()+days);
+  return fmtDate(d);
+}
+function nowStr(){
+  var d=new Date();
+  return d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())+' '+pad2(d.getHours())+':'+pad2(d.getMinutes());
+}
+function gradeSubjects(){
+  if(PLAN.grade==='初一'){return ['语文','数学','英语','道法','历史','体育']}
+  if(PLAN.grade==='初二'){return ['语文','数学','英语','物理','道法','历史','体育']}
+  return ['语文','数学','英语','物理','化学','道法','历史','体育'];
+}
+function subjType(name){
+  if(name==='语文'||name==='数学'){return '笔试'}
+  if(name==='英语'){return '听说+笔试'}
+  if(name==='物理'||name==='化学'){return '笔试+实验'}
+  if(name==='体育'){return '综评+统考'}
+  return '笔试';
+}
+function getSubj(name){return SUBJECT_DATA[name]||{full:70,diff:0.70,color:'#888',type:'笔试',nature:'',desc:'',modules:[],exam:'',bands:[]}}
+function subjFull(name){return getSubj(name).full}
+function calcTotalScores(){
+  var cur=0,tgt=0,full=0;
+  for(var i=0;i<PLAN.subjects.length;i++){
+    var s=PLAN.subjects[i];
+    var c=parseFloat(PLAN.curScores[s])||0;
+    var t=parseFloat(PLAN.targetScores[s])||0;
+    cur+=c; tgt+=t; full+=subjFull(s);
+  }
+  return {cur:cur,tgt:tgt,full:full};
+}
+
+/* ==================== 页面导航 ==================== */
+function showPage(id){
+  $('pageHome').style.display = (id==='home')?'':'none';
+  $('pageWizard').style.display = (id==='wizard')?'':'none';
+  $('reportPage').style.display = (id==='report')?'':'none';
+  $('pageCollege').style.display = (id==='college')?'':'none';
+  if(id==='report'||id==='college'){window.scrollTo(0,0)}
+}
+function startPlan(){
+  showPage('wizard');
+  buildGradeOpts(); buildSteps(); renderStep();
+}
+function backHome(){showPage('home')}
+function editPlan(){showPage('wizard'); buildSteps(); renderStep()}
+
+/* ==================== 高中梯度参考 ==================== */
+var COLLEGE = {cur:{}, sel:'d3'};
+function collegeSubjList(){
+  return ['语文','数学','英语','物理','化学','道法','历史','体育'];
+}
+function openCollege(){
+  showPage('college');
+  $('colStep1').style.display='';
+  $('colResult').style.display='none';
+  buildCollegeScore();
+}
+function buildCollegeScore(){
+  var list=collegeSubjList();
+  var html='<tr><th style="text-align:left">科目</th><th>满分</th><th>当前成绩</th><th>计分方式</th></tr>';
+  for(var i=0;i<list.length;i++){
+    var s=list[i];
+    var sd=getSubj(s);
+    var v=COLLEGE.cur[s]||'';
+    html+='<tr><td class="subj-name">'+SUBJ_ICON[s]+' '+s+'</td><td class="full-col">'+sd.full+'</td>'
+      +'<td><input type="number" id="colInp_'+s+'" min="0" max="'+sd.full+'" value="'+esc(v)+'" oninput="syncCollegeScore(\''+s+'\',this.value)" placeholder="选填"></td>'
+      +'<td class="full-col">'+subjType(s)+'</td></tr>';
+  }
+  $('colScore').innerHTML=html;
+}
+function syncCollegeScore(s,v){
+  COLLEGE.cur[s]=v;
+}
+function genCollegeResult(){
+  var list=collegeSubjList();
+  for(var i=0;i<list.length;i++){
+    var s=list[i];
+    var el=$('colInp_'+s);
+    if(el){COLLEGE.cur[s]=el.value}
+  }
+  var html='';
+  html+='<div class="report-section"><h2>高中梯度目标方案</h2>'
+    +'<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">'
+    +'<span class="tag-badge" style="background:#0f2b5b;color:#fff">广州中考</span>'
+    +'<span class="tag-badge" style="background:#2a6cb8;color:#fff">8个计分科目 · 总分810</span>'
+    +'</div>'
+    +'<div class="alert alert-info">'+COLLEGE_NOTE+'</div>'
+    +'</div>';
+  html+='<div class="report-section"><h2>各梯度 · 总分与各科目标区间总览</h2>'
+    +'<div style="overflow-x:auto"><table class="tbl"><tr><th>目标梯度</th><th>总分区间</th><th>语文</th><th>数学</th><th>英语</th><th>物理</th><th>化学</th><th>道法</th><th>历史</th><th>体育</th></tr>';
+  for(var i=0;i<TARGET_LEVELS.length;i++){
+    var lv=TARGET_LEVELS[i];
+    var m=lv;
+    html+='<tr style="cursor:pointer" onclick="showCollegeLevel(\''+lv.key+'\')"><td class="l">'+lv.icon+' '+lv.name+'</td>'
+      +'<td style="font-weight:700;color:#0f2b5b">'+m.low+'~'+m.high+'</td>'
+      +'<td>'+m.subjects['语文'][0]+'-'+m.subjects['语文'][1]+'</td>'
+      +'<td>'+m.subjects['数学'][0]+'-'+m.subjects['数学'][1]+'</td>'
+      +'<td>'+m.subjects['英语'][0]+'-'+m.subjects['英语'][1]+'</td>'
+      +'<td>'+m.subjects['物理'][0]+'-'+m.subjects['物理'][1]+'</td>'
+      +'<td>'+m.subjects['化学'][0]+'-'+m.subjects['化学'][1]+'</td>'
+      +'<td>'+m.subjects['道法'][0]+'-'+m.subjects['道法'][1]+'</td>'
+      +'<td>'+m.subjects['历史'][0]+'-'+m.subjects['历史'][1]+'</td>'
+      +'<td>'+m.subjects['体育'][0]+'-'+m.subjects['体育'][1]+'</td></tr>';
+  }
+  html+='</table></div>'
+    +'<div class="hint" style="margin-top:8px">点击任意梯度行或下方按钮，查看该梯度详细目标分解与差距分析。</div>'
+    +'</div>';
+  html+='<div id="colDetailWrap"></div>';
+  html+='<div class="report-section"><h2>政策与计分说明</h2>'
+    +'<div class="alert alert-info">'+FUEN_NOTE+'</div>'
+    +'<div class="alert alert-warn"><b>重要提醒：</b>①梯度总分区间为2026年官方梯度投档控制线及历年录取参考区间，各校录取线差异较大，热门学校显著高于梯度基准线；②目标分为各科原始分，需对照自己实际卷面得分；③备考目标建议结合当年官方招生计划与"一分一段表"动态校准。</div>'
+    +'</div>';
+  $('colResultBody').innerHTML=html;
+  $('colStep1').style.display='none';
+  $('colResult').style.display='';
+  showCollegeLevel(COLLEGE.sel);
+  window.scrollTo(0,0);
+}
+function findCollegeLevel(key){
+  for(var i=0;i<TARGET_LEVELS.length;i++){if(TARGET_LEVELS[i].key===key){return TARGET_LEVELS[i]}}
+  return TARGET_LEVELS[3];
+}
+function showCollegeLevel(key){
+  COLLEGE.sel=key;
+  $('colDetailWrap').innerHTML=buildCollegeLevelDetail(key);
+  window.scrollTo(0,0);
+}
+function buildCollegeLevelDetail(key){
+  var lv=findCollegeLevel(key);
+  var m=lv;
+  var order=['语文','数学','英语','物理','化学','道法','历史','体育'];
+  var sumLow=0,sumHigh=0;
+  for(var i=0;i<order.length;i++){sumLow+=m.subjects[order[i]][0];sumHigh+=m.subjects[order[i]][1]}
+  var html='';
+  html+='<div class="report-section"><h2>'+lv.icon+' '+lv.name+' · 目标分解</h2>';
+  html+='<div class="ov-grid">'
+    +'<div class="ov-item"><div class="ov-label">目标总分区间</div><div class="ov-val highlight">'+m.low+' ~ '+m.high+'</div><div class="ov-sub">'+lv.name+'（投档线'+m.low+'）</div></div>'
+    +'<div class="ov-item"><div class="ov-label">八科目标合计</div><div class="ov-val">'+sumLow+' ~ '+sumHigh+'</div><div class="ov-sub">按各科区间合计</div></div>'
+    +'<div class="ov-item"><div class="ov-label">总分满分占比</div><div class="ov-val">'+Math.round((m.low+m.high)/2/810*100)+'%</div><div class="ov-sub">总分810</div></div>'
+    +'</div>';
+  html+='<div class="alert alert-info" style="margin-top:12px">'+lv.desc+'</div>';
+  html+='<h3>八科目标分区间（达标参考模型）</h3>';
+  html+='<div style="overflow-x:auto"><table class="tbl"><tr><th>科目</th><th>满分</th><th>目标区间</th><th>目标中位</th><th>占满分比</th><th>达标难度</th></tr>';
+  for(var i=0;i<order.length;i++){
+    var s=order[i];
+    var r=m.subjects[s];
+    var mid=Math.round((r[0]+r[1])/2);
+    var full=subjFull(s);
+    html+='<tr><td class="l">'+SUBJ_ICON[s]+' '+s+'</td><td>'+full+'</td>'
+      +'<td style="font-weight:700;color:#0f2b5b">'+r[0]+' ~ '+r[1]+'</td><td>'+mid+'</td>'
+      +'<td>'+Math.round(mid/full*100)+'%</td><td>'+collegeDiffTag(s,mid,full)+'</td></tr>';
+  }
+  html+='</table></div>';
+  html+=buildCollegeGap(order,m.subjects);
+  html+='<h3 style="margin-top:16px">其他梯度快捷切换</h3><div style="display:flex;gap:8px;flex-wrap:wrap">';
+  for(var i=0;i<TARGET_LEVELS.length;i++){
+    var lv2=TARGET_LEVELS[i];
+    var cls2=lv2.key===key?'btn btn-primary':'btn btn-outline';
+    html+='<button class="'+cls2+'" style="margin:0" onclick="showCollegeLevel(\''+lv2.key+'\')">'+lv2.icon+' '+lv2.name+'</button>';
+  }
+  html+='</div>';
+  html+='</div>';
+  return html;
+}
+function collegeDiffTag(s,mid,full){
+  var rate=mid/full;
+  if(rate>=0.9){return '<span class="tag-badge" style="background:#c0392b;color:#fff">极高</span>'}
+  if(rate>=0.82){return '<span class="tag-badge" style="background:#e67e22;color:#fff">高</span>'}
+  if(rate>=0.68){return '<span class="tag-badge" style="background:#27ae60;color:#fff">中</span>'}
+  return '<span class="tag-badge" style="background:#2ecc71;color:#fff">基础</span>';
+}
+function buildCollegeGap(order,subjects){
+  var hasInput=false, curSum=0, curAny=0;
+  for(var i=0;i<order.length;i++){
+    var v=parseFloat(COLLEGE.cur[order[i]]);
+    if(!isNaN(v)&&v>=0){hasInput=true;curSum+=v;curAny++}
+  }
+  if(!hasInput){
+    return '<div class="hint" style="margin-top:12px">未填写当前成绩，未生成差距分析。可点击"修改参数"后填写当前各科成绩，生成"当前 → 目标"差距对比。</div>';
+  }
+  var lv=findCollegeLevel(COLLEGE.sel);
+  var m=lv;
+  var midTotal=Math.round((m.low+m.high)/2);
+  var gapTotal=midTotal-curSum;
+  var html='<h3 style="margin-top:14px">当前成绩差距分析</h3>';
+  html+='<div class="ov-grid">'
+    +'<div class="ov-item"><div class="ov-label">当前总分</div><div class="ov-val">'+curSum+'</div><div class="ov-sub">已填'+curAny+'科</div></div>'
+    +'<div class="ov-item"><div class="ov-label">目标总分(中位)</div><div class="ov-val highlight">'+midTotal+'</div><div class="ov-sub">区间'+m.low+'~'+m.high+'</div></div>'
+    +'<div class="ov-item"><div class="ov-label">总分差距</div><div class="ov-val '+(gapTotal>0?'warn':'ok')+'">'+(gapTotal>0?'+':'')+gapTotal+'</div><div class="ov-sub">需提升 / 已超出</div></div>'
+    +'</div>';
+  html+='<div style="overflow-x:auto;margin-top:10px"><table class="tbl"><tr><th>科目</th><th>当前</th><th>目标中位</th><th>差距</th><th>提示</th></tr>';
+  for(var i=0;i<order.length;i++){
+    var s=order[i];
+    var v=parseFloat(COLLEGE.cur[s]);
+    var has=!isNaN(v)&&v>=0;
+    var mid=Math.round((subjects[s][0]+subjects[s][1])/2);
+    var gap=has?(mid-v):0;
+    var gapTxt=has?(gap>0?'+'+gap:(''+gap)):'未填';
+    var tip='';
+    if(has){
+      if(gap>0){tip='需重点提升'}
+      else if(gap<0){tip='已达标，可冲更高'}
+      else{tip='持平目标'}
+    }else{tip='—'}
+    html+='<tr><td class="l">'+SUBJ_ICON[s]+' '+s+'</td><td>'+(has?v:'—')+'</td>'
+      +'<td style="font-weight:700;color:#0f2b5b">'+mid+'</td>'
+      +'<td style="font-weight:700;color:'+(gap>0?'#27ae60':'#c0392b')+'">'+gapTxt+'</td><td>'+tip+'</td></tr>';
+  }
+  html+='</table></div>';
+  return html;
+}
+function backFromCollegeResult(){
+  $('colResult').style.display='none';
+  $('colResultBody').innerHTML='';
+  $('colStep1').style.display='';
+  buildCollegeScore();
+  window.scrollTo(0,0);
+}
+function buildSteps(){
+  var labels=['基本信息','模式与科目','成绩输入','时间节点'];
+  var html='';
+  for(var i=0;i<TOTAL_STEPS;i++){
+    var cls='step-item';
+    if(i+1===CUR_STEP){cls+=' active'}
+    else if(i+1<CUR_STEP){cls+=' done'}
+    html+='<div class="'+cls+'"><div class="s-dot">'+(i+1<CUR_STEP?'✓':(i+1))+'</div><div class="s-label">'+labels[i]+'</div></div>';
+  }
+  $('stepsBar').innerHTML=html;
+}
+function renderStep(){
+  for(var i=1;i<=TOTAL_STEPS;i++){
+    $('step'+i).style.display = (i===CUR_STEP)?'':'none';
+  }
+  if(CUR_STEP===1){buildGradeOpts()}
+  if(CUR_STEP===2){buildModeAndSubj()}
+  if(CUR_STEP===3){buildScoreTable()}
+  if(CUR_STEP===4){buildNodes()}
+  buildSteps();
+}
+function goStep(n){CUR_STEP=n;renderStep()}
+
+/* ==================== Step1 年级与基本信息 ==================== */
+function buildGradeOpts(){
+  var grades=[['初一','🏫','夯基筑底 · 适应衔接期'],['初二','🏛️','分化关键 · 物理入门期'],['初三','🎓','冲刺决胜 · 全面提分期']];
+  var html='';
+  for(var i=0;i<grades.length;i++){
+    var g=grades[i];
+    var cls='grade-opt'+(PLAN.grade===g[0]?' active':'');
+    html+='<div class="'+cls+'" onclick="setGrade(\''+g[0]+'\')"><div class="g-ic">'+g[1]+'</div><div class="g-name">'+g[0]+'</div><div class="g-desc">'+g[2]+'</div></div>';
+  }
+  $('gradeOpts').innerHTML=html;
+  $('inpName').value = PLAN.name;
+}
+function setGrade(g){
+  PLAN.grade=g;
+  buildGradeOpts();
+}
+
+/* ==================== Step2 模式与科目 ==================== */
+function buildModeAndSubj(){
+  var modes=[['single','🎯','单科规划','聚焦1门学科深度分析'],['multi','🧩','多科规划','2门及以上组合联动'],['all','📊','全科规划','当前年级全部应考科目']];
+  var html='';
+  for(var i=0;i<modes.length;i++){
+    var m=modes[i];
+    var cls='mode-opt'+(PLAN.mode===m[0]?' active':'');
+    html+='<div class="'+cls+'" onclick="setMode(\''+m[0]+'\')"><div class="m-ic">'+m[1]+'</div><div class="m-name">'+m[2]+'</div><div class="m-desc">'+m[3]+'</div></div>';
+  }
+  $('modeOpts').innerHTML=html;
+  buildSubjOpts();
+}
+function setMode(m){
+  PLAN.mode=m;
+  buildModeAndSubj();
+}
+function allGradeSubjects(){
+  return gradeSubjects();
+}
+function buildSubjOpts(){
+  var pool;
+  if(PLAN.mode==='all'){
+    pool=allGradeSubjects();
+  }else{
+    pool=ALL_SUBJECTS.slice();
+  }
+  var html='';
+  for(var i=0;i<pool.length;i++){
+    var s=pool[i];
+    var sd=getSubj(s);
+    var selected = PLAN.subjects.indexOf(s)>=0;
+    var cls='subj-opt'+(selected?' active':'');
+    html+='<div class="'+cls+'" onclick="toggleSubj(\''+s+'\')"><div class="s-ic">'+SUBJ_ICON[s]+'</div><div class="s-name">'+s+'</div><div class="s-meta">'+sd.full+'分 · '+subjType(s)+'</div></div>';
+  }
+  $('subjOpts').innerHTML=html;
+  if(PLAN.mode==='all'){
+    $('subjHint').innerHTML='全科模式：已自动纳入当前年级全部应考科目（共'+pool.length+'科），点击可取消个别科目。';
+  }else if(PLAN.mode==='single'){
+    $('subjHint').innerHTML='单科模式：请选择1门科目进行深度规划。';
+  }else{
+    $('subjHint').innerHTML='多科模式：请自由勾选2门及以上科目进行联动规划。';
+  }
+}
+function toggleSubj(s){
+  var idx=PLAN.subjects.indexOf(s);
+  if(idx>=0){
+    PLAN.subjects.splice(idx,1);
+  }else{
+    if(PLAN.mode==='single'&&PLAN.subjects.length>=1){
+      alert('单科模式仅支持1门科目，请先取消已选科目');
+      return;
+    }
+    if(PLAN.mode==='multi'&&PLAN.subjects.length>=8){
+      alert('最多选择8门科目');return;
+    }
+    PLAN.subjects.push(s);
+  }
+  buildSubjOpts();
+}
+
+/* ==================== Step3 成绩输入 ==================== */
+function buildScoreTable(){
+  if(PLAN.mode==='all'){
+    PLAN.subjects=allGradeSubjects();
+  }
+  // 默认排序：语文数学英语物理化学道法历史体育
+  var order=['语文','数学','英语','物理','化学','道法','历史','体育'];
+  var subs=[];
+  for(var i=0;i<order.length;i++){if(PLAN.subjects.indexOf(order[i])>=0){subs.push(order[i])}}
+  for(var j=0;j<PLAN.subjects.length;j++){if(subs.indexOf(PLAN.subjects[j])<0){subs.push(PLAN.subjects[j])}}
+  PLAN.subjects=subs;
+  var html='<tr><th style="text-align:left">科目</th><th>满分</th><th>当前成绩</th><th>目标成绩</th><th>需提升</th><th>计分方式</th></tr>';
+  for(var k=0;k<subs.length;k++){
+    var s=subs[k];
+    var sd=getSubj(s);
+    var cur=PLAN.curScores[s]||'';
+    var tgt=PLAN.targetScores[s]||'';
+    var gap=(cur!==''&&tgt!=='')?(parseFloat(tgt)-parseFloat(cur)):'';
+    var gapHtml=(gap==='')?'-':(gap>=0?'<span style="color:#27ae60;font-weight:700">+'+gap+'</span>':'<span style="color:#c0392b;font-weight:700">'+gap+'</span>');
+    html+='<tr><td class="subj-name">'+SUBJ_ICON[s]+' '+s+'</td><td class="full-col">'+sd.full+'</td>'
+      +'<td><input type="number" min="0" max="'+sd.full+'" value="'+esc(cur)+'" oninput="syncScore(\''+s+'\',0,this.value)" placeholder="0-'+sd.full+'"></td>'
+      +'<td><input type="number" min="0" max="'+sd.full+'" value="'+esc(tgt)+'" oninput="syncScore(\''+s+'\',1,this.value)" placeholder="0-'+sd.full+'"></td>'
+      +'<td>'+gapHtml+'</td><td class="full-col">'+subjType(s)+'</td></tr>';
+  }
+  $('scoreTable').innerHTML=html;
+}
+function syncScore(s,which,val){
+  var v=val===''?'':parseFloat(val);
+  if(which===0){PLAN.curScores[s]=v}else{PLAN.targetScores[s]=v}
+  // 刷新gap列
+  var sd=getSubj(s);
+  var cur=PLAN.curScores[s],tgt=PLAN.targetScores[s];
+  var gap=(cur!==''&&tgt!=='')?(parseFloat(tgt)-parseFloat(cur)):'';
+  var row=null;
+  var rows=$('scoreTable').rows;
+  for(var i=0;i<rows.length;i++){
+    if(rows[i].cells[0]&&rows[i].cells[0].innerText&&rows[i].cells[0].innerText.indexOf(s)>=0){row=rows[i];break}
+  }
+  if(row){
+    var gapHtml=(gap==='')?'-':(gap>=0?'<span style="color:#27ae60;font-weight:700">+'+gap+'</span>':'<span style="color:#c0392b;font-weight:700">'+gap+'</span>');
+    row.cells[4].innerHTML=gapHtml;
+  }
+}
+
+/* ==================== Step4 时间节点 ==================== */
+function defaultNodes(){
+  var arr=[];
+  if(PLAN.grade==='初一'){
+    arr=[['初一上期中',60],['初一上期末',120],['初一下期中',200],['初一下期末',280]];
+  }else if(PLAN.grade==='初二'){
+    arr=[['初二上期末',90],['初二下期中',170],['初二下期末',240]];
+  }else{
+    arr=[['初三上期中',50],['初三上期末',100],['一模',160],['二模',220],['中考',280]];
+  }
+  return arr;
+}
+function buildNodes(){
+  if(PLAN.nodes.length===0){
+    var defs=defaultNodes();
+    for(var i=0;i<defs.length;i++){
+      PLAN.nodes.push({name:defs[i][0],days:defs[i][1]});
+    }
+  }
+  renderNodes();
+  // 预设按钮
+  var presets=[['一个月后',30],['两个月后',60],['三个月后',90],['期末考',120],['一模',160],['中考',280]];
+  var html='';
+  for(var j=0;j<presets.length;j++){
+    html+='<div class="tag" onclick="addNodeNamed(\''+presets[j][0]+'\','+presets[j][1]+')">+ '+presets[j][0]+'</div>';
+  }
+  $('nodePreset').innerHTML=html;
+}
+function renderNodes(){
+  var html='';
+  for(var i=0;i<PLAN.nodes.length;i++){
+    var n=PLAN.nodes[i];
+    var date=addDays(n.days);
+    html+='<div class="node-item"><div class="n-idx">'+(i+1)+'</div>'
+      +'<input type="text" value="'+esc(n.name)+'" oninput="syncNodeName('+i+',this.value)" placeholder="节点名称">'
+      +'<input type="number" min="1" max="1080" value="'+n.days+'" oninput="syncNodeDays('+i+',this.value)" placeholder="天数">'
+      +'<div class="node-days">≈'+date+' · '+n.days+'天后</div>'
+      +'<span class="node-del" onclick="delNode('+i+')">🗑️</span></div>';
+  }
+  $('nodeList').innerHTML=html;
+}
+function syncNodeName(i,v){PLAN.nodes[i].name=v}
+function syncNodeDays(i,v){PLAN.nodes[i].days=parseInt(v)||30;renderNodes()}
+function addNode(){
+  PLAN.nodes.push({name:'新节点',days:60});
+  renderNodes();
+}
+function addNodeNamed(name,days){
+  PLAN.nodes.push({name:name,days:days});
+  renderNodes();
+}
+function delNode(i){
+  if(PLAN.nodes.length<=1){alert('至少保留1个时间节点');return}
+  PLAN.nodes.splice(i,1);
+  renderNodes();
+}
+
+/* ==================== 校验 ==================== */
+function validatePlan(){
+  if(PLAN.subjects.length===0){alert('请先选择至少1门规划科目');return false}
+  var miss=[];
+  for(var i=0;i<PLAN.subjects.length;i++){
+    var s=PLAN.subjects[i];
+    var sd=getSubj(s);
+    var cur=PLAN.curScores[s];
+    var tgt=PLAN.targetScores[s];
+    if(cur===''||cur===undefined||isNaN(cur)){miss.push(s+'当前成绩');continue}
+    if(tgt===''||tgt===undefined||isNaN(tgt)){miss.push(s+'目标成绩');continue}
+    if(cur<0||cur>sd.full){alert(s+'当前成绩超出范围(0-'+sd.full+')');return false}
+    if(tgt<0||tgt>sd.full){alert(s+'目标成绩超出范围(0-'+sd.full+')');return false}
+  }
+  if(miss.length>0){alert('请完整填写以下内容：'+miss.join('、'));return false}
+  // 检查目标是否合理（目标>当前 或有科目目标过低提醒）
+  return true;
+}
+
+/* ==================== 报告生成 ==================== */
+function generateReport(){
+  PLAN.name=$('inpName').value.trim();
+  if(!validatePlan()){return}
+  var totals=calcTotalScores();
+  if(totals.tgt<=totals.cur){alert('目标总分应高于当前总分，请调整目标分数');return}
+  PLAN.ts=nowStr();
+  showPage('report');
+  renderReport();
+}
+function renderReport(){
+  $('reportBody').innerHTML=buildReportHtml();
+  drawRadar();
+  window.scrollTo(0,0);
+}
+function buildReportHtml(){
+  var totals=calcTotalScores();
+  var name=PLAN.name||'未署名';
+  var gap=totals.tgt-totals.cur;
+  var room=totals.full-totals.cur;
+  var gapRate=room>0?Math.round(gap/room*100):0;
+  var totalDays=0;
+  for(var i=0;i<PLAN.nodes.length;i++){if(PLAN.nodes[i].days>totalDays){totalDays=PLAN.nodes[i].days}}
+  // 难度评级
+  var rating=rateDifficulty(gap,totalDays,totals.cur,totals.full);
+  // 报告编号
+  var rid=genReportId();
+  var refNote = REF_LINES.note||'';
+  var refYear = REF_LINES.year||2026;
+
+  var html='';
+  html+='<div class="report-wrap">';
+  // 报告头
+  html+='<div class="report-head">'
+    +'<div class="rh-top"><div><div class="rh-title">学科成绩目标规划分析报告</div>'
+    +'<div class="rh-sub">广州市初中生各科成绩目标规划系统 · 依据广州新中考"8科810分"计分体系构建</div></div>'
+    +'<div class="rh-meta"><div>报告编号：<span class="rh-id">'+rid+'</span></div><div>生成时间：'+PLAN.ts+'</div></div></div>'
+    +'<div style="position:relative;z-index:1;margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">'
+    +'<div class="tag-badge" style="background:rgba(255,255,255,.18);color:#fff">'+PLAN.grade+'</div>'
+    +'<div class="tag-badge" style="background:rgba(255,255,255,.18);color:#fff">'+(PLAN.mode==='single'?'单科规划':(PLAN.mode==='multi'?'多科规划':'全科规划'))+'</div>'
+    +'<div class="tag-badge" style="background:rgba(255,255,255,.18);color:#fff">'+(PLAN.grade==='初一'?'6科制':(PLAN.grade==='初二'?'7科制':'8科制'))+'</div>'
+    +'<div class="tag-badge" style="background:rgba(255,255,255,.18);color:#fff">共'+PLAN.subjects.length+'门学科</div>'
+    +'</div></div>';
+
+  // 一、规划总览
+  html+='<div class="report-section"><h2>一、规划总览</h2>';
+  html+='<div class="ov-grid">'
+    +'<div class="ov-item"><div class="ov-label">当前总分</div><div class="ov-val">'+totals.cur+'</div><div class="ov-sub">满分'+totals.full+'</div></div>'
+    +'<div class="ov-item"><div class="ov-label">目标总分</div><div class="ov-val highlight">'+totals.tgt+'</div><div class="ov-sub">目标达成率 '+(totals.cur>0?Math.round(totals.tgt/totals.full*100):0)+'%</div></div>'
+    +'<div class="ov-item"><div class="ov-label">提升目标</div><div class="ov-val '+(gap>0?'warn':'ok')+'">+'+(gap)+'</div><div class="ov-sub">占可提升空间 '+gapRate+'%</div></div>'
+    +'<div class="ov-item"><div class="ov-label">规划周期</div><div class="ov-val" style="font-size:20px">'+totalDays+'天</div><div class="ov-sub">'+PLAN.nodes.length+'个阶段节点</div></div>'
+    +'</div>';
+  html+='<div class="bar"><div class="bar-fill '+(gapRate>80?'red':(gapRate>55?'orange':'green'))+'" style="width:'+Math.min(100,gapRate)+'%"></div></div>'
+    +'<div style="text-align:center;font-size:12px;color:#999;margin-top:6px">当前总分距满分提升空间占用比例：'+gapRate+'%</div>';
+  html+='<div style="margin-top:14px" class="alert '+rating.cls+'"><b>目标达成难度评估：'+rating.label+'</b><br>'+rating.desc+'</div>';
+  html+='</div>';
+
+  // 一-1、雷达对比图
+  html+='<div class="report-section"><h2>学科能力雷达对比</h2>';
+  html+='<div style="text-align:center;font-size:12px;color:#999;margin-bottom:4px">当前成绩（蓝色）vs 目标成绩（橙色）· 各科按满分归一化对比</div>';
+  html+='<div class="chart-box"><canvas id="radarCanvas" width="520" height="420" style="max-width:100%;height:auto"></canvas></div>';
+  html+='</div>';
+
+  // 二、分科目标分解表
+  html+='<div class="report-section"><h2>二、分科目标分解</h2>';
+  html+='<div style="overflow-x:auto"><table class="tbl"><tr><th>科目</th><th>满分</th><th>当前</th><th>目标</th><th>需提升</th><th>提升率</th><th>优先级</th></tr>';
+  var rows=calcPriorityRows();
+  for(var i=0;i<rows.length;i++){
+    var r=rows[i];
+    html+='<tr><td class="l">'+SUBJ_ICON[r.name]+' '+r.name+'<div style="font-size:11px;color:#aaa">'+r.type+'</div></td>'
+      +'<td>'+r.full+'</td><td>'+r.cur+'</td><td style="font-weight:700;color:#0f2b5b">'+r.tgt+'</td>'
+      +'<td style="font-weight:700;color:'+(r.gap>0?'#27ae60':'#c0392b')+'">'+(r.gap>0?'+':'')+r.gap+'</td>'
+      +'<td>'+(r.cur>0?Math.round(r.gap/r.cur*100):0)+'%</td>'
+      +'<td>'+r.priBadge+'</td></tr>';
+  }
+  html+='</table></div>';
+  html+='<div style="margin-top:10px" class="alert alert-info">优先级排序说明：综合"需提升分数规模 × 学科提分难度系数"加权计算。差距大且提分难度相对低的学科优先投入，先用"易得分"科目稳定基本盘，再攻坚高难度科目。</div>';
+  html+='</div>';
+
+  // 三、阶段目标时间轴
+  html+='<div class="report-section"><h2>三、阶段目标时间轴</h2>';
+  html+='<div class="timeline">';
+  var tl=calcTimeline(totals.cur,totals.tgt);
+  for(var i=0;i<tl.length;i++){
+    var it=tl[i];
+    var cls='tl-item'+(it.end?' end':'');
+    html+='<div class="'+cls+'"><div class="tl-name">'+esc(it.name)+'<span class="tl-days">'+it.days+'天后（'+addDays(it.days)+'）</span></div>'
+      +'<div class="tl-scores">';
+    for(var j=0;j<it.scores.length;j++){
+      html+='<div class="tl-score">'+it.scores[j].name+'：<b>'+it.scores[j].v+'</b>分</div>';
+    }
+    html+='<div class="tl-score" style="background:#eef4ff"><b>阶段总分目标：'+it.total+'分</b></div>';
+    html+='</div></div>';
+  }
+  html+='</div></div>';
+
+  // 四、学科提升方案
+  html+='<div class="report-section"><h2>四、学科提升专项方案</h2>';
+  html+='<div class="alert alert-warn">以下方案基于各学科广州中考考情与"+esc(PLAN.grade)+"阶段特征制定，结合学生当前成绩分档，给出针对性提升策略与每日建议投入时长。</div>';
+  var subs=PLAN.subjects.slice();
+  for(var k=0;k<subs.length;k++){
+    html+=buildSubjPlan(subs[k]);
+  }
+  html+='</div>';
+
+  // 五、执行建议与风险提示
+  html+='<div class="report-section"><h2>五、执行建议与风险提示</h2>';
+  html+=buildExecAdvice(gap,totalDays,gapRate,rating);
+  html+='</div>';
+
+  // 六、政策与计分说明
+  html+='<div class="report-section"><h2>六、广州中考政策与计分说明</h2>';
+  html+='<div class="alert alert-info"><b>广州新中考"8科810分"计分体系（2027-2029）：</b>语文140、数学150、英语140（含听说30+笔试110）、物理100（笔试90+实验10）、化学70（笔试60+实验10）、道德与法治70、历史70、体育70（综合评价20+现场统考50），8个录取计分科目原始分直接计入录取总分。'+esc(FUEN_NOTE)+'</div>';
+  html+='<div class="alert alert-info"><b>梯度投档控制线（'+refYear+'年广州中考，数据来源：广州市招生考试委员会办公室）：</b>'+esc(refNote)+'。目标设定可对照梯度线进行定位，但请以当年官方公布为准。</div>';
+  html+='<div class="alert alert-warn"><b>重要说明：</b>本报告为基于输入数据的智能化学习规划分析工具，旨在提供科学化、结构化的目标拆解与提升路径建议，不构成任何升学承诺。实际成绩受教学资源、学生努力、考试难度等多种因素影响，请结合学校老师与专业教研建议综合制定学习方案。</div>';
+  html+='</div>';
+
+  html+='<div class="footer">本报告由「广州市初中生各科成绩目标规划系统」自动生成 · 报告编号 '+rid+'<br><span class="gold">★ 科学规划 · 目标驱动 · 阶段检验 · 持续精进 ★</span></div>';
+  html+='</div>';
+  return html;
+}
+function genReportId(){
+  var d=new Date();
+  var r=Math.floor(Math.random()*900+100);
+  return 'GZ'+d.getFullYear()+pad2(d.getMonth()+1)+pad2(d.getDate())+'-'+pad2(d.getHours())+pad2(d.getMinutes())+'-'+r;
+}
+function rateDifficulty(gap,totalDays,cur,full){
+  var room=full-cur;
+  var rate=room>0?gap/room:1;
+  var perDay=totalDays>0?gap/totalDays:0;
+  var avgPerNode=PLAN.nodes.length>0?Math.round(gap/PLAN.nodes.length):0;
+  if(rate<=0.3){
+    return {label:'★ 稳健可行',cls:'alert-ok',desc:'目标提升量占可提升空间约'+(Math.round(rate*100))+'%，'+totalDays+'天周期内日均需提升'+perDay.toFixed(1)+'分，节奏从容。建议按阶段节点稳步推进，确保基础扎实，避免盲目加码。'};
+  }
+  if(rate<=0.55){
+    return {label:'★★ 需要努力',cls:'alert-info',desc:'目标提升量占可提升空间约'+(Math.round(rate*100))+'%，'+totalDays+'天周期内日均需提升'+perDay.toFixed(1)+'分，节奏适中。建议严格执行阶段计划，每节点检验达成情况，重点保障薄弱学科投入。'};
+  }
+  if(rate<=0.8){
+    return {label:'★★★ 挑战较大',cls:'alert-warn',desc:'目标提升量占可提升空间约'+(Math.round(rate*100))+'%，'+totalDays+'天周期内日均需提升'+perDay.toFixed(1)+'分，需要高强度投入与高效方法。建议聚焦优先级高的学科，合理分配时间，必要时寻求专业教研辅导支持。'};
+  }
+  return {label:'★★★★ 极限冲刺',cls:'alert-danger',desc:'目标提升量占可提升空间约'+(Math.round(rate*100))+'%，几乎要"榨干"全部提升空间，'+totalDays+'天周期内日均需提升'+perDay.toFixed(1)+'分，风险较高。建议重新评估目标合理性，或适当延长规划周期、分两步达成，切忌急功近利。'};
+}
+function calcPriorityRows(){
+  var rows=[];
+  for(var i=0;i<PLAN.subjects.length;i++){
+    var s=PLAN.subjects[i];
+    var sd=getSubj(s);
+    var cur=parseFloat(PLAN.curScores[s])||0;
+    var tgt=parseFloat(PLAN.targetScores[s])||0;
+    var gap=tgt-cur;
+    // 优先级分：提分规模 / 难度系数（难度系数越低越易提分，优先）
+    var score=gap>0?gap/(sd.diff):(gap<0?-999:0);
+    rows.push({name:s,full:sd.full,cur:cur,tgt:tgt,gap:gap,diff:sd.diff,type:subjType(s),score:score});
+  }
+  rows.sort(function(a,b){return b.score-a.score});
+  // 分配优先级：正提升按score降序 P1 P2 P3，无提升或负提升 P4
+  var prioCount=0;
+  for(var j=0;j<rows.length;j++){
+    if(rows[j].gap>0){
+      prioCount++;
+      var p=prioCount<=Math.ceil(rows.length*0.4)?1:(prioCount<=Math.ceil(rows.length*0.75)?2:3);
+      rows[j].priBadge=(p===1?'<span class="tag-badge tag-p1">P1 优先攻坚</span>':(p===2?'<span class="tag-badge tag-p2">P2 重点推进</span>':'<span class="tag-badge tag-p3">P3 稳步提升</span>'));
+    }else if(rows[j].gap<0){
+      rows[j].priBadge='<span class="tag-badge tag-p4">稳住优势</span>';
+    }else{
+      rows[j].priBadge='<span class="tag-badge tag-p3">保持</span>';
+    }
+  }
+  return rows;
+}
+function calcTimeline(curTotal,tgtTotal){
+  var gap=tgtTotal-curTotal;
+  var nodes=PLAN.nodes.slice();
+  nodes.sort(function(a,b){return a.days-b.days});
+  var maxDays=nodes[nodes.length-1].days;
+  // 单科拆分：按各科目标线性分配
+  var subs=PLAN.subjects;
+  var res=[];
+  for(var i=0;i<nodes.length;i++){
+    var n=nodes[i];
+    var ratio=n.days/maxDays;
+    var stageTotal=Math.round(curTotal+gap*ratio);
+    var scores=[];
+    for(var j=0;j<subs.length;j++){
+      var s=subs[j];
+      var cur=parseFloat(PLAN.curScores[s])||0;
+      var tgt=parseFloat(PLAN.targetScores[s])||0;
+      var sg=tgt-cur;
+      var sv=Math.round(cur+sg*ratio);
+      scores.push({name:s,v:sv});
+    }
+    res.push({name:n.name,days:n.days,ratio:ratio,total:stageTotal,scores:scores,end:(i===nodes.length-1)});
+  }
+  return res;
+}
+// 根据分数定位分档（range 格式支持："60分以下" / "60-89分" / "110分以上"）
+function findBand(sd,cur){
+  var bands=sd.bands;
+  // 优先精确匹配：依次尝试每个档位的边界
+  for(var i=0;i<bands.length;i++){
+    var b=bands[i];
+    var rg=parseBandRange(b.range);
+    if(cur>=rg.r0&&cur<=rg.r1){return b}
+  }
+  // 兜底：落在边界时按最近档
+  for(var j=0;j<bands.length;j++){
+    var bj=bands[j];
+    var rgj=parseBandRange(bj.range);
+    if(cur>=rgj.r0){return bj}
+  }
+  return bands[bands.length-1];
+}
+function parseBandRange(range){
+  var s=String(range).replace(/分/g,'');
+  var r0=0,r1=99999;
+  if(s.indexOf('以上')>=0){
+    r0=parseInt(s)||0; r1=99999;
+  }else if(s.indexOf('以下')>=0){
+    r1=(parseInt(s)||1)-1; r0=0;
+  }else{
+    var parts=s.split('-');
+    r0=parseInt(parts[0])||0;
+    r1=parts.length>1?(parseInt(parts[1])||99999):99999;
+  }
+  return {r0:r0,r1:r1};
+}
+function buildSubjPlan(s){
+  var sd=getSubj(s);
+  var cur=parseFloat(PLAN.curScores[s])||0;
+  var tgt=parseFloat(PLAN.targetScores[s])||0;
+  // 确定当前分档
+  var band=findBand(sd,cur);
+  var daily=band.hours||1.5;
+  // 学科总时长建议（周）
+  var weekHours=Math.round(daily*5.5);
+  var html='';
+  html+='<div class="subj-plan">'
+    +'<div class="sp-head"><div class="sp-ic" style="background:'+sd.color+'">'+SUBJ_ICON[s]+'</div>'
+    +'<div><div class="sp-name">'+s+' · 提升专项方案</div>'
+    +'<div class="sp-meta">满分'+sd.full+'分 · '+subjType(s)+' · '+sd.nature+' · 当前'+cur+'分 → 目标'+tgt+'分</div></div>'
+    +'<div style="margin-left:auto;text-align:right"><div class="tag-badge tag-p2">建议每日'+daily+'小时</div><div class="tag-badge tag-p3" style="margin-top:4px">周约'+weekHours+'小时</div></div>'
+    +'</div>'
+    +'<div class="sp-body">'
+    +'<p><b>学科概述：</b>'+esc(sd.desc)+'</p>'
+    +'<p><b>核心模块：</b></p><div class="subj-module">';
+  for(var m=0;m<sd.modules.length;m++){html+='<div class="mod">'+esc(sd.modules[m])+'</div>'}
+  html+='</div>'
+    +'<div class="sp-band"><div class="b-title">当前水平定位：'+band.title+'<span class="b-range">（'+band.range+'）</span></div>'
+    +'<div style="margin-top:6px"><b>诊断：</b>'+esc(band.diagnosis)+'</div>'
+    +'<ul>';
+  for(var a=0;a<band.strategy.length;a++){html+='<li>'+esc(band.strategy[a])+'</li>'}
+  html+='</ul>'
+    +'<div style="margin-top:8px;font-size:13px;color:#1a4a8a"><b>本阶段攻坚重点：</b>'+esc(band.focus)+'</div>'
+    +'</div>'
+    +'<p><b>广州中考考情要点：</b>'+esc(sd.exam)+'</p>'
+    +'</div></div>';
+  return html;
+}
+function buildExecAdvice(gap,totalDays,gapRate,rating){
+  var rows=calcPriorityRows();
+  var top1='',top2='';
+  var count=0;
+  for(var i=0;i<rows.length;i++){
+    if(rows[i].gap>0){count++;if(count===1){top1=rows[i].name}if(count===2){top2=rows[i].name}}
+  }
+  var html='';
+  html+='<div class="alert alert-ok"><b>✅ 核心执行策略：</b>目标总差距<b>'+gap+'分</b>，规划周期<b>'+totalDays+'天</b>。建议以"阶段节点检验"为核心，每个节点对照阶段目标复盘达成率，动态调整下一阶段投入。'
+    +(top1?' 优先攻坚科目：<b>'+top1+(top2?'、'+top2:'')+'</b>。':'')+'</div>';
+  html+='<h3>每日时间分配建议</h3>';
+  html+='<div style="overflow-x:auto"><table class="tbl"><tr><th>科目</th><th>建议每日投入</th><th>阶段重点</th></tr>';
+  for(var j=0;j<PLAN.subjects.length;j++){
+    var s=PLAN.subjects[j];
+    var sd=getSubj(s);
+    var cur=parseFloat(PLAN.curScores[s])||0;
+    var b=findBand(sd,cur);
+    html+='<tr><td class="l">'+SUBJ_ICON[s]+' '+s+'</td><td style="font-weight:700;color:#1a4a8a">'+b.hours+'小时/日</td><td class="l" style="font-size:12px">'+esc(b.focus)+'</td></tr>';
+  }
+  html+='</table></div>';
+  html+='<div class="alert alert-info" style="margin-top:12px"><b>时间分配原则：</b>①优先保障"P1优先攻坚"科目；②主科（语数英）每天保持固定投入；③物理化学、道法历史利用零碎时间滚动复习；④体育项目每天坚持训练积累；⑤每周保留1天用于阶段复盘与错题整理。具体时长可根据实际课业负担灵活调整。</div>';
+  html+='<h3>风险提示</h3>';
+  var risks=['目标过高可能导致挫败感：若连续2个节点未达标，应及时回看目标是否合理，调整为分步达成','偏科风险：避免只攻优势科目忽略短板，总分提升需各科均衡发力','体育实验等"稳定得分项"失守：体育现场统考与物理化学实验操作应提前冲刺，避免临考突击丢分','一模二模发挥波动：初三模拟考排名波动较大，应关注趋势而非单次分数，保持心态稳定','学习疲劳：高强度规划需搭配科学作息，每天保证8小时以上睡眠，避免透支','政策变动：关注广州市招生考试委员会办公室最新通知，以官方信息为准'];
+  html+='<ul style="margin:6px 0 0 18px">';
+  for(var r=0;r<risks.length;r++){html+='<li style="font-size:13px;color:#555;line-height:2">'+risks[r]+'</li>'}
+  html+='</ul>';
+  html+='<div class="alert alert-warn" style="margin-top:12px"><b>阶段调整机制：</b>建议每完成一个节点后重新生成一次规划（将最新成绩作为新的当前成绩），让目标始终贴合实际进度。本系统支持随时修改规划并保存新报告。</div>';
+  return html;
+}
+
+/* ==================== 雷达图 ==================== */
+function drawRadar(){
+  var cv=$('radarCanvas');
+  if(!cv){return}
+  drawRadarWith(PLAN,cv);
+}
+function drawRadarWith(plan,cv){
+  if(!cv){return}
+  var ctx=cv.getContext('2d');
+  var w=cv.width,h=cv.height;
+  ctx.clearRect(0,0,w,h);
+  var cx=w/2,cy=h/2+6;
+  var R=Math.min(w,h)/2-46;
+  var subs=plan.subjects.slice();
+  if(subs.length===0){return}
+  var n=subs.length;
+  function point(i,r){
+    var ang=-Math.PI/2+i*2*Math.PI/n;
+    return {x:cx+r*Math.cos(ang),y:cy+r*Math.sin(ang)};
+  }
+  // 网格
+  ctx.strokeStyle='#e3e9f2';ctx.lineWidth=1;
+  for(var g=1;g<=4;g++){
+    var rr=R*g/4;
+    ctx.beginPath();
+    for(var gi=0;gi<=n;gi++){
+      var p=point(gi%n,rr);
+      if(gi===0){ctx.moveTo(p.x,p.y)}else{ctx.lineTo(p.x,p.y)}
+    }
+    ctx.stroke();
+  }
+  // 轴线
+  for(var ai=0;ai<n;ai++){
+    var ap=point(ai,R);
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(ap.x,ap.y);ctx.stroke();
+  }
+  // 标注科目名
+  ctx.font='12px sans-serif';ctx.fillStyle='#445';ctx.textAlign='center';ctx.textBaseline='middle';
+  for(var li=0;li<n;li++){
+    var lp=point(li,R+22);
+    ctx.fillText(subs[li],lp.x,lp.y);
+  }
+  // 当前分（蓝）
+  function drawPoly(key,color){
+    ctx.beginPath();
+    for(var i=0;i<n;i++){
+      var s=subs[i];
+      var sd=getSubj(s);
+      var v=key==='cur'?(parseFloat(plan.curScores[s])||0):(parseFloat(plan.targetScores[s])||0);
+      var ratio=Math.min(1,v/sd.full);
+      var p=point(i,R*ratio);
+      if(i===0){ctx.moveTo(p.x,p.y)}else{ctx.lineTo(p.x,p.y)}
+    }
+    ctx.closePath();
+    ctx.fillStyle=color;ctx.fill();
+    ctx.strokeStyle=color;ctx.lineWidth=2;ctx.stroke();
+  }
+  drawPoly('cur','rgba(42,108,184,.35)');
+  drawPoly('tgt','rgba(231,126,34,.45)');
+  // 图例
+  ctx.font='12px sans-serif';
+  ctx.fillStyle='#2a6cb8';ctx.textAlign='left';
+  ctx.fillRect(w/2-70,h-18,12,12);ctx.fillText('当前成绩',w/2-52,h-8);
+  ctx.fillStyle='#e67e22';
+  ctx.fillRect(w/2+6,h-18,12,12);ctx.fillText('目标成绩',w/2+24,h-8);
+}
+
+/* ==================== 保存报告 ==================== */
+function saveReport(){
+  var totals=calcTotalScores();
+  var gap=totals.tgt-totals.cur;
+  var rec={
+    id:genReportId(),
+    ts:PLAN.ts||nowStr(),
+    name:PLAN.name||'未署名',
+    grade:PLAN.grade,
+    mode:PLAN.mode,
+    subjects:PLAN.subjects.slice(),
+    curScores:cloneObj(PLAN.curScores),
+    targetScores:cloneObj(PLAN.targetScores),
+    nodes:cloneArr(PLAN.nodes),
+    curTotal:totals.cur,
+    tgtTotal:totals.tgt,
+    gap:gap
+  };
+  var list=getHist();
+  // 去重：同id
+  for(var i=0;i<list.length;i++){
+    if(list[i].id===rec.id){list.splice(i,1);break}
+  }
+  list.unshift(rec);
+  if(list.length>MAX_HIST){list=list.slice(0,MAX_HIST)}
+  try{
+    localStorage.setItem(HIST_KEY,JSON.stringify(list));
+    alert('✅ 报告已保存！共保存'+list.length+'份历史报告。');
+  }catch(e){
+    alert('保存失败：本地存储不可用');
+  }
+}
+function cloneObj(o){
+  var r={};
+  for(var k in o){r[k]=o[k]}
+  return r;
+}
+function cloneArr(a){
+  var r=[];
+  for(var i=0;i<a.length;i++){
+    var it=a[i];
+    if(typeof it==='object'&&it!==null){
+      var o={};
+      for(var k in it){o[k]=it[k]}
+      r.push(o);
+    }else{r.push(it)}
+  }
+  return r;
+}
+function getHist(){
+  try{
+    var raw=localStorage.getItem(HIST_KEY);
+    if(!raw){return []}
+    var arr=JSON.parse(raw);
+    if(!Array.isArray(arr)){return []}
+    return arr;
+  }catch(e){return []}
+}
+function openHistory(){
+  var list=getHist();
+  var html='';
+  if(list.length===0){
+    html='<div style="text-align:center;color:#999;padding:30px 0">暂无历史报告<br><span style="font-size:12px">完成一次目标规划并点击"保存报告"后，可在此回看与删除</span></div>';
+  }else{
+    for(var i=0;i<list.length;i++){
+      var r=list[i];
+      var modeName=r.mode==='single'?'单科':(r.mode==='multi'?'多科':'全科');
+      var nodeCnt=(r.nodes||[]).length;
+      html+='<div class="hist-item"><div class="h-info">'
+        +'<div class="h-name">'+esc(r.name)+' · '+esc(r.grade)+' · '+modeName+'规划</div>'
+        +'<div class="h-meta">'+esc(r.ts)+' · '+r.subjects.length+'门科目 · '+r.curTotal+'→'+r.tgtTotal+'分（+'+r.gap+'）· '+nodeCnt+'个节点</div>'
+        +'</div><div class="h-actions">'
+        +'<button class="btn btn-sm btn-primary" onclick="viewReport('+i+')">查看</button>'
+        +'<button class="btn btn-sm btn-danger" onclick="delReport('+i+')">删除</button>'
+        +'</div></div>';
+    }
+  }
+  $('histList').innerHTML=html;
+  $('histModal').classList.add('show');
+}
+function closeHistory(){$('histModal').classList.remove('show')}
+function delReport(idx){
+  if(!confirm('确定删除这份历史报告吗？')){return}
+  var list=getHist();
+  list.splice(idx,1);
+  if(list.length>MAX_HIST){list=list.slice(0,MAX_HIST)}
+  try{localStorage.setItem(HIST_KEY,JSON.stringify(list))}catch(e){}
+  openHistory();
+}
+function viewReport(idx){
+  var list=getHist();
+  if(!list[idx]){return}
+  var r=list[idx];
+  // 用历史数据重建渲染
+  var savedPlan={
+    grade:r.grade,name:r.name,
+    mode:r.mode,subjects:r.subjects.slice(),
+    curScores:cloneObj(r.curScores),targetScores:cloneObj(r.targetScores),
+    nodes:cloneArr(r.nodes),ts:r.ts
+  };
+  var oldPlan=PLAN;
+  PLAN=savedPlan;
+  var html=buildReportHtml();
+  // 在弹窗内注入"载入编辑"操作栏
+  var bar='<div style="display:flex;gap:8px;justify-content:center;margin-bottom:12px;padding:10px;background:#f7f9fc;border-radius:10px">'
+    +'<button class="btn btn-sm btn-primary" onclick="loadReportToEdit('+idx+')">✏️ 载入此规划继续编辑</button>'
+    +'<button class="btn btn-sm btn-ghost" onclick="window.print()">🖨️ 打印</button>'
+    +'</div>';
+  $('viewBody').innerHTML=bar+html;
+  $('viewModal').classList.add('show');
+  // 绘制弹窗内雷达图（在 viewBody 中查找 canvas）
+  var cv=$('viewBody').querySelector('canvas#radarCanvas');
+  if(cv){drawRadarWith(savedPlan,cv)}
+  PLAN=oldPlan;
+}
+function closeView(){$('viewModal').classList.remove('show')}
+function loadReportToEdit(idx){
+  var list=getHist();
+  if(!list[idx]){return}
+  var r=list[idx];
+  PLAN.grade=r.grade;PLAN.name=r.name;
+  PLAN.mode=r.mode;PLAN.subjects=r.subjects.slice();
+  PLAN.curScores=cloneObj(r.curScores);PLAN.targetScores=cloneObj(r.targetScores);
+  PLAN.nodes=cloneArr(r.nodes);PLAN.ts=r.ts;
+  closeView();closeHistory();
+  showPage('wizard');
+  CUR_STEP=3;
+  renderStep();
+}
+
+/* ==================== 初始化 ==================== */
+function init(){
+  buildGradeOpts();
+  buildModeAndSubj();
+}
+init();
+</script>
+</main>
+</body>
+</html>
