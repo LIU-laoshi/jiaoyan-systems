@@ -1189,6 +1189,226 @@
                 margin: 1.2cm;
             }
         }
+
+        /* ===== 3.0 顶级版新增样式 ===== */
+        .diff-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: .72em;
+            font-weight: 700;
+            letter-spacing: .5px;
+            vertical-align: middle;
+            margin-left: 6px;
+        }
+        .diff-1 { background: rgba(16,185,129,.12); color: #059669; border: 1px solid rgba(16,185,129,.35); }
+        .diff-2 { background: rgba(245,158,11,.12); color: #d97706; border: 1px solid rgba(245,158,11,.35); }
+        .diff-3 { background: rgba(239,68,68,.12); color: #dc2626; border: 1px solid rgba(239,68,68,.35); }
+
+        .layer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-top: 10px;
+        }
+        .layer-item {
+            border: 1px solid rgba(102,126,234,.18);
+            border-radius: 14px;
+            padding: 14px;
+            background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(248,250,255,.55));
+        }
+        .layer-item .layer-name {
+            font-weight: 700;
+            font-size: .92em;
+            color: var(--t);
+            margin-bottom: 4px;
+        }
+        .layer-item .layer-desc {
+            font-size: .8em;
+            color: var(--tm);
+            line-height: 1.7;
+        }
+        .layer-item .layer-bar {
+            height: 8px;
+            border-radius: 6px;
+            background: rgba(100,116,139,.1);
+            margin: 10px 0 6px;
+            overflow: hidden;
+        }
+        .layer-item .layer-bar i {
+            display: block;
+            height: 100%;
+            border-radius: 6px;
+        }
+        .layer-item .layer-rate {
+            font-weight: 700;
+            font-size: .9em;
+        }
+        .style-card {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            border-radius: 14px;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, rgba(102,126,234,.08), rgba(118,75,162,.08));
+            border: 1px solid rgba(102,126,234,.2);
+            margin-top: 10px;
+        }
+        .style-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .style-name {
+            font-weight: 700;
+            font-size: 1.02em;
+            color: var(--t);
+        }
+        .style-desc {
+            font-size: .85em;
+            color: var(--tm);
+            line-height: 1.75;
+            margin-top: 3px;
+        }
+        .eff-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .eff-item {
+            text-align: center;
+            border-radius: 14px;
+            padding: 14px 8px;
+            background: rgba(102,126,234,.06);
+            border: 1px solid rgba(102,126,234,.14);
+        }
+        .eff-item .eff-num {
+            font-size: 1.5em;
+            font-weight: 800;
+            color: var(--pr);
+            line-height: 1.2;
+        }
+        .eff-item .eff-label {
+            font-size: .78em;
+            color: var(--tm);
+            margin-top: 4px;
+        }
+        .topic-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(100,116,139,.15);
+        }
+        .topic-item:last-child { border-bottom: none; }
+        .topic-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            background: rgba(102,126,234,.1);
+            flex-shrink: 0;
+        }
+        .topic-title {
+            font-weight: 700;
+            font-size: .92em;
+            color: var(--t);
+        }
+        .topic-desc {
+            font-size: .82em;
+            color: var(--tm);
+            line-height: 1.75;
+            margin-top: 2px;
+        }
+        .theory-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .theory-item {
+            border-radius: 14px;
+            padding: 13px 14px;
+            background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(240,242,255,.5));
+            border: 1px solid rgba(102,126,234,.16);
+        }
+        .theory-item .theory-tag {
+            font-size: .7em;
+            font-weight: 700;
+            letter-spacing: .6px;
+            color: #764ba2;
+            background: rgba(118,75,162,.08);
+            padding: 2px 8px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+        .theory-item .theory-title {
+            font-weight: 700;
+            font-size: .9em;
+            color: var(--t);
+            margin-bottom: 4px;
+        }
+        .theory-item .theory-text {
+            font-size: .8em;
+            color: var(--tm);
+            line-height: 1.75;
+        }
+        .week4-card {
+            border-left: 4px solid var(--pr);
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-top: 10px;
+            background: rgba(102,126,234,.05);
+        }
+        .week4-card .week4-title {
+            font-weight: 700;
+            font-size: .92em;
+            color: var(--t);
+            margin-bottom: 4px;
+        }
+        .week4-card ul {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .week4-card li {
+            font-size: .84em;
+            color: var(--tm);
+            line-height: 1.8;
+            padding-left: 16px;
+            position: relative;
+        }
+        .week4-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 2px;
+            color: var(--pr);
+        }
+        .method-note {
+            font-size: .78em;
+            color: var(--tm);
+            background: rgba(100,116,139,.06);
+            border-radius: 10px;
+            padding: 10px 12px;
+            line-height: 1.8;
+            margin-top: 10px;
+        }
+        @media (max-width: 768px) {
+            .layer-grid, .eff-grid, .theory-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1197,7 +1417,7 @@
 <div class="login-overlay" id="loginOverlay">
   <div class="login-box">
     <div class="login-logo">
-      <svg viewBox="0 0 120 120" fill="none">
+      <svg viewBox="0 0 120 120" fill="none" aria-hidden="true">
         <circle cx="60" cy="60" r="55" stroke="url(#lg)" stroke-width="4"/>
         <path d="M60 20L95 45V95H25V45L60 20Z" fill="url(#lg)" opacity="0.18"/>
         <path d="M60 20L95 45V95H25V45L60 20Z" stroke="url(#lg)" stroke-width="3"/>
@@ -1226,7 +1446,7 @@
   <div class="card">
     <div class="welcome-header">
       <div class="welcome-icon">
-        <svg viewBox="0 0 120 120" fill="none">
+        <svg viewBox="0 0 120 120" fill="none" aria-hidden="true">
           <circle cx="60" cy="60" r="55" stroke="url(#wg)" stroke-width="4"/>
           <path d="M60 20L95 45V95H25V45L60 20Z" fill="url(#wg)" opacity="0.18"/>
           <path d="M60 20L95 45V95H25V45L60 20Z" stroke="url(#wg)" stroke-width="3"/>
@@ -1239,11 +1459,11 @@
         </svg>
       </div>
       <h1 class="welcome-title">高中生空间思维测评</h1>
-      <p class="welcome-subtitle">本测评系统专为高中生设计，从六大维度科学评估空间思维能力。<br>共60道进阶题目（含高考立体几何、空间向量考点），预计用时35-45分钟，系统将生成专属分析报告。</p>
+      <p class="welcome-subtitle">本测评系统专为高中生设计，依据空间认知科学（心理旋转、空间可视化、空间定向等）六大维度，构建基础→进阶→挑战三级难度梯度的专业化诊断体系。<br>共72道题目（含高考立体几何、空间向量考点及纯图形推理题），预计用时35-45分钟，提交后生成含能力分层、认知风格、答题效率、高考对接与四周训练计划的顶级版分析报告。</p>
     </div>
     <div class="dimension-grid" id="welcomeDimGrid"></div>
     <button class="btn btn-start" onclick="goToPage('infoPage')">开始测评 →</button>
-    <div class="welcome-footer">六大维度 · 60道进阶题目 · 即时对错反馈 · 智能分析报告 · 云端同步</div>
+    <div class="welcome-footer">六大维度 · 72道三级难度题目 · 即时对错反馈 · 能力分层诊断 · 四周训练计划 · 云端同步</div>
   </div>
   <div class="footer-sign">系统设计制作：刘岳</div>
 </div>
@@ -1302,8 +1522,8 @@
     <div class="quiz-header">
       <div class="quiz-progress">
         <div class="progress-text">
-          <span>题目 <b id="currentQ">1</b> / <b id="totalQ">60</b></span>
-          <span>已答 <b id="answeredQ">0</b> / <b id="totalQ2">60</b></span>
+          <span>题目 <b id="currentQ">1</b> / <b id="totalQ">72</b></span>
+          <span>已答 <b id="answeredQ">0</b> / <b id="totalQ2">72</b></span>
         </div>
         <div class="progress-bar">
           <div class="progress-fill" id="progressFill" style="width:2%"></div>
@@ -1315,7 +1535,7 @@
     <div class="dimension-badge" id="dimensionBadge">空间感知</div>
 
     <div class="question-card">
-      <span class="question-number" id="questionNumber">第 1 题</span>
+      <span class="question-number" id="questionNumber">第 1 题</span><span class="diff-badge diff-1" id="diffBadge">基础</span>
       <p class="question-text" id="questionText"></p>
       <div class="question-svg" id="questionSvg"></div>
       <div class="options-grid" id="optionsGrid"></div>
@@ -1340,8 +1560,10 @@
         // ==================== 全局变量 ====================
         var currentQuestionIndex = 0;
         var userAnswers = [];
+        var answerTimes = [];
+        var questionStartTime = 0;
         var timerInterval = null;
-        var remainingTime = 1800;
+        var remainingTime = 2160;
         var studentInfo = { name: '', grade: '', school: '', gender: '', subject: '' };
         var quizStartTime = 0;
 
@@ -1369,7 +1591,11 @@
             { dimension: 'perception', question: '正方体中，连接一个顶点与对面中心形成的直线，与该顶点相邻的三条棱所成角的余弦值分别为？', svg: 'cube_angle', options: ['A. √6/6，√6/6，√6/3', 'B. √3/3，√3/3，√3/3', 'C. √6/6，√6/6，√6/6', 'D. √2/2，√2/2，√2/2'], answer: 0, difficulty: 3, tag: '线线夹角', explanation: '设棱长1，顶点A=(0,0,0)，对面中心G=(1/2,1/2,1)，方向(1,1,2)。与三条棱的夹角余弦分别为1/√6、1/√6、2/√6，即√6/6、√6/6、√6/3，故选A。' },
             { dimension: 'perception', question: '已知向量a=(1,-2,2)，则|a|（向量a的模）为？', svg: 'vectors', options: ['A. 2', 'B. 3', 'C. 4', 'D. √5'], answer: 1, difficulty: 2, tag: '向量运算', explanation: '向量的模为各分量平方和的算术平方根：|a|=√(1+4+4)=√9=3，故选B。' },
 
-            // ===== 心理旋转 rotation（10题） =====
+            // ===== 空间感知 perception 新增（2题） =====
+            { dimension: 'perception', question: '空间中两条异面直线，它们能确定几个平面？', svg: 'skew_planes', options: ['A. 0个', 'B. 1个', 'C. 2个', 'D. 无数个'], answer: 0, difficulty: 2, tag: '点线面关系', explanation: '确定一个平面需要共面条件：两条平行或相交直线可确定一个平面；异面直线既不平行也不相交，无法确定平面，故选A。' },
+            { dimension: 'perception', question: '正方体棱长为1，顶点A到对角面BDD₁B₁的距离是？', svg: 'point_plane_dist', options: ['A. √2/2', 'B. 1', 'C. √3/2', 'D. 1/2'], answer: 0, difficulty: 3, tag: '线面距离', explanation: '设A为原点，对角面BDD₁B₁的方程为x+y=1，点A(0,0,0)到平面的距离d=|0+0-1|/√2=1/√2=√2/2，故选A。' },
+
+            // ===== 心理旋转 rotation（12题） =====
             { dimension: 'rotation', question: '将正方体绕过上下底面中心的竖直轴顺时针旋转90°，原来正对前方的一面会转到哪个方向？', svg: 'cube_rotate_diagonal', options: ['A. 左面', 'B. 右面', 'C. 后面', 'D. 底面'], answer: 1, difficulty: 2, tag: '旋转变换', explanation: '从上方俯视，顺时针旋转90°时，正前方一面依次转到右侧：前→右→后→左，所以前面转到右面，故选B。' },
             { dimension: 'rotation', question: '正四棱锥P-ABCD（底面正方形，O为底面中心）绕高PO顺时针旋转90°后，顶点B将落在哪个位置？', svg: 'pyramid_rotate', options: ['A. 顶点C的位置', 'B. 顶点D的位置', 'C. 顶点A的位置', 'D. 位置不变'], answer: 0, difficulty: 3, tag: '旋转变换', explanation: '正四棱锥绕高旋转90°时，底面四个顶点依次轮换：A→B，B→C，所以B转到C的位置，故选A。' },
             { dimension: 'rotation', question: '将长4cm、宽3cm的矩形纸片以长为轴旋转一周，形成的圆柱体积为？', svg: 'cuboid_rotate', options: ['A. 36π', 'B. 48π', 'C. 27π', 'D. 12π'], answer: 0, difficulty: 2, tag: '旋转体', explanation: '以长4为轴旋转，圆柱高h=4、底面半径r=3，体积V=πr²h=π×9×4=36π，故选A。' },
@@ -1381,7 +1607,11 @@
             { dimension: 'rotation', question: '将半圆绕其直径旋转一周，形成的立体图形是？', svg: 'sphere_rotate', options: ['A. 球', 'B. 圆柱', 'C. 圆锥', 'D. 圆台'], answer: 0, difficulty: 1, tag: '旋转体', explanation: '半圆以直径为轴旋转一周，圆弧扫出的轨迹正好围成一个球体，故选A。' },
             { dimension: 'rotation', question: '将等边三角形绕其中一条边旋转一周，形成的旋转体是？', svg: 'tri_rotate', options: ['A. 圆锥', 'B. 圆柱', 'C. 两个共底圆锥', 'D. 球'], answer: 2, difficulty: 3, tag: '旋转体', explanation: '等边三角形绕底边旋转一周，两条腰分别扫出以A、B为顶点的两个圆锥侧面，二者共用一个底面圆，形成两个共底圆锥，故选C。' },
 
-            // ===== 空间可视化 visualization（10题） =====
+            // ===== 心理旋转 rotation 新增（2题） =====
+            { dimension: 'rotation', question: '一只有向箭头指向右方，将其绕竖直轴从上方俯视逆时针旋转180°，箭头指向？', svg: 'arrow_rotate', options: ['A. 左方', 'B. 右方', 'C. 上方', 'D. 下方'], answer: 0, difficulty: 2, tag: '旋转变换', explanation: '俯视视角下，箭头绕竖直轴逆时针旋转180°（半圈），指向恰好反转，由右转向左，故选A。' },
+            { dimension: 'rotation', question: '直角三角形两直角边分别为3、4，绕斜边旋转一周形成的旋转体体积为？', svg: 'rt_tri_revolve', options: ['A. 48π/5', 'B. 12π', 'C. 16π', 'D. 20π'], answer: 0, difficulty: 3, tag: '旋转体', explanation: '斜边长为5，斜边上的高h=3×4/5=12/5即为两个共底圆锥的底面半径，总高为5，体积V=(1/3)π×(12/5)²×5=48π/5，故选A。' },
+
+            // ===== 空间可视化 visualization（12题） =====
             { dimension: 'visualization', question: '正方体的展开图中，以下哪种排列不能围成正方体？', svg: 'cube_net', options: ['A. 十字形（中间4个）', 'B. 田字形', 'C. 1-4-1形', 'D. 3-3-1形'], answer: 1, difficulty: 1, tag: '展开图', explanation: '田字形（2×2）四个面共用一个顶点，折叠时四个面会挤在一起、无法构成六面体，不能围成正方体，故选B。' },
             { dimension: 'visualization', question: '用一个平面截正方体，截面不可能是什么形状？', svg: 'cube_section_types', options: ['A. 三角形', 'B. 五边形', 'C. 六边形', 'D. 七边形'], answer: 3, difficulty: 2, tag: '截面', explanation: '一个平面最多与正方体6个面相交，所以截面最多六边形，不可能出现七边形，故选D。' },
             { dimension: 'visualization', question: '斜截圆柱（平面不垂直于轴、不过轴），其截面形状是？', svg: 'cylinder_slant', options: ['A. 圆形', 'B. 矩形', 'C. 椭圆', 'D. 抛物线'], answer: 2, difficulty: 2, tag: '截面', explanation: '平面与圆柱侧面的所有母线相交且不垂直，截面为椭圆，故选C。' },
@@ -1393,7 +1623,11 @@
             { dimension: 'visualization', question: '正方体的截面图形中，最多有几条边？', svg: 'cube_section_max', options: ['A. 4条', 'B. 5条', 'C. 6条', 'D. 7条'], answer: 2, difficulty: 3, tag: '截面', explanation: '截面最多与正方体6个面各交出一条边，形成六边形，故选C。' },
             { dimension: 'visualization', question: '正方体被一个过体对角线且垂直于底面的平面所截，截面形状是？', svg: 'cube_diag_section', options: ['A. 矩形', 'B. 三角形', 'C. 五边形', 'D. 梯形'], answer: 0, difficulty: 3, tag: '截面', explanation: '过体对角线且垂直底面的平面截正方体，截面为矩形（宽为面对角线、高为棱长），故选A。' },
 
-            // ===== 空间推理 reasoning（10题） =====
+            // ===== 空间可视化 visualization 新增（2题） =====
+            { dimension: 'visualization', question: '正方体展开图中，中间一行3个正方形、上方2个、下方1个的排列属于哪种类型？', svg: 'net_231', options: ['A. 1-4-1型', 'B. 2-3-1型', 'C. 3-3型', 'D. 2-2-2型'], answer: 1, difficulty: 2, tag: '展开图', explanation: '中间一行3个、上下分别为2和1，正是标准的2-3-1型（3-2-1型）正方体展开图，故选B。' },
+            { dimension: 'visualization', question: '正四棱锥被平行于底面的平面截去上半部分，剩余几何体是？', svg: 'trunc_pyramid', options: ['A. 棱锥', 'B. 棱台', 'C. 棱柱', 'D. 圆柱'], answer: 1, difficulty: 3, tag: '截面', explanation: '平行于底面的平面截正四棱锥，截面是缩小的正方形，上下底面平行且相似，形成棱台，故选B。' },
+
+            // ===== 空间推理 reasoning（12题） =====
             { dimension: 'reasoning', question: '已知三棱锥P-ABC中，PA⊥BC，PB⊥AC，则PC与AB的关系是？', svg: 'pyramid_perp', options: ['A. 垂直', 'B. 平行', 'C. 异面垂直', 'D. 无法确定'], answer: 2, difficulty: 1, tag: '立体几何证明', explanation: '由PA⊥BC、PB⊥AC可推得PC⊥AB（垂心定理），且PC与AB为异面直线，故为异面垂直，故选C。' },
             { dimension: 'reasoning', question: '空间中到两个定点距离相等的点的集合是？', svg: 'locus_2points', options: ['A. 一个点', 'B. 一条直线', 'C. 垂直平分面', 'D. 一个球面'], answer: 2, difficulty: 1, tag: '轨迹问题', explanation: '空间中到两点距离相等的点的轨迹是这两点的垂直平分面，故选C。' },
             { dimension: 'reasoning', question: '正方体ABCD-A₁B₁C₁D₁中，直线A₁B与直线BC₁所成角的余弦值为？', svg: 'cube_angle_calc', options: ['A. √2/2', 'B. √3/3', 'C. 1/2', 'D. √6/3'], answer: 2, difficulty: 2, tag: '线线夹角', explanation: '取向量A₁B=(1,0,-1)、BC₁=(0,1,1)，cosθ=|0+0-1|/(√2×√2)=1/2，故选C。' },
@@ -1405,7 +1639,15 @@
             { dimension: 'reasoning', question: '已知向量a=(1,2,2)，b=(2,-1,0)，则a与b的夹角为？', svg: 'vectors', options: ['A. 0°', 'B. 45°', 'C. 90°', 'D. 180°'], answer: 2, difficulty: 3, tag: '向量运算', explanation: 'a·b=1×2+2×(-1)+2×0=2-2+0=0，点积为0说明两向量垂直，夹角为90°，故选C。' },
             { dimension: 'reasoning', question: '三棱锥P-ABC中，PA⊥平面ABC，∠ABC=90°，AB=BC=1，PA=1，则点P到直线BC的距离为？', svg: 'pyramid_dist', options: ['A. √2', 'B. √6/2', 'C. 1', 'D. √3'], answer: 0, difficulty: 3, tag: '立体几何证明', explanation: 'BC⊥AB且BC⊥PA，所以BC⊥平面PAB，BC⊥PB，故P到BC的距离即PB=√(PA²+AB²)=√(1+1)=√2，故选A。' },
 
-            // ===== 空间定向 orientation（10题） =====
+            // ===== 空间推理 reasoning 新增（2题） =====
+            { dimension: 'reasoning', question: '设α、β为两个不重合的平面，直线l同时垂直于α和β，则α与β的位置关系是？', svg: 'perp_planes', options: ['A. 平行', 'B. 相交', 'C. 垂直', 'D. 重合'], answer: 0, difficulty: 2, tag: '立体几何证明', explanation: '垂直于同一条直线的两个平面平行（线面垂直的传递性），l⊥α且l⊥β可推出α∥β，故选A。' },
+            { dimension: 'reasoning', question: '已知|a|=2，|b|=3，a与b的夹角为60°，则|a+b|=？', svg: 'vec_sum', options: ['A. √19', 'B. 5', 'C. √13', 'D. 7'], answer: 0, difficulty: 3, tag: '向量运算', explanation: '|a+b|²=|a|²+|b|²+2|a||b|cos60°=4+9+2×2×3×1/2=13+6=19，所以|a+b|=√19，故选A。' },
+
+            // ===== 空间定向 orientation 新增（2题） =====
+            { dimension: 'orientation', question: '一个几何体的正视图和俯视图都是矩形，侧视图是三角形，该几何体是？', svg: 'tri_prism_views', options: ['A. 三棱柱', 'B. 圆锥', 'C. 四棱锥', 'D. 圆柱'], answer: 0, difficulty: 2, tag: '三视图', explanation: '直三棱柱沿棱方向观察：正视图为矩形（侧面）、俯视图为矩形（底面）、侧视图为三角形（端面），故选A。' },
+            { dimension: 'orientation', question: '用小立方体搭成的几何体，正视图为2×2共4格，俯视图为3个方块排成L形，最少需要几个小立方体？', svg: 'cube_stack', options: ['A. 3个', 'B. 4个', 'C. 5个', 'D. 6个'], answer: 1, difficulty: 3, tag: '三视图', explanation: '俯视图L形的3个位置必须都放，正视图2×2说明存在某位置需要叠两层，最少为3个底层+L形拐角处1个上层=4个，故选B。' },
+
+            // ===== 空间想象 imagination（12题） =====
             { dimension: 'orientation', question: '根据三视图数据（正视图、侧视图、俯视图均为2×2方格），这个几何体最多由几个小立方体组成？', svg: 'three_view_cubes', options: ['A. 8个', 'B. 9个', 'C. 10个', 'D. 11个'], answer: 0, difficulty: 3, tag: '三视图', explanation: '三个视图都是2×2，说明立体占据2×2×2的空间范围，最多（也恰好）为8个小立方体，故选A。' },
             { dimension: 'orientation', question: '正等测投影中，水平圆的正等轴测图是什么形状？', svg: 'isometric_circle', options: ['A. 圆', 'B. 椭圆', 'C. 抛物线', 'D. 直线'], answer: 1, difficulty: 1, tag: '正等测', explanation: '正等测投影将水平面的圆投影为椭圆（轴测投影后圆形变为椭圆），故选B。' },
             { dimension: 'orientation', question: '一个几何体的正视图和侧视图都是三角形，俯视图是圆，这个几何体是？', svg: 'views_shape', options: ['A. 圆锥', 'B. 三棱锥', 'C. 半球', 'D. 圆柱'], answer: 0, difficulty: 2, tag: '三视图', explanation: '圆锥的主视、侧视均为三角形，俯视为圆；三棱锥俯视为三角形，圆柱正侧视为矩形，故选A。' },
@@ -1427,7 +1669,10 @@
             { dimension: 'imagination', question: '将圆柱沿一条母线剪开并展开，其侧面展开图是？', svg: 'cylinder_unfold', options: ['A. 矩形', 'B. 扇形', 'C. 梯形', 'D. 圆'], answer: 0, difficulty: 1, tag: '展开图', explanation: '圆柱侧面沿母线剪开平铺，展开为矩形（长为底面周长、宽为高），故选A。' },
             { dimension: 'imagination', question: '用一个平面切正方体（一刀），最多能把正方体分成几个部分？', svg: 'cube_cut_parts', options: ['A. 2个', 'B. 3个', 'C. 4个', 'D. 5个'], answer: 0, difficulty: 1, tag: '截面', explanation: '一个平面最多把空间分成两部分，故一刀切正方体最多分成2个部分，故选A。' },
             { dimension: 'imagination', question: '一个球沿过球心的平面切成两半，每个半球体（含截面圆面）的表面积与原球表面积之比为？', svg: 'hemisphere', options: ['A. 2:3', 'B. 3:4', 'C. 1:2', 'D. 4:5'], answer: 1, difficulty: 2, tag: '旋转体', explanation: '半球表面积=2πR²(曲面)+πR²(截面)=3πR²，原球表面积=4πR²，比为3:4，故选B。' },
-            { dimension: 'imagination', question: '在正方体中连接六个面的中心，所得八面体的体积与正方体体积之比为？', svg: 'cube_octahedron', options: ['A. 1:4', 'B. 1:6', 'C. 1:8', 'D. 1:12'], answer: 1, difficulty: 3, tag: '组合体', explanation: '六个面中心构成正八面体，其体积为正方体体积的1/6（可分解为两个四棱锥计算），故选B。' }
+            { dimension: 'imagination', question: '在正方体中连接六个面的中心，所得八面体的体积与正方体体积之比为？', svg: 'cube_octahedron', options: ['A. 1:4', 'B. 1:6', 'C. 1:8', 'D. 1:12'], answer: 1, difficulty: 3, tag: '组合体', explanation: '六个面中心构成正八面体，其体积为正方体体积的1/6（可分解为两个四棱锥计算），故选B。' },
+            // ===== 空间想象 imagination 新增（2题） =====
+            { dimension: 'imagination', question: '将两个完全相同的正四棱锥沿正方形底面粘合，所得几何体是？', svg: 'octahedron2', options: ['A. 正八面体', 'B. 正六面体', 'C. 正十二面体', 'D. 正四面体'], answer: 0, difficulty: 2, tag: '组合体', explanation: '两个正四棱锥底面重合、顶点分居上下，共8个等边三角形侧面，正是正八面体（如金刚石晶体构型），故选A。' },
+            { dimension: 'imagination', question: '3×3×3的大正方体表面全部涂色后切成27个小正方体，恰好有2个面涂色的小正方体有几个？', svg: 'painted_cube', options: ['A. 8个', 'B. 12个', 'C. 16个', 'D. 24个'], answer: 1, difficulty: 3, tag: '空间想象', explanation: '恰有2面涂色的是位于棱上（不含角块）的小正方体：12条棱各1个（棱两端角块有3面涂色），共12个，故选B。' }
         ];
 
         // ==================== SVG图形生成函数（48个原有+9个新增） ====================
@@ -1495,7 +1740,19 @@
                 'cylinder_unfold': '<svg width="220" height="120" viewBox="0 0 220 120"><ellipse cx="45" cy="40" rx="25" ry="10" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><ellipse cx="45" cy="100" rx="25" ry="10" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><line x1="20" y1="40" x2="20" y2="100" stroke="#667eea" stroke-width="2"/><line x1="70" y1="40" x2="70" y2="100" stroke="#667eea" stroke-width="2"/><text x="10" y="115" fill="#64748b" font-size="11">圆柱</text><rect x="110" y="30" width="90" height="55" fill="#f0f9ff" stroke="#764ba2" stroke-width="2"/><text x="135" y="63" fill="#764ba2" font-size="11">矩形</text><text x="125" y="100" fill="#64748b" font-size="11">侧面展开</text></svg>',
                 'cube_cut_parts': '<svg width="180" height="150" viewBox="0 0 180 150"><polygon points="90,30 150,60 150,110 90,140 30,110 30,60" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><line x1="30" y1="60" x2="150" y2="110" stroke="#ef4444" stroke-width="2" stroke-dasharray="6,4"/><text x="55" y="80" fill="#ef4444" font-size="12">一刀</text><text x="95" y="125" fill="#64748b" font-size="11">两半</text></svg>',
                 'hemisphere': '<svg width="180" height="130" viewBox="0 0 180 130"><path d="M30,70 A60,60 0 0,1 150,70" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><ellipse cx="90" cy="70" rx="60" ry="20" fill="#f0f9ff" stroke="#764ba2" stroke-width="2"/><text x="100" y="75" fill="#764ba2" font-size="11">截面圆</text><text x="55" y="110" fill="#64748b" font-size="11">半球</text></svg>',
-                'cube_octahedron': '<svg width="180" height="170" viewBox="0 0 180 170"><polygon points="90,30 150,60 150,120 90,150 30,120 30,60" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="90,45 120,75 90,150 60,75" fill="#e0f2fe" stroke="#764ba2" stroke-width="2"/><polygon points="90,45 60,75 90,30 120,75" fill="#dbeafe" stroke="#764ba2" stroke-width="2"/><text x="60" y="110" fill="#764ba2" font-size="11">八面体</text></svg>'
+                'cube_octahedron': '<svg width="180" height="170" viewBox="0 0 180 170"><polygon points="90,30 150,60 150,120 90,150 30,120 30,60" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="90,45 120,75 90,150 60,75" fill="#e0f2fe" stroke="#764ba2" stroke-width="2"/><polygon points="90,45 60,75 90,30 120,75" fill="#dbeafe" stroke="#764ba2" stroke-width="2"/><text x="60" y="110" fill="#764ba2" font-size="11">八面体</text></svg>',
+                'skew_planes': '<svg width="190" height="130" viewBox="0 0 190 130"><polygon points="20,90 170,90 150,40 40,40" fill="#f0f9ff" stroke="#667eea" stroke-width="2" opacity=".5"/><line x1="45" y1="50" x2="150" y2="45" stroke="#764ba2" stroke-width="3"/><line x1="55" y1="95" x2="150" y2="105" stroke="#10b981" stroke-width="3"/><text x="40" y="35" fill="#764ba2" font-size="12">l₁</text><text x="155" y="115" fill="#10b981" font-size="12">l₂</text><text x="60" y="78" fill="#64748b" font-size="11">异面·无公共平面</text></svg>',
+                'point_plane_dist': '<svg width="180" height="150" viewBox="0 0 180 150"><polygon points="50,35 130,35 165,70 165,120 85,120 50,85" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><polygon points="50,85 165,120 85,120" fill="#dbeafe" stroke="#667eea" stroke-width="2"/><line x1="50" y1="35" x2="50" y2="85" stroke="#667eea" stroke-width="2"/><line x1="130" y1="35" x2="165" y2="70" stroke="#667eea" stroke-width="2"/><circle cx="50" cy="35" r="5" fill="#ef4444"/><line x1="50" y1="35" x2="50" y2="85" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4"/><text x="55" y="30" fill="#ef4444" font-size="13">A</text><text x="80" y="105" fill="#764ba2" font-size="11">对角面BDD₁B₁</text></svg>',
+                'arrow_rotate': '<svg width="190" height="140" viewBox="0 0 190 140"><ellipse cx="95" cy="75" rx="62" ry="38" fill="none" stroke="#667eea" stroke-width="2" stroke-dasharray="6,4"/><line x1="95" y1="75" x2="160" y2="75" stroke="#ef4444" stroke-width="4"/><polygon points="160,68 172,75 160,82" fill="#ef4444"/><line x1="95" y1="75" x2="30" y2="75" stroke="#10b981" stroke-width="4" stroke-dasharray="6,4"/><polygon points="30,68 18,75 30,82" fill="#10b981"/><text x="140" y="60" fill="#ef4444" font-size="12">初始→</text><text x="18" y="60" fill="#10b981" font-size="12">←旋转180°</text></svg>',
+                'rt_tri_revolve': '<svg width="190" height="140" viewBox="0 0 190 140"><polygon points="30,110 170,110 150,30" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><ellipse cx="150" cy="110" rx="26" ry="8" fill="none" stroke="#764ba2" stroke-width="2" stroke-dasharray="5,3"/><ellipse cx="150" cy="30" rx="26" ry="8" fill="none" stroke="#764ba2" stroke-width="2" stroke-dasharray="5,3"/><line x1="150" y1="30" x2="150" y2="110" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4"/><text x="25" y="125" fill="#64748b" font-size="11">绕斜边旋转</text></svg>',
+                'net_231': '<svg width="200" height="150" viewBox="0 0 200 150"><rect x="55" y="15" width="40" height="40" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><rect x="55" y="55" width="40" height="40" fill="#dbeafe" stroke="#667eea" stroke-width="2"/><rect x="95" y="55" width="40" height="40" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><rect x="135" y="55" width="40" height="40" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><rect x="15" y="95" width="40" height="40" fill="#fdf4ff" stroke="#764ba2" stroke-width="2"/><rect x="135" y="95" width="40" height="40" fill="#fdf4ff" stroke="#764ba2" stroke-width="2"/><text x="55" y="150" fill="#64748b" font-size="12">2-3-1型展开图</text></svg>',
+                'trunc_pyramid': '<svg width="180" height="150" viewBox="0 0 180 150"><polygon points="90,20 150,45 150,115 90,140 30,115 30,45" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="55,55 125,55 140,70 100,85 60,70" fill="#e0f2fe" stroke="#764ba2" stroke-width="2"/><text x="60" y="100" fill="#764ba2" font-size="11">棱台</text><line x1="30" y1="45" x2="55" y2="55" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,3"/><text x="100" y="40" fill="#ef4444" font-size="11">截面</text></svg>',
+                'perp_planes': '<svg width="180" height="130" viewBox="0 0 180 130"><polygon points="20,90 170,90 150,50 40,50" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="20,30 170,30 150,10 40,10" fill="#e0f2fe" stroke="#764ba2" stroke-width="2"/><line x1="95" y1="85" x2="95" y2="40" stroke="#ef4444" stroke-width="3"/><text x="100" y="70" fill="#ef4444" font-size="12">l</text><text x="80" y="105" fill="#667eea" font-size="11">α</text><text x="80" y="35" fill="#764ba2" font-size="11">β</text></svg>',
+                'vec_sum': '<svg width="190" height="140" viewBox="0 0 190 140"><line x1="30" y1="110" x2="140" y2="110" stroke="#ddd" stroke-width="1"/><line x1="30" y1="110" x2="30" y2="25" stroke="#ddd" stroke-width="1"/><line x1="30" y1="110" x2="110" y2="85" stroke="#667eea" stroke-width="3"/><line x1="110" y1="85" x2="160" y2="55" stroke="#10b981" stroke-width="3"/><line x1="30" y1="110" x2="160" y2="55" stroke="#ef4444" stroke-width="3" stroke-dasharray="6,4"/><text x="112" y="80" fill="#667eea" font-size="13">a</text><text x="165" y="50" fill="#10b981" font-size="13">b</text><text x="88" y="72" fill="#ef4444" font-size="13">a+b</text></svg>',
+                'tri_prism_views': '<svg width="210" height="140" viewBox="0 0 210 140"><text x="20" y="20" fill="#64748b" font-size="11">正视图</text><rect x="20" y="30" width="45" height="30" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><text x="80" y="20" fill="#64748b" font-size="11">侧视图</text><polygon points="85,30 115,30 100,60" fill="#dbeafe" stroke="#667eea" stroke-width="2"/><text x="135" y="20" fill="#64748b" font-size="11">俯视图</text><rect x="130" y="30" width="45" height="30" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="90,75 150,75 150,105 90,105 60,90" fill="#fdf4ff" stroke="#764ba2" stroke-width="2"/><text x="70" y="125" fill="#764ba2" font-size="11">三棱柱</text></svg>',
+                'cube_stack': '<svg width="200" height="140" viewBox="0 0 200 140"><rect x="30" y="85" width="35" height="35" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><rect x="65" y="85" width="35" height="35" fill="#dbeafe" stroke="#667eea" stroke-width="2"/><rect x="100" y="85" width="35" height="35" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><rect x="65" y="50" width="35" height="35" fill="#fdf4ff" stroke="#764ba2" stroke-width="2"/><text x="38" y="135" fill="#64748b" font-size="11">俯视L形</text><text x="120" y="30" fill="#764ba2" font-size="11">拐角叠2层</text></svg>',
+                'octahedron2': '<svg width="180" height="150" viewBox="0 0 180 150"><polygon points="90,25 135,50 90,85 45,50" fill="#e0f2fe" stroke="#667eea" stroke-width="2"/><polygon points="90,25 135,50 90,125 45,50" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><polygon points="90,25 45,50 90,125" fill="#dbeafe" stroke="#667eea" stroke-width="2"/><polygon points="90,25 135,50 90,125" fill="#dbeafe" stroke="#667eea" stroke-width="2"/><text x="65" y="140" fill="#764ba2" font-size="11">双锥粘合→正八面体</text></svg>',
+                'painted_cube': '<svg width="200" height="150" viewBox="0 0 200 150"><rect x="40" y="20" width="90" height="90" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/><line x1="70" y1="20" x2="70" y2="110" stroke="#667eea" stroke-width="1.5"/><line x1="100" y1="20" x2="100" y2="110" stroke="#667eea" stroke-width="1.5"/><line x1="40" y1="50" x2="130" y2="50" stroke="#667eea" stroke-width="1.5"/><line x1="40" y1="80" x2="130" y2="80" stroke="#667eea" stroke-width="1.5"/><rect x="150" y="40" width="20" height="20" fill="#ef4444" opacity=".55"/><rect x="150" y="70" width="20" height="20" fill="#ef4444" opacity=".55"/><rect x="150" y="100" width="20" height="20" fill="#ef4444" opacity=".55"/><text x="45" y="135" fill="#ef4444" font-size="12">■ 棱上2面涂色×12</text><text x="120" y="135" fill="#64748b" font-size="11">角块3面</text></svg>'
             };
             return svgs[type] || '<svg width="150" height="100" viewBox="0 0 150 100"><rect x="25" y="25" width="100" height="60" fill="#f0f9ff" stroke="#667eea" stroke-width="2"/></svg>';
         }
@@ -1543,8 +1800,10 @@
 
             userAnswers = new Array(questions.length);
             for (var i = 0; i < userAnswers.length; i++) userAnswers[i] = null;
+            answerTimes = new Array(questions.length);
+            for (var i = 0; i < answerTimes.length; i++) answerTimes[i] = 0;
             currentQuestionIndex = 0;
-            remainingTime = 1800;
+            remainingTime = 2160;
             quizStartTime = new Date().getTime();
 
             goToPage('testPage');
@@ -1555,6 +1814,7 @@
         function renderQuestion() {
             var q = questions[currentQuestionIndex];
             var dim = getDimById(q.dimension);
+            questionStartTime = new Date().getTime();
 
             document.getElementById('currentQ').textContent = currentQuestionIndex + 1;
             document.getElementById('totalQ').textContent = questions.length;
@@ -1569,6 +1829,11 @@
 
             document.getElementById('dimensionBadge').textContent = dim.icon + ' ' + dim.name;
             document.getElementById('questionNumber').textContent = '第 ' + (currentQuestionIndex + 1) + ' 题 · ' + dim.name;
+            var db = document.getElementById('diffBadge');
+            if (db) {
+                db.className = 'diff-badge diff-' + q.difficulty;
+                db.textContent = q.difficulty === 1 ? '基础' : (q.difficulty === 2 ? '进阶' : '挑战');
+            }
             document.getElementById('questionText').textContent = q.question;
             document.getElementById('questionSvg').innerHTML = generateSVG(q.svg);
 
@@ -1594,6 +1859,8 @@
         function selectOption(idx) {
             if (userAnswers[currentQuestionIndex] !== null) return;
             userAnswers[currentQuestionIndex] = idx;
+            var now = new Date().getTime();
+            if (questionStartTime > 0) answerTimes[currentQuestionIndex] = Math.round((now - questionStartTime) / 1000);
             lockQuestion(idx, false);
         }
 
@@ -1727,17 +1994,28 @@
             var totalScore = 0;
             var totalMax = 0;
             var totalCorrect = 0;
+            var diffStats = {};
+            diffStats[1] = { max: 0, score: 0, correct: 0, total: 0 };
+            diffStats[2] = { max: 0, score: 0, correct: 0, total: 0 };
+            diffStats[3] = { max: 0, score: 0, correct: 0, total: 0 };
 
             for (var i = 0; i < questions.length; i++) {
                 var q = questions[i];
                 dimMax[q.dimension] += q.difficulty;
                 totalMax += q.difficulty;
+                diffStats[q.difficulty].max += q.difficulty;
+                diffStats[q.difficulty].total++;
                 if (userAnswers[i] !== null && userAnswers[i] === q.answer) {
                     dimScores[q.dimension] += q.difficulty;
                     dimCorrect[q.dimension]++;
                     totalScore += q.difficulty;
                     totalCorrect++;
+                    diffStats[q.difficulty].score += q.difficulty;
+                    diffStats[q.difficulty].correct++;
                 }
+            }
+            for (var dk = 1; dk <= 3; dk++) {
+                diffStats[dk].percentage = diffStats[dk].max > 0 ? Math.round(diffStats[dk].score / diffStats[dk].max * 100) : 0;
             }
 
             var dims = {};
@@ -1760,6 +2038,7 @@
 
             return {
                 dimensions: dims,
+                diffStats: diffStats,
                 totalScore: totalScore,
                 totalMaxScore: totalMax,
                 overallPercentage: totalMax > 0 ? Math.round(totalScore / totalMax * 100) : 0,
@@ -1989,6 +2268,105 @@
             return plans;
         }
 
+        // ==================== 3.0 顶级版新增分析函数 ====================
+        function getDiffAnalysis(scores) {
+            var b = scores.diffStats[1], m = scores.diffStats[2], h = scores.diffStats[3];
+            var type = '', desc = '', color = '#667eea';
+            var baseOk = b.percentage >= 75, midOk = m.percentage >= 60, highOk = h.percentage >= 55;
+            if (!baseOk) {
+                type = '基础薄弱型'; color = '#ef4444';
+                desc = '基础题正确率偏低，说明空间思维的地基还不牢靠。当前最重要的不是刷难题，而是先把点线面关系、基本图形识别、向量基本运算等基础概念彻底吃透，再用进阶题检验掌握程度。';
+            } else if (!midOk) {
+                type = '进阶卡壳型'; color = '#f59e0b';
+                desc = '基础题掌握扎实，但一进入中等难度就明显下滑。典型原因是停留在“记住结论”而不是“理解图形结构”，需要通过图形拆解、三视图还原、展开折叠等训练建立真正的空间表象。';
+            } else if (!highOk) {
+                type = '挑战待突破型'; color = '#8b5cf6';
+                desc = '基础与进阶都相当稳健，只是在最高难度压轴题上还有提升空间。这类题目往往需要多步空间推理与知识迁移，建议主攻截面动态分析、复杂旋转体与组合体综合题。';
+            } else {
+                type = '全面均衡型'; color = '#10b981';
+                desc = '三级难度表现均衡且优秀，空间思维整体发展成熟，具备冲击高考立体几何压轴题与空间向量综合题的实力，可进一步挑战竞赛级与强基计划题目。';
+            }
+            return { type: type, color: color, desc: desc, b: b, m: m, h: h };
+        }
+
+        function getCogProfile(scores) {
+            var keys = [], vs = [];
+            for (var id in scores.dimensions) { keys.push(id); vs.push(scores.dimensions[id].percentage); }
+            var max = Math.max.apply(null, vs), min = Math.min.apply(null, vs);
+            var span = max - min;
+            var p = scores.dimensions.perception.percentage, r = scores.dimensions.rotation.percentage, v = scores.dimensions.visualization.percentage, re = scores.dimensions.reasoning.percentage, o = scores.dimensions.orientation.percentage, im = scores.dimensions.imagination.percentage;
+            var intuitive = (p + r + im) / 3;
+            var analytic = (re + o + v) / 3;
+            if (span <= 18) return { icon: '⚖️', name: '均衡发展型', desc: '六个维度差距较小，说明空间思维各项能力发展均衡、综合适应力强，适合全面冲击高考与竞赛各类型题目，可根据兴趣自由选择专业方向。' };
+            if (intuitive - analytic >= 12) return { icon: '💡', name: '直觉直观型', desc: '空间感知、心理旋转与空间想象优势突出，图形直觉敏锐，看到立体图形能快速“看见”答案；建议补强逻辑推理与三视图还原的系统化步骤，避免凭感觉丢分。' };
+            if (analytic - intuitive >= 12) return { icon: '🔍', name: '分析推导型', desc: '空间推理、定向与可视化步骤优势明显，擅长按图索骥、逐步推导；建议加强图形整体直觉训练，练习快速旋转与直接想象，提升解题速度。' };
+            return { icon: '🧭', name: '灵活转换型', desc: '直觉与分析能力可随题型灵活切换，适应性很好；继续保持两者并用，并针对相对弱势的单一维度做定向强化。' };
+        }
+
+        function getEfficiencyData() {
+            var totalSec = 0, answered = 0, dimTimes = {};
+            for (var i = 0; i < questions.length; i++) {
+                var t = answerTimes[i];
+                if (!t || t <= 0) continue;
+                totalSec += t; answered++;
+                var q = questions[i];
+                if (!dimTimes[q.dimension]) dimTimes[q.dimension] = { sum: 0, n: 0 };
+                dimTimes[q.dimension].sum += t;
+                dimTimes[q.dimension].n++;
+            }
+            var perQ = answered > 0 ? Math.round(totalSec / answered) : 0;
+            var pace = perQ <= 20 ? '快' : (perQ <= 35 ? '适中' : '偏慢');
+            var paceDesc = perQ <= 20 ? '答题节奏很快，空间思维运转高效，但需注意避免因求快而粗心，建议对易错选项多停留审视。' : (perQ <= 35 ? '答题节奏适中，既保证思考质量又兼顾速度，是理想的状态，可继续保持。' : '答题节奏偏慢，说明在空间关系的建立与验证上耗费较多时间，建议通过限时训练和图形速读练习提升效率。');
+            var dimArr = [];
+            for (var id in dimTimes) {
+                var d = dimTimes[id];
+                var dm = getDimById(id);
+                dimArr.push({ name: dm.short, avg: Math.round(d.sum / d.n) });
+            }
+            dimArr.sort(function (a, b) { return b.avg - a.avg; });
+            return { totalSec: totalSec, answered: answered, perQ: perQ, pace: pace, paceDesc: paceDesc, dimArr: dimArr };
+        }
+
+        function getWeekPlan4(grade, weak, weakTags) {
+            var wn = weak ? weak.name : '空间推理';
+            var tag0 = weakTags.length ? weakTags[0] : '立体几何基础';
+            var weeks = [];
+            if (grade === 'S' || grade === 'A') {
+                weeks.push({ w: '第1周 · 压轴攻坚', theme: '高考立体几何压轴题 + ' + tag0 + '深度训练', tasks: ['每天1道高考真题立体几何压轴（全国卷/新高考卷）', '用“先画图—再建系—后计算”三步法规范解题', '整理压轴题通用模型（球体问题、动态截面、折叠问题）'], check: '周末限时30分钟完成一套立体几何压轴组合卷，正确率≥70%' });
+                weeks.push({ w: '第2周 · 跨学科迁移', theme: '空间思维迁移到物理与化学', tasks: ['物理：电场/磁场方向判断、受力分析空间想象专项', '化学：晶体结构（金刚石、NaCl、石墨）空间构型分析', '尝试把空间想象用于运动合成与分解的动态过程'], check: '周末完成一篇“空间思维跨学科应用”总结，并口头复述给家人' });
+                weeks.push({ w: '第3周 · 竞赛与强基', theme: '竞赛级空间推理与强基训练', tasks: ['每天1-2道竞赛级截面/旋转/组合体问题', '练习用空间想象直接推演，减少画辅助线依赖', '挑战强基计划立体几何真题与三维空间向量综合题'], check: '周末完成2套竞赛级三维图形推理题，总结自己的推理路径' });
+                weeks.push({ w: '第4周 · 综合检验', theme: '全维度综合测评与查漏补缺', tasks: ['重做本系统72题（限时45分钟）检验提升', '针对仍错题目的知识点做专题补强', '整理错题本，标记高频思维误区'], check: '复测得分较首次提升≥10%，薄弱维度转入“中”或“强”' });
+            } else if (grade === 'B') {
+                weeks.push({ w: '第1周 · 图形基础重建', theme: wn + '基础概念与图形识别', tasks: ['每天20分钟：点线面关系、基本立体图形识别', '折纸/积木实物观察，建立真实空间表象', '三视图与展开图基础练习每天5题'], check: '周末完成基础题卷，正确率≥80%' });
+                weeks.push({ w: '第2周 · 进阶题型突破', theme: tag0 + '专项突破', tasks: ['每天3-5道' + tag0 + '专项题（由易到难）', '每题合上书重新复现图形结构', '错题归类：概念/计算/想象三类分别标记'], check: '周末限时完成进阶专项卷，正确率≥65%' });
+                weeks.push({ w: '第3周 · 综合应用', theme: '三视图还原 + 空间向量综合', tasks: ['三视图还原立体图每日4题（限时训练）', '空间向量建系解题规范训练', '组合体与旋转体体积表面积综合题'], check: '周末完成一套高考立体几何中档题组，正确率≥70%' });
+                weeks.push({ w: '第4周 · 冲刺检验', theme: '全维度复测与提速', tasks: ['重做本系统72题（限时45分钟）', '对失分维度做最后补强', '总结“图形直觉+步骤规范”双通道解题法'], check: '复测较首次提升≥8%，并保持答题节奏适中' });
+            } else if (grade === 'C') {
+                weeks.push({ w: '第1周 · 从零筑基', theme: '空间方位与基本图形认知', tasks: ['每天15分钟：认识正方体/棱柱/棱锥/圆柱/圆锥/球', '用实物（纸盒、书本、杯子）观察各方向视图', '方位词训练：前后左右上下、顺时针逆时针'], check: '能独立说出6种基本几何体的特征与常见截面' });
+                weeks.push({ w: '第2周 · 视图入门', theme: '三视图与展开图启蒙', tasks: ['观察实物画三视图，每天2-3组', '正方体展开图折叠练习（折纸）', '数小正方体：由俯视图+正视图推层数'], check: '周末完成三视图基础10题，正确率≥70%' });
+                weeks.push({ w: '第3周 · 向量与推理入门', theme: '空间向量与点线面关系基础', tasks: ['向量坐标运算与模长练习每天5题', '点线面位置关系判断训练', '立体几何基础证明（平行/垂直）入门'], check: '周末完成基础综合卷，正确率≥65%' });
+                weeks.push({ w: '第4周 · 信心建立', theme: '稳步提升与第一次复测', tasks: ['重做本系统72题（不限时，以正确率为先）', '对错题逐一理解并复述解析', '保留进步记录，建立学习信心'], check: '复测较首次提升≥5%，且基础题正确率≥70%' });
+            } else {
+                weeks.push({ w: '第1周 · 兴趣唤醒', theme: '用玩中学建立空间兴趣', tasks: ['魔方/积木/拼图每天15分钟自由探索', '观察并描述身边物体的立体形状与方向', '玩“找不同视角”游戏（同一个物体不同角度看）'], check: '能主动说出3个生活中遇到的空间图形并描述其结构' });
+                weeks.push({ w: '第2周 · 实物引导', theme: '实物教具辅助入门', tasks: ['用纸盒/书本观察三视图与展开图', '折纸制作正方体、三棱柱并标注顶点', '家长陪同完成简单拼搭任务'], check: '能独立完成1个立体模型的制作并画出它的三视图' });
+                weeks.push({ w: '第3周 · 小步训练', theme: '每日小剂量基础训练', tasks: ['每天10分钟基础图形识别与方位判断', '点线面关系判断小题5题', '通过动画/教具理解旋转体形成过程'], check: '周末基础小测正确率≥60%，态度积极' });
+                weeks.push({ w: '第4周 · 进阶铺垫', theme: '首次复测与专业规划', tasks: ['重做本系统72题（鼓励为主，不限时）', '记录进步点并给予积极反馈', '建议预约专业老师1对1空间思维诊断'], check: '复测较首次提升，并完成1次专业咨询预约' });
+            }
+            return weeks;
+        }
+
+        function getGaokaoBrief() {
+            return {
+                total: '新高考全国卷中，立体几何与空间向量相关考点合计约占22-27分，是数学学科中分值占比最高、区分度最明显的知识板块之一。',
+                items: [
+                    { icon: '📐', title: '选择题 / 填空题 · 约10-15分', desc: '常见载体：三视图还原、几何体表面积体积、截面与距离、空间位置关系判断，侧重空间想象与图形直觉。' },
+                    { icon: '🧮', title: '解答题 · 约12分（第17/18题位）', desc: '立体几何大题：第一问多为线面平行/垂直证明，第二问多为空间向量求二面角或线面角，是“拿分保底+冲刺满分”的关键题位。' },
+                    { icon: '🎯', title: '压轴渗透 · 综合建模视角', desc: '部分导数、解析几何综合题会以立体图形为背景考查建模能力，空间思维强的学生读题更快、画图更准、得分更稳。' },
+                    { icon: '🚀', title: '强基与竞赛 · 额外加成', desc: '强基计划数学笔试与高中数学竞赛常涉及多面体、截面分析、欧拉公式等，是空间思维优势的直接变现场景。' }
+                ]
+            };
+        }
+
         function generateReport(info, scores, elapsedText) {
             var g = getGrade(scores.overallPercentage);
             var wrongs = getWrongList();
@@ -2027,6 +2405,42 @@
                 html += '<div class="dimension-stats"><span>答对 <b>' + dim.correct + '</b> / ' + dim.total + '</span><span>得分 <b>' + dim.score + '</b> / ' + dim.maxScore + '</span><span>关联学科 <b>' + dim.subjects + '</b></span></div>';
                 html += '<p style="font-size:.9em;color:var(--tm);line-height:1.8">' + getLevelText(dim.percentage) + '</p>';
                 html += '</div>';
+            }
+            html += '</div>';
+
+            // 难度分层诊断
+            var diffA = getDiffAnalysis(scores);
+            html += '<div class="card"><h3 class="section-title">🧗 难度分层诊断</h3>';
+            html += '<p style="font-size:.9em;color:var(--tm);line-height:1.8">本系统题目按基础（难度1）→进阶（难度2）→挑战（难度3）三级梯度设置，分别考察知识的掌握、应用与迁移能力。</p>';
+            html += '<div class="layer-grid">';
+            html += '<div class="layer-item"><div class="layer-name">基础层 <span class="diff-badge diff-1">基础</span></div><div class="layer-bar"><i style="width:' + diffA.b.percentage + '%;background:#10b981"></i></div><div class="layer-rate" style="color:#059669">' + diffA.b.percentage + '%</div><div class="layer-desc">答对 ' + diffA.b.correct + ' / ' + diffA.b.total + ' 题</div></div>';
+            html += '<div class="layer-item"><div class="layer-name">进阶层 <span class="diff-badge diff-2">进阶</span></div><div class="layer-bar"><i style="width:' + diffA.m.percentage + '%;background:#f59e0b"></i></div><div class="layer-rate" style="color:#d97706">' + diffA.m.percentage + '%</div><div class="layer-desc">答对 ' + diffA.m.correct + ' / ' + diffA.m.total + ' 题</div></div>';
+            html += '<div class="layer-item"><div class="layer-name">挑战层 <span class="diff-badge diff-3">挑战</span></div><div class="layer-bar"><i style="width:' + diffA.h.percentage + '%;background:#ef4444"></i></div><div class="layer-rate" style="color:#dc2626">' + diffA.h.percentage + '%</div><div class="layer-desc">答对 ' + diffA.h.correct + ' / ' + diffA.h.total + ' 题</div></div>';
+            html += '</div>';
+            html += '<div class="style-card" style="margin-top:14px"><div class="style-icon" style="background:linear-gradient(135deg,' + diffA.color + '99,' + diffA.color + ')">🧭</div><div><div class="style-name">' + diffA.type + '</div><div class="style-desc">' + diffA.desc + '</div></div></div>';
+            html += '</div>';
+
+            // 认知风格画像
+            var cog = getCogProfile(scores);
+            html += '<div class="card"><h3 class="section-title">🧠 空间认知风格画像</h3>';
+            html += '<div class="style-card"><div class="style-icon">' + cog.icon + '</div><div><div class="style-name">' + cog.name + '</div><div class="style-desc">' + cog.desc + '</div></div></div>';
+            html += '</div>';
+
+            // 答题效率分析
+            var eff = getEfficiencyData();
+            html += '<div class="card"><h3 class="section-title">⏱️ 答题效率分析</h3>';
+            html += '<div class="eff-grid">';
+            html += '<div class="eff-item"><div class="eff-num">' + eff.perQ + '秒</div><div class="eff-label">题均用时</div></div>';
+            html += '<div class="eff-item"><div class="eff-num">' + eff.pace + '</div><div class="eff-label">答题节奏</div></div>';
+            html += '<div class="eff-item"><div class="eff-num">' + Math.floor(eff.totalSec / 60) + '分' + (eff.totalSec % 60 < 10 ? '0' : '') + (eff.totalSec % 60) + '秒</div><div class="eff-label">有效作答总用时</div></div>';
+            html += '</div>';
+            html += '<p style="font-size:.9em;color:var(--tm);line-height:1.8;margin-top:10px">' + eff.paceDesc + '</p>';
+            if (eff.dimArr.length) {
+                html += '<div class="topic-item"><div class="topic-icon">⏳</div><div><div class="topic-title">维度用时排行（每题平均秒数）</div><div class="topic-desc">';
+                for (var ei = 0; ei < eff.dimArr.length; ei++) {
+                    html += (ei > 0 ? ' · ' : '') + eff.dimArr[ei].name + ' ' + eff.dimArr[ei].avg + '秒';
+                }
+                html += '</div></div></div>';
             }
             html += '</div>';
 
@@ -2085,18 +2499,18 @@
             if (sa.d.length) html += '<span class="highlight-item">重点提升：' + sa.d.join('、') + '</span>';
             html += '</div></div></div>';
 
-            // 周训练计划
-            html += '<div class="card"><h3 class="section-title">🗓️ 个性化周训练计划</h3>';
+            // 四周进阶训练计划
+            html += '<div class="card"><h3 class="section-title">🗓️ 四周进阶训练计划</h3>';
             var weakTags = kp.length ? kp.slice(0, 2) : [];
             var planTags = [];
             for (var i = 0; i < weakTags.length; i++) planTags.push(weakTags[i].tag);
             if (planTags.length === 0) planTags.push('空间综合训练');
-            var plans = getWeekPlan(g.grade, weak, planTags);
-            for (var i = 0; i < plans.length; i++) {
-                html += '<div class="plan-card"><div class="plan-title">' + plans[i].t + '</div><ul class="plan-list">';
-                for (var j = 0; j < plans[i].items.length; j++) {
-                    html += '<li><b>' + (j + 1) + '</b><span>' + plans[i].items[j] + '</span></li>';
-                }
+            var weeks4 = getWeekPlan4(g.grade, weak, planTags);
+            for (var i = 0; i < weeks4.length; i++) {
+                var w4 = weeks4[i];
+                html += '<div class="week4-card"><div class="week4-title">' + w4.w + ' · ' + w4.theme + '</div><ul>';
+                for (var j = 0; j < w4.tasks.length; j++) html += '<li>' + w4.tasks[j] + '</li>';
+                html += '<li style="font-weight:600;color:var(--pr)">✅ 周末验收：' + w4.check + '</li>';
                 html += '</ul></div>';
             }
             html += '</div>';
@@ -2118,6 +2532,33 @@
             else if (scores.overallPercentage >= 55) selAdvice = '空间能力中等，具备学习物理方向的较好基础，建议选科时结合数学、物理成绩综合判断，可优先物理+化学，兼顾生物或地理搭配。';
             else selAdvice = '空间能力相对薄弱，在3+1+2选科时可优先考虑历史方向或文理兼收专业，同时通过系统训练逐步提升空间思维，为后续学习减轻压力。';
             html += '<div class="plan-card" style="margin-top:16px"><div class="plan-title">🎓 3+1+2选科建议</div><p style="font-size:.93em;line-height:1.9;color:var(--t)">' + selAdvice + '</p></div>';
+            html += '</div>';
+
+            // 高考空间考点对接
+            var gk = getGaokaoBrief();
+            html += '<div class="card"><h3 class="section-title">🎓 高考空间考点对接</h3>';
+            html += '<p style="font-size:.9em;color:var(--tm);line-height:1.8">' + gk.total + '</p>';
+            for (var gi = 0; gi < gk.items.length; gi++) {
+                var g = gk.items[gi];
+                html += '<div class="topic-item"><div class="topic-icon">' + g.icon + '</div><div><div class="topic-title">' + g.title + '</div><div class="topic-desc">' + g.desc + '</div></div></div>';
+            }
+            html += '</div>';
+
+            // 空间思维科学理论篇
+            html += '<div class="card"><h3 class="section-title">📚 空间思维科学理论篇</h3>';
+            html += '<div class="theory-grid">';
+            var theories = [
+                { tag: '认知发展', title: '皮亚杰 · 形式运算阶段', text: '12岁以后进入形式运算阶段，抽象空间推理能力迅速发展。高中阶段是空间思维可塑性的关键窗口期，系统训练事半功倍。' },
+                { tag: '经典实验', title: 'Shepard & Metzler · 心理旋转', text: '1971年经典实验证明：人脑能在心中旋转三维物体，且反应时随旋转角度线性增加。心理旋转是可以通过刻意训练显著提速的核心空间能力。' },
+                { tag: '训练科学', title: '空间能力可训练性', text: '大规模元分析（Uttal等，2013）表明空间技能可通过游戏、折纸、建模与专项训练显著提升，且训练效果可迁移至数学与STEM学科表现。' },
+                { tag: '测评方法', title: '测评体系说明', text: '本系统六大维度（感知/旋转/可视化/推理/定向/想象）基于空间认知科学框架设计，分数为个体相对参考，用于定位优势与薄弱方向，而非绝对排名。' }
+            ];
+            for (var ti = 0; ti < theories.length; ti++) {
+                var t2 = theories[ti];
+                html += '<div class="theory-item"><span class="theory-tag">' + t2.tag + '</span><div class="theory-title">' + t2.title + '</div><div class="theory-text">' + t2.text + '</div></div>';
+            }
+            html += '</div>';
+            html += '<div class="method-note">💡 使用建议：测评结果请结合平时成绩、课堂表现与学习习惯综合判断。空间思维是“可训练的能力”而非“天赋标签”，定位薄弱维度后按四周计划稳步执行，3-6个月通常可见明显提升。</div>';
             html += '</div>';
 
             // 家长寄语
@@ -2183,6 +2624,10 @@
                     reasoning: scores.dimensions.reasoning.percentage,
                     orientation: scores.dimensions.orientation.percentage,
                     imagination: scores.dimensions.imagination.percentage,
+                    diff_base_pct: scores.diffStats[1].percentage,
+                    diff_mid_pct: scores.diffStats[2].percentage,
+                    diff_high_pct: scores.diffStats[3].percentage,
+                    pace_per_q: getEfficiencyData().perQ,
                     report_time: new Date().toISOString()
                 };
                 var body = JSON.stringify({ username: uname, state_data: JSON.stringify(bodyData), updated_at: new Date().toISOString() });
@@ -2201,7 +2646,8 @@
             studentInfo = { name: '', grade: '', school: '', gender: '', subject: '' };
             currentQuestionIndex = 0;
             userAnswers = [];
-            remainingTime = 1800;
+            answerTimes = [];
+            remainingTime = 2160;
             quizStartTime = 0;
             document.getElementById('studentName').value = '';
             document.getElementById('schoolName').value = '';
