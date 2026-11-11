@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刘老师教研 · 高考物理50-95分数段全面分析</title>
+<style>
+:root{
+  --navy:#0f2a4a;--navy2:#16385e;--gold:#d4a853;--gold2:#b8913c;--bg:#f6f7fb;
+  --card:#ffffff;--ink:#24303f;--muted:#6b7a8c;--line:#e3e8f0;--ok:#1f7a4d;--okbg:#e8f5ee;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;font-size:16px}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 62%,#1e4a72 100%);color:#fff;padding:64px 20px 56px;text-align:center}
+.hero .kicker{display:inline-block;border:1px solid rgba(212,168,83,.55);color:#e6c684;font-size:13px;letter-spacing:2px;padding:6px 16px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:34px;font-weight:800;line-height:1.35;margin-bottom:14px;letter-spacing:.5px}
+.hero .sub{font-size:16px;color:#cdd8e8;max-width:760px;margin:0 auto}
+.hero .stats{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:28px}
+.hero .stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:14px 20px;min-width:150px}
+.hero .stat b{display:block;font-size:26px;color:#f0cd83;font-weight:800}
+.hero .stat span{font-size:13px;color:#c7d3e4}
+.hero .bands{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:22px}
+.hero .band{background:rgba(212,168,83,.14);border:1px solid rgba(212,168,83,.4);color:#e6c684;font-size:12.5px;font-weight:700;border-radius:999px;padding:5px 14px;letter-spacing:.5px}
+nav.sticky{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.97);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(15,42,74,.25)}
+nav.sticky .wrap{display:flex;overflow-x:auto;gap:2px;padding:0 12px}
+nav.sticky a{color:#dce6f3;font-size:14px;padding:12px 10px;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;transition:.2s}
+nav.sticky a:hover,nav.sticky a.active{color:#f0cd83;border-color:var(--gold)}
+section{padding:46px 0 14px;scroll-margin-top:58px}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.sec-no{flex:none;font-size:13px;font-weight:800;color:#fff;background:var(--gold);border-radius:8px;padding:3px 10px;letter-spacing:1px}
+section h2{font-size:25px;color:var(--navy);font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin-bottom:18px;max-width:860px}
+h3{font-size:19px;color:var(--navy);margin:22px 0 10px;font-weight:700}
+h4{font-size:16px;color:var(--navy2);margin:16px 0 8px;font-weight:700}
+p{margin:10px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:14px 0;box-shadow:0 1px 4px rgba(15,42,74,.05)}
+.verdict{background:linear-gradient(135deg,#fdf6e8,#f9ecd4);border:1px solid #e9d5a7;border-left:5px solid var(--gold);border-radius:12px;padding:16px 20px;margin:16px 0}
+.verdict b{color:var(--navy)}
+.flag{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:1px 8px;margin-right:6px;vertical-align:2px}
+.flag.fact{background:var(--okbg);color:var(--ok)}
+.flag.judge{background:#fdf0ef;color:#b0463a}
+.tbl-scroll{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:14.5px;min-width:560px}
+th{background:var(--navy);color:#fff;font-weight:700;padding:11px 12px;text-align:left;white-space:nowrap}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7f9fc}
+td.num{font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy);white-space:nowrap}
+.small{font-size:13px;color:var(--muted)}
+.hl{background:#fdf3d8;border-radius:4px;padding:0 4px;font-weight:700;color:#8a6414}
+ol.steps{margin:12px 0 12px 22px}
+ol.steps li{margin:9px 0}
+ul.tight{margin:10px 0 10px 22px}
+ul.tight li{margin:6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.chip{background:#eef2f8;border:1px solid #dbe3ef;color:var(--navy2);font-size:13px;font-weight:700;border-radius:999px;padding:6px 14px}
+.callout{border-left:5px solid var(--navy2);background:#eef3fa;border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;font-size:15px}
+.callout.gold{border-color:var(--gold);background:#fbf4e4}
+.ref-list{font-size:13.5px;color:var(--muted)}
+.ref-list li{margin:7px 0}
+.ref-list a{color:var(--navy2);text-decoration:none;border-bottom:1px dotted #a9b8cc}
+.ref-list a:hover{color:var(--gold2)}
+footer{background:var(--navy);color:#cdd8e8;margin-top:46px;padding:34px 20px 40px;text-align:center}
+footer .brand{font-size:15px;color:#f0cd83;font-weight:700;margin-bottom:8px}
+footer p{font-size:13px;color:#aebdd2;margin:5px 0}
+@media(max-width:640px){
+  .hero h1{font-size:26px}.hero .stat{min-width:120px}
+  section h2{font-size:21px}nav.sticky a{font-size:13px;padding:11px 8px}
+}
+@media print{
+  nav.sticky{display:none}.hero{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  section{page-break-inside:avoid}.card,.verdict,.callout{break-inside:avoid}
+  a{color:#16385e!important;text-decoration:none!important}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <span class="kicker">刘老师教研 · 高考分数段全面分析</span>
+  <h1>高考物理 50-95 分数段全面分析<br>五档递进 · 数据化拆解 · 可执行提分</h1>
+  <p class="sub">把"从 50 分到 95 分"拆成 50 / 60 / 70 / 80 / 90+ 五个分数档，每档 10 分做一次完整的定位、诊断、路径与训练方案——面向全国高三，原始分口径，数据全部标注来源。</p>
+  <div class="stats">
+    <div class="stat"><b>0.47~0.51</b><span>2026 高考物理难度系数（教育部口径）</span></div>
+    <div class="stat"><b>42~45分</b><span>2026 新高考I卷物理预估平均分（行业观察）</span></div>
+    <div class="stat"><b>475分</b><span>2026 福建物化生组合汇总平均（官方报告）</span></div>
+    <div class="stat"><b>5 档</b><span>50→60→70→80→90+ 递进拆解</span></div>
+  </div>
+  <div class="bands">
+    <span class="band">50 分档 · 基础断裂期</span><span class="band">60 分档 · 及格线挣扎期</span><span class="band">70 分档 · 中档分水岭期</span><span class="band">80 分档 · 中上段攻坚期</span><span class="band">90 分档 · 顶尖冲刺期</span>
+  </div>
+</header>
+<nav class="sticky"><div class="wrap">
+  <a href="#intro">00 体系说明</a><a href="#seg-50">01 50分档</a><a href="#seg-60">02 60分档</a><a href="#seg-70">03 70分档</a><a href="#seg-80">04 80分档</a><a href="#seg-90">05 90分档</a>
+</div></nav>
+
+<section id="intro">
+  <div class="sec-head"><span class="sec-no">00</span><h2>体系说明：为什么按 50-95 每 10 分一档</h2></div>
+  <p class="lead">物理是"3+1+2"新高考里的首选科目，原始分 100 分直接计入总分——它不像化学、生物、政治、地理那样按等级赋分。也就是说，物理每一分原始分，都是总分里实打实的一分。因此把 50 到 95 拆成每 10 分一档，每一档都对应一套可诊断、可执行的提分动作。</p>
+
+  <h3>1.1 为什么每 10 分一档，而不是一个大目标</h3>
+  <p><span class="flag fact">事实</span>教育部教育考试院对 2026 年高考物理全国卷的评析明确"坚持强化基础考查、深化综合性应用性考查、注重探究性考查"，并公开口径显示全卷基础题占比超过六成、真正意义上的难题约占 13%、整体难度系数落在 0.47 到 0.51 区间（媒体转述教育部教育考试院口径，见参考 [3][4]）。<span class="flag judge">判断</span>这意味着 50 分到 95 分之间，不是"每加一分难度均匀上升"，而是五段完全不同的战场：50-60 拼基础概念，60-70 拼中档模型，70-80 拼综合拆解，80-90 拼规范与压轴前段，90+ 拼零失误。每 10 分一档，才能让复习时间精准投放到对应战场。</p>
+  <div class="verdict"><b>核心判断：</b>物理是原始分科目，"10 分"是看得见摸得着的总分增量。五档递进的核心逻辑是：<b>先在低分段把"会做却没分"变成"会做就得分"，再在中高分段把"做对但写不完整"变成"完整规范得分"</b>——同一份试卷，不同档位丢分的原因完全不同。</div>
+
+  <h3>1.2 五档总览：一句话定位 + 到下一档的核心任务</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>档位</th><th>一句话定位</th><th>到下一档的核心任务（约 10 分）</th></tr></thead>
+    <tbody>
+      <tr><td class="num">50 分档</td><td>及格线下，基础概念与受力分析断裂，选择题前 6 题丢分，压轴完全放弃</td><td>重建力学与受力分析主干，接住基础选择题，计算题第一问会写</td></tr>
+      <tr><td class="num">60 分档</td><td>及格线挣扎，运动学/牛顿定律半懂，实验题与计算题第一问失分</td><td>把运动学、牛顿定律做"真"，实验读数与有效数字规范，计算第一问拿稳</td></tr>
+      <tr><td class="num">70 分档</td><td>中档稳定，电磁学/能量综合题是分水岭，多选题错一半</td><td>突破能量与电磁学综合模型，多选从"半对"到"多对一题"</td></tr>
+      <tr><td class="num">80 分档</td><td>中上段，压轴前两问 + 计算规范是主战场，实验创新题是短板</td><td>压轴前两问拿满，实验设计类不丢分，全卷低级失误清零</td></tr>
+      <tr><td class="num">90 分档</td><td>顶尖段（90+ 含 95 冲刺），压轴拿满 + 全程零失误，原始分 90+</td><td>压轴最后一问攻坚，多选全对，时间分配与检查系统化</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>1.3 计分口径：物理原始分 vs 再选科目赋分</h3>
+  <p><span class="flag fact">事实</span>依据《福建省普通高中学业水平选择性考试科目赋分办法》（闽教学〔2019〕7 号，福建省教育厅官方发布，2021 年首次实施）等新高考文件口径：物理、历史为首选科目，原始分满分各 100 分，<b>以原始分直接计入高校招生录取总成绩</b>；思想政治、地理、化学、生物为再选科目，原始分满分各 100 分，以等级转换分（30 至 100 分）计入，按 A/B/C/D/E 五等级人数比例 15%/35%/35%/13%/2% 等比例转换。<span class="flag fact">事实</span>东南网援引教研专家郭杰森的十年数据分析指出：全国卷模式下物理、历史等六科原始分多在 50-60 分之间（难度值 0.55 上下）属于合适区间，而再选科目赋分后平均分提高到约 71 分、每科提升十几二十分（见参考 [8]）。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>科目属性</th><th>科目</th><th>计入总分方式</th><th>典型分数区间</th><th>对考生含义</th></tr></thead>
+    <tbody>
+      <tr><td>首选科目</td><td><b>物理</b> / 历史</td><td>原始分 100 分<b>直接计入</b></td><td>全国卷口径多在 50-60 分区间</td><td>每一分都是实打实的总分，10 分一档的每一分都值得抢</td></tr>
+      <tr><td>再选科目</td><td>化学 / 生物 / 政治 / 地理</td><td>等级赋分 30-100 分计入</td><td>赋分后平均约 71 分上下</td><td>分数经等级转换，位次比绝对分更重要</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">一句话说透：<b>别人赋分"涨分"，物理靠原始分"挣分"</b>。再选科目原始分 55 分可能被赋到 75 分以上，但物理考 55 就是 55。这就是为什么物理的原始分每一档都必须逐分去抠——本文全部按原始分口径分析。</div>
+
+  <h3>1.4 试卷结构地图（供参考，以当年试卷为准）</h3>
+  <p><span class="flag fact">事实</span>2026 年高考物理各地卷型不同：教育在线对陕西卷的分析显示其结构为 75 分钟、满分 100 分、13 道选择题（7 单选 + 6 多选）、1 道实验题、2 道计算题（见参考 [5]）；豆丁对 2026 河南卷的解读显示为 15 题结构（7 单选 + 3 多选 + 2 实验 + 3 解答），力学与电磁学两大板块分值占比合计约 85%（见参考 [11]）。新高考省份多数为 75 分钟、100 分满分，题量约 13-15 题。以下为常见结构地图，具体以当年考试说明为准。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>常见题量</th><th>常见分值</th><th>难度定位</th><th>50 分以下考生常见表现</th></tr></thead>
+    <tbody>
+      <tr><td>单选题</td><td class="num">约 7 题</td><td class="num">约 28 分</td><td>基础为主，前 4 题难度约 0.72-0.95</td><td>前 6 题丢 2-3 题，受力分析题靠猜</td></tr>
+      <tr><td>多选题</td><td class="num">约 3-6 题</td><td class="num">约 18-24 分</td><td>中档到压轴，漏选得一半分</td><td>不敢选、错选，一半分数流失</td></tr>
+      <tr><td>实验题</td><td class="num">约 1-2 题</td><td class="num">约 15 分</td><td>一力一电组合，改良型探究为主</td><td>只会背步骤，读数与有效数字失分</td></tr>
+      <tr><td>计算题</td><td class="num">约 2-3 题</td><td class="num">约 33-45 分</td><td>递进设问，最后一问难度约 0.07-0.15</td><td>只会写公式，第一问都写不规范</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：2026 年全国卷与各省自主命题卷结构存在差异（全国卷第 14-25 题编号、陕西卷 13+1+2、河南卷 7+3+2+3 等），本表为跨卷通用参考，<b>以当年考试说明与正式试卷为准</b>。</p>
+
+  <h3>1.5 数据底座：这份分析基于什么</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>指标</th><th>数据</th><th>口径分层</th><th>来源</th></tr></thead>
+    <tbody>
+      <tr><td>2026 高考物理难度系数</td><td class="num">0.47~0.51</td><td>官方口径（教育部教育考试院，媒体转述）</td><td>今日头条引教育部教育考试院定调，见参考 [4]</td></tr>
+      <tr><td>2026 新高考 I 卷物理预估平均分</td><td class="num">42~45 分</td><td>行业观察（教研团队预估，非官方）</td><td>教育在线/掌上高考，见参考 [6]</td></tr>
+      <tr><td>2025 新高考 I 卷物理平均分（同年口径对比）</td><td class="num">53~55 分</td><td>行业观察（同上）</td><td>教育在线/掌上高考，见参考 [6]</td></tr>
+      <tr><td>2026 福建物化生组合汇总平均分</td><td class="num">475 分（本科线 446，高出 29 分）</td><td>官方（《2026 年福建省普通高考学科评价报告》）</td><td>新福建/海峡教育报整理，见参考 [9]</td></tr>
+      <tr><td>2025 福建物化生组合汇总平均分</td><td class="num">468.83 分（本科线 441）</td><td>官方（《2025 年福建省普通高考学科评价报告》）</td><td>东南网，见参考 [10]</td></tr>
+      <tr><td>全国卷物理原始分常见区间</td><td class="num">50~60 分（难度值 0.55 上下）</td><td>权威媒体专家解读</td><td>东南网郭杰森十年数据分析，见参考 [8]</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag judge">判断</span>把官方口径与行业观察合起来看：全国物理原始分平均长期在及格线以下徘徊，50-80 分恰好是最大的考生聚集带。这意味着一件事——<b>物理提分的最大红利，不在压轴题，而在中低档题的正确率与规范度</b>。这正是五档拆解的价值所在。</p>
+
+</section>
+
+<section id="seg-50">
+  <div class="sec-head"><span class="sec-no">01</span><h2>50 分档 · 基础断裂期</h2></div>
+  <p class="lead">50 分意味着：选择题大约只对了一半，实验题靠背步骤混到基础分，计算题写得出公式但拿不到过程分。这不是"学得少"，而是"主干断了"——力学与受力分析这一条主链没接上，后面所有板块都跟着漏。</p>
+
+  <h3>2.1 分数定位画像：你在试卷上的真实位置</h3>
+  <p><span class="flag fact">事实</span>教育部教育考试院口径显示 2026 年物理全国卷基础题占比超过 60%、难题约占 13%（媒体转述，见参考 [4]）；教育在线援引教研团队观察指出县域考生平均得分率仅约 42%（行业观察，见参考 [6]）。<span class="flag judge">判断</span>50 分约等于"基础题盘"只接住了一半：如果基础题占 60 分以上，那么 50 分说明你连"认真审题 + 基本模型"的底线收益都没拿满——这不是能力上限，是方法缺口。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>指标</th><th>50 分档典型状态</th><th>与试卷结构的对应</th></tr></thead>
+    <tbody>
+      <tr><td>单选题</td><td>7 题约对 3-4 题</td><td>前 4 题（难度约 0.72-0.95）丢 1-2 题，受力分析/运动学题靠蒙</td></tr>
+      <tr><td>多选题</td><td>基本靠猜，常全错</td><td>不敢排错项，漏选规则不熟，一半分也拿不到</td></tr>
+      <tr><td>实验题</td><td>只能拿到第 1 问的填空</td><td>读数、有效数字、作图与误差分析几乎没有系统训练</td></tr>
+      <tr><td>计算题</td><td>公式堆砌，无过程无得分点</td><td>第一问就写不完整，第二问起直接空白</td></tr>
+      <tr><td>压轴题</td><td>完全放弃</td><td>不读题、不写方程，送分的前问也丢掉</td></tr>
+    </tbody>
+  </table></div>
+  <div class="verdict"><b>核心判断：</b>50 分档的病灶不在"压轴不会"，而在<b>基础题的"确定性"太低</b>：同样的知识点换个说法就认不出来，受力图画不全，公式记混。先把基础题的确定性从"50%"提到"85% 以上"，10 分就自然落袋。</div>
+
+  <h3>2.2 到下一档的差距量化：还差 10 分的缺口拆解</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>缺口来源</th><th>可补分值</th><th>具体动作</th><th>对应试卷位置</th></tr></thead>
+    <tbody>
+      <tr><td>单选前 6 题多对 1-2 题</td><td class="num">约 +4~8 分</td><td>受力分析、运动学基础题专项限时</td><td>单选第 1-6 题</td></tr>
+      <tr><td>实验题基础空多拿 2 问</td><td class="num">约 +2~3 分</td><td>读数规则 + 有效数字 + 基本仪器使用</td><td>实验题第 1 问</td></tr>
+      <tr><td>计算题第一问写规范</td><td class="num">约 +3~4 分</td><td>原始方程 + 代入 + 结论三段式</td><td>计算题第 1 问</td></tr>
+      <tr><td>多选题靠排错拿 1 个半对</td><td class="num">约 +1~2 分</td><td>多选题"保一争二"策略（下节细讲）</td><td>多选第 8-9 题</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag judge">判断</span>这 10 分不需要碰任何难题：全部分布在"基础概念 + 基础实验 + 计算第一问"上。理论上 3-4 周可以兑现，前提是每天固定时间做"确定性训练"而不是"刷量训练"。</p>
+
+  <h3>2.3 得分结构拆解：当前 50 分 vs 目标 60 分</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>当前 50 分得分（约）</th><th>目标 60 分得分（约）</th><th>需要提升的正确率</th></tr></thead>
+    <tbody>
+      <tr><td>单选题（28 分）</td><td class="num">12~16 分</td><td class="num">20~24 分</td><td>对 3-4 题 → 对 5-6 题</td></tr>
+      <tr><td>多选题（18-24 分）</td><td class="num">3~6 分</td><td class="num">6~10 分</td><td>从全错/全蒙 → 每题至少保半对</td></tr>
+      <tr><td>实验题（15 分）</td><td class="num">5~7 分</td><td class="num">8~10 分</td><td>基础空全对 + 读数规范</td></tr>
+      <tr><td>计算题（33-45 分）</td><td class="num">8~12 分</td><td class="num">15~18 分</td><td>每题第一问完整拿分</td></tr>
+      <tr><td>合计</td><td class="num">≈48~53 分</td><td class="num">≈58~63 分</td><td>整体得分率从 50% 提到 60%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">说明：以上为按常见卷型（单选约 28 分、多选约 18-24 分、实验约 15 分、计算约 33-45 分）的估算拆分，用于建立"每一分从哪来"的量化感；不同卷型分值略有差异，以当年试卷为准。</p>
+
+  <h3>2.4 核心失分诊断：50 分档的五类典型病灶</h3>
+  <ul class="tight">
+    <li><b>受力分析断裂</b>：画不出完整受力图——漏重力、漏摩擦力、把"合外力"当"外力"；这是力学全垮的根源，也是单选第 2-4 题、计算第 1 题共同失分的根因。</li>
+    <li><b>公式记混、条件不清</b>：匀变速三公式（速度-时间、位移-时间、速度-位移）适用条件分不清；牛顿第二定律 F 与 a 的方向关系写反。</li>
+    <li><b>审题读不出物理过程</b>：题干一长就慌，2026 年全卷情境化试题占比高达 75%、单题平均题干从 150 字拉长到 260 字（行业观察口径，见参考 [6]），信息提取训练几乎是零。</li>
+    <li><b>计算题不会"三段式"</b>：不写原始方程、直接跳步骤、单位不换算，即使思路对也拿不到过程分。</li>
+    <li><b>时间分配失控</b>：压轴题耗掉 15 分钟，前面会做的题来不及复查，低级失误叠加。</li>
+  </ul>
+  <div class="callout gold">一句话诊断：50 分档的考生不是"不会做题"，是<b>"主干断 + 方法乱"</b>——先接力学主干，再立解题格式，两条线同时走。</div>
+
+  <h3>2.5 提分路径：三步走（做什么 / 怎么做 / 多久见效）</h3>
+  <ol class="steps">
+    <li><b>第一步（第 1-2 周）· 重建受力分析主干</b>：每天 20 分钟只做受力分析专项——物体受力个数核对（重力→弹力→摩擦力→其他力）、正交分解、牛顿第二定律方向判定；用近三年真题单选前 6 题做"考点归类"，做完讲清"这题考哪个力、哪个定律"。<span class="small">见效标志：受力分析题从"靠猜"变成"有流程图可循"。</span></li>
+    <li><b>第二步（第 3-4 周）· 公式清单与半定量判断</b>：把必修一、必修二的核心公式整理成"一张 A4 清单"，每个公式标注适用条件与典型模型；选择题练习"先定性后定量"——先判断方向、量级，再决定是否计算。<span class="small">见效标志：单选前 6 题正确率从 50% 提到 75% 以上。</span></li>
+    <li><b>第三步（第 5-6 周）· 实验基础 + 计算第一问定型</b>：实验题只练三类基础能力——读数（刻度尺、螺旋测微器、游标卡尺、电表）、有效数字、图像描点求斜率；计算题强制"原始方程 + 代入 + 结论"三段式，哪怕第二问不会也把第一问完整写完。<span class="small">见效标志：实验基础空全对，计算题每题稳定拿 4-6 分。</span></li>
+  </ol>
+  <p><span class="flag fact">事实</span>教育在线对 2026 年高考物理的考后分析指出，试卷"六成以上分值都来自课本核心知识点"，出题形式常规、考点清晰（见参考 [16]）——这从命题端印证了 50 分档的提分空间集中在基础题：不是"压轴不会"挡住 60 分，而是基础题的正确率与确定性没有拿满。</p>
+<p><span class="flag judge">判断</span>整个路径的设计原则是<b>"先接主干、再立格式、最后提速"</b>——顺序不可倒。跳过受力分析直接刷题，只会把错误模式越练越熟。</p>
+
+  <h3>2.6 训练方案与时间分配：周计划表（每日约 70 分钟）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>周次</th><th>周一</th><th>周二</th><th>周三</th><th>周四</th><th>周五</th><th>周六</th><th>周日</th></tr></thead>
+    <tbody>
+      <tr><td>第 1-2 周</td><td>受力分析 10 题（20min）</td><td>单选前 6 题限时（25min）</td><td>受力分析 10 题（20min）</td><td>牛顿定律两类问题（25min）</td><td>受力分析 + 错题复盘（30min）</td><td>本周错题重做（40min）</td><td>60 分钟整卷限时（不写压轴）</td></tr>
+      <tr><td>第 3-4 周</td><td>公式清单默写 + 选择题（25min）</td><td>实验读数专项（25min）</td><td>半定量选择 15 题（25min）</td><td>计算题第一问 5 题（30min）</td><td>实验图像题（25min）</td><td>本周错题分类重做（40min）</td><td>80 分钟整卷限时（含实验）</td></tr>
+      <tr><td>第 5-6 周</td><td>单选前 6 题限时（20min）</td><td>实验基础综合（25min）</td><td>计算第一问 6 题（30min）</td><td>受力 + 牛顿综合（25min）</td><td>错题本全量复盘（35min）</td><td>整卷限时（40min）</td><td>整卷限时 + 逐题核分</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">执行铁律：<b>每天的训练必须"限时 + 对答案 + 讲一遍"三步完整</b>。只做不对答案，等于把错误重复一遍；讲不出来，等于没懂。50 分档最怕的不是题少，而是"题海里的假努力"。</div>
+
+  <h3>2.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>盯"独立完成"而不是"分数"</b>：作业能否不看答案独立完成，是 50 分档进步的第一信号；每周和老师确认一次"本周作业独立完成率"。</li>
+    <li><b>建立错题分类习惯</b>：帮孩子把错题分成"概念错 / 方法错 / 计算错 / 审题错"四类，每周统计占比——占比最高的一类，就是下周的训练主题。</li>
+    <li><b>不在难题上耗情绪</b>：压轴题做不出来不是"不行"，50 分档阶段明确放弃压轴是对的；家长要和孩子达成共识："先保证前 80% 的题拿满，再谈难题"。</li>
+    <li><b>创造"讲题时间"</b>：每周抽 20 分钟听孩子讲一道本周学过的题——讲得清楚才算真会，讲不清楚的地方就是下周的补习点。</li>
+  </ul>
+  <p class="small">家长视角补充：50 分档的孩子最缺的不是"再努力一点"，而是"第一次体验把题做对的感觉"。一次独立做对一套选择题前 6 题，胜过刷 20 套卷子的说教。</p>
+
+  <h3>2.8 常见误区与里程碑（1 个月 / 3 个月目标）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>里程碑目标</th><th>核验方式</th><th>未达标的信号</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1 个月</td><td>单选前 6 题对 4 题以上；受力分析题不再靠蒙；计算题每题第一问能写完整</td><td>用最近一次月考/联考的对应板块单独核分</td><td>错题仍集中在同一考点 → 训练量或方法有问题，需回到受力分析专项</td></tr>
+      <tr><td class="num">3 个月</td><td>整卷稳定 60+；多选题每题至少保半对；实验题基础空不丢分</td><td>3 次完整限时模拟的平均分</td><td>多次模拟仍 55 以下 → 说明"主干重建"未完成，暂停刷题、回炉基础</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag judge">判断</span>50→60 是最快的一段，也是最重要的心理关口：它证明"方法有用"。1 个月内如果选择题正确率没有可感提升，问题一定出在执行（没限时、没复盘），而不是智商——这是需要家长盯住的关键提醒。</p>
+
+</section>
+
+<section id="seg-60">
+  <div class="sec-head"><span class="sec-no">02</span><h2>60 分档 · 及格线挣扎期</h2></div>
+  <p class="lead">60 分是"及格线"，但也是最容易卡住的分段：单选题前段基本能对，运动学、牛顿定律却"半懂不懂"——能套公式、不会选过程；实验题和计算题第一问反复丢分。这一档的提分关键词是"做真"：把半懂变成真懂。</p>
+
+  <h3>3.1 分数定位画像：你在试卷上的真实位置</h3>
+  <p><span class="flag fact">事实</span>2026 年初广州一模物理平均分 56.89（媒体转述，见参考 [4]），正是"及格线挣扎"群体的典型画像——全省范围的模拟测试里，大量考生稳定在 55-65 分区间。<span class="flag judge">判断</span>60 分档的特征是：<b>不是不会，是"没做真"</b>——公式会背但条件判断靠感觉，实验会写步骤但读数、有效数字、误差分析三处轮流失分，计算题会算第一问但不写过程拿不全分。这四类丢分都不是"知识空白"，而是"熟练度 + 规范度"缺口。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>指标</th><th>60 分档典型状态</th><th>与 50 分档的差别</th></tr></thead>
+    <tbody>
+      <tr><td>单选题</td><td>前 6 题对 4-5 题</td><td>已基本接住基础题，但图像题、连接体题仍会错</td></tr>
+      <tr><td>多选题</td><td>每题能保半对，偶有全对</td><td>排错项能力有雏形，但"确定项判断"不坚决</td></tr>
+      <tr><td>实验题</td><td>步骤能写，读数/有效数字/误差失分</td><td>从"背步骤"转向"按规则填"，但规则不熟</td></tr>
+      <tr><td>计算题</td><td>第一问能算，第二问看运气</td><td>开始有过程意识，但书写不规范、扣分可惜</td></tr>
+    </tbody>
+  </table></div>
+  <div class="verdict"><b>核心判断：</b>60 分档最典型的损失是"规范分"：实验题读数差一个有效数字扣 1-2 分，计算题不写原始方程扣 2-3 分，多选漏选丢掉一半分。这些分不涉及任何新知识，<b>纯粹是把会的题"稳稳当当"拿到手</b>。</div>
+
+  <h3>3.2 到下一档的差距量化：还差 10 分的缺口拆解</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>缺口来源</th><th>可补分值</th><th>具体动作</th><th>对应试卷位置</th></tr></thead>
+    <tbody>
+      <tr><td>运动学/牛顿定律"半懂"变"真懂"</td><td class="num">约 +4~6 分</td><td>匀变速三公式条件辨析 + 两类基本问题完整训练</td><td>单选第 4-7 题、计算第 1 题</td></tr>
+      <tr><td>实验读数与有效数字规范</td><td class="num">约 +2~3 分</td><td>仪器读数专项 + 有效数字规则默写</td><td>实验题第 1 问</td></tr>
+      <tr><td>计算题第一问"三段式"定型</td><td class="num">约 +2~3 分</td><td>原始方程→代数→代入结论，缺一步重写</td><td>计算题每题第 1 问</td></tr>
+      <tr><td>多选"保一争二"落地</td><td class="num">约 +1~2 分</td><td>先判必对项再碰不确定项，宁少选不贪</td><td>多选第 8-9 题</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag judge">判断</span>60→70 的 10 分比 50→60 的 10 分"技术含量"更高：要求从"会做个别题"升级到"会做一类题"。但红利同样明确——实验与计算规范分每张卷大约 8-10 分，先吃下这部分，压力就小了一半。</p>
+
+  <h3>3.3 得分结构拆解：当前 60 分 vs 目标 70 分</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>当前 60 分得分（约）</th><th>目标 70 分得分（约）</th><th>需要提升的正确率</th></tr></thead>
+    <tbody>
+      <tr><td>单选题（28 分）</td><td class="num">20~24 分</td><td class="num">24~28 分</td><td>对 5 题 → 对 6-7 题（后段中档题开始拿分）</td></tr>
+      <tr><td>多选题（18-24 分）</td><td class="num">8~12 分</td><td class="num">12~16 分</td><td>每题保半对 → 每卷多对 1 题</td></tr>
+      <tr><td>实验题（15 分）</td><td class="num">8~10 分</td><td class="num">10~12 分</td><td>读数/有效数字/误差三关全过</td></tr>
+      <tr><td>计算题（33-45 分）</td><td class="num">15~18 分</td><td class="num">20~24 分</td><td>每题第一问拿稳 + 第二问开头得分</td></tr>
+      <tr><td>合计</td><td class="num">≈58~63 分</td><td class="num">≈68~73 分</td><td>整体得分率从 60% 提到 70%</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>3.4 核心失分诊断：60 分档的四类典型病灶</h3>
+  <ul class="tight">
+    <li><b>公式选错、条件不分</b>：匀变速三公式在"是否含 a、是否含 t、是否含 x"三组条件里乱选；追及相遇、竖直上抛等多过程不会分段。</li>
+    <li><b>牛顿定律两类问题不熟</b>：已知力求运动、已知运动求力两条链路切换不熟；连接体（整体法/隔离法）选择凭感觉；传送带、板块模型不会拆过程。</li>
+    <li><b>实验"规则性失分"</b>：读数不估读、有效数字位数错、描点连线不直、斜率截距含义说不清——每一处都是 1-2 分，一张卷累计 3-5 分。</li>
+    <li><b>计算题"有过程无规范"</b>：直接写代数结果、不写原始方程、不标物理量符号、单位漏换算，过程分大量流失。</li>
+  </ul>
+  <div class="callout gold">一句话诊断：60 分档丢的是"半懂的钱"——<b>知识在 70 分的边缘，规范在 60 分的水平</b>。把"半懂"补成"真懂"，再把规范练成肌肉记忆，10 分就到手了。</div>
+
+  <h3>3.5 提分路径：三步走（做什么 / 怎么做 / 多久见效）</h3>
+  <ol class="steps">
+    <li><b>第一步（第 1-2 周）· 运动学"条件化"训练</b>：把匀变速直线运动、自由落体、竖直上抛、追及相遇四种模型的"已知条件→公式选择"流程图画出来，每天做 8 题"只选公式不算答案"的练习。<span class="small">见效标志：见到运动学题能在 10 秒内说出"用什么公式、为什么"。</span></li>
+    <li><b>第二步（第 3-4 周）· 牛顿定律两类问题闭环</b>：两类基本问题（已知力求运动、已知运动求力）各 10 题精做，每题强制三步——受力分析、列牛顿第二定律方程、解方程；连接体先用整体法再用隔离法双解对照。<span class="small">见效标志：计算题第 1 问（力学）稳定拿 6-8 分。</span></li>
+    <li><b>第三步（第 5-6 周）· 实验规范 + 多选策略定型</b>：实验题专项只做"读数 + 有效数字 + 图像处理"三类；多选题训练"先保半对、再争全对"——必对项一旦确定就先选上，不确定项宁缺毋滥。<span class="small">见效标志：实验题稳定 10 分以上，多选每卷至少多拿 3-4 分。</span></li>
+  </ol>
+
+  <h3>3.6 训练方案与时间分配：周计划表（每日约 80 分钟）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>周次</th><th>周一</th><th>周二</th><th>周三</th><th>周四</th><th>周五</th><th>周六</th><th>周日</th></tr></thead>
+    <tbody>
+      <tr><td>第 1-2 周</td><td>运动学条件选公式 8 题（25min）</td><td>运动学计算精做 4 题（35min）</td><td>牛顿第一类问题 6 题（30min）</td><td>牛顿第二类问题 6 题（30min）</td><td>运动学+牛顿综合（35min）</td><td>错题重做 + 讲题（40min）</td><td>75 分钟整卷限时</td></tr>
+      <tr><td>第 3-4 周</td><td>连接体整体/隔离双解 4 题（30min）</td><td>实验读数专项（25min）</td><td>有效数字 + 误差分析（25min）</td><td>计算题三段式 6 题（35min）</td><td>多选"保一争二"20 题（30min）</td><td>实验 + 多选错题复盘（40min）</td><td>75 分钟整卷限时</td></tr>
+      <tr><td>第 5-6 周</td><td>运动学+牛顿精做（30min）</td><td>实验图像处理（25min）</td><td>整卷选择题限时（30min）</td><td>计算题 1-2 问限时（35min）</td><td>错题本全量分类复盘（40min）</td><td>整卷限时（75min）</td><td>整卷限时 + 逐题核分</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">执行铁律：<b>计算题三段式（原始方程→代数→结论）是 60→70 的"送分阀门"</b>。宁可少做一道题，也要把每一道做过的题按三段式完整写一遍——规范不是知识，是练出来的肌肉记忆。</div>
+
+  <h3>3.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>盯"规范"而非"对错"</b>：孩子说"这题我会，只是没写全"时，要接一句"那就按三段式重写一遍"——把口头会变成笔头会。</li>
+    <li><b>支持"精做"而不是加量</b>：60 分档最需要的是把 20 道题做三遍，而不是每天做 60 道新题。家长要顶住"刷题焦虑"，配合老师做减法。</li>
+    <li><b>每周一次"卷面体检"</b>：帮孩子把最近一次考试的计算题卷面逐题看一遍，专门统计"会做但被扣的规范分"，让孩子亲眼看到规范分能值多少。</li>
+    <li><b>实验短板找生活场景补</b>：螺旋测微器、游标卡尺看不懂，可以看实物/教学视频 5 分钟比刷题更有效；家庭里可以让孩子讲讲"今天实验题考了什么仪器、怎么读数"。</li>
+  </ul>
+
+  <h3>3.8 常见误区与里程碑（1 个月 / 3 个月目标）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>里程碑目标</th><th>核验方式</th><th>未达标的信号</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1 个月</td><td>运动学/牛顿定律中档单选不再错；实验读数与有效数字零失分；计算题每题第一问三段式完整</td><td>月考对应板块单独核分</td><td>运动学仍频繁"选错公式" → 回到条件流程图，暂停刷题</td></tr>
+      <tr><td class="num">3 个月</td><td>整卷稳定 70+；多选每卷多对 1 题；计算题 1-2 问平均拿 6 分以上</td><td>3 次整卷限时模拟平均分</td><td>规范分依旧流失 → 训练没有"讲一遍"环节，须重建复盘机制</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag fact">事实</span>教育部教育考试院 2026 年评析强调，物理试题"通过定性和半定量的方式考查学生的物理基础，并非停留在简单的记忆层面"（见参考 [1]）——这意味着"半懂"（会背公式、不会用条件判断）恰恰是官方命题结构中最先被筛掉的状态，也正是 60 分档反复失分的机制性原因。</p>
+<p><span class="flag judge">判断</span>60→70 最容易踩的坑是"以为自己会了"：单选做对了就跳过，不看解析、不整理方法。真正拉开差距的动作是<b>每道做对的题都要说出"考什么、陷阱在哪、还能怎么变"</b>——这一层复盘，才是"半懂"变"真懂"的开关。</p>
+
+</section>
+
+<section id="seg-70">
+  <div class="sec-head"><span class="sec-no">03</span><h2>70 分档 · 中档分水岭期</h2></div>
+  <p class="lead">70 分说明中档题已经"稳"了：单选后段能拿分，实验题基本全对，计算题前两问能写。但电磁学与能量综合题成为分水岭——多选题错一半，电磁感应综合题读不懂过程。这一档是大多数物理考生的"长期天花板"，突破它的关键是"综合拆解能力"。</p>
+
+  <h3>4.1 分数定位画像：你在试卷上的真实位置</h3>
+  <p><span class="flag fact">事实</span>从板块分值看，力学与电磁学两大板块合计约占全卷 80-85%：教育在线对陕西卷的解读显示力学约 32 分、电磁学约 30 分、能量相关考点稳定在 15 分并贯穿全卷（见参考 [5]）；组卷网对多套 2026 卷的模块统计显示电磁学占比约 40%（见参考 [12]）。<span class="flag judge">判断</span>70 分档考生已经吃下了"单一模型题"，但一遇到"电磁 + 能量 + 动力学"叠加的综合题就断链——这正是全卷中档题与压轴题的分界点，也是从 70 走向 80 必须翻越的墙。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>指标</th><th>70 分档典型状态</th><th>对应的板块位置</th></tr></thead>
+    <tbody>
+      <tr><td>单选题</td><td>7 题对 6 题左右</td><td>前段全对，后段中档题偶失手</td></tr>
+      <tr><td>多选题</td><td>错一半：每题保半对，全对率低</td><td>多选后段（电磁、能量综合）不敢选、选不全</td></tr>
+      <tr><td>实验题</td><td>基本全对，偶有创新问失分</td><td>常规实验稳，探究性设问开始吃力</td></tr>
+      <tr><td>计算题</td><td>第一问稳、第二问看模型熟不熟</td><td>能量守恒、电磁感应的多过程拆解是短板</td></tr>
+      <tr><td>压轴题</td><td>第一问能写，第二问起基本放弃</td><td>第三问从不尝试</td></tr>
+    </tbody>
+  </table></div>
+  <div class="verdict"><b>核心判断：</b>70 分档的"分水岭"不是知识点不会，而是<b>不会把一道综合题拆成若干"基本过程"</b>。电磁感应大题，本质是"动力学 + 能量 + 电路"三个基本模型的拼接——拆得开就是 80 分，拆不开就停在 70。</div>
+
+  <h3>4.2 到下一档的差距量化：还差 10 分的缺口拆解</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>缺口来源</th><th>可补分值</th><th>具体动作</th><th>对应试卷位置</th></tr></thead>
+    <tbody>
+      <tr><td>多选题从"半对"到"多对一题"</td><td class="num">约 +3~5 分</td><td>能量/电磁类多选的"必对项 + 陷阱项"双清单训练</td><td>多选第 9-10 题</td></tr>
+      <tr><td>能量综合题拆过程</td><td class="num">约 +3~4 分</td><td>动能定理/机械能守恒的"过程分段 + 初末状态"法</td><td>计算题第 2 问</td></tr>
+      <tr><td>电磁感应综合前两问</td><td class="num">约 +3~4 分</td><td>"先电路后力学"拆分：感应电动势→电流→安培力→运动</td><td>计算题电磁大题</td></tr>
+      <tr><td>实验创新问不放弃</td><td class="num">约 +1~2 分</td><td>探究性设问按"目的→变量→方法→误差"四步模板答</td><td>实验题最后一问</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag fact">事实</span>教育在线对陕西卷的解读显示，能量相关考点分值稳定在约 15 分且"贯穿全卷始终"（见参考 [5]）——能量题不是孤立的几道题，而是渗透在单选、多选、实验、计算各板块的"隐形主干"，这正是 70 分档"能量综合题是分水岭"的数据基础：每个板块都可能被能量过程切断。</p>
+<p><span class="flag judge">判断</span>这 10 分的获取难度比前两档明显提升，需要 6-8 周的系统训练。但它的"红利"也更大——一旦掌握"拆过程"的方法论，多选题和计算题会同时受益，而不是一题一题地补。</p>
+
+  <h3>4.3 得分结构拆解：当前 70 分 vs 目标 80 分</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>当前 70 分得分（约）</th><th>目标 80 分得分（约）</th><th>需要提升的正确率</th></tr></thead>
+    <tbody>
+      <tr><td>单选题（28 分）</td><td class="num">24~26 分</td><td class="num">26~28 分</td><td>后段中档单选全对</td></tr>
+      <tr><td>多选题（18-24 分）</td><td class="num">10~14 分</td><td class="num">14~18 分</td><td>每卷多对 1 题全对或 2 题半对</td></tr>
+      <tr><td>实验题（15 分）</td><td class="num">11~13 分</td><td class="num">13~15 分</td><td>创新问开始拿分</td></tr>
+      <tr><td>计算题（33-45 分）</td><td class="num">20~24 分</td><td class="num">26~30 分</td><td>每题前两问完整，压轴第一问拿满</td></tr>
+      <tr><td>合计</td><td class="num">≈68~73 分</td><td class="num">≈78~83 分</td><td>整体得分率从 70% 提到 80%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">说明：此拆解沿用"单选约 28 分、多选约 18-24 分、实验约 15 分、计算约 33-45 分"的常见卷型估算，实际以当年试卷为准。</p>
+
+  <h3>4.4 核心失分诊断：70 分档的四类典型病灶</h3>
+  <ul class="tight">
+    <li><b>多选题"半对魔咒"</b>：必对项能选出，但不确定项不敢排除——要么漏选丢一半分，要么贪多错选全丢。行业观察指出，2026 年中等生 50-80 分断层明显，多选正是断层最集中的地带（见参考 [6]）。</li>
+    <li><b>能量题"过程分不清"</b>：动能定理、机械能守恒、能量守恒三者的适用条件混用；做功分析漏掉摩擦热、安培力做功；初末状态选错。</li>
+    <li><b>电磁感应"电路-力学"断链</b>：不会按"先求感应电动势、再算电流、再分析安培力、最后列动力学方程"的顺序拆解，过程一多就乱。</li>
+    <li><b>实验创新题"读不懂设问"</b>：常规实验会做，遇到探究性、开放性设问（2026 年实验题探究性、开放性进一步增强，见参考 [5]）就不知道从哪答起。</li>
+  </ul>
+  <div class="callout gold">一句话诊断：70 分档丢的分，几乎全部来自"综合题拆不开"。<b>单选是点、多选是面、计算是链</b>——70 分能拿稳"点"和"面"的一半，80 分要求"链"也能完整走通。</div>
+
+  <h3>4.5 提分路径：四步走（做什么 / 怎么做 / 多久见效）</h3>
+  <ol class="steps">
+    <li><b>第一步（第 1-2 周）· 能量体系重建</b>：把动能定理、机械能守恒、能量守恒、功能关系四个工具整理成"一张决策树"——遇到问题先问"系统是否只有重力/弹力做功""是否有摩擦热""是否有安培力做功"，再决定用哪个工具。<span class="small">见效标志：能量类选择题从"凭感觉"变成"按流程选工具"。</span></li>
+    <li><b>第二步（第 3-4 周）· 多选"双清单"训练</b>：每道多选题强制两步——先列"必对项"（100% 确定才选），再列"陷阱项"（题干中容易误判的地方）；每日 10 题限时，重点练"敢排错、不贪多"。<span class="small">见效标志：多选每卷从 10-14 分提到 14 分以上。</span></li>
+    <li><b>第三步（第 5-6 周）· 电磁感应"四步拆解"</b>：电磁感应综合题统一按"电路→电流→安培力→动力学"四步写框架，哪怕不会算完也把框架步骤分拿到；每日精做 2 道电磁感应大题。<span class="small">见效标志：电磁大题前两问稳定拿 8-12 分。</span></li>
+    <li><b>第四步（第 7-8 周）· 实验创新问模板化</b>：探究性设问按"实验目的→自变量与因变量→控制变量→数据处理→误差来源"五段式作答，把开放题变成"半开放模板题"。<span class="small">见效标志：实验题稳定 13 分以上。</span></li>
+  </ol>
+
+  <h3>4.6 训练方案与时间分配：周计划表（每日约 90 分钟）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>周次</th><th>周一</th><th>周二</th><th>周三</th><th>周四</th><th>周五</th><th>周六</th><th>周日</th></tr></thead>
+    <tbody>
+      <tr><td>第 1-2 周</td><td>能量决策树 + 选择 10 题（35min）</td><td>动能定理精做 5 题（40min）</td><td>机械能守恒精做 5 题（40min）</td><td>功能关系/能量守恒 5 题（40min）</td><td>能量综合 5 题（45min）</td><td>错题重做 + 讲题（50min）</td><td>75 分钟整卷限时</td></tr>
+      <tr><td>第 3-4 周</td><td>多选双清单 10 题（30min）</td><td>多选限时 10 题（30min）</td><td>能量 + 多选混合（40min）</td><td>多选错题陷阱归类（35min）</td><td>单选后段中档题（30min）</td><td>多选全量复盘（45min）</td><td>75 分钟整卷限时</td></tr>
+      <tr><td>第 5-6 周</td><td>电磁感应四步框架 2 题（45min）</td><td>电磁感应精做 2 题（45min）</td><td>电磁 + 能量综合 2 题（50min）</td><td>安培力 + 动力学综合（45min）</td><td>电磁错题重做（40min）</td><td>整卷限时（75min）</td><td>整卷限时 + 逐题核分</td></tr>
+      <tr><td>第 7-8 周</td><td>实验创新问五段式 4 题（30min）</td><td>实验 + 多选混合（40min）</td><td>计算题前两问限时（45min）</td><td>压轴第一问专项（35min）</td><td>错题本全量复盘（50min）</td><td>整卷限时（75min）</td><td>整卷限时 + 板块得分统计</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">执行铁律：<b>综合题的"框架先于计算"</b>。电磁感应题下笔前先在草稿上写"电路→电流→安培力→动力学"四步骨架，骨架写对再算数——这是 70 分档最值钱的做题习惯，也是从"会算"到"会解"的分水岭。</div>
+
+  <h3>4.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>接受"慢即是快"</b>：能量、电磁综合题的训练前期会明显变慢——一道题精做 40 分钟很正常。家长要支持"少而精"，反对"一天刷三套"的假努力。</li>
+    <li><b>盯"讲题质量"</b>：让孩子把电磁感应题的"四步骨架"讲给你听，讲得出步骤顺序，就说明真的在拆过程；讲不出，说明还在背套路。</li>
+    <li><b>情绪管理</b>：70→80 阶段 1-2 次考试没涨分很正常（综合题能力形成有滞后），家长要稳住，不要因为一次月考分数波动就换方案。</li>
+    <li><b>用数据说话</b>：帮孩子每月统计一次"多选得分率、计算题前两问得分率"两项指标，只要这两项在涨，总分会迟到但不会缺席。</li>
+  </ul>
+
+  <h3>4.8 常见误区与里程碑（1 个月 / 3 个月目标）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>里程碑目标</th><th>核验方式</th><th>未达标的信号</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1 个月</td><td>能量类选择不再凭感觉；多选每卷至少多拿 3 分；电磁大题前两问开始有完整框架</td><td>月考对应板块核分 + 卷面框架检查</td><td>多选仍"错一半" → 双清单训练没执行到位，暂停难题、专攻多选</td></tr>
+      <tr><td class="num">3 个月</td><td>整卷稳定 80+；多选得分率过半；计算题每题前两问拿 8 分以上</td><td>3 次整卷限时模拟平均分</td><td>能量/电磁综合仍断链 → 回到四步拆解，每天 1 题精做，不接受刷量</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag judge">判断</span>70 分档最大的误区是"用刷题量掩盖方法缺口"：综合题靠的是拆解流程，不是见题量。坚持"骨架先于计算"两个月，多选与计算会同时质变——这正是 80 分与 70 分的本质差别。</p>
+
+</section>
+
+<section id="seg-80">
+  <div class="sec-head"><span class="sec-no">04</span><h2>80 分档 · 中上段攻坚期</h2></div>
+  <p class="lead">80 分是物理的"中上段"：中档题几乎全对，能量、电磁综合题能拆能算，但压轴题只拿得下前两问，实验创新题还是短板，计算规范偶有扣分。这一档的目标是"把会做的全部做满"，再向压轴要分。</p>
+
+  <h3>5.1 分数定位画像：你在试卷上的真实位置</h3>
+  <p><span class="flag fact">事实</span>从得分率实证看，压轴题是全卷区分度最高的地带：豆丁对 2026 河南卷的解读显示压轴第 15 题（多次弹性碰撞）得分率仅 0.07，基础题得分率约 0.7、中档题 0.5-0.65（见参考 [11]）；广东卷解读显示压轴解答题难度低至 0.15（见参考 [13]）。教育部教育考试院评析也显示，2026 年全国卷压轴题（如第 25 题电磁感应综合，以"力与速度图"呈现）要求结合图像获取关键信息、减少盲目机械刷题（见参考 [1]）。<span class="flag judge">判断</span>80 分档考生和 90 分档考生的差距，几乎全部集中在两块：<b>压轴题能不能多拿一问、全卷低级失误能不能清零</b>。前 80 分"怎么拿"已经解决，后 10 分"凭什么拿"靠的是压轴攻坚 + 零失误管理。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>指标</th><th>80 分档典型状态</th><th>与 70 分档的差别</th></tr></thead>
+    <tbody>
+      <tr><td>单选题</td><td>基本全对</td><td>后段中档题已无压力</td></tr>
+      <tr><td>多选题</td><td>每卷对 1-2 题全对</td><td>"保一争二"已内化，错选变少</td></tr>
+      <tr><td>实验题</td><td>常规全对，创新题丢 2-4 分</td><td>探究性设问是唯一明显短板</td></tr>
+      <tr><td>计算题</td><td>前两问稳，压轴第一问能写</td><td>压轴第二问开始碰，但思路常断</td></tr>
+      <tr><td>压轴题</td><td>拿第一问，第二问看模型</td><td>第三问基本放弃，且占用时间</td></tr>
+    </tbody>
+  </table></div>
+  <div class="verdict"><b>核心判断：</b>80 分档的提分逻辑要切换：前四档是"补知识、补规范"，这一档开始是"抠细节、抠压轴"。<b>先保证会做的 100% 拿满（消灭低级失误），再向压轴第二、三问要增量</b>——顺序反了，90 分只会越来越远。</div>
+
+  <h3>5.2 到下一档的差距量化：还差 10 分的缺口拆解</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>缺口来源</th><th>可补分值</th><th>具体动作</th><th>对应试卷位置</th></tr></thead>
+    <tbody>
+      <tr><td>压轴题前两问拿满</td><td class="num">约 +3~5 分</td><td>压轴题"第一问必拿、第二问按框架拆"专项</td><td>压轴第 2 问</td></tr>
+      <tr><td>实验创新题不丢分</td><td class="num">约 +2~3 分</td><td>探究设计题五段式 + 历年创新题归类</td><td>实验题最后一问</td></tr>
+      <tr><td>全卷低级失误清零</td><td class="num">约 +2~4 分</td><td>检查清单化：单位、符号、有效数字、漏问</td><td>全卷</td></tr>
+      <tr><td>多选冲刺全对</td><td class="num">约 +1~2 分</td><td>陷阱题归类 + 反向验证法</td><td>多选压轴项</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag judge">判断</span>注意这 10 分的结构：只有约 3-5 分来自压轴"真能力"，其余 5-7 分来自"规范与零失误"。这意味着 80→90 的第一阶段，不是去啃最难的题，而是把"本可以拿到的分"全部收紧。</p>
+
+  <h3>5.3 得分结构拆解：当前 80 分 vs 目标 90 分</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>当前 80 分得分（约）</th><th>目标 90 分得分（约）</th><th>需要提升的正确率</th></tr></thead>
+    <tbody>
+      <tr><td>单选题（28 分）</td><td class="num">26~28 分</td><td class="num">28 分</td><td>全对，零失误</td></tr>
+      <tr><td>多选题（18-24 分）</td><td class="num">14~18 分</td><td class="num">18~24 分</td><td>每卷多对 1 题全对</td></tr>
+      <tr><td>实验题（15 分）</td><td class="num">11~14 分</td><td class="num">14~15 分</td><td>创新问拿满</td></tr>
+      <tr><td>计算题（33-45 分）</td><td class="num">26~30 分</td><td class="num">30~36 分</td><td>压轴前两问完整拿分</td></tr>
+      <tr><td>合计</td><td class="num">≈78~83 分</td><td class="num">≈88~93 分</td><td>整体得分率从 80% 提到 90%</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>5.4 核心失分诊断：80 分档的四类典型病灶</h3>
+  <ul class="tight">
+    <li><b>压轴"会一半、断一半"</b>：第二问思路有，但多过程衔接处漏条件；第三问连题都不读，白白损失框架分。教育部评析特别提示压轴题"设问层层递进、前一问为后一问铺垫"（见参考 [1]）——会拆设问就能多拿分。</li>
+    <li><b>实验创新题"无模板可依"</b>：教材实验的步骤背得熟，但"给新情境、让你设计测量方案"的题就卡壳——不会把新情境翻译成熟悉的实验模型。</li>
+    <li><b>计算规范"差最后一口气"</b>：步骤基本规范，但常缺关键一步的文字说明（如"由动能定理得"）或物理量符号说明；2026 年命题强化"从解题到解决问题"的表述要求（见参考 [6]），书写规范直接与得分挂钩。</li>
+    <li><b>低级失误"屡教不改"</b>：单位没换算、有效数字没按要求、抄错数据、漏答一空——80 分档考生最容易"会做但被扣 2-4 分"，恰恰是这些失误挡在 90 分门口。</li>
+  </ul>
+  <div class="callout gold">一句话诊断：80 分档的敌人不是难题，是<b>"会而不对、对而不全"</b>——会做却失分、做对却写不全。这一档把"细节税"交齐，90 分就近在咫尺。</div>
+
+  <h3>5.5 提分路径：四步走（做什么 / 怎么做 / 多久见效）</h3>
+  <ol class="steps">
+    <li><b>第一步（第 1-2 周）· 零失误系统上线</b>：建立"检查清单"——每张卷子交卷前按"单位→符号→有效数字→漏问→抄写"五关逐项检查；把最近 3 次考试的失误分单独统计，让"失误成本"可视化。<span class="small">见效标志：一次模拟失误扣分从 4-6 分降到 1 分以内。</span></li>
+    <li><b>第二步（第 3-4 周）· 实验创新题归类攻坚</b>：把近年实验创新题（设计测量方案、改装电表、光电门、DIS 数字化实验等）按"测量对象→原理→操作→数据处理"四类归档，每类精做 4-5 题；学会"新情境翻译成旧模型"。<span class="small">见效标志：实验题稳定 14 分以上。</span></li>
+    <li><b>第三步（第 5-6 周）· 压轴题"前两问拿满"专项</b>：压轴题训练只做前两问，第三问先写"思路框架 + 关键方程"；重点练"设问递进"的拆解——第一问通常铺垫模型，第二问在其上叠加新条件。<span class="small">见效标志：压轴题前两问平均拿 8-10 分（满分 12-15 分）。</span></li>
+    <li><b>第四步（第 7-8 周）· 整卷节奏与压轴策略定型</b>：整卷限时训练中固定"压轴题先读题 2 分钟、先写框架再动笔"的节奏；第三问按剩余时间决定投入度——时间不足时第三问只写方程框架。<span class="small">见效标志：整卷 80 分钟内完成，压轴题不拖垮前面正确率。</span></li>
+  </ol>
+
+  <h3>5.6 训练方案与时间分配：周计划表（每日约 90-100 分钟）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>周次</th><th>周一</th><th>周二</th><th>周三</th><th>周四</th><th>周五</th><th>周六</th><th>周日</th></tr></thead>
+    <tbody>
+      <tr><td>第 1-2 周</td><td>检查清单实战：整卷限时（75min）</td><td>失误分统计 + 错题归因（40min）</td><td>单选/多选零失误限时（40min）</td><td>计算题规范书写 5 题（45min）</td><td>整卷限时 + 检查清单走查（75min）</td><td>失误重灾区专项（45min）</td><td>整卷限时 + 全流程复盘</td></tr>
+      <tr><td>第 3-4 周</td><td>实验创新题归类 4 题（40min）</td><td>设计测量方案类（40min）</td><td>电学实验创新（45min）</td><td>力学实验创新（45min）</td><td>实验错题重做（40min）</td><td>实验 + 多选混合（45min）</td><td>75 分钟整卷限时</td></tr>
+      <tr><td>第 5-6 周</td><td>压轴前两问 2 题（45min）</td><td>压轴设问递进拆解 2 题（45min）</td><td>压轴 + 能量综合（50min）</td><td>压轴 + 电磁综合（50min）</td><td>压轴错题框架重写（45min）</td><td>整卷限时（75min）</td><td>整卷限时 + 压轴核分</td></tr>
+      <tr><td>第 7-8 周</td><td>整卷限时（75min）</td><td>压轴策略演练（40min）</td><td>实验 + 计算规范（45min）</td><td>整卷限时（75min）</td><td>错题本全量复盘（50min）</td><td>整卷限时 + 检查清单走查</td><td>全真模拟 + 逐题核分</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">执行铁律：<b>80 分档的模拟必须"全流程"</b>——限时、检查、核分、归因四步缺一不可。只做卷子不检查，失误会一直在；只核分不归因，下次还会犯。零失误是"系统"，不是"运气"。</div>
+
+  <h3>5.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>从"盯分数"转向"盯失误"</b>：80 分档的孩子分数波动往往来自失误而非能力，家长要帮孩子把每次考试的"失误分"单独记出来——看到"会做的分"在涨，信心自然涨。</li>
+    <li><b>支持压轴"分阶段"投入</b>：前两个月先保前两问、不碰第三问，家长不要急于求成；第三问攻坚放在能力稳定后再上。</li>
+    <li><b>睡眠与节奏管理</b>：80→90 拼的是稳定发挥，熬夜刷题是负资产；确保考前一周作息固定，把"考场生物钟"调出来。</li>
+    <li><b>提供"错题再考"支持</b>：每隔两周把错题本的题重新组卷，让孩子重做并核分——这是检验是否"真会"的最硬标准。</li>
+  </ul>
+
+  <h3>5.8 常见误区与里程碑（1 个月 / 3 个月目标）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>里程碑目标</th><th>核验方式</th><th>未达标的信号</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1 个月</td><td>失误分降到 2 分以内；实验题稳定 13+；压轴第一问零失手</td><td>最近两次模拟的失误分与实验题核分</td><td>失误仍超 4 分 → 检查清单没执行，把"检查"纳入每次模拟的硬流程</td></tr>
+      <tr><td class="num">3 个月</td><td>整卷稳定 90 上下；压轴前两问平均拿 8+；实验题 14+</td><td>3 次全真模拟平均分</td><td>压轴仍只拿第一问 → 设问递进拆解训练不足，回炉第三步专项</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag judge">判断</span>80→90 最典型的失败路径是"直接攻压轴第三问，结果前 80 分被失误侵蚀"。请记住顺序：<b>先零失误、再前两问、最后第三问</b>——按这个顺序，90 分是水到渠成；倒过来，可能连 85 都保不住。</p>
+
+</section>
+
+<section id="seg-90">
+  <div class="sec-head"><span class="sec-no">05</span><h2>90 分档 · 顶尖冲刺期</h2></div>
+  <p class="lead">90 分是物理原始分里的"顶尖段"：全卷正确率 90% 以上，压轴题要拿满，任何低级失误都不允许。这一档已经不是"补知识"，而是"拼极限"——对思维品质、计算能力、考场心态的综合考验，目标指向 90+ 乃至 95 冲刺。</p>
+
+  <h3>6.1 分数定位画像：你在试卷上的真实位置</h3>
+  <p><span class="flag fact">事实</span>从得分率实证看，90 分意味着你要拿到"基础题全对 + 中档题全对 + 压轴题 85% 以上"：2026 年多套卷的基础题得分率约 0.7、中档题 0.5-0.65，而压轴题得分率仅 0.07-0.15（河南卷、广东卷解读口径，见参考 [11][13]）；教育部教育考试院口径中真正难题约占 13%（媒体转述，见参考 [4]）。<span class="flag judge">判断</span>也就是说，全卷约 13% 的难题里你要拿下其中的绝大部分，同时前 87% 一分不丢——这就是 90 分与 80 分的本质差距：<b>80 分靠"会做"，90 分靠"全对 + 攻克难题"</b>。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>指标</th><th>90 分档典型状态</th><th>与 80 分档的差别</th></tr></thead>
+    <tbody>
+      <tr><td>单选题</td><td>满分</td><td>后段难题项也能稳定拿下</td></tr>
+      <tr><td>多选题</td><td>满分或仅错 1 个不确定项</td><td>全对率显著提升，错选几乎绝迹</td></tr>
+      <tr><td>实验题</td><td>满分</td><td>创新问也能完整拿下</td></tr>
+      <tr><td>计算题</td><td>前两问全对，压轴第三问攻坚</td><td>压轴第二问稳定拿满</td></tr>
+      <tr><td>压轴题</td><td>第三问按剩余时间策略性攻坚</td><td>向 95 冲刺的胜负手</td></tr>
+    </tbody>
+  </table></div>
+  <div class="verdict"><b>核心判断：</b>90 分档的每一分都"贵"：压轴题 10-15 分是全卷区分度最高的部分，也是 90 与 95 的分水岭。这一档的提分不再依赖"题量"，而依赖<b>三类硬通货：压轴思维、计算极限、考场纪律</b>。</div>
+
+  <h3>6.2 到下一档的差距量化：90 到 95+ 还差 5-10 分的缺口拆解</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>缺口来源</th><th>可补分值</th><th>具体动作</th><th>对应试卷位置</th></tr></thead>
+    <tbody>
+      <tr><td>压轴题第三问攻坚</td><td class="num">约 +4~7 分</td><td>压轴"递进拆解 + 新情境建模"专项，第三问不再放弃</td><td>压轴第 3 问</td></tr>
+      <tr><td>多选题压轴项全对</td><td class="num">约 +2~3 分</td><td>多选陷阱终极归类 + 反向验证</td><td>多选最后 1 题</td></tr>
+      <tr><td>计算"零扣分"书写</td><td class="num">约 +1~2 分</td><td>满分卷面标准：文字说明 + 原始方程 + 规范结论</td><td>全部计算题</td></tr>
+      <tr><td>时间分配极限优化</td><td class="num">约 +1~2 分</td><td>为压轴第三问"挤"出 8-10 分钟</td><td>全卷节奏</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag fact">事实</span>教育部教育考试院评析明确指出，2026 年全国卷压轴题采用"递进式探究设问，由浅入深、层层递进，前一问是为后一问做铺垫，后一问是前一问的深入和发展"（见参考 [1]）——这为 90 分档的"第三问攻坚"提供了官方命题依据：第三问不是独立的怪题，而是前两问模型的延伸，拆解设问结构即可切入。</p>
+<p><span class="flag judge">判断</span>90→95+ 的增量几乎全部来自压轴与多选压轴项——这是"高手之间的战场"。这一段的进步非线性：可能连续两月卡在 90-92，然后一次性突破到 95。家长和孩子都需要对这种"平台期"有预期。</p>
+
+  <h3>6.3 得分结构拆解：当前 90 分 vs 目标 95+ 分</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>当前 90 分得分（约）</th><th>目标 95 分得分（约）</th><th>需要提升的正确率</th></tr></thead>
+    <tbody>
+      <tr><td>单选题（28 分）</td><td class="num">28 分</td><td class="num">28 分</td><td>满分保持</td></tr>
+      <tr><td>多选题（18-24 分）</td><td class="num">16~20 分</td><td class="num">20~24 分</td><td>压轴项全对</td></tr>
+      <tr><td>实验题（15 分）</td><td class="num">14~15 分</td><td class="num">15 分</td><td>满分</td></tr>
+      <tr><td>计算题（33-45 分）</td><td class="num">30~34 分</td><td class="num">34~38 分</td><td>压轴第三问再拿 4-7 分</td></tr>
+      <tr><td>合计</td><td class="num">≈88~93 分</td><td class="num">≈94~98 分</td><td>向 95 冲刺</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>6.4 核心失分诊断：90 分档的三类典型病灶</h3>
+  <ul class="tight">
+    <li><b>压轴第三问"思维缺口"</b>：前两问顺风顺水，第三问需要"新情境建模 + 多规律联立"时思路断掉——教育部评析明确压轴题采用"递进式探究设问，由浅入深、层层递进，后一问是前一问的深入和发展"（见参考 [1]），第三问往往是在第二问模型上叠加新约束，缺的是"把新条件接进旧模型"的迁移能力。</li>
+    <li><b>计算极限不过关</b>：2026 年试卷计算题运算量明显增加（陕西卷解读口径，见参考 [5]）；多过程联立方程、含参数化简、几何关系推导一旦中途出错，整问崩盘——顶尖分段拼的是"算得准、算得快"。</li>
+    <li><b>考场节奏"被压轴绑架"</b>：为了第三问多投入 10 分钟，导致前面没时间检查，单选或实验失误 2-3 分——90 分段最贵的失误，是"捡芝麻丢西瓜"。</li>
+  </ul>
+  <div class="callout gold">一句话诊断：90 分档的三类失分分别对应<b>思维（压轴建模）、计算（极限准确）、纪律（时间分配）</b>——三者缺一不可。能稳定 95 的考生，不是某一项突出，而是三项同时在线。</div>
+
+  <h3>6.5 提分路径：四步走（做什么 / 怎么做 / 多久见效）</h3>
+  <ol class="steps">
+    <li><b>第一步（第 1-2 周）· 压轴"第三问专项"破冰</b>：把近 3 年高考压轴题第三问单独抽出精做，先不追求完整解出，而是训练"读完第三问先回答三个问题——它在前两问基础上叠加了什么条件？需要引入哪个新规律？最终求解什么量？"；每道题先写"建模框架 + 关键方程"，再逐步补齐计算。<span class="small">见效标志：第三问从"直接放弃"变成"能写出 2-3 个关键方程"。</span></li>
+    <li><b>第二步（第 3-4 周）· 计算极限训练</b>：每日 30 分钟"纯计算关"——多过程联立、含参化简、图像斜率面积计算、几何关系推导；训练标准是"一次算对，不许返工"；错一步就整题重写。<span class="small">见效标志：计算题计算环节失误率降一半以上。</span></li>
+    <li><b>第三步（第 5-6 周）· 满分卷面标准化</b>：把计算题书写升级为"满分卷面"标准——每步有文字说明（"由动能定理得""对滑块由牛顿第二定律"）、原始方程不跳步、结论带单位；对照满分答案逐字逐句比对自己的卷面差距。<span class="small">见效标志：卷面扣分基本为零，规范分全部收回。</span></li>
+    <li><b>第四步（第 7-8 周）· 考场纪律系统化</b>：整卷模拟固定"时间预算"——单选 15 分钟、多选 12 分钟、实验 15 分钟、计算 35 分钟、压轴第三问剩余时间攻坚；设定"压轴止损线"（如剩余不足 12 分钟则第三问只写框架）。<span class="small">见效标志：连续 3 次模拟 90+，其中至少 1 次 95+。</span></li>
+  </ol>
+
+  <h3>6.6 训练方案与时间分配：周计划表（每日约 100 分钟）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>周次</th><th>周一</th><th>周二</th><th>周三</th><th>周四</th><th>周五</th><th>周六</th><th>周日</th></tr></thead>
+    <tbody>
+      <tr><td>第 1-2 周</td><td>压轴第三问破冰 2 题（50min）</td><td>第三问建模框架 2 题（50min）</td><td>压轴全题精做 1 题（60min）</td><td>第三问错题重写（45min）</td><td>多选压轴项专项（35min）</td><td>整卷限时（75min）</td><td>整卷限时 + 压轴核分</td></tr>
+      <tr><td>第 3-4 周</td><td>纯计算关 30min</td><td>联立方程化简关 30min</td><td>图像与几何关 30min</td><td>计算极限综合（40min）</td><td>整卷限时（75min）</td><td>计算错题整题重写（45min）</td><td>整卷限时 + 计算核分</td></tr>
+      <tr><td>第 5-6 周</td><td>满分卷面对照 3 题（45min）</td><td>卷面规范重写（40min）</td><td>实验满分训练（35min）</td><td>多选 + 实验混合（40min）</td><td>整卷限时（75min）</td><td>卷面扣分点逐条整改（45min）</td><td>整卷限时 + 卷面核分</td></tr>
+      <tr><td>第 7-8 周</td><td>整卷限时（75min）</td><td>压轴策略演练（40min）</td><td>时间预算模拟（75min）</td><td>整卷限时（75min）</td><td>错题本全量复盘（50min）</td><td>全真模拟（75min）</td><td>全真模拟 + 逐题核分 + 95 冲刺评估</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">执行铁律：<b>90 分档的每一次模拟都要"当作高考"</b>——时间预算、检查清单、压轴止损线全部执行；模拟后 30 分钟内完成逐题核分与归因。顶尖分段没有捷径，只有把每个环节做到可复现的稳定。</div>
+
+  <h3>6.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>接受"平台期"</b>：90 分档可能长时间在 90-93 之间波动，家长要理解这是压轴攻坚的正常平台期，不因一次模考 88 分就全盘否定方案。</li>
+    <li><b>把"情绪稳定"当战略资源</b>：顶尖分段拼的是稳定发挥，家庭氛围的松弛度直接影响考场心态；考前两周减少施压、增加睡眠与运动。</li>
+    <li><b>只盯"两类数据"</b>：压轴题得分率、全卷失误分。这两项不变好，95 是空谈；这两项在改善，总分一定跟随。</li>
+    <li><b>尊重孩子的"自主学习节奏"</b>：90 分段的孩子已有成熟方法，家长角色从"监督"转为"后勤与情绪支持"，避免越界指挥。</li>
+  </ul>
+
+  <h3>6.8 常见误区与里程碑（1 个月 / 3 个月目标）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>里程碑目标</th><th>核验方式</th><th>未达标的信号</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1 个月</td><td>压轴第三问能写关键方程；全卷失误分 ≤1；两次模拟 90+</td><td>两次模拟逐题核分</td><td>第三问仍空白 → 建模框架训练不足，回炉"三问三答"</td></tr>
+      <tr><td class="num">3 个月</td><td>稳定 92+，冲刺 95+；压轴平均拿 85% 以上；模拟波动 ≤3 分</td><td>3 次全真模拟平均分与标准差</td><td>波动超 5 分 → 考场纪律未执行，重点查时间预算与压轴止损</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag judge">判断</span>90→95 的最后一步，往往不是"多会一道题"，而是"少犯一个错、多算对一步"。顶尖考生与优秀考生的分界线，就是压轴第三问的"敢碰"与考场纪律的"稳定"——把这两件事做成肌肉记忆，95 就在手边。</p>
+  <h3>6.9 参考来源与数据口径（真实可溯源）</h3>
+  <p class="small">本文数据分为三层口径：<b>官方</b>（教育部教育考试院、省教育考试院官方文件/报告）· <b>权威媒体</b>（教育在线、澎湃新闻、光明日报、东南网等）· <b>行业观察</b>（教研机构解读、个案统计）。行业观察数据仅供趋势参考，不做精确结论；广东等未公布单科平均分的省份，网络流传的"内部数据"一律不可信（南方+已多次辟谣）。</p>
+  <ol class="ref-list">
+    <li>教育部教育考试院：《2026 年高考物理全国卷试题评析》（"中国考试"，教育在线转载，2026-06-08）——四大坚持、压轴递进设问、第 25 题力与速度图等官方口径。<a href="https://www.eol.cn/news/yaowen/202606/t20260608_2742546.shtml" target="_blank" rel="noopener noreferrer">https://www.eol.cn/news/yaowen/202606/t20260608_2742546.shtml</a></li>
+    <li>教育部官网（中国教育报）：《二〇二六年高考命题保持试题总体难度稳定》（2026-06-08）——2026 命题总体稳定、杜绝偏题怪题、减少烦琐计算等官方口径。<a href="http://www.moe.gov.cn/jyb_xwfb/xw_zt/moe_357/2026/2026_zt08/mtbd/202606/t20260608_1439867.html" target="_blank" rel="noopener noreferrer">http://www.moe.gov.cn/jyb_xwfb/xw_zt/moe_357/2026/2026_zt08/mtbd/202606/t20260608_1439867.html</a></li>
+    <li>澎湃新闻：《高考物理、化学、生物全国卷难不难？解读来了！》（2026-06-08）——教育部教育考试院负责人对物理卷的官方解读。<a href="https://m.thepaper.cn/newsDetail_forward_33332644" target="_blank" rel="noopener noreferrer">https://m.thepaper.cn/newsDetail_forward_33332644</a></li>
+    <li>今日头条（芳研研）：《2026 高考物理难吗？各省试卷难度不同》（2026-06-08）——转述教育部教育考试院口径：基础题超 60%、难题约 13%、难度系数 0.47-0.51；广州一模平均分 56.89。<a href="http://m.toutiao.com/group/7648895246638367238/" target="_blank" rel="noopener noreferrer">http://m.toutiao.com/group/7648895246638367238/</a></li>
+    <li>教育在线：《2026 年陕西高考物理试题分析及对比解读》（2026-06-08）——75 分钟/100 分卷型、7 单选+6 多选+1 实验+2 计算、力学 32 分/电磁学 30 分/能量 15 分/实验 15 分等结构数据。<a href="https://www.eol.cn:10443/kaoshi/gaokao/gkzx/202606/t20260608_2742699.shtml" target="_blank" rel="noopener noreferrer">https://www.eol.cn:10443/kaoshi/gaokao/gkzx/202606/t20260608_2742699.shtml</a></li>
+    <li>教育在线/掌上高考：《高中物理提分选哪家一对一？2026 年 4 家平台物理专项教学对比》（2026-08-31）——新高考 I 卷物理预估平均分 42-45 分（2025 年 53-55 分）、情境化试题占比 75%、题干 150 字拉长至 260 字、县域考生得分率约 42% 等（行业观察口径）。<a href="https://gaokao.eol.cn/gzxy/yxdt/202608/t20260831_2769231.shtml" target="_blank" rel="noopener noreferrer">https://gaokao.eol.cn/gzxy/yxdt/202608/t20260831_2769231.shtml</a></li>
+    <li>人民网（光明日报）：《优化情境设计 凸显应用导向——专家解析高考物理、化学、生物全国卷》（2026-06-09）——物理突出探究性考查的官方专家解读。<a href="http://edu.people.com.cn/n1/2026/0609/c1006-40736400.html" target="_blank" rel="noopener noreferrer">http://edu.people.com.cn/n1/2026/0609/c1006-40736400.html</a></li>
+    <li>东南网：《预测高考切线！分解到各学科，拿高分！》（郭杰森，2026-02-12）——全国卷物理等六科原始分多在 50-60 分（难度值 0.55 上下）、再选科目赋分后平均约 71 分等专家口径。<a href="http://i.fjsen.com/wap/2026-02/12/content_32133441.htm" target="_blank" rel="noopener noreferrer">http://i.fjsen.com/wap/2026-02/12/content_32133441.htm</a></li>
+    <li>新福建/海峡教育报：《语文↑、数学↓！达到全省平均分就能上本科？》（2026-10-15）——《2026 年福建省普通高考学科评价报告》：物化生组合汇总平均分 475 分（本科线 446，高出 29 分），位次约 101035 名。<a href="http://m.toutiao.com/group/7696746667696980514/" target="_blank" rel="noopener noreferrer">http://m.toutiao.com/group/7696746667696980514/</a></li>
+    <li>东南网：《涨了！达到全省平均分能上本科？》（2025-11-08）——《2025 年福建省普通高考学科评价报告》：物化生组合 468.83 分（本科线 441）；2024 年 477.68、2023 年 463.11。<a href="http://i.fjsen.com/wap/2025-11/08/content_32074141.htm" target="_blank" rel="noopener noreferrer">http://i.fjsen.com/wap/2025-11/08/content_32074141.htm</a></li>
+    <li>豆丁网：《2026 年高考物理真题完全解读（河南卷）》（2026-06-27）——7 单选+3 多选+2 实验+3 解答共 15 题、基础题得分率约 0.7、中档 0.5-0.65、压轴第 15 题得分率 0.07、力学电磁学合计约 85%。<a href="https://www.docin.com/touch_new/preview_new.do?id=5019055946" target="_blank" rel="noopener noreferrer">https://www.docin.com/touch_new/preview_new.do?id=5019055946</a></li>
+    <li>组卷网：《2026 年高考物理真题完全解读（广东卷）》（2026-07-12）——力学约 46%、电磁学约 40%、基础题难度 0.72-0.95、中档 0.54-0.74 等模块与难度数据。<a href="https://zujuan.xkw.com/thematiclist/13pt7953ct26134n979382.html" target="_blank" rel="noopener noreferrer">https://zujuan.xkw.com/thematiclist/13pt7953ct26134n979382.html</a></li>
+    <li>豆丁网：《新版 2026 年高考物理（广东卷）真题详细解读及评析》（2026-06-29）——压轴解答题难度低至 0.15、图像考查常态化等。<a href="https://www.docin.com/touch_new/preview_new.do?id=5019416599" target="_blank" rel="noopener noreferrer">https://www.docin.com/touch_new/preview_new.do?id=5019416599</a></li>
+    <li>福建省教育厅：《福建省普通高中学业水平选择性考试科目赋分办法》（闽教学〔2019〕7 号）——物理/历史原始分 100 分计入总成绩，再选科目等级转换分 30-100 分、等级比例 15%/35%/35%/13%/2% 的官方赋分口径。<a href="https://jyt.fujian.gov.cn/ztzl/fjsgkzhgg/zctz/201906/t20190613_4899111.htm" target="_blank" rel="noopener noreferrer">https://jyt.fujian.gov.cn/ztzl/fjsgkzhgg/zctz/201906/t20190613_4899111.htm</a></li>
+    <li>教育在线：《2026 高考物理考后评价两极分化，命题思路迎来明显转变》（2026-06-08）——试卷"六成以上分值来自课本核心知识点"、压轴综合力学/电磁学/能量/动量等考后观察口径。<a href="http://www.eol.cn/kaoshi/gaokao/gkst/202606/t20260608_2742735.shtml" target="_blank" rel="noopener noreferrer">http://www.eol.cn/kaoshi/gaokao/gkst/202606/t20260608_2742735.shtml</a></li>
+    <li>南方+：《网传广东高考数学平均分 40，全国倒数第一？假的》（2026-06-24）——广东从未公布单科平均分、福建为新高考一卷唯一公布平均分省份、网传数据不可信等口径核验。<a href="https://static.nfnews.com/content/202606/24/c12558797.html" target="_blank" rel="noopener noreferrer">https://static.nfnews.com/content/202606/24/c12558797.html</a></li>
+  </ol>
+  <div class="verdict"><b>边界声明：</b>本文为教研分析与数据科普，分数档拆解、得分结构估算与提分路径为教学策略建议，不针对任何个体考生做结论；不同省份卷型、分值结构存在差异，请以当年考试说明、正式试卷与孩子所在学校教学安排为准。行业观察类数据（预估平均分、得分率个案）仅供趋势参考，未标注"官方"的数据均不可作为精确结论引用。</div>
+
+</section>
+
+<footer>
+  <div class="brand">刘老师教研 · 高中物理教研 · 50-95分档提分全面分析 · 供考生与家长对照使用</div>
+  <p>本文为教研分析，不针对个体做结论，请以当年考试说明与正式试卷为准。</p>
+  <p>数据口径：官方（教育部教育考试院评析、省教育考试院学科评价报告）· 权威媒体（教育在线、澎湃、光明日报等）· 行业观察（辅导机构与教研解读），均已在正文与参考列表标注。</p>
+</footer>
+</body>
+</html>

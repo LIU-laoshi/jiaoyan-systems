@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刘老师教研 · 高考政治50-95分数段全面分析</title>
+<style>
+:root{
+  --navy:#0f2a4a;--navy2:#16385e;--gold:#d4a853;--gold2:#b8913c;--bg:#f6f7fb;
+  --card:#ffffff;--ink:#24303f;--muted:#6b7a8c;--line:#e3e8f0;--ok:#1f7a4d;--okbg:#e8f5ee;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;font-size:16px}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 62%,#1e4a72 100%);color:#fff;padding:64px 20px 56px;text-align:center}
+.hero .kicker{display:inline-block;border:1px solid rgba(212,168,83,.55);color:#e6c684;font-size:13px;letter-spacing:2px;padding:6px 16px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:34px;font-weight:800;line-height:1.35;margin-bottom:14px;letter-spacing:.5px}
+.hero .sub{font-size:16px;color:#cdd8e8;max-width:760px;margin:0 auto}
+.hero .stats{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:28px}
+.hero .stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:13px 16px;min-width:132px}
+.hero .stat b{display:block;font-size:22px;color:#f0cd83;font-weight:800}
+.hero .stat span{font-size:12.5px;color:#c7d3e4}
+.hero .stat i{display:block;font-style:normal;font-size:11px;color:#9fb2c9;margin-top:2px}
+nav.sticky{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.97);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(15,42,74,.25)}
+nav.sticky .wrap{display:flex;overflow-x:auto;gap:2px;padding:0 12px}
+nav.sticky a{color:#dce6f3;font-size:14px;padding:12px 10px;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;transition:.2s}
+nav.sticky a:hover,nav.sticky a.active{color:#f0cd83;border-color:var(--gold)}
+section{padding:46px 0 14px;scroll-margin-top:58px}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.sec-no{flex:none;font-size:13px;font-weight:800;color:#fff;background:var(--gold);border-radius:8px;padding:3px 10px;letter-spacing:1px}
+section h2{font-size:25px;color:var(--navy);font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin-bottom:18px;max-width:860px}
+h3{font-size:19px;color:var(--navy);margin:22px 0 10px;font-weight:700}
+h4{font-size:16px;color:var(--navy2);margin:16px 0 8px;font-weight:700}
+p{margin:10px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:14px 0;box-shadow:0 1px 4px rgba(15,42,74,.05)}
+.seg-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:18px 0 26px;box-shadow:0 1px 4px rgba(15,42,74,.05);border-top:4px solid var(--gold)}
+.verdict{background:linear-gradient(135deg,#fdf6e8,#f9ecd4);border:1px solid #e9d5a7;border-left:5px solid var(--gold);border-radius:12px;padding:16px 20px;margin:16px 0}
+.verdict b{color:var(--navy)}
+.flag{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:1px 8px;margin-right:6px;vertical-align:2px}
+.flag.fact{background:var(--okbg);color:var(--ok)}
+.flag.judge{background:#fdf0ef;color:#b0463a}
+.tbl-scroll{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:14.5px;min-width:560px}
+th{background:var(--navy);color:#fff;font-weight:700;padding:11px 12px;text-align:left;white-space:nowrap}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7f9fc}
+td.num{font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy);white-space:nowrap}
+.small{font-size:13px;color:var(--muted)}
+.hl{background:#fdf3d8;border-radius:4px;padding:0 4px;font-weight:700;color:#8a6414}
+ol.steps{margin:12px 0 12px 22px}
+ol.steps li{margin:9px 0}
+ul.tight{margin:10px 0 10px 22px}
+ul.tight li{margin:6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.chip{background:#eef2f8;border:1px solid #dbe3ef;color:var(--navy2);font-size:13px;font-weight:700;border-radius:999px;padding:6px 14px}
+.chip.gold{background:#fbf4e4;border-color:#e9d5a7;color:#8a6414}
+.callout{border-left:5px solid var(--navy2);background:#eef3fa;border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;font-size:15px}
+.callout.gold{border-color:var(--gold);background:#fbf4e4}
+.ref-list{font-size:13.5px;color:var(--muted)}
+.ref-list li{margin:7px 0}
+.ref-list a{color:var(--navy2);text-decoration:none;border-bottom:1px dotted #a9b8cc}
+.ref-list a:hover{color:var(--gold2)}
+.mile{display:flex;flex-wrap:wrap;gap:12px;margin:14px 0}
+.mile .m{flex:1 1 200px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.mile .m b{color:var(--navy);font-size:15px}
+.mile .m small{display:block;color:var(--muted);font-size:13px;margin-top:6px}
+footer{background:var(--navy);color:#cdd8e8;margin-top:46px;padding:34px 20px 40px;text-align:center}
+footer .brand{font-size:15px;color:#f0cd83;font-weight:700;margin-bottom:8px}
+footer p{font-size:13px;color:#aebdd2;margin:5px 0}
+@media(max-width:640px){
+  .hero h1{font-size:26px}.hero .stat{min-width:110px}
+  section h2{font-size:21px}nav.sticky a{font-size:13px;padding:11px 8px}
+}
+@media print{
+  nav.sticky{display:none}.hero{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  section{page-break-inside:avoid}.card,.verdict,.callout,.seg-card{break-inside:avoid}
+  a{color:#16385e!important;text-decoration:none!important}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <span class="kicker">刘老师教研 · 高考分数段全面分析</span>
+  <h1>高考政治 50→95 分档提分全面分析<br>五个分数档，每一档都有明确的拆解与路径</h1>
+  <p class="sub">面向全国高三考生与家长：政治是再选科目、等级赋分 100 分制。从 50 分到 95 分，按每 10 分一档拆成五个阶段，数据化定位、表格化对照、可执行训练，一步一档向上走。</p>
+  <div class="stats">
+    <div class="stat"><b>50</b><span>基础重建期</span><i>教材框架未建立</i></div>
+    <div class="stat"><b>60</b><span>框架搭建期</span><i>选择题失分多</i></div>
+    <div class="stat"><b>70</b><span>赋分中枢突破期</span><i>术语开始规范</i></div>
+    <div class="stat"><b>80</b><span>高阶进阶期</span><i>准A段·攻逻辑题</i></div>
+    <div class="stat"><b>90+</b><span>顶尖冲刺期</span><i>含95冲刺·零失误</i></div>
+  </div>
+</header>
+<nav class="sticky"><div class="wrap">
+  <a href="#intro">01 体系说明</a><a href="#seg-50">02 50分档</a><a href="#seg-60">03 60分档</a><a href="#seg-70">04 70分档</a><a href="#seg-80">05 80分档</a><a href="#seg-90">06 90分档</a>
+</div></nav>
+
+<section id="intro">
+  <div class="sec-head"><span class="sec-no">01</span><h2>体系说明：为什么按 50-95 每 10 分一档</h2></div>
+  <p class="lead">先给总纲：高考政治不是"背多分"科目，而是"框架×术语×逻辑×材料"四位一体的能力科目。把 50 到 95 分拆成五个 10 分档，是为了让每个阶段的学生都能找到自己的精确坐标：知道自己在哪、差在哪、下一步练什么。</p>
+
+  <h3>1.1 为什么每 10 分一档</h3>
+  <p><span class="flag fact">事实</span>按等级赋分规则，思想政治是再选科目，原始分按位次转换为等级分，赋分区间为 A 100-86、B 85-71、C 70-56、D 55-41、E 40-30（教育部统一口径，见各省考试院赋分办法）。<span class="flag fact">事实</span>全国卷文综政治满分 100 分，选择题 12 题×4 分共 48 分，非选择题 4 题共 52 分；新高考单科卷政治同样为选择 48 分＋主观 52 分（如 2025 年陕晋宁青卷，满分 100、考试 75 分钟）。<span class="flag judge">判断</span>10 分一档的依据很直接：选择题每题 4 分、主观题每题 10 分上下，一次"小步提分"的量级恰好是 8-12 分——按档推进，每 1-2 个月就能看到一次可核验的档位跃迁。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>档位</th><th>阶段命名</th><th>核心画像</th><th>核心任务</th><th>预计周期</th></tr></thead>
+    <tbody>
+      <tr><td class="num">50 分</td><td>基础重建期</td><td>教材框架未建立，哲学原理不会用，选择题靠蒙</td><td>建框架、通教材、选择题先保底</td><td>1.5-2 个月</td></tr>
+      <tr><td class="num">60 分</td><td>框架搭建期</td><td>基础知识初步掌握，选择题失分多，主观题踩点不全</td><td>概念辨析、主观题"原理＋材料"起步</td><td>1.5-2 个月</td></tr>
+      <tr><td class="num">70 分</td><td>赋分中枢突破期</td><td>赋分中枢附近（约 71 分），主观题有框架但术语不规范</td><td>术语规范、设问类型模板化</td><td>2-3 个月</td></tr>
+      <tr><td class="num">80 分</td><td>高阶进阶期</td><td>准 A 段，时政结合与逻辑推理题（假言判断/买卖合同）失分</td><td>逻辑与法律专项、时政术语升级</td><td>2-3 个月</td></tr>
+      <tr><td class="num">90 分</td><td>顶尖冲刺期</td><td>A 档顶尖（90+ 含 95 冲刺），材料分析＋术语规范＋零失误</td><td>真题精研、采分点密度、零失误管理</td><td>3 个月以上</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>1.2 政治计分口径：先看懂"赋分"再谈提分</h3>
+  <p><span class="flag fact">事实</span>思想政治、地理、化学、生物 4 门再选科目以等级赋分呈现成绩：每科原始分满分 100 分，赋分起点 30 分、满分 100 分；将原始分从高到低划为 A、B、C、D、E 五等，人数比例分别约为 15%、35%、35%、13%、2%，再按等比例转换法则分别映射到 100-86、85-71、70-56、55-41、40-30 五个分数区间，四舍五入取整（见宁夏、福建、广东、广西、江苏等省官方赋分办法）。<span class="flag fact">事实</span>赋分后考生的位次顺序与原始分顺序保持一致，原始分越高、等级分越高；再选科目只公布等级分，不公布原始分与转换过程（官方口径）。<span class="flag judge">判断</span>这意味着政治提分的本质是"提位次"：在选政治的考生群体中往前挤，比盯着一个静态原始分更有意义——这也是本分析全文以"档位"而非"绝对分"为主轴的原因。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>等级</th><th>人数比例</th><th>赋分区间</th><th>本分析对应档位</th></tr></thead>
+    <tbody>
+      <tr><td class="num">A</td><td class="num">约 15%</td><td class="num">100-86</td><td>80 分档顶部→90 分档（90+ 含 95 冲刺）</td></tr>
+      <tr><td class="num">B</td><td class="num">约 35%</td><td class="num">85-71</td><td>70 分档、80 分档主体</td></tr>
+      <tr><td class="num">C</td><td class="num">约 35%</td><td class="num">70-56</td><td>60 分档、70 分档下沿</td></tr>
+      <tr><td class="num">D</td><td class="num">约 13%</td><td class="num">55-41</td><td>50 分档顶部</td></tr>
+      <tr><td class="num">E</td><td class="num">约 2%</td><td class="num">40-30</td><td>50 分档下沿</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout gold">赋分中枢"约 71 分"从哪来：<b>官方口径</b>——B 等级赋分区间下沿即 71 分，B 等占比约 35%，是人数最密集的区间；<b>行业观察口径</b>——福建新高考历史组政治（赋分后）平均分 2021-2024 年依次约 73.5、73.3、72.7、72.9 分（高考直通车统计），与"约 71 分"中枢互相印证。<b>结论：70 分档≈半数考生所处的位置，突破 70 就超过了多数选政治的同学。</b></div>
+
+  <h3>1.3 7 本教材模块地图</h3>
+  <p><span class="flag fact">事实</span>现行统编高中思想政治教材共 7 本：必修 4 本＋选择性必修 3 本。高考命题严格依据课标与教材，7 本教材即 7 大模块，任何一本"零接触"都会在对应题区直接丢分。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>教材</th><th>模块</th><th>高考对应考查重心</th><th>典型失分点</th></tr></thead>
+    <tbody>
+      <tr><td>必修 1</td><td>中国特色社会主义</td><td>科学社会主义、中国化时代化历程、中国式现代化</td><td>历史阶段划分混淆、新思想表述不精准</td></tr>
+      <tr><td>必修 2</td><td>经济与社会</td><td>市场经济、高质量发展、新发展理念、分配与民生</td><td>经济术语不熟、措施类设问组织乱</td></tr>
+      <tr><td>必修 3</td><td>政治与法治</td><td>党的领导、人民当家作主、依法治国、基层治理</td><td>全过程人民民主、协商民主理解浅</td></tr>
+      <tr><td>必修 4</td><td>哲学与文化</td><td>唯物论、辩证法、认识论、历史唯物主义、文化传承创新</td><td>原理方法论混用、原理不会迁移</td></tr>
+      <tr><td>选必 1</td><td>当代国际政治与经济</td><td>国际格局、经济全球化、中国外交</td><td>人类命运共同体表述不完整</td></tr>
+      <tr><td>选必 2</td><td>法律与生活</td><td>民事权利、合同、侵权责任、婚姻家庭、就业与劳动</td><td>买卖合同、侵权归责原则判断错误</td></tr>
+      <tr><td>选必 3</td><td>逻辑与思维</td><td>概念、判断（含假言判断）、推理、辩证思维、创新思维</td><td>充分/必要/充要条件判断混淆</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>1.4 2026 全国卷政治真题信号（供 2027 届及以后备考参照）</h3>
+  <p><span class="flag fact">事实</span>教育部教育考试院 2026 年 6 月发布思想政治全国卷评析（光明日报、教育在线等转载）：第 16 题以某区政协对口协商与提案办理"回头看"为情境，考查全过程人民民主是最广泛、最真实、最管用的民主；第 22 题以林木折断致人损害为素材，考查侵权责任构成要件、归责原则、民法基本原则与诉讼解决方式；第 23 题考查充分条件、必要条件、充要条件假言判断及联言判断；第 39 题要求运用聚合思维说明嘎拉村"桃花经济"；第 41 题以公司经营活动考查混淆行为、消费者知情权、人身权等。<span class="flag judge">判断</span>这些信号共同指向三条备考主线：<b>①党的创新理论与时政情境入题常态化；②法律与逻辑模块从"了解"升级为"必考推理"；③主观题从"背结论"转向"读材料、析逻辑、用术语"</b>——与本文 80、90 分档的训练设计直接对应。</p>
+  <div class="chips">
+    <span class="chip">全过程人民民主</span><span class="chip">侵权归责原则</span><span class="chip">假言判断</span><span class="chip">聚合思维</span><span class="chip">混淆行为</span><span class="chip">人民城市</span><span class="chip">文化出海</span><span class="chip">人工智能全球治理</span>
+  </div>
+
+  <h3>1.5 数据口径分层说明</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>口径层级</th><th>本页示例</th><th>使用方式</th></tr></thead>
+    <tbody>
+      <tr><td>官方发布</td><td>等级赋分规则（各省考试院）、福建省教育考试院《2025/2026 年普通高考学科评价报告》、教育部教育考试院 2026 思想政治全国卷评析</td><td>可直接引用，作为事实标注</td></tr>
+      <tr><td>权威媒体/专家解读</td><td>光明日报专家解析、海峡教育报对福建学科评价报告的整理</td><td>交叉核验后引用</td></tr>
+      <tr><td>行业观察/机构统计</td><td>福建历史组政治赋分后平均分（高考直通车 2021-2024 统计）、真题网络收集版（学科网）</td><td>仅作趋势参考，标注"约/口径"</td></tr>
+      <tr><td>网络流传"内部数据"</td><td>各类未署名平均分、赋分"黑幕"帖</td><td>不引用</td></tr>
+    </tbody>
+  </table></div>
+  <div class="verdict"><b>核心判断：</b>50→95 不是一条直线，而是五段不同性质的爬升：低段补"知道什么"，中段补"怎么表达"，高段补"为什么这样考"。看懂赋分、建好框架、分档训练，政治是高考各科中少数"投入产出路径最清晰"的科目。</div>
+  <p class="small">注：本分析面向全国高三考生，涉及各省具体赋分参数与试卷结构以当年考试说明与正式试卷为准；本文中"50/60/70/80/90"均指等级赋分后的分数段（90 档含 95 冲刺），50 分以下考生可参照 50 分档执行。</p>
+</section>
+<section id="seg-50">
+  <div class="sec-head"><span class="sec-no">02</span><h2>50 分档 · 基础重建期</h2></div>
+  <p class="lead">定位：等级赋分后约 40-55 分区间（D 段至 E 段上沿），原始卷面通常只有 30-45 分。这个阶段的核心不是"多做题"，而是"先把教材立起来"。</p>
+
+  <div class="seg-card">
+  <h3>2.1 分数定位画像</h3>
+  <p><span class="flag fact">事实</span>全国卷文综政治满分 100 分中，选择题 48 分、主观题 52 分（掌上高考-中国教育在线口径；新高考单科卷同样为 48+52 结构）。50 分档考生常见状态：<span class="flag fact">事实</span>选择题 12 题仅能答对 5-6 题（得 20-24 分），主观题 52 分只拿 15-22 分，合卷面 35-46 分，经赋分后落入 40-55 分区间。<span class="flag judge">判断</span>这个画像的共同根源只有一个：7 本教材没有整体框架，知识是"散点"而非"结构"——所以选择题靠蒙、主观题靠抄材料凑字。</p>
+  <div class="callout">一句话画像：<b>"翻开书都眼熟，合上书全不会"</b>——知道政治考什么，但不知道每本书讲什么逻辑线；看到哲学题想不起原理，看到法律题不知道规则。</div>
+
+  <h3>2.2 到下一档的差距量化：50→60 还差 10 分</h3>
+  <p>把 10 分拆成可操作的两块：<span class="flag fact">事实</span>选择题每题 4 分——从"对 5-6 题"提到"对 8-9 题"，+8~12 分；主观题从"抄材料凑字"提到"原理点能对上 1-2 个"，+4~6 分。两项叠加即可跨过 60 分门槛。<span class="flag judge">判断</span>对 50 分档，选择题比主观题更容易先提分：选择题是"认出正确项"，主观题是"写出正确项"，前者门槛更低、见效更快，应作为第一个 30 天的主攻方向。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>拆解项</th><th>当前（50 分档）</th><th>目标（60 分档）</th><th>缺口</th><th>主攻动作</th></tr></thead>
+    <tbody>
+      <tr><td>选择题对题数</td><td class="num">5-6 / 12</td><td class="num">8-9 / 12</td><td class="num">+8~12 分</td><td>概念辨析＋排除法训练</td></tr>
+      <tr><td>主观题得分</td><td class="num">15-22 / 52</td><td class="num">22-28 / 52</td><td class="num">+4~8 分</td><td>"材料句＋原理句"两段式起步</td></tr>
+      <tr><td>教材框架</td><td>无整体认知</td><td>7 本教材能画出目录级地图</td><td>—</td><td>目录背诵＋每单元一句话概括</td></tr>
+      <tr><td>哲学原理储备</td><td>3-5 条且会混</td><td>核心原理 15 条左右能对号入座</td><td>—</td><td>原理清单卡片化</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>2.3 得分结构拆解（当前 vs 目标）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>题型板块</th><th>满分</th><th>当前预计得分</th><th>目标得分</th><th>得分率提升</th></tr></thead>
+    <tbody>
+      <tr><td>选择题（12 题）</td><td class="num">48</td><td class="num">20-24</td><td class="num">32-36</td><td>约 42%→70%</td></tr>
+      <tr><td>主观题（4 题）</td><td class="num">52</td><td class="num">15-22</td><td class="num">22-28</td><td>约 35%→48%</td></tr>
+      <tr><td>合计</td><td class="num">100</td><td class="num">35-46</td><td class="num">54-64</td><td>进入 C 段中上</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：以上为典型画像估值，具体以本人最近一次统考/联考赋分成绩为准；不同省份、不同卷型存在差异。</p>
+
+  <h3>2.4 核心失分诊断</h3>
+  <ul class="tight">
+    <li><b>框架缺失（根源）</b>：7 本教材只零散看过，说不出必修 2 讲了什么、必修 4 有哪四大板块——选择题无法定位考点，主观题不知道调哪块知识。</li>
+    <li><b>哲学原理不会用</b>：唯物论、辩证法、认识论、历史唯物主义四类原理混在一起，看到"规律"想到唯物论、看到"联系"也想唯物论——主观题全踩错点。</li>
+    <li><b>选择题靠蒙</b>：只会排除"绝对化表述"（只有、只要、唯一），不会用"关键词定位＋教材原文核对"，正确率长期在 50% 上下。</li>
+    <li><b>主观题答非所问</b>：把材料抄一遍或写"大而空"的政治正确话，不挂原理、不答设问——老师找不到给分点。</li>
+  </ul>
+  <div class="verdict"><b>诊断结论：</b>50 分档的失分不是"没背"，而是"没结构"。先补框架、再补原理、最后才谈技巧——顺序反了，做题越多越乱。</div>
+
+  <h3>2.5 提分路径（5 步）</h3>
+  <ol class="steps">
+    <li><b>第 1 步：建地图（第 1 周）</b>——把 7 本教材的目录抄成一张"知识地图"：每本书 3-4 个单元，每单元用一句话概括主线。目标：能背出地图，做题时先判断"这题考哪本书哪一单元"。</li>
+    <li><b>第 2 步：通教材（第 2-4 周）</b>——精读必修 1、2、3，每节用"讲了什么＋关键概念＋一句话原理"做三栏笔记；不要求全背，要求"知道有这个知识点、在哪本书哪一节"。</li>
+    <li><b>第 3 步：选择题排除法三招（第 4-6 周）</b>——①划绝对词（只有/只要/唯一/彻底）；②对教材原话（选项表述与教材比对）；③设问定位（考经济/政治/哲学/法律/逻辑先判模块）。每天 6 题限时训练。</li>
+    <li><b>第 4 步：主观题"两段式"起步（第 6-8 周）</b>——每道主观题强制写两段：第一段"材料说……"（概括材料），第二段"这体现/说明……"（挂一个原理）。写错原理没关系，先保证"有原理"。</li>
+    <li><b>第 5 步：哲学原理清单（第 8 周起）</b>——整理必修 4 四大板块各 5-6 条核心原理（共 20 条左右），每条配一个"关键词触发词"（如看到"因地制宜"→一切从实际出发/具体问题具体分析）。</li>
+  </ol>
+  <p><span class="flag judge">判断</span>50 分档最忌讳"平均用力"：7 本书同时抓，一个月后哪本都没立起来。正确做法是先攻必修 1-2-3 与选择题，哲学原理只做"识别不混淆"的最低要求。</p>
+
+  <h3>2.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>训练内容</th><th>时长</th><th>标准/检验方式</th></tr></thead>
+    <tbody>
+      <tr><td>周一-周二</td><td>教材精读必修 1-2（每节三栏笔记）</td><td class="num">40 分钟/天</td><td>能不看书写出本节"关键概念"</td></tr>
+      <tr><td>周三</td><td>选择题 6 题限时训练（15 分钟）＋错题归类</td><td class="num">35 分钟</td><td>正确率记录，先求 50%→60%</td></tr>
+      <tr><td>周四-周五</td><td>必修 3 精读＋每单元"一句话主线"</td><td class="num">40 分钟/天</td><td>能默写 4 个单元主线</td></tr>
+      <tr><td>周六</td><td>主观题 1 道"两段式"写作＋对照答案勾点</td><td class="num">45 分钟</td><td>找出自己写的原理与答案原理差距</td></tr>
+      <tr><td>周日</td><td>知识地图复述＋错题重做＋下周计划</td><td class="num">40 分钟</td><td>口述地图，错题重做正确率≥80%</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">周耗时可控：<b>每天 35-40 分钟，一周约 4.5 小时</b>。对 50 分档，稳定的小时投入比突击刷题更有效——政治最怕"三天打鱼两天晒网"的散点学习。</div>
+
+  <h3>2.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>提供"教材与地图"支持</b>：确认孩子手上有 7 本教材（含选必 3 本），必要时打印目录页贴墙上——框架学习的第一步是"看得见"。</li>
+    <li><b>用"复述"代替"检查"</b>：每周请孩子用 10 分钟"讲给你听"：这周学了哪本书哪个单元、一句话讲了什么。能讲清＝真掌握（费曼式检验）。</li>
+    <li><b>不盯分数盯趋势</b>：50 分档提分的前 4 周可能"分数不动"，因为框架在搭建、还没反映到卷面。请以"错题在减少、讲得出知识点"为阶段信号。</li>
+    <li><b>切断"背多分"的错觉</b>：孩子说"政治背背就行"时，提醒：高考政治现在考理解与逻辑，纯背只能保底（详见 1.4 真题信号）。</li>
+  </ul>
+
+  <h3>2.8 常见误区与里程碑</h3>
+  <p><span class="flag judge">判断</span>50 分档三大误区：<b>①刷题替代教材</b>——错题积累的是"不懂的散点"，不补框架则刷 500 题正确率仍在 50%；<b>②只背不默</b>——以为看熟就会，考场上提取失败；<b>③放弃主观题</b>——主观题占 52 分，哪怕每题只拿一半也是 26 分，绝不能整题空白。</p>
+  <div class="mile">
+    <div class="m"><b>1 个月目标</b><small>知识地图能完整复述；选择题正确率从约 50% 提到约 65%（12 题对 8 题左右）；主观题每道都能写出"材料＋原理"两段，不再整题空白。</small></div>
+    <div class="m"><b>3 个月目标</b><small>稳定进入 60 分档：选择题对 8-9 题、主观题 22-28 分；必修 1-4 核心概念能对号入座；哲学 15 条核心原理不再混淆模块。</small></div>
+  </div>
+  <div class="verdict"><b>本档一句话：</b>50 分的本质是"还没有开始学政治"，第一步不是刷题，是建框架——把 7 本书变成一张能背出来的地图。</div>
+  </div>
+</section>
+<section id="seg-60">
+  <div class="sec-head"><span class="sec-no">03</span><h2>60 分档 · 框架搭建期</h2></div>
+  <p class="lead">定位：等级赋分后约 56-70 分区间（C 段主体），原始卷面通常 50-60 分。框架开始成形，但"知道"与"得分"之间还隔着两道坎：选择题概念辨析、主观题踩点组织。</p>
+
+  <div class="seg-card">
+  <h3>3.1 分数定位画像</h3>
+  <p><span class="flag fact">事实</span>60 分档考生选择题约对 8-9 题（32-36 分），主观题 22-28 分，卷面合计 54-64 分，赋分后落在 C 段 56-70 分区间。<span class="flag judge">判断</span>这一档的共同特征是"听得懂课、翻得开书、答不全题"：基础知识初步掌握，但选择题在两三个易混概念之间反复犹豫，主观题知道要写原理却"踩点不全"——写了三条，答案有五条，每次差一点。</p>
+  <div class="callout">一句话画像：<b>"好像都会，就是拿不满"</b>——单选总错 2-3 道"似懂非懂"的题，主观题总被批"要点不全、结合材料不够"。</div>
+
+  <h3>3.2 到下一档的差距量化：60→70 还差 10 分</h3>
+  <p><span class="flag fact">事实</span>选择题从对 8-9 题提到对 10-11 题（+4~12 分），主观题从 22-28 分提到 30-36 分（+6~10 分），两项合计足以跨入 70 分档（赋分中枢约 71 分附近）。<span class="flag judge">判断</span>60→70 与 50→60 不同：这一程选择题的红利在收窄（不可能每题都对），主力提分转向主观题——从"写得出"到"写得多、踩点全"，是关键转折。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>拆解项</th><th>当前（60 分档）</th><th>目标（70 分档）</th><th>缺口</th><th>主攻动作</th></tr></thead>
+    <tbody>
+      <tr><td>选择题对题数</td><td class="num">8-9 / 12</td><td class="num">10-11 / 12</td><td class="num">+4~12 分</td><td>易混概念清单＋设问关键词训练</td></tr>
+      <tr><td>主观题得分</td><td class="num">22-28 / 52</td><td class="num">30-36 / 52</td><td class="num">+6~10 分</td><td>踩点训练＋"原理-材料-结论"三段式</td></tr>
+      <tr><td>高频考点覆盖</td><td>必修 1-4 主干已过一遍</td><td>选必 1-3 框架建立，七模块全覆盖</td><td>—</td><td>选必 3 本各建单元地图</td></tr>
+      <tr><td>时政术语储备</td><td>零散（高质量发展等个别词）</td><td>高频术语 30+ 条能写进答案</td><td>—</td><td>术语库积累本</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>3.3 得分结构拆解（当前 vs 目标）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>题型板块</th><th>满分</th><th>当前预计得分</th><th>目标得分</th><th>得分率提升</th></tr></thead>
+    <tbody>
+      <tr><td>选择题（12 题）</td><td class="num">48</td><td class="num">32-36</td><td class="num">40-44</td><td>约 70%→88%</td></tr>
+      <tr><td>主观题（4 题）</td><td class="num">52</td><td class="num">22-28</td><td class="num">30-36</td><td>约 48%→63%</td></tr>
+      <tr><td>合计</td><td class="num">100</td><td class="num">54-64</td><td class="num">70-80</td><td>进入 B 段下沿</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>3.4 核心失分诊断</h3>
+  <ul class="tight">
+    <li><b>易混概念辨析不足</b>：国体与政体、民主与专政、人民政协与人大、市场经济三主体（政府/企业/消费者）、根本政治制度与基本政治制度——选择题的"送命题"全来自这一类。</li>
+    <li><b>主观题踩点不全</b>：只写"大点"不写"小点"，或漏掉"结合材料"这一半分数——答案有框架但"枝干不全"。</li>
+    <li><b>设问类型不适应</b>：体现类、说明类、措施类、意义类、评析类的答题结构混着用，同一套模板硬套所有题。</li>
+    <li><b>选必模块空白</b>：多数 60 分档考生还没系统过选必 2（法律）、选必 3（逻辑），这两本在选择题与主观题中合计占 15-20 分，是隐形失分区。</li>
+  </ul>
+  <div class="verdict"><b>诊断结论：</b>60 分档的失分从"没框架"转为"细节失分"：概念差一点、要点少一点、术语糙一点。提分策略相应转为"精修"，靠系统化清单逐一消灭细节。</div>
+
+  <h3>3.5 提分路径（5 步）</h3>
+  <ol class="steps">
+    <li><b>第 1 步：易混概念清单（第 1-2 周）</b>——把必修 1-4 的高频易混概念做成对比表（至少 15 组），每组写"区别一句话＋各自关键词"。选择题凡犹豫的题，回清单查定位。</li>
+    <li><b>第 2 步：主观题"三段式"改造（第 3-5 周）</b>——每道主观题强制写三段：原理句（教材原话）＋材料句（扣材料信息）＋结论句（回扣设问）。用"踩点给分"的标准给自己评分，数一数每道题采分点是否 ≥3 个。</li>
+    <li><b>第 3 步：设问类型模板化（第 5-7 周）</b>——整理体现类（答"材料体现了……"）、措施类（答"应……，因为……"）、意义类（答"有利于……"）、评析类（先判断后分析）四套骨架，练到看设问就知道结构。</li>
+    <li><b>第 4 步：选必模块补课（第 7-10 周）</b>——选必 1（国际）、选必 2（法律）、选必 3（逻辑）各用 1 周建单元地图＋过核心概念（如侵权归责、假言判断），先做到选择题不空白。</li>
+    <li><b>第 5 步：时政术语库（贯穿）</b>——建立积累本：全过程人民民主、高质量发展、新质生产力、中国式现代化、人类命运共同体等高频术语，每个词写"含义＋适用设问"，每周固定抄 3 条、用 1 次。</li>
+  </ol>
+  <p><span class="flag judge">判断</span>60 分档最容易"虚假努力"：把时间花在抄笔记、做漂亮的错题本上，但正确率与得分率不动。检验标准只有两个——<b>选择题正确率是否过 85%、主观题每题采分点是否够 3 个</b>，其余形式都可不做。</p>
+
+  <h3>3.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>训练内容</th><th>时长</th><th>标准/检验方式</th></tr></thead>
+    <tbody>
+      <tr><td>周一-周二</td><td>易混概念清单过 5 组＋选择题 6 题限时</td><td class="num">45 分钟/天</td><td>清单能脱稿复述 5 组区别</td></tr>
+      <tr><td>周三</td><td>主观题 1 道"三段式"写作＋按答案勾采分点</td><td class="num">45 分钟</td><td>采分点 ≥3 个，材料句必须出现</td></tr>
+      <tr><td>周四-周五</td><td>选必 2/选必 3 单元地图＋核心概念 10 条</td><td class="num">40 分钟/天</td><td>能说出"侵权构成四要件""三种假言判断区别"</td></tr>
+      <tr><td>周六</td><td>整卷限时模拟（选择+2 主观）＋错题归类</td><td class="num">70 分钟</td><td>选择题正确率目标 75%→85%</td></tr>
+      <tr><td>周日</td><td>术语库抄 3 条＋本周错题重做＋设问模板复盘</td><td class="num">45 分钟</td><td>错题重做正确率≥85%</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">周耗时约 5 小时。这一档的关键词是<b>"结构化重复"</b>：清单、模板、术语库都是可复用的结构，每周重复使用，比每次从头翻书高效得多。</div>
+
+  <h3>3.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>见证"踩点"进步</b>：孩子的卷面会开始出现"有结构的三段"，请留意主观题是否从"一坨字"变成"分点作答"——这是 60→70 最重要的可视信号。</li>
+    <li><b>提供"术语场景"</b>：吃饭时聊新闻，让孩子用 1 个政治术语点评（如"这项政策体现了……"），把术语库从纸面变口头，考场上才提取得出。</li>
+    <li><b>稳住情绪不折腾</b>：60 分档孩子容易自我怀疑（"背了还是 60 分"），请解释：框架期提分有"平台期"，前 4-6 周可能平缓，第 7 周起选必模块补上后会明显跃升。</li>
+    <li><b>协助定"小里程碑"</b>：与孩子约定"下周选择题多对 1 题"或"主观题多 1 个采分点"这类 1 周级小目标，逐周兑现。</li>
+  </ul>
+
+  <h3>3.8 常见误区与里程碑</h3>
+  <p><span class="flag judge">判断</span>60 分档三大误区：<b>①只练选择不练主观</b>——主观 52 分是 70 分档的门票，选择满分也过不了 70；<b>②模板万能化</b>——四类设问模板必须按题调整，硬套反丢分；<b>③忽视选必三本</b>——选必 2/3 的 15-20 分是 60 分档考生与 70 分档考生的"分水岭"。</p>
+  <div class="mile">
+    <div class="m"><b>1 个月目标</b><small>易混概念清单 15 组基本掌握；选择题正确率稳定 75% 以上（对 9-10 题）；主观题每题能写"原理＋材料"且采分点 ≥2 个。</small></div>
+    <div class="m"><b>3 个月目标</b><small>稳定进入 70 分档：选择题对 10-11 题、主观题 30-36 分；选必 1-3 框架建立；术语库积累 30+ 条并能写进答案。</small></div>
+  </div>
+  <div class="verdict"><b>本档一句话：</b>60 分的本质是"框架有了但细节糙"，用清单、模板、术语库三件套精修细节，70 分就在下一程。</div>
+  </div>
+</section>
+<section id="seg-70">
+  <div class="sec-head"><span class="sec-no">04</span><h2>70 分档 · 赋分中枢突破期</h2></div>
+  <p class="lead">定位：等级赋分后约 71-80 分区间（B 段中下部），恰好处在赋分中枢（约 71 分）之上——已经超过多数选政治考生。这一档的敌人从"不会"变成"不精"：术语不规范、采分点不密、时政结合浅。</p>
+
+  <div class="seg-card">
+  <h3>4.1 分数定位画像</h3>
+  <p><span class="flag fact">事实</span>按赋分规则，B 等级占比约 35%、赋分区间 85-71，是人数最密集的区间；福建新高考历史组政治（赋分后）平均分 2021-2024 年约 73.5/73.3/72.7/72.9 分（行业统计口径），与"赋分中枢约 71 分"互相印证。<span class="flag fact">事实</span>70 分档考生卷面通常 70-78 分：选择题对 10-11 题（40-44 分），主观题 30-36 分。<span class="flag judge">判断</span>这意味着 70 分档考生已是"会学政治"的人：知识不缺、框架不散，差的是"把会的东西按评分标准写出来"——主观题术语口语化、采分点密度不够，是这一档最典型的"10 分漏洞"。</p>
+  <div class="callout">一句话画像：<b>"道理都懂，一写就俗"</b>——答题时用自己的话说原理（"政府管得更多更好了"），而不是教材语言（"政府履行经济职能、加强宏观调控"）；要点写了不少，但每个点都"差半口气"。</div>
+
+  <h3>4.2 到下一档的差距量化：70→80 还差 10 分</h3>
+  <p><span class="flag fact">事实</span>70→80 的 10 分主要来自主观题：从 30-36 分提到 38-44 分（+6~10 分），选择题从对 10-11 题到冲击全对（+0~8 分）。<span class="flag judge">判断</span>这一程的选择题已接近能力上限，再往上靠"查漏"而非"加练"；真正的增长引擎是主观题"术语升级＋采分点加密"——把每个要点从"对一半"打磨到"全对"，是 80 分档的入场券。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>拆解项</th><th>当前（70 分档）</th><th>目标（80 分档）</th><th>缺口</th><th>主攻动作</th></tr></thead>
+    <tbody>
+      <tr><td>主观题术语</td><td>口语化，教材语言用不熟</td><td>关键术语原话化（职能/机制/制度/体系）</td><td class="num">+4~6 分</td><td>术语原话对照训练</td></tr>
+      <tr><td>主观题采分点</td><td>每题 3-4 个点、有漏</td><td>每题 4-6 个点、密度达标</td><td class="num">+3~5 分</td><td>答案重构＋逐句勾点</td></tr>
+      <tr><td>选择题</td><td class="num">10-11 / 12</td><td class="num">11-12 / 12</td><td class="num">0~4 分</td><td>错题归因（概念/推理/审题）</td></tr>
+      <tr><td>时政结合</td><td>能提到术语但不会展开</td><td>能"术语＋材料信息＋结论"三位一体</td><td class="num">+2~4 分</td><td>时政素材每题练一遍</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>4.3 得分结构拆解（当前 vs 目标）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>题型板块</th><th>满分</th><th>当前预计得分</th><th>目标得分</th><th>得分率提升</th></tr></thead>
+    <tbody>
+      <tr><td>选择题（12 题）</td><td class="num">48</td><td class="num">40-44</td><td class="num">44-48</td><td>约 88%→96%</td></tr>
+      <tr><td>主观题（4 题）</td><td class="num">52</td><td class="num">30-36</td><td class="num">38-44</td><td>约 63%→79%</td></tr>
+      <tr><td>合计</td><td class="num">100</td><td class="num">70-80</td><td class="num">82-92</td><td>进入 B 段顶/A 段边缘</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>4.4 核心失分诊断</h3>
+  <ul class="tight">
+    <li><b>术语不规范（第一失分点）</b>：答"人民当家作主"写成"人民是国家老大"；答"协商民主"写成"大家商量着办"——意思对，但评分按术语给点，口语表达难以命中采分点。</li>
+    <li><b>采分点密度不足</b>：每道题写 3 个点就收笔，答案给 5 个点；点与点之间没有"分角度"意识（经济/政治/法律/国际/哲学各是一个采分面）。</li>
+    <li><b>时政结合浅</b>：能背出"高质量发展""中国式现代化"，但不会与材料的具体信息对接，"贴标签式"引用时政，得分点悬空。</li>
+    <li><b>逻辑题初现短板</b>：选必 3 的假言判断、联言判断、演绎推理开始出现在选择题与主观题中，70 分档考生多靠直觉判断，正确率不稳。</li>
+    <li><b>哲学大题原理方法论混用</b>：原理对、方法论写错（如用"联系的观点"回答"发展"类设问），一步错全点丢。</li>
+  </ul>
+  <div class="verdict"><b>诊断结论：</b>70 分档的提分逻辑是"翻译"：把"心里懂的话"翻译成"评分要的术语与要点"。不需要学新知识，需要换一套"答题语言系统"。</div>
+
+  <h3>4.5 提分路径（5 步）</h3>
+  <ol class="steps">
+    <li><b>第 1 步：术语原话库（第 1-3 周）</b>——把必修 1-4 与选必 3 本中"答题必用"的术语原话整理成库（至少 60 条），每条标注适用设问；写答案时强制"用库不用口语"，写完自查替换口语词。</li>
+    <li><b>第 2 步：采分点加密训练（第 3-5 周）</b>——每道主观题先列"答题角度"（从哪些层面切入，如主体层面、机制层面、价值层面），再逐角度写点；对照答案勾出自己漏掉的角度，统计"漏点率"。</li>
+    <li><b>第 3 步：答案重构法（第 5-8 周）</b>——每周精做 2 道高考真题主观题：先独立作答，再对照参考答案逐句重构（为什么这句是采分点、术语怎么换、顺序怎么排），重构 20 道题后自然形成"评分视角"。</li>
+    <li><b>第 4 步：时政"三对接"训练（第 8-10 周）</b>——每个时政主题练"术语—材料—结论"三对接：引用术语＋摘材料关键信息＋回扣设问结论，杜绝"贴标签"。</li>
+    <li><b>第 5 步：逻辑与哲学专项（第 10-12 周）</b>——选必 3 核心：三种假言判断的真假值表、演绎推理规则；必修 4 按"唯物论-辩证法-认识论-历史唯物主义"四板块整理"原理＋方法论"配对表，训练"看设问选板块"。</li>
+  </ol>
+  <p><span class="flag judge">判断</span>70 分档最有效的单项训练是"答案重构"：自己写一遍＋对照答案改一遍＝一次完整的评分视角训练。每周 2 道，一个月后主观题的组织能力会有肉眼可见的变化。</p>
+
+  <h3>4.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>训练内容</th><th>时长</th><th>标准/检验方式</th></tr></thead>
+    <tbody>
+      <tr><td>周一-周二</td><td>术语原话库过 15 条＋选择题 6 题（记归因）</td><td class="num">45 分钟/天</td><td>15 条术语能默写原话</td></tr>
+      <tr><td>周三</td><td>主观题 1 道"先列角度再作答"</td><td class="num">50 分钟</td><td>角度清单 ≥3 个，无口语表达</td></tr>
+      <tr><td>周四</td><td>真题答案重构 1 道（写-对-改三遍）</td><td class="num">55 分钟</td><td>能说出每句答案的采分逻辑</td></tr>
+      <tr><td>周五</td><td>逻辑专项：假言判断/推理 10 题</td><td class="num">40 分钟</td><td>正确率 ≥80%</td></tr>
+      <tr><td>周六</td><td>整卷限时（选择+4 主观）＋自我评分</td><td class="num">90 分钟</td><td>主观题按"角度-术语-点"自评打分</td></tr>
+      <tr><td>周日</td><td>哲学原理-方法论配对表复习＋错题复盘</td><td class="num">45 分钟</td><td>四板块配对表脱稿复述</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">周耗时约 5.5 小时。70 分档训练强度比前两档高，但重点是<b>"精度"而非"量"</b>：10 道题吃透比 50 道题刷过更能撑起 80 分。</div>
+
+  <h3>4.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>鼓励"讲题给家长听"升级版</b>：请孩子把一道主观题的答案"讲给你听"，重点听三点——有没有用教材术语、分了几个角度、有没有结合材料。三项都在，就是 80 分级的回答。</li>
+    <li><b>提供真题与答案资源</b>：近 3 年全国卷/新高考卷真题及答案打印成套，孩子需要"写-对-改"的对照材料（见 ref-list 真题来源）。</li>
+    <li><b>理解平台期</b>：术语升级期（前 4-6 周）卷面分可能不升反降——因为孩子在"改语言习惯"，这是正常过渡，请以"口头表达变专业"为阶段信号。</li>
+    <li><b>控制电子设备干扰</b>：70 分档已进入"精度训练"阶段，每周固定 2 个"无干扰整卷时段"比每天零碎学习更关键。</li>
+  </ul>
+
+  <h3>4.8 常见误区与里程碑</h3>
+  <p><span class="flag judge">判断</span>70 分档三大误区：<b>①追求"背更多"</b>——知识不缺了，缺的是输出精度，继续背教材边际收益极低；<b>②主观题只写不改</b>——写 100 道不重构的题，等于把不规范的表达重复 100 遍；<b>③忽视逻辑模块</b>——选必 3 是 2026 年及以后命题的重心之一（见 1.4 真题信号），70 分档不补，80 分档必失分。</p>
+  <div class="mile">
+    <div class="m"><b>1 个月目标</b><small>术语库 60 条基本过完，答案中口语表达明显减少；主观题每题角度 ≥3 个；选择题错误归因清晰（能说出每道错题错在概念/推理/审题哪一类）。</small></div>
+    <div class="m"><b>3 个月目标</b><small>稳定进入 80 分档：主观题 38-44 分、选择题 11-12 题；20 道真题答案重构完成；逻辑专项正确率 ≥80%。</small></div>
+  </div>
+  <div class="verdict"><b>本档一句话：</b>70 分的本质是"会而不精"，用术语原话、答题角度、答案重构三件套把输出打磨到评分标准级别，80 分近在眼前。</div>
+  </div>
+</section>
+<section id="seg-80">
+  <div class="sec-head"><span class="sec-no">05</span><h2>80 分档 · 高阶进阶期</h2></div>
+  <p class="lead">定位：等级赋分后约 82-92 分区间。需要先说明口径：按官方赋分规则，A 段为 100-86、B 段为 85-71，80 分档主体位于 B 段顶端（85-71 的上沿），即"准 A 段"——离 A 段（86 分以上）仅一步之遥，也是冲击 90+ 前的最后一块拼图。</p>
+
+  <div class="seg-card">
+  <h3>5.1 分数定位画像</h3>
+  <p><span class="flag fact">事实</span>80 分档考生卷面通常 82-90 分：选择题对 11-12 题（44-48 分），主观题 38-44 分；赋分后在多数省份落在 85-92 分。<span class="flag judge">判断</span>这一档的考生知识、术语、框架都已过关，失分集中在"高阶题型"：时政情境下的新概念理解、选必 3 逻辑推理题、选必 2 法律规则题（如买卖合同效力、侵权归责判断），以及哲学大题的深度迁移。这些题单题 4-10 分，恰好是 80→90 的全部缺口。</p>
+  <div class="callout">一句话画像：<b>"常规题全会，新情境就慌"</b>——考教材原话的题不丢分，一换成"没见过的时政素材＋推理型设问"就开始错；主观题能答满，但深度与精准度差一口气。</div>
+
+  <h3>5.2 到下一档的差距量化：80→90 还差 10 分</h3>
+  <p><span class="flag fact">事实</span>2026 全国卷政治评析显示，时政情境与逻辑推理已成命题重心：第 23 题三种假言判断＋联言判断、第 22 题侵权责任构成要件与归责原则、第 41 题混淆行为与消费者权利——这类题正是 80 分档考生的主要失分区。<span class="flag judge">判断</span>80→90 的 10 分＝逻辑题 4 分＋法律题 4 分＋时政选择题 4 分（三者常重叠）＋主观题深度 2-4 分。突破口不在"总量刷题"，而在"题型歼灭"：把易失分的高阶题型逐个做透。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>拆解项</th><th>当前（80 分档）</th><th>目标（90 分档）</th><th>缺口</th><th>主攻动作</th></tr></thead>
+    <tbody>
+      <tr><td>逻辑推理题（选必3）</td><td class="num">正确率 70-75%</td><td class="num">正确率 ≥90%</td><td class="num">+3~4 分</td><td>假言判断/演绎推理专项突破</td></tr>
+      <tr><td>法律规则题（选必2）</td><td class="num">靠常识判断</td><td class="num">按构成要件分析</td><td class="num">+2~4 分</td><td>买卖合同/侵权归责/民事权利体系</td></tr>
+      <tr><td>时政情境选择题</td><td class="num">新概念易错</td><td class="num">新概念也能定位教材</td><td class="num">+2~4 分</td><td>时政术语与教材考点双向对接</td></tr>
+      <tr><td>主观题深度</td><td>要点全但深度不足</td><td>要点密＋术语精＋逻辑链完整</td><td class="num">+2~4 分</td><td>真题答案重构＋采分点密度升级</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>5.3 得分结构拆解（当前 vs 目标）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>题型板块</th><th>满分</th><th>当前预计得分</th><th>目标得分</th><th>得分率提升</th></tr></thead>
+    <tbody>
+      <tr><td>选择题（12 题）</td><td class="num">48</td><td class="num">44-48</td><td class="num">48（全对）</td><td>约 94%→100%</td></tr>
+      <tr><td>主观题（4 题）</td><td class="num">52</td><td class="num">38-44</td><td class="num">44-48</td><td>约 79%→88%</td></tr>
+      <tr><td>合计</td><td class="num">100</td><td class="num">82-90</td><td class="num">92-96</td><td>进入 A 段（86+）上沿</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：90 分档按任务口径指"90+ 含 95 冲刺"，即卷面 92-96 分、赋分 90 以上（A 段顶端）；各省赋分后实际分数以当年转换结果为准。</p>
+
+  <h3>5.4 核心失分诊断</h3>
+  <ul class="tight">
+    <li><b>逻辑推理题靠感觉</b>：充分条件假言判断"前件真则后件真、后件假则前件假"的等价规则不熟，题干一长就乱；联言判断与选言判断混用——2026 年第 23 题正是此类（官方评析确认）。</li>
+    <li><b>法律题凭常识不凭规则</b>：买卖合同成立要件、侵权责任构成四要件（侵权行为、损害事实、因果关系、主观过错）、归责原则（过错/无过错/过错推定）判断错误——2026 年第 22 题"林木折断致人损害"即考归责原则。</li>
+    <li><b>时政新概念"接不住"</b>：试卷用新材料（如"全过程人民民主""人工智能全球治理"）设问，考生只认得旧概念，无法把新情境翻译回教材考点。</li>
+    <li><b>主观题"全而不深"</b>：要点数量够了，但每个点只有 1 句、没有"原理-分析-结论"的逻辑链，被判"要点对但论证不足"，单题丢 2-3 分。</li>
+  </ul>
+  <div class="verdict"><b>诊断结论：</b>80 分档的失分有清晰的题型指纹——逻辑、法律、时政新情境三类"高阶题"。破法不是泛泛复习，而是按题型逐个"歼灭"，配合同步升级的主观题论证深度。</div>
+
+  <h3>5.5 提分路径（5 步）</h3>
+  <ol class="steps">
+    <li><b>第 1 步：逻辑专项歼灭（第 1-3 周）</b>——选必 3 集中突破：概念外延关系、三种假言判断的真值表与等值变形、演绎推理规则（三段论）、归纳与类比。每日 8 题限时，错题逐条写"规则依据"。</li>
+    <li><b>第 2 步：法律规则体系化（第 3-5 周）</b>——选必 2 按"民事权利体系-合同-侵权-婚姻家庭-就业-争议解决"六块整理；重点练"案例判断"：给一段情境，判断合同是否有效、谁担责、依据哪条规则。</li>
+    <li><b>第 3 步：时政-教材双向对接（第 5-8 周）</b>——建立"新概念-旧考点"映射表：如"全过程人民民主→人民代表大会制度/协商民主/基层民主"；"新质生产力→新发展理念/高质量发展/创新驱动"。每周精读 2 个时政专题并做映射。</li>
+    <li><b>第 4 步：主观题论证链升级（第 8-11 周）</b>——每个采分点写成"原理句＋分析句＋回扣句"三句链；对照真题参考答案，把"单句要点"重构为"完整论证"，训练 15 道真题。</li>
+    <li><b>第 5 步：高阶题型错题银行（贯穿）</b>——单开一本"高阶错题本"，只收逻辑题、法律题、时政新情境题三类；每道错题写"题型-规则-复盘"，每周重做一遍，直到正确率 ≥90%。</li>
+  </ol>
+  <p><span class="flag judge">判断</span>80 分档不再适合"大水漫灌"：每天做 30 道常规题不如每天做 8 道高阶题＋3 道真题重构。把时间押在失分指纹上，90 分的路才走得通。</p>
+
+  <h3>5.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>训练内容</th><th>时长</th><th>标准/检验方式</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>逻辑专项 8 题（假言/联言/三段论）</td><td class="num">45 分钟</td><td>正确率 ≥80%，错题写规则依据</td></tr>
+      <tr><td>周二</td><td>法律案例判断 6 题（合同/侵权/权利）</td><td class="num">45 分钟</td><td>能口述每个判断的构成要件依据</td></tr>
+      <tr><td>周三</td><td>时政专题精读 1 个＋映射表更新</td><td class="num">50 分钟</td><td>能说出新概念对应的 2-3 个教材考点</td></tr>
+      <tr><td>周四</td><td>真题主观题重构 1 道（论证链升级）</td><td class="num">55 分钟</td><td>每点含"原理-分析-回扣"三句</td></tr>
+      <tr><td>周五</td><td>高阶错题本重做＋选择题 6 题</td><td class="num">45 分钟</td><td>错题重做正确率 ≥90%</td></tr>
+      <tr><td>周六</td><td>整卷限时模拟（全真节奏）＋评分</td><td class="num">90 分钟</td><td>选择错题 ≤1 题，主观失分点标注</td></tr>
+      <tr><td>周日</td><td>本周高阶题型复盘＋下周专题规划</td><td class="num">40 分钟</td><td>能总结本周失分的"题型指纹"</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">周耗时约 6 小时。80 分档的节奏关键词是<b>"全真"</b>：每周至少 1 次整卷限时模拟，训练考场节奏与取舍；高阶题型与整卷交替进行，避免"只会专题、不会整卷"。</div>
+
+  <h3>5.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>理解"题型攻坚期"</b>：80 分档提分有明确的主攻方向（逻辑/法律/时政），请支持孩子把每周时间向这三块倾斜，不必担心"其他内容荒废"。</li>
+    <li><b>提供权威真题资源</b>：近 3-5 年全国卷与新高考卷政治真题（含官方评析）是核心教材，比市面模拟卷更值得投入（来源见 ref-list）。</li>
+    <li><b>关注心理状态</b>：80 分档考生可能因"一两次模拟没到 90"焦虑，请把预期锚在"高阶题型正确率"而非单次分数——题型突破了，分数自然跟上。</li>
+    <li><b>协助做"失分指纹"统计</b>：与孩子一起把每周错题按"逻辑/法律/时政/其他"四类计数，看到"某类在减少"就是最直观的进步证据。</li>
+  </ul>
+
+  <h3>5.8 常见误区与里程碑</h3>
+  <p><span class="flag judge">判断</span>80 分档三大误区：<b>①用模拟卷替代真题</b>——模拟卷的时政素材与命题逻辑与高考有偏差，真题评析才是高阶题型的"标准答案"；<b>②逻辑题背答案不背规则</b>——假言判断必须理解真值关系，换情境即失效；<b>③主观题追求"写满"而非"写准"</b>——写满不等于踩点，论证链完整才是 A 段标准。</p>
+  <div class="mile">
+    <div class="m"><b>1 个月目标</b><small>逻辑专项正确率 ≥80%；法律案例判断能写出构成要件依据；高阶错题本累计 30 道并完成一轮重做。</small></div>
+    <div class="m"><b>3 个月目标</b><small>稳定进入 90 分档：选择题全对或错 ≤1 题；主观题 44-48 分；逻辑/法律两类题正确率 ≥90%；时政映射表覆盖 20 个专题。</small></div>
+  </div>
+  <div class="verdict"><b>本档一句话：</b>80 分的本质是"常规题已满、高阶题未破"，按题型指纹逐个歼灭逻辑、法律、时政三类难题，就是通往 90+ 的最后一条通道。</div>
+  </div>
+</section>
+<section id="seg-90">
+  <div class="sec-head"><span class="sec-no">06</span><h2>90 分档 · 顶尖冲刺期</h2></div>
+  <p class="lead">定位：等级赋分后 90 分以上（A 段顶端，含 95 冲刺），卷面通常 92-96 分。这是全体选政治考生前 1-3% 的位置：材料分析有深度、术语高度规范、答题近乎零失误。最后一程拼的不是知识，是"细节、状态与稳定性"。</p>
+
+  <div class="seg-card">
+  <h3>6.1 分数定位画像</h3>
+  <p><span class="flag fact">事实</span>按赋分规则，A 等级人数约占 15%，赋分区间 100-86；赋分 90 分以上意味着位次位于 A 段中上部，即全体考生的前 8% 以内（按人数比例推算口径）。<span class="flag fact">事实</span>90 分档考生卷面结构：选择题全对或错 ≤1 题（44-48 分），主观题 44-48 分。<span class="flag judge">判断</span>这一档的失分已不是"不会"，而是三类"微小损耗"：①选择题偶发 1 题的审题失误（-4 分）；②主观题个别采分点措辞不精（-2~4 分）；③卷面与时间分配导致的"会而未答完"（-2~3 分）。消除这三类损耗，即 90→95。</p>
+  <div class="callout">一句话画像：<b>"95 分与 90 分的差距，不在知识量，在零失误率"</b>——顶尖档的考生与 90 分档的考生答同一张卷，知识覆盖几乎无差，差的是把每个采分点写到位、把每道选择题审清楚、把时间用得刚刚好。</div>
+
+  <h3>6.2 到下一档的差距量化：90→95 还差 3-5 分</h3>
+  <p><span class="flag fact">事实</span>主观题每题 10-20 分，采分点措辞差异可造成单题 1-2 分损失；选择题 1 题 4 分。<span class="flag judge">判断</span>90→95 是"细节分"：①术语精准度（每个关键词用教材原话，+1~2 分）；②采分点密度与论证链完整（每道题少漏 1 个小点，+1~2 分）；③零失误（选择题不错、会的不失分，+0~4 分）。这三项都不需要新知识，需要的是"以评分标准为准绳"的极致复盘。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>拆解项</th><th>当前（90 分档）</th><th>目标（95 冲刺）</th><th>缺口</th><th>主攻动作</th></tr></thead>
+    <tbody>
+      <tr><td>选择题正确率</td><td class="num">11-12 / 12</td><td class="num">12 / 12</td><td class="num">0~4 分</td><td>审题陷阱清单＋限时全对训练</td></tr>
+      <tr><td>主观题术语精准度</td><td>基本规范、个别词不精</td><td>关键词全部原话化</td><td class="num">+1~2 分</td><td>真题答案逐句"原话替换"</td></tr>
+      <tr><td>采分点密度</td><td>要点全、偶漏小点</td><td>与参考答案采分点一一对应</td><td class="num">+1~2 分</td><td>采分点对照表逐题核对</td></tr>
+      <tr><td>论证链完整度</td><td>基本完整、偶有单句</td><td>每点"原理-分析-回扣"三句齐</td><td class="num">+1~2 分</td><td>答案重构直至"无单句点"</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>6.3 得分结构拆解（当前 vs 目标）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>题型板块</th><th>满分</th><th>当前预计得分</th><th>目标得分</th><th>得分率提升</th></tr></thead>
+    <tbody>
+      <tr><td>选择题（12 题）</td><td class="num">48</td><td class="num">44-48</td><td class="num">48</td><td>约 96%→100%</td></tr>
+      <tr><td>主观题（4 题）</td><td class="num">52</td><td class="num">44-48</td><td class="num">47-50</td><td>约 88%→93%</td></tr>
+      <tr><td>合计</td><td class="num">100</td><td class="num">88-96</td><td class="num">95-98</td><td>A 段顶端/接近满分</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：高考主观题评分存在合理浮动，95 分以上在多数年份为极少数；本表"目标"为理想上限，训练上以"零失误＋采分点全中"为准绳，不必苛求绝对满分。</p>
+
+  <h3>6.4 核心失分诊断</h3>
+  <ul class="tight">
+    <li><b>审题陷阱与惯性错</b>：选择题做太快或太自信，掉进"绝对化表述""设问方向（正向/逆向）""主体错位（政府/党/人大/政协）"三类陷阱，1 题 4 分。</li>
+    <li><b>采分点措辞"差半字"</b>：要点在，但关键词不精确（如写"人民民主"而非"全过程人民民主"、写"宏观调控"漏"科学"），被判"表述不准确"扣 1 分/点。</li>
+    <li><b>论证链有缺口</b>：部分要点只有"原理句"或只有"材料句"，缺"回扣设问"的收尾——单个点看起来对，组合起来不够"满"。</li>
+    <li><b>考场时间与卷面损耗</b>：文综/单科卷时间分配失衡，导致最后一道主观题"草草收尾"；或卷面涂改过多、序号混乱影响阅卷判点。</li>
+  </ul>
+  <div class="verdict"><b>诊断结论：</b>90 分档没有"大块失分"，只有"微小损耗"。提分策略＝把每一次模拟当作正式阅卷，按评分标准逐句自查，把损耗逐个归零——这就是"顶尖冲刺"的全部内容。</div>
+
+  <h3>6.5 提分路径（5 步）</h3>
+  <ol class="steps">
+    <li><b>第 1 步：真题精研三轮法（第 1-4 周）</b>——近 3-5 年全国卷/新高考卷政治真题做三轮：第一轮限时作答，第二轮对照评分标准逐句标注得失分，第三轮隔周重做检验稳定。以真题为唯一"标准教材"。</li>
+    <li><b>第 2 步：采分点对照表（第 4-8 周）</b>——每道真题主观题做一张"我的答案 vs 参考答案"对照表：逐点核对措辞、逻辑、顺序，把"差半字"的点全部替换为原话，累计 30 道后形成肌肉记忆。</li>
+    <li><b>第 3 步：审题陷阱清单（第 6-10 周）</b>——整理选择题三类陷阱（绝对化、逆向设问、主体错位）＋每类 10 道代表题；训练"先判设问方向再读选项"的习惯，限时全对训练每周 2 次。</li>
+    <li><b>第 4 步：整卷节奏固化（第 8-12 周）</b>——固定自己的时间分配模板（如选择 25 分钟、主观题 85 分钟、检查 10 分钟），每周 1-2 次全真整卷；训练"会的一定答完、难的不恋战"。</li>
+    <li><b>第 5 步：状态与卷面管理（贯穿）</b>——考前 4 周调整作息与兴奋点时段；答题按"分点编号＋留白"排版，减少涂改；建立"考前 30 分钟回顾清单"（高频术语、易错陷阱、时间模板）。</li>
+  </ol>
+  <p><span class="flag judge">判断</span>90 分档的学习方式接近"运动员训练"：知识训练早已完成，剩下的是重复、校准与稳定性。真题精研三轮法 + 采分点对照表，是所有 90+ 考生最共同的动作。</p>
+
+  <h3>6.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>训练内容</th><th>时长</th><th>标准/检验方式</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>真题第一轮限时作答（近 3 年 1 套卷的政治部分）</td><td class="num">75 分钟</td><td>选择错 ≤1 题、主观题按时完成</td></tr>
+      <tr><td>周二</td><td>真题第二轮逐句对照评分标准</td><td class="num">60 分钟</td><td>标注全部"差半字"点并替换原话</td></tr>
+      <tr><td>周三</td><td>选择题陷阱清单训练 12 题（限时 20 分钟）</td><td class="num">40 分钟</td><td>全对为目标，错 1 题即复盘归因</td></tr>
+      <tr><td>周四</td><td>主观题采分点对照表更新（2 题）</td><td class="num">55 分钟</td><td>每点达到"原理-分析-回扣"三句</td></tr>
+      <tr><td>周五</td><td>整卷限时模拟（全真）＋自我评分</td><td class="num">90 分钟</td><td>总分目标 92+，损耗点逐一记录</td></tr>
+      <tr><td>周六</td><td>错题与损耗点复盘（本周失分全部归因）</td><td class="num">50 分钟</td><td>损耗点分"审题/措辞/论证/时间"四类</td></tr>
+      <tr><td>周日</td><td>轻量复习：术语清单＋陷阱清单＋下周计划</td><td class="num">40 分钟</td><td>保持手感，避免疲劳</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">周耗时约 6.5 小时。顶尖冲刺期的核心不是"加量"，是<b>"校准"</b>：每周一套真题＋一次整卷模拟，其余时间全部用于复盘与替换。保持手感的同时，把每次练习都变成评分标准的校准。</div>
+
+  <h3>6.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>提供安静的全真模拟环境</b>：每周 1-2 次 90 分钟"无打扰整卷时段"，条件允许时按高考时间点（如上午 9 点）进行，训练生物钟与兴奋点。</li>
+    <li><b>把期望落在"稳定性"</b>：90 分档孩子偶发一次模拟 88 分会焦虑，请提醒：顶尖档看的是多次模拟的"平均线与波动"，一次波动不代表退步。</li>
+    <li><b>后勤与作息管理</b>：冲刺期睡眠与营养优先，考前 4 周规律作息；避免"加餐式"熬夜刷题——状态是 95 分的隐形变量。</li>
+    <li><b>做"倾听者"而非"督学者"</b>：这一档孩子已具备自主规划能力，家长的角色从"监督执行"转为"倾听复盘"：听他讲本周损耗点在哪，比提醒他做题更有价值。</li>
+  </ul>
+
+  <h3>6.8 常见误区与里程碑</h3>
+  <p><span class="flag judge">判断</span>90 分档三大误区：<b>①盲目刷难题偏题</b>——高考政治以主干知识与课标为纲（官方命题口径：杜绝偏题怪题超标题），偏题练习反而扰乱主干；<b>②忽视选择题</b>——1 题 4 分，选择题全对是 95 的基础盘，投入产出比高于任何主观题技巧；<b>③考前换方法</b>——冲刺期最忌推翻已磨合成熟的答题模板与时间分配，稳定即最高效率。</p>
+  <div class="mile">
+    <div class="m"><b>1 个月目标</b><small>完成近 3 年真题第一轮；选择题陷阱清单过一遍；每次整卷模拟损耗点能归因到"审题/措辞/论证/时间"四类之一。</small></div>
+    <div class="m"><b>3 个月目标</b><small>真题三轮完成、采分点对照表 30 道；连续 3 次整卷模拟稳定 92+（含一次 95+ 冲击）；考场上按固定时间模板完成且无"会而未答完"。</small></div>
+  </div>
+  <div class="verdict"><b>本档一句话：</b>90 分的本质是"知识满分、输出欠精"，用真题三轮、采分点对照、零失误管理把微小损耗逐个归零——95 不是奇迹，是校准出来的稳定。</div>
+  </div>
+</section>
+<div id="ref" style="padding:36px 0 14px">
+  <h3>数据口径与参考来源</h3>
+  <p class="lead">本文全部关键数据均标注口径：官方发布可直接引用；权威媒体转载与专家解读交叉核验后引用；行业观察与机构统计仅作趋势参考并明确标注"约/口径"。以下为主要可溯源来源，读者可自行核验。</p>
+  <h4>（一）等级赋分规则（官方）</h4>
+  <p><span class="flag fact">事实</span>思想政治等 4 门再选科目等级赋分办法为教育部统一口径，各省文件一致：原始分满分 100 分，赋分起点 30 分、满分 100 分；A/B/C/D/E 五等人数比例约 15%/35%/35%/13%/2%；赋分区间 100-86、85-71、70-56、55-41、40-30。<span class="flag fact">事实</span>福建《2025 年福建省普通高考学科评价报告》（海峡教育报整理）：历史科目组"史政地"组合汇总平均分 2025 年 454.52 分（比本科切线 450 分多 4.52 分）、2024 年 455 分、2023 年 454.24 分；《2026 年福建省普通高考学科评价报告》（海峡教育报整理）："史政地"组合汇总平均分 2026 年 458.13 分（比本科切线 458 分多 0.13 分），2026 年全省约 23.86 万考生，物理组约 18.97 万人、历史组约 4.89 万人。<span class="flag judge">判断</span>福建是全国少数公开单科平均分的省份，其"史政地"组合平均分可作为选政治考生定位的权威参照。</p>
+  <h4>（二）主要参考来源</h4>
+  <ol class="ref-list">
+    <li>宁夏教育考试院：《宁夏回族自治区普通高中学业水平选择性考试科目等级赋分办法》及解读（2026-05-21）——<a href="https://jyt.nx.gov.cn/zwgk/zfxxgkml/zdgkwj/202605/t20260521_5246662.html" target="_blank" rel="noopener noreferrer">官方赋分办法</a>、<a href="https://jyt.nx.gov.cn/zzb/zcjd_67561/202605/t20260521_5246676.html" target="_blank" rel="noopener noreferrer">官方解读说明</a></li>
+    <li>福建省教育厅：《福建省普通高中学业水平选择性考试科目赋分办法》（闽教学〔2019〕7 号）——<a href="https://jyt.fujian.gov.cn/xxgk/zywj/201904/t20190423_4855791.htm" target="_blank" rel="noopener noreferrer">福建赋分办法</a></li>
+    <li>河南日报（河南省人民政府门户网站 2025-06-16）：《新高考成绩为什么要赋分》——<a href="https://www.henan.gov.cn/2025/06-24/3173319.html" target="_blank" rel="noopener noreferrer">赋分规则权威解读</a></li>
+    <li>海峡教育报（东南网 2025-11-08）：《涨了！达到全省平均分能上本科？》——2025 年福建省普通高考学科评价报告整理——<a href="https://i.fjsen.com/wap/2025-11/08/content_32074141.htm" target="_blank" rel="noopener noreferrer">2025 福建各科平均分分析</a></li>
+    <li>海峡教育报（2026-10）：《语文↑、数学↓！达到全省平均分就能上本科？》——2026 年福建省普通高考学科评价报告整理——<a href="https://m.toutiao.com/group/7696746667696980514/" target="_blank" rel="noopener noreferrer">2026 福建各科平均分分析</a></li>
+    <li>海西晨报（2026-10）：《数学74.9分！2026年福建高考各科平均分出炉》——<a href="https://m.toutiao.com/group/7695729861830935050/" target="_blank" rel="noopener noreferrer">2026 福建考生规模与平均分</a></li>
+    <li>光明日报/光明网（2026-06-09）：《厚植家国情怀 培养创新思维——专家解析高考思想政治、历史、地理全国卷》——<a href="https://news.gmw.cn/2026-06/09/content_38818013.htm" target="_blank" rel="noopener noreferrer">2026 政史地全国卷专家解析</a></li>
+    <li>教育部教育考试院（教育在线 2026-06-08）：《2026 年高考思想政治全国卷试题评析》——第 12/13/16/20/22/23/38/39/40/41 题命题信号——<a href="https://news.eol.cn/yaowen/202606/t20260608_2742550.shtml" target="_blank" rel="noopener noreferrer">官方试题评析</a></li>
+    <li>教育部（中国教育报 2026-06-08）：《二〇二六年高考命题保持试题总体难度稳定》——29 省新高考、全国报名 1290 万——<a href="https://www.moe.gov.cn/jyb_xwfb/xw_zt/moe_357/2026/2026_zt08/mtbd/202606/t20260608_1439867.html" target="_blank" rel="noopener noreferrer">教育部官方发布</a></li>
+    <li>学科网（2026-08）：《2026 年高考全国卷文综政治高考真题（网络收集版）》——试卷结构与参考答案——<a href="https://www.zxxk.com/soft/59147907.html" target="_blank" rel="noopener noreferrer">2026 真题网络收集版</a></li>
+    <li>学科网（2026-06-08）：《高考历史冲上热搜！2026 政史地全国卷释放了哪些信号？》——<a href="https://m.zxxk.com/article/1109000.html" target="_blank" rel="noopener noreferrer">2026 政史地命题趋势梳理</a></li>
+    <li>中国教育在线·掌上高考：《文综各科多少分》——全国卷文综政治 100 分（选择 48＋主观 52）——<a href="https://www.gaokao.cn/zd/22408" target="_blank" rel="noopener noreferrer">文综卷面结构说明</a></li>
+    <li>高考直通车：《福建新高考（近四年）各科平均分统计-历史组》——政治赋分后平均分 2021-2024 约 73.5/73.3/72.7/72.9（行业统计口径）——<a href="https://imgs.app.gaokaozhitongche.com/resource/pdf/paper/202410/20241021013514_t2NbTB.pdf" target="_blank" rel="noopener noreferrer">福建各科平均分统计</a></li>
+  </ol>
+  <div class="verdict"><b>边界声明：</b>本文为教研分析，不针对个体做结论；文中分数档位、周期、提分幅度为教学经验与数据推算口径，不构成成绩承诺。各省赋分参数、试卷结构与命题趋势以当年考试说明、官方试卷及各省教育考试院发布为准。</div>
+  <p class="small">特别说明：本文"50/60/70/80/90"均指等级赋分后的分数段；50 分以下考生可参照 50 分档执行；90 分档指"90+ 含 95 冲刺"。全国卷与新高考单科卷政治卷面结构均为选择 48 分＋主观 52 分（不同年份、省份题型可能微调）。</p>
+</div>
+<footer>
+  <div class="brand">刘老师教研 · 高中政治教研 · 50-95分档提分全面分析 · 供考生与家长对照使用</div>
+  <p>本文为教研分析，不针对个体做结论，请以当年考试说明与正式试卷为准</p>
+</footer>
+</body>
+</html>

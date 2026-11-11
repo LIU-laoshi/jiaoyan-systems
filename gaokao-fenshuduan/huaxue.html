@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刘老师教研 · 高考化学50-95分数段全面分析</title>
+<style>
+:root{
+  --navy:#0f2a4a;--navy2:#16385e;--gold:#d4a853;--gold2:#b8913c;--bg:#f6f7fb;
+  --card:#ffffff;--ink:#24303f;--muted:#6b7a8c;--line:#e3e8f0;--ok:#1f7a4d;--okbg:#e8f5ee;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;font-size:16px}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 62%,#1e4a72 100%);color:#fff;padding:64px 20px 56px;text-align:center}
+.hero .kicker{display:inline-block;border:1px solid rgba(212,168,83,.55);color:#e6c684;font-size:13px;letter-spacing:2px;padding:6px 16px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:34px;font-weight:800;line-height:1.35;margin-bottom:14px;letter-spacing:.5px}
+.hero .sub{font-size:16px;color:#cdd8e8;max-width:760px;margin:0 auto}
+.hero .tier-hint{color:#e6c684;font-size:13px;letter-spacing:3px;margin-top:26px;opacity:.85}
+.hero .stats{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:16px}
+.hero .stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:12px 16px;min-width:128px}
+.hero .stat b{display:block;font-size:24px;color:#f0cd83;font-weight:800}
+.hero .stat span{font-size:12px;color:#c7d3e4}
+nav.sticky{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.97);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(15,42,74,.25)}
+nav.sticky .wrap{display:flex;overflow-x:auto;gap:2px;padding:0 12px}
+nav.sticky a{color:#dce6f3;font-size:14px;padding:12px 10px;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;transition:.2s}
+nav.sticky a:hover,nav.sticky a.active{color:#f0cd83;border-color:var(--gold)}
+section{padding:46px 0 14px;scroll-margin-top:58px}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.sec-no{flex:none;font-size:13px;font-weight:800;color:#fff;background:var(--gold);border-radius:8px;padding:3px 10px;letter-spacing:1px}
+section h2{font-size:25px;color:var(--navy);font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin-bottom:18px;max-width:860px}
+h3{font-size:19px;color:var(--navy);margin:22px 0 10px;font-weight:700}
+h4{font-size:16px;color:var(--navy2);margin:16px 0 8px;font-weight:700}
+p{margin:10px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:14px 0;box-shadow:0 1px 4px rgba(15,42,74,.05)}
+.verdict{background:linear-gradient(135deg,#fdf6e8,#f9ecd4);border:1px solid #e9d5a7;border-left:5px solid var(--gold);border-radius:12px;padding:16px 20px;margin:16px 0}
+.verdict b{color:var(--navy)}
+.flag{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:1px 8px;margin-right:6px;vertical-align:2px}
+.flag.fact{background:var(--okbg);color:var(--ok)}
+.flag.judge{background:#fdf0ef;color:#b0463a}
+.tbl-scroll{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:14.5px;min-width:560px}
+th{background:var(--navy);color:#fff;font-weight:700;padding:11px 12px;text-align:left;white-space:nowrap}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7f9fc}
+td.num{font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy);white-space:nowrap}
+.small{font-size:13px;color:var(--muted)}
+.hl{background:#fdf3d8;border-radius:4px;padding:0 4px;font-weight:700;color:#8a6414}
+ol.steps{margin:12px 0 12px 22px}
+ol.steps li{margin:9px 0}
+ul.tight{margin:10px 0 10px 22px}
+ul.tight li{margin:6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.chip{background:#eef2f8;border:1px solid #dbe3ef;color:var(--navy2);font-size:13px;font-weight:700;border-radius:999px;padding:6px 14px}
+.callout{border-left:5px solid var(--navy2);background:#eef3fa;border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;font-size:15px}
+.callout.gold{border-color:var(--gold);background:#fbf4e4}
+.kpi{font-size:26px;font-weight:800;color:var(--gold2);font-variant-numeric:tabular-nums}
+.tier-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:16px 0}
+.tier-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 12px;text-align:center;box-shadow:0 1px 4px rgba(15,42,74,.05)}
+.tier-card b{display:block;font-size:20px;color:var(--navy)}
+.tier-card span{font-size:12px;color:var(--muted)}
+.gap-row{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.gap-item{flex:1;min-width:150px;background:#f7f9fc;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.gap-item b{display:block;color:var(--navy)}
+.gap-item span{font-size:12.5px;color:var(--muted)}
+.ref-list{font-size:13.5px;color:var(--muted)}
+.ref-list li{margin:7px 0}
+.ref-list a{color:var(--navy2);text-decoration:none;border-bottom:1px dotted #a9b8cc}
+.ref-list a:hover{color:var(--gold2)}
+footer{background:var(--navy);color:#cdd8e8;margin-top:46px;padding:34px 20px 40px;text-align:center}
+footer .brand{font-size:15px;color:#f0cd83;font-weight:700;margin-bottom:8px}
+footer p{font-size:13px;color:#aebdd2;margin:5px 0}
+@media(max-width:640px){
+  .hero h1{font-size:26px}.hero .stat{min-width:110px}
+  section h2{font-size:21px}nav.sticky a{font-size:13px;padding:11px 8px}
+  .tier-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media print{
+  nav.sticky{display:none}.hero{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  section{page-break-inside:avoid}.card,.verdict,.callout{break-inside:avoid}
+  a{color:#16385e!important;text-decoration:none!important}
+}
+.refs-wrap{margin-top:56px;padding:26px 28px;background:#f7f9fc;border:1px solid var(--line);border-radius:14px}
+.refs-wrap h3{margin:0 0 10px;font-size:20px;color:var(--navy)}
+.refs-wrap>p{font-size:13.5px;color:#5b6b7e;line-height:1.8}
+.ref-list ol{margin:14px 0 0;padding-left:22px;font-size:13.5px;color:#33475c;line-height:1.85}
+.ref-list li{margin:7px 0}
+.ref-list a{color:var(--navy);text-decoration:underline;text-decoration-color:#c9d6e4;text-underline-offset:3px}
+.ref-list a:hover{color:var(--gold2);text-decoration-color:var(--gold2)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <span class="kicker">刘老师教研 · 高考分数段全面分析</span>
+  <h1>高考化学 50→95 分：<br>五档递进的全面提分分析</h1>
+  <p class="sub">面向全国高三考生与家长：把「高考化学从 50 分到 95 分」拆成 5 个可执行的分数档（50 / 60 / 70 / 80 / 90+，每 10 分一档，90 档含 95 冲刺）。每档给出分数定位画像、10 分缺口拆解、得分结构对照、核心失分诊断、提分路径、周计划、家长协同要点与里程碑；全部数据标注来源与口径分层。</p>
+  <div class="tier-hint">5 档速览 · 每 10 分一档 · 递进不重叠</div>
+  <div class="stats">
+    <div class="stat"><b>50</b><span>基础重建期<br>从断层起步</span></div>
+    <div class="stat"><b>60</b><span>概念补强期<br>抓主干</span></div>
+    <div class="stat"><b>70</b><span>中枢跃迁期<br>稳中档</span></div>
+    <div class="stat"><b>80</b><span>攻坚提档期<br>攻综合</span></div>
+    <div class="stat"><b>90+</b><span>顶尖冲刺期<br>冲 95</span></div>
+  </div>
+</header>
+<nav class="sticky"><div class="wrap">
+  <a href="#intro">01 体系说明</a><a href="#seg-50">02 50分档</a><a href="#seg-60">03 60分档</a><a href="#seg-70">04 70分档</a><a href="#seg-80">05 80分档</a><a href="#seg-90">06 90分档</a>
+</div></nav>
+<section id="intro">
+  <div class="sec-head"><span class="sec-no">01</span><h2>体系说明：为什么按 50-95 每 10 分一档</h2></div>
+  <p class="lead">先讲清一个前提：高考化学在多数新高考省份是再选科目，卷面 100 分、按等级赋分计入总分，考生与家长看到的是赋分成绩而非原始分。因此「50 分、70 分、90 分」首先是一组位次标签——每 10 分一档，对应一次从位次到能力的明确跃迁。</p>
+  <h3>1.1 为什么是「50→95、每 10 分一档」</h3>
+  <p>把提分目标切成 5 档，而不是给一份「50 分提到 95 分」的笼统方案，原因有三：<span class="flag fact">事实</span>第一，化学卷面满分 100 分、赋分满分 100 分，10 分是一个可以落到「几道题」的最小可控单元——单选 3~4 分一题，非选大题 14~15 分一题，10 分大约对应「2~3 道选择题」或「1 道大题的两个小问」；<span class="flag fact">事实</span>第二，各省化学选考卷结构高度接近：选择题约 39~48 分、非选择题约 52~61 分（详见 1.4 试卷结构地图），分数档之间的差异主要不在总分，而在「失分位置」；<span class="flag judge">判断</span>第三，50、60、70、80、90 五档学生的卡点完全不同——低分段卡在「概念与工具」（物质的量、方程式），中分段卡在「综合与图像」，高分段卡在「零失误与压轴」——一刀切的刷题方案对五类人几乎同时失效。</p>
+  <div class="verdict"><b>核心判断：</b>本体系把「高考化学从 50 分到 95 分」视为一次可拆解的位次爬升：每 10 分一档，每档只解决该档位最典型的 2~3 个失分源。档位之间不重叠、不跳跃——50 档不直接讲压轴，90 档不再重讲配平。</div>
+  <h3>1.2 五档总览</h3>
+  <div class="tier-grid">
+    <div class="tier-card"><b>50 档</b><span>基础重建期<br>赋分 E~D 段</span></div>
+    <div class="tier-card"><b>60 档</b><span>概念补强期<br>赋分 D~C 下段</span></div>
+    <div class="tier-card"><b>70 档</b><span>中枢跃迁期<br>赋分 C~B 交界</span></div>
+    <div class="tier-card"><b>80 档</b><span>攻坚提档期<br>赋分 B 上~A 边缘</span></div>
+    <div class="tier-card"><b>90+ 档</b><span>顶尖冲刺期<br>赋分 A 档高位</span></div>
+  </div>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>档位</th><th>阶段定位</th><th>赋分对应段</th><th>典型画像</th><th>主攻失分源</th><th>目标</th></tr></thead>
+    <tbody>
+      <tr><td class="num">50</td><td>基础重建期</td><td>E~D 段（约 40~55 分）</td><td>物质的量、方程式书写基础崩，元素化合物零散</td><td>概念工具 + 方程式 + 主干元素</td><td class="num">60</td></tr>
+      <tr><td class="num">60</td><td>概念补强期</td><td>D~C 下段（约 55~65 分）</td><td>基础概念尚可，周期律/有机官能团半生不熟</td><td>周期律 + 有机主线 + 离子反应</td><td class="num">70</td></tr>
+      <tr><td class="num">70</td><td>中枢跃迁期</td><td>C~B 交界（约 66~75 分）</td><td>中档选择题开始稳定，大题前两问能拿分</td><td>实验综合 + 速率平衡 + 计算规范</td><td class="num">80</td></tr>
+      <tr><td class="num">80</td><td>攻坚提档期</td><td>B 上~A 边缘（约 76~88 分）</td><td>中档题稳定，实验/流程/计算是短板</td><td>工艺流程 + 实验设计 + 计算专项</td><td class="num">90</td></tr>
+      <tr><td class="num">90+</td><td>顶尖冲刺期</td><td>A 档高位（约 89~100 分，含 95）</td><td>压轴最后一问、信息题、非智力失分</td><td>压轴拆解 + 信息迁移 + 零失误</td><td class="num">95+</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：赋分对应段为按 1.3 官方赋分区间与常见位次分布的教研推算口径，各省每年原始分—赋分映射不同，仅作定位参考，不作精确预测。</p>
+  <h3>1.3 化学计分口径：等级赋分 100 分制，只公布赋分成绩</h3>
+  <p><span class="flag fact">事实</span>在「3+1+2」新高考模式下，化学属于再选科目，卷面满分 100 分，以等级转换分（赋分）计入高考总分，赋分起点 30 分、满分 100 分；考生查询到的高考化学成绩是赋分后的成绩，原始分与转换过程不予公布（口径见<a href="https://jyt.fujian.gov.cn/ztzl/fjsgkzhgg/zctz/201906/t20190613_4899111.htm" target="_blank" rel="noopener noreferrer">福建省教育厅·选择性考试科目赋分办法（闽教学〔2019〕7号）</a>、<a href="https://gaokao.haedu.cn/550/2026/0616/152467.html" target="_blank" rel="noopener noreferrer">河南省教育考试院·2026年高考百问百答</a>等官方文件）。<span class="flag fact">事实</span>赋分按考生原始分从高到低划为 A、B、C、D、E 五等，人数比例分别约为 15%、35%、35%、13%、2%，对应赋分区间为 A 100~86、B 85~71、C 70~56、D 55~41、E 40~30。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>等级</th><th>人数比例（约）</th><th>赋分区间</th><th>化学 50~95 分档对应</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td class="num">15%</td><td class="num">100~86</td><td>90+ 档（顶尖冲刺，含 95）</td></tr>
+      <tr><td>B</td><td class="num">35%</td><td class="num">85~71</td><td>70~80 档（中枢跃迁至攻坚提档）</td></tr>
+      <tr><td>C</td><td class="num">35%</td><td class="num">70~56</td><td>60~70 档（概念补强至中枢跃迁）</td></tr>
+      <tr><td>D</td><td class="num">13%</td><td class="num">55~41</td><td>50~60 档（基础重建至概念补强）</td></tr>
+      <tr><td>E</td><td class="num">2%</td><td class="num">40~30</td><td>50 档下限附近</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag fact">事实</span>按上述区间中点与人数比例加权估算，再选科目赋分后的理论中枢约 70 分，行业解读普遍把「赋分平均分约 71 分」作为参考口径（推算口径，非官方发布）：赋分制下，50 分意味着位次大约落在全体化学考生的中后段，90+ 意味着进入前 15% 以内的 A 档高位。<span class="flag judge">判断</span>对考生最直接的含义是：化学提分本质是「提位次」，每 10 分一档的爬升，在赋分下会被等比例换算为总分竞争力——这正是本体系按档位拆解的价值所在。</p>
+  <h3>1.4 试卷结构地图：选择题与非选择题的分值口径</h3>
+  <p>全国新高考省份化学选考卷普遍为「选择题 + 非选择题」结构，满分 100 分，但各省题量与分值略有差异，以下为官方口径汇总（标注来源），用于后文各档的得分结构拆解：</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>省份口径</th><th>选择题</th><th>非选择题</th><th>时长</th><th>来源</th></tr></thead>
+    <tbody>
+      <tr><td>湖南（2025 修订，2026 起实施）</td><td class="num">14 题 × 3 分 = 42 分（单选）</td><td class="num">4 题共 58 分</td><td>75 分钟</td><td>湖南省教育考试院</td></tr>
+      <tr><td>陕西（2024 发布）</td><td class="num">14~15 题 × 3 分 = 42~45 分（单选）</td><td class="num">4 题共 55~58 分</td><td>75 分钟</td><td>陕西省教育考试院</td></tr>
+      <tr><td>江苏（2022 发布）</td><td class="num">13~14 题 × 3 分 = 39~42 分（单选）</td><td class="num">4 题共 58~61 分</td><td>75 分钟</td><td>江苏省教育考试院</td></tr>
+      <tr><td>福建 2026 实际卷</td><td class="num">10 题 × 4 分 = 40 分（单选）</td><td class="num">4 题共 60 分</td><td>75 分钟</td><td>福建省教育考试院真题（经 <a href="https://www.zxxk.com/soft/60336359.html" target="_blank" rel="noopener noreferrer">学科网·2026 福建卷真题解读</a>核验）</td></tr>
+      <tr><td>云南 2026 实际卷</td><td class="num">14 题 × 3 分 = 42 分（单选）</td><td class="num">4 题共 58 分</td><td>75 分钟</td><td>云南省 2026 选考真题</td></tr>
+      <tr><td>浙江 2026 实际卷</td><td class="num">16 题 × 3 分 = 48 分（单选）</td><td class="num">4 题共 52 分</td><td>90 分钟</td><td>浙江省 2026 选考真题</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag fact">事实</span>可见主流口径选择题约占 40~48 分（单选为主），非选择题约 52~60 分（4 道大题、多小问结构）；<span class="flag judge">判断</span>这对各档位意味着：50 档的失分大头几乎必然在选择题中后段与非选前几问，而 90 档的差距只在压轴最后 1~2 问——本体系每一档的「得分结构对照」都按此地图展开。</p>
+  <div class="callout gold">阅读提示：下文 5 个档位各含 8 个子模块（定位画像 / 缺口量化 / 得分结构 / 失分诊断 / 提分路径 / 周计划 / 家长协同 / 误区与里程碑）。请先对照 1.2 总览表确定孩子当前档位，再进入对应 section；不建议从 50 档一路读到 90 档，先聚焦本档。</div>
+</section>
+<section id="seg-50">
+  <div class="sec-head"><span class="sec-no">02</span><h2>50分档 · 基础重建期</h2></div>
+  <p class="lead">50 分档是全体系的「地基档」：此时分数低，很大程度上不是「题难」，而是「工具没配齐」——物质的量与方程式书写是高中化学的两把扳手，缺了它们，后面所有板块都在空中楼阁上做题。</p>
+  <h3>2.1 分数定位画像</h3>
+  <p><span class="flag fact">事实</span>按 1.3 的赋分区间，赋分 50 分大致落在 D 档（55~41）中下部，位次约处于全省化学考生的中后段（推算口径）；在试卷结构上（1.4），50 档学生的典型表现是：选择题 40~48 分中只能拿到 15~22 分，非选择题 52~60 分中只能拿到 20~30 分，且失分高度集中在「物质的量相关计算、方程式书写/配平、元素化合物性质辨析」三类基础题上。<span class="flag judge">判断</span>50 档最典型的画像不是「不努力」，而是「欠债结构清晰」：初中到高一上形成的概念断层，被考试一次次放大，形成「越不会越不想做、越不做越不会」的负循环。</p>
+  <div class="callout">一句话画像：<b>会背的比会算的多，会认的比会写得多</b>——认识「摩尔」「氧化还原」这些词，但一落到计算与方程式就空白。这一档的提分，本质是「把工具补齐」，不需要天赋，需要顺序。</div>
+  <h3>2.2 到下一档的差距量化：50→60 还差 10 分，缺在哪</h3>
+  <p>10 分在卷面上约等于 2~3 道选择题或 1 道大题的两个小问。对 50 档学生，这 10 分并非均匀分布，而是集中在三处：</p>
+  <div class="gap-row">
+    <div class="gap-item"><b>≈4~6 分</b><span>物质的量与阿伏加德罗常数类选择题（各省必考，多数单选 3 分/题）</span></div>
+    <div class="gap-item"><b>≈3~4 分</b><span>方程式书写/配平相关设问（非选前几问 + 元素推断）</span></div>
+    <div class="gap-item"><b>≈2~3 分</b><span>物质分类、离子共存、基础实验操作类送分题（因知识零散而丢）</span></div>
+  </div>
+  <p><span class="flag fact">事实</span>行业教研观察：不少学校每届高一学生在「物质的量」章节出现认知困难的比例约 20%（<a href="https://www.ershaedu.com/mob/NewsInfo.asp?id=1401" target="_blank" rel="noopener noreferrer">郑州二砂寄宿学校·对物质的量教学的再思考</a>，个案教研文章）；一项以 116 名高一学生为样本的四段式诊断研究显示，「摩尔质量是 1 mol 物质的相对原子（分子）质量」这一迷思概念占比达 33.6%（<a href="https://m.qikan.cqvip.com/Article/ArticleDetail?id=7108021342" target="_blank" rel="noopener noreferrer">维普·基于四段式诊断工具测查高一学生「物质的量」迷思概念</a>，2022）。<span class="flag judge">判断</span>这两组数据说明：50 档的「物质的量崩」不是个别现象，而是群体性、可诊断、可修复的——按正确顺序重学一遍，通常比继续刷题更有效。</p>
+  <h3>2.3 得分结构拆解：当前 vs 目标对照</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>题型（以 100 分卷口径）</th><th>当前 50 档典型得分</th><th>目标 60 档得分</th><th>差额</th><th>提升关键</th></tr></thead>
+    <tbody>
+      <tr><td>选择题（约 40~48 分）</td><td class="num">15~22</td><td class="num">24~30</td><td class="num">+6~10</td><td>物质分类 / 离子共存 / 物质的量基础单选全收</td></tr>
+      <tr><td>非选·元素与方程式（约 15~20 分）</td><td class="num">5~9</td><td class="num">10~13</td><td class="num">+4~5</td><td>主干方程式会写会配平，元素性质成线</td></tr>
+      <tr><td>非选·实验与流程（约 20~25 分）</td><td class="num">8~12</td><td class="num">10~14</td><td class="num">+2~3</td><td>只抢「仪器名称/操作目的」送分问</td></tr>
+      <tr><td>非选·原理与计算（约 15~20 分）</td><td class="num">4~7</td><td class="num">6~8</td><td class="num">+2</td><td>速率/平衡/焓变的基础概念判断</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">口径说明：选择题/非选分值区间取自 1.4 各省官方试卷结构；「当前得分」为 50 档学生的教研归纳区间（行业观察口径），非任何省份官方统计数据。</p>
+  <h3>2.4 核心失分诊断</h3>
+  <p>50 档的失分可以压缩为四类，建议先做一次「错题分类统计」再对症下药：</p>
+  <ul class="tight">
+    <li><b>概念工具缺失（占比最高）</b>：物质的量、摩尔质量、气体摩尔体积、物质的量浓度四件套换算不过关，凡是带 n、M、V、c 的题直接放弃——这是 50 档第一主因。</li>
+    <li><b>方程式书写不规范</b>：产物写错（如铁与稀硝酸、过量的碱反应）、配平靠猜、漏条件漏↑↓——非选择题扣分重灾区。</li>
+    <li><b>元素化合物零散</b>：Na、Al、Fe、Cl、S、N 六大主干各自为战，考到「性质—用途」就懵，本质是缺一张「价类二维图」。</li>
+    <li><b>审题与基础操作</b>：送分题（仪器名称、基本操作判断）因不熟悉课本实验而丢，非常可惜。</li>
+  </ul>
+  <h3>2.5 提分路径（4 步，做什么 / 怎么做 / 多久见效）</h3>
+  <ol class="steps">
+    <li><b>第 1 步：重建「物质的量四件套」（第 1~2 周）</b>——把 n=m/M、n=V/Vm、n=c·V、N=n·NA 四条公式抄成一张卡，每个公式配 1 道例题亲手算通，再限时 10 分钟做 5 道选择。见效标志：阿伏加德罗常数类单选从「连蒙」到「会算」。</li>
+    <li><b>第 2 步：方程式配平过关（第 3~4 周）</b>——只练高频 20 条：钠与水、铝与碱、铁与氯气、浓稀硝酸与金属、二氧化硫漂白、氯气与碱等；先写产物再配平，配平用「原子守恒+电荷守恒」双校验。见效标志：非选方程式小问得分率到 70%。</li>
+    <li><b>第 3 步：六大主干元素成线（第 5~8 周）</b>——用「价类二维」把 Na/Al/Fe/Cl/S/N 各画一张图：横轴价态、纵轴物质类别，旁边标关键反应方程式。见效标志：元素推断题不再全靠猜。</li>
+    <li><b>第 4 步：送分题清零（全程并行）</b>——课本实验的仪器、操作、现象过一遍，把「物质分类、离子共存、化学与生活」三块基础单选练到满分。见效标志：选择题总分从 15~22 提到 24~30。</li>
+  </ol>
+  <div class="verdict"><b>阶段判断：</b>50 档到 60 档，理论上 2~3 个月可以完成，前提是「顺序正确 + 每周定量」：先工具、再方程式、后元素，不要一上来就刷综合卷——综合卷会把缺口继续藏起来。</div>
+  <h3>2.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时段</th><th>周一~周三</th><th>周四~周五</th><th>周末（2~3 小时）</th></tr></thead>
+    <tbody>
+      <tr><td>第 1~2 周</td><td>物质的量概念课 40 分钟 + 公式抄卡</td><td>每天 5 道物质的量选择限时 10 分钟</td><td>1 套基础卷只做选择题，错题归入四类诊断表</td></tr>
+      <tr><td>第 3~4 周</td><td>每天 5 条方程式「写—配—验」</td><td>非选方程式专项 30 分钟</td><td>方程式 20 条过关测试，错一条重写三遍</td></tr>
+      <tr><td>第 5~8 周</td><td>每两天一张「价类二维」图 + 主干方程式</td><td>元素推断选择 10 题限时</td><td>半套卷（选择 + 非选前两题）计时 50 分钟</td></tr>
+      <tr><td>全程</td><td>错题本按「概念/方程式/元素/审题」四类归档</td><td>每周统计四类占比</td><td>消灭占比最高的一类，再进入下一周</td></tr>
+    </tbody>
+  </table></div>
+  <h3>2.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>不盯总分，盯「三类题」</b>：每周只看孩子能不能独立完成物质的量计算、写对 3 条方程式、说清 1 个元素的性质线——比分数更能反映地基是否在重建。</li>
+    <li><b>给「顺序」而非给「压力」</b>：50 档最忌家长要求「把卷子刷完」，更忌拿 90 分同学对比；请允许孩子先做「减法」——只做基础题，难题直接跳过不内耗。</li>
+    <li><b>提供可核验的小闭环</b>：每周末 20 分钟让孩子「讲一道今天做对的题」给你听（费曼法），讲不清=没真会，这是最廉价的检测。</li>
+    <li><b>管理情绪阈值</b>：此阶段 1~2 个月内分数可能反复，家长需提前约定「看趋势不看单次」，避免一次周测波动引发放弃。</li>
+  </ul>
+  <h3>2.8 常见误区与里程碑</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间节点</th><th>里程碑（可核验）</th><th>常见误区</th></tr></thead>
+    <tbody>
+      <tr><td>第 1 个月</td><td>物质的量四件套计算零障碍；20 条高频方程式配平正确率 ≥80%；选择题较起点 +6 分左右</td><td>误区 1：先刷综合卷「找感觉」——只会巩固错误方法；误区 2：只背不写，方程式到考场上还是手生</td></tr>
+      <tr><td>第 3 个月</td><td>六大主干元素「价类二维」图各能默画；模拟考选择题 24~30 分；总分进入 55~65 区间</td><td>误区 3：把「懂了」当「会了」，不落笔；误区 4：与同学比进度，跳过自己没补完的章节</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">数据与来源：赋分区间见 <a href="https://jyt.nx.gov.cn/zwgk/zfxxgkml/zdgkwj/202605/t20260521_5246662.html" target="_blank" rel="noopener noreferrer">宁夏教育厅·等级赋分办法（2026）</a>、<a href="https://gaokao.haedu.cn/550/2026/0616/152467.html" target="_blank" rel="noopener noreferrer">河南省教育考试院·2026年高考百问百答（等级赋分）</a>；试卷结构见 <a href="https://jyt.hunan.gov.cn/jyt/sjyt/hnsjyksy/web/ksyzcfg/202512/t20251203_33861445.html" target="_blank" rel="noopener noreferrer">湖南省教育考试院·试卷结构（2025 修订）</a>；物质的量认知困难与迷思概念见 <a href="https://www.ershaedu.com/mob/NewsInfo.asp?id=1401" target="_blank" rel="noopener noreferrer">郑州二砂寄宿学校教研文章</a>、<a href="https://m.qikan.cqvip.com/Article/ArticleDetail?id=7108021342" target="_blank" rel="noopener noreferrer">维普·四段式诊断研究（2022）</a>。</p>
+</section>
+<section id="seg-60">
+  <div class="sec-head"><span class="sec-no">03</span><h2>60分档 · 概念补强期</h2></div>
+  <p class="lead">60 档与 50 档的分水岭在于：物质的量与基础方程式已经「能做了」，但两大模块「半生不熟」——元素周期律推断靠蒙、有机官能团只认名字不认反应。这一档的提分逻辑是「把半熟煮透」。</p>
+  <h3>3.1 分数定位画像</h3>
+  <p><span class="flag fact">事实</span>按 1.3 赋分区间，赋分 60 分大致落在 D 档上沿到 C 档下段（约 55~65 分，推算口径）；典型表现为：选择题能稳定拿到前 8~10 题的基础分，但一进入「周期律推断、元素化合物综合、有机基础」三类中档题就掉链子；非选择题能完成第一问（送分问），从第二问开始大面积失分。<span class="flag judge">判断</span>60 档学生最典型的认知特征是「局部正确」：单点概念都会，一放到「结构—性质—用途」的链条里就断——缺的不是记忆，而是「把点连成线」的组织能力。</p>
+  <div class="callout">一句话画像：<b>基础题不慌、中档题心慌</b>——会做「是什么」，不会做「为什么、还能怎么变」。这一档提分靠「专题织网」，不靠加题量。</div>
+  <h3>3.2 到下一档的差距量化：60→70 还差 10 分，缺在哪</h3>
+  <div class="gap-row">
+    <div class="gap-item"><b>≈3~4 分</b><span>元素周期律/周期表推断题（位置—结构—性质联动，各省中档单选常客）</span></div>
+    <div class="gap-item"><b>≈2~3 分</b><span>有机基础（官能团性质、反应类型、简单同分异构体）</span></div>
+    <div class="gap-item"><b>≈2~3 分</b><span>离子方程式/氧化还原概念辨析（中档单选 + 非选前几问）</span></div>
+    <div class="gap-item"><b>≈1~2 分</b><span>速率—平衡图像入门题（看懂图就得分，看不懂全丢）</span></div>
+  </div>
+  <p><span class="flag fact">事实</span>从历年各省卷看，周期律推断与有机基础几乎每卷必考、且均在中档位置设问（口径见 1.4 官方试卷结构与 2026 真题分布观察）；<span class="flag judge">判断</span>这意味着 60→70 的 10 分是最「可设计」的 10 分：四个缺口全是高频考点，按专题各攻 2 周，得分确定性远高于在压轴题上碰运气。</p>
+  <h3>3.3 得分结构拆解：当前 vs 目标对照</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>题型（以 100 分卷口径）</th><th>当前 60 档典型得分</th><th>目标 70 档得分</th><th>差额</th><th>提升关键</th></tr></thead>
+    <tbody>
+      <tr><td>选择题（约 40~48 分）</td><td class="num">24~30</td><td class="num">30~36</td><td class="num">+6~8</td><td>周期律 / 离子反应 / 图像入门题拿下</td></tr>
+      <tr><td>非选·元素与方程式（约 15~20 分）</td><td class="num">10~13</td><td class="num">12~15</td><td class="num">+2~3</td><td>方程式从「会配」到「会写陌生反应」</td></tr>
+      <tr><td>非选·实验与流程（约 20~25 分）</td><td class="num">10~14</td><td class="num">12~16</td><td class="num">+2~3</td><td>前两问稳定得分，第三问开始能动手</td></tr>
+      <tr><td>非选·原理与计算（约 15~20 分）</td><td class="num">6~8</td><td class="num">8~11</td><td class="num">+2~3</td><td>速率、平衡移动、焓变概念题会判断</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">口径说明：「当前得分」为 60 档学生的教研归纳区间（行业观察口径）；选择/非选分值区间取自 1.4 各省官方试卷结构。</p>
+  <h3>3.4 核心失分诊断</h3>
+  <ul class="tight">
+    <li><b>周期律「背了不会用」</b>：元素周期表能默背，但「推断元素—比较性质—预测用途」联动题做不对，缺「位—构—性」三向推理框架。</li>
+    <li><b>有机「认名不认反应」</b>：官能团名称会写，但加成/取代/消去/氧化还原的反应类型判断、反应条件书写不过关；同分异构体数数靠猜。</li>
+    <li><b>离子方程式「漏离子」</b>：强弱电解质拆分、电荷守恒、量的关系（少量/过量）处理不稳，是 60 档非选丢分第二主因。</li>
+    <li><b>图像题「读图能力缺」</b>：速率—时间、浓度—时间、pH—体积等图像题，纵轴横轴单位不先看清楚就答题，一错一串。</li>
+  </ul>
+  <h3>3.5 提分路径（4 步，做什么 / 怎么做 / 多久见效）</h3>
+  <ol class="steps">
+    <li><b>第 1 步：周期律织网（第 1~2 周）</b>——建立「位—构—性」三栏表：位置（周期/族）→结构（电子排布/最外层电子数）→性质（半径/金属性非金属性/最高价氧化物对应水化物酸性），每推断一道题按表填空。见效标志：周期律单选正确率从 50% 到 80%。</li>
+    <li><b>第 2 步：有机官能团主线（第 3~4 周）</b>——把官能团按「结构—性质—代表反应—鉴别」四栏做成卡片：碳碳双键、羟基、醛基、羧基、酯基、氨基、卤原子各一张；反应类型按「断键位置」判断。见效标志：反应类型判断不再犹豫。</li>
+    <li><b>第 3 步：离子反应与氧化还原补漏（第 5~6 周）</b>——离子方程式专项：强弱电解质清单 + 少量/过量问题（如 NaHCO3 与 Ca(OH)2 的量变）+ 电荷守恒自检；氧化还原按「升失氧、降得还」配平口诀 + 电子守恒双重校验。见效标志：非选离子方程式小问得分率 ≥70%。</li>
+    <li><b>第 4 步：图像题入门（第 7~8 周）</b>——先练「看图四步」：看坐标轴→看点（起点/拐点/终点）→看趋势→回扣概念；每天 2 道速率平衡基础图像题。见效标志：图像类中档选择能独立拿下。</li>
+  </ol>
+  <div class="verdict"><b>阶段判断：</b>60→70 用 2 个月左右完成，四个专题按顺序推进，不并行、不跳步；完成后选择题应稳定在 30 分以上，这是 70 档「中枢跃迁」的前提。</div>
+  <h3>3.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时段</th><th>周一~周三</th><th>周四~周五</th><th>周末（2~3 小时）</th></tr></thead>
+    <tbody>
+      <tr><td>第 1~2 周</td><td>周期律框架课 + 位构性三栏表</td><td>每天 6 道周期律单选 + 1 道推断题</td><td>周期律专题卷 30 题，错题回填三栏表</td></tr>
+      <tr><td>第 3~4 周</td><td>每天 2 张官能团卡片 + 代表反应默写</td><td>反应类型判断 10 题 + 同分异构体基础</td><td>有机基础大题 1 道限时 25 分钟</td></tr>
+      <tr><td>第 5~6 周</td><td>离子方程式专项（少量/过量）</td><td>氧化还原配平 10 条 + 电子守恒验算</td><td>非选前两题组合训练（元素+离子）</td></tr>
+      <tr><td>第 7~8 周</td><td>每天 2 道图像题（看图四步）</td><td>图像 + 周期律混合限时 15 题</td><td>整卷选择部分限时 35 分钟，目标 30+</td></tr>
+    </tbody>
+  </table></div>
+  <h3>3.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>从「陪盯作业」转向「陪搭框架」</b>：60 档的孩子需要的是「结构感」，家长可以每周请孩子把本周专题用一张纸画成导图讲给你听，重点不是对错，是「能不能讲出顺序」。</li>
+    <li><b>卡住「半生不熟」的诱惑</b>：孩子最容易在会一半的题上耗时间（觉得快会了）。请约定：一道题超过 5 分钟想不出，先标记跳过，周末统一归入错题分类——把纠结变成数据。</li>
+    <li><b>给「确定性反馈」</b>：每周只核对一个里程碑（如「本周官能团卡片完成 8 张、过关 6 张」），用可勾选的清单替代「今天学得怎么样」的模糊询问。</li>
+    <li><b>注意 60→70 的「平台期」</b>：第 3~4 周常见分数不动，属正常；家长此时应看「会不会的题变多了」而非分数，避免孩子因焦虑打乱专题节奏。</li>
+  </ul>
+  <h3>3.8 常见误区与里程碑</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间节点</th><th>里程碑（可核验）</th><th>常见误区</th></tr></thead>
+    <tbody>
+      <tr><td>第 1 个月</td><td>周期律单选正确率 ≥80%；官能团卡片 8 张全默写过关；反应类型判断稳定</td><td>误区 1：跳过织网直接刷大题——点连不成线；误区 2：有机只背「名字」不背「反应条件与断键」</td></tr>
+      <tr><td>第 2 个月</td><td>离子方程式/氧化还原专项过关；图像题能独立看图四步；模拟考选择 30~36 分、总分进入 65~72 区间</td><td>误区 3：大量做偏题怪题——60 档要的是高频中档题的全对，不是偏题的一知半解；误区 4：不重做错题，只求数量</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">数据与来源：赋分区间口径见 <a href="https://jyt.nx.gov.cn/zwgk/zfxxgkml/zdgkwj/202605/t20260521_5246662.html" target="_blank" rel="noopener noreferrer">宁夏教育厅·等级赋分办法（2026）</a>；试卷结构见 <a href="https://jyt.hunan.gov.cn/jyt/sjyt/hnsjyksy/web/ksyzcfg/202512/t20251203_33861445.html" target="_blank" rel="noopener noreferrer">湖南省教育考试院·试卷结构（2025 修订）</a>、<a href="https://gaokao.chsi.com.cn/gkxx/zc/ss/202411/20241108/2293345219.html" target="_blank" rel="noopener noreferrer">陕西省教育考试院·试卷结构（2024）</a>；中档题高频分布为 2026 各省真题观察（<a href="https://www.zxxk.com/soft/59728471.html" target="_blank" rel="noopener noreferrer">学科网·2026 速率平衡真题分类</a>、<a href="https://www.zxxk.com/soft/60176299.html" target="_blank" rel="noopener noreferrer">学科网·2026 有机综合题汇编</a>）。</p>
+</section>
+<section id="seg-70">
+  <div class="sec-head"><span class="sec-no">04</span><h2>70分档 · 中枢跃迁期</h2></div>
+  <p class="lead">70 分档站在赋分中枢附近：按 1.3 口径，再选科目赋分理论中枢约 70 分、行业解读常用「约 71 分」作参考（推算口径）。这意味着 70 档学生恰好站在「全省中间线」上——往左是大多数，往右是前 15% 的门槛。这一档的提分，从「会做中档题」转向「中档题全对 + 综合题开始拿分」。</p>
+  <h3>4.1 分数定位画像</h3>
+  <p><span class="flag fact">事实</span>按 1.3 赋分区间，70 分大致落在 C 档上沿到 B 档下沿（约 66~75 分，推算口径），位次约在全体考生的中位附近；典型表现为：中档选择题开始稳定（周期律、离子反应、基础图像题基本能拿），但一碰「实验综合、工艺流程、速率平衡大题、计算题」就暴露短板。<span class="flag judge">判断</span>70 档的关键词是「会而不对、对而不全」：不是不会，而是每张卷子总在非选择题上丢掉 20+ 分——缺的是「把思路落成规范答案」的工程化能力。</p>
+  <div class="callout">一句话画像：<b>选择题有底了，大题还是漏</b>——会分析的题写不全，会算的题算不对，会设计的实验答不全步骤。这一档提分靠「规范 + 综合」，是 5 档中最吃方法的一档。</div>
+  <h3>4.2 到下一档的差距量化：70→80 还差 10 分，缺在哪</h3>
+  <div class="gap-row">
+    <div class="gap-item"><b>≈3~4 分</b><span>实验综合题（装置/操作/现象/结论四问链，每卷必考、分值最重）</span></div>
+    <div class="gap-item"><b>≈2~3 分</b><span>速率—平衡大题（三段式计算、平衡常数、条件选择）</span></div>
+    <div class="gap-item"><b>≈2 分</b><span>陌生方程式/陌生反应书写（信息迁移题，靠模板抢分）</span></div>
+    <div class="gap-item"><b>≈2~3 分</b><span>计算规范（有效数字、单位、守恒式列写——会算却扣分）</span></div>
+  </div>
+  <p><span class="flag fact">事实</span>2026 年部分省份单科卷的压轴位次（第 18/19 题）集中于反应速率与化学平衡、有机合成两类（如云南省 2026 选考第 18 题为有机合成 15 分、浙江省 2026 年 1 月选考第 18 题为 CO 制甲醇的热力学/动力学综合），非选择题整体呈现「情境真实、设问梯度化」的导向（<a href="https://news.gmw.cn/2026-06/09/content_38818009.htm" target="_blank" rel="noopener noreferrer">光明网·专家解析 2026 高考化学全国卷</a>）；<span class="flag judge">判断</span>70 档学生要想冲 80，就必须从「围观大题」变成「上手大题」——先按模板拿满中档小问，再攻最后两问，这是性价比最高的路径。</p>
+  <h3>4.3 得分结构拆解：当前 vs 目标对照</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>题型（以 100 分卷口径）</th><th>当前 70 档典型得分</th><th>目标 80 档得分</th><th>差额</th><th>提升关键</th></tr></thead>
+    <tbody>
+      <tr><td>选择题（约 40~48 分）</td><td class="num">30~36</td><td class="num">36~42</td><td class="num">+5~7</td><td>尾段 2~3 题（图像/计算/实验综合）逐个击破</td></tr>
+      <tr><td>非选·实验综合（约 15~20 分）</td><td class="num">6~10</td><td class="num">10~14</td><td class="num">+3~5</td><td>四问链按「装置→操作→现象→结论」模板化</td></tr>
+      <tr><td>非选·速率平衡（约 12~15 分）</td><td class="num">5~8</td><td class="num">8~11</td><td class="num">+3</td><td>三段式规范列写，平衡常数与图像结合</td></tr>
+      <tr><td>非选·元素/有机/流程（约 25~30 分）</td><td class="num">12~16</td><td class="num">16~21</td><td class="num">+4~6</td><td>陌生反应按「守恒+信息」模板书写</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">口径说明：「当前得分」为 70 档学生的教研归纳区间（行业观察口径）；分值区间按 1.4 官方试卷结构折算。</p>
+  <h3>4.4 核心失分诊断</h3>
+  <ul class="tight">
+    <li><b>实验综合「四问链断裂」</b>：装置选择会、操作顺序会，但「现象描述」「结论表述」不规范（如不写「有白色沉淀生成」而写「变白」），每问扣 1~2 分，四问连扣 5~6 分。</li>
+    <li><b>速率平衡「三段式不规范」</b>：起始量、变化量、平衡量写不清，或平衡常数只写公式不算数、单位不写，扣分集中。</li>
+    <li><b>陌生方程式「无从下手」</b>：信息题里给了陌生物质，不敢按「守恒（原子/电荷/电子）」列式，直接放弃。</li>
+    <li><b>计算题「会算不写过程」</b>：有效数字错、单位漏、比例式跳步，步骤分拿不全——这是 70 档最容易「白丢」的分数。</li>
+  </ul>
+  <h3>4.5 提分路径（4 步，做什么 / 怎么做 / 多久见效）</h3>
+  <ol class="steps">
+    <li><b>第 1 步：实验板块系统化（第 1~3 周）</b>——把实验题拆成「四问链」模板：装置（名称/作用）→操作（顺序/防倒吸/防暴沸）→现象（颜色/沉淀/气泡的规范描述）→结论（定量还是定性）；用近 3 年真题实验大题逐题套模板。见效标志：实验大题从 6~10 分到 10~14 分。</li>
+    <li><b>第 2 步：速率平衡大题规范化（第 4~5 周）</b>——三段式（起始/变化/平衡）永远列表写，平衡常数带单位写，图像题先标「横纵轴物理量+单位」再答题；每天 1 道大题限时 20 分钟。见效标志：平衡常数/转化率题步骤分拿全。</li>
+    <li><b>第 3 步：陌生方程式「守恒三步」模板（第 6~7 周）</b>——第一步写已知物，第二步补缺失（产物/反应物按电荷、原子、电子守恒推断），第三步配平验算；每周 10 道陌生反应书写。见效标志：信息迁移题不再空白。</li>
+    <li><b>第 4 步：计算专项 + 卷面规范（第 8 周起持续）</b>——有效数字规则（与题干一致）、单位全程带、关键步骤不跳步；每周统计「会做却扣分」的分数，目标归零。见效标志：非选平均每卷少丢 3~5 分「冤枉分」。</li>
+  </ol>
+  <div class="verdict"><b>阶段判断：</b>70→80 是 5 档中「方法红利」最大的一段：同一水平的知识储备，把答题规范补齐，就能多拿 5~8 分。2~3 个月内完成四步，选择与非选同步提升。</div>
+  <h3>4.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时段</th><th>周一~周三</th><th>周四~周五</th><th>周末（2.5~3.5 小时）</th></tr></thead>
+    <tbody>
+      <tr><td>第 1~3 周</td><td>每天 1 道实验大题按四问链模板作答</td><td>装置/操作选择题 10 题 + 现象描述专项</td><td>实验专题卷 2 套，逐问对照评分标准</td></tr>
+      <tr><td>第 4~5 周</td><td>每天 1 道速率平衡大题（三段式列表）</td><td>平衡常数/转化率计算 6 题</td><td>速率平衡真题 3 题限时 60 分钟</td></tr>
+      <tr><td>第 6~7 周</td><td>每天 2 道陌生方程式（守恒三步）</td><td>信息迁移选择 8 题</td><td>陌生反应 + 元素综合组合卷</td></tr>
+      <tr><td>第 8 周起</td><td>计算规范 5 题（有效数字/单位）</td><td>错题重做，统计「会做却扣分」</td><td>整卷限时 75 分钟，复盘非选逐问</td></tr>
+    </tbody>
+  </table></div>
+  <h3>4.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>关注「会做却扣分」</b>：70 档的孩子最可惜的失分是规范分。家长可每周请孩子把 1 道大题的「标准答案」抄给你看，对照自己写的差在哪——这一步能直接省出 5 分。</li>
+    <li><b>鼓励「限时」而非「陪坐」</b>：给孩子配计时器，75 分钟整卷/ 20 分钟大题，训练「考场节奏感」；家长只负责计时与收卷，不中途打断。</li>
+    <li><b>支持「错题重做」的优先级</b>：此阶段「新题 < 旧题重做」，请理解孩子把时间花在重做错题上不是「偷懒」，而是 70 档最有效的动作。</li>
+    <li><b>情绪面：防止「冲 80 的急躁」</b>：2 个月内若在 68~72 反复，属中枢震荡的正常现象；家长聚焦「会不会的题变多了」，不因单次波动改变方案。</li>
+  </ul>
+  <h3>4.8 常见误区与里程碑</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间节点</th><th>里程碑（可核验）</th><th>常见误区</th></tr></thead>
+    <tbody>
+      <tr><td>第 1 个月</td><td>实验大题四问链模板熟练，得分 10~14 分；三段式计算步骤分拿全</td><td>误区 1：只「看懂」大题的答案，不亲手重做；误区 2：现象描述口语化，不按「颜色+状态+结论」规范写</td></tr>
+      <tr><td>第 3 个月</td><td>陌生方程式守恒三步独立完成 ≥70%；整卷非选较起点 +6~8 分；模拟总分进入 75~85 区间</td><td>误区 3：与 90 档同学比压轴，跳过中档题的「全对」；误区 4：计算跳步省时间——省下的时间不够补步骤分</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">数据与来源：赋分中枢口径为按 1.3 区间中点×比例加权推算（约 70 分，行业解读常表述约 71 分）；压轴位次与 2026 真题见 <a href="https://img.gaokaozhitongche.com/resource/pdf/paper/202606/20260613111027_JOZxWF.pdf" target="_blank" rel="noopener noreferrer">云南省 2026 选考化学真题</a>、<a href="https://www.zxxk.com/soft/56321522.html" target="_blank" rel="noopener noreferrer">学科网·2026 年 1 月浙江选考化学</a>；命题导向见 <a href="https://news.gmw.cn/2026-06/09/content_38818009.htm" target="_blank" rel="noopener noreferrer">光明网·专家解析 2026 高考化学全国卷（光明日报）</a>、<a href="https://m.thepaper.cn/newsDetail_forward_33332644" target="_blank" rel="noopener noreferrer">澎湃新闻转载</a>。</p>
+</section>
+<section id="seg-80">
+  <div class="sec-head"><span class="sec-no">05</span><h2>80分档 · 攻坚提档期</h2></div>
+  <p class="lead">80 档已经摸到 A 段门槛：按 1.3 口径约在 B 档上沿到 A 档边缘（约 76~88 分，推算口径）。这一档的学生中档题基本全对，真正的短板只剩三块硬骨头：工艺流程题、实验综合高阶设问、计算题——以及有机推断里的同分异构体。</p>
+  <h3>5.1 分数定位画像</h3>
+  <p><span class="flag fact">事实</span>从组合层面看，《2026 年福建省普通高考学科评价报告》显示物理化学生物组合的汇总平均分为 475 分（比当年本科切线 446 分高出 29 分），而 2025 年同组合汇总平均分为 468.83 分（<a href="https://m.toutiao.com/group/7696746667696980514/" target="_blank" rel="noopener noreferrer">海峡教育报·2026 学科评价报告</a>）——这提示：能选物化生组合并在化学上拿到 80 赋分的学生，整体已处在竞争最激烈的「高分段池子」里；<span class="flag judge">判断</span>80 档学生的画像因此是「能力够、精度不够」：会做的题绝大多数能做对，但卷面上总有 10~15 分属于「差一步、差一空、差一位小数」——攻坚的方向是精度，不是广度。</p>
+  <div class="callout">一句话画像：<b>大题都在做，没有一道做满</b>——工艺流程能读顺，最后两问拿不稳；实验设计能说出思路，答不全评价点；计算列式正确，结果总差一位。这一档提分靠「拆压轴 + 掐精度」。</div>
+  <h3>5.2 到下一档的差距量化：80→90 还差 10 分，缺在哪</h3>
+  <div class="gap-row">
+    <div class="gap-item"><b>≈3~4 分</b><span>工艺流程题（原料预处理→除杂→转化→产品的全链设问，中后段小问）</span></div>
+    <div class="gap-item"><b>≈2~3 分</b><span>实验综合高阶（设计/评价/改进类设问，每卷 1~2 空）</span></div>
+    <div class="gap-item"><b>≈2~3 分</b><span>计算题精度（平衡常数、滴定计算、产率纯度——列式对、结果错）</span></div>
+    <div class="gap-item"><b>≈2 分</b><span>有机同分异构体书写（限定条件的数数题，靠枚举漏项）</span></div>
+  </div>
+  <p><span class="flag fact">事实</span>2026 年各省卷非选择题普遍呈现「真实情境 + 梯度化设问」：如全国卷化学第 27 题以辉钼矿制备高纯三氧化钼的真实工业流程设问、第 26 题以测定混合无机盐中硫酸根含量的氧化还原滴定设问（<a href="https://news.gmw.cn/2026-06/09/content_38818009.htm" target="_blank" rel="noopener noreferrer">光明网·专家解析 2026 高考化学全国卷</a>）；<span class="flag judge">判断</span>这四类失分有一个共同点：全部集中在「大题中后段 + 需要多步推理」的设问上——80→90 的本质，是把大题从「会一半」推到「满答」。</p>
+  <h3>5.3 得分结构拆解：当前 vs 目标对照</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>题型（以 100 分卷口径）</th><th>当前 80 档典型得分</th><th>目标 90 档得分</th><th>差额</th><th>提升关键</th></tr></thead>
+    <tbody>
+      <tr><td>选择题（约 40~48 分）</td><td class="num">36~42</td><td class="num">42~45</td><td class="num">+3~5</td><td>尾段压轴选择（多步计算/图像综合）零失误</td></tr>
+      <tr><td>非选·工艺流程（约 15~18 分）</td><td class="num">8~12</td><td class="num">12~16</td><td class="num">+3~4</td><td>中后段小问（除杂原理/条件选择/产率）全拿</td></tr>
+      <tr><td>非选·实验综合（约 15~18 分）</td><td class="num">9~13</td><td class="num">13~16</td><td class="num">+3~4</td><td>设计/评价/误差分析类设问上手</td></tr>
+      <tr><td>非选·原理与计算（约 12~15 分）</td><td class="num">7~10</td><td class="num">10~13</td><td class="num">+3</td><td>计算精度：有效数字/单位/守恒校验</td></tr>
+      <tr><td>非选·有机推断（约 12~15 分）</td><td class="num">8~11</td><td class="num">11~14</td><td class="num">+3</td><td>同分异构体枚举不重不漏 + 路线设计</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">口径说明：「当前得分」为 80 档学生的教研归纳区间（行业观察口径）；分值区间按 1.4 官方试卷结构折算。</p>
+  <h3>5.4 核心失分诊断</h3>
+  <ul class="tight">
+    <li><b>工艺流程「链断了」</b>：能读懂流程框图，但「某一环节的目的/条件选择/循环利用」类设问答不到点子上——缺「每一环节为何存在」的追问习惯。</li>
+    <li><b>实验「评价不会写」</b>：会做实验、会设计，但「改进建议」「误差分析」「方案评价」三小类设问表述不全，常漏得分点。</li>
+    <li><b>计算「精度失守」</b>：列式与思路都对，但有效数字、单位、约分环节出错，每次考试固定丢 1~3 分——80 档最冤的失分。</li>
+    <li><b>同分异构体「数不全」</b>：限定条件题（官能团 + 氢谱峰数 + 面积比）枚举无方法，靠灵感漏项。</li>
+  </ul>
+  <h3>5.5 提分路径（5 步，做什么 / 怎么做 / 多久见效）</h3>
+  <ol class="steps">
+    <li><b>第 1 步：工艺流程全链模板（第 1~3 周）</b>——把流程题拆成六环节模板：原料预处理（粉碎/焙烧/酸浸的目的）→除杂（pH 调节/沉淀/萃取）→转化（主反应方程式）→分离（过滤/蒸发/结晶）→产品（纯度/产率）→循环与环保；每道题先标环节再答题。见效标志：中后段小问得分率 ≥70%。</li>
+    <li><b>第 2 步：实验高阶设问专项（第 4~5 周）</b>——按「设计（控制变量）→评价（优/缺点）→误差（偏大偏小原因）→改进」四类整理真题设问模板，每天 2 题限时。见效标志：评价类设问不再漏点。</li>
+    <li><b>第 3 步：计算精度闭环（第 6 周起持续）</b>——四查法：查单位、查有效数字（与题干一致）、查守恒（电荷/原子/电子）、查是否漏写平衡常数单位；每周统计「列式对结果错」清单，逐项消灭。见效标志：计算类失分归零。</li>
+    <li><b>第 4 步：同分异构体「枚举树」方法（第 7~8 周）</b>——先定官能团，再按「碳链异构→位置异构→类别异构」画枚举树，用氢谱峰数核验；每周 8 题限定条件书写。见效标志：不再漏项。</li>
+    <li><b>第 5 步：整卷零失误训练（第 9 周起）</b>——每两周 1 次整卷限时 + 逐问复盘，统计「会做却扣分」与「耗时超长题」，前者清零、后者提速。见效标志：非选平均失分降至 8 分以内。</li>
+  </ol>
+  <div class="verdict"><b>阶段判断：</b>80→90 需要约 3 个月：前 8 周四大专题攻坚，后 1 个月进入「精度冲刺」。这 10 分是全体系里「单分最贵」的 10 分——每一分都对应 A 档位次的大幅前移，也最考验执行的稳定度。</div>
+  <h3>5.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时段</th><th>周一~周三</th><th>周四~周五</th><th>周末（3~4 小时）</th></tr></thead>
+    <tbody>
+      <tr><td>第 1~3 周</td><td>每天 1 道工艺流程题六环节拆解</td><td>环节目的选择 8 题 + 主反应方程式 4 条</td><td>工艺流程真题 2 道限时 50 分钟</td></tr>
+      <tr><td>第 4~5 周</td><td>实验设计/评价设问每天 2 题</td><td>误差分析 + 改进建议整理成卡</td><td>实验综合真题 2 道，逐问对评分标准</td></tr>
+      <tr><td>第 6~8 周</td><td>计算四查法每天 3 题</td><td>同分异构体枚举树每天 2 题</td><td>计算 + 有机组合卷 1 套</td></tr>
+      <tr><td>第 9 周起</td><td>尾段压轴选择 5 题限时 20 分钟</td><td>错题重做 + 会做却扣分清单</td><td>整卷限时 75 分钟 + 逐问复盘（每两周 1 次）</td></tr>
+    </tbody>
+  </table></div>
+  <h3>5.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>把「精度」设为家庭关键词</b>：80 档不缺方法缺精度。家长可与孩子约定「错题分两类」：不会做的、会做却扣分的——每周统计后者，目标递减，这是最可量化的进步信号。</li>
+    <li><b>支持「做旧题、精做」</b>：此阶段刷新题边际收益低，重做近 3 年真题大题（对照评分标准逐空抠）收益最高；请理解孩子「一张卷做三遍」不是在磨蹭。</li>
+    <li><b>关注「限时环境的模拟」</b>：周末整卷限时请家长做计时员，结束后先让孩子自评「哪些分是不该丢的」，再讨论——培养考场复盘习惯。</li>
+    <li><b>情绪面：防「瓶颈期」自我怀疑</b>：80 档常在 78~82 反复 1 个多月，孩子易焦虑。家长可把 1.2 总览表贴在墙上，每月标注档位进度，用「位置感」替代「分数感」。</li>
+  </ul>
+  <h3>5.8 常见误区与里程碑</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间节点</th><th>里程碑（可核验）</th><th>常见误区</th></tr></thead>
+    <tbody>
+      <tr><td>第 1 个月</td><td>工艺流程六环节模板独立完成 ≥80%；评价/误差类设问不漏主要得分点；计算失分 ≤1 分</td><td>误区 1：只读流程不写答案，考场还是「有感觉写不全」；误区 2：同分异构体靠枚举碰运气，不建枚举树</td></tr>
+      <tr><td>第 3 个月</td><td>整卷限时非选失分 ≤8 分；选择失分 ≤3 分；模拟总分进入 85~92 区间；「会做却扣分」清单清零</td><td>误区 3：压轴最后一问死磕半小时——先保中档全对，再谈压轴；误区 4：忽视卷面（涂改/字母不清），规范分持续流失</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">数据与来源：福建物化生组合平均分见 <a href="https://m.toutiao.com/group/7696746667696980514/" target="_blank" rel="noopener noreferrer">海峡教育报·2026 年学科评价报告（物化生组合 475 分）</a>；命题情境与设问导向见 <a href="https://news.gmw.cn/2026-06/09/content_38818009.htm" target="_blank" rel="noopener noreferrer">光明网·专家解析 2026 高考化学全国卷（光明日报）</a>、<a href="https://m.thepaper.cn/newsDetail_forward_33332644" target="_blank" rel="noopener noreferrer">澎湃新闻转载</a>、<a href="https://paper.jyb.cn/zgjyb/html/2026-06/10/content_144742_19607373.htm" target="_blank" rel="noopener noreferrer">中国教育报·教育部教育考试院专家评析 2026 高考全国卷</a>。</p>
+</section>
+<section id="seg-90">
+  <div class="sec-head"><span class="sec-no">06</span><h2>90分档 · 顶尖冲刺期</h2></div>
+  <p class="lead">90 分档已经站在赋分 A 档高位（约 89~100 分，含 95 冲刺）：全省前 15% 以内，接近前 5%。这一档的竞争不再比「会多少」，而比「错多少」——零失误 + 压轴最后两问的平衡，是 90 与 95 的全部差距。</p>
+  <h3>6.1 分数定位画像</h3>
+  <p><span class="flag fact">事实</span>按 1.3 赋分口径，90 分位于 A 档（100~86）高位，位次约在全体化学考生的前 5%~10%（推算口径）；这类学生在卷面上表现为：选择题错 0~1 题，非选择题全部大题都能上手，失分集中在「压轴最后一问、信息迁移小问、少量规范分」。<span class="flag judge">判断</span>90 档最典型的画像不是「学霸天赋论」，而是「系统无短板 + 临场零失误」：知识体系完备、题型模板齐全，剩余 5~10 分全部藏在「压轴的平衡点」与「考场的稳定性」里——这也意味着它是最可训练的一档，因为短板少而明确。</p>
+  <div class="callout">一句话画像：<b>没有不会的题，只有没拿满的分</b>——压轴题每道都能写出大半，最后一问偶尔崩；每张卷子总有 5~8 分「差一点」。这一档提分靠「压轴拆解 + 全真模拟」，精确到每一问。</div>
+  <h3>6.2 到下一档的差距量化：90→95 还差 5 分（冲刺口径），缺在哪</h3>
+  <p>90 档以上每 1 分都对应位次的显著前移（A 档内赋分非线性、顶端密度极低，推算口径），以「95 冲刺」为目标时缺口集中在四处：</p>
+  <div class="gap-row">
+    <div class="gap-item"><b>≈1.5~2 分</b><span>速率平衡压轴最后一问（2026 部分省份卷面常见，如第 18 题位置的平衡常数/条件选择综合）</span></div>
+    <div class="gap-item"><b>≈1~1.5 分</b><span>有机合成路线最后一空（如第 19 题位置的合成路线补全/同分异构体计数）</span></div>
+    <div class="gap-item"><b>≈1 分</b><span>新材料信息题（超范围情境的迁移设问，考「现学现用」）</span></div>
+    <div class="gap-item"><b>≈1~1.5 分</b><span>非智力失分（时间分配失衡、卷面涂改、检查缺失）</span></div>
+  </div>
+  <p><span class="flag fact">事实</span>从 2026 年各省卷面观察，非选择题压轴位次（第 18/19 题）高度集中于两类：反应速率与化学平衡综合、有机合成与推断——如云南省 2026 选考第 18 题（15 分）为抗衰老活性化合物的合成路线、河南省 2026 卷第 18 题（15 分）为手术用药合成路线、浙江省 2026 年 1 月选考第 18 题为 CO 制甲醇的热力学动力学综合（<a href="https://img.gaokaozhitongche.com/resource/pdf/paper/202606/20260613111027_JOZxWF.pdf" target="_blank" rel="noopener noreferrer">云南 2026 选考真题</a>、<a href="https://cdn.xschu.com/zixunzhan/17815769352212026%E6%B2%B3%E5%8D%97%E9%AB%98%E8%80%83%E7%9C%9F%E9%A2%98%E5%8C%96%E5%AD%A6.pdf" target="_blank" rel="noopener noreferrer">河南 2026 高考真题</a>、<a href="https://www.zxxk.com/soft/56321522.html" target="_blank" rel="noopener noreferrer">学科网·浙江 2026 年 1 月选考化学</a>）；<span class="flag judge">判断</span>这两类压轴各有明确的「最后一问套路」：速率平衡最后一问几乎必考「列三段式 + 联立守恒求平衡常数或转化率」，有机合成最后一问必考「限定条件的结构补全或计数」——把套路练成肌肉记忆，就是 90→95 的核心。</p>
+  <h3>6.3 得分结构拆解：90 档现状 vs 95 冲刺目标</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>题型（以 100 分卷口径）</th><th>90 档典型得分</th><th>95 冲刺目标</th><th>差额</th><th>提升关键</th></tr></thead>
+    <tbody>
+      <tr><td>选择题（约 40~48 分）</td><td class="num">42~45</td><td class="num">45~48</td><td class="num">+2~3</td><td>错 0~1 题：尾段压轴选择全对</td></tr>
+      <tr><td>速率平衡压轴（约 12~15 分）</td><td class="num">9~12</td><td class="num">12~14</td><td class="num">+2~3</td><td>最后一问三段式+联立守恒全对</td></tr>
+      <tr><td>有机合成压轴（约 12~15 分）</td><td class="num">9~12</td><td class="num">12~14</td><td class="num">+2~3</td><td>路线补全 + 同分异构体计数零失误</td></tr>
+      <tr><td>实验/流程/元素（约 25~30 分）</td><td class="num">20~25</td><td class="num">24~28</td><td class="num">+3~4</td><td>规范分清零：单位/有效数字/表述</td></tr>
+      <tr><td>信息迁移题（约 5~8 分）</td><td class="num">3~5</td><td class="num">5~7</td><td class="num">+2</td><td>「现学现用」三步：读信息→对模板→迁移</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">口径说明：「典型得分」为 90 档学生的教研归纳区间（行业观察口径）；95 冲刺为按满分卷的最优结构拆解的目标值，不代表任何省份官方统计。</p>
+  <h3>6.4 核心失分诊断</h3>
+  <ul class="tight">
+    <li><b>压轴最后一问「算到底或推到底」失败</b>：速率平衡最后一问在列式后联立方程组时出错；有机最后一空在碳链增长或成环时漏条件。</li>
+    <li><b>信息迁移「没读完就动手」</b>：超范围情境题给的新定义、新反应不先圈出，直接套旧模板，一错全错。</li>
+    <li><b>时间分配「前松后紧」</b>：中档题求完美导致压轴时间不足，最后两问赶写丢分——90 档最常见的非智力失分。</li>
+    <li><b>规范细节「最后一公里」</b>：有效数字、平衡常数单位、有机物结构简式写法、卷面涂改——每卷 1~2 分的「冤枉分」。</li>
+  </ul>
+  <h3>6.5 提分路径（5 步，做什么 / 怎么做 / 多久见效）</h3>
+  <ol class="steps">
+    <li><b>第 1 步：速率平衡压轴「三步法」固化（第 1~2 周）</b>——第一步列三段式（起始/变化/平衡，含气体分压）；第二步列守恒（物料/电荷/平衡常数定义式）；第三步联立求解并写单位。每天 1 道真题压轴最后一问限时 12 分钟。见效标志：最后一问成功率 ≥80%。</li>
+    <li><b>第 2 步：有机合成「逆向思维」训练（第 3~4 周）</b>——从目标分子倒推：断键定位→官能团转化表→补全路线；同分异构体用「枚举树 + 氢谱核验」双保险。见效标志：路线补全与计数零漏项。</li>
+    <li><b>第 3 步：信息迁移「三步模板」（第 5 周起持续）</b>——读题先圈「新定义/新反应/新条件」→对照已知题型模板→套用并验算；每周 8 题超范围情境训练。见效标志：信息题得分率 ≥80%。</li>
+    <li><b>第 4 步：全真模拟 + 时间方案（第 6 周起每两周 1 次）</b>——按正式考试节奏整卷限时，固化个人时间表（如选择 30 分钟、非选每大题 8~10 分钟、留 5 分钟检查）；每卷复盘「前松后紧」是否发生。见效标志：压轴题稳定有 8~10 分钟可支配时间。</li>
+    <li><b>第 5 步：规范细节清零（全程并行）</b>——建立「规范检查单」：单位、有效数字、结构简式、答题卡涂改四项逐卷核对。见效标志：非智力失分归零。</li>
+  </ol>
+  <div class="verdict"><b>阶段判断：</b>90→95 是全体系最「精确」的一段：约 2~3 个月，目标不是学会新知识，而是把最后 5 分从「偶尔拿到」变成「稳定拿到」——每一分都由套路固化 + 模拟验证支撑。</div>
+  <h3>6.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时段</th><th>周一~周三</th><th>周四~周五</th><th>周末（3~4 小时）</th></tr></thead>
+    <tbody>
+      <tr><td>第 1~2 周</td><td>速率平衡压轴三步法每天 1 题</td><td>三段式+联立守恒 6 题限时</td><td>速率平衡真题压轴 3 题，逐空评分</td></tr>
+      <tr><td>第 3~4 周</td><td>有机逆向思维每天 1 路线</td><td>同分异构体计数 4 题（枚举树）</td><td>有机合成真题 2 道限时 50 分钟</td></tr>
+      <tr><td>第 5 周起</td><td>信息迁移每天 2 题（三步模板）</td><td>规范检查单复盘上周卷面</td><td>整卷限时 + 时间方案演练（每两周 1 次）</td></tr>
+      <tr><td>全程</td><td>错题只收「最后一问/最后一空」类</td><td>每周统计压轴成功率</td><td>周末复盘：先补压轴，再补规范</td></tr>
+    </tbody>
+  </table></div>
+  <h3>6.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>把「状态」当第一生产力</b>：90 档拼的是稳定输出。家长的核心职责是保障睡眠（7~8 小时）、控制加餐与干扰，让每周两次模拟在「接近高考的作息」下进行。</li>
+    <li><b>关注「心态曲线」而非分数曲线</b>：此阶段孩子对每一次模考分数极敏感。请把复盘话术从「这次多少分」改为「这次压轴几道全对、哪道最后一问没算到底」——把注意力引回可训练的动作。</li>
+    <li><b>配合「模拟高考」仪式感</b>：整卷限时请家长严格按考试时间收卷、不中途说话；结束后 10 分钟内不要对答案，先让孩子自评时间分配与心态波动。</li>
+    <li><b>防止「过度加练」</b>：90 档最容易出现「越到考前越加量」的焦虑型刷题，反而破坏稳定。与老师/教练约定「周刷卷数上限」，保持节奏比堆量重要。</li>
+  </ul>
+  <h3>6.8 常见误区与里程碑</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间节点</th><th>里程碑（可核验）</th><th>常见误区</th></tr></thead>
+    <tbody>
+      <tr><td>第 1 个月</td><td>速率平衡最后一问成功率 ≥80%；有机路线补全零漏项；信息题得分率 ≥80%</td><td>误区 1：考前只刷新题不重做压轴错题；误区 2：把「看懂了」当「会写了」，最后一问不亲手算到底</td></tr>
+      <tr><td>第 3 个月</td><td>连续 2 次整卷模拟选择错 ≤1 题、非选失分 ≤5 分；规范检查单四项全过；稳定在 90~95 区间</td><td>误区 3：为压轴最后一问牺牲中档检查时间——先稳后冲；误区 4：忽视非智力因素（涂改/看错位/漏填），考前 10 分里非智力占 1~2 分</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">数据与来源：压轴位次与 2026 真题见 <a href="https://img.gaokaozhitongche.com/resource/pdf/paper/202606/20260613111027_JOZxWF.pdf" target="_blank" rel="noopener noreferrer">云南省 2026 选考化学真题（第 18 题有机合成）</a>、<a href="https://cdn.xschu.com/zixunzhan/17815769352212026%E6%B2%B3%E5%8D%97%E9%AB%98%E8%80%83%E7%9C%9F%E9%A2%98%E5%8C%96%E5%AD%A6.pdf" target="_blank" rel="noopener noreferrer">河南省 2026 高考化学真题（第 18 题有机合成）</a>、<a href="https://www.zxxk.com/soft/56321522.html" target="_blank" rel="noopener noreferrer">学科网·2026 年 1 月浙江选考化学（第 18 题速率平衡）</a>；命题导向见 <a href="https://news.gmw.cn/2026-06/09/content_38818009.htm" target="_blank" rel="noopener noreferrer">光明网·专家解析 2026 高考化学全国卷</a>、<a href="https://m.thepaper.cn/newsDetail_forward_33332644" target="_blank" rel="noopener noreferrer">澎湃新闻转载</a>、<a href="https://paper.jyb.cn/zgjyb/html/2026-06/10/content_144742_19607373.htm" target="_blank" rel="noopener noreferrer">中国教育报·教育部教育考试院专家评析 2026 高考全国卷</a>。</p>
+</section>
+<div class="refs-wrap">
+  <h3>数据来源与口径说明</h3>
+  <p>本文所有数据均标注口径分层：<b>官方发布</b>（各省教育考试院、教育部教育考试院文件与真题）＞<b>权威媒体与专家解读</b>（光明日报/澎湃新闻/中国教育报等）＞<b>行业观察与个案研究</b>（教师教研文章、学术诊断研究、教辅平台汇编）。凡属推算或行业口径，正文一律以「约」「推算」「口径」标注，不冒充官方数字；各省赋分区间与试卷结构以当年官方文件为准，跨省数据仅作全国性参考。</p>
+  <div class="ref-list">
+    <ol>
+      <li><a href="https://jyt.fujian.gov.cn/ztzl/fjsgkzhgg/zctz/201906/t20190613_4899111.htm" target="_blank" rel="noopener noreferrer">福建省教育厅·福建省普通高中学业水平选择性考试科目赋分办法（闽教学〔2019〕7号）</a>——官方：等级划分与赋分区间 A 100~86 / B 85~71 / C 70~56 / D 55~41 / E 40~30，比例约 15%/35%/35%/13%/2%。</li>
+      <li><a href="https://jyt.nx.gov.cn/zwgk/zfxxgkml/zdgkwj/202605/t20260521_5246662.html" target="_blank" rel="noopener noreferrer">宁夏教育厅·普通高中学业水平选择性考试科目等级赋分办法（2026-05-21）</a>——官方：赋分起点 30 分、满分 100 分，再选科目只公布等级分。</li>
+      <li><a href="https://gaokao.haedu.cn/550/2026/0616/152467.html" target="_blank" rel="noopener noreferrer">河南省教育考试院·2026年高考百问百答（等级赋分）</a>——官方：再选科目等级赋分规则与等比例转换公式。</li>
+      <li><a href="https://jyt.hunan.gov.cn/jyt/sjyt/hnsjyksy/web/ksyzcfg/202512/t20251203_33861445.html" target="_blank" rel="noopener noreferrer">湖南省教育考试院·选考科目试卷结构（2025 年修订，2026 年起实施）</a>——官方：化学 14 题单选 42 分 + 非选择题 58 分，75 分钟。</li>
+      <li><a href="https://img.gaokaozhitongche.com/resource/pdf/paper/202610/20261019073639_O1eGVr.pdf" target="_blank" rel="noopener noreferrer">2026 年福建省普通高中学业水平选择性考试·化学（福建省教育考试院官方版）</a>——官方真题：10 题单选×4 分 = 40 分，非选择题 4 题共 60 分，75 分钟。</li>
+      <li><a href="https://img.gaokaozhitongche.com/resource/pdf/paper/202606/20260613111027_JOZxWF.pdf" target="_blank" rel="noopener noreferrer">云南省 2026 年选考化学真题</a>——官方真题：14 题单选 42 分 + 非选择题 4 题 58 分，第 18 题为有机合成压轴。</li>
+      <li><a href="https://news.gmw.cn/2026-06/09/content_38818009.htm" target="_blank" rel="noopener noreferrer">光明日报/光明网·优化情境设计 凸显应用导向——专家解析 2026 高考物理、化学、生物全国卷（2026-06-09）</a>——权威媒体：紧扣化学学科核心概念，避免「偏、难、繁、怪」，强调「结构决定性质，性质决定用途」。</li>
+      <li><a href="https://m.thepaper.cn/newsDetail_forward_33332644" target="_blank" rel="noopener noreferrer">澎湃新闻·2026 高考物理、化学、生物全国卷解读（教育部教育考试院相关负责人表态，2026-06-08）</a>——权威媒体：优化情境设计、创新试题呈现方式、深化关键能力考查。</li>
+      <li><a href="https://paper.jyb.cn/zgjyb/html/2026-06/10/content_144742_19607373.htm" target="_blank" rel="noopener noreferrer">中国教育报·铸魂育人 引领方向 科学选拔——教育部教育考试院专家评析 2026 年高考全国卷试题（2026-06-10）</a>——权威媒体：梯度化设问、分层考查。</li>
+      <li><a href="https://m.toutiao.com/group/7696746667696980514/" target="_blank" rel="noopener noreferrer">海峡教育报（新福建）·《2026 年福建省普通高考学科评价报告》平均分解读（2026-10-15）</a>——权威媒体：物化生组合汇总平均分 2026 年 475 分（比本科切线高 29 分）、2025 年 468.83 分、2024 年 477.68 分；475 分位次约 101035 名。</li>
+      <li><a href="https://m.thepaper.cn/newsDetail_forward_34237158" target="_blank" rel="noopener noreferrer">澎湃新闻（湖里头条）·2026 福建高考各科平均分出炉（福建省教育考试院、厦门日报）</a>——权威媒体：2026 年福建约 23.86 万名考生，物理类约 18.97 万人。</li>
+      <li><a href="https://www.ershaedu.com/mob/NewsInfo.asp?id=1401" target="_blank" rel="noopener noreferrer">郑州二砂寄宿学校·对物质的量教学的再思考</a>——行业观察：每届约 20% 学生在「物质的量」学习中出现认知困难（个案教研文章，样本为中等水平生源学校）。</li>
+      <li><a href="https://m.qikan.cqvip.com/Article/ArticleDetail?id=7108021342" target="_blank" rel="noopener noreferrer">维普·基于四段式诊断工具测查高一学生「物质的量」迷思概念（2022）</a>——学术研究：116 名高一学生样本，「摩尔质量是 1 mol 物质的相对原子（分子）质量」迷思概念占比 33.6%。</li>
+      <li><a href="https://www.zxxk.com/soft/60336359.html" target="_blank" rel="noopener noreferrer">学科网·2026 年高考化学真题完全解读（福建卷）</a>——教辅平台：全卷 14 题结构、四大非选择题分工与素养考查分布。</li>
+      <li><a href="https://www.zxxk.com/soft/56321522.html" target="_blank" rel="noopener noreferrer">学科网·2026 年 1 月浙江选考化学真题</a>——教辅平台：16 题单选 48 分 + 非选择题 4 题 52 分，90 分钟。</li>
+      <li><a href="https://www.zxxk.com/soft/60176299.html" target="_blank" rel="noopener noreferrer">学科网·2026 年高考化学有机化学综合题汇编</a>——教辅平台：多省有机合成压轴题结构与设问统计（用于 90 档压轴拆解）。</li>
+    </ol>
+  </div>
+  <p class="small">口径提醒：① 赋分后「平均分约 71 分」为按区间中点×人数比例加权的推算口径（理论加权值约 70 分），非官方公布值；② 「50/60/70/80/90 档」为本文教研分层，非官方划线；③ 福建平均分与位次数据来自该省学科评价报告，仅作全国性趋势参考，不代表其他省份。</p>
+</div>
+
+<footer>
+  <div class="brand">刘老师教研 · 高中化学教研 · 50-95分档提分全面分析 · 供考生与家长对照使用</div>
+  <p>本文为教研分析，不针对个体做结论，请以当年考试说明与正式试卷为准。</p>
+  <p>数据口径分层：官方发布（教育部教育考试院 / 各省教育考试院）＞权威媒体与专家解读（光明日报 / 人民网 / 中国教育报等）＞行业观察与个案样本。外部链接均指向可溯源来源。</p>
+</footer>
+</body>
+</html>

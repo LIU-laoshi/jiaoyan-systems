@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刘老师教研 · 高考地理50-95分数段全面分析</title>
+<style>
+:root{
+  --navy:#0f2a4a;--navy2:#16385e;--gold:#d4a853;--gold2:#b8913c;--bg:#f6f7fb;
+  --card:#ffffff;--ink:#24303f;--muted:#6b7a8c;--line:#e3e8f0;--ok:#1f7a4d;--okbg:#e8f5ee;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;font-size:16px}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 62%,#1e4a72 100%);color:#fff;padding:64px 20px 56px;text-align:center}
+.hero .kicker{display:inline-block;border:1px solid rgba(212,168,83,.55);color:#e6c684;font-size:13px;letter-spacing:2px;padding:6px 16px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:34px;font-weight:800;line-height:1.35;margin-bottom:14px;letter-spacing:.5px}
+.hero .sub{font-size:16px;color:#cdd8e8;max-width:760px;margin:0 auto}
+.hero .stats{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:28px}
+.hero .stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:14px 20px;min-width:150px}
+.hero .stat b{display:block;font-size:24px;color:#f0cd83;font-weight:800}
+.hero .stat span{font-size:13px;color:#c7d3e4}
+.hero .seg5-title{text-align:center;color:#c7d3e4;font-size:13px;font-weight:700;letter-spacing:4px;margin-top:28px}
+.hero .seg5{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:10px}
+.hero .seg5 .seg-chip{background:rgba(255,255,255,.07);border:1px solid rgba(212,168,83,.4);border-radius:999px;padding:6px 16px;font-size:13px;color:#e6c684;font-weight:700}
+nav.sticky{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.97);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(15,42,74,.25)}
+nav.sticky .wrap{display:flex;overflow-x:auto;gap:2px;padding:0 12px}
+nav.sticky a{color:#dce6f3;font-size:14px;padding:12px 10px;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent}
+nav.sticky a:hover,nav.sticky a.active{color:#f0cd83;border-color:var(--gold)}
+section{padding:46px 0 14px;scroll-margin-top:58px}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.sec-no{flex:none;font-size:13px;font-weight:800;color:#fff;background:var(--gold);border-radius:8px;padding:3px 10px;letter-spacing:1px}
+section h2{font-size:25px;color:var(--navy);font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin-bottom:18px;max-width:880px}
+h3{font-size:19px;color:var(--navy);margin:22px 0 10px;font-weight:700}
+h4{font-size:16px;color:var(--navy2);margin:16px 0 8px;font-weight:700}
+p{margin:10px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:14px 0;box-shadow:0 1px 4px rgba(15,42,74,.05)}
+.verdict{background:linear-gradient(135deg,#fdf6e8,#f9ecd4);border:1px solid #e9d5a7;border-left:5px solid var(--gold);border-radius:12px;padding:16px 20px;margin:16px 0}
+.verdict b{color:var(--navy)}
+.flag{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:1px 8px;margin-right:6px;vertical-align:2px}
+.flag.fact{background:var(--okbg);color:var(--ok)}
+.flag.judge{background:#fdf0ef;color:#b0463a}
+.tbl-scroll{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:14.5px;min-width:560px}
+caption{caption-side:top;text-align:left;font-size:13px;color:var(--muted);padding:8px 12px;background:#f2f5fa;border-bottom:1px solid var(--line);font-weight:700}
+th{background:var(--navy);color:#fff;font-weight:700;padding:11px 12px;text-align:left;white-space:nowrap}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7f9fc}
+td.num{font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy);white-space:nowrap}
+.small{font-size:13px;color:var(--muted)}
+.hl{background:#fdf3d8;border-radius:4px;padding:0 4px;font-weight:700;color:#8a6414}
+ol.steps{margin:12px 0 12px 22px}
+ol.steps li{margin:9px 0}
+ul.tight{margin:10px 0 10px 22px}
+ul.tight li{margin:6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.chip{background:#eef2f8;border:1px solid #dbe3ef;color:var(--navy2);font-size:13px;font-weight:700;border-radius:999px;padding:6px 14px}
+.callout{border-left:5px solid var(--navy2);background:#eef3fa;border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;font-size:15px}
+.callout.gold{border-color:var(--gold);background:#fbf4e4}
+.ref-list{font-size:13.5px;color:var(--muted)}
+.ref-list li{margin:7px 0}
+.ref-list a{color:var(--navy2);text-decoration:none;border-bottom:1px dotted #a9b8cc}
+.ref-list a:hover{color:var(--gold2)}
+a:focus-visible{outline:2px solid var(--gold2);outline-offset:2px;border-radius:4px}
+footer{background:var(--navy);color:#cdd8e8;margin-top:46px;padding:34px 20px 40px;text-align:center}
+footer .brand{font-size:15px;color:#f0cd83;font-weight:700;margin-bottom:8px}
+footer p{font-size:13px;color:#aebdd2;margin:5px 0}
+@media(max-width:640px){
+  .hero h1{font-size:26px}.hero .stat{min-width:120px}
+  section h2{font-size:21px}nav.sticky a{font-size:13px;padding:11px 8px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important}
+}
+@media print{
+  nav.sticky{display:none}.hero{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  section{page-break-inside:avoid}.card,.verdict,.callout{break-inside:avoid}
+  a{color:#16385e!important;text-decoration:none!important}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <span class="kicker">刘老师教研 · 高考分数段全面分析</span>
+  <h1>高考地理 50→95 分<br>五档拆解与全面提分分析</h1>
+  <p class="sub">把"高考地理从 50 分到 95 分"拆成每 10 分一档的五个阶段，逐档给出分数定位、差距量化、得分结构、失分诊断、提分路径、周计划训练、家长协同与阶段里程碑，全部标注事实与判断，供全国高三考生与家长对照使用。</p>
+  <div class="stats">
+    <div class="stat"><b>5 档</b><span>50/60/70/80/90+ 每 10 分一档</span></div>
+    <div class="stat"><b>100 分制</b><span>地理为再选科目，等级赋分</span></div>
+    <div class="stat"><b>53% : 47%</b><span>浙江2025.1自然:人文分值口径</span></div>
+    <div class="stat"><b>44 + 56</b><span>全国卷选择+综合题分值结构</span></div>
+  </div>
+  <p class="seg5-title">5 档速览</p>
+  <div class="seg5">
+    <span class="seg-chip">50 档 · 基础重建期</span><span class="seg-chip">60 档 · 基础巩固期</span><span class="seg-chip">70 档 · 框架搭建期</span><span class="seg-chip">80 档 · A段冲刺期</span><span class="seg-chip">90 档 · 顶尖冲刺期</span>
+  </div>
+</header>
+<nav class="sticky"><div class="wrap">
+  <a href="#intro">00 体系说明</a><a href="#seg-50">50 档</a><a href="#seg-60">60 档</a><a href="#seg-70">70 档</a><a href="#seg-80">80 档</a><a href="#seg-90">90 档</a>
+</div></nav>
+<main>
+<section id="intro">
+  <div class="sec-head"><span class="sec-no">00</span><h2>体系说明：为什么按 50-95 每 10 分一档</h2></div>
+  <p class="lead">地理是"最容易拿分、也最容易丢分"的再选科目：它不像物理化学那样靠计算量拉开差距，更多靠"知识系统 + 读图技能 + 答题框架"三件事。按 10 分一档拆解，是为了让每一次提分都有明确的落点与可核验的里程碑，而不是一句笼统的"多刷题"。</p>
+  <h3>0.1 五档定位逻辑</h3>
+  <p>高考地理满分为 100 分（赋分制下同为 100 分）。从 50 分到 95 分，每 10 分对应一次能力跃迁：<span class="hl">50 档重建基础 → 60 档巩固概念与读图 → 70 档搭起综合题框架 → 80 档攻下压轴大题 → 90 档追求全对与零失误</span>。每一档的提分重点、时间投入和训练方式完全不同，混在一起复习只会互相干扰。</p>
+  <p><span class="flag judge">判断</span>选择"10 分一档"而非 5 分或 20 分一档，是因为教学实践中 10 分恰是"一个能力层级"的可测量跨度：50→60 是补基础、60→70 是练读图与模板、70→80 是搭框架、80→90 是抠输出精度、90→95 是拼细节稳定。分档过粗（如 20 分）无法定位弱点，过细（如 5 分）则训练动作重复，10 分档可诊断、可执行、可复盘。</p>
+  <div class="tbl-scroll"><table>
+    <caption>表 0-1：五档总览——定位、核心短板与主攻方向</caption>
+    <thead><tr><th>档位</th><th>阶段命名</th><th>典型画像</th><th>核心短板</th><th>主攻方向</th></tr></thead>
+    <tbody>
+      <tr><td class="num">50</td><td>基础重建期</td><td>自然地理基础薄弱（大气、地球运动），区域定位弱</td><td>原理不懂、图不会读、答题无话可说</td><td>自然地理主干 + 区域定位 + 基础术语</td></tr>
+      <tr><td class="num">60</td><td>基础巩固期</td><td>基础概念初步掌握，图表题读图慢，人文地理模板缺失</td><td>读图慢、选择题二选一常错、综合题缺模板</td><td>读图三步法 + 人文区位模板</td></tr>
+      <tr><td class="num">70</td><td>框架搭建期</td><td>赋分中枢附近，综合题答题框架不全，3S 题失分</td><td>区位分析漏项、3S 概念混淆、自然人文综合题断层</td><td>综合题框架 + 3S 思维建模</td></tr>
+      <tr><td class="num">80</td><td>A段冲刺期</td><td>接近 A 等（86 分）下缘，压轴大题失分</td><td>自然+人文综合大题失分、规范表述不稳</td><td>综合大题专项 + 术语规范 + 采分点训练</td></tr>
+      <tr><td class="num">90+</td><td>顶尖冲刺期</td><td>A 档顶尖，目标 90+ 含 95 冲刺</td><td>最后 5 分：难题、新情境、审题陷阱、表述精度</td><td>全对训练 + 难题拆解 + 模拟实战 + 零失误</td></tr>
+    </tbody>
+  </table></div>
+  <div class="verdict"><b>核心判断：</b>50→95 不是"匀速爬坡"，而是五段变速：前两档靠"补基础"就能快速见效，中间档靠"搭框架"稳住中枢，最后两档靠"抠细节"拉开差距。对大多数考生，60→80 区间是投入产出比最高的提分带。</div>
+  <h3>0.2 计分口径：地理是再选科目，等级赋分 100 分制</h3>
+  <p><span class="flag fact">事实</span>在"3+1+2"新高考省份，思想政治、地理、化学、生物学 4 门再选科目每科原始分满分 100 分，成绩以等级赋分（等级转换分）计入高考总分，赋分起点 30 分、满分 100 分；转换时将考生原始分从高到低划分为 A、B、C、D、E 共 5 个等级，人数占比分别约为 15%、35%、35%、13%、2%，对应赋分区间为 100~86、85~71、70~56、55~41、40~30 分（<a href="https://jyt.fujian.gov.cn/xxgk/zywj/201904/t20190423_4855791.htm" target="_blank" rel="noopener noreferrer">福建省教育厅-选择性考试科目赋分办法</a>、<a href="https://jyt.nx.gov.cn/zwgk/zfxxgkml/zdgkwj/202605/t20260521_5246662.html" target="_blank" rel="noopener noreferrer">宁夏教育厅-等级赋分办法</a>、<a href="https://www.henan.gov.cn/2025/06-24/3173319.html" target="_blank" rel="noopener noreferrer">河南省人民政府门户-新高考成绩为什么要赋分</a>）。浙江等"7 选 3"省份地理同样实行等级赋分。</p>
+  <div class="tbl-scroll"><table>
+    <caption>表 0-2：等级赋分区间（官方口径）与本档定位对应</caption>
+    <thead><tr><th>等级</th><th>人数占比</th><th>赋分区间</th><th>本档对应</th><th>位次含义（约）</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td class="num">约 15%</td><td class="num">100~86</td><td>90 档（90+ 含 95 冲刺）</td><td>全省前 15% 以内</td></tr>
+      <tr><td>B</td><td class="num">约 35%</td><td class="num">85~71</td><td>80 档（80 分处于 B 等上缘）</td><td>全省约前 15%~50%</td></tr>
+      <tr><td>C</td><td class="num">约 35%</td><td class="num">70~56</td><td>70 档（C 等上限）、60 档（C 等下缘）</td><td>全省约前 50%~85%</td></tr>
+      <tr><td>D</td><td class="num">约 13%</td><td class="num">55~41</td><td>50 档（D 等中段）</td><td>全省约前 85%~98%</td></tr>
+      <tr><td>E</td><td class="num">约 2%</td><td class="num">40~30</td><td>—</td><td>全省后 2%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：赋分结果取决于"你在全省选考地理考生中的位次"，同一原始分在不同年份、不同省份对应的赋分可能不同；本文所述"50/60/70/80/90 分"均按赋分后的成绩口径讨论，位次区间为区间对应关系的估算，具体以当年考试院公布为准。</p>
+  <div class="callout">数据化理解赋分：<b>在赋分制下，地理 50 分不是"卷面只答对一半"，而是"在全省地理考生中约处于 D 等中段"；想进 90+，必须先进入全省前 15% 的位次。</b>因此本文每一档的提分目标，都同时给出"分数目标"与"位次含义"两把尺子。</div>
+  <h3>0.3 三大知识系统地图：自然 + 人文 + 区域</h3>
+  <p><span class="flag fact">事实</span>从命题结构看，地理试卷由三大系统构成：自然地理（地球运动、大气、水、地貌、土壤与植被）、人文地理（人口、城市、农业、工业、交通、服务业与资源环境）、区域地理与可持续发展（区域定位、中国与世界地理、资源环境与国家安全），并叠加地理信息技术（3S：RS 遥感、GNSS 导航定位、GIS 地理信息系统）应用。浙江 2025 年 1 月选考地理的官方评析显示：必修一与选择性必修一自然地理基础占 53%（含地理信息工具约 4%），人文与区域、资源环境国家安全类占 47%（<a href="https://www.zjzs.net/art/2025/1/10/art_31_10737.html" target="_blank" rel="noopener noreferrer">浙江省教育考试院-2025年1月选考地理命题思路</a>）。</p>
+  <div class="tbl-scroll"><table>
+    <caption>表 0-3：自然、人文、区域三大系统知识地图与常见失分点</caption>
+    <thead><tr><th>系统</th><th>主干内容</th><th>核心能力</th><th>常见失分点</th></tr></thead>
+    <tbody>
+      <tr><td><b>自然地理</b></td><td>地球运动与时间计算、大气受热与环流、天气系统、水循环与洋流、地质地貌、土壤植被、自然带</td><td>原理推理、过程分析、尺度转换</td><td>地球运动计算、大气环流成因、地质过程时序</td></tr>
+      <tr><td><b>人文地理</b></td><td>人口迁移、城镇化、农业区位、工业区位、交通区位、服务业区位、区域产业</td><td>区位分析、要素关联、案例迁移</td><td>区位条件漏项、答非所问、模板缺失</td></tr>
+      <tr><td><b>区域地理</b></td><td>区域定位、中国地理、世界地理、区域可持续发展、资源环境与国家安全</td><td>区域认知、综合思维、人地协调</td><td>区域定位模糊、尺度混乱、人地关系表述空泛</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag judge">判断</span>三大系统在试卷中从不孤立出现：近年命题明显倾向"一境多问"——以一个小尺度区域（如一条河、一个流域、一条铁路）为情境，同时考查自然过程与人文活动（2026 年全国卷第 4~6 题"兰新铁路改直为弯"即典型案例，见 <a href="http://www.eol.cn/kaoshi/gaokao/gkzx/202606/t20260608_2742597.shtml" target="_blank" rel="noopener noreferrer">教育在线-2026地理全国卷评析（教育部教育考试院）</a>）。因此分档复习绝不能按"自然/人文"切块，而要按"能力层级"推进。</p>
+  <h3>0.4 卷面结构与分值参考</h3>
+  <div class="tbl-scroll"><table>
+    <caption>表 0-4：不同卷型的地理分值结构（官方或真题口径）</caption>
+    <thead><tr><th>卷型</th><th>选择题</th><th>非选择题</th><th>考试时长</th></tr></thead>
+    <tbody>
+      <tr><td>全国卷 / 新课标卷</td><td class="num">11 题 × 4 分 = 44 分</td><td class="num">2 题共 56 分（如 36 题 30 分 + 37 题 26 分）</td><td class="num">约 150 分钟（文综）</td></tr>
+      <tr><td>湖南（2025 修订）</td><td class="num">16 题 × 3 分 = 48 分</td><td class="num">3~5 题共 52 分</td><td class="num">75 分钟</td></tr>
+      <tr><td>江苏</td><td class="num">22~23 题 × 2 分 = 44~46 分</td><td class="num">3 题共 54~56 分</td><td class="num">75 分钟</td></tr>
+      <tr><td>浙江（2025 选考）</td><td class="num">25 题 × 2 分 = 50 分</td><td class="num">3 题共 50 分</td><td class="num">90 分钟</td></tr>
+      <tr><td>辽宁/吉林/黑龙江/内蒙古</td><td class="num">16 题 × 3 分 = 48 分</td><td class="num">3 题共 52 分</td><td class="num">75 分钟</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">来源：全国卷结构见 <a href="https://m.zxxk.com/soft/59174666.html" target="_blank" rel="noopener noreferrer">学科网-2026全国卷文综地理真题（选择题44分/非选择题56分）</a>；湖南结构见 <a href="https://jyt.hunan.gov.cn/jyt/sjyt/hnsjyksy/web/ksyzcfg/202512/t20251203_33861445.html" target="_blank" rel="noopener noreferrer">湖南省教育考试院-选择性考试试卷结构（2025年修订）</a>；江苏结构见 <a href="https://ycedu.yancheng.gov.cn/art/2022/11/28/art_579_3934011.html" target="_blank" rel="noopener noreferrer">盐城市教育局转-江苏省选择性考试科目试卷结构</a>；浙江结构见 <a href="https://img.gaokaozhitongche.com/resource/pdf/paper/202511/20251106082144_XkCR0Y.pdf" target="_blank" rel="noopener noreferrer">高考直通车-2025年浙江省地理选考试卷综述</a>。</p>
+  <div class="verdict"><b>核心判断：</b>无论哪种卷型，选择题约占一半分值且"答错即丢全分"，综合题按采分点给分、写就有机会得分——这意味着<b>低分段考生的第一优先永远是选择题正确率，综合题从"会写"开始逐步积累采分点</b>。这一原则贯穿本文五档方案。</div>
+</section>
+<section id="seg-50">
+  <div class="sec-head"><span class="sec-no">01</span><h2>50 分档 · 基础重建期</h2></div>
+  <p class="lead">50 分是"从不会到会"的起点档。这一档的考生不是"某类题做不好"，而是自然地理主干原理处于空白、区域定位基本靠蒙、综合题只能写满凑分。目标明确：先重建地基，60 分是第一个台阶。</p>
+  <h3>1.1 分数定位画像</h3>
+  <p><span class="flag fact">事实</span>按赋分区间推算，50 分处于 D 等（55~41）中段，对应全省选考地理考生约前 85%~98% 的位段，即位于全省后 15% 附近（区间对应关系的估算，具体以当年考试院公布为准）。这一位段的典型学习状态：<span class="hl">概念靠死记、原理靠猜、图靠蒙</span>。</p>
+  <div class="card">
+    <b>50 档考生四张画像：</b>
+    <ul class="tight">
+      <li><b>大气与地球运动空白</b>：分不清气旋反气旋、不知道昼夜长短怎么变、太阳高度角计算无从下手——自然地理第一大失分区。</li>
+      <li><b>区域定位靠蒙</b>：拿到区域图不知道"这是哪"，经纬度、海陆轮廓、地形特征都无法调用，选择题大量二选一。</li>
+      <li><b>综合题"无话可说"</b>：区位题只写"交通便利""劳动力充足"，自然地理成因题只写"降水多""气温高"，凑不满采分点。</li>
+      <li><b>术语缺失</b>：答案口语化严重，如"水汽少"写成"没水"、"蒸发强"写成"水干了"，拿不到术语分。</li>
+    </ul>
+  </div>
+  <h3>1.2 到下一档的差距量化：还差 10 分怎么拆</h3>
+  <p>50→60 的 10 分，不需要天赋，只需要"把基础题做对"。按全国卷 44 分选择 + 56 分综合的结构拆解（其他省按分值比例等比例换算）：</p>
+  <div class="tbl-scroll"><table>
+    <caption>表 1-1：50→60 的 10 分缺口拆解（全国卷 44+56 口径，其余卷型等比换算）</caption>
+    <thead><tr><th>缺口位置</th><th>当前典型状态</th><th>目标状态</th><th>可提分</th><th>达成路径</th></tr></thead>
+    <tbody>
+      <tr><td>选择题（44 分）</td><td>对 5~6 题（20~24 分）</td><td>对 7~8 题（28~32 分）</td><td class="num">约 +8 分</td><td>主干原理题多对 2 题：大气、水、地球运动基础题</td></tr>
+      <tr><td>综合题（56 分）</td><td>约 26~30 分（写满但采分点少）</td><td>约 30~32 分（采分点增多）</td><td class="num">约 +4 分</td><td>区位与成因题套用"要素清单"，多写 2~3 个有效采分点</td></tr>
+      <tr><td>合计</td><td class="num">约 50 分</td><td class="num">约 60 分</td><td class="num">+10 分</td><td>选择题为主、综合题为辅，先易后难</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout gold">一句话缺口判断：<b>50 分档的 10 分，选择题贡献 8 分、综合题贡献 2 分。</b>原因是选择题答对就是全分，且基础题占大头；综合题此时只能靠"多写采分点"，提分慢但必须同步练。</div>
+  <h3>1.3 得分结构拆解：当前 vs 目标</h3>
+  <div class="tbl-scroll"><table>
+    <caption>表 1-2：50 档得分结构对照（当前 50 分 vs 目标 60 分）</caption>
+    <thead><tr><th>板块</th><th>当前得分（估）</th><th>目标得分（估）</th><th>差值</th><th>重点动作</th></tr></thead>
+    <tbody>
+      <tr><td>自然地理选择题</td><td class="num">8~12 分</td><td class="num">14~16 分</td><td class="num">+4~6</td><td>大气、水、地球运动基础原理过关</td></tr>
+      <tr><td>人文地理选择题</td><td class="num">8~10 分</td><td class="num">12~14 分</td><td class="num">+2~4</td><td>区位概念辨析 + 生活常识判断</td></tr>
+      <tr><td>区域与图表选择题</td><td class="num">2~4 分</td><td class="num">4~6 分</td><td class="num">+2</td><td>区域定位口诀 + 图例判读</td></tr>
+      <tr><td>综合题（自然成因类）</td><td class="num">10~12 分</td><td class="num">12~14 分</td><td class="num">+2</td><td>"因—果—条件"三段式表达</td></tr>
+      <tr><td>综合题（人文区位类）</td><td class="num">12~14 分</td><td class="num">14~16 分</td><td class="num">+2</td><td>区位要素清单：自然+社会经济全列</td></tr>
+      <tr><td>综合题（区域发展类）</td><td class="num">2~4 分</td><td class="num">4~6 分</td><td class="num">+2</td><td>按"问题—措施—影响"框架组织答案</td></tr>
+    </tbody>
+  </table></div>
+  <h3>1.4 核心失分诊断</h3>
+  <p><span class="flag fact">事实</span>北京教育考试评价研究中心发布的 2016 年高考地理学科评价报告显示：当年全市地理平均分 62.30 分、得分率 0.62，其中"图文信息获取与整合"得分率仅 0.57、"地理现象判断与解释"得分率 0.57，均低于平均得分率；而低分段（40 分以下）考生占比 5.59%（<a href="https://www.bjeea.cn/uploads/softnew/81-161123094100.Pdf" target="_blank" rel="noopener noreferrer">北京教育考试评价研究中心-2016高考地理学科评价研究报告</a>）。这组官方数据说明：<span class="hl">低分段的核心短板从来不是"知识量不够"，而是"图文信息获取 + 原理判断"两项基础能力</span>。</p>
+  <div class="tbl-scroll"><table>
+    <caption>表 1-3：50 档四大失分诊断与证据特征</caption>
+    <thead><tr><th>失分类型</th><th>表现</th><th>可观察信号</th><th>干预方向</th></tr></thead>
+    <tbody>
+      <tr><td>原理空白型</td><td>大气环流、地球运动、水循环题靠猜</td><td>遇原理题耗时超过 3 分钟且常改错</td><td>回归教材概念，先背后讲</td></tr>
+      <tr><td>读图障碍型</td><td>等值线、统计图、区域图提取不到信息</td><td>选择题 80% 时间耗在读图上</td><td>读图三步法：图名→图例→要素</td></tr>
+      <tr><td>术语缺失型</td><td>答案口语化、表达不完整</td><td>综合题写得满但得分不到一半</td><td>术语卡 + 采分点仿写</td></tr>
+      <tr><td>定位模糊型</td><td>区域图"这是哪"说不清</td><td>中国分区、大洲大洋位置混淆</td><td>区域定位口诀 + 空白地图填绘</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag judge">判断</span>50 档考生最该警惕的不是"错得多"，而是"错得散"——每个板块都错两三道，说明没有形成系统。重建期必须收缩战线：只攻自然地理主干与区域定位两大块，其他板块维持即可。</p>
+  <h3>1.5 提分路径：五步重建</h3>
+  <ol class="steps">
+    <li><b>第一步（第 1~2 周）教材通读</b>：把必修一（自然地理）从头到尾读一遍，用"一页一概念"的方式整理：每个概念写清定义、成因、例子、常考设问。每天 30 分钟，只读不刷题。</li>
+    <li><b>第二步（第 2~3 周）自然地理基础题专项</b>：集中做大气（气压带风带、天气系统）、水（水循环、洋流）、地球运动（昼夜长短、正午太阳高度）三类基础选择题，每类 30~50 题，目标正确率从 40% 提到 65%。</li>
+    <li><b>第三步（第 3~4 周）区域定位突破</b>：中国 34 个省级行政区 + 世界主要大洲大洋与重点国家，用空白地图填绘法每天 1 张；同时背"定位四要素"口诀：经纬度、海陆、地形、气候。</li>
+    <li><b>第四步（第 4~6 周）综合题"写满到采分"</b>：每天 1 道综合题，先列要素清单再作答；自然成因题用"因—果—条件"三段式，区位题把自然（地形气候水文土壤生物）与社会经济（市场交通劳动力政策科技）全部列出再筛选。</li>
+    <li><b>第五步（第 6~8 周）月考检测与错题归因</b>：每两周一套限时卷，错题按"原理/读图/术语/定位"四类归档，集中消灭占比最高的一类。</li>
+  </ol>
+  <div class="callout">见效预期：<b>基础重建期通常需要 6~8 周</b>。前 4 周选择题正确率会有明显跃升（约 +6~8 分），后 4 周综合题采分点逐步增加（约 +2~4 分）。"多久见效"取决于每天是否保证 60~90 分钟连续投入。</div>
+  <p><span class="flag judge">判断</span>50 档考生和陪跑家长最容易高估的是"刷题量"、低估的是"概念重建"：没有教材概念打底，刷 100 道题也只是把同样的错误重复 100 次。重建期的验收标准不是"做了多少题"，而是"能不能闭卷讲清大气环流、水循环、地球运动三大主线"。</p>
+  <h3>1.6 训练方案与时间分配：周计划</h3>
+  <div class="tbl-scroll"><table>
+    <caption>表 1-4：50 档每周训练计划（每天约 60~90 分钟）</caption>
+    <thead><tr><th>时间</th><th>训练内容</th><th>时长</th><th>量化目标</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>教材通读：大气受热过程 + 气压带风带</td><td class="num">40 分钟</td><td>能复述"为什么赤道多雨、副热带少雨"</td></tr>
+      <tr><td>周二</td><td>大气选择题专项 20 题 + 订正</td><td class="num">40 分钟</td><td>正确率 ≥ 60%，错题归档</td></tr>
+      <tr><td>周三</td><td>水循环 + 洋流概念整理，画洋流模式图</td><td class="num">40 分钟</td><td>能默画世界洋流分布简图</td></tr>
+      <tr><td>周四</td><td>地球运动基础：昼夜长短、正午太阳高度 15 题</td><td class="num">40 分钟</td><td>计算题正确率 ≥ 50%</td></tr>
+      <tr><td>周五</td><td>区域定位：中国省级行政区空白图填绘</td><td class="num">30 分钟</td><td>每周 1 张，正确率 ≥ 80%</td></tr>
+      <tr><td>周六</td><td>综合题 1 道（自然成因类）+ 要素清单训练</td><td class="num">50 分钟</td><td>采分点 ≥ 3 个/题</td></tr>
+      <tr><td>周日</td><td>错题回顾 + 周测（40 分钟限时）</td><td class="num">60 分钟</td><td>周测得分率较上周提升</td></tr>
+    </tbody>
+  </table></div>
+  <h3>1.7 家长协同要点</h3>
+  <div class="card">
+    <ul class="tight">
+      <li><b>不盯分数盯"三件事"</b>：孩子能否讲清"今天学了什么原理"、错题是否归类、读图是否按步骤。50 档最怕家长用"怎么又不及格"摧毁信心。</li>
+      <li><b>保证连续性</b>：基础重建最忌中断，建议固定每天 19:00~20:30 为地理时间，形成节律。</li>
+      <li><b>提供"可讲"的检验</b>：每周请孩子把 3 个概念讲给家长听（如"什么是热力环流"），讲不出即未掌握——这是成本最低的检测。</li>
+      <li><b>管理预期</b>：告诉孩子 60 分是第一个台阶，1 个月内先看到选择题进步；不要用"别人都 80 分"做比较。</li>
+    </ul>
+  </div>
+  <h3>1.8 常见误区与里程碑</h3>
+  <div class="tbl-scroll"><table>
+    <caption>表 1-5：50 档里程碑（1 个月 / 3 个月）与误区清单</caption>
+    <thead><tr><th>周期</th><th>里程碑（可核验）</th><th>常见误区（要避开）</th></tr></thead>
+    <tbody>
+      <tr><td>1 个月</td><td>自然地理基础选择题正确率 ≥ 60%；能默画洋流、气压带风带示意图；区域定位正确率 ≥ 70%</td><td>误区一：一上来就刷整套卷——基础没重建，刷卷只是重复错误；误区二：只背不练，以为"记住就会了"</td></tr>
+      <tr><td>3 个月</td><td>限时卷稳定 60+；综合题每题采分点 ≥ 3 个；错题本四类归因清晰，原理类占比明显下降</td><td>误区三：跳过自然地理直接补人文——自然原理是人文区位的前提；误区四：综合题不写只背答案——必须自己写一遍再对照</td></tr>
+    </tbody>
+  </table></div>
+  <div class="verdict"><b>本档判断：</b>50→60 是五档中"性价比最高"的一档，因为 10 分几乎全部来自基础题；只要保证 6~8 周连续投入、选择题优先、概念讲得出，60 分是可以预期的。</div>
+</section>
+<section id="seg-60">
+  <div class="sec-head"><span class="sec-no">02</span><h2>60 分档 · 基础巩固期</h2></div>
+  <p class="lead">60 分说明基础概念"初步掌握"但"用不熟练"：原理知道大概，一上图表就慢，人文地理答题没有框架。这一档的核心矛盾是"知识有了、技能没有"——读图速度与答题模板是两大抓手。</p>
+  <h3>2.1 分数定位画像</h3>
+  <p><span class="flag fact">事实</span>按赋分区间推算，60 分处于 C 等（70~56）下缘，对应全省选考地理考生约前 50%~85% 位段的中下部（估算口径）。这一位段的考生已完成"从无到有"，进入"从有到熟"的瓶颈期。</p>
+  <div class="card">
+    <b>60 档考生四张画像：</b>
+    <ul class="tight">
+      <li><b>读图慢</b>：等值线图、统计图、区域图不是看不懂，而是看得慢——一道图表选择题耗时 4~5 分钟，挤占全卷时间。</li>
+      <li><b>二选一常错</b>：选择题能排除两个选项，剩下两个反复纠结，最终多半选错——"知识半熟"的典型信号。</li>
+      <li><b>人文模板缺失</b>：农业、工业、城市、交通区位题答不全，总是漏掉"市场""政策""劳动力素质"等要素。</li>
+      <li><b>自然题"会但答不准"</b>：原理方向对，但表述缺条件、缺因果链，综合题拿不满采分点。</li>
+    </ul>
+  </div>
+  <h3>2.2 到下一档的差距量化：还差 10 分怎么拆</h3>
+  <p>60→70 的 10 分来自"速度 + 模板"两项：读图提速把时间还给思考，模板补全把采分点从 3 个提到 4~5 个。</p>
+  <div class="tbl-scroll"><table>
+    <caption>表 2-1：60→70 的 10 分缺口拆解（全国卷 44+56 口径）</caption>
+    <thead><tr><th>缺口位置</th><th>当前典型状态</th><th>目标状态</th><th>可提分</th><th>达成路径</th></tr></thead>
+    <tbody>
+      <tr><td>图表类选择题</td><td>对 2~3 题（8~12 分），耗时过长</td><td>对 4~5 题（16~20 分）</td><td class="num">约 +6 分</td><td>读图三步法提速：图名→图例→要素</td></tr>
+      <tr><td>人文区位综合题</td><td>采分点 3 个，漏项明显</td><td>采分点 4~5 个</td><td class="num">约 +3 分</td><td>区位模板库：自然 5 项 + 社会经济 5 项</td></tr>
+      <tr><td>审题与规范</td><td>答非所问、写错方向</td><td>设问关键词定位准确</td><td class="num">约 +1 分</td><td>圈设问：行为动词 + 限定词 + 分值</td></tr>
+      <tr><td>合计</td><td class="num">约 60 分</td><td class="num">约 70 分</td><td class="num">+10 分</td><td>图表提速 + 模板补全双线推进</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout gold">一句话缺口判断：<b>60 档的 10 分，一半来自"图表题提速多对 1~2 题"，一半来自"区位模板让综合题多拿 3 分"。</b>这一档不需要再学新知识，而是把已有的知识"调得快、答得全"。</div>
+  <h3>2.3 得分结构拆解：当前 vs 目标</h3>
+  <div class="tbl-scroll"><table>
+    <caption>表 2-2：60 档得分结构对照（当前 60 分 vs 目标 70 分）</caption>
+    <thead><tr><th>板块</th><th>当前得分（估）</th><th>目标得分（估）</th><th>差值</th><th>重点动作</th></tr></thead>
+    <tbody>
+      <tr><td>图表与等值线选择题</td><td class="num">8~12 分</td><td class="num">14~16 分</td><td class="num">+4~6</td><td>等值线判读口诀 + 统计图读数训练</td></tr>
+      <tr><td>人文地理选择题</td><td class="num">10~14 分</td><td class="num">14~16 分</td><td class="num">+2~4</td><td>区位概念辨析，消除"半熟"</td></tr>
+      <tr><td>自然地理选择题</td><td class="num">10~12 分</td><td class="num">12~14 分</td><td class="num">+2</td><td>原理题限时训练（每题 ≤ 2 分钟）</td></tr>
+      <tr><td>人文区位综合题</td><td class="num">14~16 分</td><td class="num">17~20 分</td><td class="num">+3~4</td><td>区位模板 + 分值匹配采分点数量</td></tr>
+      <tr><td>自然成因综合题</td><td class="num">12~14 分</td><td class="num">13~16 分</td><td class="num">+1~2</td><td>因果链补全："因为…所以…"写完整</td></tr>
+      <tr><td>区域发展综合题</td><td class="num">4~6 分</td><td class="num">6~8 分</td><td class="num">+2</td><td>"问题—措施—影响"框架落笔</td></tr>
+    </tbody>
+  </table></div>
+  <h3>2.4 核心失分诊断</h3>
+  <p><span class="flag fact">事实</span>北京考试报公开的官方评价报告指出：2023 年北京市初中学业水平考试中，历史、道德与法治、地理等学科的材料分析题，部分考生"不能灵活、准确把握"或"因材料阅读方式不当而浪费时间"，还有考生"阅读图形、表格或文字材料很随意，存在信息提取错误，或遗漏关键信息，或抓不住问题本质"（<a href="https://www.bjeea.cn/html/ksb/zhongyaoxinwen/2024/0401/84988.html" target="_blank" rel="noopener noreferrer">北京考试报-2023年北京市初中学业水平考试评价研究总报告</a>）。读图与材料提取能力不足，从初中到高考是贯穿性的短板。</p>
+  <div class="tbl-scroll"><table>
+    <caption>表 2-3：60 档三大失分诊断与证据特征</caption>
+    <thead><tr><th>失分类型</th><th>表现</th><th>可观察信号</th><th>干预方向</th></tr></thead>
+    <tbody>
+      <tr><td>读图慢</td><td>图表题耗时 4~5 分钟，全卷时间紧张</td><td>考试最后 10 分钟还有 2~3 道大题没动笔</td><td>读图三步法 + 每日限时图表训练</td></tr>
+      <tr><td>二选一纠结</td><td>排除两个选项后选错</td><td>错题中"改答案改错"占比高</td><td>找出"最后一步判断"依据，杜绝凭感觉</td></tr>
+      <tr><td>模板缺失</td><td>区位题漏要素、答不全</td><td>综合题每题采分点稳定在 2~3 个上不去</td><td>建区位模板库 + 逐题对照补漏</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag judge">判断</span>60 档最典型的心理陷阱是"以为自己会了"：选择题二选一错一半，说明知识是"认识"而不是"掌握"——认识是"见过能认"，掌握是"闭卷能讲、变式能做"。检验标准只有一个：把每个常考概念用一句话讲清楚，讲不出就重学。</p>
+  <h3>2.5 提分路径：五步巩固</h3>
+  <ol class="steps">
+    <li><b>第一步（第 1 周）读图提速训练</b>：掌握读图三步法——先读图名判断"考什么"，再读图例找"有什么"，最后读要素抓"变什么"。每天 6~8 道图表选择题限时训练，单题目标 90 秒。</li>
+    <li><b>第二步（第 2 周）等值线与统计图专项</b>：等高线、等压线、等温线"三线"口诀 + 柱状图、折线图、饼图读数；错题必须画出"读图路径"（从哪里读到什么结论）。</li>
+    <li><b>第三步（第 3 周）人文区位模板库</b>：按农业、工业、城市、交通、服务业五类整理区位模板，每类固定"自然 5 项 + 社会经济 5 项"清单，答题时全列再筛选。</li>
+    <li><b>第四步（第 4 周）综合题"设问拆解"</b>：拿到题先圈行为动词（简述/说明/分析/评价/指出）+ 限定词（自然原因/社会经济条件/有利/不利）+ 分值（6 分≈3 个采分点），再组织答案。</li>
+    <li><b>第五步（第 5~8 周）滚动巩固</b>：每周 1 套限时卷 + 错题四类归档（读图/概念/模板/审题），连续两周同类错误清零再升级。</li>
+  </ol>
+  <div class="callout">见效预期：<b>读图提速通常 2~3 周见效</b>（图表题用时从 4~5 分钟降到 2 分钟内），模板补全 3~4 周见效（综合题采分点从 3 个到 4~5 个）；合计 6~8 周可稳定站上 70 分。</div>
+  <p><span class="flag judge">判断</span>60 档的提分逻辑是"读图决定上限"：选择题里凡是要读图判读的题目，只要读图速度与准确度不解决，刷再多人文模板题也会被图表题拖回原分。因此本档周计划把图表专项固定为每周两练，而不是"有空再练"。</p>
+  <h3>2.6 训练方案与时间分配：周计划</h3>
+  <div class="tbl-scroll"><table>
+    <caption>表 2-4：60 档每周训练计划（每天约 60~90 分钟）</caption>
+    <thead><tr><th>时间</th><th>训练内容</th><th>时长</th><th>量化目标</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>图表选择题限时 8 题（读图三步法）</td><td class="num">30 分钟</td><td>单题 ≤ 90 秒，正确率 ≥ 62%</td></tr>
+      <tr><td>周二</td><td>等值线专项：等高线 6 题 + 等压线 6 题</td><td class="num">40 分钟</td><td>判读口诀能默写、正确率 ≥ 65%</td></tr>
+      <tr><td>周三</td><td>统计图专项：柱状/折线/饼图读数 8 题</td><td class="num">30 分钟</td><td>读数不出错，趋势描述规范</td></tr>
+      <tr><td>周四</td><td>人文区位模板：农业 + 工业各整理 1 类</td><td class="num">40 分钟</td><td>每类模板 10 项要素默写全</td></tr>
+      <tr><td>周五</td><td>城市/交通/服务业模板 + 例题各 1 道</td><td class="num">40 分钟</td><td>例题采分点 ≥ 4 个</td></tr>
+      <tr><td>周六</td><td>综合题 2 道：区位类 + 成因类（设问拆解法）</td><td class="num">60 分钟</td><td>每题采分点 ≥ 4 个</td></tr>
+      <tr><td>周日</td><td>限时卷 1 套 + 错题归档（四类）</td><td class="num">90 分钟</td><td>得分率 ≥ 65%，纠错记录完整</td></tr>
+    </tbody>
+  </table></div>
+  <h3>2.7 家长协同要点</h3>
+  <div class="card">
+    <ul class="tight">
+      <li><b>关注"速度"而非"难度"</b>：60 档的进步信号是"同样一张卷子，用时变短了"；家长可每周记录一次限时完成时间。</li>
+      <li><b>让孩子当"小老师"</b>：请孩子讲区位模板（农业区位受哪些因素影响），讲得越全说明框架越完整。</li>
+      <li><b>防止"刷题焦虑"</b>：这一档重质量不重量，家长不必催"再多做十道题"，而应关注"错题有没有归类、同类错是否清零"。</li>
+      <li><b>稳定作息</b>：读图提速依赖专注力，保证睡眠比熬夜多刷一题更有效。</li>
+    </ul>
+  </div>
+  <h3>2.8 常见误区与里程碑</h3>
+  <div class="tbl-scroll"><table>
+    <caption>表 2-5：60 档里程碑（1 个月 / 3 个月）与误区清单</caption>
+    <thead><tr><th>周期</th><th>里程碑（可核验）</th><th>常见误区（要避开）</th></tr></thead>
+    <tbody>
+      <tr><td>1 个月</td><td>图表选择题单题用时 ≤ 2 分钟；区位模板 5 类默写齐全；限时卷选择题正确率 ≥ 62%</td><td>误区一：只练大题不练图表——图表题才是选择题的分母；误区二：模板死背不筛选——要素要"全列再挑"，不能全写</td></tr>
+      <tr><td>3 个月</td><td>限时卷稳定 70+；综合题每题采分点 ≥ 4 个；同类错题连续 3 周清零</td><td>误区三：二选一靠"语感"——必须找到排除最后一个选项的地理依据；误区四：忽略分值匹配——6 分题写 2 个点必丢分</td></tr>
+    </tbody>
+  </table></div>
+  <div class="verdict"><b>本档判断：</b>60→70 是"从会到熟"的转换档，读图提速与模板补全缺一不可。这一档的进步家长肉眼可见：做题速度、答题条理都会明显变化，是建立自信的关键期。</div>
+</section>
+<section id="seg-70">
+  <div class="sec-head"><span class="sec-no">03</span><h2>70 分档 · 框架搭建期</h2></div>
+  <p class="lead">70 分是"赋分中枢"——恰好卡在 C 等上限、接近 B 等门槛。这一档的考生知识已不差，缺的是"系统框架"：综合题答题框架不全、3S 题失分、自然与人文综合题断层。跨过 70，就进入全省前 50% 的位段。</p>
+  <h3>3.1 分数定位画像</h3>
+  <p><span class="flag fact">事实</span>按赋分区间推算，70 分处于 C 等（70~56）上限，对应全省选考地理考生约前 50%~85% 位段的中上部，是进入 B 等（85~71）的"临门一脚"（估算口径）。赋分制下，70 分再往前走 1 分，就进入全省前 50% 的位段。</p>
+  <div class="card">
+    <b>70 档考生四张画像：</b>
+    <ul class="tight">
+      <li><b>综合题框架不全</b>：区位题能答出主干，但"评价类""措施类""影响类"设问组织混乱，想到哪写到哪。</li>
+      <li><b>3S 题稳定失分</b>：RS、GNSS、GIS 功能混淆——分不清"拍照的是谁、定位的是谁、分析的是谁"。</li>
+      <li><b>自然人文断层</b>：纯自然题、纯人文题都能做，一旦综合（如"某河流改道对农业的影响"）就漏环节。</li>
+      <li><b>图表题"会读不会用"</b>：读得出信息，但不会把信息转化为答题依据，尤其新情境图表。</li>
+    </ul>
+  </div>
+  <h3>3.2 到下一档的差距量化：还差 10 分怎么拆</h3>
+  <p>70→80 的 10 分来自三处：综合题框架（+4~5 分）、3S 与图表选择题（+3 分）、自然人文综合大题（+2~3 分）。</p>
+  <div class="tbl-scroll"><table>
+    <caption>表 3-1：70→80 的 10 分缺口拆解（全国卷 44+56 口径）</caption>
+    <thead><tr><th>缺口位置</th><th>当前典型状态</th><th>目标状态</th><th>可提分</th><th>达成路径</th></tr></thead>
+    <tbody>
+      <tr><td>综合题框架类设问</td><td>评价/措施/影响题丢 4~6 分</td><td>框架完整，采分点 5 个</td><td class="num">约 +4~5 分</td><td>五类设问模板：原因/条件/影响/措施/评价</td></tr>
+      <tr><td>3S 与图表选择题</td><td>对 1~2 题（4~8 分）</td><td>对 2~3 题（8~12 分）</td><td class="num">约 +3 分</td><td>RS/GNSS/GIS 功能辨析 + 新情境图表</td></tr>
+      <tr><td>自然人文综合大题</td><td>综合题 36/37 题第二三问失分</td><td>跨模块链条完整</td><td class="num">约 +2~3 分</td><td>"自然过程→人类活动"链条训练</td></tr>
+      <tr><td>合计</td><td class="num">约 70 分</td><td class="num">约 80 分</td><td class="num">+10 分</td><td>框架 + 3S + 综合大题三线并进</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout gold">一句话缺口判断：<b>70 档的 10 分，大头在综合题框架——把"想到哪写到哪"变成"按类型出招"，就能稳定多拿 4~5 分。</b>3S 题是区分 70 与 80 的"隐形分水岭"。</div>
+  <h3>3.3 得分结构拆解：当前 vs 目标</h3>
+  <div class="tbl-scroll"><table>
+    <caption>表 3-2：70 档得分结构对照（当前 70 分 vs 目标 80 分）</caption>
+    <thead><tr><th>板块</th><th>当前得分（估）</th><th>目标得分（估）</th><th>差值</th><th>重点动作</th></tr></thead>
+    <tbody>
+      <tr><td>选择题（图表/等值线/统计）</td><td class="num">14~18 分</td><td class="num">18~22 分</td><td class="num">+4</td><td>新情境图表专项 + 信息转化训练</td></tr>
+      <tr><td>选择题（3S 与地理信息技术）</td><td class="num">2~4 分</td><td class="num">4~6 分</td><td class="num">+2</td><td>RS/GNSS/GIS 三功能辨析卡片</td></tr>
+      <tr><td>选择题（人文/自然综合）</td><td class="num">10~14 分</td><td class="num">12~16 分</td><td class="num">+2</td><td>跨模块题干"要素链"分析</td></tr>
+      <tr><td>综合题（区位/成因框架）</td><td class="num">18~22 分</td><td class="num">22~26 分</td><td class="num">+4</td><td>五类设问模板 + 分值匹配</td></tr>
+      <tr><td>综合题（评价/措施/影响）</td><td class="num">6~8 分</td><td class="num">10~12 分</td><td class="num">+4</td><td>"有利不利分列""短期长期分层"写法</td></tr>
+      <tr><td>综合题（区域发展综合）</td><td class="num">6~8 分</td><td class="num">8~10 分</td><td class="num">+2</td><td>人地关系链条：自然条件→开发→问题→对策</td></tr>
+    </tbody>
+  </table></div>
+  <h3>3.4 核心失分诊断</h3>
+  <p><span class="flag fact">事实</span>北京考试报公开发表的教研文章《学会思维建模 解决地理信息技术问题》援引北京市高考地理数据指出：地理信息技术（3S 技术）在命题中的重要性逐年提升，但考生在此模块的得分率长期偏低；2018 年"数字地图"题、2024 年和 2025 年高考的"流程图"画图题，都成为区分考生能力的关键题目；多数考生受困于<b>概念混淆、案例不清、应用脱节</b>三大问题（<a href="https://www.bjeea.cn/uploads/soft/251029/186610.pdf" target="_blank" rel="noopener noreferrer">北京考试报-学会思维建模 解决地理信息技术问题</a>）。</p>
+  <div class="tbl-scroll"><table>
+    <caption>表 3-3：70 档四大失分诊断与证据特征</caption>
+    <thead><tr><th>失分类型</th><th>表现</th><th>可观察信号</th><th>干预方向</th></tr></thead>
+    <tbody>
+      <tr><td>框架不全</td><td>评价/措施/影响类题答不全、顺序乱</td><td>综合题第二三问失分率明显高于第一问</td><td>五类设问模板逐类训练</td></tr>
+      <tr><td>3S 概念混淆</td><td>分不清 RS、GNSS、GIS 各自功能</td><td>选择题"该用哪种技术"必错</td><td>功能辨析卡：看/定/想</td></tr>
+      <tr><td>自然人文断层</td><td>跨模块综合题漏环节</td><td>涉及"影响"时只写自然或只写人文</td><td>链条训练：自然过程→人类活动→反馈</td></tr>
+      <tr><td>信息转化弱</td><td>新情境图表读得出但用不上</td><td>答案与材料信息脱节、套模板</td><td>"材料关键词→答题术语"映射训练</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag judge">判断</span>70 档考生的最大危机是"框架固化"：一旦把某类题答法背死，遇到新设问就会"套不上"。真正的框架是"设问类型 + 要素清单 + 材料印证"三层结构，先判断类型，再按清单列要素，最后用材料筛选——而不是默写一段固定答案。</p>
+  <h3>3.5 提分路径：五步搭框架</h3>
+  <ol class="steps">
+    <li><b>第一步（第 1 周）五类设问模板</b>：把综合题设问归纳为五类——原因类（为什么）、条件类（有哪些）、影响类（有什么后果）、措施类（怎么办）、评价类（好不好）；每类建立"总—分—点"答题骨架，配合 6 分≈3 点、8 分≈4 点的分值匹配规则。</li>
+    <li><b>第二步（第 2 周）3S 功能辨析</b>：建立"看/定/想"口诀——RS 遥感是"看"（获取影像信息）、GNSS（含北斗）是"定"（定位导航授时）、GIS 是"想"（存储分析决策）；每个技术配 2~3 个真实案例（如旱情监测、城市夜光监测、物流路径规划）。</li>
+    <li><b>第三步（第 3 周）"流程图/画图题"专项</b>：近年新高考出现设计系统框图类题目（北京 2024/2025 连续考查），专项练习"要素—环节—箭头"的框图画法，训练系统思维。</li>
+    <li><b>第四步（第 4~6 周）自然人文链条训练</b>：每周 3 道跨模块综合题，按"自然过程→人类活动→环境反馈"三步链条组织答案，先列链条再扩点。</li>
+    <li><b>第五步（第 7~8 周）套卷整合</b>：每周 2 套限时卷，按"先选后综、难题跳读"分配时间，错题按"框架/3S/链条/信息转化"四类归档。</li>
+  </ol>
+  <div class="callout">见效预期：<b>模板框架 2 周见效</b>（综合题第二三问显著提分），3S 辨析 3 周见效（选择题稳定多对 1 题），链条训练 4~6 周见效；整体 6~8 周可摸到 80 分边缘。</div>
+  <p><span class="flag judge">判断</span>70 档最值得投入的是"框架型训练"而非"新知识学习"：考生知识储备已够 80 分的量，缺的是把知识装进设问框架的能力。与其再背新案例，不如把五类设问模板练到"看到设问就自动出招"的自动化程度。</p>
+  <h3>3.6 训练方案与时间分配：周计划</h3>
+  <div class="tbl-scroll"><table>
+    <caption>表 3-4：70 档每周训练计划（每天约 90~120 分钟）</caption>
+    <thead><tr><th>时间</th><th>训练内容</th><th>时长</th><th>量化目标</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>五类设问模板：原因类 + 条件类各 2 题</td><td class="num">50 分钟</td><td>骨架完整、采分点 ≥ 4 个</td></tr>
+      <tr><td>周二</td><td>3S 功能辨析卡 + 3S 选择题 10 题</td><td class="num">40 分钟</td><td>正确率 ≥ 70%，三功能能互讲</td></tr>
+      <tr><td>周三</td><td>流程图/画图题专项 3 题</td><td class="num">40 分钟</td><td>环节完整、箭头逻辑正确</td></tr>
+      <tr><td>周四</td><td>影响类 + 措施类模板各 2 题</td><td class="num">50 分钟</td><td>有利不利分列、短期长期分层</td></tr>
+      <tr><td>周五</td><td>自然人文链条训练 2 题</td><td class="num">50 分钟</td><td>链条三步完整、无漏环节</td></tr>
+      <tr><td>周六</td><td>限时卷 1 套（严格计时）</td><td class="num">90 分钟</td><td>得分率 ≥ 72%，时间分配记录</td></tr>
+      <tr><td>周日</td><td>错题归档（框架/3S/链条/转化四类）+ 弱项补练</td><td class="num">60 分钟</td><td>同类错题清零 ≥ 2 类</td></tr>
+    </tbody>
+  </table></div>
+  <h3>3.7 家长协同要点</h3>
+  <div class="card">
+    <ul class="tight">
+      <li><b>关注"答题结构"</b>：这一档的进步看"卷面条理"——答案是否分点、是否按逻辑顺序。家长可随机翻看一次综合题作答，结构整齐即进步。</li>
+      <li><b>支持"讲题复盘"</b>：请孩子每周讲 1 道综合题"为什么这样答"，能讲出设问类型与要素清单，说明框架已内化。</li>
+      <li><b>理性看待 3S 题</b>：3S 题失分不是"笨"，而是概念辨析不到位，属于可快速补齐的模块；家长不要因此否定孩子的整体能力。</li>
+      <li><b>控制套卷频率</b>：70 档每周 1~2 套限时卷足够，重点在"卷后复盘"而非"卷数"；鼓励孩子自己提出下周补强方向。</li>
+    </ul>
+  </div>
+  <h3>3.8 常见误区与里程碑</h3>
+  <div class="tbl-scroll"><table>
+    <caption>表 3-5：70 档里程碑（1 个月 / 3 个月）与误区清单</caption>
+    <thead><tr><th>周期</th><th>里程碑（可核验）</th><th>常见误区（要避开）</th></tr></thead>
+    <tbody>
+      <tr><td>1 个月</td><td>五类设问模板默写完整；3S 选择题正确率 ≥ 70%；综合题框架类设问采分点 ≥ 4 个</td><td>误区一：框架背死、不加材料——答案必须"材料关键词 + 模板要素"结合；误区二：忽视画图题——2024/2025 北京连续考流程图，全国卷方向同理</td></tr>
+      <tr><td>3 个月</td><td>限时卷稳定 80 边缘；综合题全卷采分点 ≥ 4 个/题；自然人文链条题不再漏环节</td><td>误区三：只刷选择题不练大题——70 档提分主战场在综合题；误区四：答题不分层——"有利/不利""短期/长期"分层是采分点来源</td></tr>
+    </tbody>
+  </table></div>
+  <div class="verdict"><b>本档判断：</b>70→80 是"从会到系统"的跨越档，也是绝大多数考生最难跨过的一档——因为它要求的不再是知识量，而是"框架思维"与"信息转化"两种高级技能。跨过去，就进入全省前 50% 的 B 等位段。</div>
+</section>
+<section id="seg-80">
+  <div class="sec-head"><span class="sec-no">04</span><h2>80 分档 · A段冲刺期</h2></div>
+  <p class="lead">80 分处于 B 等（85~71）上缘，习惯上称为"A 段中下"——再往前 6 分就进入 A 等（100~86），也就是全省前 15%。这一档的失分集中在压轴大题：自然+人文综合题、新情境题、规范表述三件事。</p>
+  <h3>4.1 分数定位画像</h3>
+  <p><span class="flag fact">事实</span>按赋分区间推算，80 分处于 B 等（85~71）上缘、紧贴 A 等下缘 86 分，对应全省选考地理考生约前 15%~50% 位段的中上部（估算口径）。在赋分制下，80→86 只差"一小步位次"，却是区分"中上"与"顶尖"的质变。</p>
+  <div class="card">
+    <b>80 档考生四张画像：</b>
+    <ul class="tight">
+      <li><b>压轴大题失分</b>：36/37 题（或对应综合题）前两问能拿分，最后一问（评价、推断、开放设问）丢分明显。</li>
+      <li><b>自然+人文综合断层</b>：单一模块题满分，跨模块综合题（如"某水利工程对下游农业与生态的影响"）答不全。</li>
+      <li><b>规范表述不稳</b>：知识都会，但术语、采分点、逻辑顺序不稳定，同一题型时好时坏。</li>
+      <li><b>新情境适应慢</b>：遇到陌生区域、真实产业案例、开放性设问，不能快速建立"情境—原理"映射。</li>
+    </ul>
+  </div>
+  <h3>4.2 到下一档的差距量化：还差 10 分怎么拆</h3>
+  <p>80→90 的 10 分几乎全部来自综合题：选择题要"零失误"（守住 44 分），综合题从"会做"到"做全"（56 分里多拿 8~10 分）。</p>
+  <div class="tbl-scroll"><table>
+    <caption>表 4-1：80→90 的 10 分缺口拆解（全国卷 44+56 口径）</caption>
+    <thead><tr><th>缺口位置</th><th>当前典型状态</th><th>目标状态</th><th>可提分</th><th>达成路径</th></tr></thead>
+    <tbody>
+      <tr><td>选择题（全卷）</td><td>对 9~10 题（36~40 分）</td><td>对 10~11 题（40~44 分）</td><td class="num">约 +2~4 分</td><td>易错陷阱清单 + 二选一决策规则</td></tr>
+      <tr><td>综合题（前两问）</td><td>稳定拿分（约 24~28 分）</td><td>稳定拿满（约 30~34 分）</td><td class="num">约 +4~6 分</td><td>采分点密度 + 术语精修</td></tr>
+      <tr><td>综合题（压轴问）</td><td>丢 4~6 分</td><td>拿 3~4 分（保底）</td><td class="num">约 +2~4 分</td><td>开放设问拆解 + 多角度论证</td></tr>
+      <tr><td>合计</td><td class="num">约 80 分</td><td class="num">约 90 分</td><td class="num">+10 分</td><td>选择题零失误 + 综合题做全做精</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout gold">一句话缺口判断：<b>80 档的 10 分，6 分来自"把会做的做全"（采分点、术语、顺序），4 分来自"压轴问保底抢分"。</b>这一档不再有"不会"的知识，只有"不精"的输出。</div>
+  <h3>4.3 得分结构拆解：当前 vs 目标</h3>
+  <div class="tbl-scroll"><table>
+    <caption>表 4-2：80 档得分结构对照（当前 80 分 vs 目标 90 分）</caption>
+    <thead><tr><th>板块</th><th>当前得分（估）</th><th>目标得分（估）</th><th>差值</th><th>重点动作</th></tr></thead>
+    <tbody>
+      <tr><td>自然地理选择题</td><td class="num">16~18 分</td><td class="num">18~20 分</td><td class="num">+2</td><td>原理细节 + 陷阱辨析</td></tr>
+      <tr><td>人文地理选择题</td><td class="num">12~14 分</td><td class="num">14~16 分</td><td class="num">+2</td><td>区位变式 + 新概念迁移</td></tr>
+      <tr><td>区域/3S/图表选择题</td><td class="num">8~10 分</td><td class="num">10~12 分</td><td class="num">+2</td><td>3S 应用深化 + 新情境图表</td></tr>
+      <tr><td>综合题（自然成因与过程）</td><td class="num">16~18 分</td><td class="num">18~20 分</td><td class="num">+2</td><td>过程链完整：环节不缺、顺序不乱</td></tr>
+      <tr><td>综合题（人文区位与产业）</td><td class="num">14~16 分</td><td class="num">16~18 分</td><td class="num">+2</td><td>采分点密度 + 材料印证</td></tr>
+      <tr><td>综合题（评价/开放/推断）</td><td class="num">4~6 分</td><td class="num">8~10 分</td><td class="num">+4</td><td>多角度论证 + 保底抢分策略</td></tr>
+    </tbody>
+  </table></div>
+  <h3>4.4 核心失分诊断</h3>
+  <p><span class="flag fact">事实</span>教育部教育考试院发布的 2026 年地理全国卷评析显示：试题强化地理过程分析与综合思维，如第 9~11 题以微观尺度坡面系统为载体，要求学生在解读等值线地图基础上，揭示"水分再分配"对土壤地带性的影响（<a href="http://www.eol.cn/kaoshi/gaokao/gkzx/202606/t20260608_2742597.shtml" target="_blank" rel="noopener noreferrer">教育在线-2026地理全国卷评析（教育部教育考试院）</a>）；第 36 题以福建连城棒球产业考查乡村振兴与产业区位。权威评析与真题均指向同一结论：<span class="hl">压轴大题考的是"过程完整 + 要素综合 + 尺度转换"</span>。</p>
+  <div class="tbl-scroll"><table>
+    <caption>表 4-3：80 档四大失分诊断与证据特征</caption>
+    <thead><tr><th>失分类型</th><th>表现</th><th>可观察信号</th><th>干预方向</th></tr></thead>
+    <tbody>
+      <tr><td>压轴问丢分</td><td>评价/推断/开放题写不全</td><td>36/37 题最后一问失分率 > 50%</td><td>多角度论证 + 分值分配预演</td></tr>
+      <tr><td>跨模块综合断层</td><td>自然+人文综合题漏环节</td><td>"影响"只写生态或只写经济</td><td>双链条：自然过程链 + 社会经济链</td></tr>
+      <tr><td>规范表述不稳</td><td>术语时对时错、顺序混乱</td><td>同类题得分波动 ≥ 4 分</td><td>术语卡 + 标准答案对照仿写</td></tr>
+      <tr><td>新情境适应慢</td><td>陌生区域/产业案例题耗时长</td><td>新情境题用时是熟悉题的 1.5 倍</td><td>"情境—原理"迁移训练</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag judge">判断</span>80 档考生最容易犯的错是"以为会做=能拿分"：综合题不是"写出答案"，而是"写对采分点、写好顺序、写足术语"。同样一道题，80 分考生写 2 个点、90 分考生写 4 个点且每点都踩在给分标准上——差距不在知识，在输出精度。</p>
+  <h3>4.5 提分路径：五步冲 A</h3>
+  <ol class="steps">
+    <li><b>第一步（第 1 周）选择题零失误工程</b>：整理个人"易错陷阱清单"（如时间陷阱、尺度陷阱、绝对化表述），建立二选一决策规则：必须找到"排除最后一个选项的地理依据"才能落笔，杜绝凭感觉。</li>
+    <li><b>第二步（第 2 周）综合题"采分点密度"训练</b>：把近 3 年真题综合题答案拆解成采分点，统计"每点对应什么关键词"，建立"设问→采分点关键词库"，答题时按库补点。</li>
+    <li><b>第三步（第 3~4 周）压轴问专项</b>：专攻评价类、推断类、开放类设问，训练"多角度论证"：从自然、人文、短期、长期、有利、不利六个角度轮流审视，每题保底写出 3 个角度。</li>
+    <li><b>第四步（第 5~6 周）新情境迁移训练</b>：每周 4 道新情境题（陌生区域、真实产业、政策热点），训练"情境关键词→教材原理→答题术语"三层映射，目标 5 分钟内完成迁移。</li>
+    <li><b>第五步（第 7~8 周）实战整合</b>：每周 2 套全真限时卷，模拟考试节奏（选择 40 分钟 + 综合 90 分钟 + 检查 20 分钟），逐题核对采分点，卷后按"知识/陷阱/规范/时间"四维复盘。</li>
+  </ol>
+  <div class="callout">见效预期：<b>选择题零失误 3~4 周见效</b>（稳定多对 1 题），综合题采分点密度 4 周见效（每题 +1~2 分），压轴问 6 周见效（+2~4 分）；整体 8 周左右可触及 90 分。</div>
+  <p><span class="flag judge">判断</span>80 档考生要接受一个反直觉的事实：冲刺 90 分的主要战场不在"难题"，而在"常规题的完成度"。一份 90 分的卷子通常是"选择全对 + 综合题采分点拿全 + 压轴问保底"的组合，先做到常规题 100% 完成，再谈难题加分。</p>
+  <h3>4.6 训练方案与时间分配：周计划</h3>
+  <div class="tbl-scroll"><table>
+    <caption>表 4-4：80 档每周训练计划（每天约 90~120 分钟）</caption>
+    <thead><tr><th>时间</th><th>训练内容</th><th>时长</th><th>量化目标</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>选择题限时 11 题（全国卷结构）</td><td class="num">40 分钟</td><td>正确率 ≥ 90%，陷阱记录完整</td></tr>
+      <tr><td>周二</td><td>综合题采分点拆解：真题 36 题逐点分析</td><td class="num">60 分钟</td><td>每问能说出 2~3 个关键采分词</td></tr>
+      <tr><td>周三</td><td>压轴问专项：评价/推断/开放题 2 题</td><td class="num">50 分钟</td><td>每题 ≥ 3 个角度，保底 3 分</td></tr>
+      <tr><td>周四</td><td>新情境迁移训练 2 题</td><td class="num">50 分钟</td><td>5 分钟完成情境→原理映射</td></tr>
+      <tr><td>周五</td><td>综合题规范仿写：对照标准答案重写 1 题</td><td class="num">50 分钟</td><td>术语 100% 替换为学科语言</td></tr>
+      <tr><td>周六</td><td>全真限时卷 1 套（含答题卡节奏）</td><td class="num">150 分钟</td><td>得分率 ≥ 85%，时间分配达标</td></tr>
+      <tr><td>周日</td><td>四维复盘（知识/陷阱/规范/时间）</td><td class="num">60 分钟</td><td>下周补强清单 ≥ 3 项</td></tr>
+    </tbody>
+  </table></div>
+  <h3>4.7 家长协同要点</h3>
+  <div class="card">
+    <ul class="tight">
+      <li><b>从"陪学"转向"护航"</b>：80 档考生自主能力已强，家长重点保障时间与情绪稳定，减少干预式催问。</li>
+      <li><b>关注"稳定"而非"单次高分"</b>：这一档的进步看"波动收窄"——三次考试若从 78/82/80 变为 82/83/81，就是有效进步。</li>
+      <li><b>支持"标准答案对照"</b>：鼓励孩子用标准答案反推采分点，这是冲刺期最高效的自学方式；家长只需提供真题与答案资源。</li>
+      <li><b>管理压力</b>：80→90 是"质变区"，可能短期停滞；明确告诉孩子"平台期是正常的"，避免因一两周不提分而加码乱练。</li>
+    </ul>
+  </div>
+  <h3>4.8 常见误区与里程碑</h3>
+  <div class="tbl-scroll"><table>
+    <caption>表 4-5：80 档里程碑（1 个月 / 3 个月）与误区清单</caption>
+    <thead><tr><th>周期</th><th>里程碑（可核验）</th><th>常见误区（要避开）</th></tr></thead>
+    <tbody>
+      <tr><td>1 个月</td><td>选择题正确率 ≥ 90%；综合题前两问采分点 ≥ 80%；压轴问保底 ≥ 3 分</td><td>误区一：压轴问"放弃式"跳过——开放题写 2~3 个角度就有保底分；误区二：只做新题不复盘——采分点密度必须靠"对照标准答案"提升</td></tr>
+      <tr><td>3 个月</td><td>限时卷稳定 88~92；全卷术语零口语化；新情境题 5 分钟内完成迁移</td><td>误区三：迷信"难题大招"——90 分靠的是把会做的做全，不是押中难题；误区四：忽视选择检查——冲刺期一个"粗心错"就吃掉 4 分</td></tr>
+    </tbody>
+  </table></div>
+  <div class="verdict"><b>本档判断：</b>80→90 是"从会做到做全"的输出精度档，核心训练只有三件事：选择题零失误、综合题采分点密度、压轴问保底抢分。这三件事全部可练、可测、可复盘，90 分是系统性训练的结果而非运气。</div>
+</section>
+<section id="seg-90">
+  <div class="sec-head"><span class="sec-no">05</span><h2>90 分档 · 顶尖冲刺期</h2></div>
+  <p class="lead">90+ 是赋分 A 档顶尖（A 等 100~86 的中上部），目标是 90+ 含 95 冲刺。这一档的竞争已不是"知识会不会"，而是"全对 + 术语规范 + 图表零失误 + 稳定发挥"。最后的 5 分，每一分都来自极致细节。</p>
+  <h3>5.1 分数定位画像</h3>
+  <p><span class="flag fact">事实</span>按赋分区间推算，90+ 处于 A 等（100~86）中上部，对应全省选考地理考生前 15% 以内的顶尖位段（估算口径）。参考官方整体数据：2022 年北京等级考各学科考生整体得分率在 0.62~0.67 之间、总体难度中等，高分组（G8~G10）得分率显著高于全样本（<a href="https://www.bjeea.cn/html/ksb/zhongyaoxinwen/2023/0329/83394.html" target="_blank" rel="noopener noreferrer">北京考试报-2022年高考和学业水平等级考评价研究总报告</a>）——90 分对应的正是"高分组的稳定输出"。</p>
+  <div class="card">
+    <b>90 档考生四张画像：</b>
+    <ul class="tight">
+      <li><b>选择题追求全对</b>：11 题（44 分）目标全对，允许"零失误"；任何一道粗心错都视为事故，必须复盘到根因。</li>
+      <li><b>综合题采分点全拿</b>：每问按分值匹配采分点数量，术语与标准答案"一字不差"级别对齐。</li>
+      <li><b>图表零失误</b>：图例、单位、方向、比例尺零遗漏；等值线、剖面图、统计图读图零偏差。</li>
+      <li><b>稳定发挥</b>：不依赖状态，两次考试得分波动控制在 ±3 分以内，难题也有保底策略。</li>
+    </ul>
+  </div>
+  <h3>5.2 到下一档的差距量化：90→95 的 5 分怎么拆</h3>
+  <p>90→95 的 5 分是全国所有考生中最稀缺的增量：它来自"难题多拿 2 分 + 细节少丢 3 分"。</p>
+  <div class="tbl-scroll"><table>
+    <caption>表 5-1：90→95 的 5 分缺口拆解（全国卷 44+56 口径）</caption>
+    <thead><tr><th>缺口位置</th><th>当前典型状态</th><th>目标状态</th><th>可提分</th><th>达成路径</th></tr></thead>
+    <tbody>
+      <tr><td>难题/新情境压轴问</td><td>每卷丢 2~4 分</td><td>难题平均多拿 2 分</td><td class="num">约 +2 分</td><td>难题拆解：设问分层 + 多角度穷举</td></tr>
+      <tr><td>审题陷阱</td><td>每卷 1~2 处陷阱失分</td><td>陷阱识别零失误</td><td class="num">约 +2 分</td><td>陷阱清单迭代 + 关键词逐词圈读</td></tr>
+      <tr><td>表述精度</td><td>术语接近但不够精确</td><td>术语 100% 学科化</td><td class="num">约 +1 分</td><td>标准答案术语库逐条比对</td></tr>
+      <tr><td>合计</td><td class="num">约 90 分</td><td class="num">约 95 分</td><td class="num">+5 分</td><td>难题 + 细节 + 规范三线攻坚</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout gold">一句话缺口判断：<b>90→95 的 5 分，一半在"难题上多挤 2 分"，一半在"细节上少丢 3 分"。</b>到了这个位段，粗心不再是"小问题"，而是 95 与 90 的本质差距。</div>
+  <h3>5.3 得分结构拆解：当前 vs 目标</h3>
+  <div class="tbl-scroll"><table>
+    <caption>表 5-2：90 档得分结构对照（当前 90 分 vs 目标 95 分）</caption>
+    <thead><tr><th>板块</th><th>当前得分（估）</th><th>目标得分（估）</th><th>差值</th><th>重点动作</th></tr></thead>
+    <tbody>
+      <tr><td>选择题（全卷）</td><td class="num">40~44 分</td><td class="num">44 分（全对）</td><td class="num">+0~4</td><td>陷阱清单 + 检查流程</td></tr>
+      <tr><td>综合题（常规问）</td><td class="num">32~36 分</td><td class="num">36~38 分</td><td class="num">+2~4</td><td>采分点 100% 对齐 + 术语精修</td></tr>
+      <tr><td>综合题（难题/开放问）</td><td class="num">8~10 分</td><td class="num">10~12 分</td><td class="num">+2</td><td>设问分层 + 多角度穷举</td></tr>
+      <tr><td>图表与细节</td><td class="num">偶有 1~2 分失误</td><td class="num">零失误</td><td class="num">+1~2</td><td>读图检查清单：图例/单位/方向/比例尺</td></tr>
+    </tbody>
+  </table></div>
+  <h3>5.4 核心失分诊断</h3>
+  <p><span class="flag fact">事实</span>北京市 2024 年等级考地理卷官方解析显示：全卷图像 11 组，既有等压线图、统计图、区域图等经典图像，也有野外地质剖面素描、流域水情监测系统模块图等新颖图像；第 16（2）题还要求学生为流域设计水情监测系统框图，答案不唯一（<a href="https://xinwen.bjd.com.cn/content/s6668ed7de4b064178156c43e.html" target="_blank" rel="noopener noreferrer">北京日报客户端-2024年北京市等级考地理卷试题解析</a>）。对顶尖考生而言，难题的失分往往不是"不会"，而是"设问分层不清、角度穷举不全、图表细节漏读"。</p>
+  <div class="tbl-scroll"><table>
+    <caption>表 5-3：90 档四大失分诊断与证据特征</caption>
+    <thead><tr><th>失分类型</th><th>表现</th><th>可观察信号</th><th>干预方向</th></tr></thead>
+    <tbody>
+      <tr><td>审题陷阱</td><td>关键词漏读、限定词忽略</td><td>错题对照"题干划线"能找到遗漏词</td><td>逐词圈读 + 陷阱清单迭代</td></tr>
+      <tr><td>难题角度不全</td><td>开放问只写 2 个角度</td><td>难题得分率波动大（3~6 分区间）</td><td>六角度穷举：自然/人文/短/长/利/弊</td></tr>
+      <tr><td>图表细节失误</td><td>单位、方向、图例偶尔漏</td><td>统计图读数偶发 1~2 分失误</td><td>读图检查清单化、流程化</td></tr>
+      <tr><td>表述精度不足</td><td>术语"接近但不到位"</td><td>与标准答案比对总有 1~2 处差异</td><td>术语库逐条比对 + 仿写重写</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag judge">判断</span>90 档最隐蔽的失分来源是"完美主义陷阱"：把时间耗在少数难题上追求"全对"，却在基础题和检查环节丢了细节分。顶尖冲刺的正确顺序永远是：<b>先保常规全对，再攻难题加分</b>——95 分考生与 90 分考生的差距，首先体现在"不该丢的分一分不丢"。</p>
+  <h3>5.5 提分路径：五步冲刺</h3>
+  <ol class="steps">
+    <li><b>第一步（第 1~2 周）零失误体系</b>：建立"读题—圈词—列点—检查"四步答题流程；选择题养成"做完即复查"习惯，每次考试预留 10 分钟全卷检查。</li>
+    <li><b>第二步（第 2~3 周）难题拆解工程</b>：每周精拆 4 道难题（压轴问、开放问、新情境），训练"设问分层"：把一个大问题拆成 2~3 个子问题，再按子问题逐层作答，保证角度穷举。</li>
+    <li><b>第三步（第 3~4 周）术语 100% 对齐</b>：把近 5 年真题标准答案中的高频术语整理成库（如"蒸发旺盛""径流量季节变化大""劳动力素质"等），答题时逐条比对，杜绝口语化表达。</li>
+    <li><b>第四步（第 4~6 周）图表零失误清单</b>：建立读图检查清单——图名、图例、单位、方向、比例尺、时间尺度六项逐项核对；统计图读数一律回看数据来源。</li>
+    <li><b>第五步（第 7~8 周）模拟实战固化</b>：每周 2 套全真模拟，完全按高考节奏（含填涂、检查、心理预演）；连续 4 次模拟得分率 ≥ 92% 视为冲刺达标。</li>
+  </ol>
+  <div class="callout">见效预期：<b>细节零失误 3~4 周见效</b>（基础题失分归零），难题加分 6 周见效（每题 +1~2 分），95 冲刺通常需要 8~12 周持续稳定的实战打磨。</div>
+  <p><span class="flag judge">判断</span>90→95 的冲刺逻辑是"用系统换概率"：顶尖考生无法保证每道难题都会，但可以保证"会的全对、蒙的有策略、检查有流程"。把答题流程固化成肌肉记忆，95 分就是高概率事件而非偶然。</p>
+  <h3>5.6 训练方案与时间分配：周计划</h3>
+  <div class="tbl-scroll"><table>
+    <caption>表 5-4：90 档每周训练计划（每天约 90~120 分钟）</caption>
+    <thead><tr><th>时间</th><th>训练内容</th><th>时长</th><th>量化目标</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>选择题全对训练：真题 11 题 + 陷阱复盘</td><td class="num">40 分钟</td><td>正确率 100%，陷阱清单更新</td></tr>
+      <tr><td>周二</td><td>难题拆解 2 题（设问分层 + 角度穷举）</td><td class="num">60 分钟</td><td>每题 ≥ 4 个角度、≥ 3 个采分点</td></tr>
+      <tr><td>周三</td><td>术语库比对：综合题 1 题逐条对照标准答案</td><td class="num">50 分钟</td><td>术语 100% 对齐、差异全部记录</td></tr>
+      <tr><td>周四</td><td>图表零失误专项：等值线/剖面/统计图各 2 题</td><td class="num">40 分钟</td><td>六项检查清单逐项打钩</td></tr>
+      <tr><td>周五</td><td>全卷弱点补强：按上周复盘清单专项训练</td><td class="num">50 分钟</td><td>弱点项得分率 ≥ 90%</td></tr>
+      <tr><td>周六</td><td>全真模拟卷 1 套（高考节奏）</td><td class="num">150 分钟</td><td>得分率 ≥ 92%，检查流程完整</td></tr>
+      <tr><td>周日</td><td>模拟卷四维复盘 + 下周计划</td><td class="num">60 分钟</td><td>失分 100% 归因、计划可执行</td></tr>
+    </tbody>
+  </table></div>
+  <h3>5.7 家长协同要点</h3>
+  <div class="card">
+    <ul class="tight">
+      <li><b>做"减压阀"而非"增压器"</b>：90 档考生自我要求极高，家长最需要做的是把"再考高点"的期待收起来，转而为"正常发挥"护航。</li>
+      <li><b>关注状态而非单卷分数</b>：顶尖冲刺期关注睡眠、情绪、考试节奏，比盯某一次模拟分更有价值；分数波动 ±3 分属正常。</li>
+      <li><b>支持"复盘文化"</b>：鼓励孩子每卷后自己写复盘（失分归因 + 下周清单），家长只提供资源与安静环境，不替代分析。</li>
+      <li><b>管理信息干扰</b>：冲刺期减少无关信息摄入（热搜、他人成绩比较），帮助孩子保持专注与稳定的心理节奏。</li>
+    </ul>
+  </div>
+  <h3>5.8 常见误区与里程碑</h3>
+  <div class="tbl-scroll"><table>
+    <caption>表 5-5：90 档里程碑（1 个月 / 3 个月）与误区清单</caption>
+    <thead><tr><th>周期</th><th>里程碑（可核验）</th><th>常见误区（要避开）</th></tr></thead>
+    <tbody>
+      <tr><td>1 个月</td><td>选择题 3 次限时全对；术语库比对 100% 对齐；难题每题 ≥ 3 采分点</td><td>误区一：主攻超难题——95 分来自常规全对 + 细节零失误，不是押中压轴；误区二：检查靠"感觉"——必须用固定检查流程（先查填涂、再查图表、后查表述）</td></tr>
+      <tr><td>3 个月</td><td>连续 4 次模拟 ≥ 92%；两次正式考试波动 ≤ ±3 分；图表细节零失误</td><td>误区三：忽略心理训练——顶尖分差常在心态，需模拟"难题先跳过"的临场决策；误区四：考后不重做——每次失分必须当天重做同类题，拖到下周等于没复盘</td></tr>
+    </tbody>
+  </table></div>
+  <div class="verdict"><b>本档判断：</b>90→95 是"从优秀到顶尖"的最后一公里，拼的不是知识、不是刷题量，而是"零失误的系统 + 难题的拆解力 + 稳定的心理"三件事。能稳定 92+ 的考生，95 是纪律问题，不是能力问题。</div>
+</section>
+<div id="refs" class="refs-block">
+  <div class="sec-head"><span class="sec-no">REF</span><h3>数据口径分层与参考来源</h3></div>
+  <p class="lead">本文全部数据均标注来源与口径；未标"官方"的数据为权威媒体解读、行业观察或估算口径，仅作参考。严禁将估算口径当作官方数据使用。</p>
+  <div class="tbl-scroll"><table>
+    <caption>表 R-1：数据口径分层与可信度建议</caption>
+    <thead><tr><th>层级</th><th>示例</th><th>可信度建议</th></tr></thead>
+    <tbody>
+      <tr><td>官方发布</td><td>各省教育考试院赋分办法、教育部教育考试院 2026 地理全国卷评析、浙江选考命题思路、北京考试报评价报告</td><td>最高，可直接引用</td></tr>
+      <tr><td>权威媒体/专家解读</td><td>光明日报、中国教育报、东南网/海峡教育报引福建学科评价报告、北京日报等级考解析</td><td>高，交叉核验后可用</td></tr>
+      <tr><td>行业观察/个案统计</td><td>培训机构对福建 2026 数据的整理、学科网真题整理</td><td>中，用于结构与题型参考</td></tr>
+      <tr><td>估算口径</td><td>赋分区间与位次对应、各档得分结构拆解（表 1-1~5-2）</td><td>低，教研推算，不作考试承诺</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag fact">事实</span>福建省教育考试院编制的《2025 年福建省普通高考学科评价报告》显示：历史科目组"史政地"组合各科汇总平均分 2025 年为 454.52 分（当年历史组本科切线 450 分，高出 4.52 分）（<a href="http://i.fjsen.com/wap/2025-11/08/content_32074141.htm" target="_blank" rel="noopener noreferrer">东南网-福建2025学科评价报告分析</a>）；《2026 年福建省普通高考学科评价报告》显示：2026 年"史政地"组合汇总平均分约 458 分（新福建报道口径 458.13 分，另有个别媒体口径 457.13 分，两处口径差异以考试院原文为准），当年历史组本科切线 458 分，两者几乎持平（<a href="http://m.toutiao.com/group/7696746667696980514/" target="_blank" rel="noopener noreferrer">新福建-2026福建学科评价报告分析</a>、<a href="https://www.minwenjiaoyu.com/4/22180/2258356" target="_blank" rel="noopener noreferrer">闽文教育-福建2026高考平均分整理（行业转载）</a>）。<span class="flag judge">判断</span>地理作为"史政地"组合的核心再选科目，其赋分表现直接决定组合竞争力，这也是本文按分数段精细拆解的价值所在。</p>
+  <h3>主要参考来源（按机构与主题）</h3>
+  <ol class="ref-list">
+    <li>福建省教育厅《福建省普通高中学业水平选择性考试科目赋分办法》——<a href="https://jyt.fujian.gov.cn/xxgk/zywj/201904/t20190423_4855791.htm" target="_blank" rel="noopener noreferrer">福建省教育厅官网</a></li>
+    <li>宁夏回族自治区教育厅《普通高中学业水平选择性考试科目等级赋分办法》——<a href="https://jyt.nx.gov.cn/zwgk/zfxxgkml/zdgkwj/202605/t20260521_5246662.html" target="_blank" rel="noopener noreferrer">宁夏教育厅官网</a></li>
+    <li>河南省人民政府门户《新高考成绩为什么要赋分》——<a href="https://www.henan.gov.cn/2025/06-24/3173319.html" target="_blank" rel="noopener noreferrer">河南省人民政府门户网站</a></li>
+    <li>阳光高考网《四川：新高考成绩怎么算、等级赋分怎么弄》——<a href="https://gaokao.chsi.com.cn/gkxx/ss/202501/20250116/2293351050.html" target="_blank" rel="noopener noreferrer">阳光高考网</a></li>
+    <li>福建省教育考试院《2025 年福建省普通高考学科评价报告》经媒体引用——<a href="http://i.fjsen.com/wap/2025-11/08/content_32074141.htm" target="_blank" rel="noopener noreferrer">东南网-海峡教育报招考直通车</a></li>
+    <li>福建省教育考试院《2026 年普通高考学科评价报告》经媒体引用——<a href="http://m.toutiao.com/group/7696746667696980514/" target="_blank" rel="noopener noreferrer">新福建-2026福建学科评价报告分析</a></li>
+    <li>厦门日报引用福建省教育考试院 2026 年福建高考考生规模数据——<a href="http://m.toutiao.com/group/7695669783903191586/" target="_blank" rel="noopener noreferrer">厦门日报-2026福建高考各科平均分</a></li>
+    <li>教育部教育考试院《2026 年高考地理全国卷评析》——<a href="http://www.eol.cn/kaoshi/gaokao/gkzx/202606/t20260608_2742597.shtml" target="_blank" rel="noopener noreferrer">教育在线（教育部教育考试院发布）</a></li>
+    <li>光明日报/光明网《专家解析 2026 高考地理全国卷》——<a href="https://news.gmw.cn/2026-06/09/content_38818013.htm" target="_blank" rel="noopener noreferrer">光明网</a></li>
+    <li>中国教育新闻网《怎样从微观尺度考查综合思维》——<a href="http://m.jyb.cn/rmtzgjyb/202609/t20260907_2111517718_wap.html" target="_blank" rel="noopener noreferrer">中国教育新闻网</a></li>
+    <li>北京考试报《学会思维建模 解决地理信息技术问题》——<a href="https://www.bjeea.cn/uploads/soft/251029/186610.pdf" target="_blank" rel="noopener noreferrer">北京教育考试院-北京考试报</a></li>
+    <li>北京教育考试评价研究中心《2016 年高考（北京卷）地理学科评价研究报告》——<a href="https://www.bjeea.cn/uploads/softnew/81-161123094100.Pdf" target="_blank" rel="noopener noreferrer">北京教育考试院官网</a></li>
+    <li>北京考试报《2022 年高考和学业水平等级考评价研究总报告》——<a href="https://www.bjeea.cn/html/ksb/zhongyaoxinwen/2023/0329/83394.html" target="_blank" rel="noopener noreferrer">北京教育考试院-北京考试报</a></li>
+    <li>北京考试报《2023 年北京市初中学业水平考试评价研究总报告》——<a href="https://www.bjeea.cn/html/ksb/zhongyaoxinwen/2024/0401/84988.html" target="_blank" rel="noopener noreferrer">北京教育考试院-北京考试报</a></li>
+    <li>北京日报客户端《2024 年北京市等级考地理卷试题解析》——<a href="https://xinwen.bjd.com.cn/content/s6668ed7de4b064178156c43e.html" target="_blank" rel="noopener noreferrer">北京日报客户端</a></li>
+    <li>浙江省教育考试院《2025 年 1 月选考科目命题思路（地理）》——<a href="https://www.zjzs.net/art/2025/1/10/art_31_10737.html" target="_blank" rel="noopener noreferrer">浙江省教育考试院官网</a></li>
+    <li>浙江省教育考试院《立足本质 引导教学 服务选才——地理选考试题评析》（自然 53% / 人文 47% 口径）——<a href="https://www.zjzs.net/module/download/downfile.jsp?classid=0&amp;showname=%E7%AB%8B%E8%B6%B3%E6%9C%AC%E8%B4%A8%E2%80%83%20%E5%BC%95%E5%AF%BC%E6%95%99%E5%AD%A6%E2%80%83%20%E6%9C%8D%E5%8A%A1%E9%80%89%E6%89%8D%E2%80%94%E2%80%94%E5%9C%B0%E7%90%86%E9%80%89%E8%80%83%E8%AF%95%E9%A2%98%E8%AF%84%E6%9E%90.pdf&amp;filename=6b671d2796d246c0a2c204e158c53eff.pdf" target="_blank" rel="noopener noreferrer">浙江省教育考试院官网-地理选考试题评析</a></li>
+    <li>《2025 年浙江省地理选考试卷综述》（25×2=50 + 3×50 结构）——<a href="https://img.gaokaozhitongche.com/resource/pdf/paper/202511/20251106082144_XkCR0Y.pdf" target="_blank" rel="noopener noreferrer">高考直通车</a></li>
+    <li>湖南省教育考试院《选择性考试试卷结构（2025 年修订）·地理》——<a href="https://jyt.hunan.gov.cn/jyt/sjyt/hnsjyksy/web/ksyzcfg/202512/t20251203_33861445.html" target="_blank" rel="noopener noreferrer">湖南省教育考试院</a></li>
+    <li>江苏省教育考试院《选择性考试科目试卷结构（2022 年发布）·地理》经地方教育局转发——<a href="https://ycedu.yancheng.gov.cn/art/2022/11/28/art_579_3934011.html" target="_blank" rel="noopener noreferrer">盐城市教育局官网</a></li>
+    <li>学科网《2026 年高考全国卷文综地理真题》（11×4=44 + 2 题 56 分结构）——<a href="https://m.zxxk.com/soft/59174666.html" target="_blank" rel="noopener noreferrer">学科网</a></li>
+  </ol>
+  <div class="verdict"><b>边界声明：</b>本文为教研分析，不针对任何个体学生做结论；不同省份的试卷结构、赋分规则与考生群体差异较大，文中"全国卷 44+56 结构"为最通用口径，其余省份请以当年考试说明与正式试卷为准。所有估算数据（位次区间、得分结构拆解、见效周期）均为教学推算，不构成考试承诺。</div>
+</div>
+</main>
+<footer>
+  <p class="brand">刘老师教研 · 高中地理教研 · 50-95分档提分全面分析 · 供考生与家长对照使用</p>
+  <p>本文为教研分析，不针对个体做结论，请以当年考试说明与正式试卷为准</p>
+</footer>
+<script>
+document.addEventListener("click",function(e){
+  var link=e.target.closest('a[href^="#"]');
+  if(!link)return;
+  var target=document.getElementById(link.getAttribute("href").slice(1));
+  if(!target)return;
+  e.preventDefault();
+  target.scrollIntoView({block:"start"});
+});
+</script>
+</body>
+</html>
