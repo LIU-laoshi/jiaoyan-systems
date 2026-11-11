@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>刘老师教研 · 高考九科综合能力培养总入口</title>
+<style>
+:root{--navy:#0b1f3a;--navy2:#12294d;--gold:#c9a227;--gold2:#e6c55c;--ink:#1c2b3a;--mut:#5b6b7c;--line:#e4e9f0;--bg:#f6f8fb;--card:#ffffff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",-apple-system,sans-serif;color:var(--ink);background:var(--bg);line-height:1.75}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 60%,#1a3a6e 100%);color:#fff;padding:56px 24px 40px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;top:-60px;right:-60px;width:260px;height:260px;border-radius:50%;background:rgba(201,162,39,.14)}
+.hero .kicker{display:inline-block;border:1px solid rgba(230,197,92,.7);color:var(--gold2);font-size:14px;letter-spacing:2px;padding:6px 16px;border-radius:20px;margin-bottom:18px}
+.hero h1{font-size:30px;line-height:1.4;font-weight:800;margin-bottom:12px}
+.hero .sub{color:#c6d2e4;font-size:15px;max-width:780px;margin:0 auto 22px}
+.hero .stats{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:8px}
+.hero .stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:10px 18px;min-width:118px}
+.hero .stat b{display:block;font-size:24px;color:var(--gold2)}
+.hero .stat span{font-size:12px;color:#b9c7dd}
+nav{position:sticky;top:0;z-index:50;background:rgba(11,31,58,.96);backdrop-filter:blur(6px);display:flex;gap:6px;justify-content:center;padding:10px 12px;flex-wrap:wrap}
+nav a{color:#e8edf5;font-size:13px;padding:5px 12px;border-radius:16px;text-decoration:none;transition:.2s}
+nav a:hover{background:var(--gold);color:var(--navy)}
+main{max-width:980px;margin:0 auto;padding:32px 20px 48px}
+.intro-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 28px;margin-bottom:28px}
+.intro-card h2{font-size:20px;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.intro-card h2 .no{background:var(--gold);color:#fff;border-radius:8px;font-size:13px;padding:2px 8px}
+.intro-card p{font-size:14.5px;color:#3a4a5c}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.chips span{background:#eef2f8;border:1px solid var(--line);border-radius:16px;font-size:12.5px;padding:5px 12px;color:#33455c}
+.chips b{color:var(--navy)}
+.subject{margin-bottom:26px;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.subject .shead{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:2px solid var(--gold);background:linear-gradient(90deg,#f2f6fc,#fff)}
+.subject .shead h2{font-size:20px;color:var(--navy)}
+.subject .shead .tag{font-size:12.5px;color:var(--mut);background:#eef2f8;padding:4px 10px;border-radius:12px}
+.seg-row{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;border-bottom:1px solid var(--line);gap:14px;transition:.15s}
+.seg-row:last-child{border-bottom:none}
+.seg-row:hover{background:#f7faff}
+.seg-left{flex:1;min-width:0}
+.seg-left .t{font-weight:700;color:var(--navy);font-size:14.5px;margin-bottom:2px}
+.seg-left .d{font-size:13px;color:var(--mut)}
+.seg-row a{white-space:nowrap;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;text-decoration:none;font-size:13px;padding:8px 16px;border-radius:18px;box-shadow:0 2px 6px rgba(11,31,58,.2);transition:.2s}
+.seg-row a:hover{background:var(--gold);color:var(--navy)}
+.callout{background:#fff8e6;border:1px solid #ecd9a0;border-left:4px solid var(--gold);border-radius:10px;padding:18px 20px;margin:8px 0 6px}
+.callout b{color:var(--navy)}
+.callout ol{margin:8px 0 0 20px;font-size:14px;color:#3a4a5c}
+footer{background:var(--navy);color:#b9c7dd;text-align:center;padding:26px 16px;font-size:13px}
+footer b{color:var(--gold2)}
+@media (max-width:640px){.hero h1{font-size:23px}.subject .shead{flex-direction:column;align-items:flex-start;gap:6px}.seg-row{flex-direction:column;align-items:flex-start}.seg-row a{width:100%;text-align:center}}
+@media print{nav{display:none}.subject{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <span class="kicker">刘老师教研 · 高中九科综合能力培养</span>
+  <h1>高中生学习综合能力分析与培养方法<br>总入口</h1>
+  <p class="sub">九科各一份专业分析：每一科需要哪些综合能力、能力短板如何识别、用什么方法系统培养。汇总于此，一页直达。</p>
+  <div class="stats">
+    <div class="stat"><b>9</b><span>九大学科</span></div>
+    <div class="stat"><b>8×9</b><span>72 项综合能力</span></div>
+    <div class="stat"><b>方法×3</b><span>输入-练习-输出</span></div>
+    <div class="stat"><b>3 阶</b><span>高一/高二/高三</span></div>
+  </div>
+</header>
+<nav>
+  <a href="#yuwen">语文</a><a href="#shuxue">数学</a><a href="#yingyu">英语</a><a href="#wuli">物理</a><a href="#huaxue">化学</a><a href="#shengwu">生物</a><a href="#zhengzhi">政治</a><a href="#lishi">历史</a><a href="#dili">地理</a>
+</nav>
+<main>
+  <div class="intro-card">
+    <h2><span class="no">01</span>使用说明</h2>
+    <p>本系列面向高中生与家长，按九科逐一回答两个问题：<b>「这一科到底需要哪些综合能力」</b>与<b>「怎么把这些能力培养出来」</b>。每科页面包含：能力全清单（8 项）、核心能力深度剖析（含分级与训练方法）、通用能力工程（元认知/刻意练习/错题闭环等）、分年级培养路径与家长协同要点。先按科目定位孩子当前短板，再按对应方法执行，建议以 3 个月为一个能力训练周期。</p>
+    <div class="chips"><span><b>九科全覆盖</b>语数英物化生政史地</span><span><b>能力清单</b>每科 8 项·各有失分信号</span><span><b>培养方法</b>输入→练习→输出闭环</span><span><b>分年级</b>高一筑基·高二强化·高三冲刺</span></div>
+  </div>
+
+  <section id="yuwen" class="subject">
+    <div class="shead"><h2>语文 · 语言建构与思维表达</h2><span class="tag">8 项综合能力</span></div>
+    <div class="seg-row"><div class="seg-left"><div class="t">能力清单：阅读理解·信息整合·审美鉴赏·逻辑思辨·书面表达·文化积累·自主学习·考场调控</div><div class="d">培养方法：文本精读四步法 · 素材一材多用 · 费曼输出训练 · 审题三圈法</div></div><a href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-nengli/yuwen.html" target="_blank" rel="noopener noreferrer">进入分析 →</a></div>
+  </section>
+
+  <section id="shuxue" class="subject">
+    <div class="shead"><h2>数学 · 抽象建模与逻辑运算</h2><span class="tag">8 项综合能力</span></div>
+    <div class="seg-row"><div class="seg-left"><div class="t">能力清单：抽象思维·逻辑推理·运算求解·空间想象·数学建模·数据分析·自主学习·元认知</div><div class="d">培养方法：概念追问三步 · 一题三变 · 错题归因闭环 · 限时整卷训练</div></div><a href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-nengli/shuxue.html" target="_blank" rel="noopener noreferrer">进入分析 →</a></div>
+  </section>
+
+  <section id="yingyu" class="subject">
+    <div class="shead"><h2>英语 · 语篇理解与语言输出</h2><span class="tag">8 项综合能力</span></div>
+    <div class="seg-row"><div class="seg-left"><div class="t">能力清单：语言感知·词汇网络·语篇阅读·听力理解·书面表达·跨文化理解·自主学习·记忆策略</div><div class="d">培养方法：精读三遍法 · 词根词缀网络 · 影子跟读 · 读后续写故事山</div></div><a href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-nengli/yingyu.html" target="_blank" rel="noopener noreferrer">进入分析 →</a></div>
+  </section>
+
+  <section id="wuli" class="subject">
+    <div class="shead"><h2>物理 · 科学建模与实验探究</h2><span class="tag">8 项综合能力</span></div>
+    <div class="seg-row"><div class="seg-left"><div class="t">能力清单：科学建模·逻辑推理·实验探究·定量计算·图像信息·迁移应用·概念建构·元认知</div><div class="d">培养方法：受力分析主线 · 模型卡片库 · 实验设计八问 · 计算三段式</div></div><a href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-nengli/wuli.html" target="_blank" rel="noopener noreferrer">进入分析 →</a></div>
+  </section>
+
+  <section id="huaxue" class="subject">
+    <div class="shead"><h2>化学 · 微观想象与证据推理</h2><span class="tag">8 项综合能力</span></div>
+    <div class="seg-row"><div class="seg-left"><div class="t">能力清单：微观想象·证据推理·实验探究·模型认知·变化守恒·定量计算·信息迁移·知识结构化</div><div class="d">培养方法：价类二维图 · 方程式三查 · 实验变量法 · 工艺流程主线拆解</div></div><a href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-nengli/huaxue.html" target="_blank" rel="noopener noreferrer">进入分析 →</a></div>
+  </section>
+
+  <section id="shengwu" class="subject">
+    <div class="shead"><h2>生物 · 生命观念与科学探究</h2><span class="tag">8 项综合能力</span></div>
+    <div class="seg-row"><div class="seg-left"><div class="t">能力清单：生命观念·科学探究·系统思维·图表信息·长句表达·证据推理·记忆组织·实验设计</div><div class="d">培养方法：概念网格法 · 长句三段式 · 实验八问 · 图表六查</div></div><a href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-nengli/shengwu.html" target="_blank" rel="noopener noreferrer">进入分析 →</a></div>
+  </section>
+
+  <section id="zhengzhi" class="subject">
+    <div class="shead"><h2>政治 · 辩证思维与价值判断</h2><span class="tag">8 项综合能力</span></div>
+    <div class="seg-row"><div class="seg-left"><div class="t">能力清单：辩证思维·价值判断·时政分析·规则意识·逻辑论证·术语表达·知识结构化·审题踩点</div><div class="d">培养方法：原理-材料-结论三段式 · 术语原话库 · 采分点对照 · 设问类型模板</div></div><a href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-nengli/zhengzhi.html" target="_blank" rel="noopener noreferrer">进入分析 →</a></div>
+  </section>
+
+  <section id="lishi" class="subject">
+    <div class="shead"><h2>历史 · 时空观念与史料实证</h2><span class="tag">8 项综合能力</span></div>
+    <div class="seg-row"><div class="seg-left"><div class="t">能力清单：时空观念·史料实证·历史解释·唯物史观·逻辑论证·信息提取·记忆组织·答题规范</div><div class="d">培养方法：三线时间轴 · 史料互证五问 · 小论文三段式 · 一史实一分析配对</div></div><a href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-nengli/lishi.html" target="_blank" rel="noopener noreferrer">进入分析 →</a></div>
+  </section>
+
+  <section id="dili" class="subject">
+    <div class="shead"><h2>地理 · 区域认知与综合思维</h2><span class="tag">8 项综合能力</span></div>
+    <div class="seg-row"><div class="seg-left"><div class="t">能力清单：区域认知·综合思维·地理实践力·图表判读·空间想象·人地协调观·信息提取·术语表达</div><div class="d">培养方法：读图三步法 · 区位模板 · 3S 功能辨析 · 自然-人文链条训练</div></div><a href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-nengli/dili.html" target="_blank" rel="noopener noreferrer">进入分析 →</a></div>
+  </section>
+
+  <div class="callout"><b>使用建议：</b>
+    <ol>
+      <li>先读孩子当前最弱学科的「能力清单」，对照「失分信号」定位具体短板。</li>
+      <li>进入对应科目页，按「核心能力深度剖析」选择 1–2 项能力作为 3 个月训练主线。</li>
+      <li>结合「分年级培养路径」调整节奏：高一重筑基、高二重强化、高三重整合与考场转化。</li>
+      <li>家长重点阅读各科「家长协同要点」，把培养动作放进家庭日常。</li>
+    </ol>
+  </div>
+</main>
+<footer><b>刘老师教研 · 高中九科综合能力培养系列</b><br>九科分别独立成页，能力清单与培养方法为教研口径，涉及课标与考试数据均标注来源与可信度分层，供学习规划参考。</footer>
+</body>
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刘老师教研 · 高考化学综合能力分析与培养方法</title>
+<style>
+:root{
+  --navy:#0f2a4a;--navy2:#16385e;--gold:#d4a853;--gold2:#b8913c;--bg:#f6f7fb;
+  --card:#ffffff;--ink:#24303f;--muted:#6b7a8c;--line:#e3e8f0;--ok:#1f7a4d;--okbg:#e8f5ee;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;font-size:16px}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 62%,#1e4a72 100%);color:#fff;padding:64px 20px 56px;text-align:center}
+.hero .kicker{display:inline-block;border:1px solid rgba(212,168,83,.55);color:#e6c684;font-size:13px;letter-spacing:2px;padding:6px 16px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:34px;font-weight:800;line-height:1.35;margin-bottom:14px;letter-spacing:.5px}
+.hero .sub{font-size:16px;color:#cdd8e8;max-width:760px;margin:0 auto}
+.hero .stats{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:28px}
+.hero .stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:14px 20px;min-width:150px}
+.hero .stat b{display:block;font-size:26px;color:#f0cd83;font-weight:800}
+.hero .stat span{font-size:13px;color:#c7d3e4}
+.hero .quick{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:30px}
+.hero .quick span{background:rgba(212,168,83,.12);border:1px solid rgba(212,168,83,.4);color:#e9d3a0;font-size:13px;padding:7px 14px;border-radius:999px}
+nav.sticky{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.97);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(15,42,74,.25)}
+nav.sticky .wrap{display:flex;overflow-x:auto;gap:2px;padding:0 12px}
+nav.sticky a{color:#dce6f3;font-size:14px;padding:12px 10px;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;transition:.2s}
+nav.sticky a:hover,nav.sticky a.active{color:#f0cd83;border-color:var(--gold)}
+main{display:block}
+section{padding:46px 0 14px;scroll-margin-top:58px}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.sec-no{flex:none;font-size:13px;font-weight:800;color:#fff;background:var(--gold);border-radius:8px;padding:3px 10px;letter-spacing:1px}
+section h2{font-size:25px;color:var(--navy);font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin-bottom:18px;max-width:880px}
+h3{font-size:19px;color:var(--navy);margin:22px 0 10px;font-weight:700}
+h4{font-size:16px;color:var(--navy2);margin:16px 0 8px;font-weight:700}
+p{margin:10px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:14px 0;box-shadow:0 1px 4px rgba(15,42,74,.05)}
+.verdict{background:linear-gradient(135deg,#fdf6e8,#f9ecd4);border:1px solid #e9d5a7;border-left:5px solid var(--gold);border-radius:12px;padding:16px 20px;margin:16px 0}
+.verdict b{color:var(--navy)}
+.callout{background:#eef4fb;border:1px solid #d5e3f2;border-left:5px solid var(--navy2);border-radius:12px;padding:16px 20px;margin:16px 0}
+.callout b{color:var(--navy)}
+.flag{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:1px 8px;margin-right:6px;vertical-align:2px}
+.flag.fact{background:var(--okbg);color:var(--ok)}
+.flag.judge{background:#fdf0ef;color:#b0463a}
+.tbl-scroll{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:14.5px;min-width:560px}
+caption{caption-side:top;text-align:left;font-weight:700;color:var(--navy);font-size:14px;padding:10px 12px 8px;background:#fbfcfe;border-bottom:1px solid var(--line)}
+th{background:var(--navy);color:#fff;font-weight:700;padding:11px 12px;text-align:left;white-space:nowrap}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7f9fc}
+td.num{font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy);white-space:nowrap}
+.small{font-size:13px;color:var(--muted)}
+.hl{background:#fdf3d8;border-radius:4px;padding:0 4px;font-weight:700;color:#8a6414}
+ol.steps{margin:12px 0 12px 22px}
+ol.steps li{margin:9px 0}
+ul.tight{margin:10px 0 10px 22px}
+ul.tight li{margin:6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.chip{background:#eef2f8;border:1px solid #dbe3ef;color:var(--navy2);font-size:13px;font-weight:700;padding:6px 14px;border-radius:999px}
+.ref-list{margin:12px 0 6px}
+.ref-list li{margin:8px 0;font-size:14.5px;line-height:1.6}
+.ref-list a,.src-link{color:var(--navy2);text-decoration:none;border-bottom:1px solid rgba(22,56,94,.35)}
+.ref-list a:hover,.src-link:hover{color:var(--gold2);border-color:var(--gold2)}
+a:focus-visible{outline:2px solid var(--gold2);outline-offset:2px}
+footer{background:var(--navy);color:#cdd8e8;margin-top:46px;padding:34px 20px 40px;text-align:center}
+footer .brand{font-size:15px;color:#f0cd83;font-weight:700;margin-bottom:8px}
+footer p{font-size:13px;color:#aebdd2;margin:5px 0}
+@media(max-width:640px){
+  .hero h1{font-size:26px}.hero .stat{min-width:120px}
+  section h2{font-size:21px}nav.sticky a{font-size:13px;padding:11px 8px}
+}
+@media print{
+  nav.sticky{display:none}.hero{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  section{page-break-inside:avoid}.card,.verdict,.callout{break-inside:avoid}
+  a{color:#16385e!important;text-decoration:none!important}
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <span class="kicker">刘老师教研 · 高考九科综合能力培养</span>
+  <h1>高考化学综合能力分析与培养方法</h1>
+  <p class="sub">从微观想象、证据推理到定量计算与方程式规范——把化学"学得会、考得出"的能力拆成 8 项，逐项给定位、分级与训练路径。面向全国高中家长与考生，一课一科，行业级专业口径。</p>
+  <div class="stats">
+    <div class="stat"><b>8项</b><span>化学综合能力全景清单</span></div>
+    <div class="stat"><b>3+3</b><span>底层通用能力 + 学科专属能力</span></div>
+    <div class="stat"><b>高一上</b><span>关键年级窗口：物质的量开局的抽象关</span></div>
+    <div class="stat"><b>6-12个月</b><span>能力培养周期（推算口径）</span></div>
+  </div>
+  <div class="quick">
+    <span>① 微观想象与宏观微观联系</span><span>② 证据推理与因果链</span><span>③ 实验探究与变量控制</span><span>④ 模型认知（价类二维/结构模型）</span><span>⑤ 变化守恒观念</span><span>⑥ 定量计算与三段式</span><span>⑦ 信息迁移与陌生情境</span><span>⑧ 知识结构化与方程式规范</span>
+  </div>
+</header>
+<nav class="sticky"><div class="wrap">
+  <a href="#intro">01 能力全景</a><a href="#list">02 能力清单</a><a href="#core-top">03 底层能力·上</a><a href="#core-bottom">04 专属能力·下</a><a href="#toolbox">05 方法工具箱</a><a href="#grades">06 分年级路径</a><a href="#parents">07 家长协同</a><a href="#refs">08 口径与参考</a>
+</div></nav>
+
+<main>
+<section id="intro">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">01</span><h2>学科综合能力全景：化学考什么、能力在哪里</h2></div>
+    <p class="lead">化学是再选科目中选考规模最大的理科之一，也是"赋分战场"上最容易被低估的一科。它同时要求宏观现象、微观本质、符号表达三套语言互相翻译，能力结构比单纯"背方程式"复杂得多。本节先给出高考定位与能力全景。</p>
+    <div class="card">
+      <h3>高考定位一：再选科目，等级赋分 100 分制</h3>
+      <p>化学属于"3+1+2"模式下的再选科目，每科原始分满分 100 分，以等级分（赋分）计入高考总成绩，等级分满分 100 分、赋分起点 30 分。<span class="flag fact">事实</span>依据《福建省普通高中学业水平选择性考试科目赋分办法》（闽教学〔2019〕7号）及宁夏、河南等省教育考试院公布口径：A 级约前 15% 赋 100~86 分，B 级约 35% 赋 85~71 分，C 级约 35% 赋 70~56 分，D 级约 13% 赋 55~41 分，E 级约 2% 赋 40~30 分。<span class="flag fact">事实</span>需注意省份差异：广东按 A 约 17% 赋 100~83、B 约 33% 赋 82~71、C 约 33% 赋 70~59、D 约 15% 赋 58~41、E 约 2% 赋 40~30。<span class="flag fact">事实</span>（来源：<a class="src-link" href="https://jyt.fujian.gov.cn/ztzl/fjsgkzhgg/zctz/201906/t20190613_4899111.htm" target="_blank" rel="noopener noreferrer">福建省教育厅赋分办法</a>、<a class="src-link" href="https://jyt.nx.gov.cn/zwgk/zfxxgkml/zdgkwj/202605/t20260521_5246662.html" target="_blank" rel="noopener noreferrer">宁夏教育厅赋分办法</a>、<a class="src-link" href="https://eea.gd.gov.cn/attachment/0/330/330714/2283017.pdf" target="_blank" rel="noopener noreferrer">广东省教育考试院政策解读</a>）</p>
+      <p>赋分按考生在全省同科群体中的位次换算，因此化学的"提分逻辑"本质是<strong>位次逻辑</strong>：卷面每多拿一分，都可能推动原始分跨入更高等级区间。按 A、B 两段合计占 50% 测算，50% 分位恰落在 B 级下限与 C 级上限交界（85~71 与 70~56 之间），化学赋分中枢约在 71 分上下。<span class="flag judge">判断</span>此为教研推算口径，非官方公布数据。</p>
+    </div>
+    <div class="card">
+      <h3>高考定位二：卷面结构与四大道题</h3>
+      <p>新高考化学单科卷满分 100 分、考试时长 75 分钟，题型为"选择题 + 4 道大题"。以广东卷为例：选择题 16 小题共 44 分（第 1~10 题每题 2 分、第 11~16 题每题 4 分），非选择题 4 小题共 56 分；河南卷 2025 年首考为选择题 14 小题共 42 分、非选择题 4 小题共 58 分。<span class="flag fact">事实</span>（来源：<a class="src-link" href="https://img.gaokaozhitongche.com/resource/pdf/paper/202606/20260621062027_s3i8rQ.pdf" target="_blank" rel="noopener noreferrer">2026 广东卷化学真题</a>、<a class="src-link" href="https://static-gkcx.gaokao.cn/upload/zhenti/20250616/1750070107_1883.pdf" target="_blank" rel="noopener noreferrer">2025 河南卷化学真题</a>）</p>
+      <p>4 道大题按考查板块高度稳定，各省题序略异但题型一致：<strong>实验综合、工艺流程、化学反应原理、有机化学基础</strong>。<span class="flag fact">事实</span>教育部教育考试院对 2026 年全国卷化学的评析显示，实验题考查基本操作、仪器识别、滴定分析与计算，工艺流程题整合元素化合物性质、方程式书写与平衡计算，反应原理题聚焦化学平衡与反应机理，有机题考查官能团识别、同分异构体与合成路线设计。<span class="flag fact">事实</span>（来源：<a class="src-link" href="https://m.thepaper.cn/newsDetail_forward_33348297" target="_blank" rel="noopener noreferrer">澎湃新闻·教育部教育考试院专家评析2026高考全国卷</a>）</p>
+      <p><strong>方程式规范是化学的硬门槛。</strong><span class="flag judge">判断</span>选择第 5 题级"正确离子方程式"判断、大题中化学/离子方程式的配平与条件书写，几乎每卷必考；2026 年全国卷评析即明确第 27 题整合了"化学反应方程式和离子方程式书写"。<span class="flag fact">事实</span>规范性问题（漏条件、忘配平、乱标气体沉淀符号）是大量考生"会而不对"的头号来源。<span class="flag judge">判断</span></p>
+    </div>
+    <div class="card">
+      <h3>能力全景总览</h3>
+      <div class="tbl-scroll">
+        <table>
+          <caption>表01 化学综合能力图谱总览：能力 — 课标素养对应 — 典型考察场景 — 失分信号</caption>
+          <thead><tr><th scope="col">能力项</th><th scope="col">课标核心素养对应</th><th scope="col">典型考察场景</th><th scope="col">失分信号</th></tr></thead>
+          <tbody>
+            <tr><td>① 微观想象与宏观微观联系</td><td>宏观辨识与微观探析</td><td>结构决定性质类选择题、微粒行为分析</td><td>只会背结论，换情境就懵；不会用微粒解释现象</td></tr>
+            <tr><td>② 证据推理与因果链</td><td>证据推理与模型认知</td><td>实验结论推断、图像信息读取与论证</td><td>凭感觉选答案，不会用证据排除选项</td></tr>
+            <tr><td>③ 实验探究与变量控制</td><td>科学探究与创新意识</td><td>实验目的判断、对照实验设计、现象归因</td><td>分不清实验目的与操作；不会设计对照组</td></tr>
+            <tr><td>④ 模型认知（价类二维/结构模型）</td><td>证据推理与模型认知</td><td>元素化合物推断、陌生物质性质预测</td><td>元素化合物知识碎片化，见新物质就慌</td></tr>
+            <tr><td>⑤ 变化守恒观念</td><td>变化观念与平衡思想</td><td>氧化还原配平、离子浓度关系、能量变化</td><td>守恒法不会用，靠硬算或硬背</td></tr>
+            <tr><td>⑥ 定量计算与三段式</td><td>变化观念与平衡思想</td><td>化学计量计算、平衡常数、滴定计算</td><td>会列式不会算，有效数字与单位丢分</td></tr>
+            <tr><td>⑦ 信息迁移与陌生情境</td><td>科学探究与创新意识</td><td>新科技情境题、陌生物质/新反应信息题</td><td>读不懂题干新信息，不会迁移已知模型</td></tr>
+            <tr><td>⑧ 知识结构化与方程式规范</td><td>宏观辨识与微观探析</td><td>方程式书写与判断、知识体系整合</td><td>方程式张冠李戴、缺条件；知识记了不会用</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">课标素养依据《普通高中化学课程标准（2017年版2020年修订）》（教育部教材〔2020〕3号印发）。<span class="flag fact">事实</span>课标凝练的化学学科核心素养为宏观辨识与微观探析、变化观念与平衡思想、证据推理与模型认知、科学探究与创新意识、科学态度与社会责任五条，上表取前四条作能力映射主干。<span class="flag fact">事实</span></p>
+    </div>
+    <div class="verdict"><b>一句话结论：</b>化学的能力主线是"三重表征翻译"——宏观现象、微观本质、符号表达三套语言同步运转；8 项能力中，底层 3 项（微观想象、知识结构化、自主迁移）决定学习效率，专属 3 项（证据推理、实验探究、定量计算）直接决定高考得分，模型认知与守恒观念是贯穿工具。<span class="flag judge">判断</span>（基于课标素养框架与近年试卷结构的教研综合推断）</div>
+  </div>
+</section>
+
+<section id="list">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">02</span><h2>综合能力清单：8 项能力"有什么"</h2></div>
+    <p class="lead">本节是全篇的主答案：8 项能力，每项给出定义、为什么需要、失分信号与培养总览。家长可对照孩子平时作业与试卷，快速定位短板项。</p>
+    <div class="tbl-scroll">
+      <table>
+        <caption>表02 化学综合能力 8 项全清单速览</caption>
+        <thead><tr><th scope="col">序号</th><th scope="col">能力名称</th><th scope="col">一句话定义</th><th scope="col">高考对应板块</th></tr></thead>
+        <tbody>
+          <tr><td class="num">01</td><td>微观想象与宏观微观联系</td><td>能在脑海中"看见"微粒，并用微粒行为解释宏观现象</td><td>选择题基础层、结构决定性质类</td></tr>
+          <tr><td class="num">02</td><td>证据推理与因果链</td><td>由数据、图像、现象推出结论，并能自证因果</td><td>实验结论题、图像分析题</td></tr>
+          <tr><td class="num">03</td><td>实验探究与变量控制</td><td>读懂实验目的，设计对照，控制单一变量归因</td><td>实验大题（必考 14 分板块）</td></tr>
+          <tr><td class="num">04</td><td>模型认知（价类二维/结构模型）</td><td>用"价态-类别"与结构模型预测陌生物质性质</td><td>元素化合物推断、新物质性质</td></tr>
+          <tr><td class="num">05</td><td>变化守恒观念</td><td>以守恒与平衡视角处理反应关系与浓度关系</td><td>氧化还原、离子平衡、能量变化</td></tr>
+          <tr><td class="num">06</td><td>定量计算与三段式</td><td>按"写方程式-找关系-列比例"规范完成化学计算</td><td>计算小题、平衡常数、滴定计算</td></tr>
+          <tr><td class="num">07</td><td>信息迁移与陌生情境</td><td>从题干新信息中提取有效内容并迁移已知模型</td><td>新情境选择题、工艺流程与机理题</td></tr>
+          <tr><td class="num">08</td><td>知识结构化与方程式规范</td><td>知识成网、方程式书写零失误</td><td>全卷基础分、方程式必考分</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>下面按能力逐项展开。每张卡片含"为什么需要、失分信号、培养总览（输入—练习—输出）"，家长可直接用失分信号做自测。</p>
+
+    <div class="card">
+      <h3>能力 01 · 微观想象与宏观微观联系</h3>
+      <p><strong>定义：</strong>能在头脑中构建微粒模型（分子、离子、原子结构、微粒间作用），并用微粒行为解释溶解、导电、反应速率、平衡移动等宏观现象。<span class="flag judge">判断</span>这是化学区别于物理的独特认知门槛。</p>
+      <p><strong>为什么需要：</strong>课标"宏观辨识与微观探析"列为核心素养之首；高考选择题几乎年年出现"由现象推微粒、由结构推性质"的题目。<span class="flag fact">事实</span></p>
+      <p><strong>失分信号：</strong>背得动方程式但讲不清"为什么"；画不出水合、电离、断键过程的微观示意；看到"结构决定性质"类题干只会套口诀。</p>
+      <p><strong>培养总览：</strong>输入——看分子模型动画、读结构示意图；练习——每学一个物质强制回答"宏观现象→微观解释→符号表达"三句话；输出——把解释讲给家长或同学听，能自问自答才算过关。</p>
+    </div>
+    <div class="card">
+      <h3>能力 02 · 证据推理与因果链</h3>
+      <p><strong>定义：</strong>由题目给出的数据、图像、实验现象出发，按"证据→推理→结论"链条得出结论，并能用反例检验。<span class="flag judge">判断</span>这是近年高考强调的"思维品质"在化学中的直接体现。</p>
+      <p><strong>为什么需要：</strong>2026 年全国卷化学评析明确"通过数据、图像等形式呈现信息，引导学生进行信息提取、证据整合与推理"。<span class="flag fact">事实</span>（来源：<a class="src-link" href="https://m.gmw.cn/2026-06/09/content_1304489569.htm" target="_blank" rel="noopener noreferrer">光明网·新华社2026高考观察</a>）</p>
+      <p><strong>失分信号：</strong>排除法依赖选项措辞而非证据；读图只读趋势不读拐点与突变；论证题只会"我认为"说不出依据。</p>
+      <p><strong>培养总览：</strong>输入——精读 3~5 道图像分析题的官方解析；练习——每道错题强制写"证据清单+推理链"；输出——用"因为……所以……但若……则不成立"句式复述。</p>
+    </div>
+    <div class="card">
+      <h3>能力 03 · 实验探究与变量控制</h3>
+      <p><strong>定义：</strong>能识别实验目的、判断操作是否达到目的、设计对照实验并控制单一变量归因。<span class="flag judge">判断</span>实验大题在新高考中固定占一道大题（约 14 分），是能力分水岭。</p>
+      <p><strong>为什么需要：</strong>课标"科学探究与创新意识"要求经历探究过程；2026 年全国卷实验题覆盖基本操作、仪器识别、安全规范、氧化还原滴定原理与计算。<span class="flag fact">事实</span></p>
+      <p><strong>失分信号：</strong>把"现象描述"当"结论"；变量控制表述漏条件（"相同温度下""等浓度"）；不会写实验目的与预期现象对应表。</p>
+      <p><strong>培养总览：</strong>输入——每个教材实验重做"目的—变量—现象—结论"四栏笔记；练习——每周精练 1 道实验大题并拆解评分点；输出——口头复述"该实验想证明什么、怎么证明、为什么这样设计"。</p>
+    </div>
+    <div class="card">
+      <h3>能力 04 · 模型认知（价类二维/结构模型）</h3>
+      <p><strong>定义：</strong>用"价态—类别"二维坐标组织元素化合物知识，用结构模型预测陌生物质的性质与反应。<span class="flag judge">判断</span>价类二维是课标倡导的元素化合物认知模型，也是工艺流程图题的底层地图。</p>
+      <p><strong>为什么需要：</strong>2026 年全国卷评析指出试题"以未知符号表示的除草剂分子结构图"考查模型认知与证据推理素养。<span class="flag fact">事实</span>新情境题逐年增多，只有建立模型才能"以不变应万变"。</p>
+      <p><strong>失分信号：</strong>元素化合物知识散乱，靠死记物质颜色与方程式；见新物质（如陌生物、新型电池材料）完全无法启动分析。</p>
+      <p><strong>培养总览：</strong>输入——亲手绘制氯、硫、氮、铁、钠五大体系的价类二维图；练习——每遇到新物质先标"价态+类别"再推性质；输出——讲清"为什么 SO₂ 既显氧化性又显还原性"这类价态问题。</p>
+    </div>
+    <div class="card">
+      <h3>能力 05 · 变化守恒观念</h3>
+      <p><strong>定义：</strong>以质量守恒、电荷守恒、电子守恒、原子守恒四把"尺子"处理反应关系与离子浓度关系，以平衡思想理解动态变化。<span class="flag judge">判断</span>守恒法是化学计算与配平的"免死金牌"。</p>
+      <p><strong>为什么需要：</strong>课标"变化观念与平衡思想"素养对应氧化还原配平、离子浓度比较、平衡移动判断等高频考点。<span class="flag fact">事实</span></p>
+      <p><strong>失分信号：</strong>配平靠凑数；离子浓度比较只会背口诀；平衡移动"加料"题顾此失彼。</p>
+      <p><strong>培养总览：</strong>输入——整理四类守恒的适用场景清单；练习——每周 10 题守恒法专项（配平+离子浓度）；输出——写出"这道题用了哪条守恒、为什么用它"的一行理由。</p>
+    </div>
+    <div class="card">
+      <h3>能力 06 · 定量计算与三段式</h3>
+      <p><strong>定义：</strong>按"写方程式—找物质的量关系—列比例计算"的标准三段式完成化学计算，规范处理单位与有效数字。<span class="flag judge">判断</span>计算失分往往是"会而错"，规范是唯一解药。</p>
+      <p><strong>为什么需要：</strong>高考计算分布于平衡常数、滴定分析、产率计算等场景，2026 年全国卷评析即考查"沉淀溶解平衡与配位平衡计算"。<span class="flag fact">事实</span></p>
+      <p><strong>失分信号：</strong>列式正确但计算错误；单位换算丢分（mol、g、mL）；有效数字不规范；不会从图像读数建立关系。</p>
+      <p><strong>培养总览：</strong>输入——建立"化学计算规范清单"（单位、有效数字、格式）；练习——每日 1 题计算并限时；输出——把完整三段式过程写在答题区，养成"过程分"意识。</p>
+    </div>
+    <div class="card">
+      <h3>能力 07 · 信息迁移与陌生情境</h3>
+      <p><strong>定义：</strong>从题干新信息中识别有效内容，与已学模型对接，完成迁移应用。<span class="flag judge">判断</span>这是"反刷题"命题导向下区分度最高的能力。</p>
+      <p><strong>为什么需要：</strong>2026 年全国卷评析强调"试题通过巧妙创设情境……超越孤立知识点的记忆，强调知识的迁移整合与创新应用能力"。<span class="flag fact">事实</span>（来源：<a class="src-link" href="https://m.gmw.cn/2026-06/09/content_1304489569.htm" target="_blank" rel="noopener noreferrer">光明网·2026高考观察</a>）</p>
+      <p><strong>失分信号：</strong>新情境题直接放弃；读题 3 分钟找不到"新信息在哪里"；迁移时生搬硬套。</p>
+      <p><strong>培养总览：</strong>输入——精读 10 道新情境真题，标出"已知条件/新给信息/待求问题"三栏；练习——限时 5 分钟拆解 1 道；输出——用一句话概括"这道题要我迁移哪个旧模型"。</p>
+    </div>
+    <div class="card">
+      <h3>能力 08 · 知识结构化与方程式规范</h3>
+      <p><strong>定义：</strong>把碎片知识织成网络，方程式书写（化学式、配平、条件、符号）零失误。<span class="flag judge">判断</span>基础分稳，总分才稳；这是 8 项中唯一"纯功夫"项。</p>
+      <p><strong>为什么需要：</strong>方程式书写几乎每卷必考（选择题判断+大题书写），2026 年全国卷评析明确第 27 题整合方程式与离子方程式书写。<span class="flag fact">事实</span></p>
+      <p><strong>失分信号：</strong>方程式漏条件、忘可逆号、沉淀气体符号缺失；同族物质性质混淆；知识"记了不会用"。</p>
+      <p><strong>培养总览：</strong>输入——建立个人方程式错题册并按反应类型归档；练习——每天默写 5 个方程式并自查规范；输出——每周把本章方程式"画成思维导图"讲一遍。</p>
+    </div>
+    <div class="callout"><b>家长自测建议：</b>取孩子最近一次月考卷，按 8 项能力逐题归类失分，统计每项失分占比。若某两项合计超过总失分的一半，就优先针对这两项启动训练——能力培养不是平均用力，而是先补最疼的短板。<span class="flag judge">判断</span></div>
+  </div>
+</section>
+
+<section id="core-top">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">03</span><h2>核心能力深度剖析（上）：3 项底层通用能力</h2></div>
+    <p class="lead">底层通用能力决定"学得动、学得快、学得稳"，是所有学科学习的地基。本节剖析微观想象与宏观微观联系、知识结构化与方程式规范、自主学习与信息迁移三项，每项给出定位、1~5 级分级、三通道培养、每周安排与误区。</p>
+
+    <h3>3.1 微观想象与宏观微观联系</h3>
+    <h4>能力定位与课标依据</h4>
+    <p>对应课标核心素养"宏观辨识与微观探析"，要求学生能从宏观与微观相结合的视角分析与解决问题。<span class="flag fact">事实</span>高考中，离子反应、氧化还原、原电池电解池、平衡移动的"为什么"，全部要落到微粒层面解释。<span class="flag judge">判断</span>孩子若只会背现象不会讲微粒，说明该项能力未建立。</p>
+    <h4>能力分级表现（1~5 级）</h4>
+    <div class="tbl-scroll">
+      <table>
+        <caption>表03 微观想象能力 1~5 级表现</caption>
+        <thead><tr><th scope="col">等级</th><th scope="col">表现描述</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>只记宏观现象与结论，无法用微粒解释，画不出微观示意</td></tr>
+          <tr><td class="num">2</td><td>能背出"电离/水合/断键"等说法，但解释新情境时卡壳</td></tr>
+          <tr><td class="num">3</td><td>对熟悉体系能完成"宏观→微观→符号"三语言翻译，新体系需提示</td></tr>
+          <tr><td class="num">4</td><td>能独立用微粒模型解释陌生现象，并指出宏观表象与微观本质的对应</td></tr>
+          <tr><td class="num">5</td><td>能用微粒模型预测新反应的方向与产物，构建个人微观图景库</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>培养方法（输入—练习—输出三通道）</h4>
+    <ul class="tight">
+      <li><strong>输入：</strong>① 用模型/动画把抽象概念可视化（分子结构、晶体结构、微观过程示意），拒绝纯文字背诵；② 每章建立"现象—微粒—符号"对照表，一个物质至少一组对应。</li>
+      <li><strong>练习：</strong>① 强制三句话输出：看到任何化学现象，先说宏观观察、再讲微观解释、最后写符号表达；② 每周 2 道"结构决定性质"类选择题，要求写出推理过程而非只选答案。</li>
+      <li><strong>输出：</strong>① 把"为什么稀盐酸与大理石反应产生气泡"讲给家长听，讲不顺就是没懂；② 自设追问："如果换成分液漏斗与启普发生器，现象与原理变不变？"能答出才过关。</li>
+    </ul>
+    <h4>每周训练安排</h4>
+    <p>每周 3 次、每次 20~25 分钟：周一建模（1 个体系画微观示意图）、周三三句话训练（3 个物质）、周五结构决定性质小题 2 道并复述推理链。<span class="flag judge">判断</span>训练量按周内可执行设计，可随校历弹性调整。</p>
+    <h4>常见误区</h4>
+    <ul class="tight">
+      <li>误区一：把"微观"当背诵题——背下结论却不建立图像，换情境即失效。<span class="flag judge">判断</span></li>
+      <li>误区二：只看动画不动笔——模型必须亲手画过一遍才进入长期记忆。<span class="flag judge">判断</span></li>
+    </ul>
+
+    <h3>3.2 知识结构化与方程式规范</h3>
+    <h4>能力定位与课标依据</h4>
+    <p>课标强调"以学科大概念为核心，使课程内容结构化"。<span class="flag fact">事实</span>化学知识散、碎、多，结构化程度直接决定提取速度与准确率；方程式规范则是全卷基础分的守门员。<span class="flag judge">判断</span></p>
+    <h4>能力分级表现（1~5 级）</h4>
+    <div class="tbl-scroll">
+      <table>
+        <caption>表04 知识结构化与方程式规范能力 1~5 级表现</caption>
+        <thead><tr><th scope="col">等级</th><th scope="col">表现描述</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>知识零散，方程式靠背且频繁缺条件、错配平</td></tr>
+          <tr><td class="num">2</td><td>能默写常见方程式，但混合同族反应、不会迁移书写</td></tr>
+          <tr><td class="num">3</td><td>方程式书写基本规范，能按反应类型归档知识</td></tr>
+          <tr><td class="num">4</td><td>知识成网，陌生反应能按"价态+类别+环境"推理书写</td></tr>
+          <tr><td class="num">5</td><td>全卷方程式零失误，并能用结构化网络反推未知反应</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>培养方法（输入—练习—输出三通道）</h4>
+    <ul class="tight">
+      <li><strong>输入：</strong>① 以"反应类型+元素价态"双维度整理方程式册，同类归组；② 学习每章后 24 小时内画一次知识结构图（思维导图/价类二维）。</li>
+      <li><strong>练习：</strong>① 每日默写 5 个方程式并对照评分标准自查（条件、可逆号、沉淀气体符号）；② 每周 1 次"10 分钟限时默写 + 互改"训练。</li>
+      <li><strong>输出：</strong>① 讲一张自画结构图给家长听，讲清层级与连接线；② 每周写 1 段"本章方程式三问"：为什么这样配平、条件为什么不能省、换环境会怎样。</li>
+    </ul>
+    <h4>每周训练安排</h4>
+    <p>每日 8~10 分钟默写（可与英语单词错开时段），周日 30 分钟画本周结构图并口头复盘。<span class="flag judge">判断</span></p>
+    <h4>常见误区</h4>
+    <ul class="tight">
+      <li>误区一：只默写不归档——默完即忘，知识仍是散的。<span class="flag judge">判断</span></li>
+      <li>误区二：抄结构图代替画结构图——抄写不产生连接，必须合上书本自画。<span class="flag judge">判断</span></li>
+    </ul>
+
+    <h3>3.3 自主学习与信息迁移</h3>
+    <h4>能力定位与课标依据</h4>
+    <p>课标"科学探究与创新意识"素养内含提出假设、设计方案、独立探究的过程，自主学习是其在学习行为层面的延伸。<span class="flag fact">事实</span>新高考反刷题导向下，"会学新东西"比"多刷题"更能决定上限。<span class="flag judge">判断</span></p>
+    <h4>能力分级表现（1~5 级）</h4>
+    <div class="tbl-scroll">
+      <table>
+        <caption>表05 自主学习与信息迁移能力 1~5 级表现</caption>
+        <thead><tr><th scope="col">等级</th><th scope="col">表现描述</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>依赖老师喂到嘴边，新信息题直接放弃</td></tr>
+          <tr><td class="num">2</td><td>能读懂题干新信息，但不会与旧知识对接</td></tr>
+          <tr><td class="num">3</td><td>能识别"新给信息"并完成简单迁移，复杂情境需提示</td></tr>
+          <tr><td class="num">4</td><td>自主拆解新情境，先归类旧模型再迁移应用</td></tr>
+          <tr><td class="num">5</td><td>能自主规划学习任务，遇到全新知识也能独立建模学习</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>培养方法（输入—练习—输出三通道）</h4>
+    <ul class="tight">
+      <li><strong>输入：</strong>① 每周精读 1 篇学科拓展材料（新型电池、新材料新闻），训练提取信息；② 建立"旧模型清单"，把已学模型按功能归档（配平模型、平衡模型、电化学模型等）。</li>
+      <li><strong>练习：</strong>① 新情境题限时拆解：5 分钟标出已知条件/新给信息/待求问题；② 每道题后写一行"迁移了哪个旧模型"，强化模型调用意识。</li>
+      <li><strong>输出：</strong>① 讲新情境题给家长听，要求家长能听懂"信息从哪来、模型怎么接"；② 每两周自主完成 1 个小专题（如"氢能产业链中的化学"），形成 1 页笔记。</li>
+    </ul>
+    <h4>每周训练安排</h4>
+    <p>每周 2 次、每次 25 分钟：一次新情境题拆解（周三），一次模型清单更新与复述（周六）。<span class="flag judge">判断</span></p>
+    <h4>常见误区</h4>
+    <ul class="tight">
+      <li>误区一：新信息题等老师讲——自主拆解的价值就在于"先想后对答案"。<span class="flag judge">判断</span></li>
+      <li>误区二：模型清单只建不用——模型必须每月实战调用一次才活。<span class="flag judge">判断</span></li>
+    </ul>
+    <div class="callout"><b>三项底层的联动：</b>微观想象解决"懂"，知识结构化解决"稳"，自主迁移解决"新"。三者同步训练，学习效率与应试上限一起提升。<span class="flag judge">判断</span></div>
+  </div>
+</section>
+
+<section id="core-bottom">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">04</span><h2>核心能力深度剖析（下）：3 项学科专属能力</h2></div>
+    <p class="lead">学科专属能力直接对应高考得分：证据推理与因果链、实验探究与变量控制、定量计算与三段式。三项分别管"想得对、验得准、算得稳"。</p>
+
+    <h3>4.1 证据推理与因果链</h3>
+    <h4>能力定位与课标依据</h4>
+    <p>对应课标核心素养"证据推理与模型认知"，要求基于证据提出假设、通过分析推理得出结论并解释证据与结论间的关系。<span class="flag fact">事实</span>2026 年全国卷评析强调"信息提取、证据整合与推理，并基于科学原理进行论证，全面考查科学思维"。<span class="flag fact">事实</span>（来源：<a class="src-link" href="https://m.thepaper.cn/newsDetail_forward_33348297" target="_blank" rel="noopener noreferrer">澎湃新闻·教育部教育考试院专家评析2026高考全国卷</a>）</p>
+    <h4>能力分级表现（1~5 级）</h4>
+    <div class="tbl-scroll">
+      <table>
+        <caption>表06 证据推理与因果链能力 1~5 级表现</caption>
+        <thead><tr><th scope="col">等级</th><th scope="col">表现描述</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>凭感觉与记忆答题，无法解释自己的选择</td></tr>
+          <tr><td class="num">2</td><td>能引用单一证据，但推理链断裂、不会交叉验证</td></tr>
+          <tr><td class="num">3</td><td>能按"证据→推理→结论"答题，图像题可读出主要信息</td></tr>
+          <tr><td class="num">4</td><td>会主动用反例检验结论，能在多证据间建立因果网络</td></tr>
+          <tr><td class="num">5</td><td>对开放论证题能构建完整证据链，并评估证据强弱</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>培养方法（输入—练习—输出三通道）</h4>
+    <ul class="tight">
+      <li><strong>输入：</strong>① 精读 5 道图像/表格题官方解析，模仿其论证句式；② 整理"证据类型清单"（现象、数据、图像拐点、控制变量结果）。</li>
+      <li><strong>练习：</strong>① 错题强制补写"证据清单+推理链"；② 每周 2 道论证式小题（"下列证据能否支持结论"），训练反例意识。</li>
+      <li><strong>输出：</strong>① 用"因为……所以……但若……则不成立"句式复述错题；② 每两周写 1 段百字"证据→结论"小论证，家长只作听众。</li>
+    </ul>
+    <h4>每周训练安排</h4>
+    <p>每周 3 次、每次 20 分钟：两次错题证据链复盘，一次图像题专项。<span class="flag judge">判断</span></p>
+    <h4>常见误区</h4>
+    <ul class="tight">
+      <li>误区一：把"选项排除"当推理——真正的推理是能独立论证正确项。<span class="flag judge">判断</span></li>
+      <li>误区二：读图只看趋势——拐点、平台、突变才是证据核心。<span class="flag judge">判断</span></li>
+    </ul>
+
+    <h3>4.2 实验探究与变量控制</h3>
+    <h4>能力定位与课标依据</h4>
+    <p>对应课标核心素养"科学探究与创新意识"，要求学生经历科学探究过程，提出问题、设计方案、得出结论。<span class="flag fact">事实</span>新高考实验题分值占比高且稳定（广东卷非选择题第 17 题约 14 分），是拉开差距的关键板块。<span class="flag judge">判断</span></p>
+    <h4>能力分级表现（1~5 级）</h4>
+    <div class="tbl-scroll">
+      <table>
+        <caption>表07 实验探究与变量控制能力 1~5 级表现</caption>
+        <thead><tr><th scope="col">等级</th><th scope="col">表现描述</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>只能复述教材实验步骤，说不清目的与变量</td></tr>
+          <tr><td class="num">2</td><td>能识别单一变量，但对照设计与归因表述不规范</td></tr>
+          <tr><td class="num">3</td><td>能按"目的—变量—现象—结论"框架分析常规实验</td></tr>
+          <tr><td class="num">4</td><td>能设计对照实验并完整表述控制条件，归因严谨</td></tr>
+          <tr><td class="num">5</td><td>能评估实验方案缺陷并改进，处理异常现象有思路</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>培养方法（输入—练习—输出三通道）</h4>
+    <ul class="tight">
+      <li><strong>输入：</strong>① 教材实验逐个做"目的—变量—现象—结论"四栏笔记；② 整理仪器操作与安全规范清单（气密性检查、防倒吸、尾气处理等）。</li>
+      <li><strong>练习：</strong>① 每周 1 道实验大题限时精练，对照评分点拆解；② 设计类小题专项：给定目的，写变量、对照组与预期现象。</li>
+      <li><strong>输出：</strong>① 讲一个教材实验给家长听，重点讲"为什么这样设计"；② 自设 1 个探究问题（如"温度对双氧水分解速率的影响"），写出完整方案。</li>
+    </ul>
+    <h4>每周训练安排</h4>
+    <p>每周 2 次、每次 30 分钟：一次实验大题精练，一次四栏笔记整理或方案设计。<span class="flag judge">判断</span></p>
+    <h4>常见误区</h4>
+    <ul class="tight">
+      <li>误区一：把"现象描述"写成"结论"——现象是观察，结论是推理，评分点分得极细。<span class="flag judge">判断</span></li>
+      <li>误区二：忽略"控制变量"表述——"相同温度""等浓度"等限定词漏写即扣分。<span class="flag judge">判断</span></li>
+    </ul>
+
+    <h3>4.3 定量计算与三段式</h3>
+    <h4>能力定位与课标依据</h4>
+    <p>对应课标"变化观念与平衡思想"，化学计算是定量视角的落地；高考计算分布于化学计量、平衡常数、滴定、产率等场景。<span class="flag fact">事实</span>2026 年全国卷评析即考查"沉淀溶解平衡与配位平衡计算""氧化还原滴定原理与计算"。<span class="flag fact">事实</span></p>
+    <h4>能力分级表现（1~5 级）</h4>
+    <div class="tbl-scroll">
+      <table>
+        <caption>表08 定量计算与三段式能力 1~5 级表现</caption>
+        <thead><tr><th scope="col">等级</th><th scope="col">表现描述</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>看到计算就跳过，畏惧感主导</td></tr>
+          <tr><td class="num">2</td><td>会套公式但常错单位、错有效数字</td></tr>
+          <tr><td class="num">3</td><td>能按三段式完成常规计算，偶有格式不规范</td></tr>
+          <tr><td class="num">4</td><td>计算过程规范，能从图像/实验数据建立数量关系</td></tr>
+          <tr><td class="num">5</td><td>多步综合计算稳定得分，能用守恒法简化路径</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>培养方法（输入—练习—输出三通道）</h4>
+    <ul class="tight">
+      <li><strong>输入：</strong>① 建立"化学计算规范清单"（单位、有效数字、书写格式）；② 掌握四类基础计算模板：物质的量、方程式比例、平衡常数、滴定。</li>
+      <li><strong>练习：</strong>① 每日 1 题计算限时训练（约 8 分钟），重点在规范过程；② 每周 1 次"只写过程不算结果"训练，专攻过程分。</li>
+      <li><strong>输出：</strong>① 把完整三段式写在答题区并自评格式；② 讲一道综合计算题的"关系建立"过程给家长听。</li>
+    </ul>
+    <h4>每周训练安排</h4>
+    <p>每日 8~10 分钟 1 题，周日 20 分钟错题计算复盘（统一重算一遍）。<span class="flag judge">判断</span></p>
+    <h4>常见误区</h4>
+    <ul class="tight">
+      <li>误区一：只求答案不求过程——高考按步给分，过程规范本身就是分数。<span class="flag judge">判断</span></li>
+      <li>误区二：忽视单位换算——mol、g、mL、L 之间换算错误是最常见的"会而错"。<span class="flag judge">判断</span></li>
+    </ul>
+    <div class="callout"><b>三项专属的协同：</b>证据推理管"想对"，实验探究管"验准"，定量计算管"算稳"——三大题（实验、原理、流程）的失分几乎都可归入这三项。<span class="flag judge">判断</span></div>
+  </div>
+</section>
+
+<section id="toolbox">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">05</span><h2>培养方法工具箱：通用能力工程 × 化学裁剪</h2></div>
+    <p class="lead">六大通用方法——元认知复盘、刻意练习、间隔重复、错题闭环、费曼输出、时间管理——按化学学科特性逐一裁剪落地。</p>
+    <div class="card">
+      <h3>工具一 · 元认知复盘（化学版：考后"三问"）</h3>
+      <p>每次小测/月考后按三问复盘：这题考我哪项能力？我的推理链断在哪一步？下次同类题第一反应应是什么？<span class="flag judge">判断</span>化学题错因高度集中在"知识没提取到"与"推理链断裂"，复盘必须写到具体步骤，而非只写"粗心"。</p>
+    </div>
+    <div class="card">
+      <h3>工具二 · 刻意练习（化学版：价类二维训练）</h3>
+      <p>针对短板能力设专项训练，每次只练一个点。化学版最佳载体是<strong>价类二维图</strong>：给定元素（如硫），徒手画出"价态×类别"矩阵，再随机抽一个点说出性质、制备、用途。<span class="flag judge">判断</span>这是把碎片知识压进模型的最高效练习。</p>
+    </div>
+    <div class="card">
+      <h3>工具三 · 间隔重复（化学版：方程式卡片）</h3>
+      <p>把易错方程式做成卡片（正面条件描述，背面完整方程式+易错点），按 1 天/3 天/7 天/15 天节奏复习。<span class="flag judge">判断</span>化学记忆量大，间隔重复比考前突击有效得多；卡片上必须标"易错点"（如 SO₂ 与氯水反应是氧化还原而非复分解）。</p>
+    </div>
+    <div class="card">
+      <h3>工具四 · 错题闭环（化学版：四栏错题本）</h3>
+      <p>错题本四栏：原题截图/抄录、我的错误答案、标准答案、错因归类（知识缺失/推理断裂/规范失误/计算错误）。<span class="flag judge">判断</span>每周日重做本周错题，两周后再重做一遍；能做对两次才可出本。规范失误类错题应单独建立"规范清单"。</p>
+    </div>
+    <div class="card">
+      <h3>工具五 · 费曼输出（化学版：讲反应机理）</h3>
+      <p>选一个反应或体系（如酯化反应、原电池），用大白话讲给家长听，要求家长能听懂"断键成键、电子流向、能量变化"。<span class="flag judge">判断</span>讲不出或讲不清的地方，就是知识盲区；机理讲顺了，方程式自然写得出。</p>
+    </div>
+    <div class="card">
+      <h3>工具六 · 时间管理（化学版：周表 + 番茄钟）</h3>
+      <p>化学训练按 20~30 分钟小块安排（见下表），用番茄钟保持专注；每周固定 2 个化学专属时段，避免"永远排不上"化学。<span class="flag judge">判断</span></p>
+    </div>
+    <h3>每周能力训练时间表（示例）</h3>
+    <div class="tbl-scroll">
+      <table>
+        <caption>表09 每周能力训练时间表（化学版示例，可按校历弹性调整）</caption>
+        <thead><tr><th scope="col">时段</th><th scope="col">训练内容</th><th scope="col">对应能力</th><th scope="col">时长</th></tr></thead>
+        <tbody>
+          <tr><td>周一 · 课后</td><td>微观示意图建模 + 三句话输出</td><td>能力① 微观想象</td><td class="num">20 分钟</td></tr>
+          <tr><td>周二 · 课后</td><td>方程式默写 5 个 + 自查规范</td><td>能力⑧ 方程式规范</td><td class="num">10 分钟</td></tr>
+          <tr><td>周三 · 课后</td><td>新情境题限时拆解 1 道</td><td>能力⑦ 信息迁移</td><td class="num">25 分钟</td></tr>
+          <tr><td>周四 · 课后</td><td>实验大题精练 + 评分点拆解</td><td>能力③ 实验探究</td><td class="num">30 分钟</td></tr>
+          <tr><td>周五 · 课后</td><td>定量计算 1 题（限时规范）</td><td>能力⑥ 定量计算</td><td class="num">10 分钟</td></tr>
+          <tr><td>周六 · 上午</td><td>价类二维训练 + 证据链复盘</td><td>能力④⑤②</td><td class="num">40 分钟</td></tr>
+          <tr><td>周日 · 上午</td><td>本周错题闭环重做 + 结构图复述</td><td>能力⑧ 结构化</td><td class="num">30 分钟</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small">合计约每周 2.8 小时，低于多数机构的刷题量，但每一项都对应明确能力目标；执行 6~12 个月后复查能力分级，多数项目可提升 1~2 级。<span class="flag judge">判断</span>（周期与提升幅度为教研推算口径，非官方统计）</p>
+  </div>
+</section>
+
+<section id="grades">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">06</span><h2>分年级培养路径：高一筑基、高二强化、高三冲刺</h2></div>
+    <p class="lead">能力培养不是高三突击，而是三年连续工程。三个年级各有主任务：高一筑基（微观想象+结构化）、高二强化（证据推理+实验+计算）、高三整合冲刺（信息迁移+全项整合）。</p>
+    <div class="tbl-scroll">
+      <table>
+        <caption>表10 高一至高三化学综合能力培养路径</caption>
+        <thead><tr><th scope="col">阶段</th><th scope="col">能力重点</th><th scope="col">核心方法</th><th scope="col">里程碑信号</th></tr></thead>
+        <tbody>
+          <tr><td>高一筑基<br>（必修一、二）</td><td>能力①⑧为主：微观想象、知识结构化与方程式规范；兼顾⑤守恒</td><td>三句话翻译训练；每章 24 小时内画结构图；方程式日默 5 个；价类二维从钠、氯起步</td><td>能用微粒解释离子反应与氧化还原；方程式规范率达标；月考基础题失分明显下降</td></tr>
+          <tr><td>高二强化<br>（选择性必修）</td><td>能力②③⑥为主：证据推理、实验探究、定量计算；④模型扩展至硫氮铁</td><td>实验大题周练；图像题证据链专项；计算日练；模型认知迁移到陌生物质</td><td>实验大题能独立拆解评分点；图像题推理链完整；计算过程零格式扣分</td></tr>
+          <tr><td>高三冲刺<br>（整合+真题）</td><td>能力⑦信息迁移为纲，八项全整合</td><td>新情境题限时拆解；真题分类精练；错题四栏闭环；每周 1 次限时整卷</td><td>陌生情境题不再空白；整卷时间分配稳定；错因归类清晰、同类错误不再重犯</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><b>关键窗口提示：</b>高一上学期是化学能力分化的第一道关口——"物质的量""离子反应""氧化还原"三个抽象概念集中出现，微观想象与结构化两项能力若在高一上未建立，后续补偿成本成倍上升。<span class="flag judge">判断</span>（基于学科内容结构的一线教研观察，非官方统计）</div>
+    <p>高二下学期末与高三上学期是能力跃迁的黄金段：此时知识体系基本完整，正是"证据推理+定量计算"专项强化的最佳窗口，建议每周固定 2 个化学专属训练时段，坚持到一模前。<span class="flag judge">判断</span></p>
+  </div>
+</section>
+
+<section id="parents">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">07</span><h2>家长协同要点：角色、信号、方法与避坑</h2></div>
+    <p class="lead">家长不是学科讲师，而是"能力教练"与"环境管理员"。化学 8 项能力的家庭培养，核心是三件事：看对信号、给对陪伴、避开误区。</p>
+    <h3>家长角色定位</h3>
+    <p>孩子的化学教练、情绪缓冲带与学习环境管理员，而不是第二个化学老师。<span class="flag judge">判断</span>具体分工：孩子输出（讲题/复述），家长倾听与追问；孩子训练（默写/限时），家长计时与记录；孩子复盘（错题/结构图），家长提问"卡在哪一步"。</p>
+    <h3>观察信号对照（可每月自查一次）</h3>
+    <div class="tbl-scroll">
+      <table>
+        <caption>表11 家长观察信号对照：从作业试卷看能力短板</caption>
+        <thead><tr><th scope="col">观察到的现象</th><th scope="col">指向的能力短板</th><th scope="col">建议动作</th></tr></thead>
+        <tbody>
+          <tr><td>方程式总缺条件、漏配平</td><td>能力⑧ 方程式规范</td><td>启动日默 5 个 + 规范清单</td></tr>
+          <tr><td>"背得出但讲不清为什么"</td><td>能力① 微观想象</td><td>三句话翻译训练 + 讲给家长听</td></tr>
+          <tr><td>实验题答非所问</td><td>能力③ 实验探究</td><td>四栏笔记 + 实验大题周练</td></tr>
+          <tr><td>图像题只读趋势、丢拐点</td><td>能力② 证据推理</td><td>证据清单 + 推理链复盘</td></tr>
+          <tr><td>新情境题整题空白</td><td>能力⑦ 信息迁移</td><td>5 分钟拆解训练 + 旧模型清单</td></tr>
+          <tr><td>计算题会列式但常算错</td><td>能力⑥ 定量计算</td><td>日练 1 题 + 规范格式自评</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>陪伴方法（三个可执行动作）</h3>
+    <ul class="tight">
+      <li><strong>听讲法：</strong>每周 2 次，每次 10 分钟，请孩子把本周最难的 1 道化学题讲给您听；您只负责追问"为什么""如果换条件呢"，不负责讲答案。<span class="flag judge">判断</span></li>
+      <li><strong>计时法：</strong>训练一律限时（按第 05 节时间表），家长当计时员；限时本身就是刻意练习的一部分。<span class="flag judge">判断</span></li>
+      <li><strong>记录法：</strong>每月对照上表做一次能力自查并记录，6 个月后回看变化；记录比批评更能驱动孩子。<span class="flag judge">判断</span></li>
+    </ul>
+    <h3>避坑清单（家长最容易踩的四个坑）</h3>
+    <ul class="tight">
+      <li>坑一：只看分数不看结构——一次考砸先查能力短板，而不是简单归因"不努力"。<span class="flag judge">判断</span></li>
+      <li>坑二：报班补课替代家庭训练——校外课增加输入，但微观想象、证据推理必须靠输出训练内化，家庭听讲法不可替代。<span class="flag judge">判断</span></li>
+      <li>坑三：拿"别人家孩子"比较——化学能力养成节奏个体差异大，比较只增加焦虑。<span class="flag judge">判断</span></li>
+      <li>坑四：考前突击背诵代替日常训练——方程式默写、推理链训练是日积月累的功夫，突击无效。<span class="flag judge">判断</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="refs">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">08</span><h2>参考文献与口径说明</h2></div>
+    <p class="lead">本页所有关键数据均附来源。下方为可溯源链接清单，按"官方 / 权威媒体 / 行业观察 / 教研推算"四层标注口径，便于读者核验。</p>
+    <h3>参考来源（点击可核验）</h3>
+    <ol class="ref-list">
+      <li>中华人民共和国教育部：关于印发普通高中课程方案和语文等学科课程标准（2017年版2020年修订）的通知（教材〔2020〕3号）——官方 — <a href="https://jsj.moe.gov.cn/n2/1/1/1507.shtml" target="_blank" rel="noopener noreferrer">教育部基础教育司</a></li>
+      <li>福建省教育厅：福建省普通高中学业水平选择性考试科目赋分办法（闽教学〔2019〕7号）——官方 — <a href="https://jyt.fujian.gov.cn/ztzl/fjsgkzhgg/zctz/201906/t20190613_4899111.htm" target="_blank" rel="noopener noreferrer">福建省教育厅</a></li>
+      <li>福建省人民政府门户：福建新高考实施方案及等级转换赋分规则解读——官方 — <a href="https://www.fujian.gov.cn/jdhy/zcjd/201904/t20190424_4856071.htm" target="_blank" rel="noopener noreferrer">福建省人民政府门户</a></li>
+      <li>宁夏回族自治区教育厅：普通高中学业水平选择性考试科目等级赋分办法（2026年5月10日施行）——官方 — <a href="https://jyt.nx.gov.cn/zwgk/zfxxgkml/zdgkwj/202605/t20260521_5246662.html" target="_blank" rel="noopener noreferrer">宁夏回族自治区教育厅</a></li>
+      <li>河南省人民政府门户（河南日报）：新高考成绩为什么要赋分——官方媒体 — <a href="https://www.henan.gov.cn/2025/06-19/3171307.html" target="_blank" rel="noopener noreferrer">河南省人民政府门户</a></li>
+      <li>河南省教育厅：河南省2025年普通高校招生考试和录取工作实施方案解读（含化学赋分示例）——官方 — <a href="https://jyt.henan.gov.cn/2025/12-11/3272869.html" target="_blank" rel="noopener noreferrer">河南省教育厅</a></li>
+      <li>广东省教育考试院：广东省高考综合改革政策解读（等级赋分办法）——官方 — <a href="https://eea.gd.gov.cn/attachment/0/330/330714/2283017.pdf" target="_blank" rel="noopener noreferrer">广东省教育考试院</a></li>
+      <li>广东省人民政府门户：广东公布新高考方案 采用"3+1+2"模式——官方媒体 — <a href="https://www.gd.gov.cn/zzzq/zcjd/content/post_3537509.html" target="_blank" rel="noopener noreferrer">广东省人民政府门户</a></li>
+      <li>光明网（新华社）：增强试题的应用性、强调问题的探索性，2026高考新变化——权威媒体 — <a href="https://m.gmw.cn/2026-06/09/content_1304489569.htm" target="_blank" rel="noopener noreferrer">光明网</a></li>
+      <li>澎湃新闻：铸魂育人 引领方向 科学选拔——教育部教育考试院专家评析2026年高考全国卷试题——权威媒体 — <a href="https://m.thepaper.cn/newsDetail_forward_33348297" target="_blank" rel="noopener noreferrer">澎湃新闻</a></li>
+      <li>2026 年普通高中学业水平选择性考试（广东卷）化学真题（满分100分、选择题44分、非选择题4题56分）——行业观察（真题原卷）— <a href="https://img.gaokaozhitongche.com/resource/pdf/paper/202606/20260621062027_s3i8rQ.pdf" target="_blank" rel="noopener noreferrer">高考直通车真题库</a></li>
+      <li>河南省2025年普通高中学业水平选择性考试化学真题（选择题14题42分、非选择题4题58分）——行业观察（真题原卷）— <a href="https://static-gkcx.gaokao.cn/upload/zhenti/20250616/1750070107_1883.pdf" target="_blank" rel="noopener noreferrer">掌上高考真题库</a></li>
+      <li>组卷网：2024年高考化学真题完全解读（广东卷）——行业观察 — <a href="https://mzujuan.xkw.com/thematiclist/14pt4881ct15191n454058.html" target="_blank" rel="noopener noreferrer">组卷网</a></li>
+    </ol>
+    <h3>口径分层表</h3>
+    <div class="tbl-scroll">
+      <table>
+        <caption>表12 本页信息口径分层说明</caption>
+        <thead><tr><th scope="col">层级</th><th scope="col">含义</th><th scope="col">本页使用场景</th></tr></thead>
+        <tbody>
+          <tr><td>官方</td><td>教育部及省级教育部门正式文件/解读</td><td>课标依据、赋分规则、等级区间</td></tr>
+          <tr><td>权威媒体</td><td>新华社、光明日报等主流媒体对官方评析的转载报道</td><td>2026 高考命题导向、能力考查要点</td></tr>
+          <tr><td>行业观察</td><td>真题原卷、组卷网等教辅行业来源，非官方发布</td><td>卷面结构示例（广东/河南真题）</td></tr>
+          <tr><td>教研推算</td><td>基于公开规则的推算或一线教研经验总结</td><td>赋分中枢约 71 分、6~12 个月培养周期、关键窗口判断</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="verdict"><b>边界声明：</b>本文为教研分析与方法建议，不针对个体作结论。赋分规则、卷面结构与题量以各省教育考试院当年正式发布为准；课标依据为《普通高中化学课程标准（2017年版2020年修订）》，其完整文本以教育部官方出版物为准。文中标注"推算/观察"的内容为教研推断，供参考不作依据。</div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p class="brand">刘老师教研 · 高中九科综合能力培养系列</p>
+  <p>高考化学综合能力分析与培养方法 · 面向全国高中家长与考生</p>
+  <p>本文为教研分析，不针对个体做结论，请以各省教育考试院当年正式发布为准。</p>
+</footer>
+<script>
+(function(){
+  try{
+    document.addEventListener('click', function(event){
+      var link = event.target.closest('a[href^="#"]');
+      if(!link) return;
+      var id = link.getAttribute('href').slice(1);
+      var target = document.getElementById(id);
+      if(!target) return;
+      event.preventDefault();
+      target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  }catch(err){}
+})();
+</script>
+</body>
+</html>

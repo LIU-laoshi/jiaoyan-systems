@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刘老师教研 · 高考地理综合能力分析与培养方法</title>
+<style>
+:root{
+  --navy:#0f2a4a;--navy2:#16385e;--gold:#d4a853;--gold2:#b8913c;--bg:#f6f7fb;
+  --card:#ffffff;--ink:#24303f;--muted:#6b7a8c;--line:#e3e8f0;--ok:#1f7a4d;--okbg:#e8f5ee;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;font-size:16px}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 62%,#1e4a72 100%);color:#fff;padding:64px 20px 52px;text-align:center}
+.hero .kicker{display:inline-block;border:1px solid rgba(212,168,83,.55);color:#e6c684;font-size:13px;letter-spacing:2px;padding:6px 16px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:34px;font-weight:800;line-height:1.35;margin-bottom:14px;letter-spacing:.5px}
+.hero .sub{font-size:16px;color:#cdd8e8;max-width:760px;margin:0 auto}
+.hero .stats{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:28px}
+.hero .stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:14px 20px;min-width:150px}
+.hero .stat b{display:block;font-size:26px;color:#f0cd83;font-weight:800}
+.hero .stat span{font-size:13px;color:#c7d3e4}
+.hero .speed{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:24px auto 0;max-width:880px}
+.hero .speed span{background:rgba(255,255,255,.09);border:1px solid rgba(212,168,83,.4);color:#e8eef6;font-size:12.5px;padding:6px 12px;border-radius:999px}
+.hero .speed b{color:#f0cd83}
+nav.sticky{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.97);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(15,42,74,.25)}
+nav.sticky .wrap{display:flex;overflow-x:auto;gap:2px;padding:0 12px}
+nav.sticky a{color:#dce6f3;font-size:14px;padding:12px 10px;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;transition:.2s}
+nav.sticky a:hover,nav.sticky a.active{color:#f0cd83;border-color:var(--gold)}
+section{padding:46px 0 14px;scroll-margin-top:58px}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.sec-no{flex:none;font-size:13px;font-weight:800;color:#fff;background:var(--gold);border-radius:8px;padding:3px 10px;letter-spacing:1px}
+section h2{font-size:25px;color:var(--navy);font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin-bottom:18px;max-width:860px}
+h3{font-size:19px;color:var(--navy);margin:26px 0 10px;font-weight:700;padding-left:10px;border-left:4px solid var(--gold)}
+h4{font-size:16px;color:var(--navy2);margin:16px 0 8px;font-weight:700}
+p{margin:10px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:14px 0;box-shadow:0 1px 4px rgba(15,42,74,.05)}
+.verdict{background:linear-gradient(135deg,#fdf6e8,#f9ecd4);border:1px solid #e9d5a7;border-left:5px solid var(--gold);border-radius:12px;padding:16px 20px;margin:16px 0}
+.verdict b{color:var(--navy)}
+.flag{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:1px 8px;margin-right:6px;vertical-align:2px}
+.flag.fact{background:var(--okbg);color:var(--ok)}
+.flag.judge{background:#fdf0ef;color:#b0463a}
+.tbl-scroll{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:14.5px;min-width:560px}
+caption{caption-side:top;background:var(--navy2);color:#f0cd83;font-size:13px;font-weight:700;padding:8px 12px;text-align:left;letter-spacing:.5px}
+th{background:var(--navy);color:#fff;font-weight:700;padding:11px 12px;text-align:left;white-space:nowrap}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7f9fc}
+td.num{font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy);white-space:nowrap}
+.small{font-size:13px;color:var(--muted)}
+.hl{background:#fdf3d8;border-radius:4px;padding:0 4px;font-weight:700;color:#8a6414}
+ol.steps{margin:12px 0 12px 22px}
+ol.steps li{margin:9px 0}
+ul.tight{margin:10px 0 10px 22px}
+ul.tight li{margin:6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.chip{background:#eef2f8;border:1px solid #dbe3ef;color:var(--navy2);font-size:13px;font-weight:700;border-radius:999px;padding:6px 14px}
+.callout{border-left:5px solid var(--navy2);background:#eef3fa;border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;font-size:15px}
+.callout.gold{border-color:var(--gold);background:#fbf4e4}
+.skill-card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:12px;padding:16px 20px;margin:14px 0}
+.skill-card h4{margin:0 0 6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.skill-card .no{flex:none;background:var(--navy);color:#f0cd83;font-size:12px;font-weight:800;border-radius:6px;padding:2px 8px}
+.skill-card .def{font-size:14.5px;color:#33455c;background:#f4f7fc;border-radius:8px;padding:8px 12px;margin:6px 0 10px}
+.skill-card h5{font-size:14px;color:var(--navy);margin:10px 0 4px}
+.skill-card ul{margin:4px 0 6px 20px}
+.skill-card li{margin:4px 0;font-size:14.5px}
+.channel{display:inline-block;font-size:12px;font-weight:700;border-radius:5px;padding:1px 8px;margin-right:4px}
+.channel.in{background:#e8f0fb;color:#2b5b9e}
+.channel.pr{background:#fdf3d8;color:#8a6414}
+.channel.out{background:#e8f5ee;color:#1f7a4d}
+.method{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:14px 0}
+.method h4{margin:0 0 6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.method .no{flex:none;background:var(--gold);color:#fff;font-size:12px;font-weight:800;border-radius:6px;padding:2px 8px}
+.ref-list{font-size:13.5px;color:var(--muted)}
+.ref-list li{margin:7px 0}
+.ref-list a{color:var(--navy2);text-decoration:none;border-bottom:1px dotted #a9b8cc}
+.ref-list a:hover{color:var(--gold2)}
+footer{background:var(--navy);color:#cdd8e8;margin-top:46px;padding:34px 20px 40px;text-align:center}
+footer .brand{font-size:15px;color:#f0cd83;font-weight:700;margin-bottom:8px}
+footer p{font-size:13px;color:#aebdd2;margin:5px 0}
+@media(max-width:640px){
+  .hero h1{font-size:26px}.hero .stat{min-width:120px}
+  section h2{font-size:21px}nav.sticky a{font-size:13px;padding:11px 8px}
+}
+@media print{
+  nav.sticky{display:none}.hero{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  section{page-break-inside:avoid}.card,.verdict,.callout,.skill-card,.method{break-inside:avoid}
+  a{color:#16385e!important;text-decoration:none!important}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <span class="kicker">刘老师教研 · 高考九科综合能力培养</span>
+  <h1>高考地理综合能力分析与培养方法</h1>
+  <p class="sub">地理是公认的"文科中的理科"：既考自然地理过程推理，又考人文区位决策，还要在图表中完成信息提取与空间转化。本页把"地理学得好不好"拆解为 8 项看得见、练得出的综合能力，给出核心能力分级、培养工具箱与分年级路径，供考生与家长对照规划。</p>
+  <div class="stats">
+    <div class="stat"><b>8 项</b><span>综合能力全清单</span></div>
+    <div class="stat"><b>3 项</b><span>底层通用能力优先培养</span></div>
+    <div class="stat"><b>高一</b><span>关键能力窗口期</span></div>
+    <div class="stat"><b>90 天</b><span>单能力培养周期（教研口径）</span></div>
+  </div>
+  <div class="speed">
+    <span><b>8 项能力速览：</b></span>
+    <span>①区域认知与定位</span><span>②综合思维（要素关联）</span><span>③地理实践力与探究</span><span>④图表判读与空间想象</span><span>⑤人地协调观</span><span>⑥信息提取与材料分析</span><span>⑦术语表达与答题规范</span><span>⑧知识结构化（自然/人文）</span>
+  </div>
+</header>
+<nav class="sticky"><div class="wrap">
+  <a href="#sec1">01 学科全景</a><a href="#sec2">02 能力清单</a><a href="#sec3">03 底层能力（上）</a><a href="#sec4">04 学科能力（下）</a><a href="#sec5">05 方法工具箱</a><a href="#sec6">06 分年级路径</a><a href="#sec7">07 家长协同</a><a href="#sec8">08 参考文献</a>
+</div></nav>
+
+<section id="sec1">
+  <div class="sec-head"><span class="sec-no">01</span><h2>学科综合能力全景：先看清地理在高考中的位置</h2></div>
+  <p class="lead">培养地理综合能力之前，先校准三个坐标：地理怎么计分、考什么结构、能力卡在哪。这三个坐标决定了"培养什么、优先培养谁、用什么节奏培养"。</p>
+  <h3>1.1 高考定位：再选科目，等级赋分 100 分制</h3>
+  <p><span class="flag fact">事实</span>在"3+1+2"新高考模式下，地理属于思想政治、地理、化学、生物学四门再选科目之一，卷面满分 100 分，成绩以等级赋分方式计入高考总成绩；赋分起点为 30 分，考生原始分按从高到低划分为 A、B、C、D、E 五个等级，各等级人数占比分别约为 15%、35%、35%、13%、2%，对应赋分区间为 100～86、85～71、70～56、55～41、40～30。这一规则同时出现在<a href="https://jyt.fujian.gov.cn/ztzl/fjsgkzhgg/zctz/201906/t20190613_4899111.htm" target="_blank" rel="noopener noreferrer">福建省教育厅赋分办法</a>与<a href="https://jyt.nx.gov.cn/zwgk/zfxxgkml/zdgkwj/202605/t20260521_5246662.html" target="_blank" rel="noopener noreferrer">宁夏教育厅赋分办法</a>中，口径一致。</p>
+  <p><span class="flag fact">事实</span>浙江省实行"7 选 3"选考模式，地理同为选考科目，等级赋分起点为 40 分、按 20 个赋分区间转换，与"3+1+2"省份的五级口径不同（浙江省教育考试院相关说明口径）。<span class="flag judge">判断</span>赋分制的本质是"按位次给分"：卷面分只决定你在选地理人群中的排位，位次决定最终得分。因此地理能力培养的终点不是"卷面多考几分"，而是"在选地理的群体里站到更靠前的位置"。</p>
+  <div class="tbl-scroll"><table>
+    <caption>地理学科高考定位速览（口径分层见第 08 节）</caption>
+    <thead><tr><th>定位维度</th><th>口径内容</th><th>来源层级</th></tr></thead>
+    <tbody>
+      <tr><td>科目地位</td><td>"3+1+2"再选科目（政地化生四选二）；浙江等省为选考科目</td><td>官方（各省教育厅/考试院）</td></tr>
+      <tr><td>计分方式</td><td>等级赋分 100 分制，起点 30 分（3+1+2 五级口径）；浙江起点 40 分、20 区间</td><td>官方</td></tr>
+      <tr><td>知识结构参考</td><td>自然地理基础约 53%（含地理信息工具 4%）／人文地理与区域发展约 47%</td><td>官方（浙江 2025 年 1 月选考评析）</td></tr>
+      <tr><td>题型结构</td><td>选择题＋综合题；区域图、统计图、等值线图、过程示意图为标配</td><td>官方评析与真题</td></tr>
+      <tr><td>赋分中枢</td><td>再选科目平均分约 71 分上下（专家按等级比例推算口径）</td><td>专家解读/行业观察</td></tr>
+    </tbody>
+  </table></div>
+  <h3>1.2 能力结构：自然与人文两条主线，图表判读是最大区分点</h3>
+  <p><span class="flag fact">事实</span>浙江省教育考试院 2025 年 1 月选考评析披露：地理必修一与选择性必修一（自然地理基础）合计约占 53%（含地理信息工具 4%），必修二与选择性必修二（区域发展）、选择性必修三（资源、环境与国家安全）合计约占 47%。自然地理侧重"过程推理"，人文区域侧重"区位决策与综合"，两条主线对能力的要求不同，缺一不可。</p>
+  <p><span class="flag fact">事实</span>北京教育考试院《2016 年高考（北京卷）地理学科评价研究报告》显示：地理平均分 62.30 分、得分率 0.62，其中客观性试题得分率仅 0.47、主观题得分率 0.74，区域地理得分率 0.74 为各板块最高，自然地理相对偏低；北京考试报 2025 年教学研究进一步指出，地理信息技术（3S）模块"得分率长期偏低"，2018 年"数字地图"题、2024 与 2025 年"流程图"画图题均成为区分考生能力的关键题目。</p>
+  <p><span class="flag judge">判断</span>把官方数据放一起看：图表承载的选择题得分率最低（0.47）、过程推理类题目区分度最大——这印证了一个判断：<b>图表判读与空间想象是地理最大的能力分水岭</b>，也是本系列把它列为三大底层能力之一的原因。</p>
+  <div class="stats">
+    <div class="stat"><b>8 项</b><span>综合能力全清单（第 02 节）</span></div>
+    <div class="stat"><b>3 项</b><span>底层通用能力：区域认知·综合思维·图表空间</span></div>
+    <div class="stat"><b>高一</b><span>关键能力窗口期：原理与图表筑基</span></div>
+    <div class="stat"><b>90 天</b><span>单能力培养周期（教研推算）</span></div>
+  </div>
+  <h3>1.3 能力图谱总览：8 项能力与课标素养的对应</h3>
+  <div class="tbl-scroll"><table>
+    <caption>地理 8 项综合能力图谱总览</caption>
+    <thead><tr><th>能力</th><th>课标素养对应</th><th>典型考察场景</th><th>失分信号</th></tr></thead>
+    <tbody>
+      <tr><td>①区域认知与定位</td><td>区域认知</td><td>经纬网定位、区域特征判读、区域比较与评价</td><td>区域图"认不出、判不准"，特征描述张冠李戴</td></tr>
+      <tr><td>②综合思维（要素关联）</td><td>综合思维</td><td>自然-人文多要素综合题、过程与因果链分析</td><td>只答单要素、要素遗漏、"推一半就断"</td></tr>
+      <tr><td>③地理实践力与探究</td><td>地理实践力</td><td>野外考察、地理实验、产业调查类情境题</td><td>情境题无从下手、实验设计缺步骤</td></tr>
+      <tr><td>④图表判读与空间想象</td><td>综合思维·区域认知</td><td>等值线图、剖面图、统计图、3S 影像判读</td><td>图表看不懂、要素提取错、空间关系想不出</td></tr>
+      <tr><td>⑤人地协调观</td><td>人地协调观</td><td>生态治理、资源开发、灾害防治、区域协调题</td><td>评价只讲利弊不讲协调、价值判断缺站位</td></tr>
+      <tr><td>⑥信息提取与材料分析</td><td>综合思维（支撑）</td><td>文字材料＋图表材料的信息抓取与加工</td><td>漏信息、误读材料、信息与结论脱节</td></tr>
+      <tr><td>⑦术语表达与答题规范</td><td>学科表达（素养载体）</td><td>综合题书面作答、要点化术语化输出</td><td>口语化、概念混用、要点不全不术语</td></tr>
+      <tr><td>⑧知识结构化（自然/人文）</td><td>综合思维（支撑）</td><td>跨模块融合题、新情境下的知识调用</td><td>知识零散、背了不会用、迁移能力弱</td></tr>
+    </tbody>
+  </table></div>
+  <div class="verdict"><b>核心判断：</b>8 项能力不是并列的，而是"3 项底层通用能力＋3 项学科专属能力＋2 项支撑能力"的结构：区域认知、综合思维、图表判读是地基，实践力、人地观、信息与表达是上层，知识结构化贯穿始终。地基不牢，上层全是空中楼阁——这也是本页把培养顺序排成"先底层、再专属、后整合"的原因。</div>
+</section>
+
+<section id="sec2">
+  <div class="sec-head"><span class="sec-no">02</span><h2>综合能力清单：地理到底需要哪 8 项能力</h2></div>
+  <p class="lead">这一节回答"有什么"：8 项能力逐一定义、说明为什么需要、给出失分信号与培养总览。先对照失分信号给孩子"体检"，再决定先练哪一项。</p>
+  <div class="tbl-scroll"><table>
+    <caption>地理 8 项综合能力总览表</caption>
+    <thead><tr><th>能力</th><th>一句话定义</th><th>主要失分信号</th></tr></thead>
+    <tbody>
+      <tr><td>①区域认知与定位</td><td>用空间-区域观点认识地理环境，能定位、能描述、能比较、能评价区域</td><td>区域定位错误、特征张冠李戴、比较维度不全</td></tr>
+      <tr><td>②综合思维（要素关联）</td><td>多要素、多角度、动态地分析地理事象的成因与过程</td><td>单要素作答、因果链断裂、忽视时空动态</td></tr>
+      <tr><td>③地理实践力与探究</td><td>在考察、实验、调查中运用地理工具与方法解决真实问题</td><td>情境题缺步骤、实验设计不完整、工具不会用</td></tr>
+      <tr><td>④图表判读与空间想象</td><td>从各类地图、统计图、示意图中提取信息并在脑中还原空间关系</td><td>图表误读、等值线判读错、空间位置关系混乱</td></tr>
+      <tr><td>⑤人地协调观</td><td>秉持人与自然协调发展的价值观分析与评价人地关系</td><td>只讲利弊不讲协调、观点缺乏站位、评价片面</td></tr>
+      <tr><td>⑥信息提取与材料分析</td><td>从文字与图表材料中准确提取、加工、关联关键信息</td><td>漏读信息、断章取义、信息与设问脱节</td></tr>
+      <tr><td>⑦术语表达与答题规范</td><td>用学科术语、分点分层的规范方式呈现答案</td><td>口语化、术语混用、要点堆砌无逻辑</td></tr>
+      <tr><td>⑧知识结构化（自然/人文）</td><td>把零散知识点组织成"原理-过程-区位-区域"的可调用网络</td><td>背了不会用、新情境迁移失败、知识碎片化</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="skill-card">
+    <h4><span class="no">①</span>区域认知与定位</h4>
+    <div class="def">一句话定义：用经纬网、轮廓与特征地物确定区域位置，描述区域特征，比较区域差异，评价区域发展。</div>
+    <h5>为什么需要</h5>
+    <p>地理综合题几乎都挂在"某区域"上：区域定错了，后续特征、成因、措施全盘皆错。北京 2016 年评价报告显示区域地理得分率 0.74 为各板块最高——区域认知相对好拿分，也因此是"保分"的第一能力。</p>
+    <h5>失分信号</h5>
+    <ul class="tight"><li>给一张区域轮廓图，说不出大致经纬度与邻近区域；</li><li>把温带季风气候特征套到地中海气候区；</li><li>区域发展评价只答"发展快"不答"为什么、靠什么、有什么问题"。</li></ul>
+    <h5>培养总览</h5>
+    <p><span class="channel in">输入</span>世界与中国区域空白图、气候类型分布图、地形分区图</p>
+    <p><span class="channel pr">练习</span>每日一图定位练习、"经纬度＋特征地物"双重定位</p>
+    <p><span class="channel out">输出</span>区域特征"五要素"描述（位置/地形/气候/水文/产业）</p>
+  </div>
+
+  <div class="skill-card">
+    <h4><span class="no">②</span>综合思维（要素关联）</h4>
+    <div class="def">一句话定义：把大气、水文、地形、土壤、人口、产业等要素放进同一时空里，看它们如何相互影响、如何共同决定地理事象。</div>
+    <h5>为什么需要</h5>
+    <p>课标把综合思维定义为"从整体的角度，全面、系统、动态地分析和认识地理环境"；2026 年全国卷第 9～11 题以坡面系统为载体，考的就是"地下水流动→土壤形成→植被分布"的要素链条。不会要素关联，综合题必然"答不全、推不动"。</p>
+    <h5>失分信号</h5>
+    <ul class="tight"><li>区位题只答"交通便利、市场广阔"，漏掉自然要素；</li><li>过程题"热力环流推一半就断"；</li><li>不看时间尺度与空间尺度，结论笼统。</li></ul>
+    <h5>培养总览</h5>
+    <p><span class="channel in">输入</span>要素关系图（如气候-水文-植被-土壤关系图）、过程链条笔记</p>
+    <p><span class="channel pr">练习</span>"自然 5 要素＋人文 5 要素"清单逐项核对</p>
+    <p><span class="channel out">输出</span>把地理过程讲成"因为 A，所以 B，进而 C"的链条</p>
+  </div>
+
+  <div class="skill-card">
+    <h4><span class="no">③</span>地理实践力与探究</h4>
+    <div class="def">一句话定义：在考察、实验、调查中运用地理工具（地图、罗盘、3S 等）收集信息、设计方案、得出结论的行动能力。</div>
+    <h5>为什么需要</h5>
+    <p>课标将地理实践力列为四大核心素养之一；浙江 2026 年 1 月选考命题思路明确"注重培养综合思维和地理实践力"，试题常以研学、观测、监测为情境。情境陌生时，有实践经验的学生能"迁移方法"，没经验的学生只能"蒙"。</p>
+    <h5>失分信号</h5>
+    <ul class="tight"><li>情境题读不懂"让我干什么"；</li><li>实验设计缺变量控制、缺步骤顺序；</li><li>3S 技术"概念混淆、案例不清、应用脱节"（北京考试报教研口径）。</li></ul>
+    <h5>培养总览</h5>
+    <p><span class="channel in">输入</span>典型地理实验与调查案例库（含 3S 协同案例）</p>
+    <p><span class="channel pr">练习</span>"实验设计八问"：目的-变量-步骤-数据-结论-误差-改进-表达</p>
+    <p><span class="channel out">输出</span>用"RS 看变化→GIS 算变化找原因→GNSS 助验证"讲清 3S 协同</p>
+  </div>
+
+  <div class="skill-card">
+    <h4><span class="no">④</span>图表判读与空间想象</h4>
+    <div class="def">一句话定义：从等值线图、剖面图、统计图、景观图、3S 影像中提取信息，并在脑中还原空间关系与变化过程。</div>
+    <h5>为什么需要</h5>
+    <p>北京 2016 年评价报告显示地理选择题（以图表为载体为主）得分率仅 0.47，明显低于主观题；3S 与流程图类题目被北京考试报多次点名"得分率长期偏低"。图表是地理区分度最大的硬门槛。</p>
+    <h5>失分信号</h5>
+    <ul class="tight"><li>等压线图看不出风向与风力变化；</li><li>等高线图判断不出坡度、地形部位；</li><li>统计图纵轴单位不看、趋势读反。</li></ul>
+    <h5>培养总览</h5>
+    <p><span class="channel in">输入</span>地图图例库、常见图型判读规则卡（等值线/剖面/统计/过程）</p>
+    <p><span class="channel pr">练习</span>每日 1 图："图名-要素-规律-结论"四步判读</p>
+    <p><span class="channel out">输出</span>把图"翻译"成文字结论，并反过来用文字画图</p>
+  </div>
+
+  <div class="skill-card">
+    <h4><span class="no">⑤</span>人地协调观</h4>
+    <div class="def">一句话定义：以"人与自然协调发展"的价值观分析资源开发、生态保护、灾害防治与区域发展问题。</div>
+    <h5>为什么需要</h5>
+    <p>课标将人地协调观列为核心价值观；2026 年全国卷评析强调"紧扣双碳目标、唤起责任担当"，亚马孙水库温室气体题、福建连城棒球产业题都是人地协调观的直接载体。此类题分值高、有固定分析框架，练好就是"稳定得分项"。</p>
+    <h5>失分信号</h5>
+    <ul class="tight"><li>评价开发利弊只答单面；</li><li>建议措施空泛（如"加强保护"）不具体；</li><li>观点表达缺少"协调、可持续、国家安全"站位。</li></ul>
+    <h5>培养总览</h5>
+    <p><span class="channel in">输入</span>生态治理与区域发展典型案例（双碳、粮食安全、资源安全）</p>
+    <p><span class="channel pr">练习</span>"利弊-措施-意义"三段式评价训练</p>
+    <p><span class="channel out">输出</span>就一个区域问题写出"问题-原因-对策-意义"四步分析</p>
+  </div>
+
+  <div class="skill-card">
+    <h4><span class="no">⑥</span>信息提取与材料分析</h4>
+    <div class="def">一句话定义：从文字、图表、数据表格材料中准确提取关键信息，并与设问、所学知识建立关联。</div>
+    <h5>为什么需要</h5>
+    <p>浙江选考评析指出"地理知识获取能力包括搜集并阅读图文资料和地理数据表格，提取、理解、加工整理关键地理信息"，这是解答选考题的基础性能力。情境越新，材料信息越关键——答案往往就藏在材料里。</p>
+    <h5>失分信号</h5>
+    <ul class="tight"><li>漏读材料中的数字、方位、时间限定；</li><li>把材料信息当背景，答案不引用材料；</li><li>被无关信息干扰，抓不住设问指向。</li></ul>
+    <h5>培养总览</h5>
+    <p><span class="channel in">输入</span>真题材料精读训练、设问类型库（特征/成因/影响/措施/评价）</p>
+    <p><span class="channel pr">练习</span>"圈-标-联"三步：圈关键词、标时空限定、联所学知识</p>
+    <p><span class="channel out">输出</span>答案每一点都"有出处"：或来自材料、或来自原理</p>
+  </div>
+
+  <div class="skill-card">
+    <h4><span class="no">⑦</span>术语表达与答题规范</h4>
+    <div class="def">一句话定义：用"气候湿润、地势低平、水源充足、产业集聚"等学科术语，分点分层、因果配套地呈现答案。</div>
+    <h5>为什么需要</h5>
+    <p>综合题按点给分，评分看"要点是否齐全、表达是否学科化"。北京 2016 年报告显示主观题得分率 0.74 高于客观题，说明主观题"会写就有分"，但也意味着"写不准、写不全"会稳定丢分。</p>
+    <h5>失分信号</h5>
+    <ul class="tight"><li>"天气不好"代替"降水季节变化大"；</li><li>答"人口多"不答"劳动力丰富、市场广阔"；</li><li>要点堆在一起不分点，理由与结论脱节。</li></ul>
+    <h5>培养总览</h5>
+    <p><span class="channel in">输入</span>学科术语库（自然/人文各板块）、参考答案范本</p>
+    <p><span class="channel pr">练习</span>每周仿写 3 条参考答案，替换口语化作答</p>
+    <p><span class="channel out">输出</span>"结论+理由"成对书写，一点一个采分点</p>
+  </div>
+
+  <div class="skill-card">
+    <h4><span class="no">⑧</span>知识结构化（自然/人文）</h4>
+    <div class="def">一句话定义：把零散知识点组织成"自然：原理→过程→规律；人文：区位→布局→发展"的可调用网络。</div>
+    <h5>为什么需要</h5>
+    <p>2026 年地理全国卷评析强调"驱动概念迁移、考查高阶认知"，试题情境不断更新，教材无法覆盖所有情境——只有结构化知识才能迁移。零散记忆在"新区域、新概念"面前必然失灵。</p>
+    <h5>失分信号</h5>
+    <ul class="tight"><li>各章节知识点"会背不会用"；</li><li>新情境题想不到调用哪块知识；</li><li>自然与人文知识"两张皮"，不会联动分析。</li></ul>
+    <h5>培养总览</h5>
+    <p><span class="channel in">输入</span>章节思维导图、自然-人文知识网络图</p>
+    <p><span class="channel pr">练习</span>每周 1 张"链条图"：把 1 个地理过程画成 A→B→C</p>
+    <p><span class="channel out">输出</span>合上书本，口头把一册书讲成 3～5 条主线</p>
+  </div>
+
+  <div class="verdict"><b>核心判断：</b>8 项能力清单的价值在于"可诊断"：每项都有明确的失分信号。建议先按信号逐项对照（尤其期中期末卷与错题本），圈出 2～3 个最弱项，再用第 03～05 节的方法逐个击破——一次只练 1～2 项，90 天为一个周期。</div>
+</section>
+
+<section id="sec3">
+  <div class="sec-head"><span class="sec-no">03</span><h2>核心能力深度剖析（上）：3 项底层通用能力</h2></div>
+  <p class="lead">区域认知与定位、综合思维与要素关联、图表判读与空间想象——这 3 项是所有地理题型的"地基"：课标修订组负责人在课程教材研究所访谈中明确，"综合思维、区域认知和地理实践力相互影响，并从思维方式和行动能力两个方面，对学生形成人地协调观起到重要的支撑作用"，这为"先练底层、再建上层"的培养顺序提供了官方依据。本节逐项给出：能力定位与课标依据、1～5 级能力分级表、输入-练习-输出三通道培养方法、每周训练安排与常见误区。</p>
+
+  <h3>3.1 区域认知与定位</h3>
+  <h4>能力定位与课标依据</h4>
+  <p><span class="flag fact">事实</span>《普通高中地理课程标准（2017 年版 2020 年修订）》将区域认知定义为"人们运用空间—区域的观点认识地理环境的思维方式和能力"，并指出划分不同尺度、不同类型的区域"是人们认识地理环境复杂性的基本方法"。北京 2016 年评价报告显示区域地理得分率 0.74，为各板块最高——区域认知是"付出即有回报"的能力，应最先补。</p>
+  <div class="tbl-scroll"><table>
+    <caption>区域认知与定位能力分级表（1～5 级）</caption>
+    <thead><tr><th>级别</th><th>表现描述</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1 级</td><td>只能认出教材出现过的著名区域，无经纬度意识，区域图"一片茫然"</td></tr>
+      <tr><td class="num">2 级</td><td>能借助经纬度与轮廓大致定位常见大区（如西欧、东南亚），但不能判读细节特征</td></tr>
+      <tr><td class="num">3 级</td><td>能综合经纬度、海陆轮廓、地形特征定位中等难度区域，并描述气候、地形、水文等特征</td></tr>
+      <tr><td class="num">4 级</td><td>能比较两区域差异并解释成因，区域评价维度完整（自然+人文+问题+对策）</td></tr>
+      <tr><td class="num">5 级</td><td>能在小尺度、陌生区域中快速建立"位置-特征-成因-发展"分析链，多尺度自由切换</td></tr>
+    </tbody>
+  </table></div>
+  <h4>培养方法（输入-练习-输出）</h4>
+  <p><span class="channel in">输入</span>①准备世界与中国"空白区域图"各一份，每周标注 10 个关键区域；②收集"特征地物定位卡"：如轮廓形状（意大利像长靴）、标志性河流（尼罗河）、山脉走向（安第斯山）等定位锚点；③建立"经纬度网格"：记住 0°、30°N/S、60°N/S 与主要经线穿过的区域。</p>
+  <p><span class="channel pr">练习</span>①每日 1 图定位：随手拿一张区域图，先写经纬度范围，再写气候类型与地形特征；②"双重定位法"：经纬网定位＋特征地物定位交叉验证；③每周 1 道区域比较题：两区域对比，按位置、地形、气候、水文、产业五要素逐项列。</p>
+  <p><span class="channel out">输出</span>①用"五要素描述法"口头描述一个区域（位置/地形/气候/水文/产业）；②把区域发展评价写成"优势-制约-措施-意义"四步；③每周向家长或同学"讲一个区域"，讲不清就是没掌握。</p>
+  <h4>每周训练安排</h4>
+  <div class="tbl-scroll"><table>
+    <caption>区域认知能力每周训练安排（教研口径，可按年级压缩）</caption>
+    <thead><tr><th>时段</th><th>训练内容</th><th>时长参考</th></tr></thead>
+    <tbody>
+      <tr><td>周一/周四</td><td>空白图标注 10 个区域＋经纬度记忆</td><td class="num">15 分钟</td></tr>
+      <tr><td>周二/周五</td><td>每日 1 图：区域图四步判读（定位-特征-成因-评价）</td><td class="num">15 分钟</td></tr>
+      <tr><td>周六</td><td>1 道区域比较题精做＋对照答案补要素</td><td class="num">30 分钟</td></tr>
+      <tr><td>周日</td><td>口头"讲一个区域"，家长只提问不代答</td><td class="num">10 分钟</td></tr>
+    </tbody>
+  </table></div>
+  <h4>常见误区</h4>
+  <p><span class="flag judge">判断</span>误区一：只背"地名与轮廓"不背"定位线索"，换个角度画图就认不出；误区二：定位完就结束，不继续做特征与成因分析，等于只练了 1/3；误区三：过早追求陌生小区域定位，忽略先稳固常见大区——分级表里的 2、3 级没站稳就跳 4、5 级，是最常见的无效努力。</p>
+
+  <h3>3.2 综合思维与要素关联</h3>
+  <h4>能力定位与课标依据</h4>
+  <p><span class="flag fact">事实</span>课标定义综合思维为"人们运用综合的观点认识地理环境的思维方式和能力"，强调"从整体的角度，全面、系统、动态地分析和认识地理环境，以及它与人类活动的关系"；中国教育新闻网 2026 年评析以全国卷第 9～11 题为例，指出综合思维可从"要素综合、时空变化、区域整体"三个维度考查——这正是综合题命题的主轴。</p>
+  <div class="tbl-scroll"><table>
+    <caption>综合思维与要素关联能力分级表（1～5 级）</caption>
+    <thead><tr><th>级别</th><th>表现描述</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1 级</td><td>只会单要素作答，如区位题只答"交通、市场"，想不到自然要素</td></tr>
+      <tr><td class="num">2 级</td><td>能列出多个要素，但要素之间"各说各话"，不建立因果</td></tr>
+      <tr><td class="num">3 级</td><td>能建立"A 影响 B、B 影响 C"的简单因果链，过程题可推 2～3 环</td></tr>
+      <tr><td class="num">4 级</td><td>能同时考虑自然与人文要素互动、区分主导因素与次要因素</td></tr>
+      <tr><td class="num">5 级</td><td>能在不同时空尺度间切换（大尺度规律+小尺度机制），动态分析过程演化</td></tr>
+    </tbody>
+  </table></div>
+  <h4>培养方法（输入-练习-输出）</h4>
+  <p><span class="channel in">输入</span>①建立"要素关系图库"：热力环流、水循环、地质循环、人口迁移、产业区位等每张图都标出"要素-箭头-结果"；②读教材目录与章节导语，先搭"章-节-知识点"骨架；③积累"主导因素"案例：如青藏高原高寒的主导因素是海拔而非纬度。</p>
+  <p><span class="channel pr">练习</span>①"自然 5＋人文 5"要素清单核对：自然（地形/气候/水文/土壤/生物）、人文（人口/城市/农业/工业/交通），每题答完逐项打钩；②链条式推演：每周把 1 个地理过程写成"因为 A，所以 B，进而 C"的链条并标出卡壳环节；③多问一层"为什么"：对每个结论追问两次"这又是为什么"。</p>
+  <p><span class="channel out">输出</span>①把过程链条讲给他人听（费曼式输出），讲不断才算通；②对一道综合题，先画要素关系草图再落笔；③每周写 1 篇"小分析"：用三句话讲清一个地理现象的多要素成因。</p>
+  <h4>每周训练安排</h4>
+  <div class="tbl-scroll"><table>
+    <caption>综合思维能力每周训练安排（教研口径）</caption>
+    <thead><tr><th>时段</th><th>训练内容</th><th>时长参考</th></tr></thead>
+    <tbody>
+      <tr><td>周一/周三</td><td>1 张要素关系图精读＋口头复述箭头逻辑</td><td class="num">15 分钟</td></tr>
+      <tr><td>周二/周四</td><td>区位/过程题练习，逐项核对"自然 5＋人文 5"清单</td><td class="num">20 分钟</td></tr>
+      <tr><td>周六</td><td>1 道多要素综合题精析，先画要素草图再作答</td><td class="num">30 分钟</td></tr>
+      <tr><td>周日</td><td>"讲过程链"输出：选 1 个地理过程讲给家长听</td><td class="num">15 分钟</td></tr>
+    </tbody>
+  </table></div>
+  <h4>常见误区</h4>
+  <p><span class="flag judge">判断</span>误区一：把综合思维理解为"多写几点"，其实关键是"要素间有因果"；误区二：只练"静态要素"不练"动态过程"，遇到演化类题就断链；误区三：忽视尺度——拿大尺度规律硬套小尺度区域，是 2026 年全国卷微观尺度题暴露的典型失分点。</p>
+
+  <h3>3.3 图表判读与空间想象</h3>
+  <h4>能力定位与课标依据</h4>
+  <p><span class="flag fact">事实</span>北京教育考试院《2016 年高考（北京卷）地理学科评价研究报告》披露客观题得分率 0.47、明显低于主观题 0.74；北京考试报 2025 年 10 月教研文章进一步确认：3S 技术模块"得分率长期偏低"，2018 年"数字地图"题与 2024、2025 年"流程图"画图题都是区分考生能力的关键题。图表判读是官方数据反复验证的能力洼地。</p>
+  <div class="tbl-scroll"><table>
+    <caption>图表判读与空间想象能力分级表（1～5 级）</caption>
+    <thead><tr><th>级别</th><th>表现描述</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1 级</td><td>只会读图名与明显图例，等值线、剖面图"看不懂在考什么"</td></tr>
+      <tr><td class="num">2 级</td><td>能读出单一图表的直接信息（如气温数值），但不会要素叠加</td></tr>
+      <tr><td class="num">3 级</td><td>能判读等值线疏密、数值递变、闭合区域，并推断基本规律</td></tr>
+      <tr><td class="num">4 级</td><td>能多图叠加（等压线+锋面、等高线+河流）、时空过程动态判读</td></tr>
+      <tr><td class="num">5 级</td><td>能在脑中构建三维空间模型，把图表信息转化为因果推理并预判变化</td></tr>
+    </tbody>
+  </table></div>
+  <h4>培养方法（输入-练习-输出）</h4>
+  <p><span class="channel in">输入</span>①建"图型规则卡"：等值线（疏密=变化快慢、闭合=极值、弯曲=脊线谷线）、统计图（先看横纵轴单位）、剖面图（先定剖面线位置）；②收集真题图表整理成册，每周精读 5 幅；③看地图时主动"翻译"：图例、比例尺、指向标逐一确认。</p>
+  <p><span class="channel pr">练习</span>①每日 1 图："图名-要素-规律-结论"四步判读，限时 5 分钟；②专项拆图：等高线图判断坡度与地形部位、等压线图判风向风力、统计图判趋势拐点；③3S 辨析练习：RS（看/获取）、GNSS（定/定位）、GIS（算/分析决策）各配 2 个生活案例与 2 个考题案例。</p>
+  <p><span class="channel out">输出</span>①把每幅精读图"翻译"成 3 句话文字结论；②反向训练：根据文字描述画出简易示意图（如热力环流图、锋面图）；③画图题专项：流程图、过程示意图按"起点-步骤-结果"规范绘制。</p>
+  <h4>每周训练安排</h4>
+  <div class="tbl-scroll"><table>
+    <caption>图表判读与空间想象能力每周训练安排（教研口径）</caption>
+    <thead><tr><th>时段</th><th>训练内容</th><th>时长参考</th></tr></thead>
+    <tbody>
+      <tr><td>周一至周五</td><td>每日 1 图四步判读（等值线/统计/剖面/3S 影像轮换）</td><td class="num">5～8 分钟/天</td></tr>
+      <tr><td>周三</td><td>3S 技术专项：1 个技术+2 个案例辨析</td><td class="num">10 分钟</td></tr>
+      <tr><td>周六</td><td>1 道图表大题精做＋对照标准答案补"图转文"表达</td><td class="num">30 分钟</td></tr>
+      <tr><td>周日</td><td>反向画图：文字描述转示意图，自查要素是否齐全</td><td class="num">15 分钟</td></tr>
+    </tbody>
+  </table></div>
+  <h4>常见误区</h4>
+  <p><span class="flag judge">判断</span>误区一：只"看"不"写"，图表信息不落笔就永远发现不了误读；误区二：忽视单位与图例，统计图纵轴单位看错导致结论全错；误区三：把 3S 当"背诵点"，其实 3S 考的是"应用与流程"——北京高考已从概念识别深化到"技术-应用-流程"连锁思维，死记硬背必然失效。</p>
+  <div class="callout gold">给学生的提醒：<b>图表是地理的"第二语言"。</b>每天哪怕只精读 1 幅图，坚持 90 天，判读速度与准确率会有肉眼可见的提升——这是八项能力里"性价比"最高的日常训练。</div>
+</section>
+
+<section id="sec4">
+  <div class="sec-head"><span class="sec-no">04</span><h2>核心能力深度剖析（下）：3 项学科专属能力</h2></div>
+  <p class="lead">如果说上节 3 项是"地基"，本节 3 项就是"房子的功能分区"：地理实践力解决"会不会做"，人地协调观解决"怎么看问题"，信息提取与术语表达解决"能不能把会的东西写出来拿分"。</p>
+
+  <h3>4.1 地理实践力与探究</h3>
+  <h4>能力定位与课标依据</h4>
+  <p><span class="flag fact">事实</span>课标定义地理实践力为"人们在考察、实验和调查等地理实践活动中所具备的意志品质和行动能力"，并明确"考察、实验、调查等是地理学重要的研究方法，也是地理课程重要的学习方式"；浙江 2026 年 1 月选考命题思路把"注重培养学生的综合思维和地理实践力"列为命题理念之一，实践情境题（研学、观测、监测）已常态化。</p>
+  <div class="tbl-scroll"><table>
+    <caption>地理实践力与探究能力分级表（1～5 级）</caption>
+    <thead><tr><th>级别</th><th>表现描述</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1 级</td><td>对考察/实验类情境陌生，读不懂"让我设计什么、说明什么"</td></tr>
+      <tr><td class="num">2 级</td><td>能复述教材实验步骤，但换情境就不会迁移</td></tr>
+      <tr><td class="num">3 级</td><td>能设计完整步骤（目的-变量-操作-数据），并说出工具用途</td></tr>
+      <tr><td class="num">4 级</td><td>能控制变量、分析数据、评价误差，提出改进方案</td></tr>
+      <tr><td class="num">5 级</td><td>能在陌生真实情境中自主提出探究问题、设计调查方案并给出结论</td></tr>
+    </tbody>
+  </table></div>
+  <h4>培养方法（输入-练习-输出）</h4>
+  <p><span class="channel in">输入</span>①读教材"活动/实验"栏目并动手复现（如热力环流小实验、等高线模型）；②积累真实案例：研学路线设计、土壤剖面观察、水文监测等情境题案例；③掌握 3S 工具逻辑：RS"看变化"、GIS"算变化找原因"、GNSS"助验证"（北京考试报教研口径）。</p>
+  <p><span class="channel pr">练习</span>①"实验设计八问"逐题作答：目的-假设-变量-步骤-数据-结论-误差-改进；②情境题迁移训练：把教材案例改换区域/改换对象再作答；③数据表格处理练习：给定监测数据，先描述趋势再解释成因。</p>
+  <p><span class="channel out">输出</span>①用流程图讲清 3S 协同流程（如"大庆湿地景观动态研究"式项目链）；②把一次研学/考察写成"目的-方法-发现-结论"小报告；③遇到真实问题（如小区排水、城市热岛）主动做一次"迷你调查"。</p>
+  <h4>每周训练安排</h4>
+  <div class="tbl-scroll"><table>
+    <caption>地理实践力与探究能力每周训练安排（教研口径）</caption>
+    <thead><tr><th>时段</th><th>训练内容</th><th>时长参考</th></tr></thead>
+    <tbody>
+      <tr><td>周二</td><td>1 个 3S 技术案例辨析（生活案例＋考题案例各 1）</td><td class="num">10 分钟</td></tr>
+      <tr><td>周四</td><td>实验设计八问小练：选 1 个地理现象设计探究步骤</td><td class="num">15 分钟</td></tr>
+      <tr><td>周六</td><td>1 道实践情境大题精做（研学/监测/调查类）</td><td class="num">25 分钟</td></tr>
+      <tr><td>不定期</td><td>周末户外 10 分钟观察：天气、地形、植被随手记录</td><td class="num">10 分钟</td></tr>
+    </tbody>
+  </table></div>
+  <h4>常见误区</h4>
+  <p><span class="flag judge">判断</span>误区一：把实践力当"兴趣活动"不做题——考场上的实践情境题同样要练；误区二：3S 三兄弟"概念混淆、案例不清、应用脱节"（北京考试报点名的高频困境），本质是没建立"技术-应用-流程"的连锁思维；误区三：实验题只背教材步骤，不会在陌生情境里迁移设计——高考考的是"设计能力"而非"背诵能力"。</p>
+
+  <h3>4.2 人地协调观与价值判断</h3>
+  <h4>能力定位与课标依据</h4>
+  <p><span class="flag fact">事实</span>课标把人地协调观定义为"人们对人类与地理环境之间关系秉持的正确的价值观"，并称其"有助于人们更好地分析、认识和解决人地关系问题"；2026 年地理全国卷评析明确提出"紧扣国家双碳目标、唤起责任担当"，第 7～8 题以亚马孙地区水库温室气体排放、第 36 题以福建连城棒球产业（乡村振兴与两岸融合）为载体考查人地协调观——此类题是"素养题"的稳定高地。</p>
+  <div class="tbl-scroll"><table>
+    <caption>人地协调观与价值判断能力分级表（1～5 级）</caption>
+    <thead><tr><th>级别</th><th>表现描述</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1 级</td><td>评价开发问题只会说"好/不好"，给不出依据</td></tr>
+      <tr><td class="num">2 级</td><td>能列举利弊，但"利"与"弊"不关联、没有权衡意识</td></tr>
+      <tr><td class="num">3 级</td><td>能按"经济-社会-生态"三维评价，并给出协调思路</td></tr>
+      <tr><td class="num">4 级</td><td>能结合区域背景与国家安全（粮食/资源/生态）做有站位的价值判断</td></tr>
+      <tr><td class="num">5 级</td><td>能就复杂人地矛盾提出可持续发展综合方案并论证其可行性</td></tr>
+    </tbody>
+  </table></div>
+  <h4>培养方法（输入-练习-输出）</h4>
+  <p><span class="channel in">输入</span>①积累"双碳、粮食安全、资源安全、生态修复"主题案例库（教材与新闻双来源）；②读评析文章：2026 年全国卷评析、浙江选考评析中的人地主题素材；③整理"协调观句式库"："既顾及发展、又兼顾保护""在保护中开发、在开发中保护""因地制宜、统筹兼顾"。</p>
+  <p><span class="channel pr">练习</span>①"利弊-措施-意义"三段式评价训练：每题先列利弊再给措施再谈意义；②多维视角练习：同一问题分别从政府、企业、居民、生态视角作答；③价值判断训练：对"开发还是保护"类设问，先立观点再给 2 条以上支撑理由。</p>
+  <p><span class="channel out">输出</span>①就一个真实区域问题写"问题-原因-对策-意义"四步分析；②口头辩论式输出：和同学/家长讨论"某水库该不该建"，训练有据立论；③把答案里的"应该"升级为"通过什么方式、达到什么效果"的具体表述。</p>
+  <h4>每周训练安排</h4>
+  <div class="tbl-scroll"><table>
+    <caption>人地协调观与价值判断能力每周训练安排（教研口径）</caption>
+    <thead><tr><th>时段</th><th>训练内容</th><th>时长参考</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>读 1 则区域发展/生态新闻，提炼"人地关系"关键词</td><td class="num">10 分钟</td></tr>
+      <tr><td>周三</td><td>三段式评价小练：选 1 个开发案例写利弊与措施</td><td class="num">15 分钟</td></tr>
+      <tr><td>周六</td><td>1 道人地主题综合题精做＋对照答案学"站位表述"</td><td class="num">25 分钟</td></tr>
+      <tr><td>周日</td><td>家庭 5 分钟讨论：结合新闻聊"这样做合理吗，为什么"</td><td class="num">5 分钟</td></tr>
+    </tbody>
+  </table></div>
+  <h4>常见误区</h4>
+  <p><span class="flag judge">判断</span>误区一：人地协调观"答题时想得起、分析时用不上"——它不只考"可持续发展"四个字，而是考利弊权衡与协调路径；误区二：措施写得"空"（如"加强管理"），没有落到"谁来做、怎么做、达到什么效果"；误区三：只从经济角度评价，忽略生态与社会维度——3 级标准（经济-社会-生态三维）没达到就谈不上 4 级站位。</p>
+
+  <h3>4.3 信息提取与术语表达</h3>
+  <h4>能力定位与课标依据</h4>
+  <p><span class="flag fact">事实</span>浙江省教育考试院 2025 年 1 月选考评析指出："地理知识获取能力包括搜集并阅读图文资料和地理数据表格，提取、理解、加工整理关键地理信息等，该能力在解答地理选考试题中具有基础性地位"，且"情境通过增加信息量拓宽广度、利用不同信息的融合增加深度"——信息提取能力被官方定义为"基础性地位"，术语表达则是把能力变现为分数的最后一公里。</p>
+  <div class="tbl-scroll"><table>
+    <caption>信息提取与术语表达能力分级表（1～5 级）</caption>
+    <thead><tr><th>级别</th><th>表现描述</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1 级</td><td>读材料抓不住重点，答案与材料、设问"两张皮"</td></tr>
+      <tr><td class="num">2 级</td><td>能提取明显信息，但会漏数字、时间、方位等限定信息</td></tr>
+      <tr><td class="num">3 级</td><td>能圈出关键词并按设问类型组织答案，口语化仍较多</td></tr>
+      <tr><td class="num">4 级</td><td>信息提取完整，答案术语化、要点化、因果配套，接近参考答案</td></tr>
+      <tr><td class="num">5 级</td><td>能在陌生复杂材料中快速分层加工信息，答案规范、采分点全覆盖</td></tr>
+    </tbody>
+  </table></div>
+  <h4>培养方法（输入-练习-输出）</h4>
+  <p><span class="channel in">输入</span>①建"设问类型库"：特征类/成因类/影响类/措施类/评价类，每类记答题句式；②建"术语库"：自然板块（光照充足、降水季节变化大、地势起伏大、水土流失）与人文板块（劳动力丰富、市场广阔、产业集聚、交通通达度高）各 30 条；③收集 10 套真题的参考答案作"范本"。</p>
+  <p><span class="channel pr">练习</span>①"圈-标-联"三步法：圈关键词、标时空限定、联所学知识，每题先做三步再动笔；②审题训练：只看设问，先判断"让我答什么、从哪个角度、用哪个知识板块"；③仿写训练：每周 3 条，把口语化作答改写为参考答案风格。</p>
+  <p><span class="channel out">输出</span>①答案分点书写，每点"结论+理由"成对；②写完自查三问：要点全不全、术语准不准、有没有答非所问；③把错题答案重写一遍，对照参考答案找"差在哪里"。</p>
+  <h4>每周训练安排</h4>
+  <div class="tbl-scroll"><table>
+    <caption>信息提取与术语表达能力每周训练安排（教研口径）</caption>
+    <thead><tr><th>时段</th><th>训练内容</th><th>时长参考</th></tr></thead>
+    <tbody>
+      <tr><td>周二</td><td>1 组材料题"圈-标-联"三步速练（只圈不答）</td><td class="num">10 分钟</td></tr>
+      <tr><td>周四</td><td>3 条术语仿写：口语化作答改写成学科表达</td><td class="num">10 分钟</td></tr>
+      <tr><td>周六</td><td>1 道综合题完整作答＋对照参考答案逐点核对</td><td class="num">30 分钟</td></tr>
+      <tr><td>周日</td><td>错题答案重写 1 道，写下"本次差在哪"一句话归因</td><td class="num">15 分钟</td></tr>
+    </tbody>
+  </table></div>
+  <h4>常见误区</h4>
+  <p><span class="flag judge">判断</span>误区一：材料只"看"不"圈"，考场时间一紧就漏信息；误区二：把"答得多"当"答得对"——地理按采分点给分，罗列与设问无关的要素不会加分；误区三：口语化表达不改写，长期停留在 3 级水平——术语不是背出来的，是"仿写+自查"练出来的。</p>
+  <div class="verdict"><b>核心判断：</b>6 项核心能力的培养顺序建议：区域认知（保分）→图表判读（提分上限）→综合思维（综合题主干）→信息与表达（分数变现）→实践力与人地观（素养题加分项）。先低后高、先易后难，90 天聚焦 1～2 项。</div>
+</section>
+
+<section id="sec5">
+  <div class="sec-head"><span class="sec-no">05</span><h2>培养方法工具箱：把能力工程裁剪到地理</h2></div>
+  <p class="lead">通用学习能力工程（元认知、刻意练习、间隔重复、错题闭环、费曼输出、时间管理）按地理学科裁剪后，就是一套可落地的"日常训练系统"。每个方法给出"是什么-怎么做-地理版应用"。</p>
+
+  <div class="method">
+    <h4><span class="no">M1</span>元认知复盘：给地理学习装"仪表盘"</h4>
+    <p><b>是什么：</b>对自己"哪里懂、哪里不懂、为什么错"保持清醒监控。<b>怎么做：</b>每次作业/考试后写 3 行复盘：错在哪类题、卡在哪个环节（定位/读图/要素/术语）、下次改哪个动作。<b>地理版应用：</b>把错题按八项能力分类，统计占比——图表类占 40% 就先练图表，而不是平均用力刷整卷。<span class="flag judge">判断</span>多数学生"刷题很多、复盘很少"，元认知是投入产出比最高的能力工程：每周 15 分钟复盘，胜过 3 小时盲目刷题。</p>
+  </div>
+
+  <div class="method">
+    <h4><span class="no">M2</span>刻意练习：区位模板＋读图三步法</h4>
+    <p><b>是什么：</b>聚焦短板、带反馈、有明确标准的重复练习，而非"舒适区刷题"。<b>怎么做：</b>选 1 个最弱能力，拆成可单独练的小动作，每次练完对照标准自查。<b>地理版应用：</b>①区位模板——农业/工业/城市/交通四类区位题各建"自然要素＋人文要素"核对清单，每次作答逐项打钩，直到无遗漏；②读图三步法——第一步看图名图例定主题，第二步看数值与空间分布定规律，第三步联系原理定结论，限时完成。<span class="flag judge">判断</span>区位模板不是"背答案"，而是"防遗漏清单"：模板帮你把该想的要素都想全，再用原理判断哪个是主导因素。</p>
+  </div>
+
+  <div class="method">
+    <h4><span class="no">M3</span>间隔重复：地图卡片与要素卡片</h4>
+    <p><b>是什么：</b>按"当天-次日-一周-一月"间隔复习，对抗遗忘曲线。<b>怎么做：</b>把知识点做成小卡片，用间隔节奏翻查，答对的拉长间隔、答错的缩短间隔。<b>地理版应用：</b>制作三类卡片——区域定位卡（轮廓+经纬度+特征地物）、要素关系卡（A 影响 B）、术语卡（口语→术语对照）。每天通勤/课间翻 10 张，重点翻"间隔到期的旧卡"。<span class="flag judge">判断</span>地理记忆量大且碎片多，一次突击背诵效果最差；用间隔重复把记忆变成"细水长流"，才是可持续的做法。</p>
+  </div>
+
+  <div class="method">
+    <h4><span class="no">M4</span>错题闭环：从"改答案"到"改能力"</h4>
+    <p><b>是什么：</b>错题不是抄在本子上，而是"归因-重做-复现"三步闭环。<b>怎么做：</b>①归因：错因属于八项能力中的哪一项；②重做：不看答案完整重写一遍；③复现：一周后再次限时重做，全对才"出环"。<b>地理版应用：</b>错题本按"区域定位错/读图错/要素遗漏/术语不规范/审题偏差"五类归档，每周统计占比，优先消灭占比最高的一类；特别标注"应该会做却做错"的中档题——杭州网报道的特级教师观点认为这类题提分最快。<span class="flag judge">判断</span>错题闭环的价值在于把"这次错了"变成"这类题永远不错"：改答案只解决一道题，改能力才解决一类题。</p>
+  </div>
+
+  <div class="method">
+    <h4><span class="no">M5</span>费曼输出：讲自然过程链</h4>
+    <p><b>是什么：</b>用自己的话把知识讲给不懂的人听，讲不清楚就是没学会。<b>怎么做：</b>选一个知识点，先讲、再翻书补漏、再讲一遍，直到对方听懂。<b>地理版应用：</b>专练"讲过程链"——热力环流、水循环、地质循环、锋面过境、产业转移，每个过程按"因为 A，所以 B，进而 C"讲完整；讲卡壳的地方就是知识漏洞，当场补上再重讲。<span class="flag judge">判断</span>地理"背结论容易、推过程难"，费曼输出恰好逼着学生把"背下来的"变成"理解透的"——这是检验真懂的最硬标准。</p>
+  </div>
+
+  <div class="method">
+    <h4><span class="no">M6</span>时间管理：把训练排进课表</h4>
+    <p><b>是什么：</b>能力培养需要稳定频率，用固定时段而非"有空再练"。<b>怎么做：</b>每天固定 20～30 分钟地理能力时段，内容轮换但节奏不变。<b>地理版应用：</b>见下表"每周能力训练时间表"——把八项能力拆进一周七天，每天一个小动作，形成肌肉记忆。<span class="flag judge">判断</span>地理能力是"日积月累型"而非"考前突击型"：每天 20 分钟的稳定投入，远胜周末 3 小时的一次性恶补。</p>
+  </div>
+
+  <div class="tbl-scroll"><table>
+    <caption>地理每周能力训练时间表（教研口径，可按年级与短板调整）</caption>
+    <thead><tr><th>星期</th><th>训练内容</th><th>对应能力</th><th>时长</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>空白图标注 10 区域＋读 1 则区域发展新闻</td><td>①区域认知·⑤人地协调观</td><td class="num">20 分钟</td></tr>
+      <tr><td>周二</td><td>材料题"圈-标-联"三步速练＋1 个 3S 案例辨析</td><td>⑥信息提取·③实践力</td><td class="num">20 分钟</td></tr>
+      <tr><td>周三</td><td>1 张要素关系图精读＋口头复述箭头逻辑</td><td>②综合思维</td><td class="num">20 分钟</td></tr>
+      <tr><td>周四</td><td>每日 1 图四步判读＋3 条术语仿写</td><td>④图表判读·⑦术语表达</td><td class="num">20 分钟</td></tr>
+      <tr><td>周五</td><td>本周错题归因：按能力分类统计＋重做 2 道</td><td>⑧知识结构化·元认知</td><td class="num">25 分钟</td></tr>
+      <tr><td>周六</td><td>1 道综合大题精做（先画要素草图再作答）＋对照答案</td><td>②⑥⑦综合输出</td><td class="num">40 分钟</td></tr>
+      <tr><td>周日</td><td>费曼输出：讲 1 个地理过程链；家庭 5 分钟新闻讨论</td><td>②⑤·输出闭环</td><td class="num">20 分钟</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">使用说明：时间表是"模板"不是"铁律"——高一学生可把周六综合大题换成章节思维导图（优先筑基），高三学生可把每天 20 分钟扩展为限时仿真训练；关键是<b>每天都有地理能力动作</b>，节奏比单次时长重要。</div>
+</section>
+
+<section id="sec6">
+  <div class="sec-head"><span class="sec-no">06</span><h2>分年级培养路径：高一筑基、高二强化、高三整合冲刺</h2></div>
+  <p class="lead">地理能力的培养必须贴合年级节奏：高一解决"原理与图表"断层，高二攻克"过程与区位"峰值，高三完成"整合与考场转化"。三个阶段各有一个里程碑信号，家长可据此判断孩子是否"在轨道上"。</p>
+  <div class="tbl-scroll"><table>
+    <caption>分年级培养路径总表</caption>
+    <thead><tr><th>阶段</th><th>能力重点</th><th>核心方法</th><th>里程碑信号</th></tr></thead>
+    <tbody>
+      <tr><td>高一筑基</td><td>区域定位、图表入门、自然地理原理链条</td><td>每日 1 图四步判读；每周 1 张过程链条图；空白图标注区域</td><td>能独立推完大气/水文主要过程；常见区域图 1 分钟内定位</td></tr>
+      <tr><td>高二强化</td><td>综合思维（要素关联）、区位综合、区域发展、人地协调</td><td>自然 5＋人文 5 要素清单核对；区位模板专项；人地三段式评价；每周 1 道区位大题精析</td><td>综合题要素完整率明显提升；区位题自然人文要素无遗漏</td></tr>
+      <tr><td>高三整合冲刺</td><td>图表提速、术语规范、错题归因、限时仿真、新情境迁移</td><td>真题情境归类；六类错因统计优先击破；限时整卷仿真；参考答案仿写</td><td>限时卷图表题不再"卡壳"；错题同因复发率明显下降；赋分位次进入目标档</td></tr>
+    </tbody>
+  </table></div>
+  <h3>6.1 高一筑基：先解决"看不懂图、推不动原理"</h3>
+  <p><span class="flag judge">判断</span>高一是地理分化最剧烈的窗口：初中"背地名"的策略在高一自然地理原理面前全面失效。这个阶段最怕两件事——一是把高一当"简单课"掉以轻心，二是第一次月考失利就自我怀疑"文科不行"。高一的正确动作是：把每一张原理图（大气受热、热力环流、水循环、地质循环）亲手画一遍、讲一遍，把常见区域图练到"秒定位"。</p>
+  <p><span class="flag fact">事实</span>2026 年 1 月浙江选考命题思路披露：命题"注重高中地理与义务教育地理课程标准之间的衔接"，第 23 题直接考查义务教育课标内容——初高中衔接是官方明确关注的命题方向，高一阶段补足初中区域基础、建立高中原理框架，正是衔接的关键。</p>
+  <h3>6.2 高二强化：攻下"过程推理＋区位综合"两座山</h3>
+  <p><span class="flag judge">判断</span>高二的难集中在两处：自然地理过程题要求动态推理（热力环流、水循环、地质作用、洋流），人文区位题要求多要素权衡（农业、工业、城市、交通）。两座山都过了，高三才有资格谈"抢分"；只靠背诵、不练推理的学生，高二综合题会持续"卡壳"。</p>
+  <p><span class="flag fact">事实</span>2026 年地理全国卷评析强调"强化地理过程分析与综合思维，突出知识迁移与高阶思维"；第 9～11 题（坡面土壤、等值线判读）与第 4～6 题（兰新铁路"改直为弯"）都要求学生在过程与创新情境中调用综合能力——高二阶段把"过程推理＋要素关联"练扎实，正是应对这类命题的能力储备。</p>
+  <h3>6.3 高三整合冲刺：把能力"变现"为分数</h3>
+  <p><span class="flag judge">判断</span>高三的重点不再是"学新知识"，而是"整合与转化"：把三年知识结构化成可调用网络，把六项能力转化为考场上的时间管理与得分率。这个阶段两个抓手：一是按错因统计"定点清除"（图表类弱就专练图表），二是限时仿真训练（把能力放进真实考试节奏里检验）。</p>
+  <p><span class="flag fact">事实</span>2026 年 1 月浙江选考命题思路披露：命题"在保持试卷风格、题型、题量和难度稳定的基础上，通过增加选择题题组中的试题数，使选择题由以前的 12 至 13 个题组减少至 10 个题组，从而减轻学生阅读量，增加思考时间"——命题在主动给"深度思考"留空间，高三备考也应把重心放在"想清楚"而非"刷得快"。</p>
+  <div class="verdict"><b>核心判断：</b>三阶段不是"平均用力"，而是"错峰攻坚"：高一补地基（原理＋图表），高二攻主峰（过程＋区位），高三练转化（整合＋考场）。每阶段达到里程碑信号再进下一阶段，比"跟着考试走"更可控。</div>
+</section>
+
+<section id="sec7">
+  <div class="sec-head"><span class="sec-no">07</span><h2>家长协同要点：从"催学习"到"陪能力"</h2></div>
+  <p class="lead">家长在地理能力培养中最有价值的角色不是"监工"，而是"观察者＋陪练＋避坑提醒"。本节给出家长角色定位、需要盯的观察信号、可落地的陪伴方法，以及四个常见避坑点。</p>
+  <div class="tbl-scroll"><table>
+    <caption>家长协同要点总表</caption>
+    <thead><tr><th>维度</th><th>要点</th><th>可落地动作</th></tr></thead>
+    <tbody>
+      <tr><td>家长角色</td><td>观察者＋陪练＋避坑提醒，不替代老师、不代做作业</td><td>每周看一次错题本分类；听孩子"讲一个区域/一个过程"</td></tr>
+      <tr><td>观察信号</td><td>看三类信号：读图类（图表题失分多）、推理类（过程题卡壳）、输出类（会做不会写）</td><td>翻试卷按"图表/过程/表达"三栏统计失分占比</td></tr>
+      <tr><td>陪伴方法</td><td>用"提问"代替"讲解"：让孩子自己说出思路，卡在哪问哪</td><td>每天 5 分钟"看图说话"：挑一张图让孩子讲"有什么、为什么、会怎样"</td></tr>
+      <tr><td>避坑提醒</td><td>不否定兴趣、不迷信"背多分"、不频繁换方法、不横向比较</td><td>按"90 天 1～2 项"节奏推进，方法见效前不轻易换</td></tr>
+    </tbody>
+  </table></div>
+  <h3>7.1 家长角色：三件事做，三件事不做</h3>
+  <p><span class="flag judge">判断</span>做三件事：一"看"——每周翻一次错题本与试卷，只看分类不看分数；二"听"——让孩子把地理过程讲给你听，讲不下去的地方就是漏洞；三"问"——用"你觉得这里为什么这样？"代替"你应该这样"。不做三件事：不代替孩子做题、不拿"别人家孩子"比较、不因一次考试否定孩子的学科能力——高一第一次月考失利尤其不能定性"文科不行"。</p>
+  <h3>7.2 观察信号：三类"卡点"对号入座</h3>
+  <ul class="tight">
+    <li><b>读图类卡点：</b>选择题图表题大面积失分、等值线图判读慢——对应能力④，优先启动"每日 1 图"。</li>
+    <li><b>推理类卡点：</b>综合题"推一半就断"、要素遗漏——对应能力②⑥，优先启动"要素清单＋链条图"。</li>
+    <li><b>输出类卡点：</b>会分析但答案口语化、要点不全——对应能力⑦，优先启动"术语仿写＋采分点自查"。</li>
+  </ul>
+  <p><span class="flag fact">事实</span>北京考试报教研文章确认，3S 与图表类题目"得分率长期偏低"、是多数考生的系统性弱项（官方教研口径）；浙江特级教师在公开直播中也指出，中档题"应该会做却做错"是提分最快的部分（行业观察口径）。家长观察信号时，可重点看"中档题失分"而非只盯难题。</p>
+  <h3>7.3 陪伴方法：每天 5 分钟"看图说话"</h3>
+  <p><span class="flag judge">判断</span>最轻量、最有效的家庭陪伴是"每天 5 分钟看图说话"：家长随手拿一张地图/统计图/新闻配图，让孩子用三句话讲"这里有什么、为什么这样、会往哪发展"。这个动作同时练了区域认知（有什么）、综合思维（为什么）与人地协调观（会怎样），且完全不增加刷题负担——会讲，才是真会。</p>
+  <h3>7.4 四个避坑点</h3>
+  <ul class="tight">
+    <li><b>避坑一：</b>把地理当"背诵科"——新高考地理已从"考知识"转向"考迁移"，死记硬背在"新区域＋新情境"面前无效；</li>
+    <li><b>避坑二：</b>频繁换方法——能力培养有滞后性，90 天内频繁换打法等于每次都从零开始；</li>
+    <li><b>避坑三：</b>只看分数不看分类——分数波动正常，要盯的是"哪类题在稳定丢分"；</li>
+    <li><b>避坑四：</b>用"赋分焦虑"吓孩子——地理选考人数多、分布接近正态，中等生反而有稳定获益空间（行业观察口径），家长应把焦虑转化为对"位次提升动作"的关注。</li>
+  </ul>
+  <div class="callout gold">给家长的一句话：<b>你不需要会地理，只需要会提问。</b>"这张图你能看出什么？""这个现象为什么会发生？""如果这样发展会怎样？"——三个问题问一年，孩子的综合能力就在对话里长出来了。</div>
+</section>
+
+<section id="sec8">
+  <div class="sec-head"><span class="sec-no">08</span><h2>参考文献与口径说明：每条数据都能溯源</h2></div>
+  <p class="lead">本页所有关键数据均标注来源与口径分层。凡未标"官方"的，为权威媒体转载、专家解读或行业观察，请对照核验后使用；未经核实的"精确平均分"一类数据，本页一律不引用。</p>
+  <h3>8.1 主要参考来源（按官方→权威媒体→行业观察排序）</h3>
+  <ol class="ref-list">
+    <li><a href="https://www.pep.com.cn/xw/zt/rjwy/gzkb2020/202205/P020220517516728907929.pdf" target="_blank" rel="noopener noreferrer">[官方] 教育部·《普通高中地理课程标准（2017 年版 2020 年修订）》（四大核心素养定义）</a></li>
+    <li><a href="https://www.ictr.edu.cn/periodicals/jing/detail/611.html" target="_blank" rel="noopener noreferrer">[官方] 课程教材研究所·访课标修订组负责人：四大素养展示地理课程核心价值</a></li>
+    <li><a href="https://www.eol.cn/kaoshi/gaokao/gkzx/202606/t20260608_2742597.shtml" target="_blank" rel="noopener noreferrer">[官方] 教育部教育考试院·2026 年高考地理全国卷试题评析（教育在线转载）</a></li>
+    <li><a href="https://edu.people.com.cn/n1/2026/0609/c1006-40736401.html" target="_blank" rel="noopener noreferrer">[权威媒体] 人民网/光明日报·专家解析 2026 高考地理全国卷</a></li>
+    <li><a href="https://m.jyb.cn/rmtzgjyb/202609/t20260907_2111517718_wap.html" target="_blank" rel="noopener noreferrer">[权威媒体] 中国教育新闻网·怎样从微观尺度考查综合思维（2026 全国卷第 9～11 题评析）</a></li>
+    <li><a href="https://www.zjzs.net/module/download/downfile.jsp?classid=0&showname=%E7%AB%8B%E8%B6%B3%E6%9C%AC%E8%B4%A8%E2%80%83%20%E5%BC%95%E5%AF%BC%E6%95%99%E5%AD%A6%E2%80%83%20%E6%9C%8D%E5%8A%A1%E9%80%89%E6%89%8D%E2%80%94%E2%80%94%E5%9C%B0%E7%90%86%E9%80%89%E8%80%83%E8%AF%95%E9%A2%98%E8%AF%84%E6%9E%90.pdf&filename=6b671d2796d246c0a2c204e158c53eff.pdf" target="_blank" rel="noopener noreferrer">[官方] 浙江省教育考试院·2025 年 1 月地理选考试题评析（自然 53%/人文区域 47% 口径）</a></li>
+    <li><a href="https://www.zjzs.net/art/2026/1/9/art_31_11862.html" target="_blank" rel="noopener noreferrer">[官方] 浙江省教育考试院·2026 年 1 月选考命题思路（地理学科组）</a></li>
+    <li><a href="https://www.zjzs.net/art/2025/6/11/art_31_11279.html" target="_blank" rel="noopener noreferrer">[官方] 浙江省教育考试院·2025 年 6 月选考命题思路（地理学科组）</a></li>
+    <li><a href="https://jyt.fujian.gov.cn/ztzl/fjsgkzhgg/zctz/201906/t20190613_4899111.htm" target="_blank" rel="noopener noreferrer">[官方] 福建省教育厅·普通高中学业水平选择性考试科目赋分办法</a></li>
+    <li><a href="https://jyt.nx.gov.cn/zwgk/zfxxgkml/zdgkwj/202605/t20260521_5246662.html" target="_blank" rel="noopener noreferrer">[官方] 宁夏教育厅·普通高中学业水平选择性考试科目等级赋分办法（2026）</a></li>
+    <li><a href="https://www.nxjyks.cn/contents/PTGK/PTGK_PTGK/2025/03/20250312092131000.html" target="_blank" rel="noopener noreferrer">[官方] 宁夏教育考试院·2025 年普通高校招生政策说明（成绩构成与等级赋分）</a></li>
+    <li><a href="https://www.henan.gov.cn/2025/06-19/3171307.html" target="_blank" rel="noopener noreferrer">[官方] 河南省人民政府门户网站·新高考成绩为什么要赋分（赋分规则权威解读）</a></li>
+    <li><a href="https://www.bjeea.cn/uploads/softnew/81-161123094100.Pdf" target="_blank" rel="noopener noreferrer">[官方] 北京教育考试院·2016 年高考（北京卷）地理学科评价研究报告（平均分 62.30、得分率 0.62）</a></li>
+    <li><a href="https://www.bjeea.cn/uploads/soft/251029/186610.pdf" target="_blank" rel="noopener noreferrer">[官方教研] 北京考试报·学会思维建模解决地理信息技术问题（3S 得分率长期偏低口径）</a></li>
+    <li><a href="https://hznews.hangzhou.com.cn/kejiao/content/2026-03/02/content_9184601.htm" target="_blank" rel="noopener noreferrer">[行业观察] 杭州网·选考人数最多的地理最后三个月怎么提分（2026 年 1 月选考 21 万多人口径）</a></li>
+    <li><a href="https://zhejiang.eol.cn/zhejiang_news/202601/t20260116_2716292.shtml" target="_blank" rel="noopener noreferrer">[行业观察] 教育在线浙江站·地理选考 21 万多人？疯传的首考选科数据靠谱吗（网传口径差异）</a></li>
+    <li><a href="https://jyt.zj.gov.cn/col/col1532836/art/2026/art_4ceaf54ffeb642d6b5eeaac0e2d02123.html" target="_blank" rel="noopener noreferrer">[权威媒体] 浙江日报·2026 年首场高考近 64 万名考生（浙江省教育厅官网转载）</a></li>
+    <li><a href="https://i.fjsen.com/wap/2026-02/12/content_32133441.htm" target="_blank" rel="noopener noreferrer">[专家解读] 东南网/海峡教育报·预测高考切线分解到各学科（"+2"学科平均分约 71 分口径，郭杰森解读）</a></li>
+  </ol>
+  <h3>8.2 口径分层说明</h3>
+  <div class="tbl-scroll"><table>
+    <caption>数据口径分层表</caption>
+    <thead><tr><th>层级</th><th>本页示例</th><th>可信度建议</th></tr></thead>
+    <tbody>
+      <tr><td>官方发布</td><td>课标（2017 年版 2020 年修订）、教育部教育考试院 2026 试题评析、福建/宁夏/河南赋分办法、浙江选考评析与命题思路、北京 2016 学科评价报告</td><td>最高，可直接引用</td></tr>
+      <tr><td>权威媒体/官方媒体</td><td>人民网/光明日报专家解析、中国教育新闻网评析、浙江日报报道、北京考试报教研文章</td><td>高，交叉核验后可用</td></tr>
+      <tr><td>专家解读/行业观察</td><td>东南网"赋分中枢约 71 分"解读、杭州网选考人数口径（21 万多人）、教育在线网传数据差异说明</td><td>中低，仅作趋势参考</td></tr>
+      <tr><td>网络流传"内部数据"</td><td>各类未署名的"全省平均分""满分人数"预测</td><td>不可信，本页一律不引用</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag fact">事实</span>本页引用的官方数字均来自上述官方链接原文：赋分五级比例与区间（福建/宁夏/河南办法原文一致）、自然 53%/人文区域 47%（浙江 2025 年 1 月选考评析原文）、平均分 62.30 与得分率 0.62（北京 2016 报告原文）、3S 得分率长期偏低（北京考试报原文）。<span class="flag judge">判断</span>凡未核实之处，本页一律使用"约/口径/推算"并标注来源层级，避免以讹传讹——例如"赋分中枢约 71 分"属专家按等级比例推算口径，非官方公布数字。</p>
+  <div class="verdict"><b>边界声明：</b>本文为教研分析与能力培养方法建议，不针对任何个体学生做结论；能力分级、培养周期与每周训练时间表均为教研口径，实际效果因个体基础、学校教学与投入时长而异。各省赋分规则存在差异（"3+1+2"五级口径与浙江 20 区间口径不同），请以考生所在省份当年考试说明与正式试卷为准。</div>
+</section>
+
+<footer>
+  <div class="brand">刘老师教研 · 高中九科综合能力培养系列</div>
+  <p>本文为教研分析与能力培养方法建议，不针对个体做结论，请以当年考试说明与正式试卷为准。</p>
+  <p>课标与考试数据均标注来源与口径分层（官方/权威媒体/专家解读/行业观察），详见正文第 08 节；能力分级与培养周期为教研推算口径。</p>
+</footer>
+<script>
+(function(){
+  try{
+    var links = document.querySelectorAll('a[href^="#"]');
+    for (var i = 0; i < links.length; i++) {
+      (function(link){
+        link.addEventListener('click', function(e){
+          var target = document.querySelector(link.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({behavior:'smooth', block:'start'});
+          }
+        });
+      })(links[i]);
+    }
+  }catch(err){}
+})();
+</script>
+</body>
+</html>

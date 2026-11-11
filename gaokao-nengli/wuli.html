@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刘老师教研 · 高考物理综合能力分析与培养方法</title>
+<style>
+:root{
+  --navy:#0f2a4a;--navy2:#16385e;--gold:#d4a853;--gold2:#b8913c;--bg:#f6f7fb;
+  --card:#ffffff;--ink:#24303f;--muted:#6b7a8c;--line:#e3e8f0;--ok:#1f7a4d;--okbg:#e8f5ee;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;font-size:16px}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 62%,#1e4a72 100%);color:#fff;padding:64px 20px 52px;text-align:center}
+.hero .kicker{display:inline-block;border:1px solid rgba(212,168,83,.55);color:#e6c684;font-size:13px;letter-spacing:2px;padding:6px 16px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:34px;font-weight:800;line-height:1.35;margin-bottom:14px;letter-spacing:.5px}
+.hero .sub{font-size:16px;color:#cdd8e8;max-width:760px;margin:0 auto}
+.hero .stats{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:28px}
+.hero .stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:14px 20px;min-width:150px}
+.hero .stat b{display:block;font-size:26px;color:#f0cd83;font-weight:800}
+.hero .stat span{font-size:13px;color:#c7d3e4}
+.hero .sprint{max-width:880px;margin:26px auto 0;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:14px 18px}
+.hero .sprint .st{font-size:13px;color:#f0cd83;font-weight:700;letter-spacing:1px;margin-bottom:8px}
+.hero .sprint .c{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.hero .sprint .c i{font-style:normal;font-size:12.5px;color:#dce6f3;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:4px 12px}
+nav.sticky{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.97);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(15,42,74,.25)}
+nav.sticky .wrap{display:flex;overflow-x:auto;gap:2px;padding:0 12px}
+nav.sticky a{color:#dce6f3;font-size:14px;padding:12px 10px;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;transition:.2s}
+nav.sticky a:hover,nav.sticky a.active{color:#f0cd83;border-color:var(--gold)}
+section{padding:46px 0 14px;scroll-margin-top:58px}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.sec-no{flex:none;font-size:13px;font-weight:800;color:#fff;background:var(--gold);border-radius:8px;padding:3px 10px;letter-spacing:1px}
+section h2{font-size:25px;color:var(--navy);font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin-bottom:18px;max-width:880px}
+h3{font-size:19px;color:var(--navy);margin:24px 0 10px;font-weight:700}
+h4{font-size:16px;color:var(--navy2);margin:16px 0 8px;font-weight:700}
+p{margin:10px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:14px 0;box-shadow:0 1px 4px rgba(15,42,74,.05)}
+.verdict{background:linear-gradient(135deg,#fdf6e8,#f9ecd4);border:1px solid #e9d5a7;border-left:5px solid var(--gold);border-radius:12px;padding:16px 20px;margin:16px 0}
+.verdict b{color:var(--navy)}
+.flag{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:1px 8px;margin-right:6px;vertical-align:2px}
+.flag.fact{background:var(--okbg);color:var(--ok)}
+.flag.judge{background:#fdf0ef;color:#b0463a}
+.tbl-scroll{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:14.5px;min-width:560px}
+caption{caption-side:top;text-align:left;background:#eef3fa;color:var(--navy);font-weight:700;font-size:13.5px;padding:9px 12px;border-bottom:1px solid var(--line)}
+th{background:var(--navy);color:#fff;font-weight:700;padding:11px 12px;text-align:left;white-space:nowrap}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7f9fc}
+td.num{font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy);white-space:nowrap}
+.small{font-size:13px;color:var(--muted)}
+.hl{background:#fdf3d8;border-radius:4px;padding:0 4px;font-weight:700;color:#8a6414}
+ol.steps{margin:12px 0 12px 22px}
+ol.steps li{margin:9px 0}
+ul.tight{margin:10px 0 10px 22px}
+ul.tight li{margin:6px 0}
+ul.tight b{color:var(--navy2)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.chip{background:#eef2f8;border:1px solid #dbe3ef;color:var(--navy2);font-size:13px;font-weight:700;border-radius:999px;padding:6px 14px}
+.callout{border-left:5px solid var(--navy2);background:#eef3fa;border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;font-size:15px}
+.callout.gold{border-color:var(--gold);background:#fbf4e4}
+.ref-list{font-size:13.5px;color:var(--muted)}
+.ref-list li{margin:7px 0}
+.ref-list a{color:var(--navy2);text-decoration:none;border-bottom:1px dotted #a9b8cc}
+.ref-list a:hover{color:var(--gold2)}
+.ori{display:inline-block;font-size:11.5px;font-weight:700;border-radius:6px;padding:0 7px;margin-right:6px;vertical-align:1px;background:#eef2f8;color:#4a5f7a}
+.ori.official{background:#e6f2ec;color:#1f7a4d}
+.ori.media{background:#eef3fa;color:#2a5a9a}
+.ori.trade{background:#fdf0ef;color:#b0463a}
+.ori.calc{background:#fbf4e4;color:#8a6414}
+footer{background:var(--navy);color:#cdd8e8;margin-top:46px;padding:34px 20px 40px;text-align:center}
+footer .brand{font-size:15px;color:#f0cd83;font-weight:700;margin-bottom:8px}
+footer p{font-size:13px;color:#aebdd2;margin:5px 0}
+@media(max-width:640px){
+  .hero h1{font-size:26px}.hero .stat{min-width:120px}
+  section h2{font-size:21px}nav.sticky a{font-size:13px;padding:11px 8px}
+}
+@media print{
+  nav.sticky{display:none}.hero{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  section{page-break-inside:avoid}.card,.verdict,.callout{break-inside:avoid}
+  a{color:#16385e!important;text-decoration:none!important}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <span class="kicker">刘老师教研 · 高考九科综合能力培养</span>
+  <h1>高考物理综合能力分析与培养方法</h1>
+  <p class="sub">把物理学科需要的综合能力拆成 8 项清单，按「输入—练习—输出」给出可执行的培养动作，并用真实可溯源的官方口径说明高考定位与命题导向。面向全国高中生与家长。</p>
+  <div class="stats">
+    <div class="stat"><b>8 项</b><span>综合能力清单</span></div>
+    <div class="stat"><b>3 项</b><span>核心底层通用能力</span></div>
+    <div class="stat"><b>高一上</b><span>关键年级窗口</span></div>
+    <div class="stat"><b>3 个月</b><span>建议培养周期</span></div>
+  </div>
+  <div class="sprint">
+    <div class="st">8 项能力速览</div>
+    <div class="c">
+      <i>① 科学建模与情境转化</i><i>② 逻辑推理与多步链</i><i>③ 实验探究与误差分析</i>
+      <i>④ 定量计算与数学工具</i><i>⑤ 图像与信息处理</i><i>⑥ 概念建构与知识网络</i>
+      <i>⑦ 迁移应用与变式</i><i>⑧ 元认知与规范答题</i>
+    </div>
+  </div>
+</header>
+<nav class="sticky"><div class="wrap">
+  <a href="#sec1">01 能力全景</a><a href="#sec2">02 能力清单</a><a href="#sec3">03 核心能力上</a><a href="#sec4">04 核心能力下</a><a href="#sec5">05 方法工具箱</a><a href="#sec6">06 分年级路径</a><a href="#sec7">07 家长协同</a><a href="#sec8">08 口径与参考</a>
+</div></nav>
+
+<section id="sec1">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">01</span><h2>学科综合能力全景：物理在高考中的真实定位</h2></div>
+    <p class="lead">物理是「3+1+2」新高考中的首选科目，它的计分方式、命题导向与题目形态，共同决定了需要培养哪些综合能力。先把定位看清楚，后面的能力清单与培养动作才有依据。</p>
+    <div class="card">
+      <h4>高考定位五条口径</h4>
+      <ul class="tight">
+        <li><b>计分口径：</b>首选科目，满分 100 分，按卷面原始分直接计入高考总分，不参与等级赋分。广东省教育考试院发布的《广东省深化普通高校考试招生制度综合改革实施方案》明确：物理、历史科目以卷面分直接计入考生总成绩；2026 年招生工作通知再次确认物理、历史按卷面分计入。<span class="flag fact">事实</span>（来源：广东省教育考试院）</li>
+        <li><b>命题口径：</b>新高考 I 卷地区语文、数学、外语由教育部教育考试院统一命题，物理等选择性科目由本省依据课程标准命题；教育部教育考试院每年发布《高考物理全国卷试题评析》，其「强化基础性、综合性、应用性、探究性」的导向对各省新高考物理卷具有代表性。<span class="flag fact">事实</span>（来源：教育部教育考试院 2026 年评析）</li>
+        <li><b>解答题形态：</b>多步逻辑链是物理解答题的典型形态。2026 年物理卷压轴计算题以学生熟悉的物理模型为情境，综合考查电磁感应定律、安培力、牛顿运动定律、匀变速直线运动、闭合电路欧姆定律、动量与冲量等多条规律，并要求结合物理图像获取关键信息作答。<span class="flag fact">事实</span>（来源：教育部教育考试院 2026 年评析）</li>
+        <li><b>难度口径：</b>特级教师、高考志愿填报专家郭杰森在《海峡教育报》分析中指出：按照全国卷，物理、历史、化学、生物、政治、地理六科的原始分多在 50 分至 60 分之间，难度值约 0.55 上下较为合适。本页按新高考卷实际波动取「难度值约 0.50 至 0.55」区间表述，属于教研推算口径，非官方公布值。<span class="flag fact">事实</span><span class="flag judge">判断</span>（来源：东南网 / 海峡教育报）</li>
+        <li><b>情境化命题：</b>教育部官方评析明确「选取合适的情境」「引导学生逐步从解题转到解决问题」；一线教研观察认为情境化命题占比高，本页按「约 75%」表述，属于教研推算，非官方统计数字。<span class="flag judge">判断</span></li>
+      </ul>
+    </div>
+    <div class="verdict"><b>一句话结论：</b>物理的每一分都是原始分，含金量与赋分科目不同；多步逻辑链意味着一步出错可能导致整题归零。因此物理能力培养的关键不是「多刷题」，而是把科学建模、逻辑推理、规范书写这三层底座打牢。<span class="flag judge">判断</span></div>
+    <div class="card">
+      <h4>能力图谱总览</h4>
+      <div class="tbl-scroll">
+        <table>
+          <caption>高考物理综合能力图谱总览（8 项能力对应课标素养、考察场景与失分信号）</caption>
+          <thead><tr><th>能力</th><th>课标素养对应</th><th>典型考察场景</th><th>失分信号</th></tr></thead>
+          <tbody>
+            <tr><td>① 科学建模与情境转化</td><td>科学思维·模型建构</td><td>玩皮球、吊环、扔石头等生活情境题</td><td>情境一换就「不认识题」</td></tr>
+            <tr><td>② 逻辑推理与多步链</td><td>科学思维·科学推理与科学论证</td><td>电磁感应加动量综合计算题</td><td>只会第一步，推理链条中途断</td></tr>
+            <tr><td>③ 实验探究与误差分析</td><td>科学探究·问题、证据、解释、交流</td><td>平抛实验、测电压表内阻等实验题</td><td>实验原理说不清，误差不会分析</td></tr>
+            <tr><td>④ 定量计算与数学工具</td><td>科学思维·科学推理</td><td>矢量运算、三角函数、联立方程求解</td><td>公式对、算不对，符号单位出错</td></tr>
+            <tr><td>⑤ 图像与信息处理</td><td>科学思维·科学论证与科学探究·处理信息</td><td>状态图、振动与波形图、力与速度图</td><td>读不出斜率、截距、交点、面积的物理含义</td></tr>
+            <tr><td>⑥ 概念建构与知识网络</td><td>物理观念·物质、运动与相互作用、能量</td><td>基本概念与规律的灵活运用</td><td>概念混淆，知识零散，适用条件记不住</td></tr>
+            <tr><td>⑦ 迁移应用与变式</td><td>科学思维·质疑创新</td><td>变式题、多模块组合的新情境题</td><td>原题会做、变式不会，模块之间无法组合</td></tr>
+            <tr><td>⑧ 元认知与规范答题</td><td>科学态度与责任·严谨认真与科学探究·反思评估</td><td>计算题书写、检查、复盘与错题归因</td><td>会做也丢分，步骤跳步，错题反复重犯</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">课标素养对应依据《普通高中物理课程标准（2017 年版 2020 年修订）》四大核心素养及其要素；考察场景示例取自教育部教育考试院 2026 年物理卷评析提及的试题情境。</p>
+    </div>
+    <div class="callout"><b>能力结构说明：</b>8 项能力中，①②③④⑤属于学科专属能力，⑥⑦⑧同时具有通用属性；本页把「科学建模与情境转化、概念建构与知识网络、元认知与规范答题」列为 3 项核心底层通用能力——它们决定其他能力的上限，也是培养投入产出比最高的部分。<span class="flag judge">判断</span>（教研框架）</div>
+  </div>
+</section>
+
+<section id="sec2">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">02</span><h2>综合能力清单：物理需要的 8 项能力</h2></div>
+    <p class="lead">这是「有什么」的主答案。8 项能力构成物理学习的完整能力栈，先看总览表，再逐项理解「为什么需要、失分信号、怎么培养」。</p>
+    <div class="card">
+      <div class="tbl-scroll">
+        <table>
+          <caption>高考物理八项综合能力清单总览</caption>
+          <thead><tr><th>序号</th><th>能力名称</th><th>一句话定义</th><th>对应课标素养要素</th></tr></thead>
+          <tbody>
+            <tr><td class="num">①</td><td>科学建模与情境转化</td><td>从真实情境中剥离出可计算的物理模型，再回到情境解释结果</td><td>科学思维·模型建构</td></tr>
+            <tr><td class="num">②</td><td>逻辑推理与多步链</td><td>按「受力分析—列方程—联立求解—讨论结果」完成多步推理</td><td>科学思维·科学推理、科学论证</td></tr>
+            <tr><td class="num">③</td><td>实验探究与误差分析</td><td>基于实验目的设计方案、获取数据、分析误差并得出结论</td><td>科学探究·问题、证据、解释、交流</td></tr>
+            <tr><td class="num">④</td><td>定量计算与数学工具</td><td>把物理关系转化为数学运算，熟练处理矢量、三角函数与方程</td><td>科学思维·科学推理</td></tr>
+            <tr><td class="num">⑤</td><td>图像与信息处理</td><td>从物理图像读取关键信息，并在图像、文字、公式间互译</td><td>科学思维·科学论证与科学探究·处理信息</td></tr>
+            <tr><td class="num">⑥</td><td>概念建构与知识网络</td><td>建立概念内涵、适用条件与知识之间联系的网络</td><td>物理观念·物质、运动与相互作用、能量</td></tr>
+            <tr><td class="num">⑦</td><td>迁移应用与变式</td><td>把已掌握模型迁移到新情境、新组合与新设问中</td><td>科学思维·质疑创新</td></tr>
+            <tr><td class="num">⑧</td><td>元认知与规范答题</td><td>监控、反思、纠错自己的解题过程，并按评分标准规范书写</td><td>科学态度与责任与科学探究·反思评估</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>① 科学建模与情境转化</h4>
+      <p><b>一句话定义：</b>从真实情境中剥离出可计算的物理模型，再回到情境解释结果的能力。</p>
+      <p><b>为什么需要：</b>官方命题导向明确「从解题转向解决问题」，情境化命题占比高；不会建模，情境题就会全部变成「看不懂的题」。<span class="flag fact">事实</span><span class="flag judge">判断</span>（命题导向为官方，占比为推算）</p>
+      <p><b>失分信号：</b>情境一换就懵；读完题目不知道用什么规律；无法把生活语言翻译成物理量。</p>
+      <p><b>培养总览：</b>输入——精读情境题题干，划出已知量、目标量与隐含条件；练习——每周 2 道「情境—模型」翻译练习，先画示意图再列式；输出——给家长讲「这道题其实考的是什么模型」。</p>
+    </div>
+
+    <div class="card">
+      <h4>② 逻辑推理与多步链</h4>
+      <p><b>一句话定义：</b>按「受力分析—建立坐标系—列方程—联立求解—讨论结果」的顺序完成多步逻辑推理的能力。</p>
+      <p><b>为什么需要：</b>解答题以多步逻辑链为典型形态，2026 年压轴计算题综合考查六条以上物理规律；多步链中一步出错，整题得分归零。<span class="flag fact">事实</span>（教育部教育考试院 2026 年评析）</p>
+      <p><b>失分信号：</b>会第一步不会第二步；中间关键步骤跳步；算完不讨论结果的物理意义。</p>
+      <p><b>培养总览：</b>输入——背诵并默写「力学大题四步法」的完整流程；练习——每道大题强制分步书写，禁止跳步；输出——用文字把每一步的「为什么」写出来，再讲给家长听。</p>
+    </div>
+
+    <div class="card">
+      <h4>③ 实验探究与误差分析</h4>
+      <p><b>一句话定义：</b>基于实验目的设计方案、获取数据、分析误差并得出结论的能力。</p>
+      <p><b>为什么需要：</b>课标把「科学探究」列为四大核心素养之一，必修与选择性必修共规定 21 个学生必做实验；2026 年物理卷加强探究性考查，第 22 题直接取材教材「探究平抛运动竖直分运动的规律」实验。<span class="flag fact">事实</span>（课程标准与教育部 2026 年评析）</p>
+      <p><b>失分信号：</b>实验原理说不清；读数不会估读；误差来源分析不到点子上。</p>
+      <p><b>培养总览：</b>输入——重读教材必做实验，写「目的、原理、步骤、误差」四栏笔记；练习——对每个实验画数据记录表并做误差模拟分析；输出——口头回答「如果改变某个条件会怎样」的变式提问。</p>
+    </div>
+
+    <div class="card">
+      <h4>④ 定量计算与数学工具</h4>
+      <p><b>一句话定义：</b>把物理关系转化为数学运算，并处理矢量、三角函数、图像与方程的能力。</p>
+      <p><b>为什么需要：</b>物理计算高度依赖数学工具，数学工具滞后是高中物理掉队的主因之一；专家口径显示物理原始分多在 50 分至 60 分区间，计算失误会直接吃掉原始分。<span class="flag fact">事实</span><span class="flag judge">判断</span>（难度口径为专家统计，滞后判断为教研经验）</p>
+      <p><b>失分信号：</b>矢量方向搞错；三角函数、联立方程算错；有效数字与单位不规范。</p>
+      <p><b>培养总览：</b>输入——整理「物理常用数学工具清单」，覆盖三角函数、矢量运算、图像斜率与面积；练习——每天 1 道纯计算限时训练；输出——把算错的步骤讲出来，定位错在公式、代数、符号还是单位。</p>
+    </div>
+
+    <div class="card">
+      <h4>⑤ 图像与信息处理</h4>
+      <p><b>一句话定义：</b>从物理图像中读取关键信息，并完成图像、文字、公式之间互译的能力。</p>
+      <p><b>为什么需要：</b>官方评析明确「通过物理图像获取信息」是考查重点，2026 年物理卷以理想气体状态图、振动图像与波形图、力与速度图等多种图像设问。<span class="flag fact">事实</span>（教育部教育考试院 2026 年评析）</p>
+      <p><b>失分信号：</b>读不出斜率、截距、交点、面积的物理含义；图像信息与文字信息不会互译。</p>
+      <p><b>培养总览：</b>输入——建立「图像要素—物理含义」对照卡，如 v-t 图斜率对应加速度、面积对应位移；练习——每周 2 道图像题，先写「这张图说了什么」再解题；输出——画一幅图并口头解释每个要素的含义。</p>
+    </div>
+
+    <div class="card">
+      <h4>⑥ 概念建构与知识网络</h4>
+      <p><b>一句话定义：</b>在头脑中建立概念内涵、适用条件与知识之间联系网络的能力。</p>
+      <p><b>为什么需要：</b>课标把「物理观念」列为核心素养之首，涵盖物质观念、运动与相互作用观念、能量观念；概念不清，一切推理与计算都会失去地基。<span class="flag fact">事实</span>（课程标准）</p>
+      <p><b>失分信号：</b>概念混淆，如速度与加速度、功与能、电动势与电压；公式适用条件记不住；知识之间连不起来。</p>
+      <p><b>培养总览：</b>输入——每章结束做「概念地图」，把概念、公式、适用条件连成网络；练习——每周 1 次概念辨析专项；输出——用一张图向家长讲清本章知识结构。</p>
+    </div>
+
+    <div class="card">
+      <h4>⑦ 迁移应用与变式</h4>
+      <p><b>一句话定义：</b>把已掌握模型迁移到新情境、新组合、新设问中的能力。</p>
+      <p><b>为什么需要：</b>高考综合题常把多个模块知识组合设问，如电磁感应加动量加牛顿定律；只会原题、不会变式，是中等生与优等生的分水岭。<span class="flag judge">判断</span>（教研经验）</p>
+      <p><b>失分信号：</b>原题会做、换数字换场景就不会；知识模块之间无法自由组合。</p>
+      <p><b>培养总览：</b>输入——建立「模型卡片库」，一个模型一张卡片，写清情境、规律、易错点；练习——对每道经典题做「一题三变」，变条件、变情境、变设问；输出——自己出一道变式题并讲解。</p>
+    </div>
+
+    <div class="card">
+      <h4>⑧ 元认知与规范答题</h4>
+      <p><b>一句话定义：</b>对自己解题过程进行监控、反思、纠错，并按评分标准规范书写的综合能力。</p>
+      <p><b>为什么需要：</b>解答题按步骤给分，规范书写直接决定原始分的下限；「会做但丢分」是物理考生最常见的隐性损失。<span class="flag judge">判断</span>（教研经验）</p>
+      <p><b>失分信号：</b>会做也扣分，表现为跳步、缺单位、无文字说明；从不复盘；同一类错误反复出现。</p>
+      <p><b>培养总览：</b>输入——学习评分细则，明确哪些步骤是采分点；练习——每次大考后填「失分归因表」；输出——错题讲题加规范重写。</p>
+    </div>
+
+    <div class="callout gold"><b>能力关系提示：</b>①②④⑤⑦是「得分引擎」，③是「素养底线」，⑥是「地基」，⑧是「保险」。多数物理偏弱的学生同时踩中 2 至 3 项短板，建议先按失分信号定位 1 至 2 项重点突破，再逐步铺开。<span class="flag judge">判断</span></div>
+  </div>
+</section>
+
+<section id="sec3">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">03</span><h2>核心能力深度剖析（上）：3 项底层通用能力</h2></div>
+    <p class="lead">科学建模与情境转化、概念建构与知识网络、元认知与规范答题，这三项是物理学习的底层通用能力，决定其他能力的上限。每项给出能力定位、1 至 5 级分级、培养方法、每周安排与常见误区。</p>
+
+    <h3>3.1 科学建模与情境转化</h3>
+    <h4>能力定位与课标依据</h4>
+    <p>《普通高中物理课程标准（2017 年版 2020 年修订）》把「科学思维」列为四大核心素养之一，其首要要素即「模型建构」——基于经验事实建构物理模型的抽象概括过程。教育部教育考试院 2026 年评析强调：考查学生的模型建构和推理论证等能力，引导学生逐步从「解题」转到「解决问题」。<span class="flag fact">事实</span>（课程标准与教育部 2026 年评析）</p>
+    <h4>能力分级（1 至 5 级）</h4>
+    <div class="tbl-scroll">
+      <table>
+        <caption>科学建模与情境转化能力分级表</caption>
+        <thead><tr><th>级别</th><th>表现特征</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1 级</td><td>能在教材原题中认出模型；情境稍有变化即无法识别</td></tr>
+          <tr><td class="num">2 级</td><td>能在简单情境中套用已学模型，但不会取舍次要因素</td></tr>
+          <tr><td class="num">3 级</td><td>能对中等复杂情境完成建模，能说明主要因素与忽略项</td></tr>
+          <tr><td class="num">4 级</td><td>能对陌生情境自主建模，把生活语言翻译成物理量，并检验模型合理性</td></tr>
+          <tr><td class="num">5 级</td><td>能对多因素复杂情境做多模型组合建模，评估模型局限并给出修正方向</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>培养方法（输入、练习、输出三通道）</h4>
+    <ul class="tight">
+      <li><b>输入：</b>① 精读教材「问题与练习」中的情境题，逐句标注已知量、目标量、隐含条件；② 每周整理 1 张「情境—模型」对照卡，记录生活场景、对应物理模型、适用规律三栏。</li>
+      <li><b>练习：</b>① 每周 2 道情境翻译练习，先不列公式，先画示意图并写「这题考什么模型、为什么是这个模型」；② 对同一道题做一题三变，换情境、换条件、换设问，训练模型识别速度。</li>
+      <li><b>输出：</b>① 用费曼法给家长讲题，说明真实情境是什么、简化成了什么模型；② 每两周写 1 篇「建模小记」，记录一次成功或失败的建模过程及原因。</li>
+    </ul>
+    <h4>每周训练安排</h4>
+    <p>周一情境精读 2 题约 20 分钟，周三情境翻译加示意图练习约 25 分钟，周五模型卡片整理约 15 分钟。周总量约 1 小时，占物理周训练量的一到两成。<span class="flag judge">判断</span>（教研建议）</p>
+    <h4>常见误区</h4>
+    <ul class="tight">
+      <li>误区一：跳过建模直接套公式，情境一换就崩；</li>
+      <li>误区二：建模时忽略适用条件，例如把变加速运动当匀变速运动处理；</li>
+      <li>误区三：只做题不总结，模型库永远是散的，识别不出共性。</li>
+    </ul>
+
+    <h3>3.2 概念建构与知识网络</h3>
+    <h4>能力定位与课标依据</h4>
+    <p>课标「物理观念」素养涵盖物质观念、运动与相互作用观念、能量观念，是从物理学视角解释自然现象和解决实际问题的根基；学业质量水平共分 5 级，其中水平 2 是合格性考试命题依据，水平 4 是高校招生等级性考试命题依据，要求概念规律达到较高的结构化程度。<span class="flag fact">事实</span>（课程标准）</p>
+    <h4>能力分级（1 至 5 级）</h4>
+    <div class="tbl-scroll">
+      <table>
+        <caption>概念建构与知识网络能力分级表</caption>
+        <thead><tr><th>级别</th><th>表现特征</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1 级</td><td>能背诵概念定义，但说不清内涵与适用条件</td></tr>
+          <tr><td class="num">2 级</td><td>能区分相近概念，但知识之间相互孤立</td></tr>
+          <tr><td class="num">3 级</td><td>能按章建立知识树，说出主要规律之间的联系</td></tr>
+          <tr><td class="num">4 级</td><td>能跨模块建立网络，用能量、动量等守恒观点统一解题</td></tr>
+          <tr><td class="num">5 级</td><td>能主动更新网络，把新情境信息纳入已有概念体系并修正认知</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>培养方法（输入、练习、输出三通道）</h4>
+    <ul class="tight">
+      <li><b>输入：</b>① 每章结束做「概念地图」，中心概念向四周展开公式、适用条件、易混点；② 每周精读课标「内容要求」对应条目，明确该概念要求的掌握水平。</li>
+      <li><b>练习：</b>① 每周 1 次概念辨析专项，如功与能、速度与加速度、电动势与电压；② 做题前先写「本题用到的概念与适用条件」，倒逼概念先行。</li>
+      <li><b>输出：</b>① 每周向家长用一张图讲清本章知识结构，约 10 分钟；② 每月做一次「概念体检」，不看笔记画出全册知识网络，再对照补漏。</li>
+    </ul>
+    <h4>每周训练安排</h4>
+    <p>周二概念辨析 5 题约 20 分钟，周四概念地图更新约 15 分钟，周日知识网络默画约 15 分钟。<span class="flag judge">判断</span>（教研建议）</p>
+    <h4>常见误区</h4>
+    <ul class="tight">
+      <li>误区一：只记结论不追问「为什么」，概念成为无根之木；</li>
+      <li>误区二：混淆定义式与决定式，例如把密度、电阻的定义式当成决定因素；</li>
+      <li>误区三：把公式适用条件背成顺口溜，却不理解边界在哪里。</li>
+    </ul>
+
+    <h3>3.3 元认知与规范答题</h3>
+    <h4>能力定位与课标依据</h4>
+    <p>课标「科学探究」素养要求对过程和结果进行交流、评估、反思，「科学态度与责任」要求严谨认真、实事求是；学业质量水平 4 要求学生能规范表达推理过程与结论。规范书写与自我监控不是应试技巧，而是课标明确的能力要求。<span class="flag fact">事实</span>（课程标准）</p>
+    <h4>能力分级（1 至 5 级）</h4>
+    <div class="tbl-scroll">
+      <table>
+        <caption>元认知与规范答题能力分级表</caption>
+        <thead><tr><th>级别</th><th>表现特征</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1 级</td><td>做完即停，不检查不复盘，错因一律归为「粗心」</td></tr>
+          <tr><td class="num">2 级</td><td>能检查结果，但不会定位思维错误，复盘停留在对答案</td></tr>
+          <tr><td class="num">3 级</td><td>能按「审题—建模—计算—检验」四环节复盘，找出具体断点</td></tr>
+          <tr><td class="num">4 级</td><td>能区分知识性、方法性、习惯性三类错误，并制定针对性纠正动作</td></tr>
+          <tr><td class="num">5 级</td><td>解题过程中能实时监控思路，自动发现偏差并修正，书写达到评分细则要求</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>培养方法（输入、练习、输出三通道）</h4>
+    <ul class="tight">
+      <li><b>输入：</b>① 学习当年评分细则与参考答案，明确哪些步骤是采分点；② 建立「失分归因四类」框架，覆盖审题、模型、计算、规范四类错误。</li>
+      <li><b>练习：</b>① 每次限时训练后填「失分归因表」，记录题号、错因类型、正确步骤、下次对策；② 每周 1 次规范书写专项，把一道大题按标准答案格式重写一遍。</li>
+      <li><b>输出：</b>① 错题讲题，把错题讲给家长或同学，讲清错在哪一步、为什么错、怎么改；② 每月做一次「试卷复盘报告」，提炼 3 条可执行的改进点。</li>
+    </ul>
+    <h4>每周训练安排</h4>
+    <p>周六安排限时套题 1 份，随后完成失分归因表并重写 2 道大题，合计约 40 分钟。<span class="flag judge">判断</span>（教研建议）</p>
+    <h4>常见误区</h4>
+    <ul class="tight">
+      <li>误区一：把跳步当「熟练」，实际上在给采分点送分；</li>
+      <li>误区二：只改答案不改思路，错因永远停留在「粗心」两个字；</li>
+      <li>误区三：从不复盘，同一类错误跨月考反复出现。</li>
+    </ul>
+  </div>
+</section>
+
+<section id="sec4">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">04</span><h2>核心能力深度剖析（下）：3 项学科专属能力</h2></div>
+    <p class="lead">实验探究与误差分析、定量计算与数学工具、图像与信息处理，这三项是物理区别于其他学科的专属能力，直接对应高考卷的实验题、计算题与图像题。</p>
+
+    <h3>4.1 实验探究与误差分析</h3>
+    <h4>能力定位与课标依据</h4>
+    <p>课标「科学探究」素养包含问题、证据、解释、交流四个要素；必修与选择性必修共规定 21 个学生必做实验。教育部教育考试院 2026 年评析明确：物理全国卷加强探究性考查，引导学生经历实验过程，第 22 题的情境来源于教材「探究平抛运动竖直分运动的规律」这一学生熟悉的实验。<span class="flag fact">事实</span>（课程标准与教育部 2026 年评析）</p>
+    <h4>能力分级（1 至 5 级）</h4>
+    <div class="tbl-scroll">
+      <table>
+        <caption>实验探究与误差分析能力分级表</caption>
+        <thead><tr><th>级别</th><th>表现特征</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1 级</td><td>能按步骤完成实验，但说不清实验原理</td></tr>
+          <tr><td class="num">2 级</td><td>知道原理，能处理常规数据，但不会误差分析</td></tr>
+          <tr><td class="num">3 级</td><td>能设计简单方案，能分析系统误差与偶然误差的主要来源</td></tr>
+          <tr><td class="num">4 级</td><td>能针对具体实验优化方案、减小误差，能评估数据合理性</td></tr>
+          <tr><td class="num">5 级</td><td>能自主提出探究问题、设计完整实验并反思交流，体现创新性</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>培养方法（输入、练习、输出三通道）</h4>
+    <ul class="tight">
+      <li><b>输入：</b>① 把 21 个必做实验逐一写成「四栏笔记」，覆盖目的、原理、步骤、误差；② 精读教材实验章节的注意事项与误差分析。</li>
+      <li><b>练习：</b>① 每周 1 个实验的变式问答，例如改变某个条件会怎样；② 做数据记录与处理练习，掌握有效数字、逐差法、图像法求值。</li>
+      <li><b>输出：</b>① 口头向家长完整复述一个实验的设计逻辑；② 把实验题当作小论文来写，按目的、原理、数据、结论、误差五段展开。</li>
+    </ul>
+    <h4>每周训练安排</h4>
+    <p>周三实验专项约 25 分钟：1 个实验的四栏笔记加 2 道变式问答。<span class="flag judge">判断</span>（教研建议）</p>
+    <h4>常见误区</h4>
+    <ul class="tight">
+      <li>误区一：只背实验结论不背原理，原理题一换问法就垮；</li>
+      <li>误区二：不会估读，有效数字随意写，读数规则混乱；</li>
+      <li>误区三：误差分析只说「有误差」，不说来源与方向，等于没分析。</li>
+    </ul>
+
+    <h3>4.2 定量计算与数学工具</h3>
+    <h4>能力定位与课标依据</h4>
+    <p>课标要求运用数学工具解决物理问题，科学思维中的科学推理依赖定量运算作为支撑。专家口径显示全国卷物理原始分多在 50 分至 60 分之间，对应难度值约 0.55 上下，计算准确性直接决定原始分位次。<span class="flag fact">事实</span><span class="flag judge">判断</span>（难度口径为专家统计，位次影响为教研推断）</p>
+    <h4>能力分级（1 至 5 级）</h4>
+    <div class="tbl-scroll">
+      <table>
+        <caption>定量计算与数学工具能力分级表</caption>
+        <thead><tr><th>级别</th><th>表现特征</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1 级</td><td>单步代入公式，符号与单位经常出错</td></tr>
+          <tr><td class="num">2 级</td><td>能完成常规运算，但矢量方向、图像求值环节易错</td></tr>
+          <tr><td class="num">3 级</td><td>能处理三角函数、联立方程、二次函数极值等常规数学工具</td></tr>
+          <tr><td class="num">4 级</td><td>能灵活选择最优数学方法，会估算与验算</td></tr>
+          <tr><td class="num">5 级</td><td>能处理多变量复杂运算，并能用数学结果反推物理合理性</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>培养方法（输入、练习、输出三通道）</h4>
+    <ul class="tight">
+      <li><b>输入：</b>① 建立「物理数学工具箱」，整理三角函数表、矢量运算规则、图像斜率面积公式、常见极值方法；② 每周精读 1 道计算题的规范运算过程。</li>
+      <li><b>练习：</b>① 每天 1 道纯计算限时训练约 15 分钟，追求一次算对；② 每道大题强制写「设、列、解、验」四步，先设物理量再代数。</li>
+      <li><b>输出：</b>① 把算错步骤讲给家长，定位错在公式、代数、符号还是单位；② 每两周整理 1 张「计算易错点清单」并持续更新。</li>
+    </ul>
+    <h4>每周训练安排</h4>
+    <p>周一至周五任选 4 天，每天 15 分钟纯计算限时训练，周六随大考复盘。<span class="flag judge">判断</span>（教研建议）</p>
+    <h4>常见误区</h4>
+    <ul class="tight">
+      <li>误区一：跳过设物理量直接代数，符号体系混乱；</li>
+      <li>误区二：不写单位，结果失去物理意义；</li>
+      <li>误区三：算完不检验，正负号错误直接丢分。</li>
+    </ul>
+
+    <h3>4.3 图像与信息处理</h3>
+    <h4>能力定位与课标依据</h4>
+    <p>官方评析明确「通过物理图像获取信息」是 2026 年物理卷的考查重点：第 17 题以理想气体状态变化为情境，将理想气体实验定律与状态图结合；第 18 题结合质点振动图像与波形图考查波传播规律；第 25 题以力与速度图的创新呈现方式引导深度理解。图像能力横跨选择题与计算题，是区分度的重要来源。<span class="flag fact">事实</span>（教育部教育考试院 2026 年评析）</p>
+    <h4>能力分级（1 至 5 级）</h4>
+    <div class="tbl-scroll">
+      <table>
+        <caption>图像与信息处理能力分级表</caption>
+        <thead><tr><th>级别</th><th>表现特征</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1 级</td><td>能读出图像上的点，但读不出斜率、面积等要素</td></tr>
+          <tr><td class="num">2 级</td><td>能识别常见图像类型，但各要素的物理含义模糊</td></tr>
+          <tr><td class="num">3 级</td><td>能读出斜率、截距、交点、面积的物理含义并用于解题</td></tr>
+          <tr><td class="num">4 级</td><td>能完成图像与文字、公式之间的互译，处理多图像对比</td></tr>
+          <tr><td class="num">5 级</td><td>能根据物理过程自主绘制图像，并用图像检验推理</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>培养方法（输入、练习、输出三通道）</h4>
+    <ul class="tight">
+      <li><b>输入：</b>① 建立「图像要素—物理含义」对照卡，例如 v-t 图斜率对应加速度、面积对应位移、交点对应相遇或速度相等；② 精读官方评析提到的图像情境题，逐要素标注。</li>
+      <li><b>练习：</b>① 每周 2 道图像题专项，先写「这张图说了什么」再动笔；② 做「图转文、文转图」互译练习，把图像语言翻译成物理语言。</li>
+      <li><b>输出：</b>① 给家长讲解一幅图每个要素的物理含义；② 尝试自己绘制一道题的状态图或运动图像并解释过程。</li>
+    </ul>
+    <h4>每周训练安排</h4>
+    <p>周四图像专项 2 题约 20 分钟，周日随知识网络默画一并复习。<span class="flag judge">判断</span>（教研建议）</p>
+    <h4>常见误区</h4>
+    <ul class="tight">
+      <li>误区一：把数学斜率直接当物理斜率，不回到物理量定义；</li>
+      <li>误区二：忽略图线交点、截距的物理意义；</li>
+      <li>误区三：图像与题意脱节，为读图而读图，不做信息互译。</li>
+    </ul>
+  </div>
+</section>
+
+<section id="sec5">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">05</span><h2>培养方法工具箱：六件工具与每周时间表</h2></div>
+    <p class="lead">通用能力工程按物理学科裁剪成六件工具。它们不是新增负担，而是把前文各项能力训练落进每周日程的操作件，与学科内容紧密结合。</p>
+    <div class="card">
+      <h4>工具一：元认知复盘（物理版）</h4>
+      <p>限时训练后按「审题、建模、计算、规范」四环节回看，逐题填失分归因表，区分知识性、方法性、习惯性错误。直接支撑能力⑧，也反向带动②④。<span class="flag judge">判断</span>（教研方法）</p>
+      <h4>工具二：刻意练习（模型变式）</h4>
+      <p>选择 1 个高频模型，如斜面与传送带、板块叠加、带电粒子在磁场中运动、电磁感应单杆，每周做「一题三变」：变条件、变情境、变设问。直接支撑能力①②⑦。<span class="flag judge">判断</span>（教研方法）</p>
+      <h4>工具三：间隔重复（公式卡片）</h4>
+      <p>把主干公式做成小卡片，包括牛顿第二定律、动能定理、动量守恒、法拉第电磁感应定律、理想气体状态方程等，按 1、2、4、7 天间隔复习，新公式当天入卡。直接支撑能力④⑥。<span class="flag judge">判断</span>（认知科学方法裁剪）</p>
+      <h4>工具四：错题闭环</h4>
+      <p>错题分三类归档，知识性、方法性、习惯性；每道错题三步闭环：独立重做、讲给别人听、一周后再做一次。直接支撑能力⑧。<span class="flag judge">判断</span>（教研方法）</p>
+      <h4>工具五：费曼输出（画受力图讲题）</h4>
+      <p>请家长或同学随机抽题，孩子边画受力图边讲；讲不清楚的地方就是知识漏洞。物理的费曼输出强调「边画边讲」，把受力分析外化成可见步骤。直接支撑能力①②⑥。<span class="flag judge">判断</span>（教研方法）</p>
+      <h4>工具六：时间管理</h4>
+      <p>物理每周总训练量建议 3 至 4 小时，按「基础输入比练习输出约 2 比 8」分配，固定时段做固定任务，避免疲劳刷题。教育部命题导向明确「减少盲目的机械刷题」，时间管理的目标是用更少时间换取更高得分效率。<span class="flag fact">事实</span><span class="flag judge">判断</span>（命题导向为官方，时间分配为教研建议）</p>
+    </div>
+    <div class="card">
+      <h4>每周能力训练时间表</h4>
+      <div class="tbl-scroll">
+        <table>
+          <caption>高考物理每周能力训练时间表（约 3.5 小时，可按实际情况伸缩）</caption>
+          <thead><tr><th>时段</th><th>训练内容</th><th>对应能力</th><th>建议时长</th></tr></thead>
+          <tbody>
+            <tr><td>周一</td><td>情境精读 2 题 + 计算限时 1 题</td><td>① 科学建模；④ 定量计算</td><td class="num">35 分钟</td></tr>
+            <tr><td>周二</td><td>概念辨析 5 题 + 计算限时 1 题</td><td>⑥ 概念建构；④ 定量计算</td><td class="num">35 分钟</td></tr>
+            <tr><td>周三</td><td>实验四栏笔记 1 个 + 变式问答 2 题</td><td>③ 实验探究</td><td class="num">25 分钟</td></tr>
+            <tr><td>周四</td><td>图像专项 2 题（图转文、文转图）</td><td>⑤ 图像与信息处理</td><td class="num">20 分钟</td></tr>
+            <tr><td>周五</td><td>模型卡片整理更新 + 公式卡片间隔复习</td><td>④ ⑥ ⑦ 迁移变式</td><td class="num">20 分钟</td></tr>
+            <tr><td>周六</td><td>限时套题 1 份 + 失分归因表 + 规范重写 2 题</td><td>② 逻辑推理；⑧ 元认知规范</td><td class="num">60 分钟</td></tr>
+            <tr><td>周日</td><td>知识网络默画 + 本周错题讲题复盘</td><td>⑥ 概念网络；⑧ 元认知</td><td class="num">30 分钟</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">本表为教研建议模板，训练量应按年级、基础与学校作业量调整；高一开始执行效果最佳，高三可压缩为「套题加复盘」冲刺模式。</p>
+    </div>
+  </div>
+</section>
+
+<section id="sec6">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">06</span><h2>分年级培养路径：筑基、强化、整合冲刺</h2></div>
+    <p class="lead">物理能力培养要贴合年级节奏：高一打地基，高二上强度，高三做整合。每个阶段的能力重点、方法与里程碑信号如下。</p>
+    <div class="card">
+      <div class="tbl-scroll">
+        <table>
+          <caption>高考物理分年级能力培养路径表</caption>
+          <thead><tr><th>阶段</th><th>能力重点</th><th>培养方法</th><th>里程碑信号</th></tr></thead>
+          <tbody>
+            <tr><td><b>高一筑基</b></td><td>① 科学建模与情境转化；⑥ 概念建构与知识网络；④ 定量计算与数学工具</td><td>必修内容逐章做概念地图；受力分析四步法天天练；矢量、三角函数、图像等数学工具专项补课；每周错题闭环</td><td>能独立完成受力分析并规范书写；期中期末原始分稳定在及格线上方，计算题得分率过半</td></tr>
+            <tr><td><b>高二强化</b></td><td>② 逻辑推理与多步链；③ 实验探究与误差分析；⑤ 图像与信息处理</td><td>电磁感应与动量综合题做多步链训练；21 个必做实验逐一遍历并写四栏笔记；图像专项每周 2 题；模型卡片库持续扩充</td><td>能独立完成多规律综合大题的前两问；实验题得分率过半；图像题失分明显下降</td></tr>
+            <tr><td><b>高三整合冲刺</b></td><td>⑦ 迁移应用与变式；⑧ 元认知与规范答题；全能力整合</td><td>限时整卷每周 1 至 2 套；失分归因闭环贯穿每次考试；一题三变冲刺；对照评分细则规范书写</td><td>整卷得分率与难度口径匹配，力争高于全省物理平均原始分；会做不失分；临场时间分配稳定</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="callout gold"><b>关键窗口提示：</b>高一上学期是物理能力分化的第一个关键窗口。福建省 2026 年学科评价报告显示，物理组考生约 18.97 万人、占全省考生近八成，物理成绩直接影响绝大多数考生的总分位次；高一力学地基不牢，高二电磁学就会在失稳基础上继续塌陷。<span class="flag fact">事实</span><span class="flag judge">判断</span>（考生占比为官方，塌陷判断为教研经验）</div>
+    <div class="verdict"><b>路径建议：</b>高一阶段的投入产出比最高，因为概念网络与数学工具都是「一次建好、长期复用」的资产；高二阶段靠多步链与实验把能力推上强度；高三阶段靠复盘与规范把得分稳定下来。三个阶段顺序颠倒或跳级，都会导致低效补课。<span class="flag judge">判断</span>（教研经验总结）</div>
+  </div>
+</section>
+
+<section id="sec7">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">07</span><h2>家长协同要点：角色、信号、方法、避坑</h2></div>
+    <p class="lead">物理能力培养不能只靠孩子一个人。家长的角色不是「监工」，而是信息员、环境官、陪练员与情绪官。</p>
+    <div class="card">
+      <h4>家长四角色</h4>
+      <ul class="tight">
+        <li><b>信息员：</b>了解本省卷型、计分口径与命题导向，不轻信「物理很难」的笼统说法，用官方信息判断孩子的真实位置；</li>
+        <li><b>环境官：</b>固定训练时段，减少干扰源，保证睡眠与运动，让每周 3 至 4 小时的物理训练可持续；</li>
+        <li><b>陪练员：</b>每周听孩子讲 1 道题，听比教更重要，讲不清楚的地方就是下一步训练重点；</li>
+        <li><b>情绪官：</b>考后归因不归人，用失分归因表说话，不把分数波动上升为能力定性。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>值得警惕的四个观察信号</h4>
+      <div class="tbl-scroll">
+        <table>
+          <caption>家长可观察的物理学习信号对照表</caption>
+          <thead><tr><th>观察信号</th><th>背后指向</th><th>对应能力</th></tr></thead>
+          <tbody>
+            <tr><td>作业能完成，考试却露馅</td><td>独立推理链未建立，依赖课堂与答案</td><td>② 逻辑推理与多步链</td></tr>
+            <tr><td>换情境就懵，题目「不认识」</td><td>建模环节薄弱，只会套原题</td><td>① 科学建模与情境转化</td></tr>
+            <tr><td>「我都会，就是粗心」</td><td>元认知缺失，规范与复盘缺位</td><td>⑧ 元认知与规范答题</td></tr>
+            <tr><td>同一类错题反复出现</td><td>错题闭环没有真正执行</td><td>⑧ 元认知；⑥ 概念建构</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h4>三个陪伴方法</h4>
+      <ul class="tight">
+        <li><b>听讲题法：</b>每周固定一次，孩子讲、家长听，用费曼输出检验理解深度，讲不清的地方标记为训练重点；</li>
+        <li><b>数据对话法：</b>考试后只讨论失分归因表上的数据，如「计算类失分 6 分、审题类失分 4 分」，用数据定计划，不指责分数；</li>
+        <li><b>边界守护：</b>固定作息，控制训练量在每周 3 至 4 小时，防止疲劳刷题透支学习兴趣。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>四个避坑提醒</h4>
+      <ul class="tight">
+        <li>不做「监工式陪读」，全程盯梢会削弱孩子的自我监控能力；</li>
+        <li>不拿别人家孩子横向比较，物理基础与学校进度差异大，比较只增加焦虑；</li>
+        <li>不迷信题海战术，教育部命题导向明确「减少盲目的机械刷题」，刷题补不上建模与推理；</li>
+        <li>不只盯分数不看归因，分数是结果，归因才是抓手，归因表比分数更能指导下一步。</li>
+      </ul>
+    </div>
+    <div class="verdict"><b>协同原则：</b>家长介入的密度应随年级递减：高一多陪伴，高二多支持，高三多后勤。目标不是替孩子学会物理，而是帮孩子建立「能自己发现问题、自己制定对策」的元认知闭环。<span class="flag judge">判断</span>（教研经验）</div>
+  </div>
+</section>
+
+<section id="sec8">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-no">08</span><h2>参考文献与口径说明</h2></div>
+    <p class="lead">本页所有关键数据均标注来源与口径分层。官方未公布的数据一律以「约、口径、推算」表述，不当作精确统计数字使用。</p>
+    <div class="card">
+      <h4>参考文献（可溯源链接）</h4>
+      <ol class="ref-list">
+        <li><span class="ori official">官方</span>教育部教育考试院《2026 年高考物理全国卷试题评析》（中国考试发布，教育在线转载）：<a href="https://www.eol.cn/news/yaowen/202606/t20260608_2742546.shtml" target="_blank" rel="noopener noreferrer">https://www.eol.cn/news/yaowen/202606/t20260608_2742546.shtml</a></li>
+        <li><span class="ori official">官方</span>教育部教育考试院 2026 年物理全国卷评析（澎湃新闻转载）：<a href="https://m.thepaper.cn/newsDetail_forward_33332644" target="_blank" rel="noopener noreferrer">https://m.thepaper.cn/newsDetail_forward_33332644</a></li>
+        <li><span class="ori official">官方</span>广东省教育考试院《广东省深化普通高校考试招生制度综合改革实施方案》（物理、历史以卷面分直接计入总成绩）：<a href="https://eea.gd.gov.cn/tzgg/content/post_2282163.html" target="_blank" rel="noopener noreferrer">https://eea.gd.gov.cn/tzgg/content/post_2282163.html</a></li>
+        <li><span class="ori official">官方</span>广东省人民政府门户《广东今年高考时间为 6 月 7 日—9 日 语文数学外语用全国卷》（2026 年计分口径）：<a href="https://www.gd.gov.cn/gdywdt/bmdt/content/post_4896753.html" target="_blank" rel="noopener noreferrer">https://www.gd.gov.cn/gdywdt/bmdt/content/post_4896753.html</a></li>
+        <li><span class="ori official">官方</span>福建省教育考试院《2026 年高考考生成绩分布（物理科目组）》：<a href="https://www.eeafj.cn/gkptgkgsgg/20260625/14699.html" target="_blank" rel="noopener noreferrer">https://www.eeafj.cn/gkptgkgsgg/20260625/14699.html</a></li>
+        <li><span class="ori official">官方</span>《普通高中物理课程标准（2017 年版 2020 年修订）》全文（学科核心素养与学业质量水平）：<a href="https://jyj.changdu.gov.cn/cdsjyj/c101476/202205/764ee1914e3c45aaba8e372f1b628a34/files/44a5142efe324ea08831f79048324599.pdf" target="_blank" rel="noopener noreferrer">https://jyj.changdu.gov.cn/cdsjyj/c101476/202205/764ee1914e3c45aaba8e372f1b628a34/files/44a5142efe324ea08831f79048324599.pdf</a></li>
+        <li><span class="ori media">权威媒体</span>人民网（光明日报）《优化情境设计 凸显应用导向——专家解析高考物理、化学、生物全国卷》：<a href="https://edu.people.com.cn/n1/2026/0609/c1006-40736400.html" target="_blank" rel="noopener noreferrer">https://edu.people.com.cn/n1/2026/0609/c1006-40736400.html</a></li>
+        <li><span class="ori media">权威媒体</span>中国教育报《铸魂育人 引领方向 科学选拔——教育部教育考试院专家评析 2026 年高考全国卷试题》：<a href="https://paper.jyb.cn/zgjyb/html/2026-06/10/content_144742_19607373.htm" target="_blank" rel="noopener noreferrer">https://paper.jyb.cn/zgjyb/html/2026-06/10/content_144742_19607373.htm</a></li>
+        <li><span class="ori media">权威媒体</span>东南网（海峡教育报）郭杰森《预测高考切线！分解到各学科，拿高分！》（难度值 0.55 上下口径）：<a href="https://i.fjsen.com/wap/2026-02/12/content_32133441.htm" target="_blank" rel="noopener noreferrer">https://i.fjsen.com/wap/2026-02/12/content_32133441.htm</a></li>
+        <li><span class="ori media">权威媒体</span>泉州晚报《物理 吃透教材夯基础 聚焦情境与思维》（福建卷情境化命题与卷型结构解读）：<a href="https://szb.qzwb.com/qzwb/pad/cons/202605/13/content_183827.html" target="_blank" rel="noopener noreferrer">https://szb.qzwb.com/qzwb/pad/cons/202605/13/content_183827.html</a></li>
+        <li><span class="ori media">权威媒体</span>澎湃新闻（湖里头条）《数学 74.9！2026 福建高考各科平均分出炉！》（转述福建省教育考试院《2026 年普通高考学科评价报告》）：<a href="https://m.thepaper.cn/newsDetail_forward_34237158" target="_blank" rel="noopener noreferrer">https://m.thepaper.cn/newsDetail_forward_34237158</a></li>
+        <li><span class="ori media">权威媒体</span>课程教材研究所《为国富民强培养物理人才——访普通高中物理课程标准修订组负责人廖伯琴》：<a href="https://www.ictr.edu.cn/periodicals/jing/detail/619.html" target="_blank" rel="noopener noreferrer">https://www.ictr.edu.cn/periodicals/jing/detail/619.html</a></li>
+        <li><span class="ori trade">行业观察</span>高考直通车《2026 黑吉辽蒙普通高中学业水平选择性考试物理卷》（代表性新高考卷结构：选择题 10 道共 46 分、实验题、计算题）：<a href="https://img.gaokaozhitongche.com/resource/pdf/paper/202607/20260715065942_Pp7tD5.pdf" target="_blank" rel="noopener noreferrer">https://img.gaokaozhitongche.com/resource/pdf/paper/202607/20260715065942_Pp7tD5.pdf</a></li>
+        <li><span class="ori trade">行业观察</span>闽文教育整理《福建 2026 高考各科平均分公布》（转述福建省教育考试院学科评价报告，物化生组合平均分 475 分超本科线 29 分）：<a href="https://www.minwenjiaoyu.com/4/22180/2258356" target="_blank" rel="noopener noreferrer">https://www.minwenjiaoyu.com/4/22180/2258356</a></li>
+      </ol>
+    </div>
+    <div class="card">
+      <h4>口径分层表</h4>
+      <div class="tbl-scroll">
+        <table>
+          <caption>本页数据口径分层说明</caption>
+          <thead><tr><th>层级</th><th>定义</th><th>本页示例</th><th>使用方式</th></tr></thead>
+          <tbody>
+            <tr><td>官方</td><td>政府机构、教育考试院、课程标准与教育部评析发布的内容</td><td>首选科目原始分计分口径、四大核心素养、2026 年命题导向、福建考生占比</td><td>可直接引用，标注来源链接</td></tr>
+            <tr><td>权威媒体</td><td>主流媒体对官方信息与专家观点的报道与转述</td><td>郭杰森难度值 0.55 上下口径、福建学科评价报告转述、福建卷情境化特征解读</td><td>引用时注明媒体与转载来源</td></tr>
+            <tr><td>行业观察</td><td>一线教研人员、名师的观察与经验性判断</td><td>高一第一次月考常见分数区间、情境化命题特征、卷型结构整理</td><td>仅作参考，明确标注行业观察</td></tr>
+            <tr><td>教研推算</td><td>本页基于上述来源作出的综合推算</td><td>情境化命题占比约 75%、难度值约 0.50 至 0.55 区间、能力分级与训练时间表</td><td>明确标注推算，不当作官方数据</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="callout"><b>边界声明：</b>本页为教研分析，所有数字均标注口径分层；官方未公布的数据，如情境化命题占比、难度值精确值，一律以「约、口径、推算」表述，不作为报考决策或分数预测的依据。各省试卷题型结构存在差异，能力分级与训练安排为教研建议模板，请以当年考试说明、正式试卷与本省教育考试院发布为准。<span class="flag judge">判断</span></div>
+  </div>
+</section>
+
+<footer>
+  <div class="brand">刘老师教研 · 高中九科综合能力培养系列</div>
+  <p>本页为教研分析，不针对个体做结论，请以当年考试说明与本省教育考试院发布为准。</p>
+  <p>高考物理综合能力分析与培养方法 · 供考生与家长对照使用</p>
+</footer>
+
+<script>
+(function(){
+  try{
+    var links=document.querySelectorAll('a[href^="#"]');
+    for(var i=0;i<links.length;i++){
+      links[i].addEventListener('click',function(e){
+        var id=this.getAttribute('href');
+        if(id.length<2){return;}
+        var el=document.querySelector(id);
+        if(!el){return;}
+        e.preventDefault();
+        el.scrollIntoView({behavior:'smooth',block:'start'});
+      });
+    }
+  }catch(err){}
+})();
+</script>
+</body>
+</html>
