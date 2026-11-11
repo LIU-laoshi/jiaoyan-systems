@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刘老师教研 · 数据化分析 · 高考九科难度拆解总入口</title>
+<style>
+:root{
+  --navy:#0f2a4a;--navy2:#16385e;--gold:#d4a853;--gold2:#b8913c;--bg:#f6f7fb;
+  --card:#ffffff;--ink:#24303f;--muted:#6b7a8c;--line:#e3e8f0;--ok:#1f7a4d;--okbg:#e8f5ee;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;font-size:16px}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 62%,#1e4a72 100%);color:#fff;padding:64px 20px 56px;text-align:center}
+.hero .kicker{display:inline-block;border:1px solid rgba(212,168,83,.55);color:#e6c684;font-size:13px;letter-spacing:2px;padding:6px 16px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:34px;font-weight:800;line-height:1.35;margin-bottom:14px;letter-spacing:.5px}
+.hero .sub{font-size:16px;color:#cdd8e8;max-width:760px;margin:0 auto}
+.hero .stats{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:28px}
+.hero .stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:14px 20px;min-width:150px}
+.hero .stat b{display:block;font-size:26px;color:#f0cd83;font-weight:800}
+.hero .stat span{font-size:13px;color:#c7d3e4}
+section{padding:44px 0 14px}
+section h2{font-size:24px;color:var(--navy);font-weight:800;margin-bottom:8px}
+.lead{color:var(--muted);font-size:15px;margin-bottom:18px;max-width:860px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:18px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 1px 4px rgba(15,42,74,.06);text-decoration:none;color:var(--ink);transition:.2s;display:block}
+.card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(15,42,74,.12);border-color:var(--gold)}
+.card .no{display:inline-block;font-size:12px;font-weight:800;color:#fff;background:var(--gold);border-radius:6px;padding:2px 8px;margin-bottom:10px;letter-spacing:1px}
+.card h3{font-size:19px;color:var(--navy);font-weight:800;margin-bottom:6px}
+.card p{font-size:13.5px;color:var(--muted);line-height:1.6}
+.card .tag{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;color:var(--gold2);border:1px solid #e6d5a8;border-radius:999px;padding:3px 10px}
+.tbl-scroll{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:14.5px;min-width:640px}
+th{background:var(--navy);color:#fff;font-weight:700;padding:11px 12px;text-align:left;white-space:nowrap}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7f9fc}
+td.num{font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy);white-space:nowrap}
+.callout{border-left:5px solid var(--navy2);background:#eef3fa;border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;font-size:15px}
+.callout.gold{border-color:var(--gold);background:#fbf4e4}
+.small{font-size:13px;color:var(--muted)}
+footer{background:var(--navy);color:#cdd8e8;margin-top:46px;padding:34px 20px 40px;text-align:center}
+footer .brand{font-size:15px;color:#f0cd83;font-weight:700;margin-bottom:8px}
+footer p{font-size:13px;color:#aebdd2;margin:5px 0}
+@media(max-width:800px){.cards{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.cards{grid-template-columns:1fr}.hero h1{font-size:26px}}
+@media print{section{page-break-inside:avoid}.card,.callout{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <span class="kicker">刘老师教研 · 数据化分析</span>
+  <h1>高考九科难度数据化拆解<br>总入口</h1>
+  <p class="sub">数学、语文、英语、物理、化学、生物、政治、历史、地理——用可核实的数据逐科拆解"高中为什么难、为什么不容易学好"，并给出分级破局路径。</p>
+  <div class="stats">
+    <div class="stat"><b>9</b><span>科目全维度覆盖</span></div>
+    <div class="stat"><b>10</b><span>每科 10 个数据模块</span></div>
+    <div class="stat"><b>官方优先</b><span>数据口径分层可溯源</span></div>
+    <div class="stat"><b>3 年</b><span>高一→高三破局地图</span></div>
+  </div>
+</header>
+
+<section id="subjects">
+  <h2>九科难度拆解</h2>
+  <p class="lead">点击进入各科数据化分析。每科均为单文件网页，深蓝金品牌视觉，10 模块结构（数据看板/容量扩容/能力跃迁/高一分化/高二峰值/高三考场/难度变迁/归因分析/破局路径/边界与参考）。</p>
+  <div class="cards">
+    <a class="card" href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-shujuhua/shuxue.html" target="_blank" rel="noopener noreferrer"><span class="no">01</span><h3>数学</h3><p>知识点约为初中 3~4 倍；高考难度值 0.50；140+ 占比约万分之二。最典型的"结构难"。</p><span class="tag">进入分析 →</span></a>
+    <a class="card" href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-shujuhua/yuwen.html" target="_blank" rel="noopener noreferrer"><span class="no">02</span><h3>语文</h3><p>72 篇必背只是入场券；作文 60 分定上限；阅读得分率跌破六成。最典型的"慢变量难"。</p><span class="tag">进入分析 →</span></a>
+    <a class="card" href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-shujuhua/yingyu.html" target="_blank" rel="noopener noreferrer"><span class="no">03</span><h3>英语</h3><p>词汇扩容 + 语篇思维 + 读后续写新题型，从"背单词"到"用语言"的全面跃迁。</p><span class="tag">进入分析 →</span></a>
+    <a class="card" href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-shujuhua/wuli.html" target="_blank" rel="noopener noreferrer"><span class="no">04</span><h3>物理</h3><p>模型建构与受力分析是分水岭；实验探究与图像化考查全面升级。</p><span class="tag">进入分析 →</span></a>
+    <a class="card" href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-shujuhua/huaxue.html" target="_blank" rel="noopener noreferrer"><span class="no">05</span><h3>化学</h3><p>微观探析 + 证据推理 + 工业流程真实情境，从"背方程式"到"推机理"。</p><span class="tag">进入分析 →</span></a>
+    <a class="card" href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-shujuhua/shengwu.html" target="_blank" rel="noopener noreferrer"><span class="no">06</span><h3>生物</h3><p>生命观念 + 长句表达 + 实验设计开放化，术语准确与逻辑表达双重要求。</p><span class="tag">进入分析 →</span></a>
+    <a class="card" href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-shujuhua/zhengzhi.html" target="_blank" rel="noopener noreferrer"><span class="no">07</span><h3>政治</h3><p>从"背"到"析"：理论融入 + 时代情境 + 材料分析，答题要"有理有据"。</p><span class="tag">进入分析 →</span></a>
+    <a class="card" href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-shujuhua/lishi.html" target="_blank" rel="noopener noreferrer"><span class="no">08</span><h3>历史</h3><p>时空观念 + 史料实证 + 小论文，从"讲故事"到"论从史出"。</p><span class="tag">进入分析 →</span></a>
+    <a class="card" href="https://liu-laoshi.github.io/jiaoyan-systems/gaokao-shujuhua/dili.html" target="_blank" rel="noopener noreferrer"><span class="no">09</span><h3>地理</h3><p>人地协调观 + 综合思维 + 图表判读，自然人文区域三大系统交叉。</p><span class="tag">进入分析 →</span></a>
+  </div>
+</section>
+
+<section id="overview">
+  <h2>系列概览：九科"难"的数据化画像</h2>
+  <p class="lead">九科共享同一分析框架，但"难"的结构完全不同。下表给出各科核心画像。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>科目</th><th>难度主因</th><th>关键数据</th><th>掉队窗口</th><th>破局杠杆</th></tr></thead>
+    <tbody>
+      <tr><td><b>数学</b></td><td>容量×抽象×综合</td><td class="num">难度值 0.50；140+≈1/20000</td><td>高一</td><td>中档题得分率 ≥70%</td></tr>
+      <tr><td><b>语文</b></td><td>积累×思维×表达</td><td class="num">72 篇背诵；作文 60/150</td><td>高一下半程起</td><td>阅读得分率 + 作文四维</td></tr>
+      <tr><td><b>英语</b></td><td>词汇×语篇×读写协同</td><td class="num">词汇量初高翻倍+</td><td>高一</td><td>语篇精读 + 续写结构</td></tr>
+      <tr><td><b>物理</b></td><td>建模×运算×实验</td><td class="num">解答题多步逻辑链</td><td>高一受力分析</td><td>模型建构 + 规范书写</td></tr>
+      <tr><td><b>化学</b></td><td>微观×推理×流程</td><td class="num">方程式规范是硬门槛</td><td>高一物质的量</td><td>证据推理 + 工业流程拆解</td></tr>
+      <tr><td><b>生物</b></td><td>概念×实验×表达</td><td class="num">长句表达丢分集中</td><td>高一分子与细胞</td><td>术语准确 + 长句三步法</td></tr>
+      <tr><td><b>政治</b></td><td>理论×时政×材料分析</td><td class="num">材料题占比高</td><td>高一哲学入门</td><td>答题结构 + 术语库</td></tr>
+      <tr><td><b>历史</b></td><td>时空×史料×解释</td><td class="num">小论文区分度大</td><td>高一通史转换</td><td>史料实证 + 论点框架</td></tr>
+      <tr><td><b>地理</b></td><td>综合×区域×图表</td><td class="num">自然地理过程难</td><td>高一自然地理</td><td>图表判读 + 区位模型</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="howto">
+  <h2>使用说明</h2>
+  <div class="callout gold">
+    <b>怎么用这套分析：</b><br>
+    1. 先看各科「数据看板」，找到孩子所在科目最突出的"难"在哪；<br>
+    2. 再看「归因分析」，把"学不好"对号入座为可诊断的卡点；<br>
+    3. 最后执行「破局路径」中对应年级的动作清单，一次解决一个卡点。<br>
+    <br>
+    <b>口径说明：</b>各科以新高考 I 卷 / 选择性科目卷为默认口径，数据均分层标注来源（官方发布 / 权威媒体 / 行业观察 / 个案样本）；未标"官方"的数据仅作趋势参考，不针对任何个体结论。
+  </div>
+</section>
+
+<footer>
+  <div class="brand">刘老师教研 · 数据化分析 · 高考九科难度拆解</div>
+  <p>本文为数据科普与教研分析，不针对任何个体学生做结论；不同省份、学校、班级的实际情况差异很大。</p>
+  <p>请以当年考试说明、官方试卷与孩子所在学校教学安排为准。</p>
+</footer>
+</body>
+</html>
