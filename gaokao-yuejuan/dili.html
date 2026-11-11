@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>刘老师教研 · 高考阅卷老师视角 · 高中地理注意事项全解析</title>
+<style>
+:root{
+  --ink:#10263f; --ink2:#33465e; --paper:#f6f8fb; --card:#ffffff; --line:#e3e9f1;
+  --blue:#1d5fbf; --blue-bg:#eaf1fb; --red:#c0392b; --red-bg:#fdf0ee;
+  --green:#1f8a5c; --green-bg:#e9f7f0; --gold:#c9991f; --gold-bg:#fbf3dc; --gold-deep:#9a7410;
+  --shadow:0 1px 3px rgba(16,38,63,.08),0 6px 18px rgba(16,38,63,.06);
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--paper);color:var(--ink);line-height:1.8;font-size:15px}
+.hero{background:linear-gradient(135deg,#0d2340 0%,#15365e 55%,#1d4a7e 100%);color:#fff;padding:46px 20px 40px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-60px;top:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.05)}
+.hero:before{content:"";position:absolute;right:90px;bottom:-90px;width:180px;height:180px;border-radius:50%;background:rgba(201,153,31,.14)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+.kicker{display:inline-block;font-size:13px;letter-spacing:2px;color:#e8c96a;border:1px solid rgba(232,201,106,.45);padding:3px 12px;border-radius:20px;margin-bottom:14px}
+.hero h1{font-size:clamp(25px,4.2vw,38px);line-height:1.32;margin-bottom:14px;letter-spacing:.5px}
+.hero .sub{font-size:15px;color:#c7d6ea;max-width:800px;margin-bottom:18px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#e6edf7;padding:3px 11px;border-radius:20px}
+nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(16,38,63,.05)}
+nav .wrap{display:flex;gap:4px;overflow-x:auto;padding:0 12px;scrollbar-width:none}
+nav .wrap::-webkit-scrollbar{display:none}
+nav a{flex:0 0 auto;text-decoration:none;color:var(--ink2);font-size:13px;padding:11px 12px;white-space:nowrap;border-bottom:2px solid transparent}
+nav a:hover,nav a:focus-visible{color:var(--blue);border-bottom-color:var(--blue)}
+main.wrap{padding-top:34px;padding-bottom:60px}
+h2{font-size:clamp(20px,3vw,26px);margin:0 0 6px;color:var(--ink);scroll-margin-top:70px}
+h2 .no{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:var(--blue);color:#fff;font-size:15px;margin-right:9px;vertical-align:2px}
+h3{font-size:17px;margin:20px 0 10px;color:var(--ink)}
+p{margin:9px 0}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 24px 26px;margin-bottom:26px}
+.sec-lead{color:var(--ink2);font-size:14px;margin-bottom:16px}
+.gold-lead{background:var(--gold-bg);border-left:4px solid var(--gold);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0;color:#6b5208;font-size:14px}
+.callout{background:var(--blue-bg);border-left:4px solid var(--blue);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0;color:#143c6e;font-size:14px}
+.danger{background:var(--red-bg);border-left:4px solid var(--red);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0;color:#7a2c22;font-size:14px}
+.ok{background:var(--green-bg);border-left:4px solid var(--green);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0;color:#15593c;font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+th{background:#eef3f9;color:var(--ink);font-weight:600}
+tbody tr:nth-child(even){background:#fafcff}
+td b{color:var(--ink)}
+ul,ol{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.pit{display:flex;gap:10px;background:#fbfcfd;border:1px solid #e3e9f1;border-radius:10px;padding:11px 14px;margin:9px 0;font-size:14px}
+.pit .num{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--red);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.pit b{color:var(--ink)}
+footer{background:var(--ink);color:#c7d6ea;padding:26px 20px;font-size:13px;text-align:center}
+@media (max-width:640px){
+  body{font-size:14.5px}
+  .sec{padding:18px 14px 20px}
+  th,td{padding:8px 9px;font-size:13px}
+  .wrap{padding:0 14px}
+}
+@media print{
+  nav{display:none}
+  body{background:#fff}
+  .sec{box-shadow:none;break-inside:avoid}
+  a{color:var(--ink);text-decoration:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">刘老师教研 · 高考阅卷视角</span>
+    <h1>高考阅卷老师视角<br>高中地理注意事项全解析</h1>
+    <p class="sub">从「关键词采分 + 术语准确 + 图表判读 + 模板化答题」的阅卷逻辑出发，拆解高中地理考试最容易丢分的环节：综合题模板、术语规范、图表判读、区域定位、描述性语言、评分细则、时间节奏与临场心态。让区位分析不漏因素，让描述语言不走样。</p>
+    <div class="tags">
+      <span class="tag">区位分析模板</span>
+      <span class="tag">术语准确第一</span>
+      <span class="tag">图表判读</span>
+      <span class="tag">区域定位</span>
+      <span class="tag">描述语言规范</span>
+      <span class="tag">20条扣分陷阱</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#sec1">1 阅卷逻辑</a>
+    <a href="#sec2">2 失分重灾区</a>
+    <a href="#sec3">3 题型策略</a>
+    <a href="#sec4">4 卷面规范</a>
+    <a href="#sec5">5 评分细则</a>
+    <a href="#sec6">6 时间节奏</a>
+    <a href="#sec7">7 扣分陷阱</a>
+    <a href="#sec8">8 平时训练</a>
+    <a href="#sec9">9 临场心态</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<section id="sec1" class="sec">
+  <h2><span class="no">1</span>阅卷底层逻辑：地理是「客观题机器判分 + 综合题关键词采分」</h2>
+  <p class="sec-lead">地理试卷客观题由机器判分；综合题则由阅卷老师按「关键词 + 得分点」给分，而地理综合题的得分点高度依赖两点：<b>术语准确</b>与<b>答题角度齐全</b>。理解这套机制，才知道答案该怎么组织。</p>
+  <ul>
+    <li><b>客观题自动判分</b>：选择题涂卡由机器识别，图表判读、区域定位、概念辨析任何一个环节出错，整题归零，没有过程分。</li>
+    <li><b>综合题按关键词给分</b>：每道综合题的评分细则列出若干得分点，每个点对应「学科术语 + 具体内容」（如「地形平坦」「水源充足」「市场广阔」）。阅卷老师按点核对，点到即得分。</li>
+    <li><b>术语必须准确</b>：地理术语是「规定动作」——「季风气候」不能写成「季节风气候」；「自西北向东南」不能写成「从左上到右下」；「暖锋」「冷锋」不能混写。术语错了，得分点直接归零。</li>
+    <li><b>答题角度要齐全</b>：地理综合题尤其讲究「角度完整性」——区位分析要「自然 + 人文」双向展开；原因分析要「自然 + 人为」兼顾。漏一个角度，就漏一整块得分点。</li>
+    <li><b>双评与仲裁机制</b>：综合题普遍双评，分差过大进入三评。双评意味着「术语规范、角度齐全、表述稳妥」的答案最占便宜——不追求奇思妙想，先保证标准得分点全覆盖。</li>
+  </ul>
+  <div class="gold-lead"><b>一句话心法</b>：地理综合题不是「写得多就有分」，而是「术语准 + 角度全 + 分条清」。模板是地图，术语是路标，缺一不可。</div>
+</section>
+
+<section id="sec2" class="sec">
+  <h2><span class="no">2</span>五大失分重灾区（阅卷老师眼中最常见的扣分原因）</h2>
+  <p class="sec-lead">以下五类问题几乎年年批量出现在地理卷面上。先自查再谈提分——堵住这些「会分析却写不标准」的漏洞，性价比最高。</p>
+  <table>
+    <tr><th style="min-width:120px">重灾区</th><th>阅卷老师看到的</th><th>典型后果</th></tr>
+    <tr><td><b>① 术语错误、口语化</b></td><td>「季风气候」写成「季节风」；「水土流失」写成「泥土被冲走」；「地形平坦」写成「地面很平」</td><td>术语不准按得分点不成立处理，即便意思接近也不给分</td></tr>
+    <tr><td><b>② 答题模板残缺</b></td><td>区位分析只答自然因素不答人文因素；原因分析只答人为原因不答自然原因；措施类只写方向不写落点</td><td>角度缺失即整块得分点丢失，写再多也只拿一半的分</td></tr>
+    <tr><td><b>③ 图表判读失误</b></td><td>不看图例、忽略单位、比例尺看错；等值线数值与疏密读反；坐标图横纵轴含义混淆</td><td>数据与结论全错，选择题整题归零，综合题分析部分连锁失分</td></tr>
+    <tr><td><b>④ 区域定位错误</b></td><td>把华北平原当长江中下游平原、把温带季风气候误判为亚热带季风气候、区域特征张冠李戴</td><td>区域背景错误，特征描述、区位分析全部答偏，几乎整题失分</td></tr>
+    <tr><td><b>⑤ 描述性语言不规范</b></td><td>方位说成「上面下面」而非「自西北向东南」；分布特征写成「那边多一点」而非「由沿海向内陆递减」</td><td>描述不具学科规范性，得分点不成立或打折</td></tr>
+  </table>
+  <div class="danger"><b>特别提醒</b>：地理失分最多的不是「不知道答案」，而是「知道但说不标准、写不全」。同样的区位分析，术语准确、角度齐全、分条清晰能拿满分；写成大白话、漏掉人文因素，只能拿一半甚至更少。</div>
+</section>
+
+<section id="sec3" class="sec">
+  <h2><span class="no">3</span>四大题型策略（阅卷老师最想看到的答法）</h2>
+  <p class="sec-lead">地理试卷以选择题、综合题（区位分析 / 特征描述 / 原因分析 / 措施建议）为主体，兼有图表判读与开放性设问。按题型打磨答法，让每一分都有落点。</p>
+  <h3>3.1 选择题：读图先读「三要素」</h3>
+  <ul>
+    <li><b>先看图例与单位</b>：图例说明符号含义、单位决定数值量级——忽略图例与单位是地理选择题最常见的失误来源。</li>
+    <li><b>再看比例尺与方向</b>：比例尺决定范围大小，方向标（或经纬网）决定方位判断，先定这两项再分析内容。</li>
+    <li><b>等值线抓「数值 + 疏密 + 弯曲」</b>：等值线判读看数值递变方向、疏密代表变化快慢、弯曲处往往是高值或低值中心。</li>
+    <li><b>排除绝对化表述</b>：「一定」「必然」「全部」等绝对化选项在地理中绝大多数是干扰项，地理讲究区域差异与条件变化。</li>
+  </ul>
+  <h3>3.2 综合题模板化答题：区位分析「自然 + 人文」双向展开</h3>
+  <ul>
+    <li><b>区位分析固定框架</b>：自然因素（地形、气候、水源、土壤、矿产资源）+ 人文因素（市场、交通、政策、劳动力、科技、历史基础），两类都要写，缺一类就少一整块得分点。</li>
+    <li><b>按设问调整重心</b>：设问「评价区位条件」要优劣两面都答；「分析区位优势」只写有利条件；「指出限制因素」只写不利条件——先看清设问再动笔。</li>
+    <li><b>每个因素都要「落地」</b>：不只写「气候适宜」，要结合区域写出「气候温暖湿润、雨热同期」等具体内容，得分点才扎实。</li>
+    <li><b>分条呈现、术语规范</b>：每条一个因素，开头写术语名称（如「地形：…」「市场：…」），后接具体分析，一条一行。</li>
+  </ul>
+  <h3>3.3 特征描述题：用规范的地理语言</h3>
+  <ul>
+    <li><b>方位与方向用学科表述</b>：写「自西北向东南」「由沿海向内陆」「南高北低」，不写「从上到下」「左边多右边少」。</li>
+    <li><b>分布特征按「空间结构」描述</b>：总体分布（均匀 / 集中）+ 具体位置（哪里多哪里少）+ 延伸方向（沿河、沿海、沿交通线），层层推进。</li>
+    <li><b>气候特征按「气温 + 降水」两维</b>：气温（高低、年较差大小）+ 降水（总量、季节分配），用规范术语（如「夏季高温多雨、冬季温和少雨」）。</li>
+    <li><b>地形特征按「类型 + 地势 + 特殊地貌」</b>：地形类型（以山地/平原为主）+ 地势起伏（西高东低）+ 特殊地貌（喀斯特、雅丹等），不遗漏维度。</li>
+  </ul>
+  <h3>3.4 原因分析与措施建议题：「自然 + 人为」「问题 + 对策」</h3>
+  <ul>
+    <li><b>原因分析双向展开</b>：自然原因（气候、地形、水文、土壤、植被）+ 人为原因（人口、产业、开发方式、政策），两层都答得分点才全。</li>
+    <li><b>措施建议按主体与环节落点</b>：工程措施（修建设施）+ 生物措施（植树种草）+ 管理措施（政策法规、宣传教育），措施要具体可操作。</li>
+    <li><b>结合区域背景作答</b>：措施与原因对应（针对什么原因给什么对策），并落到具体区域（如黄土高原的水土保持、西北的防风固沙）。</li>
+    <li><b>按分值估条数</b>：分值较高的设问通常需要 3-4 个得分点，宁多写一个合理角度，不冒漏点的险。</li>
+  </ul>
+  <h3>3.5 开放性设问与观点评述：「观点明确 + 论证有据」</h3>
+  <ul>
+    <li><b>先亮观点再论证</b>：设问「你是否赞同」「谈谈你的看法」，首句明确表态（赞同 / 不赞同 / 有条件赞同），再展开理由，观点不明则整题失去得分框架。</li>
+    <li><b>理由按「利 + 弊 + 条件」组织</b>：赞同给有利条件与可行性，不赞同给制约因素与风险，有条件赞同写清前提条件，正反两面都答才全面。</li>
+    <li><b>论证落到区域实际</b>：用该区域的真实地理特征支撑观点（地形、气候、水资源、矿产资源、交通、产业基础等），不空谈理论、不套用他区情况。</li>
+    <li><b>结论呼应设问</b>：结尾回扣表态并给出建议性收束（如「因此，应因地制宜、趋利避害」），结构完整、自圆其说。</li>
+    <li><b>审题先辨设问类型</b>：分清「评价」「看法」「建议」的差异——评价重利弊权衡，看法重个人立场与理由，建议重具体可操作，答法各有侧重。</li>
+  </ul>
+  <div class="ok"><b>得分次序</b>：先保证「术语准、角度全、分条清」三条底线，再追求分析的深度与具体性。阅卷老师给分的前提是「找得到术语、对得上得分点」。</div>
+</section>
+
+<section id="sec4" class="sec">
+  <h2><span class="no">4</span>卷面规范：地理是「术语 + 分条 + 图表书写」三重讲究</h2>
+  <p class="sec-lead">地理综合题得分点密集，且常涉及图表与方位表达。术语准确、分条清晰、图文书写规范，直接决定得分点能否被准确捕捉。</p>
+  <table>
+    <tr><th style="min-width:110px">维度</th><th>规范做法</th><th>常见扣分</th></tr>
+    <tr><td><b>术语规范</b></td><td>用教材规范术语（「季风气候」「水土流失」「流水侵蚀」），不用口语与自创词</td><td>「季节风」「泥土冲走」等不规范表述，得分点不成立</td></tr>
+    <tr><td><b>分条作答</b></td><td>综合题用「①②③」编号分条，每条换行；每条开头可写「地形：」「市场：」等角度词</td><td>一大段无序号，得分点淹没，高速阅卷下极易漏采</td></tr>
+    <tr><td><b>方位表达</b></td><td>方向用「自…向…」「…以北/以南」「东部/西部」规范表述，不写「上面下面」</td><td>口语方位词不具学科规范性，描述题得分点打折</td></tr>
+    <tr><td><b>数值与单位</b></td><td>引用图表数据写单位（如「年降水量 800 毫米」），数值、单位与图表一致</td><td>数值抄错或漏写单位，数据类得分点丢失</td></tr>
+    <tr><td><b>作图与标注</b></td><td>需要作图时用铅笔加尺规，图例、注记、关键点标注清楚</td><td>徒手作图、不标图例，图形信息不被采信</td></tr>
+    <tr><td><b>字迹与答题区</b></td><td>字迹工整、不涂黑块；严格在指定区域作答，不越界</td><td>扫描后看不清或区域外内容丢失，等于白写</td></tr>
+  </table>
+  <div class="gold-lead"><b>心法</b>：地理答案要让阅卷老师「扫一眼」就看到：几个得分点、什么角度、用了哪些规范术语。卷面越模板化、术语越准确，得分越确定。</div>
+</section>
+
+<section id="sec5" class="sec">
+  <h2><span class="no">5</span>评分细则：综合题怎么按关键词给分</h2>
+  <p class="sec-lead">细则年年微调，但机制稳定。理解「给分逻辑」比背模板更重要——模板是为得分点服务的。</p>
+  <h3>5.1 综合题给分机制</h3>
+  <ul>
+    <li><b>按得分点给分</b>：每道综合题在细则中列出若干得分点，每个点对应「术语 + 内容」，答对一个点给一个点的分，多答不扣分（不矛盾时），少答丢分。</li>
+    <li><b>关键词给分</b>：得分点以关键词形式出现——术语名称（如「地形平坦」「雨热同期」「市场广阔」）是命中关键词的核心。</li>
+    <li><b>角度分与内容分</b>：部分设问按「角度齐全」给分（自然、人文各占），部分按「具体内容」给分——角度全 + 内容实，得分才完整。</li>
+    <li><b>意思接近不一定给分</b>：地理阅卷中「意思对但术语不对」常判不得分（如「季节风」不视为「季风气候」），术语准确是硬门槛。</li>
+    <li><b>不编造具体分值</b>：每道题几分、每个得分点几分，以当年评分细则为准，这里强调的是「按关键词给分 + 术语准确」的稳定机制。</li>
+  </ul>
+  <h3>5.2 从阅卷视角看「什么样的答案最加分」</h3>
+  <table>
+    <tr><th style="min-width:110px">答案特征</th><th>阅卷老师的感受</th><th>得分效果</th></tr>
+    <tr><td><b>术语准 + 角度全</b></td><td>每条一眼定位术语，自然人文各角度齐全</td><td>得分点全覆盖，得满分档</td></tr>
+    <tr><td><b>术语准、角度缺</b></td><td>写了但漏掉自然或人文某一大类</td><td>拿已写部分的分，漏掉角度分</td></tr>
+    <tr><td><b>意思对、术语错</b></td><td>「季节风」「泥土冲走」等口语化表述</td><td>按得分点不成立处理，术语分丢失</td></tr>
+    <tr><td><b>只有方向、没有内容</b></td><td>「要治理环境」等空话，没有具体落点</td><td>找不到关键词，得分点单薄或为零</td></tr>
+    <tr><td><b>分条清晰、图文规范</b></td><td>快速定位、逐条核对，省时省力</td><td>同等内容，得分更稳更高</td></tr>
+  </table>
+  <div class="danger"><b>阅卷现实</b>：地理综合题阅卷节奏快，老师主要「找关键词」。你的答案越接近「术语 + 内容 + 分条」的标准结构，被完整采分的概率越高；反之，写得再深，找不到关键词就是零分。</div>
+</section>
+
+<section id="sec6" class="sec">
+  <h2><span class="no">6</span>时间节奏：按各卷通用口径分配，以当年卷型为准</h2>
+  <p class="sec-lead">地理考试时长与题量因卷型不同有所差异，以下为通用参考节奏，具体以当年卷型、题量和分值结构为准。</p>
+  <table>
+    <tr><th style="min-width:120px">板块</th><th>建议用时占比</th><th>节奏要点</th></tr>
+    <tr><td><b>选择题</b></td><td>约占全卷时间的 40%-45%</td><td>每题控制在 1 分钟内；先读图例单位再分析选项，卡住的题先标记</td></tr>
+    <tr><td><b>综合题</b></td><td>约占全卷时间的 50%-55%</td><td>按分值配时；每题先看图判读、再列「角度—术语」要点清单，后动笔</td></tr>
+    <tr><td><b>检查</b></td><td>留 5-10 分钟</td><td>先核对涂卡，再检查综合题术语、单位、方位表述是否规范</td></tr>
+  </table>
+  <div class="callout"><b>时间红线</b>：综合题切忌「第一题写满、后面每题仓促」。按分值分配时间——大分值设问写全角度与落点，小分值设问简洁点到，确保全卷不空题。</div>
+  <ul>
+    <li><b>答题区管理</b>：先估算每条大约几行，避免前面写太多、后面不够写；宁可在每条上精炼，也要保证所有设问都有内容。</li>
+    <li><b>收尾检查</b>：最后几分钟重点看「是否有题目留白」「术语有无明显错误」「涂卡是否对应题号」三件事。</li>
+  </ul>
+</section>
+
+<section id="sec7" class="sec">
+  <h2><span class="no">7</span>20 条扣分陷阱清单（考前对照自查，逐条堵漏）</h2>
+  <p class="sec-lead">以下 20 条覆盖地理阅卷中最常见的失分场景。考前逐条过一遍，能堵住大量「会分析却丢分」的坑。</p>
+  <div class="pit"><span class="num">1</span><span><b>术语写错</b>：「季风气候」写成「季节风气候」、「水土流失」写成「泥土被冲走」，得分点不成立。</span></div>
+  <div class="pit"><span class="num">2</span><span><b>气候类型误判</b>：温带季风气候与亚热带季风气候混淆、温带大陆性气候与高原气候混淆，选择题整题归零。</span></div>
+  <div class="pit"><span class="num">3</span><span><b>区域定位错误</b>：把华北平原当长江中下游平原、把东北当西北，区域背景错则特征描述与区位分析全偏。</span></div>
+  <div class="pit"><span class="num">4</span><span><b>区位分析漏人文因素</b>：只答地形气候水源，不答市场交通政策劳动力，漏一大类得分点。</span></div>
+  <div class="pit"><span class="num">5</span><span><b>区位分析漏自然因素</b>：只写市场交通，忽略地形气候等自然条件，角度残缺。</span></div>
+  <div class="pit"><span class="num">6</span><span><b>只看图不看图例</b>：符号含义不明就开答，把耕地当林地、把油田当煤田，数据结论全错。</span></div>
+  <div class="pit"><span class="num">7</span><span><b>忽略单位</b>：图表单位是千米还是米、毫米还是厘米不看清楚，数值类得分点全部出错。</span></div>
+  <div class="pit"><span class="num">8</span><span><b>等值线读反</b>：数值递变方向看反、疏密含义弄错，等高线与等压线结论颠倒。</span></div>
+  <div class="pit"><span class="num">9</span><span><b>比例尺看错</b>：比例尺大小与范围关系混淆，距离估算与面积判断出错。</span></div>
+  <div class="pit"><span class="num">10</span><span><b>坐标图轴义混淆</b>：横纵轴代表什么不看清楚，把降水当气温、把年份当数值。</span></div>
+  <div class="pit"><span class="num">11</span><span><b>方位口语化</b>：写「上面下面」「左边右边」，不写「自西北向东南」「由沿海向内陆」，描述不规范。</span></div>
+  <div class="pit"><span class="num">12</span><span><b>分布特征缺层次</b>：只写「不均匀」不写哪里多哪里少、延伸方向，特征描述不完整。</span></div>
+  <div class="pit"><span class="num">13</span><span><b>气候特征漏维度</b>：只写降水不写气温，或只写总量不写季节分配，气候特征不完整。</span></div>
+  <div class="pit"><span class="num">14</span><span><b>原因分析只答人为</b>：只写人类活动影响，忽略气候地形等自然原因，原因角度残缺。</span></div>
+  <div class="pit"><span class="num">15</span><span><b>措施空泛不落地</b>：只写「加强治理」「保护环境」，没有具体工程、生物、管理措施，得分点单薄。</span></div>
+  <div class="pit"><span class="num">16</span><span><b>「评价」只答优不答劣</b>：设问「评价区位条件」只写有利因素，忽略不利因素，评价类设问结构性缺分。</span></div>
+  <div class="pit"><span class="num">17</span><span><b>把一点反复说</b>：一个意思换三种说法写三条，实际只有一个得分点。</span></div>
+  <div class="pit"><span class="num">18</span><span><b>主观题一段到底</b>：没有序号、没有换行，得分点淹没在长段里，高速阅卷漏采。</span></div>
+  <div class="pit"><span class="num">19</span><span><b>答题出框</b>：写到扫描盲区、越过答题边界，阅卷端看不到，等于白写。</span></div>
+  <div class="pit"><span class="num">20</span><span><b>涂卡错位漏涂</b>：选择题涂卡与题号错位、漏涂、涂改不清，机器识别失误，整题失分。</span></div>
+</section>
+
+<section id="sec8" class="sec">
+  <h2><span class="no">8</span>平时训练：把「模板 + 术语 + 图表」练成条件反射</h2>
+  <p class="sec-lead">地理提分最有效的训练不是死记硬背，而是「按阅卷标准练输出」——让每一次练习的答案都经得起术语与得分点双重检验。</p>
+  <ul>
+    <li><b>构建答题模板库</b>：按题型整理模板——区位分析（自然 + 人文）、特征描述（空间 + 时间）、原因分析（自然 + 人为）、措施建议（工程 + 生物 + 管理），考前反复过。</li>
+    <li><b>规范术语积累本</b>：把口语化表达与规范术语对照登记（如「泥土被冲走 → 水土流失」「季节风 → 季风气候」），练习时强制使用规范术语。</li>
+    <li><b>拆解标准答案</b>：每次综合题练习后，对照参考答案拆得分点，标出「这条是什么角度、用了什么术语、我缺了什么」，而不是只看对错。</li>
+    <li><b>限时输出训练</b>：每周至少一次完整限时模拟，专练时间配比；平时单题也限时——区位分析 8 分钟内完成「定角度—写术语—成文」全流程。</li>
+    <li><b>读图专项训练</b>：每天精读一张图（等值线、坐标图、区域图、示意图），先读图例单位比例尺再读内容，训练「快速判读」的能力。</li>
+    <li><b>地图记忆常态化</b>：经常看中国与世界的政区、地形、气候分布图，重点区域特征反复过，减少考场上的区域定位失误。</li>
+    <li><b>错题归因</b>：选择题错题按「图表判读 / 区域定位 / 术语概念 / 审题偏差」四类归档，摸清自己的失分模式再针对性补漏。</li>
+  </ul>
+  <div class="ok"><b>训练铁律</b>：地理训练的核心是「模板 + 术语」的输出质量而非题量。一道题按「角度全 + 术语准 + 分条清」规范重写，胜过十道题写完不看。</div>
+</section>
+
+<section id="sec9" class="sec">
+  <h2><span class="no">9</span>临场心态：地理考的是「先读图、再答题、不慌不抢」</h2>
+  <p class="sec-lead">地理图表多、信息量大，心态一乱就容易读图马虎、答题丢角度。几个临场原则帮你守住正常发挥。</p>
+  <ul>
+    <li><b>先易后难，稳住节奏</b>：选择题按顺序推进，卡壳的题标记后跳过，先把能确定的分拿到手，回头再攻。</li>
+    <li><b>读图先读「图例单位比例尺」</b>：拿到图表不要急着看内容，先花十秒读完三要素，再判读内容——慢十秒读图，省十分钟返工。</li>
+    <li><b>综合题先列角度再动笔</b>：落笔前在草稿纸上列出「自然：… 人文：…」的角度清单，再逐条成文，防止漏角度、写到一半卡壳。</li>
+    <li><b>不轻易改选择题</b>：检查阶段除非有十足把握，否则不修改第一判断——地理图表题第一直觉通常更可靠。</li>
+    <li><b>答满不留白</b>：综合题哪怕思路不清也要按「术语 + 角度」写出能写的部分，写到就有得分机会，留白一定零分。</li>
+  </ul>
+  <div class="gold-lead"><b>收卷前 10 分钟</b>：核对涂卡对应题号 → 检查综合题是否每问都答、术语与单位是否规范 → 补漏角度、改口语表述 → 停笔不再大改。从容收尾，就是地理最大的得分策略。</div>
+</section>
+
+</main>
+
+<footer>
+  <p>刘老师教研 · 高中地理教研 · 高考阅卷视角注意事项 · 供考生与家长对照使用</p>
+  <p style="margin-top:6px;color:#8fa3bd">本文档为通用备考方法指导，具体评分细则以当年考试说明与正式阅卷标准为准。</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>刘老师教研 · 高考阅卷老师视角 · 高中数学注意事项全解析</title>
+<style>
+:root{
+  --ink:#10263f; --ink2:#33465e; --paper:#f6f8fb; --card:#ffffff; --line:#e3e9f1;
+  --blue:#1d5fbf; --blue-bg:#eaf1fb; --red:#c0392b; --red-bg:#fdf0ee;
+  --green:#1f8a5c; --green-bg:#e9f7f0; --gold:#c9991f; --gold-bg:#fbf3dc; --gold-deep:#9a7410;
+  --shadow:0 1px 3px rgba(16,38,63,.08),0 6px 18px rgba(16,38,63,.06);
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--paper);color:var(--ink);line-height:1.8;font-size:15px}
+.hero{background:linear-gradient(135deg,#0d2340 0%,#15365e 55%,#1d4a7e 100%);color:#fff;padding:46px 20px 40px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-60px;top:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.05)}
+.hero:before{content:"";position:absolute;right:90px;bottom:-90px;width:180px;height:180px;border-radius:50%;background:rgba(201,153,31,.14)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+.kicker{display:inline-block;font-size:13px;letter-spacing:2px;color:#e8c96a;border:1px solid rgba(232,201,106,.45);padding:3px 12px;border-radius:20px;margin-bottom:14px}
+.hero h1{font-size:clamp(25px,4.2vw,38px);line-height:1.32;margin-bottom:14px;letter-spacing:.5px}
+.hero .sub{font-size:15px;color:#c7d6ea;max-width:800px;margin-bottom:18px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#e6edf7;padding:3px 11px;border-radius:20px}
+nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(16,38,63,.05)}
+nav .wrap{display:flex;gap:4px;overflow-x:auto;padding:0 12px;scrollbar-width:none}
+nav .wrap::-webkit-scrollbar{display:none}
+nav a{flex:0 0 auto;text-decoration:none;color:var(--ink2);font-size:13px;padding:11px 12px;white-space:nowrap;border-bottom:2px solid transparent}
+nav a:hover,nav a:focus-visible{color:var(--blue);border-bottom-color:var(--blue)}
+main.wrap{padding-top:34px;padding-bottom:60px}
+h2{font-size:clamp(20px,3vw,26px);margin:0 0 6px;color:var(--ink);scroll-margin-top:70px}
+h2 .no{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:var(--blue);color:#fff;font-size:15px;margin-right:9px;vertical-align:2px}
+h3{font-size:17px;margin:20px 0 10px;color:var(--ink)}
+p{margin:9px 0}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 24px 26px;margin-bottom:26px}
+.sec-lead{color:var(--ink2);font-size:14px;margin-bottom:16px}
+.gold-lead{background:var(--gold-bg);border-left:4px solid var(--gold);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0;color:#6b5208;font-size:14px}
+.callout{background:var(--blue-bg);border-left:4px solid var(--blue);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0;color:#143c6e;font-size:14px}
+.danger{background:var(--red-bg);border-left:4px solid var(--red);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0;color:#7a2c22;font-size:14px}
+.ok{background:var(--green-bg);border-left:4px solid var(--green);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0;color:#15593c;font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+th{background:#eef3f9;color:var(--ink);font-weight:600}
+tbody tr:nth-child(even){background:#fafcff}
+td b{color:var(--ink)}
+ul,ol{margin:8px 0 8px 22px}
+li{margin:5px 0}
+.pit{display:flex;gap:10px;background:#fbfcfd;border:1px solid #e3e9f1;border-radius:10px;padding:11px 14px;margin:9px 0;font-size:14px}
+.pit .num{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--red);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.pit b{color:var(--ink)}
+footer{background:var(--ink);color:#c7d6ea;padding:26px 20px;font-size:13px;text-align:center}
+@media (max-width:640px){
+  body{font-size:14.5px}
+  .sec{padding:18px 14px 20px}
+  th,td{padding:8px 9px;font-size:13px}
+  .wrap{padding:0 14px}
+}
+@media print{
+  nav{display:none}
+  body{background:#fff}
+  .sec{box-shadow:none;break-inside:avoid}
+  a{color:var(--ink);text-decoration:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">刘老师教研 · 高考阅卷视角</span>
+    <h1>高考阅卷老师视角<br>高中数学注意事项全解析</h1>
+    <p class="sub">从「按点给分」的阅卷逻辑出发，拆解高中数学考试最容易丢分的环节：步骤书写、卷面规范、题型策略、评分细则、时间节奏与临场心态。让会做的题不丢分，不会做的题多拿步骤分。</p>
+    <div class="tags">
+      <span class="tag">按点给分逻辑</span>
+      <span class="tag">五大失分重灾区</span>
+      <span class="tag">三类题型策略</span>
+      <span class="tag">卷面扫描规范</span>
+      <span class="tag">评分细则揭秘</span>
+      <span class="tag">20条扣分陷阱</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#sec1">1 阅卷逻辑</a>
+    <a href="#sec2">2 失分重灾区</a>
+    <a href="#sec3">3 题型策略</a>
+    <a href="#sec4">4 卷面规范</a>
+    <a href="#sec5">5 评分细则</a>
+    <a href="#sec6">6 时间节奏</a>
+    <a href="#sec7">7 扣分陷阱</a>
+    <a href="#sec8">8 平时训练</a>
+    <a href="#sec9">9 临场心态</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<section id="sec1" class="sec">
+  <h2><span class="no">1</span>阅卷底层逻辑：高考数学是「按点给分」，不是「按印象给分」</h2>
+  <p class="sec-lead">理解了阅卷的评分机制，就理解了备考的一切。高考数学解答题不追求「看懂你的思路」，只追求「找到你的采分点」。</p>
+  <ul>
+    <li><b>按点给分</b>：每道解答题在评分细则中被拆成若干「采分点」，每一步关键推导对应固定分数。阅卷老师按点核对，点到即得分，缺点即扣分。</li>
+    <li><b>高速扫描</b>：一位阅卷老师平均每题阅卷时间以秒计，靠「踩点」快速定位，不会逐字精读你的推理过程。你的卷面首要任务，是让采分点<b>一眼可见</b>。</li>
+    <li><b>结果不是唯一</b>：结果正确但关键步骤缺失，照样扣步骤分；结果错误但关键步骤写全，照样拿过程分。这是阅卷视角下最核心的「得分不对称」。</li>
+    <li><b>两种能力缺一不可</b>：会做的题要「把关键步骤写全」；不会做的题要「把能拿的步骤分写出来」。</li>
+  </ul>
+  <div class="gold-lead"><b>一句话心法</b>：你的卷面不是写给老师「看懂的」，是写给老师「找到采分点的」。所有书写习惯，都围绕这一条来改。</div>
+</section>
+
+<section id="sec2" class="sec">
+  <h2><span class="no">2</span>五大失分重灾区（阅卷老师眼中最常见的扣分原因）</h2>
+  <p class="sec-lead">这五类问题，几乎每年都在大量卷面上重复出现。对照自查，大部分「会做却丢分」都能提前堵住。</p>
+  <table>
+    <tr><th style="min-width:110px">重灾区</th><th>阅卷老师看到的</th><th>典型后果</th></tr>
+    <tr><td><b>① 步骤跳步</b></td><td>结果对了，但中间关键推导直接跳过（如「化简得」一笔带过、设而不写、变形过程缺失）</td><td>结果分拿到了，步骤分被扣——会做却丢分的第一大原因</td></tr>
+    <tr><td><b>② 过程书写不规范</b></td><td>不写「解」、不写「由题意得」、证明题逻辑链断裂、结论不作答（求定义域只写算式不写答案）</td><td>关键结论缺失即失分，逻辑链断裂时整段被判「证据不足」</td></tr>
+    <tr><td><b>③ 计算失误</b></td><td>草稿混乱导致抄错数、符号错误、代入错误；阅卷只看结果与关键过程，算错直接失分</td><td>一步算错，连锁扣分；大题往往从第一个错误点开始全错</td></tr>
+    <tr><td><b>④ 卷面问题</b></td><td>字迹潦草、涂抹过多、超出答题区域（扫描裁剪后直接看不见）</td><td>扫描看不到 = 没写；区域外内容不计分，白写</td></tr>
+    <tr><td><b>⑤ 审题偏差</b></td><td>答非所问：求定义域写成值域、求「实数 a 的范围」写成「a 的值」、条件用错</td><td>方向错了，过程再完整也按答非所问处理，可能整题低分</td></tr>
+  </table>
+  <div class="callout"><b>自查建议</b>：翻出最近一次月考/模考卷，只按这五类对照找问题——大概率能发现「丢的分」不是不会，而是这五类中的某几类。</div>
+</section>
+
+<section id="sec3" class="sec">
+  <h2><span class="no">3</span>三类题型，三种应对逻辑</h2>
+  <p class="sec-lead">选择题、填空题、解答题的给分机制完全不同，备考与答题策略也要完全不同。</p>
+
+  <h3>选择题：只求做对，不求过程</h3>
+  <ul>
+    <li>用尽合法技巧：<b>特值法、代入验证、排除法、数形结合、选项互斥</b>——选填题不考过程，做对就是满分。</li>
+    <li>单题限时：平均每题 2-3 分钟为上限，卡住先标记跳过，回头再战，不在一题上消耗大题时间。</li>
+    <li>涂卡节奏：建议「做完一个板块涂一个板块」，避免最后 10 分钟慌乱涂卡出错。</li>
+  </ul>
+
+  <h3>填空题：只有结果分，没有过程分</h3>
+  <ul>
+    <li>答案必须<b>最简形式</b>：能约分要约分、根号要化简、分数要写成最简；不化简按错误处理。</li>
+    <li>注意<b>形式要求</b>：集合要写区间或集合符号、定义域/值域要写集合或区间、单位换算正确。</li>
+    <li>核对<b>符号细节</b>：正负号、开闭区间（端点是否取到）、多空顺序是否对应题目。</li>
+  </ul>
+
+  <h3>解答题：拿分核心，按采分点书写</h3>
+  <ul>
+    <li><b>把关键步骤写出来</b>：设未知数、列出方程、写出公式定理、代入数据、化简过程、得出结论——每一步都可能是采分点。</li>
+    <li><b>不会做也要写步骤</b>：把已知条件翻译成数学语言、写出本题涉及的公式定理、写出能算的第一步——往往能拿到步骤分。</li>
+    <li><b>结果错了不要整段重写</b>：保留正确的过程，把错误部分圈出改正；大段涂黑重写既浪费时间去又损失卷面分。</li>
+    <li><b>分类讨论不遗漏</b>：每种情况都要书写，漏一种就少一整块分数。</li>
+    <li><b>证明题逻辑链完整</b>：每步有依据（「由…得…」），关键命题必须证明，不跳步、不省略「显然」。</li>
+    <li><b>作答要「答」</b>：求范围写「实数 a 的取值范围是…」，求最值写「最大值为…」，别只丢一个孤零零的算式。</li>
+  </ul>
+  <div class="danger"><b>常见误区</b>：很多学生认为「过程写得越简练越好」。恰恰相反——高考阅卷只看采分点，你省略的每一步「化简得」「代入得」，都可能是一分一分地扔掉。</div>
+</section>
+
+<section id="sec4" class="sec">
+  <h2><span class="no">4</span>卷面规范：扫描阅卷时代的「隐形分数」</h2>
+  <p class="sec-lead">高考数学实行网上阅卷，答题卡经扫描后按区域裁剪分发给阅卷老师。以下几个规范，直接影响你的卷面被「看到」的程度。</p>
+  <table>
+    <tr><th style="min-width:120px">规范项</th><th>要求</th><th>为什么重要</th></tr>
+    <tr><td><b>用笔</b></td><td>黑色签字笔（建议 0.5mm），铅笔只用于作图草稿</td><td>扫描识别度最高；浅色笔迹扫描后可能淡到看不清</td></tr>
+    <tr><td><b>作图</b></td><td>尺规作图（直尺、圆规），辅助线清晰，关键点标注；铅笔画完后可用签字笔描关键线条</td><td>模糊徒手作图在扫描后更模糊，关键图形可能不被采信</td></tr>
+    <tr><td><b>答题区域</b></td><td>严格在题目对应答题区域内作答，不越界、不出格</td><td>区域外内容扫描裁剪后直接看不见，等于没写</td></tr>
+    <tr><td><b>书写</b></td><td>字迹工整、行距适中、不写连笔草书；数字与字母清晰可辨</td><td>阅卷高速扫描下，潦草字迹会被直接跳过或误读</td></tr>
+    <tr><td><b>修改</b></td><td>写错划一条斜线即可，不涂黑块、不反复描画</td><td>大面积涂改影响扫描清晰度，也会挤压有效书写空间</td></tr>
+    <tr><td><b>编号</b></td><td>第(1)问、第(2)问分别书写、层次分明</td><td>让阅卷老师快速定位到对应采分点</td></tr>
+    <tr><td><b>演算</b></td><td>草稿纸按题分区、标号清晰</td><td>便于检查时快速找回，减少抄错</td></tr>
+  </table>
+  <div class="ok"><b>自测方法</b>：把卷面拍照后缩到 60% 再看——如果你自己都看不清、找不到步骤，阅卷老师更不会。卷面能「缩小一倍还清楚」，就是合格水平。</div>
+</section>
+
+<section id="sec5" class="sec">
+  <h2><span class="no">5</span>评分细则揭秘：为什么「同样的答案」得分不同</h2>
+  <p class="sec-lead">阅卷评分不是「对就给满、错就全扣」，而是按步骤累计。理解细则，就是理解「怎么把分拿全」。</p>
+  <table>
+    <tr><th style="min-width:130px">情形</th><th>评分逻辑</th><th>给考生的启示</th></tr>
+    <tr><td><b>结果正确、步骤不全</b></td><td>结果分 + 已写采分点的分；缺失步骤的分数照扣</td><td>过程写得越接近「评分细则」，得分越高——平时就要按采分点书写</td></tr>
+    <tr><td><b>结果错误、过程正确</b></td><td>按已写出的关键步骤给过程分，通常能拿到一半甚至更多</td><td>永远不要因为「可能不对」而放弃书写；写了就有分</td></tr>
+    <tr><td><b>关键步骤写错</b></td><td>错误节点之后的连锁推导一般不再给分，但之前的分保留</td><td>宁可少写一步，不写没把握的「关键结论」——写错关键步代价最大</td></tr>
+    <tr><td><b>多写冗余步骤</b></td><td>一般不因多写扣分（除非前后自相矛盾）</td><td>拿不准的步骤可写，但不要写与正确推导矛盾的结论</td></tr>
+    <tr><td><b>答非所问</b></td><td>方向性错误，整题按低分或零分处理风险高</td><td>动笔前先圈出「求什么」，写完回读一遍是否回答了问题</td></tr>
+  </table>
+  <div class="gold-lead"><b>核心结论</b>：同一道 12 分的大题，步骤完整度不同，得分差距可以到 5-10 分。这就是「会做的人拿满分、同样会做的人只拿一半」的真正原因。</div>
+</section>
+
+<section id="sec6" class="sec">
+  <h2><span class="no">6</span>时间与节奏：把 150 分钟花在刀刃上</h2>
+  <p class="sec-lead">以下为参考节奏，具体以卷面难度微调。核心原则：先易后难、先拿稳分、难题只拿步骤分、留出检查时间。</p>
+  <table>
+    <tr><th style="min-width:120px">板块</th><th>参考用时</th><th>节奏要点</th></tr>
+    <tr><td><b>选择题</b></td><td>约 35-45 分钟</td><td>单题上限 2-3 分钟；卡住标记跳过，完成一轮后再回头</td></tr>
+    <tr><td><b>填空题</b></td><td>约 10-15 分钟</td><td>结果型题目，做完即核对符号与最简形式</td></tr>
+    <tr><td><b>前几道解答题</b></td><td>约 30-35 分钟</td><td>中档题是得分基本盘，步骤写全、不留遗憾</td></tr>
+    <tr><td><b>压轴题</b></td><td>约 25-35 分钟</td><td>第一问必拿，第二问写思路与关键步骤，第三问量力而行</td></tr>
+    <tr><td><b>检查</b></td><td>留 15-25 分钟</td><td>先查涂卡与漏题，再查符号、单位、区间等细节错误</td></tr>
+  </table>
+  <div class="callout"><b>时间铁律</b>：① 卡壳超 3 分钟立即跳过，回头再战；② 压轴题最后一问的「思考时间」上限，取决于你还剩多少检查时间；③ 最后 10 分钟只做两件事——核对答题卡涂卡、核对名字考号，不再攻克难题。</div>
+</section>
+
+<section id="sec7" class="sec">
+  <h2><span class="no">7</span>20 条扣分陷阱清单：考前一晚逐条过一遍</h2>
+  <p class="sec-lead">这 20 条覆盖了阅卷中最常见的扣分场景，按「高频 → 冷门」排列。考前反复对照，就是最直接的提分动作。</p>
+
+  <div class="pit"><span class="num">1</span><div><b>步骤跳步</b>：关键推导「化简得」「解得」一笔带过，结果对仍被扣步骤分。</div></div>
+  <div class="pit"><span class="num">2</span><div><b>不写「解」与作答</b>：解答题不写「解」，最后不写「答」，关键结论缺失。</div></div>
+  <div class="pit"><span class="num">3</span><div><b>结果未化简</b>：填空题答案未约分、未化简、未写成最简形式。</div></div>
+  <div class="pit"><span class="num">4</span><div><b>定义域值域混用</b>：求定义域写成值域，或只写算式不写区间/集合。</div></div>
+  <div class="pit"><span class="num">5</span><div><b>开闭区间写错</b>：端点是否取到判断失误，填空题整空丢分。</div></div>
+  <div class="pit"><span class="num">6</span><div><b>符号错误</b>：正负号、移项变号、去括号符号抄错。</div></div>
+  <div class="pit"><span class="num">7</span><div><b>代入错误</b>：把条件代入公式时抄错数据，一步错步步错。</div></div>
+  <div class="pit"><span class="num">8</span><div><b>分类讨论遗漏</b>：讨论 a=0、a&gt;0、a&lt;0 时漏掉某一类，或少一种情况。</div></div>
+  <div class="pit"><span class="num">9</span><div><b>证明跳步</b>：证明题「显然成立」「由图像可知」跳过关键证明，逻辑链断裂。</div></div>
+  <div class="pit"><span class="num">10</span><div><b>答非所问</b>：题目求「实数 a 的范围」，你写了「a 的值」；求「最小值」，你写了「取最小值时 x 的值」。</div></div>
+  <div class="pit"><span class="num">11</span><div><b>涂卡失误</b>：选填答案与答题卡错位、漏涂、涂错题号。</div></div>
+  <div class="pit"><span class="num">12</span><div><b>区域外作答</b>：超出答题区域，扫描裁剪后内容丢失。</div></div>
+  <div class="pit"><span class="num">13</span><div><b>字迹潦草</b>：数字 0/O、1/l、2/Z 难辨，阅卷误读或跳过。</div></div>
+  <div class="pit"><span class="num">14</span><div><b>作图不标关键点</b>：徒手作图、不标交点/切点/端点，图形信息不采信。</div></div>
+  <div class="pit"><span class="num">15</span><div><b>多空对应错位</b>：填空题多空答案顺序与题目不对应。</div></div>
+  <div class="pit"><span class="num">16</span><div><b>单位缺失</b>：应用题、含单位的题目答案漏写单位。</div></div>
+  <div class="pit"><span class="num">17</span><div><b>关键步写错</b>：写出错误的关键结论（如判别式符号写反），之后的推导全部连锁失分。</div></div>
+  <div class="pit"><span class="num">18</span><div><b>无谓多写</b>：写与正确推导矛盾的步骤，或大段无效过程干扰阅卷定位采分点。</div></div>
+  <div class="pit"><span class="num">19</span><div><b>放弃书写</b>：觉得不会做就留白——即使只写出条件翻译和公式，也有步骤分。</div></div>
+  <div class="pit"><span class="num">20</span><div><b>检查时间不够</b>：前面恋战，最后没有时间核对涂卡与细节错误。</div></div>
+</section>
+
+<section id="sec8" class="sec">
+  <h2><span class="no">8</span>平时怎么练：把「阅卷友好」练成肌肉记忆</h2>
+  <p class="sec-lead">卷面和步骤习惯不是考场上临时能改的，要靠平时刻意训练。以下四件事，坚持一个月就能看到「会做却不丢分」的效果。</p>
+  <table>
+    <tr><th style="min-width:130px">训练项目</th><th>具体做法</th><th>频率建议</th></tr>
+    <tr><td><b>限时整卷训练</b></td><td>按考试时间完整做套卷，模拟真实节奏与涂卡</td><td>每周 1-2 次</td></tr>
+    <tr><td><b>采分点自评</b></td><td>对答案时把每道大题按「采分点」逐条核对，标注每一步得了多少分、为什么扣分</td><td>每次整卷后必做</td></tr>
+    <tr><td><b>步骤压缩书写</b></td><td>平时练习就按「设 → 列 → 代 → 化 → 结论」五步写全，训练省略冗长、保留采分点的书写</td><td>贯穿每次作业</td></tr>
+    <tr><td><b>草稿分区管理</b></td><td>草稿纸按题号分区，标注清晰，方便检查找回</td><td>平时养成</td></tr>
+    <tr><td><b>模拟评卷</b></td><td>请老师或有阅卷经验的教研员按评分细则评一次卷，看自己真实得分率与「自认为得分」的差距</td><td>每 2-4 周一次</td></tr>
+  </table>
+  <div class="gold-lead"><b>判断标准</b>：如果孩子「自评得分」与「老师按细则评分」差距超过 10 分，说明步骤书写正在大量丢分——这是比「不会做」更容易补的提分空间。</div>
+</section>
+
+<section id="sec9" class="sec">
+  <h2><span class="no">9</span>考前 48 小时与考场心态：把「会做的」稳稳做对</h2>
+  <p class="sec-lead">最后阶段，比的不是谁更拼，而是谁不犯低级错误。</p>
+  <h3>考前 48 小时</h3>
+  <ul>
+    <li><b>回归基础</b>：不攻新难题，过一遍公式定理、常见结论与易错点。</li>
+    <li><b>看错题本</b>：重点看「会做却做错」的题——那是考前最划算的提分点。</li>
+    <li><b>作息正常</b>：不熬夜、不突击，保持与考试时间同步的生物钟。</li>
+    <li><b>准备清单</b>：准考证、身份证、黑色签字笔、2B 铅笔、橡皮、直尺、圆规、无标签计算器（按当地规定）提前备好。</li>
+  </ul>
+  <h3>考场上</h3>
+  <ul>
+    <li><b>发卷先浏览</b>：用 1-2 分钟通览全卷，做到心中有数，不慌不躁。</li>
+    <li><b>按节奏执行</b>：先易后难、先拿稳分；难题按「写出能写的步骤」处理，不恋战。</li>
+    <li><b>会做的做对</b>：检查时优先确认「会做的题」没有低级错误，再想难题——把 120 分稳稳拿住，再谈冲击 140。</li>
+    <li><b>考完不回头</b>：一科考完不对答案，专注下一科。</li>
+  </ul>
+  <div class="ok"><b>给家长的话</b>：数学高考真正的差距，往往不在「最后两道压轴题」，而在「会做的题是否全部拿满」。帮孩子把步骤书写、卷面规范、时间节奏这三件事练稳，就是最实在的提分方案。</div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">刘老师教研 · 高中数学教研 · 高考阅卷视角注意事项 · 供考生与家长对照使用</div>
+</footer>
+
+</body>
+</html>
