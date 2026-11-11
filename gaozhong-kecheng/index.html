@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>刘老师教研 · 高中各年级学科重要性分析 · 总入口</title>
+<style>
+:root{
+  --ink:#10263f; --ink2:#33465e; --paper:#f6f8fb; --card:#ffffff; --line:#e3e9f1;
+  --blue:#1d5fbf; --blue-bg:#eaf1fb; --red:#c0392b; --red-bg:#fdf0ee;
+  --green:#1f8a5c; --green-bg:#e9f7f0; --gold:#c9991f; --gold-bg:#fbf3dc; --gold-deep:#9a7410;
+  --shadow:0 1px 3px rgba(16,38,63,.08),0 6px 18px rgba(16,38,63,.06);
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--paper);color:var(--ink);line-height:1.8;font-size:15px}
+.hero{background:linear-gradient(135deg,#0d2340 0%,#15365e 55%,#1d4a7e 100%);color:#fff;padding:46px 20px 40px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-60px;top:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.05)}
+.hero:before{content:"  ";position:absolute;right:90px;bottom:-90px;width:180px;height:180px;border-radius:50%;background:rgba(201,153,31,.14)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+.kicker{display:inline-block;font-size:13px;letter-spacing:2px;color:#e8c96a;border:1px solid rgba(232,201,106,.45);padding:3px 12px;border-radius:20px;margin-bottom:14px}
+.hero h1{font-size:clamp(24px,4vw,36px);line-height:1.32;margin-bottom:14px;letter-spacing:.5px}
+.hero .sub{font-size:15px;color:#c7d6ea;max-width:820px;margin-bottom:18px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#e6edf7;padding:3px 11px;border-radius:20px}
+nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(16,38,63,.05)}
+nav .wrap{display:flex;gap:4px;overflow-x:auto;padding:0 12px;scrollbar-width:none}
+nav .wrap::-webkit-scrollbar{display:none}
+nav a{flex:0 0 auto;text-decoration:none;color:var(--ink2);font-size:13px;padding:11px 12px;white-space:nowrap;border-bottom:2px solid transparent}
+nav a:hover,nav a:focus-visible{color:var(--blue);border-bottom-color:var(--blue)}
+main.wrap{padding-top:34px;padding-bottom:60px}
+h2{font-size:clamp(20px,3vw,26px);margin:0 0 6px;color:var(--ink);scroll-margin-top:70px}
+h2 .no{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:var(--blue);color:#fff;font-size:15px;margin-right:9px;vertical-align:2px}
+h3{font-size:17px;margin:22px 0 10px;color:var(--ink);border-left:4px solid var(--gold);padding-left:10px}
+p{margin:9px 0}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 24px 26px;margin-bottom:26px}
+.sec-lead{color:var(--ink2);font-size:14px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:12px 0}
+.csub{display:block;background:#fbfcfd;border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;text-decoration:none;color:var(--ink);transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
+.csub:hover,.csub:focus-visible{transform:translateY(-2px);border-color:var(--blue);box-shadow:var(--shadow)}
+.csub .cn{font-size:17px;font-weight:700;color:var(--blue);margin-bottom:5px}
+.csub .cd{font-size:12.5px;color:var(--ink2);line-height:1.65}
+.csub .go{display:inline-block;margin-top:9px;font-size:11.5px;color:var(--gold-deep);background:var(--gold-bg);border:1px solid #ead9a6;padding:2px 11px;border-radius:20px}
+.callout{background:var(--blue-bg);border-left:4px solid var(--blue);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0;color:#143c6e;font-size:14px}
+.ok{background:var(--green-bg);border-left:4px solid var(--green);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0;color:#15593c;font-size:14px}
+.gold-lead{background:var(--gold-bg);border-left:4px solid var(--gold);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0;color:#6b5208;font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+th{background:#eef3f9;color:var(--ink);font-weight:600}
+tbody tr:nth-child(even){background:#fafcff}
+ul,ol{margin:8px 0 8px 22px}
+li{margin:5px 0}
+footer{background:var(--ink);color:#c7d6ea;padding:26px 20px;font-size:13px;text-align:center}
+@media (max-width:640px){
+  body{font-size:14.5px}
+  .sec{padding:18px 14px 20px}
+  th,td{padding:8px 9px;font-size:13px}
+  .wrap{padding:0 14px}
+}
+@media print{
+  nav{display:none}
+  body{background:#fff}
+  .sec{box-shadow:none;break-inside:avoid}
+  a{color:var(--ink);text-decoration:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">刘老师教研 · 课程链接总入口</span>
+    <h1>高中各年级学科重要性分析<br>链接总入口</h1>
+    <p class="sub">高一、高二、高三 × 语文 / 数学 / 英语 / 化学 / 物理，共 15 份「学科重要性 · 全面专业分析」全部集成于此。点击任一卡片直达对应分析页面，链接长期有效，可收藏转发给家长与学生。</p>
+    <div class="tags">
+      <span class="tag">高一 5 科</span>
+      <span class="tag">高二 5 科</span>
+      <span class="tag">高三 5 科</span>
+      <span class="tag">15 份分析</span>
+      <span class="tag">长期有效</span>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#sec1">高一</a>
+    <a href="#sec2">高二</a>
+    <a href="#sec3">高三</a>
+    <a href="#sec4">使用说明</a>
+    <a href="#sec5">总览表</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<section id="sec1" class="sec">
+  <h2><span class="no">1</span>高一 · 学科重要性分析（5 科）</h2>
+  <p class="sec-lead">高一重在「地基 + 选科起点」，各科分析聚焦初升高衔接、思维转型与三年规划起点。</p>
+  <div class="grid">
+    <a class="csub" href="https://szsjd7n9x9.page.coze.site" target="_blank" rel="noopener noreferrer"><span class="cn">高一语文</span><span class="cd">语文重要性 · 全面专业分析</span><span class="go">打开分析 →</span></a>
+    <a class="csub" href="https://4wc2xk32pt.page.coze.site" target="_blank" rel="noopener noreferrer"><span class="cn">高一数学</span><span class="cd">数学重要性 · 全面专业分析</span><span class="go">打开分析 →</span></a>
+    <a class="csub" href="https://ct2n9ggxz3.page.coze.site" target="_blank" rel="noopener noreferrer"><span class="cn">高一英语</span><span class="cd">英语重要性 · 全面专业分析</span><span class="go">打开分析 →</span></a>
+    <a class="csub" href="https://3jdnsxc99b.page.coze.site" target="_blank" rel="noopener noreferrer"><span class="cn">高一化学</span><span class="cd">化学重要性 · 全面专业分析</span><span class="go">打开分析 →</span></a>
+    <a class="csub" href="https://2cjchzcdwd.page.coze.site" target="_blank" rel="noopener noreferrer"><span class="cn">高一物理</span><span class="cd">物理重要性 · 全面专业分析</span><span class="go">打开分析 →</span></a>
+  </div>
+</section>
+
+<section id="sec2" class="sec">
+  <h2><span class="no">2</span>高二 · 学科重要性分析（5 科）</h2>
+  <p class="sec-lead">高二重在「难度峰值 + 选科落地」，各科分析聚焦学科难度跃升、分化预警与高中攻坚。</p>
+  <div class="grid">
+    <a class="csub" href="https://xc4dwsnr8j.page.coze.site" target="_blank" rel="noopener noreferrer"><span class="cn">高二语文</span><span class="cd">语文重要性 · 全面专业分析</span><span class="go">打开分析 →</span></a>
+    <a class="csub" href="https://2s4s4qvnj6.page.coze.site" target="_blank" rel="noopener noreferrer"><span class="cn">高二数学</span><span class="cd">数学重要性 · 全面专业分析</span><span class="go">打开分析 →</span></a>
+    <a class="csub" href="https://6j6x525rjw.page.coze.site" target="_blank" rel="noopener noreferrer"><span class="cn">高二英语</span><span class="cd">英语重要性 · 全面专业分析</span><span class="go">打开分析 →</span></a>
+    <a class="csub" href="https://6ptg3qx73c.page.coze.site" target="_blank" rel="noopener noreferrer"><span class="cn">高二化学</span><span class="cd">化学重要性 · 全面专业分析</span><span class="go">打开分析 →</span></a>
+    <a class="csub" href="https://tz69yf54yp.page.coze.site" target="_blank" rel="noopener noreferrer"><span class="cn">高二物理</span><span class="cd">物理重要性 · 全面专业分析</span><span class="go">打开分析 →</span></a>
+  </div>
+</section>
+
+<section id="sec3" class="sec">
+  <h2><span class="no">3</span>高三 · 学科重要性分析（5 科）</h2>
+  <p class="sec-lead">高三重在「冲刺 + 总分策略」，各科分析聚焦高考分值权重、复习节奏与得分策略。</p>
+  <div class="grid">
+    <a class="csub" href="https://mrtzccc57n.page.coze.site" target="_blank" rel="noopener noreferrer"><span class="cn">高三语文</span><span class="cd">语文重要性 · 全面专业分析</span><span class="go">打开分析 →</span></a>
+    <a class="csub" href="https://89qq97vdzp.page.coze.site" target="_blank" rel="noopener noreferrer"><span class="cn">高三数学</span><span class="cd">数学重要性 · 全面专业分析</span><span class="go">打开分析 →</span></a>
+    <a class="csub" href="https://68swk53mb2.page.coze.site" target="_blank" rel="noopener noreferrer"><span class="cn">高三英语</span><span class="cd">英语重要性 · 全面专业分析</span><span class="go">打开分析 →</span></a>
+    <a class="csub" href="https://ydrt3zh3jy.page.coze.site" target="_blank" rel="noopener noreferrer"><span class="cn">高三化学</span><span class="cd">化学重要性 · 全面专业分析</span><span class="go">打开分析 →</span></a>
+    <a class="csub" href="https://k6mp4fyf4r.page.coze.site" target="_blank" rel="noopener noreferrer"><span class="cn">高三物理</span><span class="cd">物理重要性 · 全面专业分析</span><span class="go">打开分析 →</span></a>
+  </div>
+</section>
+
+<section id="sec4" class="sec">
+  <h2><span class="no">4</span>使用说明：链接长期有效，可直接保存转发</h2>
+  <p class="sec-lead">本入口页集成 15 份高中各年级学科重要性分析，全部为云端长期链接。</p>
+  <ul>
+    <li><b>保存方式</b>：把本页加入收藏夹或转发给家长/学生，即可随时打开 15 份分析。</li>
+    <li><b>转发建议</b>：高一家长重点看「衔接与选科」；高二家长重点看「分化与攻坚」；高三家长重点看「分值权重与冲刺策略」。</li>
+    <li><b>更新机制</b>：内容迭代后可重新发布，入口链接保持不变。</li>
+  </ul>
+  <div class="ok"><b>合规说明</b>：各分析页面为专业教研内容，具体升学政策与分值以当年官方文件为准。</div>
+</section>
+
+<section id="sec5" class="sec">
+  <h2><span class="no">5</span>15 份分析总览表</h2>
+  <table>
+    <tr><th>年级</th><th>语文</th><th>数学</th><th>英语</th><th>化学</th><th>物理</th></tr>
+    <tr><td><b>高一</b></td><td><a href="https://szsjd7n9x9.page.coze.site" target="_blank" rel="noopener noreferrer">打开</a></td><td><a href="https://4wc2xk32pt.page.coze.site" target="_blank" rel="noopener noreferrer">打开</a></td><td><a href="https://ct2n9ggxz3.page.coze.site" target="_blank" rel="noopener noreferrer">打开</a></td><td><a href="https://3jdnsxc99b.page.coze.site" target="_blank" rel="noopener noreferrer">打开</a></td><td><a href="https://2cjchzcdwd.page.coze.site" target="_blank" rel="noopener noreferrer">打开</a></td></tr>
+    <tr><td><b>高二</b></td><td><a href="https://xc4dwsnr8j.page.coze.site" target="_blank" rel="noopener noreferrer">打开</a></td><td><a href="https://2s4s4qvnj6.page.coze.site" target="_blank" rel="noopener noreferrer">打开</a></td><td><a href="https://6j6x525rjw.page.coze.site" target="_blank" rel="noopener noreferrer">打开</a></td><td><a href="https://6ptg3qx73c.page.coze.site" target="_blank" rel="noopener noreferrer">打开</a></td><td><a href="https://tz69yf54yp.page.coze.site" target="_blank" rel="noopener noreferrer">打开</a></td></tr>
+    <tr><td><b>高三</b></td><td><a href="https://mrtzccc57n.page.coze.site" target="_blank" rel="noopener noreferrer">打开</a></td><td><a href="https://89qq97vdzp.page.coze.site" target="_blank" rel="noopener noreferrer">打开</a></td><td><a href="https://68swk53mb2.page.coze.site" target="_blank" rel="noopener noreferrer">打开</a></td><td><a href="https://ydrt3zh3jy.page.coze.site" target="_blank" rel="noopener noreferrer">打开</a></td><td><a href="https://k6mp4fyf4r.page.coze.site" target="_blank" rel="noopener noreferrer">打开</a></td></tr>
+  </table>
+  <div class="gold-lead"><b>一句话心法</b>：高一打地基、高二破难点、高三拼总分——每份「重要性分析」都告诉你这一科在当下年级值多少钱、怎么抓。</div>
+</section>
+
+</main>
+
+<footer>
+  <p>刘老师教研 · 高中各年级学科重要性分析 · 链接总入口 · 供考生与家长对照使用</p>
+  <p style="margin-top:6px;color:#8fa3bd">本入口页汇集 15 份教研分析，具体升学政策与分值以当年官方文件为准。</p>
+</footer>
+
+</body>
+</html>
