@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刘老师教研 · 高考数学95-145分数段全面分析</title>
+<style>
+:root{
+  --navy:#0f2a4a;--navy2:#16385e;--gold:#d4a853;--gold2:#b8913c;--bg:#f6f7fb;
+  --card:#ffffff;--ink:#24303f;--muted:#6b7a8c;--line:#e3e8f0;--ok:#1f7a4d;--okbg:#e8f5ee;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;font-size:16px}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 62%,#1e4a72 100%);color:#fff;padding:64px 20px 56px;text-align:center}
+.hero .kicker{display:inline-block;border:1px solid rgba(212,168,83,.55);color:#e6c684;font-size:13px;letter-spacing:2px;padding:6px 16px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:34px;font-weight:800;line-height:1.35;margin-bottom:14px;letter-spacing:.5px}
+.hero .sub{font-size:16px;color:#cdd8e8;max-width:760px;margin:0 auto}
+.hero .stats{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:28px}
+.hero .stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:14px 20px;min-width:150px}
+.hero .stat b{display:block;font-size:26px;color:#f0cd83;font-weight:800}
+.hero .stat span{font-size:13px;color:#c7d3e4}
+nav.sticky{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.97);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(15,42,74,.25)}
+nav.sticky .wrap{display:flex;overflow-x:auto;gap:2px;padding:0 12px}
+nav.sticky a{color:#dce6f3;font-size:14px;padding:12px 10px;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;transition:.2s}
+nav.sticky a:hover,nav.sticky a.active{color:#f0cd83;border-color:var(--gold)}
+section{padding:46px 0 14px;scroll-margin-top:58px}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.sec-no{flex:none;font-size:13px;font-weight:800;color:#fff;background:var(--gold);border-radius:8px;padding:3px 10px;letter-spacing:1px}
+section h2{font-size:25px;color:var(--navy);font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin-bottom:18px;max-width:860px}
+h3{font-size:19px;color:var(--navy);margin:22px 0 10px;font-weight:700}
+h4{font-size:16px;color:var(--navy2);margin:16px 0 8px;font-weight:700}
+p{margin:10px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:14px 0;box-shadow:0 1px 4px rgba(15,42,74,.05)}
+.verdict{background:linear-gradient(135deg,#fdf6e8,#f9ecd4);border:1px solid #e9d5a7;border-left:5px solid var(--gold);border-radius:12px;padding:16px 20px;margin:16px 0}
+.verdict b{color:var(--navy)}
+.flag{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:1px 8px;margin-right:6px;vertical-align:2px}
+.flag.fact{background:var(--okbg);color:var(--ok)}
+.flag.judge{background:#fdf0ef;color:#b0463a}
+.tbl-scroll{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:14.5px;min-width:560px}
+th{background:var(--navy);color:#fff;font-weight:700;padding:11px 12px;text-align:left;white-space:nowrap}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7f9fc}
+td.num{font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy);white-space:nowrap}
+.small{font-size:13px;color:var(--muted)}
+.hl{background:#fdf3d8;border-radius:4px;padding:0 4px;font-weight:700;color:#8a6414}
+ol.steps{margin:12px 0 12px 22px}
+ol.steps li{margin:9px 0}
+ul.tight{margin:10px 0 10px 22px}
+ul.tight li{margin:6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.chip{background:#eef2f8;border:1px solid #dbe3ef;color:var(--navy2);font-size:13px;font-weight:700;border-radius:999px;padding:6px 14px}
+.callout{border-left:5px solid var(--navy2);background:#eef3fa;border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;font-size:15px}
+.callout.gold{border-color:var(--gold);background:#fbf4e4}
+.ref-list{font-size:13.5px;color:var(--muted)}
+.ref-list li{margin:7px 0}
+.ref-list a{color:var(--navy2);text-decoration:none;border-bottom:1px dotted #a9b8cc}
+.ref-list a:hover{color:var(--gold2)}
+footer{background:var(--navy);color:#cdd8e8;margin-top:46px;padding:34px 20px 40px;text-align:center}
+footer .brand{font-size:15px;color:#f0cd83;font-weight:700;margin-bottom:8px}
+footer p{font-size:13px;color:#aebdd2;margin:5px 0}
+@media(max-width:640px){
+  .hero h1{font-size:26px}.hero .stat{min-width:120px}
+  section h2{font-size:21px}nav.sticky a{font-size:13px;padding:11px 8px}
+}
+@media print{
+  nav.sticky{display:none}.hero{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  section{page-break-inside:avoid}.card,.verdict,.callout{break-inside:avoid}
+  a{color:#16385e!important;text-decoration:none!important}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <span class="kicker">刘老师教研 · 高考分数段全面分析</span>
+  <h1>高考数学 95 → 145：<br>十一档提分路径全面拆解</h1>
+  <p class="sub">把"从 95 分到 145 分"切成 11 个台阶，每 5 分一档：每一档的画像、缺口、失分诊断、提分路径、周计划、家长协同与里程碑，全部数据化、表格化、可执行。</p>
+  <div class="stats">
+    <div class="stat"><b>11 档</b><span>95→145 每 5 分一档速览</span></div>
+    <div class="stat"><b>19 题 / 150 分</b><span>新高考 I 卷结构（2024 起）</span></div>
+    <div class="stat"><b>0.50</b><span>2026 数学难度值（官方）</span></div>
+    <div class="stat"><b>≈1/20000</b><span>140+ 考生占比（2026 福建）</span></div>
+  </div>
+</header>
+<nav class="sticky"><div class="wrap">
+  <a href="#intro">01 体系说明</a><a href="#seg-95">02 95分档</a><a href="#seg-100">03 100分档</a><a href="#seg-105">04 105分档</a><a href="#seg-110">05 110分档</a><a href="#seg-115">06 115分档</a><a href="#seg-120">07 120分档</a><a href="#seg-125">08 125分档</a><a href="#seg-130">09 130分档</a><a href="#seg-135">10 135分档</a><a href="#seg-140">11 140分档</a><a href="#seg-145">12 145分档</a>
+</div></nav>
+
+<section id="intro">
+  <div class="sec-head"><span class="sec-no">01</span><h2>体系说明：为什么按 95–145 每 5 分一档</h2></div>
+  <p class="lead">提分不是一句"多刷题、多总结"能解决的。分数每上一个台阶，丢分的结构、要练的板块、需要的时间与家长该做的事都不一样。本体系把 95 到 145 切成 11 档，每档给出画像、缺口、诊断、路径、周计划、家长协同与里程碑，方便考生对号入座。</p>
+  <div class="verdict"><b>核心判断：</b>高考数学的分数分布呈"金字塔"：2026 年新高考 I 卷 11 省约 720 万考生中数学满分仅 1 人（<a href="https://3g.china.com/act/redian/13004758/20260626/49571854.html" target="_blank" rel="noopener noreferrer">中华网</a>），140+ 属于万分之一级别。绝大多数提分空间集中在 70–110 分的中档题区间（官方评价报告口径）。因此"每 5 分一档"不是数字游戏，而是把一次只够涨 5 分的动作，做精准、做扎实。</div>
+  <h3>1.1 为什么按 5 分一档拆</h3>
+  <ul class="tight">
+    <li><b>一次只涨 5 分，可执行、可验证</b>：5 分约等于单选 1 题或多选 1 档或填空 1 空或解答一个小问，目标颗粒度小，一个月的努力能看到分数兑现。</li>
+    <li><b>丢分结构每档不同</b>：95 分档丢在基础题与中档题之间；115 分档丢在选填失分控制；130 分档丢在压轴第一问与计算稳定性——每档的诊断对象完全不同，不能共用一套方案。</li>
+    <li><b>与官方难度数据对齐</b>：2026 年福建省数学平均分 74.9 分、难度值 0.50（中等偏难）、140+ 全省仅 47 人约万分之二（<a href="https://news.sohu.com/a/1085953195_122652059" target="_blank" rel="noopener noreferrer">搜狐·2026福建高考数学平均分</a>）；从 95 到 145，每一步都对应着在全国考生分布中的位置跃迁。</li>
+  </ul>
+  <h3>1.2 十一档总览表</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>档位</th><th>段位定位</th><th>核心任务</th><th>主战场</th></tr></thead>
+    <tbody>
+      <tr><td class="num">95</td><td>及格线上挣扎</td><td>基础重建，止住失血</td><td>单选前 6 题 + 解答前三题第 1 问</td></tr>
+      <tr><td class="num">100</td><td>基础基本稳</td><td>中档题筑基</td><td>函数/数列/概率中档小题</td></tr>
+      <tr><td class="num">105</td><td>中档起步</td><td>选填后 2 题 + 前三解答</td><td>解答题前三题全程</td></tr>
+      <tr><td class="num">110</td><td>中档稳定</td><td>解析几何/导数第二问入门</td><td>第 18 题第 1 问、第 19 题第 1 问</td></tr>
+      <tr><td class="num">115</td><td>逼近 120 门槛</td><td>选填失分控制（错 3 题内）</td><td>选填合计</td></tr>
+      <tr><td class="num">120</td><td>高分门槛线</td><td>选填只错 1 + 前三解答满分</td><td>前 14 题 + 解答前三题</td></tr>
+      <tr><td class="num">125</td><td>稳高分段</td><td>解析几何计算稳定性</td><td>第 18 题全程 + 导数分类讨论</td></tr>
+      <tr><td class="num">130</td><td>高分段</td><td>压轴第一问必拿 + 中档零失误</td><td>压轴第 1 问 + 全卷中档</td></tr>
+      <tr><td class="num">135</td><td>顶尖段</td><td>压轴第二问 + 解题速度</td><td>第 19 题第 2 问 + 时间管理</td></tr>
+      <tr><td class="num">140</td><td>超顶尖段</td><td>压轴第二问 + 零失误</td><td>选填全对 + 解答全流程</td></tr>
+      <tr><td class="num">145</td><td>全省极少数</td><td>压轴几乎拿满 + 超强计算稳定性</td><td>全卷零失误 + 压轴第三问</td></tr>
+    </tbody>
+  </table></div>
+  <h3>1.3 新高考 I 卷数学 150 分制结构地图</h3>
+  <p><span class="flag fact">事实</span>2024 年起新高考 I 卷调整为 19 题结构：单选题 8 题共 40 分、多选题 3 题共 18 分、填空题 3 题共 15 分、解答题 5 题共 77 分，合计 150 分、120 分钟（<a href="https://gaokao.eol.cn/shiti/sx/202406/t20240612_2616028.shtml" target="_blank" rel="noopener noreferrer">中国教育在线·2024新课标一卷真题</a>、<a href="https://www.zxxk.com/soft/58248364.html" target="_blank" rel="noopener noreferrer">学科网·2026真题</a>）。多选题部分选对得部分分、有选错的得 0 分；解答题按步骤给分。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>题型</th><th>题量</th><th>分值</th><th>合计</th><th>难度分布</th></tr></thead>
+    <tbody>
+      <tr><td>单选题</td><td class="num">8</td><td class="num">5 分/题</td><td class="num">40 分</td><td>前 5–6 题为基础，后 2–3 题分层</td></tr>
+      <tr><td>多选题</td><td class="num">3</td><td class="num">6 分/题</td><td class="num">18 分</td><td>部分选对得分，选错归零</td></tr>
+      <tr><td>填空题</td><td class="num">3</td><td class="num">5 分/题</td><td class="num">15 分</td><td>多为中档偏上，无过程分</td></tr>
+      <tr><td>解答题</td><td class="num">5</td><td class="num">13–17 分/题</td><td class="num">77 分</td><td>前三题中档，后两题压轴（17 分各）</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">口径说明：结构分值以官方试卷卷首说明为准（2024 起 19 题结构）；部分资料仍引用 2023 年前"单选 8 + 多选 4 + 填空 4 + 解答 6"的旧口径（如 <a href="https://www.gaokao.cn/gk/50762" target="_blank" rel="noopener noreferrer">掌上高考·题型分布</a>），本文一律以 19 题新口径表述，避免混淆。</p>
+  <p><span class="flag fact">事实</span>从板块占比看，2026 年 I 卷中解析几何与立体几何合计约 35%（52 分）、数列与三角函数约 20%（30 分）、函数与导数约 18%（27 分）、概率统计约 17%（25 分）、基础模块约 11%（16 分）（<a href="https://mzujuan.xkw.com/thematiclist/11pt7914ct26198n966703.html" target="_blank" rel="noopener noreferrer">组卷网·2026考点细目表</a>）。<span class="flag judge">判断</span>这意味着选填 73 分与解答前三题 45 分左右合计超过 110 分属于"结构上可保底"的区域——95–115 分段的考生只要守好这块，就能按档推进。</p>
+  <p class="small">分数构成可复用口径：按近年新高考 I 卷的普遍观察，<b>基础题约 60%、中档题约 20–25%、难题约 15% 以内</b>（专家口径为"基础+中档合计约 80%、折算接近 120 分"，见 <a href="https://hea.china.com/articles/20260609/202606091889020.html" target="_blank" rel="noopener noreferrer">中华网·许钦彪解析</a>；江西省教育厅 2025 评析给出的官方口径为"基础约 50%/中档约 30%/难题约 20%"，<a href="http://jyt.jiangxi.gov.cn/jxjyw/kspj/content/content_1937327845710352384.html" target="_blank" rel="noopener noreferrer">江西省教育厅</a>）。各档拆解均按此框架展开。</p>
+  <div class="callout gold">给家长的一句话：<b>分数不是均匀分布的，提分也不是匀速的。</b>95→120 主要靠"堵漏"（基础与中档的稳定性），120→145 主要靠"攻坚"（压轴与速度）。先认清孩子在哪一档，再谈怎么涨分。</div>
+</section>
+
+<section id="seg-95">
+  <div class="sec-head"><span class="sec-no">02</span><h2>95 分档 · 基础重建期</h2></div>
+  <p class="lead">95 分站在及格线上，但随时可能掉下去：基础题丢分、中档题不会拆、压轴题直接放弃。这一档的任务不是"攻难题"，而是先把该拿的分全部拿回来。</p>
+  <h3>2.1 分数定位画像</h3>
+  <p>95 分在全国分布中大约对应"及格偏上、中下游"位置。参考官方数据：2026 年福建数学平均分 74.9 分，多数考生集中在 51–100 分区间，成绩呈正偏态分布（<a href="https://news.sohu.com/a/1085953195_122652059" target="_blank" rel="noopener noreferrer">搜狐·2026福建高考数学平均分</a>）。<span class="flag fact">事实</span>95 分已经高于全省平均，但远未进入"安全区"。<span class="flag judge">判断</span>这一档考生的典型状态是"会的不稳、半懂不懂、难题全放弃"——95 分里有相当比例是"碰运气"拿到的：会的题偶尔错，不会的题全靠猜。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>维度</th><th>当前画像（95 分）</th><th>目标画像（100 分）</th></tr></thead>
+    <tbody>
+      <tr><td>基础题（约 60% 分值）</td><td>会做但不稳，常因计算/审题丢 3–5 分</td><td>基础题失分 ≤ 2 分</td></tr>
+      <tr><td>中档题（约 25% 分值）</td><td>能动手但拆不到底，半途而废</td><td>中档题能"拆完步骤"再谈得分</td></tr>
+      <tr><td>压轴题（约 15% 分值）</td><td>完全放弃，空白或只写已知条件</td><td>至少拿下第 1 问的步骤分</td></tr>
+      <tr><td>选填（73 分）</td><td>单选错 2–3 题、多选常选错归零</td><td>单选错 ≤ 1 题、多选至少保住部分分</td></tr>
+    </tbody>
+  </table></div>
+  <h3>2.2 到下一档的差距量化：还差 5 分拆在哪</h3>
+  <ul class="tight">
+    <li><b>缺口 A：基础题 1 道（约 3–5 分）</b>——单选的集合/复数/向量/统计任错 1 题就是 5 分。95→100 的第一笔，就是把"简单题必对"变成肌肉记忆。</li>
+    <li><b>缺口 B：解答前三题第 1 问（约 4–6 分）</b>——立体几何证明、解三角形、概率分布列的第一问都是"送分问"，写全步骤就能到手。</li>
+    <li><b>缺口 C：多选部分分（约 3 分）</b>——不确定就只选最有把握的选项，用"少选保分"换 3 分/题。</li>
+  </ul>
+  <div class="verdict"><b>判断：</b>这 5 分不需要任何"新知识"，只要求"会的全对"。所以 95 档的训练核心是<b>止损</b>，不是增量。</div>
+  <h3>2.3 得分结构拆解：当前 vs 目标对照表</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>当前（95 分）</th><th>目标（100 分）</th><th>涨分点</th></tr></thead>
+    <tbody>
+      <tr><td>单选 40 分</td><td class="num">约 27</td><td class="num">约 32</td><td>前 6 题零失误</td></tr>
+      <tr><td>多选 18 分</td><td class="num">约 6</td><td class="num">约 9</td><td>少选保部分分</td></tr>
+      <tr><td>填空 15 分</td><td class="num">约 6</td><td class="num">约 6</td><td>守第 1 题，不恋战后 2 题</td></tr>
+      <tr><td>解答 77 分</td><td class="num">约 48</td><td class="num">约 50</td><td>前三题第 1 问写全</td></tr>
+      <tr><td>压轴 34 分</td><td class="num">约 8</td><td class="num">约 3–8</td><td>第 1 问步骤分，其余放弃</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：表格为教研估测口径（非官方逐题数据），用于可视化"涨分从哪来"；实际以孩子月考逐题得分对照为准。</p>
+  <h3>2.4 核心失分诊断</h3>
+  <ol class="steps">
+    <li><b>计算型失误</b>：符号、移项、开方漏根——每张卷子至少白丢 3–5 分。</li>
+    <li><b>审题型失误</b>：条件没圈完就开始做，"定义域/取整/范围"类陷阱全踩。</li>
+    <li><b>拆题能力缺位</b>：中档题只写了"条件翻译"，不会把大题拆成"先证什么、再算什么"。<span class="flag fact">事实</span>解答题按步骤给分，写一半也有分；空着永远 0 分。</li>
+    <li><b>压轴恐惧</b>：见第 18/19 题直接放弃，连第 1 问的送分都丢掉。<span class="flag judge">判断</span>这是 95 档最大的隐性失分——不是不会，是不敢。</li>
+  </ol>
+  <h3>2.5 提分路径（4 步）</h3>
+  <ol class="steps">
+    <li><b>做什么：建"必对清单"。</b>怎么做：把集合、复数、向量、统计这 4 个基础模块做满 20 道真题，逐题写"考点+易错点"，形成自己的清单。多久见效：2 周。</li>
+    <li><b>做什么：解答前三题第 1 问专项。</b>怎么做：立体几何证平行/垂直、解三角形用正弦余弦定理、概率分布列表格——每类 10 题只做第 1 问，限时 8 分钟。多久见效：3 周。</li>
+    <li><b>做什么：多选"少选策略"。</b>怎么做：拿不准的选项一律不选，目标每题至少 3 分。多久见效：立即。</li>
+    <li><b>做什么：压轴第 1 问抢分。</b>怎么做：把近 3 年第 18/19 题第 1 问单独整理，先读题 2 分钟再动笔，能写几行写几行。多久见效：1 个月。</li>
+  </ol>
+  <h3>2.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>任务</th><th>时长</th><th>要点</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>基础必对清单 10 题</td><td class="num">30 分钟</td><td>只做基础，错题当天订正</td></tr>
+      <tr><td>周二</td><td>解答前三题第 1 问 × 3</td><td class="num">40 分钟</td><td>按步骤写，对照答案核步骤</td></tr>
+      <tr><td>周三</td><td>选填限时 45 分钟</td><td class="num">50 分钟</td><td>模拟考场节奏，卡壳 5 分钟跳过</td></tr>
+      <tr><td>周四</td><td>多选专项 6 题</td><td class="num">30 分钟</td><td>训练"少选保分"判断</td></tr>
+      <tr><td>周五</td><td>错题本复盘</td><td class="num">30 分钟</td><td>错题按 计算/审题/方法 分类</td></tr>
+      <tr><td>周末</td><td>1 套真题选填 + 压轴第 1 问</td><td class="num">90 分钟</td><td>全套节奏 + 抢分尝试</td></tr>
+    </tbody>
+  </table></div>
+  <h3>2.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>不催难题，盯"会的全对"</b>：95 档的敌人是粗心，不是智商。家长每天只看"今天有没有基础题错"，不看"压轴做没做出来"。</li>
+    <li><b>用试卷说话</b>：每月一次逐题统计（哪题会、哪题不会、哪题会但错），让提分从"感觉"变成"数据"。</li>
+    <li><b>保护信心</b>：这一档孩子最怕"别人都会就我不会"。先认 95 分是"有底子"，再谈往上走。</li>
+  </ul>
+  <h3>2.8 常见误区与里程碑</h3>
+  <div class="callout gold"><b>1 个月目标：</b>基础题失分 ≤ 2 分，选填总分比月初高 3–5 分。<b>3 个月目标：</b>稳定 100+，中档题能独立拆完步骤，压轴第 1 问不再空白。</div>
+  <ul class="tight">
+    <li><b>误区 1</b>：直接刷难题——95 档刷难题是"无效焦虑"，难题吃不下还挤占基础时间。</li>
+    <li><b>误区 2</b>：只做题不订正——不做错题分类，同样的 5 分丢三次。</li>
+    <li><b>误区 3</b>：模仿高分同学的题量——先解决"会的全对"，再谈题量。</li>
+  </ul>
+</section>
+
+<section id="seg-100">
+  <div class="sec-head"><span class="sec-no">03</span><h2>100 分档 · 中档筑基期</h2></div>
+  <p class="lead">100 分说明基础题基本稳住了，但中档题——函数性质、数列通项、概率统计——处于"半生不熟"状态：看到会、下手慢、做不全。这一档的任务是把"半生不熟"变成"熟透"。</p>
+  <h3>3.1 分数定位画像</h3>
+  <p>100 分意味着从 95 档的"及格线上挣扎"进入"有点底子"的状态。<span class="flag fact">事实</span>以 2026 年福建官方数据为参照，全省平均 74.9 分、140+ 仅 47 人（万分之二），100 分已明显高于平均线，但在"高分段"面前仍是起步（<a href="https://news.sohu.com/a/1085953195_122652059" target="_blank" rel="noopener noreferrer">搜狐·2026福建高考数学平均分</a>）。<span class="flag judge">判断</span>100 档考生的典型瓶颈是"懂而不熟"：中档题能做但慢、能做但经常差最后一步，考场上时间不够于是后面大题赶工丢分。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>维度</th><th>当前画像（100 分）</th><th>目标画像（105 分）</th></tr></thead>
+    <tbody>
+      <tr><td>基础题</td><td>基本稳，偶有 1–2 分波动</td><td>基础题接近零失误</td></tr>
+      <tr><td>中档小题（函数/数列/概率）</td><td>能做但慢，部分题"差一口气"</td><td>中档小题限时内全对</td></tr>
+      <tr><td>解答前三题</td><td>第 1 问稳，第 2 问看状态</td><td>前三题平均 12–13 分/题</td></tr>
+      <tr><td>压轴</td><td>第 1 问偶尔拿分</td><td>第 1 问稳定拿分</td></tr>
+    </tbody>
+  </table></div>
+  <h3>3.2 到下一档的差距量化：还差 5 分拆在哪</h3>
+  <ul class="tight">
+    <li><b>缺口 A：中档小题 1 题（5 分）</b>——函数单调性/奇偶性综合、数列前 n 项和、概率分布列，这三类里任选一类练透，5 分就到手。</li>
+    <li><b>缺口 B：解答第二问步骤分（约 4–6 分）</b>——前三题的"第 2 问"写满步骤，即使结果错也能拿 3–5 分步骤分。</li>
+    <li><b>缺口 C：填空第 2 题（5 分）</b>——中档填空从"跳过"改为"动手算"。</li>
+  </ul>
+  <div class="verdict"><b>判断：</b>95→100 靠止损，100→105 靠"把半熟练成熟"。差的就是每个中档模块再深挖一层：从"见过"到"能独立限时完成"。</div>
+  <h3>3.3 得分结构拆解：当前 vs 目标对照表</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>当前（100 分）</th><th>目标（105 分）</th><th>涨分点</th></tr></thead>
+    <tbody>
+      <tr><td>单选 40 分</td><td class="num">约 30</td><td class="num">约 33</td><td>中档单选限时提速</td></tr>
+      <tr><td>多选 18 分</td><td class="num">约 8</td><td class="num">约 10</td><td>第二选项判断更准</td></tr>
+      <tr><td>填空 15 分</td><td class="num">约 7</td><td class="num">约 8</td><td>填空第 2 题敢算</td></tr>
+      <tr><td>解答 77 分</td><td class="num">约 50</td><td class="num">约 50–52</td><td>第 2 问步骤分</td></tr>
+      <tr><td>压轴 34 分</td><td class="num">约 5</td><td class="num">约 4–9</td><td>第 1 问稳定化</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：教研估测口径，用于定位涨分来源；请以孩子月考逐题得分替换校准。</p>
+  <h3>3.4 核心失分诊断</h3>
+  <ol class="steps">
+    <li><b>中档题"最后一公里"失守</b>：思路对但计算收尾错（如数列求和漏项、概率表算错概率值）。</li>
+    <li><b>方法记忆模糊</b>：函数图像变换、等差等比混合题需要"反应时间"超过 2 分钟，考场上等于不会。</li>
+    <li><b>解答第二问畏难</b>：前三题第 2 问写了第一步就停笔——实际上很多第 2 问就是第 1 问结论的直接使用。</li>
+    <li><b>时间分配失衡</b>：中档题磨太久，导致后面解答没时间。<span class="flag judge">判断</span>100 档考生最大的隐性杀手是"慢"，不是"不会"。</li>
+  </ol>
+  <h3>3.5 提分路径（4 步）</h3>
+  <ol class="steps">
+    <li><b>做什么：中档三大件专项。</b>怎么做：函数性质（单调/奇偶/对称）、数列（通项+求和）、概率（分布列+期望）各练 15 题，每题限时 4 分钟。多久见效：3 周。</li>
+    <li><b>做什么：解答第二问"接续训练"。</b>怎么做：把前三题的第 2 问抄在错题本上，先写"它要用第 1 问的哪个结论"，再动笔。多久见效：3 周。</li>
+    <li><b>做什么：限时提速。</b>怎么做：选填从 55 分钟压到 48 分钟，中档题平均每题 3.5 分钟内。多久见效：1 个月。</li>
+    <li><b>做什么：压轴第 1 问固定拿分。</b>怎么做：解析几何第 1 问（求方程/离心率）与导数第 1 问（求导/单调区间）各整理 10 题反复做。多久见效：1 个月。</li>
+  </ol>
+  <h3>3.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>任务</th><th>时长</th><th>要点</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>函数性质小题 8 题</td><td class="num">35 分钟</td><td>限时每题 4 分钟</td></tr>
+      <tr><td>周二</td><td>数列小题 + 解答第 2 问</td><td class="num">45 分钟</td><td>先写"用第 1 问哪个结论"</td></tr>
+      <tr><td>周三</td><td>概率统计专项</td><td class="num">40 分钟</td><td>分布列表格规范书写</td></tr>
+      <tr><td>周四</td><td>选填限时 48 分钟</td><td class="num">55 分钟</td><td>记录超时题，次日复算</td></tr>
+      <tr><td>周五</td><td>压轴第 1 问 × 4</td><td class="num">40 分钟</td><td>解析几何/导数轮换</td></tr>
+      <tr><td>周末</td><td>整套选填 + 前三解答</td><td class="num">90 分钟</td><td>模拟高考节奏</td></tr>
+    </tbody>
+  </table></div>
+  <h3>3.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>关注"时间"而非"对错"</b>：同一张卷子，错 3 题但 55 分钟内做完，比错 1 题但 80 分钟做完更接近真实考场。</li>
+    <li><b>鼓励孩子讲题</b>：能把中档题讲清楚，说明真的熟了；讲不出的地方就是下一周的训练点。</li>
+    <li><b>别拿 120 分同学的标准要求他</b>：105 之前的主线是"熟"，不是"快攻压轴"。</li>
+  </ul>
+  <h3>3.8 常见误区与里程碑</h3>
+  <div class="callout gold"><b>1 个月目标：</b>函数/数列/概率中档小题限时内稳定全对，选填 48 分钟内完成。<b>3 个月目标：</b>稳定 105+，解答前三题每题 ≥ 12 分，压轴第 1 问不空。</div>
+  <ul class="tight">
+    <li><b>误区 1</b>：中档题"懂了就行"不练速度——考场是限时的，懂 ≠ 得分。</li>
+    <li><b>误区 2</b>：跳过填空第 2 题——它常常只是"敢不敢算"的问题。</li>
+    <li><b>误区 3</b>：过早投入压轴第二问——100 档投进去的 10 小时，回报远低于花在中档上的 10 小时。</li>
+  </ul>
+</section>
+
+<section id="seg-105">
+  <div class="sec-head"><span class="sec-no">04</span><h2>105 分档 · 中档起步期</h2></div>
+  <p class="lead">105 分意味着中档题开始"能拿分"，但还没拿稳：选择填空的后 2 题、解答题的前三题，是你这一档的主战场。目标是把"中档题得分率"从"看发挥"变成"看水平"。</p>
+  <h3>4.1 分数定位画像</h3>
+  <p>105 分处于"中游偏上"位置。<span class="flag fact">事实</span>2026 年新高考 I 卷基础题占比约 60%、难题压缩至 15% 以内，基础+中档合计约 80%、折算接近 120 分（<a href="https://hea.china.com/articles/20260609/202606091889020.html" target="_blank" rel="noopener noreferrer">中华网·特级教师许钦彪解析</a>）。<span class="flag judge">判断</span>这意味着从 105 到 120，考生需要做的只是"把本属自己的 80% 区域拿稳"——105 档丢的分，几乎全在中档题的"不稳定"上：这周会、下周错；简单变式会、加个参数就不会。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>维度</th><th>当前画像（105 分）</th><th>目标画像（110 分）</th></tr></thead>
+    <tbody>
+      <tr><td>基础题</td><td>零失误或接近零失误</td><td>零失误</td></tr>
+      <tr><td>选填后 2 题（中档偏上）</td><td>时对时错，靠状态</td><td>正确率 ≥ 70%</td></tr>
+      <tr><td>解答前三题</td><td>平均 11–13 分/题</td><td>平均 13–14 分/题</td></tr>
+      <tr><td>解析几何/导数</td><td>第 1 问能拿，第 2 问不敢碰</td><td>第 2 问开始"敢写第一步"</td></tr>
+    </tbody>
+  </table></div>
+  <h3>4.2 到下一档的差距量化：还差 5 分拆在哪</h3>
+  <ul class="tight">
+    <li><b>缺口 A：选填后 2 题中的 1 题（5 分）</b>——单选第 7/8 题或多选第 11 题，通过"题型归因"（函数最值/数列构造/解析几何性质）集中练，正确率上 70% 即到手。</li>
+    <li><b>缺口 B：解答第三题的第 2 问（约 4–5 分）</b>——概率统计或立体几何第 2 问，通常是"第 1 问结论 + 一个固定方法"，把方法流程背下来就是分。</li>
+    <li><b>缺口 C：压轴第 1 问的完整步骤（约 2–4 分）</b>——把"写一半"升级为"写完整"。</li>
+  </ul>
+  <div class="verdict"><b>判断：</b>105→110 的关键词是"归因"：每一道中档题失分后，必须回答"这是哪一类题型、用哪个方法"，而不是"我粗心了"。粗心是结果，归因才是方法。</div>
+  <h3>4.3 得分结构拆解：当前 vs 目标对照表</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>当前（105 分）</th><th>目标（110 分）</th><th>涨分点</th></tr></thead>
+    <tbody>
+      <tr><td>单选 40 分</td><td class="num">约 33</td><td class="num">约 35</td><td>第 7/8 题正确率提升</td></tr>
+      <tr><td>多选 18 分</td><td class="num">约 10</td><td class="num">约 12</td><td>双选项判断更稳</td></tr>
+      <tr><td>填空 15 分</td><td class="num">约 8</td><td class="num">约 10</td><td>填空第 2 题稳定化</td></tr>
+      <tr><td>解答 77 分</td><td class="num">约 50</td><td class="num">约 52</td><td>前三题第 2 问拿全</td></tr>
+      <tr><td>压轴 34 分</td><td class="num">约 4</td><td class="num">约 1–6</td><td>第 1 问完整步骤</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：教研估测口径，供对照定位，请以实际月考逐题数据校准。</p>
+  <h3>4.4 核心失分诊断</h3>
+  <ol class="steps">
+    <li><b>中档题"变式即失"</b>：同一考点换情境就不会——本质是没形成"方法—题型"映射。</li>
+    <li><b>解答步骤不完整</b>：跳步、没写"由第（1）问得"、分类讨论漏情况，每处扣 1–2 分。</li>
+    <li><b>压轴第 1 问"半吊子"</b>：知道思路但书写不规范，被扣步骤分。</li>
+    <li><b>情绪性放弃</b>：第 18 题第 2 问一看就慌，其实"第一步设直线方程联立"人人能写。<span class="flag judge">判断</span>105 档考生和 115 档考生的差距，一半在知识，一半在"敢不敢多写两行"。</li>
+  </ol>
+  <h3>4.5 提分路径（4 步）</h3>
+  <ol class="steps">
+    <li><b>做什么：选填后 2 题归因训练。</b>怎么做：把近 5 年真题选填第 7/8 题、多选第 11 题按考点分类（最值/构造/几何性质/新定义），每类 8 题。多久见效：4 周。</li>
+    <li><b>做什么：解答前三题第 2 问流程化。</b>怎么做：每类第 2 问总结"三步流程"（如立体几何：建系→写坐标→列方程），贴在本子上每次照做。多久见效：3 周。</li>
+    <li><b>做什么：压轴第 1 问规范化。</b>怎么做：对照标准答案改自己的书写，专改"跳步"和"结论不写"。多久见效：3 周。</li>
+    <li><b>做什么：错题归因标签。</b>怎么做：每道错题标"考点+方法+失分类型（概念/计算/步骤/审题）"，每周统计占比。多久见效：持续。</li>
+  </ol>
+  <h3>4.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>任务</th><th>时长</th><th>要点</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>选填后 2 题 × 4</td><td class="num">40 分钟</td><td>每题归因标签</td></tr>
+      <tr><td>周二</td><td>解答第 2 问流程训练 × 3</td><td class="num">45 分钟</td><td>先写三步流程再动笔</td></tr>
+      <tr><td>周三</td><td>压轴第 1 问 × 3</td><td class="num">35 分钟</td><td>对照标准答案改书写</td></tr>
+      <tr><td>周四</td><td>选填整套限时 46 分钟</td><td class="num">55 分钟</td><td>重点测后 2 题</td></tr>
+      <tr><td>周五</td><td>错题归因复盘</td><td class="num">40 分钟</td><td>四类失分占比统计</td></tr>
+      <tr><td>周末</td><td>1 套完整真题</td><td class="num">120 分钟</td><td>全流程模拟</td></tr>
+    </tbody>
+  </table></div>
+  <h3>4.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>让"归因"成为家庭话术</b>：孩子说"我粗心了"，家长追问"哪类粗心？计算还是审题？"——把模糊焦虑变成可处理问题。</li>
+    <li><b>验收"讲题"</b>：每周让孩子把 1 道中档错题讲给你听，讲得出流程 = 真会。</li>
+    <li><b>不要只看总分</b>：关注"选填后 2 题正确率"和"前三解答平均分"两个细分指标，比总分更能反映 105→110 的进度。</li>
+  </ul>
+  <h3>4.8 常见误区与里程碑</h3>
+  <div class="callout gold"><b>1 个月目标：</b>选填后 2 题正确率 ≥ 60%，解答前三题平均 ≥ 13 分。<b>3 个月目标：</b>稳定 110，压轴第 1 问全拿，第 2 问敢写第一步。</div>
+  <ul class="tight">
+    <li><b>误区 1</b>：用"再想想"代替"归因"——不标考点的方法训练，练 100 题也涨不了分。</li>
+    <li><b>误区 2</b>：第 2 问只想不做——步骤分要"写出来"才算数。</li>
+    <li><b>误区 3</b>：全套卷刷完不拆解——一套卷的价值在拆解，不在对答案。</li>
+  </ul>
+</section>
+
+<section id="seg-110">
+  <div class="sec-head"><span class="sec-no">05</span><h2>110 分档 · 中档稳定期</h2></div>
+  <p class="lead">110 分意味着中档题基本稳定，开始触碰解析几何与导数的"第二问"。这一档是"守成+试探"并行的阶段：守的是中档不失，试探的是压轴边界。</p>
+  <h3>5.1 分数定位画像</h3>
+  <p>110 分在全国分布中已进入"中上"，但距离高分门槛 120 还有一道明确的坎。<span class="flag fact">事实</span>官方评价报告给出的提分建议是：提分空间最大的是 70–110 分的中档题，把计算稳定性、审题严谨性练扎实，收益比攻压轴大得多（<a href="https://news.sohu.com/a/1085953195_122652059" target="_blank" rel="noopener noreferrer">搜狐·2026福建高考数学平均分</a>）。<span class="flag judge">判断</span>110 档考生已经"会做大部分题"，离 120 差的是两件事：一是中档题里最后的"隐蔽失分"，二是解析几何/导数第二问的"入门动作"。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>维度</th><th>当前画像（110 分）</th><th>目标画像（115 分）</th></tr></thead>
+    <tbody>
+      <tr><td>基础+中档小题</td><td>正确率约 85%</td><td>正确率约 90%</td></tr>
+      <tr><td>解答前三题</td><td>平均 13–14 分/题</td><td>平均 14–15 分/题</td></tr>
+      <tr><td>解析几何第 2 问</td><td>能写"设直线联立"，常半途</td><td>能走完"韦达→弦长/面积"主流程</td></tr>
+      <tr><td>导数第 2 问</td><td>分类讨论不敢碰</td><td>会分情况讨论，能拿步骤分</td></tr>
+    </tbody>
+  </table></div>
+  <h3>5.2 到下一档的差距量化：还差 5 分拆在哪</h3>
+  <ul class="tight">
+    <li><b>缺口 A：选填 1 题（5 分）</b>——110 档选填若错 3 题以上，说明中档小题仍有漏洞；错 2 题内则缺口转到解答。</li>
+    <li><b>缺口 B：解析几何第 2 问步骤分（约 4–6 分）</b>——把"设直线→联立→韦达→代入目标式"这套标准流程走完，即使最后结果算错也能拿 4–5 分步骤分。</li>
+    <li><b>缺口 C：导数第 2 问分类讨论（约 4–6 分）</b>——含参讨论先写"分界点"再分区间，是标准动作，不要求算对全部。</li>
+  </ul>
+  <div class="verdict"><b>判断：</b>110→115 的"5 分"最可能来自压轴第二问的"流程分"。这不是要你会做压轴，而是要把压轴题的标准动作练熟——步骤分就是实打实的分数。</div>
+  <h3>5.3 得分结构拆解：当前 vs 目标对照表</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>当前（110 分）</th><th>目标（115 分）</th><th>涨分点</th></tr></thead>
+    <tbody>
+      <tr><td>单选 40 分</td><td class="num">约 35</td><td class="num">约 37</td><td>第 7/8 题再稳 1 题</td></tr>
+      <tr><td>多选 18 分</td><td class="num">约 12</td><td class="num">约 13</td><td>三选项题敢选第三项</td></tr>
+      <tr><td>填空 15 分</td><td class="num">约 10</td><td class="num">约 10–12</td><td>填空第 2 题保底</td></tr>
+      <tr><td>解答 77 分</td><td class="num">约 52</td><td class="num">约 55</td><td>解析/导数第 2 问流程分</td></tr>
+      <tr><td>压轴 34 分</td><td class="num">约 1</td><td class="num">约 -2</td><td>第 2 问"写流程"得步骤分</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：教研估测口径；压轴行"约 -2"表示目标区间上移，请以实际为准。</p>
+  <h3>5.4 核心失分诊断</h3>
+  <ol class="steps">
+    <li><b>解析几何"算不下去"</b>：联立后式子太繁就放弃——缺的是"算理"意识：先想清楚每一步要消谁、代谁。</li>
+    <li><b>导数分类讨论漏情况</b>：不知道"何时分、分几类"，常见于二次型导数的判别式讨论。</li>
+    <li><b>中档题"暗坑"失分</b>：如数列存在性、概率"至少"型问题、不等式取等条件——会的题被扣 1–2 分。</li>
+    <li><b>压轴时间被前面积压</b>：选填 50 分钟以上，到压轴只剩 20 分钟。<span class="flag judge">判断</span>110 档想上 115，先回答一个问题："我选填现在多少分钟？"如果超 50，先压时间，再谈压轴。</li>
+  </ol>
+  <h3>5.5 提分路径（5 步）</h3>
+  <ol class="steps">
+    <li><b>做什么：解析几何流程训练。</b>怎么做：20 道椭圆/抛物线大题只练"设直线→联立→韦达→代入目标式"，不追求算完，只求流程 15 分钟内走通。多久见效：4 周。</li>
+    <li><b>做什么：导数分类讨论模板。</b>怎么做：把含参导数题按"分界点来源"分类（二次判别式/定义域/单调区间），每种写 5 题标准讨论。多久见效：4 周。</li>
+    <li><b>做什么：选填压时。</b>怎么做：每周选填限时从 50→48→46 分钟递进，训练"放弃 3 分钟仍不会的题"。多久见效：3 周。</li>
+    <li><b>做什么：中档"暗坑"清单。</b>怎么做：整理 30 个常设陷阱（取等/存在性/至少/整数解），每天过 5 个。多久见效：2 周。</li>
+    <li><b>做什么：解答规范复改。</b>怎么做：每次模考后，把前三题按标准答案逐句复改，标出所有被扣分点。多久见效：持续。</li>
+  </ol>
+  <h3>5.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>任务</th><th>时长</th><th>要点</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>解析几何流程 × 3</td><td class="num">45 分钟</td><td>只练流程不求算完</td></tr>
+      <tr><td>周二</td><td>导数分类讨论 × 3</td><td class="num">45 分钟</td><td>先写分界点再讨论</td></tr>
+      <tr><td>周三</td><td>选填限时 48 分钟</td><td class="num">55 分钟</td><td>记录超时题归因</td></tr>
+      <tr><td>周四</td><td>中档暗坑清单 10 个</td><td class="num">30 分钟</td><td>逐个配例题</td></tr>
+      <tr><td>周五</td><td>解答复改（前三题）</td><td class="num">40 分钟</td><td>标出全部扣分点</td></tr>
+      <tr><td>周末</td><td>1 套真题全流程</td><td class="num">120 分钟</td><td>模拟 + 复盘双环节</td></tr>
+    </tbody>
+  </table></div>
+  <h3>5.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>理解"流程分"的价值</b>：不要只看"压轴做没做出来"，要看"压轴有没有按流程多写了 3 行"——那 3 行就是分数。</li>
+    <li><b>盯时间数据</b>：每周记录选填用时，孩子能亲眼看到 50→46 分钟的变化，比任何鼓励都有说服力。</li>
+    <li><b>减少"结果焦虑"</b>：110 档的涨分是非线性的，可能连续 3 周不动、第 4 周跳 6 分，家长要做的是盯过程指标。</li>
+  </ul>
+  <h3>5.8 常见误区与里程碑</h3>
+  <div class="callout gold"><b>1 个月目标：</b>解析几何第 2 问流程 15 分钟内走通，选填 ≤ 48 分钟。<b>3 个月目标：</b>稳定 115，导数分类讨论能写满三种情况，压轴每题至少拿 4–6 分步骤分。</div>
+  <ul class="tight">
+    <li><b>误区 1</b>：压轴要"做出"才算练——110 档练压轴的目标是"多写流程分"，不是"解出全题"。</li>
+    <li><b>误区 2</b>：一味加题量——此时该加的是"结构化训练量"（流程/模板/清单），不是裸题量。</li>
+    <li><b>误区 3</b>：忽视选填压时——选填慢 5 分钟，压轴就少 5 分钟，这是 110→115 最容易被忽视的隐性失分。</li>
+  </ul>
+</section>
+
+<section id="seg-115">
+  <div class="sec-head"><span class="sec-no">06</span><h2>115 分档 · 门槛冲刺期</h2></div>
+  <p class="lead">115 分离 120 这道"高分门槛"只差一步。这一档的核心矛盾非常集中：选填失分控制（错 3 题以内）就是 115 与 120 的分水岭。</p>
+  <h3>6.1 分数定位画像</h3>
+  <p>115 分的考生知识面已经不差，失分往往"碎"：这里扣 1 分、那里扣 2 分，加起来就 5 分。<span class="flag fact">事实</span>多选题部分选对得部分分、选错得 0 分（<a href="https://gaokao.eol.cn/shiti/sx/202406/t20240612_2616028.shtml" target="_blank" rel="noopener noreferrer">中国教育在线·2024新课标一卷真题</a>），一道多选题的"策略失误"就是 6 分——比一道单选还贵。<span class="flag judge">判断</span>115 档考生要完成从"大多会做"到"几乎全对"的转变，难点不是知识，而是"每一题都在有限时间内给出正确且不返工的第一判断"。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>维度</th><th>当前画像（115 分）</th><th>目标画像（120 分）</th></tr></thead>
+    <tbody>
+      <tr><td>选填（73 分）</td><td>错 3–4 题</td><td>错 1–2 题</td></tr>
+      <tr><td>解答前三题</td><td>平均 14–15 分/题</td><td>接近满分（13–15 分/题）</td></tr>
+      <tr><td>解析几何/导数第 2 问</td><td>流程分 3–5 分</td><td>稳定 5–7 分</td></tr>
+      <tr><td>压轴第 1 问</td><td>多数能拿</td><td>必拿</td></tr>
+    </tbody>
+  </table></div>
+  <h3>6.2 到下一档的差距量化：还差 5 分拆在哪</h3>
+  <ul class="tight">
+    <li><b>缺口 A：选填少错 1–2 题（5–10 分）</b>——115 档的选填错题通常"不是完全不会"，而是：审题漏条件、计算抄错、多选贪多选错。每消灭 1 题就是 5 分。</li>
+    <li><b>缺口 B：前三解答的 1 分小扣</b>——结论没写"综上"、范围没写"且/或"、定义域漏写，每处 1–2 分。</li>
+    <li><b>缺口 C：压轴第 1 问完整化</b>——从"能拿"到"必拿"，再进 2–3 分。</li>
+  </ul>
+  <div class="verdict"><b>判断：</b>115→120 的 5 分，90% 在"选填少错 1 题"。而选填失分的根因是"第一判断不稳"：要么方法选择犹豫，要么书写/验算习惯差。这一档练的是"判断力+校验习惯"。</div>
+  <h3>6.3 得分结构拆解：当前 vs 目标对照表</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>当前（115 分）</th><th>目标（120 分）</th><th>涨分点</th></tr></thead>
+    <tbody>
+      <tr><td>单选 40 分</td><td class="num">约 37</td><td class="num">约 40</td><td>全对或只错 1</td></tr>
+      <tr><td>多选 18 分</td><td class="num">约 13</td><td class="num">约 15</td><td>选项判断更稳，不贪不错</td></tr>
+      <tr><td>填空 15 分</td><td class="num">约 10</td><td class="num">约 13</td><td>填空第 2 题稳拿</td></tr>
+      <tr><td>解答 77 分</td><td class="num">约 55</td><td class="num">约 57</td><td>前三题接近满分</td></tr>
+      <tr><td>压轴 34 分</td><td class="num">约 0–5</td><td class="num">约 5–9</td><td>第 1 问必拿+第 2 问流程分</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：教研估测口径，用于定位涨分来源；请以月考逐题得分校准。</p>
+  <h3>6.4 核心失分诊断</h3>
+  <ol class="steps">
+    <li><b>审题漏条件</b>：如"x∈(0,π)"看成全体实数、"整数解"漏掉整数限制——选填丢分头号原因。</li>
+    <li><b>多选"贪多"</b>：把不确定的选项硬选上去，6 分变 0 分——策略性失误，与知识无关。</li>
+    <li><b>计算/誊写错误</b>：草稿算对、答题卡抄错；选择题涂卡串位。</li>
+    <li><b>解答"差一句"</b>：结论、范围、单位、"综上"缺失，每题被扣 1–2 分，累计就是一个档位。<span class="flag judge">判断</span>115 档的失分几乎都可以用"流程化"解决：审题圈条件、多选先排后选、解答按模板收尾。</li>
+  </ol>
+  <h3>6.5 提分路径（4 步）</h3>
+  <ol class="steps">
+    <li><b>做什么：选填"三遍法"。</b>怎么做：第一遍通读圈条件，第二遍做，第三遍快速校验（代入/估值/特例）；限时 44 分钟内完成。多久见效：3 周。</li>
+    <li><b>做什么：多选策略固化。</b>怎么做：规定"只选 100% 确定的项"，训练 10 套真题多选，统计"贪多失分"归零。多久见效：2 周。</li>
+    <li><b>做什么：解答收尾模板。</b>怎么做：整理前三题的"收尾清单"（答句/范围/综上/单位），每次写完自查。多久见效：2 周。</li>
+    <li><b>做什么：压轴第 1 问强化。</b>怎么做：近 3 年压轴第 1 问单独成卷，目标"题题满分步骤"。多久见效：4 周。</li>
+  </ol>
+  <h3>6.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>任务</th><th>时长</th><th>要点</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>选填三遍法 × 1 套</td><td class="num">50 分钟</td><td>圈条件+做+校验三遍</td></tr>
+      <tr><td>周二</td><td>多选专项 10 题</td><td class="num">30 分钟</td><td>只选确定项</td></tr>
+      <tr><td>周三</td><td>解答收尾模板 × 3</td><td class="num">40 分钟</td><td>每写完自查清单</td></tr>
+      <tr><td>周四</td><td>压轴第 1 问 × 4</td><td class="num">40 分钟</td><td>追求满分步骤</td></tr>
+      <tr><td>周五</td><td>错题"碎片"复盘</td><td class="num">35 分钟</td><td>专门统计 1–2 分小扣</td></tr>
+      <tr><td>周末</td><td>1 套真题全流程</td><td class="num">120 分钟</td><td>重点复盘选填错题</td></tr>
+    </tbody>
+  </table></div>
+  <h3>6.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>把"错题数"当核心指标</b>：115 档家长盯"每次模考选填错几题"，比盯总分更直接，错题数 ≤ 2 就说明在接近 120。</li>
+    <li><b>支持"慢一点反而快"</b>：三遍法一开始会拖慢速度，家长要理解这是"用两周慢，换长期稳"。</li>
+    <li><b>别施压"必须 120"</b>：115→120 需要手感，一次考试波动 3–5 分正常，看趋势不看单次。</li>
+  </ul>
+  <h3>6.8 常见误区与里程碑</h3>
+  <div class="callout gold"><b>1 个月目标：</b>选填错题数 ≤ 2，前三解答接近满分，压轴第 1 问必拿。<b>3 个月目标：</b>稳定 120 上下，多选不再"贪多归零"，选填 44 分钟内完成。</div>
+  <ul class="tight">
+    <li><b>误区 1</b>：选填求快不求稳——115 档先稳后快，快是稳出来的。</li>
+    <li><b>误区 2</b>：忽视多选策略——一道多选从 6 分跌到 0 分，等于单选错 1.2 题，性价比极低。</li>
+    <li><b>误区 3</b>：压轴还停留在"第 1 问随缘"——115 档第 1 问必须从"随缘"变"必拿"。</li>
+  </ul>
+</section>
+
+<section id="seg-120">
+  <div class="sec-head"><span class="sec-no">07</span><h2>120 分档 · 高分门槛线</h2></div>
+  <p class="lead">120 分是公认的"高分门槛"：选择题只错 1 题以内、解答前三题满分，是这一档的标配。跨过这道线，才算进入真正的尖子生竞争。</p>
+  <h3>7.1 分数定位画像</h3>
+  <p>120 分意味着全卷 80% 的"结构内分数"你已经拿稳。<span class="flag fact">事实</span>2026 年新高考 I 卷基础+中档合计约 80%、折算接近 120 分（<a href="https://hea.china.com/articles/20260609/202606091889020.html" target="_blank" rel="noopener noreferrer">中华网·特级教师许钦彪解析</a>），与官方平均分 74.9 相比，120 分高出约 45 分，属于"明显优于平均水平"的位置。<span class="flag judge">判断</span>但 120 分也是"尖子生筛选"的起点：从 120 往上，每 1 分都开始与压轴题和"全卷容错率"正面交锋。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>维度</th><th>当前画像（120 分）</th><th>目标画像（125 分）</th></tr></thead>
+    <tbody>
+      <tr><td>单选</td><td>错 0–1 题</td><td>全对</td></tr>
+      <tr><td>解答前三题</td><td>接近满分</td><td>满分</td></tr>
+      <tr><td>解析几何</td><td>第 2 问流程分 5–7</td><td>第 2 问算对一半以上</td></tr>
+      <tr><td>导数</td><td>分类讨论能写，结论不稳</td><td>讨论完整，计算稳定</td></tr>
+      <tr><td>压轴第 1 问</td><td>必拿</td><td>必拿且不耗时</td></tr>
+    </tbody>
+  </table></div>
+  <h3>7.2 到下一档的差距量化：还差 5 分拆在哪</h3>
+  <ul class="tight">
+    <li><b>缺口 A：单选第 8 题或多选压轴项（5 分）</b>——120 档的选填失分集中在"选拔性小题"：新定义、空间想象、构造题。这类题不是"练基础"能解决的，需要"思维模式"训练。</li>
+    <li><b>缺口 B：解析几何第 2 问"算完"（约 4–6 分）</b>——从"走完流程"到"算出结果"，差的是计算耐力与检验习惯。</li>
+    <li><b>缺口 C：导数第 2 问"结论"（约 4–6 分）</b>——讨论框架会了，最后求范围/最值算错，丢的是结果分。</li>
+  </ul>
+  <div class="verdict"><b>判断：</b>120→125 的 5 分，来自"压轴第 2 问从流程分走向结果分"。这一档开始，真正的敌人是"计算稳定性"与"思维完整性"——这也是 125 档的核心标签。</div>
+  <h3>7.3 得分结构拆解：当前 vs 目标对照表</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>当前（120 分）</th><th>目标（125 分）</th><th>涨分点</th></tr></thead>
+    <tbody>
+      <tr><td>单选 40 分</td><td class="num">约 38</td><td class="num">约 40</td><td>第 8 题思维训练</td></tr>
+      <tr><td>多选 18 分</td><td class="num">约 15</td><td class="num">约 16</td><td>压轴项判断更稳</td></tr>
+      <tr><td>填空 15 分</td><td class="num">约 13</td><td class="num">约 13</td><td>守住</td></tr>
+      <tr><td>解答 77 分</td><td class="num">约 57</td><td class="num">约 60</td><td>解析/导数第 2 问结果分</td></tr>
+      <tr><td>压轴 34 分</td><td class="num">约 5–9</td><td class="num">约 9–13</td><td>第 2 问算完算对</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：教研估测口径，供定位涨分来源；请以实际月考逐题得分校准。</p>
+  <h3>7.4 核心失分诊断</h3>
+  <ol class="steps">
+    <li><b>解析几何"算力不足"</b>：式子对、代数错——缺"分步检验"习惯，每算完一步回看一步。</li>
+    <li><b>导数"讨论漏支"</b>：二次型导数忘了讨论判别式正负；参数范围没与定义域取交集。</li>
+    <li><b>选拔性小题"无思路"</b>：新定义题靠直觉猜——缺"翻译条件→特例试探→归纳模式"的思维链。</li>
+    <li><b>中档题偶发小错</b>：120 档仍会在"简单题"翻车，多半是"飘"了——觉得简单就跳步。<span class="flag judge">判断</span>120 档的失分规律是"高级题不稳、低级题偶发"，两头都要管。</li>
+  </ol>
+  <h3>7.5 提分路径（5 步）</h3>
+  <ol class="steps">
+    <li><b>做什么：选拔性小题思维训练。</b>怎么做：每周 5 道"新定义/构造/空间"类选填压轴，按"翻译条件→特例试探→归纳规律"三步写解题卡。多久见效：5 周。</li>
+    <li><b>做什么：解析几何"算完训练"。</b>怎么做：10 道大题从设直线到最终结果完整写出，每步回检，统计"第几步最易算错"。多久见效：4 周。</li>
+    <li><b>做什么：导数讨论"完备性检查"。</b>怎么做：整理"讨论清单"（判别式/端点/定义域/参数分界），每题完成后逐项打勾。多久见效：4 周。</li>
+    <li><b>做什么：简单题"防飘"机制。</b>怎么做：简单题不跳步，写完用 10 秒"代入特例"快速校验。多久见效：立即。</li>
+    <li><b>做什么：压轴第 1 问提速。</b>怎么做：第 1 问目标压到 5 分钟内，把省下的时间留给第 2 问。多久见效：3 周。</li>
+  </ol>
+  <h3>7.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>任务</th><th>时长</th><th>要点</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>选拔性小题 × 5</td><td class="num">45 分钟</td><td>三步解题卡</td></tr>
+      <tr><td>周二</td><td>解析几何算完 × 2</td><td class="num">60 分钟</td><td>分步回检，统计易错步</td></tr>
+      <tr><td>周三</td><td>导数讨论完备 × 3</td><td class="num">45 分钟</td><td>讨论清单逐项打勾</td></tr>
+      <tr><td>周四</td><td>选填整套 44 分钟</td><td class="num">50 分钟</td><td>简单题不跳步</td></tr>
+      <tr><td>周五</td><td>压轴第 1 问提速 × 4</td><td class="num">30 分钟</td><td>每题目标 5 分钟内</td></tr>
+      <tr><td>周末</td><td>1 套真题全流程</td><td class="num">120 分钟</td><td>复盘压轴第 2 问</td></tr>
+    </tbody>
+  </table></div>
+  <h3>7.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>从"陪读"转向"陪析"</b>：120 档孩子需要的是每次模考后的"逐题归因对话"，不是安排任务。</li>
+    <li><b>认可"过程指标"</b>：关注"解析几何第 2 问是否算完""导数讨论是否完整"这类结构性进步，而不是单次分数。</li>
+    <li><b>管理期望波动</b>：120±3 分是正常波动带，家长别把 117 当"退步"，要看 5 次模考的中位数。</li>
+  </ul>
+  <h3>7.8 常见误区与里程碑</h3>
+  <div class="callout gold"><b>1 个月目标：</b>解析几何第 2 问稳定算出结果，导数讨论 90% 完备，选填全对或错 1。<b>3 个月目标：</b>稳定 125 上下，压轴第 2 问平均拿一半以上结果分。</div>
+  <ul class="tight">
+    <li><b>误区 1</b>：压轴第 2 问只看思路不落笔——思路 5 分钟 + 落笔 20 分钟才是训练，只动脑不动笔等于没练。</li>
+    <li><b>误区 2</b>：追求"技巧捷径"——120 档要的是"通用方法的计算耐力"，技巧只是锦上添花。</li>
+    <li><b>误区 3</b>：轻视简单题——120 档丢 5 分给简单题，等于把整个档位拱手让出。</li>
+  </ul>
+</section>
+
+<section id="seg-125">
+  <div class="sec-head"><span class="sec-no">08</span><h2>125 分档 · 稳高分段</h2></div>
+  <p class="lead">125 分已经站在"稳高分段"：解析几何的计算稳定性、导数的分类讨论完备性，是这一档的看家本领。再往上，考的就是"把会做的做到全对"。</p>
+  <h3>8.1 分数定位画像</h3>
+  <p>125 分在多数省份已属"班级前列、年级上游"。<span class="flag fact">事实</span>2026 年新高考 I 卷满分仅 1 人、140+ 在福建全省仅 47 人（万分之二）（<a href="https://3g.china.com/act/redian/13004758/20260626/49571854.html" target="_blank" rel="noopener noreferrer">中华网·满分考生</a>、<a href="https://news.sohu.com/a/1085953195_122652059" target="_blank" rel="noopener noreferrer">搜狐·2026福建高考数学平均分</a>）；125 分已经明显高于"结构内分数"120 分，说明考生已开始从压轴题上拿分。<span class="flag judge">判断</span>125 档的典型状态是"能力够、稳定性差"：压轴第二问能做但时好时坏，中档题偶有小错——成绩的上下限能差 10 分，全看当天的手感与计算状态。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>维度</th><th>当前画像（125 分）</th><th>目标画像（130 分）</th></tr></thead>
+    <tbody>
+      <tr><td>选填</td><td>错 1–2 题</td><td>错 ≤ 1 题</td></tr>
+      <tr><td>解答前三题</td><td>满分率 80%</td><td>满分率 95%</td></tr>
+      <tr><td>解析几何第 2 问</td><td>算对率约 60%</td><td>算对率 ≥ 80%</td></tr>
+      <tr><td>导数第 2 问</td><td>讨论完备、结论时错</td><td>讨论+结论双稳</td></tr>
+      <tr><td>压轴第 3 问</td><td>偶尔尝试</td><td>开始系统性练习</td></tr>
+    </tbody>
+  </table></div>
+  <h3>8.2 到下一档的差距量化：还差 5 分拆在哪</h3>
+  <ul class="tight">
+    <li><b>缺口 A：中档"小错"清零（3–5 分）</b>——125 档若选填错 2 题，其中 1 题大概率是"会但算错/看错"，清掉它就够 5 分。</li>
+    <li><b>缺口 B：解析几何第 2 问"算对"（约 4–5 分）</b>——从"流程对结果错"到"流程结果都对"，练的是长计算链的"分段检验"。</li>
+    <li><b>缺口 C：压轴第 3 问步骤分（约 2–4 分）</b>——130 档的目标里包含"压轴第 1 问必拿+第 2 问稳定"，第 3 问能写几行是加分项。</li>
+  </ul>
+  <div class="verdict"><b>判断：</b>125→130 的 5 分几乎全部来自"稳定性"：把已经会做的题做到全对，把压轴第二问从"能做"变成"必对"。这一档的训练哲学是"宁可少练新题，也要把旧题做完美"。</div>
+  <h3>8.3 得分结构拆解：当前 vs 目标对照表</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>当前（125 分）</th><th>目标（130 分）</th><th>涨分点</th></tr></thead>
+    <tbody>
+      <tr><td>单选 40 分</td><td class="num">约 40</td><td class="num">约 40</td><td>全对</td></tr>
+      <tr><td>多选 18 分</td><td class="num">约 16</td><td class="num">约 17</td><td>压轴项算稳</td></tr>
+      <tr><td>填空 15 分</td><td class="num">约 13</td><td class="num">约 14</td><td>填空第 3 题敢想</td></tr>
+      <tr><td>解答 77 分</td><td class="num">约 60</td><td class="num">约 63</td><td>解析/导数第 2 问全对</td></tr>
+      <tr><td>压轴 34 分</td><td class="num">约 9–13</td><td class="num">约 13–16</td><td>第 2 问稳+第 3 问步骤</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：教研估测口径，供定位涨分来源；请以实际月考逐题得分校准。</p>
+  <h3>8.4 核心失分诊断</h3>
+  <ol class="steps">
+    <li><b>长计算链"中段失守"</b>：解析几何第 2 问往往 15–20 步运算，错在第 7–12 步——需要"每 3 步回看一次"的分段检验。</li>
+    <li><b>导数"结论环节"丢分</b>：讨论框架完整，但最后求范围时的端点取舍、不等号方向出错。</li>
+    <li><b>选填偶发低级失误</b>：125 档的选填错题，一半是"做快了没验算"。</li>
+    <li><b>压轴第 3 问"空白"</b>：不是不会，是时间/心理双重放弃——训练"先读题 2 分钟，能写条件就写"的抢分习惯。<span class="flag judge">判断</span>125 档考生要意识到：你和 130 档的差距，不在知识量，在"失误率"。</li>
+  </ol>
+  <h3>8.5 提分路径（5 步）</h3>
+  <ol class="steps">
+    <li><b>做什么：分段检验法。</b>怎么做：解析几何第 2 问强制"每 3 步回看"，用"代回原方程/取特值"验证中间结果。多久见效：4 周。</li>
+    <li><b>做什么：导数结论环节专项。</b>怎么做：20 道含参导数题只练"最后求范围/最值"环节，专攻端点、等号、方向。多久见效：4 周。</li>
+    <li><b>做什么：选填"错题回炉"。</b>怎么做：每周把选填错题重做一遍，统计"会但错"占比，目标降到 0。多久见效：3 周。</li>
+    <li><b>做什么：压轴第 3 问抢分训练。</b>怎么做：近 3 年压轴第 3 问每题先写"已知条件翻译+第一步操作"，能算几行算几行。多久见效：5 周。</li>
+    <li><b>做什么：套卷"稳定性雷达"。</b>怎么做：每套模考后画"板块失分图"（选填/前三/压轴），盯住最大失分板块连续两周。多久见效：持续。</li>
+  </ol>
+  <h3>8.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>任务</th><th>时长</th><th>要点</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>解析几何分段检验 × 2</td><td class="num">60 分钟</td><td>每 3 步回看一次</td></tr>
+      <tr><td>周二</td><td>导数结论环节 × 3</td><td class="num">45 分钟</td><td>专攻范围/最值收尾</td></tr>
+      <tr><td>周三</td><td>选填整套 42 分钟</td><td class="num">50 分钟</td><td>错题标记次日回炉</td></tr>
+      <tr><td>周四</td><td>压轴第 3 问抢分 × 3</td><td class="num">45 分钟</td><td>翻译条件+第一步操作</td></tr>
+      <tr><td>周五</td><td>错题回炉 + 失分图</td><td class="num">40 分钟</td><td>统计"会但错"</td></tr>
+      <tr><td>周末</td><td>1 套真题全流程</td><td class="num">120 分钟</td><td>重点复盘压轴</td></tr>
+    </tbody>
+  </table></div>
+  <h3>8.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>尊重孩子的"专业判断"</b>：125 档孩子已能自我诊断，家长的角色是"提供稳定环境"，不是"指导解题"。</li>
+    <li><b>关注"失误率"而非分数</b>：连续 3 次模考统计"会但错"的题数，比总分更能说明稳定性在变好。</li>
+    <li><b>情绪支持优先</b>：越往上提分越慢（120→125→130 是爬坡），家长要防止孩子因"平台期"自我怀疑。</li>
+  </ul>
+  <h3>8.8 常见误区与里程碑</h3>
+  <div class="callout gold"><b>1 个月目标：</b>解析几何第 2 问算对率 ≥ 70%，选填错题中"会但错"归零。<b>3 个月目标：</b>稳定 130，压轴第 2 问必对、第 3 问稳定拿到步骤分。</div>
+  <ul class="tight">
+    <li><b>误区 1</b>：频繁换教辅换方法——125 档需要"一个方法练到极致"，不是"十个方法都试试"。</li>
+    <li><b>误区 2</b>：只攻压轴不管中档——中档错 1 题 = 压轴多写 3 行，性价比倒挂。</li>
+    <li><b>误区 3</b>：不检验长计算——解几第 2 问错一步，等于前面 20 分钟白写。</li>
+  </ul>
+</section>
+
+<section id="seg-130">
+  <div class="sec-head"><span class="sec-no">09</span><h2>130 分档 · 高分段</h2></div>
+  <p class="lead">130 分是"高分段"的正式入口：压轴第一问必拿、中档零失误，是这一档的底线要求。剩下的 20 分，藏在压轴第二问与全卷容错率里。</p>
+  <h3>9.1 分数定位画像</h3>
+  <p>130 分在多数省份意味着数学单科"能进重点班前部"，总分竞争力显著。<span class="flag fact">事实</span>从分布看，2026 年福建 140+ 全省仅 47 人（约万分之二），而 130–140 区间虽然远多于 140+，仍是明显稀缺的高分段（<a href="https://news.sohu.com/a/1085953195_122652059" target="_blank" rel="noopener noreferrer">搜狐·2026福建高考数学平均分</a>）。<span class="flag judge">判断</span>130 档考生的特征是"下限极高"：正常发挥 125+，但"上限"取决于压轴第二问的临场状态——上不去 135，往往不是知识缺口，而是"最后一问的思维深度+考场时间"。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>维度</th><th>当前画像（130 分）</th><th>目标画像（135 分）</th></tr></thead>
+    <tbody>
+      <tr><td>选填</td><td>错 ≤ 1 题</td><td>全对</td></tr>
+      <tr><td>解答前三题</td><td>满分率 95%</td><td>满分</td></tr>
+      <tr><td>压轴第 1 问</td><td>必拿</td><td>必拿且 5 分钟内</td></tr>
+      <tr><td>压轴第 2 问</td><td>算对率 60–70%</td><td>算对率 ≥ 80%</td></tr>
+      <tr><td>压轴第 3 问</td><td>偶尔步骤分</td><td>稳定 3–5 分</td></tr>
+    </tbody>
+  </table></div>
+  <h3>9.2 到下一档的差距量化：还差 5 分拆在哪</h3>
+  <ul class="tight">
+    <li><b>缺口 A：选填 1 题（5 分）</b>——130 档若选填错 1 题，目标就是清零；错题类型通常只剩"选拔性思维题"。</li>
+    <li><b>缺口 B：压轴第 2 问"全对"（约 4–5 分）</b>——从算对率 70% 提到 85%，考的是"难题的思维路径完整度"。</li>
+    <li><b>缺口 C：第 3 问步骤分（约 2–4 分）</b>——最后一问写满"能写的逻辑链"，即可再进 3 分左右。</li>
+  </ul>
+  <div class="verdict"><b>判断：</b>130→135 的 5 分，一半在"选填全对"（容错率），一半在"压轴第 2 问的完整度"。这一档开始，训练重心正式转向压轴题的"思维深度"。</div>
+  <h3>9.3 得分结构拆解：当前 vs 目标对照表</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>当前（130 分）</th><th>目标（135 分）</th><th>涨分点</th></tr></thead>
+    <tbody>
+      <tr><td>单选 40 分</td><td class="num">约 40</td><td class="num">约 40</td><td>全对</td></tr>
+      <tr><td>多选 18 分</td><td class="num">约 17</td><td class="num">约 18</td><td>全对</td></tr>
+      <tr><td>填空 15 分</td><td class="num">约 14</td><td class="num">约 15</td><td>全对</td></tr>
+      <tr><td>解答 77 分</td><td class="num">约 63</td><td class="num">约 65</td><td>压轴第 2 问全对</td></tr>
+      <tr><td>压轴 34 分</td><td class="num">约 13–16</td><td class="num">约 17–20</td><td>第 2 问稳 + 第 3 问步骤</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：教研估测口径，供定位涨分来源；请以实际月考逐题得分校准。</p>
+  <h3>9.4 核心失分诊断</h3>
+  <ol class="steps">
+    <li><b>压轴第 2 问"路径不完整"</b>：思路有但缺关键转换（如不会构造辅助函数、不会消参），卡在中段。</li>
+    <li><b>选拔性选填"思维短路"</b>：新定义/构造类小题，找不到"特殊化试探"的入口。</li>
+    <li><b>第 3 问直接放弃</b>：130 档放弃第 3 问 = 把 5 分拱手让给竞争者。<span class="flag fact">事实</span>压轴第 19 题满分 17 分，2026 年山东全省无人拿满、最高 13 分，浙江全省仅 1 个满分（<a href="https://www.sina.cn/news/detail/5313096973553558.html" target="_blank" rel="noopener noreferrer">新浪新闻·2026压轴观察</a>）——第 3 问"写步骤"就是差异化优势。</li>
+    <li><b>时间管理"压轴挤压"</b>：选填用满 45 分钟，压轴第 2 问只剩 15 分钟——需要强制"选填 ≤ 42 分钟"。</li>
+  </ol>
+  <h3>9.5 提分路径（5 步）</h3>
+  <ol class="steps">
+    <li><b>做什么：压轴思维路径库。</b>怎么做：把近 5 年压轴第 2 问按"题型+关键转换"归档（消参/构造函数/几何转化/放缩），每类 5 题精做。多久见效：6 周。</li>
+    <li><b>做什么：选填全对冲刺。</b>怎么做：连续 8 套真题选填目标全对，错了就"回炉重做+归因"。多久见效：5 周。</li>
+    <li><b>做什么：第 3 问抢分工程。</b>怎么做：每套模考第 3 问必须"写满 10 行逻辑"，哪怕方向不明也写条件翻译。多久见效：6 周。</li>
+    <li><b>做什么：选填压时到 42 分钟。</b>怎么做：每周递进 1 分钟，目标 42 分钟内完成且全对。多久见效：4 周。</li>
+    <li><b>做什么：全卷零失误演练。</b>怎么做：每月 1 次"只求全对不求速度"的真题演练，培养"做完必检"习惯。多久见效：持续。</li>
+  </ol>
+  <h3>9.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>任务</th><th>时长</th><th>要点</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>压轴思维路径精做 × 2</td><td class="num">60 分钟</td><td>归档关键转换</td></tr>
+      <tr><td>周二</td><td>选填全对冲刺 1 套</td><td class="num">45 分钟</td><td>错题回炉归因</td></tr>
+      <tr><td>周三</td><td>第 3 问抢分 × 3</td><td class="num">45 分钟</td><td>写满 10 行逻辑</td></tr>
+      <tr><td>周四</td><td>选填压时训练</td><td class="num">45 分钟</td><td>42 分钟目标</td></tr>
+      <tr><td>周五</td><td>压轴第 2 问复盘</td><td class="num">45 分钟</td><td>对照标答补关键转换</td></tr>
+      <tr><td>周末</td><td>1 套真题全流程</td><td class="num">120 分钟</td><td>复盘第 2/3 问</td></tr>
+    </tbody>
+  </table></div>
+  <h3>9.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>从"督学"退到"后勤"</b>：130 档孩子需要的是时间、安静与营养，不是监督。</li>
+    <li><b>关注"压轴完成度"</b>：每次模考后问一句"压轴写到第几问、写了多少行"，比问"考多少分"更有价值。</li>
+    <li><b>协助寻找高质量资源</b>：压轴题训练需要优质真题/名校卷，家长可以帮忙筛选，但别干预做题方法。</li>
+  </ul>
+  <h3>9.8 常见误区与里程碑</h3>
+  <div class="callout gold"><b>1 个月目标：</b>选填连续 3 套全对或只错 1，压轴第 2 问算对率 ≥ 75%。<b>3 个月目标：</b>稳定 135，第 3 问稳定 3–5 分，全卷失误 ≤ 5 分。</div>
+  <ul class="tight">
+    <li><b>误区 1</b>：把时间全押在压轴——选填错 1 题就回到 130，容错率与攻坚要并行。</li>
+    <li><b>误区 2</b>：压轴只做"会做的"——第 3 问必须强制写满逻辑，写不写是习惯，不是天赋。</li>
+    <li><b>误区 3</b>：忽视"多想少算"趋势——2026 官方评析明确强调善用对称性、几何意义简化计算（<a href="http://edu.people.com.cn/n1/2026/0607/c1006-40735399.html" target="_blank" rel="noopener noreferrer">人民网·教育部教育考试院评析</a>），130 档要练"先想后算"。</li>
+  </ul>
+</section>
+
+<section id="seg-135">
+  <div class="sec-head"><span class="sec-no">10</span><h2>135 分档 · 顶尖段</h2></div>
+  <p class="lead">135 分是"顶尖段"的起点：选填接近全对、中档零失误已经内化，最后的 15 分，全部藏在压轴第二问与解题速度里。</p>
+  <h3>10.1 分数定位画像</h3>
+  <p>135 分在多数省份已是"单科顶尖、全市前列"。<span class="flag fact">事实</span>从 2026 年数据看，新高考 I 卷 11 省约 720 万考生中，江苏全省最高 142 分、浙江 140+ 约 600 人（占考生比例约 0.15%），数学满分仅 1 人（<a href="https://3g.china.com/act/redian/13004758/20260626/49571854.html" target="_blank" rel="noopener noreferrer">中华网·满分考生</a>、<a href="https://www.sina.cn/news/detail/5313096973553558.html" target="_blank" rel="noopener noreferrer">新浪新闻·2026压轴观察</a>）；135 分已属"千里挑一"级别。<span class="flag judge">判断</span>这一档的考生"知识已不是瓶颈"，瓶颈是三个：压轴第 2/3 问的思维深度、全卷的零失误率、以及"快而不乱"的速度。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>维度</th><th>当前画像（135 分）</th><th>目标画像（140 分）</th></tr></thead>
+    <tbody>
+      <tr><td>选填</td><td>基本全对，偶错 1 题</td><td>全对</td></tr>
+      <tr><td>解答前三题</td><td>满分</td><td>满分</td></tr>
+      <tr><td>压轴第 1 问</td><td>必拿，5 分钟内</td><td>3 分钟内</td></tr>
+      <tr><td>压轴第 2 问</td><td>算对率 80%</td><td>算对率 90%+</td></tr>
+      <tr><td>压轴第 3 问</td><td>稳定 3–5 分</td><td>稳定 5–8 分</td></tr>
+    </tbody>
+  </table></div>
+  <h3>10.2 到下一档的差距量化：还差 5 分拆在哪</h3>
+  <ul class="tight">
+    <li><b>缺口 A：压轴第 2 问"必对"（约 4–5 分）</b>——135 档若第 2 问失误，原因多是"路径选偏"而非"不会"：如解析几何用坐标法算爆，而几何转化可 3 步解决。</li>
+    <li><b>缺口 B：第 3 问多拿 2–3 分</b>——第 3 问的"逻辑链完整性"训练，能把步骤分从 3 提到 5–8。</li>
+    <li><b>缺口 C：选填 1 题容错（5 分）</b>——全对即锁定 140 的门票；135 档偶发错题多半是"快出的错"，需要校验机制。</li>
+  </ul>
+  <div class="verdict"><b>判断：</b>135→140 的 5 分，主战场在压轴第 2 问的"路径优选"与第 3 问的"逻辑链长度"。这一档不再靠题量，靠"每道压轴都做到最优路径并完整输出"。</div>
+  <h3>10.3 得分结构拆解：当前 vs 目标对照表</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>当前（135 分）</th><th>目标（140 分）</th><th>涨分点</th></tr></thead>
+    <tbody>
+      <tr><td>单选 40 分</td><td class="num">约 40</td><td class="num">约 40</td><td>全对</td></tr>
+      <tr><td>多选 18 分</td><td class="num">约 18</td><td class="num">约 18</td><td>全对</td></tr>
+      <tr><td>填空 15 分</td><td class="num">约 15</td><td class="num">约 15</td><td>全对</td></tr>
+      <tr><td>解答 77 分</td><td class="num">约 65</td><td class="num">约 67</td><td>第 2 问必对</td></tr>
+      <tr><td>压轴 34 分</td><td class="num">约 17–20</td><td class="num">约 20–24</td><td>第 3 问逻辑链</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：教研估测口径，供定位涨分来源；请以实际月考逐题得分校准。</p>
+  <h3>10.4 核心失分诊断</h3>
+  <ol class="steps">
+    <li><b>路径选择不当</b>：压轴第 2 问有多种解法，选了计算量最大的那条——135 档要学会"先估复杂度再动笔"。</li>
+    <li><b>第 3 问逻辑链断裂</b>：只会第一层，不会"设新量/构造/递推"等纵深操作。</li>
+    <li><b>速度导致的低级错</b>：为省时间跳步/心算，在简单环节翻车。</li>
+    <li><b>考场节奏失衡</b>：压轴前 100 分钟节奏对了，但最后 20 分钟"抢"出的错比"做"出的多。<span class="flag judge">判断</span>135 档的失分，一半是"技巧性失误"（路径/节奏），一半是"习惯性失误"（跳步/不检）——都可训练，与天赋无关。</li>
+  </ol>
+  <h3>10.5 提分路径（5 步）</h3>
+  <ol class="steps">
+    <li><b>做什么：多解路径对比。</b>怎么做：每道压轴第 2 问尝试 2 种解法（坐标法/几何转化法），对比计算量，记录"最优路径判断依据"。多久见效：6 周。</li>
+    <li><b>做什么：第 3 问纵深训练。</b>怎么做：按"构造辅助量/递推关系/放缩方向"三方向，每方向 6 题精做。多久见效：8 周。</li>
+    <li><b>做什么：全卷校验机制。</b>怎么做：固定"做完选填即停 30 秒回扫"，每道解答写完立即验算关键步。多久见效：4 周。</li>
+    <li><b>做什么：节奏脚本。</b>怎么做：把 120 分钟写成脚本（选填 40/前三 35/压轴 30/检查 15），每次套卷执行并微调。多久见效：4 周。</li>
+    <li><b>做什么：极限套卷。</b>怎么做：每月 1 次"140+ 模拟卷"全流程，目标全卷失误 ≤ 3 分。多久见效：持续。</li>
+  </ol>
+  <h3>10.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>任务</th><th>时长</th><th>要点</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>压轴多解对比 × 2</td><td class="num">60 分钟</td><td>记录路径选择依据</td></tr>
+      <tr><td>周二</td><td>第 3 问纵深 × 2</td><td class="num">60 分钟</td><td>构造/递推/放缩方向</td></tr>
+      <tr><td>周三</td><td>选填 40 分钟 + 校验</td><td class="num">50 分钟</td><td>30 秒回扫机制</td></tr>
+      <tr><td>周四</td><td>节奏脚本执行</td><td class="num">120 分钟</td><td>分段计时复盘</td></tr>
+      <tr><td>周五</td><td>压轴错题"路径复盘"</td><td class="num">45 分钟</td><td>追问"还有更优路径吗"</td></tr>
+      <tr><td>周末</td><td>极限套卷 1 套</td><td class="num">120 分钟</td><td>目标失误 ≤ 3 分</td></tr>
+    </tbody>
+  </table></div>
+  <h3>10.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>提供"作战资源"</b>：精选压轴题库、名校模拟卷、时间规划工具，孩子负责执行。</li>
+    <li><b>淡化单次分数</b>：135+ 的波动更多来自压轴题的运气成分，家长看"失误率趋势"即可。</li>
+    <li><b>保护冲刺期睡眠</b>：135→140 拼的是考场清醒度，熬夜刷题是负收益。</li>
+  </ul>
+  <h3>10.8 常见误区与里程碑</h3>
+  <div class="callout gold"><b>1 个月目标：</b>压轴第 2 问算对率 ≥ 85%，第 3 问稳定 5 分以上。<b>3 个月目标：</b>稳定 140 上下，全卷失误 ≤ 3 分，压轴全程"路径优选+逻辑完整"。</div>
+  <ul class="tight">
+    <li><b>误区 1</b>：盲目加大题量——135 档缺的是"最优路径"与"纵深思维"，不是见题量。</li>
+    <li><b>误区 2</b>：不愿尝试第二种解法——单一解法会让你"路径固化"，考场一旦不顺手就崩。</li>
+    <li><b>误区 3</b>：忽略"多想少算"——2026 命题明确导向"善想者胜"（<a href="http://edu.people.com.cn/n1/2026/0607/c1006-40735399.html" target="_blank" rel="noopener noreferrer">人民网·教育部教育考试院评析</a>），135 档的提分点在"想"，不在"算"。</li>
+  </ul>
+</section>
+
+<section id="seg-140">
+  <div class="sec-head"><span class="sec-no">11</span><h2>140 分档 · 超顶尖段</h2></div>
+  <p class="lead">140 分是"超顶尖段"：选填全对、解答前三题满分、压轴第二问拿下、全卷零失误——这四个条件缺一不可。达到 140 分，意味着你已经站在全省考生金字塔的塔尖。</p>
+  <h3>11.1 分数定位画像</h3>
+  <p>140 分有多稀缺？<span class="flag fact">事实</span>2026 年福建全省 238585 名考生中数学 140+ 仅 47 人，占比约万分之二（<a href="https://news.sohu.com/a/1085953195_122652059" target="_blank" rel="noopener noreferrer">搜狐·2026福建高考数学平均分</a>）；浙江 140+ 约 600 人、占考生约 0.15%，江苏全省最高分 142（<a href="https://www.sina.cn/news/detail/5313096973553558.html" target="_blank" rel="noopener noreferrer">新浪新闻·2026压轴观察</a>）。<span class="flag judge">判断</span>140 档与 135 档的差距不是"会不会"，而是"零失误+压轴深度"的组合兑现率——一次考试里两者同时满血，才叫 140。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>维度</th><th>当前画像（140 分）</th><th>目标画像（145 分）</th></tr></thead>
+    <tbody>
+      <tr><td>选填</td><td>全对</td><td>全对</td></tr>
+      <tr><td>解答前三题</td><td>满分</td><td>满分</td></tr>
+      <tr><td>压轴第 1 问</td><td>3 分钟内必拿</td><td>快而稳</td></tr>
+      <tr><td>压轴第 2 问</td><td>算对率 90%+</td><td>必对</td></tr>
+      <tr><td>压轴第 3 问</td><td>稳定 5–8 分</td><td>拿到 8–12 分</td></tr>
+    </tbody>
+  </table></div>
+  <h3>11.2 到下一档的差距量化：还差 5 分拆在哪</h3>
+  <ul class="tight">
+    <li><b>缺口 A：压轴第 3 问多拿 3–5 分</b>——140→145 的 5 分只能来自最后一问：把"写一半"升级为"完整论证"，这是全省极少数人才能做到的深度。</li>
+    <li><b>缺口 B：零失误的"极端容错"</b>——140 档若有一题低级失误，就直接掉回 135；145 档要求"绝对不出低级失误"。</li>
+    <li><b>缺口 C：压轴第 2 问的"满分步骤"</b>——从"算对"到"步骤零扣分"，每题再收 1–2 分。</li>
+  </ul>
+  <div class="verdict"><b>判断：</b>140→145 的 5 分，是"全省万分之几"与"全省极少"之间的差距。它的构成不是知识增量，而是"压轴最后一问的完整论证能力+全卷绝对稳定"——这也是为什么 2026 年 I 卷满分仅 1 人（<a href="https://3g.china.com/act/redian/13004758/20260626/49571854.html" target="_blank" rel="noopener noreferrer">中华网·满分考生</a>）。</div>
+  <h3>11.3 得分结构拆解：当前 vs 目标对照表</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>当前（140 分）</th><th>目标（145 分）</th><th>涨分点</th></tr></thead>
+    <tbody>
+      <tr><td>单选 40 分</td><td class="num">40</td><td class="num">40</td><td>保持</td></tr>
+      <tr><td>多选 18 分</td><td class="num">18</td><td class="num">18</td><td>保持</td></tr>
+      <tr><td>填空 15 分</td><td class="num">15</td><td class="num">15</td><td>保持</td></tr>
+      <tr><td>解答 77 分</td><td class="num">约 67</td><td class="num">约 69</td><td>步骤零扣分</td></tr>
+      <tr><td>压轴 34 分</td><td class="num">约 20–24</td><td class="num">约 24–29</td><td>第 3 问完整论证</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：教研估测口径，供定位涨分来源；请以实际月考逐题得分校准。</p>
+  <h3>11.4 核心失分诊断</h3>
+  <ol class="steps">
+    <li><b>第 3 问论证不完整</b>：写结论不写理由、跳关键推导、分类讨论漏支——140 档的压轴扣分全在"严谨性"。</li>
+    <li><b>低级失误</b>：抄错数、符号错、答题卡位置错——每错 1 题，从 140 直接掉到 135。</li>
+    <li><b>压轴时间上限</b>：第 3 问只剩 5 分钟时，即便会做也写不完——需要更快的"前 100 分钟"。</li>
+    <li><b>"会而不对"的步骤分损失</b>：每道解答题 1 分小扣，5 道题就是 5 分。<span class="flag judge">判断</span>140 档的失分几乎全是"非知识性"的：严谨性、稳定性、节奏感。这也意味着它可以通过"极端训练"练出来。</li>
+  </ol>
+  <h3>11.5 提分路径（5 步）</h3>
+  <ol class="steps">
+    <li><b>做什么：第 3 问完整论证训练。</b>怎么做：每道压轴第 3 问按"标准答案"逐句对照，标出所有跳步与缺理处，重写到零扣分。多久见效：8 周。</li>
+    <li><b>做什么：低级失误清零计划。</b>怎么做：连续 6 套卷统计低级失误（抄错/符号/位置），用"答题卡誊写后回读一遍"机制清零。多久见效：5 周。</li>
+    <li><b>做什么：前 100 分钟提速。</b>怎么做：选填 38 分钟、前三解答 30 分钟，把压轴时间提到 40 分钟+。多久见效：6 周。</li>
+    <li><b>做什么：步骤零扣分演练。</b>怎么做：解答题每题按"标答模板"书写，训练"每一步都有依据"。多久见效：6 周。</li>
+    <li><b>做什么：压轴深度拓展。</b>怎么做：每周 2 道"竞赛向"压轴题（不超纲的思维拓展），训练多步论证耐力。多久见效：持续。</li>
+  </ol>
+  <h3>11.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>任务</th><th>时长</th><th>要点</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>第 3 问完整论证 × 2</td><td class="num">70 分钟</td><td>逐句对标答案</td></tr>
+      <tr><td>周二</td><td>前 100 分钟提速演练</td><td class="num">100 分钟</td><td>选填 38+前三 30</td></tr>
+      <tr><td>周三</td><td>低级失误统计 + 专项</td><td class="num">40 分钟</td><td>誊写回读机制</td></tr>
+      <tr><td>周四</td><td>压轴深度拓展 × 2</td><td class="num">70 分钟</td><td>竞赛向思维题</td></tr>
+      <tr><td>周五</td><td>步骤零扣分演练 × 3</td><td class="num">60 分钟</td><td>标答模板书写</td></tr>
+      <tr><td>周末</td><td>极限套卷 1 套</td><td class="num">120 分钟</td><td>目标 145±2</td></tr>
+    </tbody>
+  </table></div>
+  <h3>11.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>做"稳定器"而非"加压器"</b>：140 档孩子的对手是"发挥"，家长提供节奏与心理稳定，胜过一切补习。</li>
+    <li><b>关注疲劳管理</b>：冲刺期每周至少 1 天完全休息数学，防止"手感疲劳"导致低级失误。</li>
+    <li><b>淡化"满分执念"</b>：145 与 150 之间隔着"运气+出题偶然性"，家长要帮孩子把目标定在"能力上限的稳定兑现"。</li>
+  </ul>
+  <h3>11.8 常见误区与里程碑</h3>
+  <div class="callout gold"><b>1 个月目标：</b>第 3 问论证零跳步，低级失误连续 4 套归零。<b>3 个月目标：</b>稳定 145 上下，压轴第 3 问稳定 8 分以上，全卷 5 次模考失误累计 ≤ 8 分。</div>
+  <ul class="tight">
+    <li><b>误区 1</b>：压轴只看思路不写全——140 档的提分在"写全"，不在"想多"。</li>
+    <li><b>误区 2</b>：追求题量极限——该做的是"每题的完美度极限"。</li>
+    <li><b>误区 3</b>：考前突击难题——考前两周应回归"全卷稳定性"，难题维持手感即可。</li>
+  </ul>
+</section>
+
+<section id="seg-145">
+  <div class="sec-head"><span class="sec-no">12</span><h2>145 分档 · 超顶尖冲刺</h2></div>
+  <p class="lead">145 分是全省极少数的顶尖分数：压轴几乎拿满、超强计算稳定性、全卷近乎零失误。这一档与其说在"提分"，不如说在"捍卫每一分"。</p>
+  <h3>12.1 分数定位画像</h3>
+  <p>145 分意味着什么？<span class="flag fact">事实</span>2026 年新高考 I 卷 11 省约 720 万考生中，数学满分仅 1 人；江苏全省最高 142 分，浙江 140+ 约 600 人（占比约 0.15%）（<a href="https://3g.china.com/act/redian/13004758/20260626/49571854.html" target="_blank" rel="noopener noreferrer">中华网·满分考生</a>、<a href="https://www.sina.cn/news/detail/5313096973553558.html" target="_blank" rel="noopener noreferrer">新浪新闻·2026压轴观察</a>）。145 分在多数年份已接近"省状元级"数学单科水平。<span class="flag judge">判断</span>能稳定 145 的考生，其能力画像几乎只有一种：压轴第 2 问必对、第 3 问拿大部分、全卷从第一题到最后一题无一处低级失误——这是"能力+心态+状态"三者同时到达极值的产物。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>维度</th><th>当前画像（145 分）</th><th>目标（稳定 145+）</th></tr></thead>
+    <tbody>
+      <tr><td>选填</td><td>全对</td><td>全对（100%）</td></tr>
+      <tr><td>解答前三题</td><td>满分</td><td>满分（100%）</td></tr>
+      <tr><td>压轴第 2 问</td><td>必对</td><td>必对</td></tr>
+      <tr><td>压轴第 3 问</td><td>8–12 分</td><td>12–15 分</td></tr>
+      <tr><td>全卷失误</td><td>≤ 5 分</td><td>≤ 2 分</td></tr>
+    </tbody>
+  </table></div>
+  <h3>12.2 到"145+"的差距量化：最后 5 分拆在哪</h3>
+  <ul class="tight">
+    <li><b>缺口 A：压轴第 3 问完整论证（约 3–5 分）</b>——145 分到 150 分的路，几乎全在第 19 题最后一问：2026 年该题满分 17 分，山东全省最高 13 分、浙江仅 1 人满分（<a href="https://www.sina.cn/news/detail/5313096973553558.html" target="_blank" rel="noopener noreferrer">新浪新闻·2026压轴观察</a>），能拿 12+ 已是全省顶级。</li>
+    <li><b>缺口 B：全卷"极端零失误"</b>——145 档每错 1 个低级失误就掉 5 分，最后一档的训练就是"把失误率压到 0"。</li>
+    <li><b>缺口 C：压轴步骤零扣分</b>——每题 1 分的书写严谨性，5 题就是 5 分。</li>
+  </ul>
+  <div class="verdict"><b>判断：</b>145→150 的 5 分，是整个分数体系里"单位分数最贵"的 5 分：它要求压轴最后一问的完整论证（全省极少人能写满），同时要求全卷 120 分钟零失误。这不是战术能解决的，是"长期极致训练+临场巅峰状态"的结果。</div>
+  <h3>12.3 得分结构拆解：当前 vs 目标对照表</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>当前（145 分）</th><th>目标（150 分）</th><th>涨分点</th></tr></thead>
+    <tbody>
+      <tr><td>单选 40 分</td><td class="num">40</td><td class="num">40</td><td>保持</td></tr>
+      <tr><td>多选 18 分</td><td class="num">18</td><td class="num">18</td><td>保持</td></tr>
+      <tr><td>填空 15 分</td><td class="num">15</td><td class="num">15</td><td>保持</td></tr>
+      <tr><td>解答 77 分</td><td class="num">约 69</td><td class="num">约 71</td><td>步骤零扣分</td></tr>
+      <tr><td>压轴 34 分</td><td class="num">约 24–29</td><td class="num">约 29–33</td><td>第 3 问完整论证</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：教研估测口径，供定位涨分来源；满分需全卷零失误，2026 年 I 卷满分仅 1 人（<a href="https://3g.china.com/act/redian/13004758/20260626/49571854.html" target="_blank" rel="noopener noreferrer">中华网</a>）。</p>
+  <h3>12.4 核心失分诊断</h3>
+  <ol class="steps">
+    <li><b>第 3 问"最后一公里"</b>：论证链条最后一步缺依据，或分类讨论最后一支漏掉——压轴丢分 100% 在这里。</li>
+    <li><b>极端压力下的低级失误</b>：越是顶尖考生，越要防"胜利在望时的松懈"——第 19 题写完前面全对，最后一空抄错。</li>
+    <li><b>状态波动</b>：145 档的成绩上限由状态决定，睡眠、心态、考场节奏任何一环出问题，直接 -5。</li>
+    <li><b>步骤书写"惯性扣分"</b>：长时间高密度训练后容易"想快"，跳步被扣分——快与全要兼顾。<span class="flag judge">判断</span>145 档没有"不会的题"，只有"没写好的题"。失分全在细节与状态。</li>
+  </ol>
+  <h3>12.5 提分路径（5 步）</h3>
+  <ol class="steps">
+    <li><b>做什么：第 3 问"满分工程"。</b>怎么做：把近 3 年压轴第 3 问的标准答案逐句默写还原，训练"论证全链条"能力。多久见效：10 周。</li>
+    <li><b>做什么：全卷零失误演练。</b>怎么做：每月 2 次"满分演练"，任何低级失误记录在案并追责到机制。多久见效：8 周。</li>
+    <li><b>做什么：状态管理。</b>怎么做：固定作息+每周 2 次 40 分钟有氧运动，考前模拟"高考日"节奏。多久见效：4 周。</li>
+    <li><b>做什么：书写规范极限化。</b>怎么做：每道解答按"标准答案排版"重写，训练"快而不跳步"。多久见效：6 周。</li>
+    <li><b>做什么：压轴深度对抗。</b>怎么做：与高手互换压轴题，或参加高质量模拟，训练"陌生难题临场拆解"。多久见效：持续。</li>
+  </ol>
+  <h3>12.6 训练方案与时间分配（周计划表）</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>时间</th><th>任务</th><th>时长</th><th>要点</th></tr></thead>
+    <tbody>
+      <tr><td>周一</td><td>第 3 问满分工程 × 2</td><td class="num">80 分钟</td><td>逐句还原标准答案</td></tr>
+      <tr><td>周二</td><td>全卷零失误演练（选填+前三）</td><td class="num">70 分钟</td><td>任何失误追责机制</td></tr>
+      <tr><td>周三</td><td>压轴深度对抗 × 2</td><td class="num">80 分钟</td><td>陌生难题拆解</td></tr>
+      <tr><td>周四</td><td>书写规范极限化 × 3</td><td class="num">60 分钟</td><td>标答排版重写</td></tr>
+      <tr><td>周五</td><td>状态管理（轻量+复盘）</td><td class="num">60 分钟</td><td>运动+错题回顾</td></tr>
+      <tr><td>周末</td><td>极限套卷 + 逐题复盘</td><td class="num">150 分钟</td><td>目标 147+</td></tr>
+    </tbody>
+  </table></div>
+  <h3>12.7 家长协同要点</h3>
+  <ul class="tight">
+    <li><b>充当"状态管理员"</b>：145 档孩子已不需要指导，需要的是作息保障、情绪容器与"别添乱"。</li>
+    <li><b>接受"高分随缘"</b>：145+ 受当年试卷与临场状态影响极大，家长目标应是"稳定发挥出真实水平"。</li>
+    <li><b>长远眼光</b>：数学 145 的意义不止分数，更代表"极限抗压+极致严谨"的能力资产，这比分数本身更值得保护。</li>
+  </ul>
+  <h3>12.8 常见误区与里程碑</h3>
+  <div class="callout gold"><b>1 个月目标：</b>全卷失误 ≤ 2 分，第 3 问论证零跳步。<b>3 个月目标：</b>稳定 145+（模考中位数），压轴第 3 问稳定 12+ 分，具备"满分演练"能力。</div>
+  <ul class="tight">
+    <li><b>误区 1</b>：考前疯狂刷题——145 档考前两周刷题收益为负，应以"全卷稳定+状态管理"为主。</li>
+    <li><b>误区 2</b>：追求"满分执念"——满分需要实力+运气，145+ 已是能力上限的极佳兑现。</li>
+    <li><b>误区 3</b>：忽视书写——顶尖考场的每一分都写在卷面上，跳步的"快"是用 1–2 分换的。</li>
+  </ul>
+</section>
+
+<div class="wrap" style="padding-top:34px">
+  <h3 style="color:var(--navy)">参考来源与数据口径</h3>
+  <p class="lead">本文所有数据均标注来源与口径分层（官方发布 / 权威媒体 / 行业观察），请对照核验。未标"官方"的数据为媒体统计或教研估测，仅作趋势参考；严禁以网络流传的未署名数据代替官方口径。</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>口径层级</th><th>本文示例</th><th>使用建议</th></tr></thead>
+    <tbody>
+      <tr><td>官方发布</td><td>福建省教育考试院《2026年普通高考学科评价报告》：平均 74.9、难度值 0.50、140+ 全省 47 人</td><td>可直接引用</td></tr>
+      <tr><td>权威媒体/官方机构评析</td><td>教育部教育考试院 2026 数学评析、中国教育在线真题、人民网</td><td>高可信，交叉核验后可用</td></tr>
+      <tr><td>权威媒体统计口径</td><td>新京报 AI 评测、新浪新闻压轴观察、中华网满分报道</td><td>中高，注意区分"统计"与"官方"</td></tr>
+      <tr><td>行业观察/教研估测</td><td>板块得分结构对照表、各档缺口拆解（约数）</td><td>仅作定位参考，按实际月考校准</td></tr>
+      <tr><td>网络流传"内部数据"</td><td>各类未署名平均分表格</td><td>不可信，勿引用</td></tr>
+    </tbody>
+  </table></div>
+  <ol class="ref-list">
+    <li>福建省教育考试院《2026年普通高考学科评价报告》——经 <a href="https://news.sohu.com/a/1085953195_122652059" target="_blank" rel="noopener noreferrer">搜狐·2026福建高考数学平均分出炉</a>、<a href="https://m.thepaper.cn/newsDetail_forward_34237158" target="_blank" rel="noopener noreferrer">澎湃·2026福建高考各科平均分</a> 引用核验</li>
+    <li><a href="http://edu.people.com.cn/n1/2026/0607/c1006-40735399.html" target="_blank" rel="noopener noreferrer">人民网·教育部教育考试院发布2026年高考数学试题评析</a></li>
+    <li><a href="https://gaokao.eol.cn/shiti/sx/202406/t20240612_2616028.shtml" target="_blank" rel="noopener noreferrer">中国教育在线·2024年高考新课标一卷数学真题</a></li>
+    <li><a href="https://www.zxxk.com/soft/58248364.html" target="_blank" rel="noopener noreferrer">学科网·2026年高考全国1卷数学真题</a>（19 题结构：8+3+3+5）</li>
+    <li><a href="https://www.gaokao.cn/gk/51659" target="_blank" rel="noopener noreferrer">掌上高考·2026年新高考I卷数学真题概览</a>（19 题结构口径）</li>
+    <li><a href="https://www.gaokao.cn/gk/50762" target="_blank" rel="noopener noreferrer">掌上高考·新高考一卷数学题型分布与答题时间</a>（含旧口径对比说明）</li>
+    <li><a href="https://hea.china.com/articles/20260609/202606091889020.html" target="_blank" rel="noopener noreferrer">中华网·特级教师许钦彪深度解析2026高考数学命题概况</a>（基础 60%、难题 15% 以内口径）</li>
+    <li><a href="https://3g.china.com/act/redian/13004758/20260626/49571854.html" target="_blank" rel="noopener noreferrer">中华网·2026高考数学满分考生报道</a>（满分 1 人、江苏最高 142）</li>
+    <li><a href="https://www.sina.cn/news/detail/5313096973553558.html" target="_blank" rel="noopener noreferrer">新浪新闻·2026新高考I卷压轴第19题观察</a>（媒体统计口径）</li>
+    <li><a href="http://www.eol.cn/kaoshi/gaokao/gkzx/202606/t20260607_2742266.shtml" target="_blank" rel="noopener noreferrer">教育在线·近五年高考数学难度回顾与趋势分析</a>（2022 平均约 43 分口径）</li>
+    <li><a href="http://jyt.jiangxi.gov.cn/jxjyw/kspj/content/content_1937327845710352384.html" target="_blank" rel="noopener noreferrer">江西省教育厅·2025年高中数学新高考Ⅰ卷评析</a>（基础/中档/难题占比官方口径）</li>
+    <li><a href="https://mzujuan.xkw.com/thematiclist/11pt7914ct26198n966703.html" target="_blank" rel="noopener noreferrer">组卷网·2026年新高考全国I卷数学试题分析</a>（板块分值占比）</li>
+    <li><a href="https://m.bjnews.com.cn/detail/1780914137169182.html" target="_blank" rel="noopener noreferrer">新京报·6款AI大模型挑战高考数学</a>（解答题步骤规范拉开差距）</li>
+    <li><a href="https://www.sydhyg.com/article.php?act=view&id=423" target="_blank" rel="noopener noreferrer">麓谷高中·2026湖南高考数学深度解析</a>（行业观察，60/30/10 分层参考）</li>
+  </ol>
+  <div class="verdict"><b>边界声明：</b>本文为教研分析，不针对任何个体学生做结论；不同省份、学校、班级实际情况差异很大，各档"得分结构对照表"为教研估测口径，请以当年考试说明、正式试卷、官方评价报告与孩子实际月考逐题数据为准。</div>
+</div>
+
+
+<footer>
+  <div class="brand">刘老师教研 · 高中数学教研 · 95-145分档提分全面分析 · 供考生与家长对照使用</div>
+  <p>本文为教研分析，不针对个体做结论，请以当年考试说明与正式试卷为准</p>
+</footer>
+</body>
+</html>

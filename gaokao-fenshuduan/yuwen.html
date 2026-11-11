@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刘老师教研 · 高考语文95-145分数段全面分析</title>
+<style>
+:root{
+  --navy:#0f2a4a;--navy2:#16385e;--gold:#d4a853;--gold2:#b8913c;--bg:#f6f7fb;
+  --card:#ffffff;--ink:#24303f;--muted:#6b7a8c;--line:#e3e8f0;--ok:#1f7a4d;--okbg:#e8f5ee;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.75;font-size:16px}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 62%,#1e4a72 100%);color:#fff;padding:64px 20px 56px;text-align:center}
+.hero .kicker{display:inline-block;border:1px solid rgba(212,168,83,.55);color:#e6c684;font-size:13px;letter-spacing:2px;padding:6px 16px;border-radius:999px;margin-bottom:18px}
+.hero h1{font-size:34px;font-weight:800;line-height:1.35;margin-bottom:14px;letter-spacing:.5px}
+.hero .sub{font-size:16px;color:#cdd8e8;max-width:760px;margin:0 auto}
+.hero .stats{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:28px}
+.hero .stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:14px 20px;min-width:150px}
+.hero .stat b{display:block;font-size:26px;color:#f0cd83;font-weight:800}
+.hero .stat span{font-size:13px;color:#c7d3e4}
+nav.sticky{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.97);backdrop-filter:blur(6px);box-shadow:0 2px 12px rgba(15,42,74,.25)}
+nav.sticky .wrap{display:flex;overflow-x:auto;gap:2px;padding:0 12px}
+nav.sticky a{color:#dce6f3;font-size:14px;padding:12px 10px;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;transition:.2s}
+nav.sticky a:hover,nav.sticky a.active{color:#f0cd83;border-color:var(--gold)}
+section{padding:46px 0 14px;scroll-margin-top:58px}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.sec-no{flex:none;font-size:13px;font-weight:800;color:#fff;background:var(--gold);border-radius:8px;padding:3px 10px;letter-spacing:1px}
+section h2{font-size:25px;color:var(--navy);font-weight:800}
+.lead{color:var(--muted);font-size:15px;margin-bottom:18px;max-width:860px}
+h3{font-size:19px;color:var(--navy);margin:22px 0 10px;font-weight:700}
+h4{font-size:16px;color:var(--navy2);margin:16px 0 8px;font-weight:700}
+p{margin:10px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:14px 0;box-shadow:0 1px 4px rgba(15,42,74,.05)}
+.verdict{background:linear-gradient(135deg,#fdf6e8,#f9ecd4);border:1px solid #e9d5a7;border-left:5px solid var(--gold);border-radius:12px;padding:16px 20px;margin:16px 0}
+.verdict b{color:var(--navy)}
+.flag{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:1px 8px;margin-right:6px;vertical-align:2px}
+.flag.fact{background:var(--okbg);color:var(--ok)}
+.flag.judge{background:#fdf0ef;color:#b0463a}
+.tbl-scroll{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;background:#fff;font-size:14.5px;min-width:560px}
+th{background:var(--navy);color:#fff;font-weight:700;padding:11px 12px;text-align:left;white-space:nowrap}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#f7f9fc}
+td.num{font-variant-numeric:tabular-nums;font-weight:700;color:var(--navy);white-space:nowrap}
+.small{font-size:13px;color:var(--muted)}
+.hl{background:#fdf3d8;border-radius:4px;padding:0 4px;font-weight:700;color:#8a6414}
+ol.steps{margin:12px 0 12px 22px}
+ol.steps li{margin:9px 0}
+ul.tight{margin:10px 0 10px 22px}
+ul.tight li{margin:6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.chip{background:#eef2f8;border:1px solid #dbe3ef;color:var(--navy2);font-size:13px;font-weight:700;border-radius:999px;padding:6px 14px}
+.chip.gold{background:#fbf4e4;border-color:#e9d5a7;color:#8a6414}
+.callout{border-left:5px solid var(--navy2);background:#eef3fa;border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;font-size:15px}
+.callout.gold{border-color:var(--gold);background:#fbf4e4}
+.ref-list{font-size:13.5px;color:var(--muted)}
+.ref-list li{margin:7px 0}
+.ref-list a{color:var(--navy2);text-decoration:none;border-bottom:1px dotted #a9b8cc}
+.ref-list a:hover{color:var(--gold2)}
+.refbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:14px 0}
+.refbox h3{margin-top:0}
+footer{background:var(--navy);color:#cdd8e8;margin-top:46px;padding:34px 20px 40px;text-align:center}
+footer .brand{font-size:15px;color:#f0cd83;font-weight:700;margin-bottom:8px}
+footer p{font-size:13px;color:#aebdd2;margin:5px 0}
+@media(max-width:640px){
+  .hero h1{font-size:26px}.hero .stat{min-width:120px}
+  section h2{font-size:21px}nav.sticky a{font-size:13px;padding:11px 8px}
+}
+@media print{
+  nav.sticky{display:none}.hero{background:#0f2a4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  section{page-break-inside:avoid}.card,.verdict,.callout{break-inside:avoid}
+  a{color:#16385e!important;text-decoration:none!important}
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <span class="kicker">刘老师教研 · 高考分数段全面分析</span>
+  <h1>高考语文 95→145 分<br>十一档提分全面分析</h1>
+  <p class="sub">从及格线挣扎到全省顶尖，把"高考语文提分"拆成 11 个可对照的 5 分档。每档给出分数定位画像、差距量化、失分诊断、提分路径、周计划、家长协同与里程碑——数据化、表格化、可执行，供全国高三考生与家长对照使用。</p>
+  <div class="stats">
+    <div class="stat"><b>11 档</b><span>95~145 每 5 分一档</span></div>
+    <div class="stat"><b>150 分</b><span>基础题 90 + 写作 60</span></div>
+    <div class="stat"><b>103.25</b><span>2025 福建全省语文平均分（官方）</span></div>
+    <div class="stat"><b>72 篇</b><span>新课标必背古诗文</span></div>
+  </div>
+</header>
+<nav class="sticky"><div class="wrap">
+  <a href="#intro">00 体系</a><a href="#seg-95">95</a><a href="#seg-100">100</a><a href="#seg-105">105</a><a href="#seg-110">110</a><a href="#seg-115">115</a><a href="#seg-120">120</a><a href="#seg-125">125</a><a href="#seg-130">130</a><a href="#seg-135">135</a><a href="#seg-140">140</a><a href="#seg-145">145</a>
+</div></nav>
+
+<section id="intro">
+  <div class="sec-head"><span class="sec-no">00</span><h2>体系说明：为什么把 95→145 拆成 11 个 5 分档</h2></div>
+  <p class="lead">本页把"高考语文从 95 分到 145 分"拆成 11 个分数档（95/100/105/110/115/120/125/130/135/140/145，每 5 分一档），每档独立成节。先讲清三件事：为什么这样分档、11 档各自定位是什么、150 分制的板块分值长什么样。</p>
+  <h3>0.1 为什么每 5 分一档</h3>
+  <p><span class="flag fact">事实</span>高考语文总分 150 分，其中"基础题 90 分（现代文阅读+古诗文阅读+语言文字运用）+ 写作 60 分"，考试时间 150 分钟（<a href="https://m.gaokao.cn/gk/49440" target="_blank" rel="noopener noreferrer">掌上高考-2026 高考语文试卷结构</a>）。<span class="flag judge">判断</span>语文是"复利型"学科：分数不是均匀爬升的，而是"阅读+语言运用+作文"三维咬合的结果。以 5 分为一档，是为了让每个目标可测量、可对照——"这 5 分到底该从哪个板块拿"比"我要考 120"更可执行。<span class="flag fact">事实</span>从官方数据看，2025 年福建全省语文平均分 103.25 分（物理组 103.05、历史组 104.08，难度值 0.69，属中等偏易），也就是说，全国多数考生其实就站在"100 分档"附近（<a href="http://fjnews.fjsen.com/2025-10/31/content_32068998.htm" target="_blank" rel="noopener noreferrer">东南网-2025 福建高考语文各地平均分</a>，引自福建省教育考试院《2025 年福建省普通高考学科评价报告》）。</p>
+  <div class="callout gold">分档逻辑一句话：<b>95→110 靠"把该拿的分拿全"（基础与规范），110→130 靠"阅读与作文双向提档"（方法与思辨），130→145 靠"零失误+表达天花板"（稳定与创新）</b>。三段的目标函数完全不同，训练方案也因此不同。</div>
+  <h3>0.2 11 档总览：定位与下一档核心任务</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>档位</th><th>一句话定位</th><th>到下一档的核心任务</th></tr></thead>
+    <tbody>
+      <tr><td class="num">95</td><td>及格线上挣扎：基础+阅读双弱，作文立意浅</td><td>守住默写/语言运用基础分，阅读先摸题型框架</td></tr>
+      <tr><td class="num">100</td><td>基础分基本稳住，现代文阅读失分重，作文 40 上下</td><td>古诗文翻译+诗歌鉴赏系统补课</td></tr>
+      <tr><td class="num">105</td><td>中档起步：古诗文翻译与诗歌鉴赏是短板</td><td>现代文主观题规范作答，阅读得分率过半</td></tr>
+      <tr><td class="num">110</td><td>中档稳定：阅读得分率过半，作文 44 左右</td><td>信息类阅读/语言运用细节题零容忍</td></tr>
+      <tr><td class="num">115</td><td>逼近高分门槛：信息类阅读/语言运用细节丢分</td><td>作文上 52，文言翻译精度提档</td></tr>
+      <tr><td class="num">120</td><td>高分门槛线：作文 52 是关键杠杆，文言翻译精度不足</td><td>思辨深度与材料运用拉开差距</td></tr>
+      <tr><td class="num">125</td><td>稳高分段：思辨深度与材料运用拉开差距</td><td>作文 55+ 与压轴阅读成为主战场</td></tr>
+      <tr><td class="num">130</td><td>高分段：作文 55+ 与压轴阅读是主战场</td><td>全面均衡，剩"最后 15 分"在作文上限与创新表达</td></tr>
+      <tr><td class="num">135</td><td>顶尖段：全面均衡，剩"最后 15 分"在作文上限与创新表达</td><td>写作天花板 + 全程零失误</td></tr>
+      <tr><td class="num">140</td><td>超顶尖段：几乎无短板，靠写作天花板与零失误</td><td>写作接近满分 + 阅读零失误</td></tr>
+      <tr><td class="num">145</td><td>全省极少数的顶尖分数：写作接近满分 + 阅读零失误</td><td>——（封顶档，转向稳定性维持）</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">注：各档"定位画像"为教研设定的典型画像，非官方分段标准；档位间分数、板块分均用于对照分析，不代表任何个体考生的真实试卷得分。</p>
+  <h3>0.3 板块分值地图：150 分从哪里来</h3>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>板块</th><th>约分值</th><th>细分构成</th><th>口径说明</th></tr></thead>
+    <tbody>
+      <tr><td><b>现代文阅读</b></td><td class="num">约 35 分</td><td>论述类（信息类）约 10 分、文学类约 15 分、实用类约 12 分</td><td>新高考卷通用口径；具体题量与分值随卷种/年份微调</td></tr>
+      <tr><td><b>古诗文阅读</b></td><td class="num">约 34~35 分</td><td>文言文约 20~22 分、古代诗歌约 9 分、名句默写 6 分</td><td>文言文近年分值在 20~22 分间浮动（2024 新课标 I 卷为 22 分）</td></tr>
+      <tr><td><b>语言文字运用</b></td><td class="num">约 20 分</td><td>约 5 小题：成语、病句、语言表达、衔接补写等</td><td>题型常年整合调整，但板块总分基本稳定</td></tr>
+      <tr><td><b>写作</b></td><td class="num">60 分</td><td>材料作文为主，不少于 800 字</td><td>全国卷作文满分 60 分；个别自主命题省份曾达 70 分（历史口径）</td></tr>
+      <tr><td><b>合计</b></td><td class="num">150 分</td><td>基础题 90 + 写作 60</td><td>考试时间 150 分钟（<a href="https://m.gaokao.cn/gk/49440" target="_blank" rel="noopener noreferrer">掌上高考</a>）</td></tr>
+    </tbody>
+  </table></div>
+  <p><span class="flag fact">事实</span>上述板块构成以教育部考试院命制的全国卷（新高考 I/II 卷）为基准，具体到"论述类 10 分、文学类 15 分、实用类 12 分"等细分，见 <a href="https://m.gaokao.cn/gk/49440" target="_blank" rel="noopener noreferrer">掌上高考-2026 高考语文试卷 150 分结构</a>；考试范围与能力层级（识记/理解/分析综合/鉴赏评价/表达应用/探究六层）以教育部《考试大纲》为准（<a href="https://gaokao.neea.edu.cn/res/Home/structure/d5c2533736139e39cc73a479158fd3b0.pdf" target="_blank" rel="noopener noreferrer">中国教育考试网-高考语文科考试范围与要求</a>）。<span class="flag judge">判断</span>这张地图的关键含义是：写作独占 60 分（40%），阅读两板块合计约 70 分（约 47%），语言运用仅 20 分——所以语文的提分天花板由作文决定，而 95→115 的快速提分空间主要在阅读与语言运用。</p>
+  <div class="verdict"><b>核心判断：</b>语文提分不是"平均用力"：95 分档缺的是基础分（默写、语言运用、翻译），110 分档缺的是阅读方法与作文规范，130 分档缺的是思辨深度与表达上限。本文 11 个档位分别对准各自的真实缺口。</div>
+</section>
+
+<section id="seg-95">
+  <div class="sec-head"><span class="sec-no">01</span><h2>95 分档 · 基础重建期</h2></div>
+  <p class="lead">95 分是及格线上最危险的位置：分数看着"过了线"，实际处处漏风。这一档的核心不是"练难题"，而是"把能拿的分全部拿回"。</p>
+  <div class="chips"><span class="chip">定位：及格线上挣扎</span><span class="chip">作文约 45/60</span><span class="chip">默写+语言运用是提分起点</span><span class="chip gold">本档关键词：基础重建</span></div>
+  <div class="card">
+    <h3>1.1 分数定位画像</h3>
+    <p><span class="flag judge">判断</span>95 分档学生的典型状态是"三弱一散"：基础弱（默写背了写不对、成语病句凭感觉）、阅读弱（读得懂大意、答不到采分点）、作文立意浅（停留在材料表面，结构靠凑字），同时知识散（板块之间没有体系）。做题状态上，选择题靠"感觉排除"，主观题"写满但拿不到分"，文言翻译"逐字硬译、语句不通"。</p>
+    <p><span class="flag fact">事实</span>从阅卷统计看，作文"40 分现象"长期存在：以广东 2007—2013 年为例，作文平均分在 37.8~40.38 之间波动，2012 年 31~50 分考生占比高达 84.93%，而 51~60 分仅占 0.9%（<a href="http://edu.people.com.cn/n/2014/0617/c1053-25158665.html" target="_blank" rel="noopener noreferrer">人民网-广州高考作文"40 分"现象堪忧</a>）。<span class="flag judge">判断</span>这意味着 95 分档的考生作文若在 42~45 之间，已属"正常偏低"，真正的失分大头在前 90 分基础题——这是好消息：基础题提分确定性高。</p>
+    <div class="callout">心态画像：这类学生常被"语文靠积累、急不来"劝退，实际正相反——<b>95→105 是语文提分最快的区间</b>，因为缺口是明确的"知识漏洞型"，补上就有分。</div>
+  </div>
+  <div class="card">
+    <h3>1.2 到下一档的差距量化：还差 5 分，从哪里拿</h3>
+    <p><span class="flag judge">判断</span>从 95 到 100，最现实、性价比最高的 5 分不在作文（作文提 1 分需要整套表达升级），而在三处确定性缺口：默写（满分 6 分档内常见丢 2~4 分）、语言运用（20 分中常丢 5 分以上）、文言翻译（8~10 分中常丢 4 分以上）。</p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>缺口来源</th><th>当前典型损失</th><th>可回收目标</th><th>为什么最现实</th></tr></thead>
+      <tbody>
+        <tr><td>名句默写（6 分）</td><td class="num">丢 2~4 分</td><td class="num">全拿（+2~4）</td><td>72 篇范围固定，属纯记忆分（<a href="http://edu.people.com.cn/n1/2018/0117/c1006-29768885.html" target="_blank" rel="noopener noreferrer">人民网-新课标必背篇目增至 72 篇</a>）</td></tr>
+        <tr><td>语言文字运用（20 分）</td><td class="num">丢 5~8 分</td><td class="num">少丢 2~3 分</td><td>成语、病句考点高频重复，训练即可见效</td></tr>
+        <tr><td>文言翻译（约 8~10 分）</td><td class="num">丢 4~6 分</td><td class="num">少丢 1~2 分</td><td>采分点明确（实词/句式/大意），逐点训练</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>1.3 得分结构拆解：当前 vs 目标 100</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>板块</th><th>当前（95 档典型）</th><th>目标（100 档）</th><th>差距</th></tr></thead>
+      <tbody>
+        <tr><td>现代文阅读 / 35</td><td class="num">15</td><td class="num">17</td><td>+2（选择题先抓稳）</td></tr>
+        <tr><td>古诗文阅读 / 35</td><td class="num">18</td><td class="num">19</td><td>+1（默写+翻译起步）</td></tr>
+        <tr><td>语言文字运用 / 20</td><td class="num">17</td><td class="num">18</td><td>+1（成语病句专项）</td></tr>
+        <tr><td>写作 / 60</td><td class="num">45</td><td class="num">46</td><td>+1（结构完整化）</td></tr>
+        <tr><td><b>合计 / 150</b></td><td class="num"><b>95</b></td><td class="num"><b>100</b></td><td>+5</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">注：板块分为教研设定的"典型画像分"，用于量化对照，不代表任何个体真实卷面；真实考试中板块间存在动态补偿。</p>
+  </div>
+  <div class="card">
+    <h3>1.4 核心失分诊断</h3>
+    <ul class="tight">
+      <li><b>默写失分</b>：会背不会写——错别字（如"沧"与"苍"、"燕"与"雁"）、上下句张冠李戴、通假字按口语写。</li>
+      <li><b>语言运用凭感觉</b>：成语"看着像就选"、病句六大类型（语序/搭配/残缺/杂糅/歧义/不合逻辑）没有分类训练。</li>
+      <li><b>文言翻译硬译</b>：不看语境直译，关键词（实词/虚词）踩不中采分点，译句不通顺也丢分。</li>
+      <li><b>现代文答非所问</b>：信息类阅读选项比对不细；文学类主观题"抄原文句子"而不是"按考点作答"。</li>
+      <li><b>作文凑字数</b>：立意浅、结构散、例子老套（动不动"司马迁/爱迪生"），论证靠"喊口号"。</li>
+      <li><b>卷面与时间</b>：书写潦草影响作文阅卷观感；时间分配失衡，作文只剩 35 分钟仓促收尾。</li>
+    </ul>
+    <p><span class="flag fact">事实</span>2024 年新课标 I 卷（福建地区阅卷统计）文言文第 13 题翻译 8 分，平均仅 4.20 分（难度值 0.53），第 11 题实词题难度值 0.45——古诗文的失分不是"偏难"，而是基础点没压实（<a href="https://m.zxxk.com/soft/48159482.html" target="_blank" rel="noopener noreferrer">学科网-2025 届高考语文复习主观题答题分析</a>）。</p>
+  </div>
+  <div class="card">
+    <h3>1.5 提分路径：5 步可执行动作</h3>
+    <ol class="steps">
+      <li><b>做：默写清零计划。</b>把 72 篇（文言 32+诗词曲 40）按"每周 5 篇"滚动背诵，只做两件事：逐句翻译理解+全篇默写改错；错字单独建"错字本"。<span class="hl">怎么做</span>：每天早读 15 分钟，先背新篇再默旧篇；<span class="hl">多久见效</span>：4 周默写错误率明显下降，2 个月拿满 6 分。</li>
+      <li><b>做：病句成语分类本。</b>把成语按"语境误用/对象误用/褒贬误用"三类归类，病句按六类归类，每类收集 20 例真题。<span class="hl">怎么做</span>：每周 2 次、每次 20 分钟专项训练+复盘；<span class="hl">多久见效</span>：6 周语言运用少丢 2~3 分。</li>
+      <li><b>做：翻译"采点对账"。</b>每篇文言文挑 2 句重点句翻译，对照参考答案逐词对账：实词翻译、句式还原、语序调整，缺一个采分点就圈出来。<span class="hl">怎么做</span>：每周 3 句精译，写进翻译本；<span class="hl">多久见效</span>：8 周翻译从"硬译"转"通顺+踩点"。</li>
+      <li><b>做：现代文选择题"四步比对"。</b>信息类阅读：选项→定位原文→比对限定词（范围/程度/时态）→排除绝对化表述。<span class="hl">怎么做</span>：每周精做 2 组信息类文本，错题写"错因标签"；<span class="hl">多久见效</span>：6 周选择题正确率提升 2~3 题。</li>
+      <li><b>做：作文"结构框架先于文采"。</b>写每篇作文前先列"引-承-转-合"框架或"分论点三段式"，保证结构完整、字数达标（不少于 800 字），再谈语言。<span class="hl">怎么做</span>：每周 1 篇完整作文+1 篇只写提纲；<span class="hl">多久见效</span>：1 个月作文从"凑字数"到"结构完整"，稳定在 45±2。</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>1.6 训练方案与时间分配（周计划）</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>时段</th><th>内容</th><th>时间投入</th><th>验收标准</th></tr></thead>
+      <tbody>
+        <tr><td>周一/周四 早读</td><td>72 篇滚动背诵+默写</td><td class="num">15 分钟×2</td><td>本周篇目默写错误 ≤1 字</td></tr>
+        <tr><td>周二</td><td>语言运用专项（成语/病句各一组）</td><td class="num">25 分钟</td><td>正确率 ≥70%</td></tr>
+        <tr><td>周三</td><td>文言精读 1 篇+2 句翻译对账</td><td class="num">30 分钟</td><td>翻译采分点 ≥70%</td></tr>
+        <tr><td>周五</td><td>信息类阅读 1 组（限时 20 分钟）</td><td class="num">30 分钟</td><td>选择题错 ≤1 题</td></tr>
+        <tr><td>周六</td><td>完整作文 1 篇（限时 50 分钟）</td><td class="num">60 分钟</td><td>结构完整+800 字+立意切题</td></tr>
+        <tr><td>周日</td><td>错题复盘+本周失分统计</td><td class="num">30 分钟</td><td>能讲清本周每道错题的考点</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">周总投入约 3.5 小时，已包含在校作业之外的自主安排；时间建议为教研参考值，可按课业压力动态压缩。</p>
+  </div>
+  <div class="card">
+    <h3>1.7 家长协同要点</h3>
+    <p><b>能做的：</b></p>
+    <ul class="tight">
+      <li>帮孩子把"72 篇清单"打印成核对表，每周日晚一起打勾验收默写（只核对对错，不代背）。</li>
+      <li>创造"无手机早读环境"：每天 15 分钟固定朗读/默写时段，家长在旁安静陪伴即可。</li>
+      <li>关注"错字本"和"翻译本"是否真实运转，比关注分数本身更有用。</li>
+    </ul>
+    <p><b>不能做的：</b></p>
+    <ul class="tight">
+      <li>不要用"别人都 120 你怎么才 95"比较施压——95 档的孩子最需要的是"可实现的进步感"。</li>
+      <li>不要替孩子整理笔记、代查错题——基础重建必须由孩子自己完成，否则永远依赖外部。</li>
+      <li>不要同时塞入多个补习渠道——本档训练量已足够，加量不加质只会制造疲劳。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>1.8 常见误区与里程碑</h3>
+    <p><b>本档 3 个常见误区：</b></p>
+    <ul class="tight">
+      <li>误区一：<b>猛刷现代文阅读</b>。基础还没压实就去啃最难的主观题，收效最低；本档应先稳默写+语言运用。</li>
+      <li>误区二：<b>作文只背模板</b>。背了开头结尾套路，中间论证依然空洞，阅卷一眼看穿，分数原地踏步。</li>
+      <li>误区三：<b>语文靠"语感"不用复习</b>。把时间全让给数学英语，默写、语言运用年年丢分——这是 95 档最普遍的自杀式策略。</li>
+    </ul>
+    <p><b>里程碑：</b></p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>节点</th><th>目标</th></tr></thead>
+      <tbody>
+        <tr><td>1 个月</td><td>默写错误率减半，语言运用正确率 ≥70%，作文结构完整</td></tr>
+        <tr><td>3 个月</td><td>总分稳定过 100，向 105 档的"古诗文补课"过渡</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="seg-100">
+  <div class="sec-head"><span class="sec-no">02</span><h2>100 分档 · 基础稳固期</h2></div>
+  <p class="lead">100 分是"基础分基本不丢"的档位：默写、语言运用开始稳定，但现代文阅读是最大的失分黑洞，作文仍在 40 分上下徘徊。本档核心：让古诗文短板"浮出水面"并系统补课。</p>
+  <div class="chips"><span class="chip">定位：基础稳住</span><span class="chip">现代文阅读失分重</span><span class="chip">作文 40 上下</span><span class="chip gold">本档关键词：古诗文补课</span></div>
+  <div class="card">
+    <h3>2.1 分数定位画像</h3>
+    <p><span class="flag judge">判断</span>100 分档学生的典型特征是"稳中有漏"：选择题整体能做对一半以上，默写基本不空题但偶尔错字，作文能写够 800 字但立意平庸。最大的特征是<b>板块不均衡</b>——有人现代文强古诗文弱，有人反之，但总分都停在 100 附近。<span class="flag fact">事实</span>这种"短板结构"从能力维度看与官方报告高度吻合：福建省 2025 年学科评价报告显示，全省六种能力中"探究能力明显较弱"，且各地区在识记、理解、分析综合等维度差异显著（<a href="http://fjnews.fjsen.com/2025-10/31/content_32068998.htm" target="_blank" rel="noopener noreferrer">东南网-2025 福建高考语文六种能力得分</a>）。<span class="flag judge">判断</span>100 档最该警惕的不是"不会做的题"，而是"觉得自己会、实际拿不满分"的题——正是古诗文翻译与诗歌鉴赏。</p>
+    <div class="callout">心态画像：100 分档学生最容易"自我感觉良好"——毕竟及格线早过了。但要注意：<b>从 100 到 105 的 5 分，全靠古诗文这个大多数人的共同短板来突破</b>。</div>
+  </div>
+  <div class="card">
+    <h3>2.2 到下一档的差距量化：还差 5 分，从哪里拿</h3>
+    <p><span class="flag judge">判断</span>100→105 的核心缺口在古诗文：翻译题（8~10 分）+诗歌鉴赏主观题（6 分）合计 14~16 分，本档学生平均只能拿一半。<span class="flag fact">事实</span>2024 新课标 I 卷阅卷统计中，文言文第 13 题翻译平均 4.20/8、第 14 题简答平均 2.27/5（难度值均为 0.45~0.53），诗歌与文言主观题是全省性低分点（<a href="https://m.zxxk.com/soft/48159482.html" target="_blank" rel="noopener noreferrer">学科网-主观题答题问题分析</a>）。</p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>缺口来源</th><th>当前典型损失</th><th>可回收目标</th><th>为什么最现实</th></tr></thead>
+      <tbody>
+        <tr><td>文言翻译+简答（约 13 分）</td><td class="num">丢 5~7 分</td><td class="num">少丢 2 分</td><td>采分点固定，实词/句式/文意三件套可训练</td></tr>
+        <tr><td>诗歌鉴赏主观题（6 分）</td><td class="num">丢 3~4 分</td><td class="num">少丢 1~2 分</td><td>"手法+情感+结合诗句"答题框架即可提档</td></tr>
+        <tr><td>现代文主观题（约 15 分）</td><td class="num">丢 6~9 分</td><td class="num">少丢 1 分</td><td>先学"按题型要点作答"，本档只求保底</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>2.3 得分结构拆解：当前 vs 目标 105</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>板块</th><th>当前（100 档典型）</th><th>目标（105 档）</th><th>差距</th></tr></thead>
+      <tbody>
+        <tr><td>现代文阅读 / 35</td><td class="num">17</td><td class="num">18</td><td>+1（主观题入门）</td></tr>
+        <tr><td>古诗文阅读 / 35</td><td class="num">19</td><td class="num">20</td><td>+1（翻译+诗歌提档）</td></tr>
+        <tr><td>语言文字运用 / 20</td><td class="num">18</td><td class="num">19</td><td>+1（衔接补写稳定）</td></tr>
+        <tr><td>写作 / 60</td><td class="num">46</td><td class="num">48</td><td>+2（立意进阶+论证充实）</td></tr>
+        <tr><td><b>合计 / 150</b></td><td class="num"><b>100</b></td><td class="num"><b>105</b></td><td>+5</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">注：板块分为教研设定画像分，用于对照分析。</p>
+  </div>
+  <div class="card">
+    <h3>2.4 核心失分诊断</h3>
+    <ul class="tight">
+      <li><b>文言翻译"三丢"</b>：丢实词（一词多义不会语境判断）、丢句式（省略成分不补、倒装不还原）、丢大意（译出来读不通顺）。</li>
+      <li><b>诗歌鉴赏"三不"</b>：看不懂意象（不辨"月/雁/舟"的情感指向）、不熟手法（比喻/衬托/用典说不全）、不会组织（只写"表达了作者的思想感情"，不结合诗句）。</li>
+      <li><b>现代文主观题"贴标签"</b>：答"生动形象、深化主题"等套话，但不结合文本具体分析，采分点落空。</li>
+      <li><b>作文论证空转</b>：分论点之间无逻辑递进，论据停留在"名人故事复述"，缺乏对材料的分析。</li>
+      <li><b>选择题粗读</b>：选项与原文只差一个限定词（"全部/主要/一定"），粗读跳过导致误判。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>2.5 提分路径：5 步可执行动作</h3>
+    <ol class="steps">
+      <li><b>做：文言"实词台账"。</b>按教材必修+常考高频，整理 120 个核心实词，每个实词配"本义+3 个语境义+1 句例句"。<span class="hl">怎么做</span>：每周 10 个实词，卡片式记忆+翻译句验证；<span class="hl">多久见效</span>：8 周翻译"硬译"变"语境推断"。</li>
+      <li><b>做：诗歌"意象—手法—情感"三件套。</b>每次鉴赏先圈意象、判手法、定情感，再写答案；答案固定为"手法判断+结合诗句分析+情感/效果"三步。<span class="hl">怎么做</span>：每周精练 2 首高考真题诗歌；<span class="hl">多久见效</span>：6 周诗歌主观题从 2~3 分提到 4~5 分。</li>
+      <li><b>做：现代文主观题"要点化"。</b>把高频题型（作用题/含义题/赏析题/概括题）各总结一套"踩点句式"，每点"结论+文本依据"成对书写。<span class="hl">怎么做</span>：每周 2 道主观题精改，对照参考答案补采分点；<span class="hl">多久见效</span>：6 周主观题单题提 1~2 分。</li>
+      <li><b>做：作文"立意三步"。</b>读材料→圈关键词→追问"材料在讨论什么矛盾/关系"→定一个"不囿于表面"的中心论点；论据从"名人故事"升级为"现象+原理+例证"组合。<span class="hl">怎么做</span>：每周作文刻意练立意，动笔前先写 50 字论点陈述；<span class="hl">多久见效</span>：8 周作文从 46 稳定到 48。</li>
+      <li><b>做：选择题"限词圈画"。</b>做题时用笔圈出选项中的绝对词（必然/全部/唯一）与程度词，与原文逐词比对再下结论。<span class="hl">怎么做</span>：每次练习养成圈画习惯；<span class="hl">多久见效</span>：4 周选择题错误率降 20%。</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>2.6 训练方案与时间分配（周计划）</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>时段</th><th>内容</th><th>时间投入</th><th>验收标准</th></tr></thead>
+      <tbody>
+        <tr><td>周一</td><td>实词台账 10 个+翻译 2 句</td><td class="num">30 分钟</td><td>能说出每个实词的语境义</td></tr>
+        <tr><td>周二/周四</td><td>诗歌鉴赏真题各 1 首（限时 12 分钟）</td><td class="num">20 分钟×2</td><td>主观题踩点 ≥2 点</td></tr>
+        <tr><td>周三</td><td>现代文主观题 2 道精改</td><td class="num">30 分钟</td><td>与参考答案采分点重合 ≥60%</td></tr>
+        <tr><td>周五</td><td>语言运用衔接补写+成语专项</td><td class="num">20 分钟</td><td>正确率 ≥75%</td></tr>
+        <tr><td>周六</td><td>完整作文 1 篇（立意三步先行）</td><td class="num">70 分钟</td><td>论点有思辨痕迹，论证含分析</td></tr>
+        <tr><td>周日</td><td>周复盘：翻译本/诗歌本/采分点统计</td><td class="num">30 分钟</td><td>本周短板明确到下周一动作</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">周总投入约 3.7 小时；如学校已有默写/背诵任务，可合并执行。</p>
+  </div>
+  <div class="card">
+    <h3>2.7 家长协同要点</h3>
+    <p><b>能做的：</b></p>
+    <ul class="tight">
+      <li>每周抽 10 分钟让孩子"给你讲一道文言翻译"，讲不出采分点即视为未掌握——这是最好的检测。</li>
+      <li>和孩子一起建立"短板清单"（实词/病句/诗歌手法），每月更新一次，看得见的进度比分数更能稳住心态。</li>
+      <li>保障连续 1 小时的"整块训练时间"（作文/翻译需要专注时段），避免碎片化打断。</li>
+    </ul>
+    <p><b>不能做的：</b></p>
+    <ul class="tight">
+      <li>不要因为"语文 100 分还行"就放松——100→110 的窗口期只有一轮复习的几个月，错过了要用双倍时间补。</li>
+      <li>不要替孩子"报答案式辅导"（直接告诉翻译是什么），要引导他自己查实词、推断语境。</li>
+      <li>不要把作文差简单归因为"文笔不好"——本档作文问题是立意与论证结构，方向抓错会白练半年。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>2.8 常见误区与里程碑</h3>
+    <p><b>本档 3 个常见误区：</b></p>
+    <ul class="tight">
+      <li>误区一：<b>死记文言翻译参考答案</b>。翻译考的是语境推断能力，背答案只会"这道会了那道又不会"。</li>
+      <li>误区二：<b>作文追求华丽辞藻</b>。堆砌排比和名言，论证却经不起推敲——阅卷看重的是"说理链条"，不是辞藻密度。</li>
+      <li>误区三：<b>以为选择题丢分是"粗心"</b>。90% 的所谓粗心是选项比对方法缺失，不训练方法就永远粗心。</li>
+    </ul>
+    <p><b>里程碑：</b></p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>节点</th><th>目标</th></tr></thead>
+      <tbody>
+        <tr><td>1 个月</td><td>实词台账完成 40 个，诗歌主观题能按三件套作答，作文立意不再贴面</td></tr>
+        <tr><td>3 个月</td><td>翻译采分点 ≥70%，总分过 105，进入"中档起步"</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="seg-105">
+  <div class="sec-head"><span class="sec-no">03</span><h2>105 分档 · 中档起步</h2></div>
+  <p class="lead">105 分意味着基础题已经"大体及格"：默写基本不失分、语言运用过半稳定。但古诗文翻译与诗歌鉴赏仍是明显短板，现代文主观题开始成为新的失分点。本档核心：阅读得分率全面过 50%。</p>
+  <div class="chips"><span class="chip">定位：中档起步</span><span class="chip">古诗文翻译/诗歌鉴赏是短板</span><span class="chip">现代文主观题待规范</span><span class="chip gold">本档关键词：阅读得分率过半</span></div>
+  <div class="card">
+    <h3>3.1 分数定位画像</h3>
+    <p><span class="flag judge">判断</span>105 分档学生的典型状态：<b>选择题能稳住、主观题开始"看得懂但答不深"</b>。作文已能写到 48 左右，立意基本切题但深度有限；文言翻译从"硬译"进步到"基本通顺但采分点不全"；诗歌鉴赏知道手法名称但分析流于表面。<span class="flag fact">事实</span>行业报告口径显示，全国高中生语文阅读理解平均得分率仅 58.3%，是所有题型中最低的模块（<a href="https://gaokao.eol.cn/gzxy/yxdt/202606/t20260615_2745070.shtml" target="_blank" rel="noopener noreferrer">掌上高考-《2025 年中国高中语文学情调查报告》</a>，行业观察口径）。<span class="flag judge">判断</span>阅读得分率从"不到一半"到"过半"，正是 105→110 的核心跃迁。</p>
+    <div class="callout">心态画像：105 分档最怕"自满"——觉得自己"已经不错了"，实际上阅读三个板块（信息类/文学类/实用类）合计约 70 分，本档只能拿 37~40 分，提升空间还很大。</div>
+  </div>
+  <div class="card">
+    <h3>3.2 到下一档的差距量化：还差 5 分，从哪里拿</h3>
+    <p><span class="flag judge">判断</span>105→110 的 5 分，最现实的来源是现代文主观题规范作答（+1~2 分）与诗歌鉴赏分析深化（+1~2 分），再叠加作文立意加深（+2 分）。本档已不适合再"平均撒网"，要按"阅读得分率过半"为目标定向训练。</p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>缺口来源</th><th>当前典型损失</th><th>可回收目标</th><th>为什么最现实</th></tr></thead>
+      <tbody>
+        <tr><td>现代文主观题（约 15~19 分）</td><td class="num">丢 6~8 分</td><td class="num">少丢 2 分</td><td>采分点+文本依据成对训练，提分确定性强</td></tr>
+        <tr><td>诗歌鉴赏（9 分）</td><td class="num">丢 3~4 分</td><td class="num">少丢 1~2 分</td><td>"手法+情感"双线分析补齐即见效</td></tr>
+        <tr><td>作文（60 分）</td><td class="num">48</td><td class="num">50</td><td>分论点递进+论据分析化，向 50 迈进</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>3.3 得分结构拆解：当前 vs 目标 110</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>板块</th><th>当前（105 档典型）</th><th>目标（110 档）</th><th>差距</th></tr></thead>
+      <tbody>
+        <tr><td>现代文阅读 / 35</td><td class="num">18</td><td class="num">19</td><td>+1（主观题规范）</td></tr>
+        <tr><td>古诗文阅读 / 35</td><td class="num">20</td><td class="num">22</td><td>+2（诗歌+文言提档）</td></tr>
+        <tr><td>语言文字运用 / 20</td><td class="num">19</td><td class="num">19</td><td>+0（保持稳定）</td></tr>
+        <tr><td>写作 / 60</td><td class="num">48</td><td class="num">50</td><td>+2（立意深度）</td></tr>
+        <tr><td><b>合计 / 150</b></td><td class="num"><b>105</b></td><td class="num"><b>110</b></td><td>+5</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">注：板块分为教研设定画像分，用于对照分析。</p>
+  </div>
+  <div class="card">
+    <h3>3.4 核心失分诊断</h3>
+    <ul class="tight">
+      <li><b>主观题"答全不答准"</b>：写满三行，但每个要点都是"贴标签"式结论，缺文本证据，采分点落空。</li>
+      <li><b>信息类阅读"比对不细"</b>：选项与原文的"偷换概念/范围扩大/强加因果"识别不出，选择题连错。</li>
+      <li><b>诗歌分析"浮于表面"</b>：能说出"借景抒情"，但说不出"借什么景、抒什么情、景情如何结合"。</li>
+      <li><b>文言翻译"大意通、采点缺"</b>：译句通顺，但关键词（实词活用、虚词义、特殊句式）没有对应翻译，被扣采分点。</li>
+      <li><b>作文"有理无据"</b>：观点尚可但论据陈旧，分析停留在"所以说……"的循环论证。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>3.5 提分路径：4 步可执行动作</h3>
+    <ol class="steps">
+      <li><b>做：主观题"采点对账本"。</b>每道现代文主观题做完后，逐条对照参考答案：自己的每一点=结论+证据 是否成对？缺证据的标红。<span class="hl">怎么做</span>：每周 3 道题精改，坚持 6 周；<span class="hl">多久见效</span>：主观题单题稳定提 1~2 分。</li>
+      <li><b>做：信息类"逻辑陷阱清单"。</b>把常见错误选项类型（偷换概念/无中生有/强加因果/以偏概全/曲解文意）做成 5 类标签，做题时给每个错项贴标签。<span class="hl">怎么做</span>：每周 2 组信息类文本，逐项贴标签；<span class="hl">多久见效</span>：4 周选择题少错 1~2 题。</li>
+      <li><b>做：诗歌"三问分析法"。</b>每首诗问三句：写了什么景/事？用了什么手法？表达了什么情？三问答案串成一段完整分析。<span class="hl">怎么做</span>：每周 3 首真题诗歌，用三问写小作文式答案；<span class="hl">多久见效</span>：6 周诗歌主观题稳定 5 分左右。</li>
+      <li><b>做：作文"论据分析化"。</b>每次用论据后加一句"这一步说明/这揭示出……"，把叙事论据变成分析论据；分论点之间用"不仅…更…"制造递进。<span class="hl">怎么做</span>：每周作文 1 篇全改 1 遍论证段；<span class="hl">多久见效</span>：8 周作文从 48 到 50。</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>3.6 训练方案与时间分配（周计划）</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>时段</th><th>内容</th><th>时间投入</th><th>验收标准</th></tr></thead>
+      <tbody>
+        <tr><td>周一</td><td>信息类文本 1 组（限时）+陷阱贴标签</td><td class="num">30 分钟</td><td>选择题错 ≤1，错因标签齐全</td></tr>
+        <tr><td>周二/周四</td><td>现代文主观题精改 1~2 道</td><td class="num">25 分钟×2</td><td>采分点重合 ≥70%</td></tr>
+        <tr><td>周三</td><td>诗歌三问分析 1~2 首</td><td class="num">25 分钟</td><td>三问完整成文</td></tr>
+        <tr><td>周五</td><td>文言精读+翻译采点对账</td><td class="num">25 分钟</td><td>采分点 ≥70%</td></tr>
+        <tr><td>周六</td><td>作文 1 篇（论据分析化专项）</td><td class="num">70 分钟</td><td>论证段含分析句，分论点有递进</td></tr>
+        <tr><td>周日</td><td>周复盘：采分点对账本+错题标签统计</td><td class="num">30 分钟</td><td>明确下周主攻题型</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">周总投入约 3.5 小时；本档阅读训练占比首次超过基础训练，符合提分重心转移。</p>
+  </div>
+  <div class="card">
+    <h3>3.7 家长协同要点</h3>
+    <p><b>能做的：</b></p>
+    <ul class="tight">
+      <li>每周请孩子"复述一篇阅读的采分点"，能讲清"这道题考什么、答案为什么这么写"即视为掌握。</li>
+      <li>为孩子准备"真题精练"材料（近 5 年高考真题阅读部分），避免把时间耗在质量参差的模拟题上。</li>
+      <li>关注训练效率指标：主观题采分点重合率是否 ≥70%，这是比分数更早的进步信号。</li>
+    </ul>
+    <p><b>不能做的：</b></p>
+    <ul class="tight">
+      <li>不要催促"再多刷一套题"——本档缺的是"把一道题做透"的方法，不是题量。</li>
+      <li>不要在孩子精改错题时打断或催促——主观题采点需要安静的深度思考。</li>
+      <li>不要只问"考了多少分"，要问"这周采分点重合率到多少了"。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>3.8 常见误区与里程碑</h3>
+    <p><b>本档 3 个常见误区：</b></p>
+    <ul class="tight">
+      <li>误区一：<b>阅读题"做完对答案就行"</b>。不精改、不采点，做一百套也是重复同样错误。</li>
+      <li>误区二：<b>古诗文补课只背不练</b>。翻译、鉴赏是"练出来的能力"，不是"背出来的知识"。</li>
+      <li>误区三：<b>作文继续堆素材</b>。105 档的作文瓶颈在"论证逻辑"，素材已够用，缺的是分析。</li>
+    </ul>
+    <p><b>里程碑：</b></p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>节点</th><th>目标</th></tr></thead>
+      <tbody>
+        <tr><td>1 个月</td><td>信息类选择题错 ≤1，主观题采分点 ≥60%，阅读整体得分率过半</td></tr>
+        <tr><td>3 个月</td><td>总分稳定 110，作文 50 上下，进入"中档稳定"</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="seg-110">
+  <div class="sec-head"><span class="sec-no">04</span><h2>110 分档 · 中档稳定</h2></div>
+  <p class="lead">110 分是"中档稳定"的档位：阅读得分率过半、古诗文不再拖后腿、作文 50 上下。此时距离高分门槛 115~120 只有一步，卡点开始变得"小而关键"：细节题、语言运用细节、作文审题精度。</p>
+  <div class="chips"><span class="chip">定位：中档稳定</span><span class="chip">阅读得分率过半</span><span class="chip">作文 50 上下</span><span class="chip gold">本档关键词：细节零容忍</span></div>
+  <div class="card">
+    <h3>4.1 分数定位画像</h3>
+    <p><span class="flag judge">判断</span>110 分档学生的画像开始"分化"：一部分是"稳重型"（各板块均衡、无硬伤），一部分是"偏科型"（作文 55+ 但阅读拖后腿，或阅读强但作文只有 44 左右）。共同点是：<b>大块失分已消失，剩下的是"一题一题漏出来的小分"</b>。<span class="flag fact">事实</span>这种"小分累积"特征从阅卷数据可见一斑：2024 新课标 I 卷文学类阅读第 8 题（4 分）平均 3.21 分、第 9 题（6 分）平均 4.82 分，难度值都在 0.80 左右——中档题大家都能拿，区分度恰恰藏在"看似都会、实际丢 1~2 分"的细节里（<a href="https://m.zxxk.com/soft/48159482.html" target="_blank" rel="noopener noreferrer">学科网-主观题答题问题分析</a>）。</p>
+    <div class="callout">心态画像：110 分档学生容易陷入"瓶颈焦虑"——分数徘徊在 105~112，怎么练都上不去。原因往往不是不努力，而是<b>训练没有对准"细节失分"这个新战场</b>。</div>
+  </div>
+  <div class="card">
+    <h3>4.2 到下一档的差距量化：还差 5 分，从哪里拿</h3>
+    <p><span class="flag judge">判断</span>110→115 的 5 分，来自三处"细节回收"：信息类阅读选项比对精度（+1）、语言运用衔接补写与病句辨析（+1）、作文审题立意升级（+2~3）。本档已无"大坑"，全是"针眼"，必须用"零容忍"标准训练。</p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>缺口来源</th><th>当前典型损失</th><th>可回收目标</th><th>为什么最现实</th></tr></thead>
+      <tbody>
+        <tr><td>信息类选择题细节（约 10 分）</td><td class="num">丢 2~4 分</td><td class="num">少丢 1 分</td><td>多为"限定词误读"型错题，可归因可训练</td></tr>
+        <tr><td>语言文字运用细节（20 分）</td><td class="num">丢 3~4 分</td><td class="num">少丢 1 分</td><td>衔接、病句、成语精准辨析，专项突破</td></tr>
+        <tr><td>作文审题立意（60 分）</td><td class="num">50</td><td class="num">52</td><td>审题精度+立意高度双提升，是冲 115 的杠杆</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>4.3 得分结构拆解：当前 vs 目标 115</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>板块</th><th>当前（110 档典型）</th><th>目标（115 档）</th><th>差距</th></tr></thead>
+      <tbody>
+        <tr><td>现代文阅读 / 35</td><td class="num">19</td><td class="num">20</td><td>+1（细节零容忍）</td></tr>
+        <tr><td>古诗文阅读 / 35</td><td class="num">22</td><td class="num">23</td><td>+1（翻译精度）</td></tr>
+        <tr><td>语言文字运用 / 20</td><td class="num">19</td><td class="num">20</td><td>+1（满分化）</td></tr>
+        <tr><td>写作 / 60</td><td class="num">50</td><td class="num">52</td><td>+2（审题+立意）</td></tr>
+        <tr><td><b>合计 / 150</b></td><td class="num"><b>110</b></td><td class="num"><b>115</b></td><td>+5</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">注：板块分为教研设定画像分，用于对照分析。</p>
+  </div>
+  <div class="card">
+    <h3>4.4 核心失分诊断</h3>
+    <ul class="tight">
+      <li><b>信息类"细节三杀"</b>：偷换概念（"数字化"换成"数据化"）、范围扩大（"部分"换成"全部"）、时态误置（把未来说成已发生）。</li>
+      <li><b>语言运用"小分连丢"</b>：补写句子逻辑不连贯、病句"凭语感读不出"、成语"意思对但感情色彩不符"。</li>
+      <li><b>作文审题"擦边"</b>：立意与材料"沾边但没抓住核心矛盾"，被阅卷归入二类卷（45~53）的中下段。</li>
+      <li><b>翻译"差一口气"</b>：关键词译对了但句式没还原（省略没补、被动没显化），仍被扣 1~2 分。</li>
+      <li><b>卷面细节</b>：答题区域超出、题号错位、字迹在扫描后辨识度下降——不扣分的"隐形失分"。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>4.5 提分路径：5 步可执行动作</h3>
+    <ol class="steps">
+      <li><b>做：信息类"逐题复盘"。</b>错题必须写出"我为什么选错+正确项赢在哪里+陷阱类型"，三个问题缺一不可。<span class="hl">怎么做</span>：每周 2 组信息类，错题全复盘；<span class="hl">多久见效</span>：4 周信息类选择基本满分。</li>
+      <li><b>做：语言运用"满分化"。</b>把 20 分板块当成"必须全拿"的目标：补写题练"承上启下+句式一致"，病句题按六类型各练 15 题。<span class="hl">怎么做</span>：每周 2 次专项 20 分钟；<span class="hl">多久见效</span>：6 周板块总分从 18→20。</li>
+      <li><b>做：作文"审题三圈"。</b>读材料先圈"核心概念"再圈"关系词"（如"虽然…但是…""既是…也是…"）最后圈"任务要求"（文体/对象/主题），立意必须同时回应三者。<span class="hl">怎么做</span>：每周 2 个新材料只练审题不动笔写全文；<span class="hl">多久见效</span>：4 周立意"擦边"现象消失。</li>
+      <li><b>做：翻译"句式还原清单"。</b>系统过一遍判断句/被动句/宾语前置/状语后置/省略句五大句式，翻译时先标句式再动笔。<span class="hl">怎么做</span>：每周 2 篇文言精读+5 句翻译；<span class="hl">多久见效</span>：6 周翻译稳定拿 85% 以上分值。</li>
+      <li><b>做：答题卡"规范演练"。</b>每月用真实答题卡模板做一次全卷模拟，训练题号对齐、区域控制、书写清晰。<span class="hl">怎么做</span>：每月 1 次全真模拟+阅卷自评；<span class="hl">多久见效</span>：1 次模拟即可暴露全部卷面问题。</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>4.6 训练方案与时间分配（周计划）</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>时段</th><th>内容</th><th>时间投入</th><th>验收标准</th></tr></thead>
+      <tbody>
+        <tr><td>周一</td><td>信息类 1 组+逐题复盘（限时 22 分钟）</td><td class="num">35 分钟</td><td>选择题满分或错因完全写清</td></tr>
+        <tr><td>周二</td><td>语言运用专项（补写/病句）</td><td class="num">25 分钟</td><td>正确率 ≥85%</td></tr>
+        <tr><td>周三</td><td>文言精读 1 篇+句式还原翻译 3 句</td><td class="num">30 分钟</td><td>句式标注率 100%</td></tr>
+        <tr><td>周四</td><td>作文审题训练 2 个新材料（只写立意）</td><td class="num">25 分钟</td><td>立意三圈完整+不擦边</td></tr>
+        <tr><td>周五</td><td>诗歌+现代文主观题混合 1 组</td><td class="num">30 分钟</td><td>采分点 ≥75%</td></tr>
+        <tr><td>周六</td><td>完整作文 1 篇（审题先行）</td><td class="num">70 分钟</td><td>立意紧扣核心矛盾，52 分水平</td></tr>
+        <tr><td>周日</td><td>周复盘+错题标签汇总</td><td class="num">25 分钟</td><td>本周失分全部归因</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">周总投入约 4 小时；本档开始加入"限时+复盘"双环节，模拟考场节奏。</p>
+  </div>
+  <div class="card">
+    <h3>4.7 家长协同要点</h3>
+    <p><b>能做的：</b></p>
+    <ul class="tight">
+      <li>帮孩子把"每月一次全真模拟"落实到日历上，并准备好真实答题卡打印件。</li>
+      <li>关注"错因标签"质量：能说出"偷换概念/范围扩大"等具体类型，说明复盘在真发生。</li>
+      <li>作文方面：每周和孩子讨论一次时政/社会议题（15 分钟），帮孩子积累"可分析的素材"，而非"可背诵的素材"。</li>
+    </ul>
+    <p><b>不能做的：</b></p>
+    <ul class="tight">
+      <li>不要用"就差 5 分"施压——110→115 的细节训练需要耐心，焦虑只会让孩子在考场上更粗心。</li>
+      <li>不要拿"别人 120 了"做比较——本档学生的训练重心正在转向方法与精度，需要的是正反馈。</li>
+      <li>不要替孩子包办模拟考试的组织（改卷、分析）——自评环节本身就是能力训练。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>4.8 常见误区与里程碑</h3>
+    <p><b>本档 3 个常见误区：</b></p>
+    <ul class="tight">
+      <li>误区一：<b>把 115 目标寄托在"压轴题超常发挥"</b>。本档提分靠细节稳定，不靠赌题。</li>
+      <li>误区二：<b>作文只写不改</b>。一周写一篇但从不重写、从不请老师精批，错误论证重复一年。</li>
+      <li>误区三：<b>忽略卷面训练</b>。以为字迹"能认就行"，实际上扫描阅卷下，辨识度低的主观题平均丢 1~2 分/题。</li>
+    </ul>
+    <p><b>里程碑：</b></p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>节点</th><th>目标</th></tr></thead>
+      <tbody>
+        <tr><td>1 个月</td><td>信息类选择零失误，语言运用 18~20 分，作文审题不擦边</td></tr>
+        <tr><td>3 个月</td><td>总分稳定 115，向"作文 52 杠杆"冲刺</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="seg-115">
+  <div class="sec-head"><span class="sec-no">05</span><h2>115 分档 · 逼近高分门槛</h2></div>
+  <p class="lead">115 分是"高分门槛前的最后一段平路"：信息类阅读与语言运用的细节丢分已经收得差不多，作文稳定在 52 附近。再往上 5 分，就进入"作文与思辨"主导的世界。</p>
+  <div class="chips"><span class="chip">定位：逼近高分门槛</span><span class="chip">信息类/语言运用细节丢分</span><span class="chip">作文 52 上下</span><span class="chip gold">本档关键词：作文杠杆</span></div>
+  <div class="card">
+    <h3>5.1 分数定位画像</h3>
+    <p><span class="flag judge">判断</span>115 分档学生通常是"认真型高分苗子"：基础题基本不丢、阅读整体稳定、作文结构规范，但分数被三个"隐性短板"卡住——文言翻译精度（采分点丢 1~2 分）、作文发展等级分拿不全（卡在"较深刻/较丰富"）、以及偶尔的审题擦边。<span class="flag fact">事实</span>从作文评分机制看，60 分作文=基础等级 40（内容 20+表达 20）+发展等级 20；发展等级"不求全面、按 16 个评分点中若干突出点评分"（<a href="https://www.gaokao.cn/zd/10763" target="_blank" rel="noopener noreferrer">掌上高考-高考作文多少分</a>）。<span class="flag judge">判断</span>115 档学生的作文常"全项合格但无突出点"——发展等级只拿 10~12 分，这就是与 120+ 差距的核心。</p>
+    <div class="callout">心态画像：115 分档学生最需要突破的是"满分意识"——不是"别丢分"，而是"哪些题必须全拿"。语言运用 20 分、默写 6 分、信息类选择题，都是"必须满分"的板块。</div>
+  </div>
+  <div class="card">
+    <h3>5.2 到下一档的差距量化：还差 5 分，从哪里拿</h3>
+    <p><span class="flag judge">判断</span>115→120 的 5 分，作文贡献 2 分（52→54，发展等级从"较深刻"升"深刻"），文言翻译+1（采分点 100%），现代文主观题+1（要点全且精），古诗文再 +1。其中<b>作文是唯一的杠杆性缺口</b>——其余 3 分靠精度，作文 2 分靠深度。</p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>缺口来源</th><th>当前典型损失</th><th>可回收目标</th><th>为什么最现实</th></tr></thead>
+      <tbody>
+        <tr><td>作文发展等级（20 分）</td><td class="num">拿 10~12</td><td class="num">拿 13~15（+2~3）</td><td>发展等级"不求全面"，突出一点即可给分（掌上高考口径）</td></tr>
+        <tr><td>文言翻译采分点</td><td class="num">丢 1~2 分</td><td class="num">全拿（+1~2）</td><td>句式+实词双对账，确定性最高</td></tr>
+        <tr><td>现代文主观题要点</td><td class="num">丢 1~2 分</td><td class="num">少丢 1 分</td><td>要点+文本依据成对训练已过半程</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>5.3 得分结构拆解：当前 vs 目标 120</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>板块</th><th>当前（115 档典型）</th><th>目标（120 档）</th><th>差距</th></tr></thead>
+      <tbody>
+        <tr><td>现代文阅读 / 35</td><td class="num">20</td><td class="num">21</td><td>+1（要点精准）</td></tr>
+        <tr><td>古诗文阅读 / 35</td><td class="num">23</td><td class="num">25</td><td>+2（翻译满采分）</td></tr>
+        <tr><td>语言文字运用 / 20</td><td class="num">20</td><td class="num">20</td><td>+0（保持满分）</td></tr>
+        <tr><td>写作 / 60</td><td class="num">52</td><td class="num">54</td><td>+2（发展等级突破）</td></tr>
+        <tr><td><b>合计 / 150</b></td><td class="num"><b>115</b></td><td class="num"><b>120</b></td><td>+5</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">注：板块分为教研设定画像分，用于对照分析。</p>
+  </div>
+  <div class="card">
+    <h3>5.4 核心失分诊断</h3>
+    <ul class="tight">
+      <li><b>作文"发展等级空转"</b>：立意正确但不够"深刻"（停留在现象层）、论据充足但不够"丰富"（类型单一）、语言通顺但不够"有文采"（句式平淡）。</li>
+      <li><b>翻译"踩点不全"</b>：实词译对、虚词或句式漏译；采分点按点给分，漏一点丢一分。</li>
+      <li><b>信息类"偶尔失手"</b>：选项比对流程不统一，状态好全对、状态差连错 2 题。</li>
+      <li><b>诗歌"分析有框无肉"</b>：框架完整但具体分析粗糙，结论与诗句的咬合不紧。</li>
+      <li><b>时间分配</b>：阅读题耗时长，作文"前松后紧"，结尾仓促影响整体观感。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>5.5 提分路径：5 步可执行动作</h3>
+    <ol class="steps">
+      <li><b>做：作文"突出一点"策略。</b>按发展等级"深刻/丰富/有文采/有创新"四维，挑自己最擅长的一维专项强化——比如"深刻"就练"现象→本质→关系"三段论，让这一点成为全篇亮点。<span class="hl">怎么做</span>：连续 6 周只练这一维；<span class="hl">多久见效</span>：发展等级稳定 13~15 分。</li>
+      <li><b>做：翻译"零漏点"。</b>翻译对账从"关键词"升级为"全要素"：实词、虚词、句式、省略、语序五要素逐项打钩，缺一项即重译。<span class="hl">怎么做</span>：每周 2 篇文言+5 句五要素对账；<span class="hl">多久见效</span>：6 周翻译满分率 ≥60%。</li>
+      <li><b>做：信息类"流程固定化"。</b>固定做题顺序：先题后文→定位→比对→圈限定词→复核，每次 100% 走流程，不凭印象。<span class="hl">怎么做</span>：每周 3 组限时训练；<span class="hl">多久见效</span>：4 周"状态型失手"消失。</li>
+      <li><b>做：诗歌"分析咬合训练"。</b>每句分析必须"贴诗"：先引诗句、再说手法、最后扣情感，禁止空泛结论。<span class="hl">怎么做</span>：每周 2 首真题精析；<span class="hl">多久见效</span>：6 周诗歌主观题满分率过半。</li>
+      <li><b>做：全卷"时间预算表"。</b>把 150 分钟做成预算：阅读板块 60 分钟、古诗文 30 分钟、语言运用 15 分钟、作文 45 分钟，每周模拟核对一次。<span class="hl">怎么做</span>：每周 1 次限时板块训练；<span class="hl">多久见效</span>：4 周告别"作文仓促"。</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>5.6 训练方案与时间分配（周计划）</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>时段</th><th>内容</th><th>时间投入</th><th>验收标准</th></tr></thead>
+      <tbody>
+        <tr><td>周一</td><td>信息类限时 1 组（固定流程）</td><td class="num">30 分钟</td><td>选择题全对或错因写清</td></tr>
+        <tr><td>周二</td><td>文言翻译五要素对账 3~5 句</td><td class="num">30 分钟</td><td>五要素全部打钩</td></tr>
+        <tr><td>周三</td><td>诗歌分析咬合训练 1~2 首</td><td class="num">25 分钟</td><td>每句分析贴诗无空泛</td></tr>
+        <tr><td>周四</td><td>作文发展等级专项（深刻/丰富/文采任选）</td><td class="num">40 分钟</td><td>写一个"突出点"段落</td></tr>
+        <tr><td>周五</td><td>语言运用保持性训练</td><td class="num">20 分钟</td><td>满分或错 1 题</td></tr>
+        <tr><td>周六</td><td>完整作文 1 篇（突出点策略）</td><td class="num">80 分钟</td><td>发展等级亮点明确</td></tr>
+        <tr><td>周日</td><td>周复盘+下周预算</td><td class="num">25 分钟</td><td>失分全部归因到动作</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">周总投入约 4.2 小时；作文训练占比升至 30% 以上，符合"作文杠杆"定位。</p>
+  </div>
+  <div class="card">
+    <h3>5.7 家长协同要点</h3>
+    <p><b>能做的：</b></p>
+    <ul class="tight">
+      <li>请语文老师每月精批一次作文，重点关注"发展等级亮点"是否可见，而非总分。</li>
+      <li>创造"家庭议题角"：每周一个社会/科技/文化议题，和孩子各讲 3 分钟观点——这是"深刻"维度的生活训练。</li>
+      <li>陪孩子做一次"时间预算核对"，一起找出超时板块。</li>
+    </ul>
+    <p><b>不能做的：</b></p>
+    <ul class="tight">
+      <li>不要再用"多刷题"安慰自己——本档的核心动作是"改"与"想"，不是"做"。</li>
+      <li>不要替孩子选作文"押题方向"——押题会损害审题训练，高考作文反押题倾向明显。</li>
+      <li>不要在孩子精批作文时急于给结论——让他自己先说"这段的亮点和漏洞"。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>5.8 常见误区与里程碑</h3>
+    <p><b>本档 3 个常见误区：</b></p>
+    <ul class="tight">
+      <li>误区一：<b>作文四维都想抓</b>。发展等级"不求全面"，四维平均用力反而一个亮点都没有。</li>
+      <li>误区二：<b>把翻译丢分归为"粗心"</b>。采分点漏译是方法问题，五要素对账即可根治。</li>
+      <li>误区三：<b>拒绝限时训练</b>。认为"平时想得深，考试自然快"——恰恰相反，阅读速度需要刻意训练。</li>
+    </ul>
+    <p><b>里程碑：</b></p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>节点</th><th>目标</th></tr></thead>
+      <tbody>
+        <tr><td>1 个月</td><td>翻译五要素全打钩率 ≥50%，作文突出点成型，全卷时间预算达标</td></tr>
+        <tr><td>3 个月</td><td>总分过 120，作文 54 上下，进入"高分门槛线"</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="seg-120">
+  <div class="sec-head"><span class="sec-no">06</span><h2>120 分档 · 高分门槛线</h2></div>
+  <p class="lead">120 分是多数考生眼中"高分"的起跑线，也是高校热门专业在语文单科上的常见门槛。此档学生的作文已能稳定 52+，最大的剩余缺口转向<b>文言翻译精度</b>与<b>思辨深度</b>。</p>
+  <div class="chips"><span class="chip">定位：高分门槛线</span><span class="chip">作文 52 是关键杠杆</span><span class="chip">文言翻译精度不足</span><span class="chip gold">本档关键词：思辨起步</span></div>
+  <div class="card">
+    <h3>6.1 分数定位画像</h3>
+    <p><span class="flag judge">判断</span>120 分档学生的典型画像：<b>"该拿的分基本全拿，剩下的都是能力分"</b>。选择题正确率 90% 以上，主观题要点基本到位，作文结构严谨、发展等级有亮点但不够稳定，文言翻译"能译对大意、偶漏采分点"。这类学生的问题不再是"知识漏洞"，而是<b>"表达与思维的上限"</b>。<span class="flag fact">事实</span>从官方向导看，2025 年语文命题强调"思维赋能"与"批判性思维、独创性"考查（<a href="https://m.chinanews.com.cn/wap/detail/chs/zw/10428401.shtml" target="_blank" rel="noopener noreferrer">中新网-2025 年高考语文试题评析（微言教育）</a>）——这意味着 120 以上档位的分水岭，命题端就在考"思维品质"。</p>
+    <div class="callout">心态画像：120 分档学生最危险的心态是"觉得语文到头了"——分数在 118~123 徘徊，误以为瓶颈在"天赋"。实际上，<b>120→130 的 10 分主要靠"从答对到答深"的思辨升级</b>，这是可训练的能力。</div>
+  </div>
+  <div class="card">
+    <h3>6.2 到下一档的差距量化：还差 5 分，从哪里拿</h3>
+    <p><span class="flag judge">判断</span>120→125 的 5 分，来自两处升级：作文 54→55（+1，稳定"深刻"维度）与现代文/古诗文主观题"分析深度"+4（从"要点齐"到"要点深"）。本档之后，阅读题的区分点不再是"答没答到"，而是"有没有想深一层"。</p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>缺口来源</th><th>当前典型损失</th><th>可回收目标</th><th>为什么最现实</th></tr></thead>
+      <tbody>
+        <tr><td>文言翻译精度</td><td class="num">丢 1~2 分</td><td class="num">全拿（+1~2）</td><td>五要素对账已过半程，收尾确定性最高</td></tr>
+        <tr><td>主观题分析深度</td><td class="num">要点齐但浅</td><td class="num">深一层（+2）</td><td>"为什么/怎么体现/有何效果"追问法可训练</td></tr>
+        <tr><td>作文思辨力</td><td class="num">54</td><td class="num">55（+1）</td><td>从"观点正确"到"观点有洞察"</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>6.3 得分结构拆解：当前 vs 目标 125</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>板块</th><th>当前（120 档典型）</th><th>目标（125 档）</th><th>差距</th></tr></thead>
+      <tbody>
+        <tr><td>现代文阅读 / 35</td><td class="num">21</td><td class="num">23</td><td>+2（主观题深度）</td></tr>
+        <tr><td>古诗文阅读 / 35</td><td class="num">25</td><td class="num">27</td><td>+2（翻译+鉴赏深度）</td></tr>
+        <tr><td>语言文字运用 / 20</td><td class="num">20</td><td class="num">20</td><td>+0（保持满分）</td></tr>
+        <tr><td>写作 / 60</td><td class="num">54</td><td class="num">55</td><td>+1（思辨稳定）</td></tr>
+        <tr><td><b>合计 / 150</b></td><td class="num"><b>120</b></td><td class="num"><b>125</b></td><td>+5</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">注：板块分为教研设定画像分，用于对照分析。</p>
+  </div>
+  <div class="card">
+    <h3>6.4 核心失分诊断</h3>
+    <ul class="tight">
+      <li><b>文言翻译"最后一分"</b>：关键词、句式都对，但"文意贯通"略差——个别字词的本义与语境义拿捏不精，被扣最后 1 分。</li>
+      <li><b>主观题"有广度无深度"</b>：要点覆盖 3 个，但都是平行罗列，没有"主次轻重"，与高分答案差在"层次"。</li>
+      <li><b>作文"思辨浅尝"</b>：能写出"辩证看待"，但辩证流于"一方面…另一方面…"的并列，没有揭示内在关系。</li>
+      <li><b>诗歌"情感判断单一"</b>：把复杂情感简化成"忧国忧民/思乡"，忽视情感的层次与变化。</li>
+      <li><b>非智力失分</b>：极端状态下的审题跳读、作文偏长收尾失稳。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>6.5 提分路径：4 步可执行动作</h3>
+    <ol class="steps">
+      <li><b>做：翻译"文意贯通关"。</b>五要素对账基础上，增加"整体复读"：译完全句再通读一遍，检查是否通顺自然；通顺度也是采分项。<span class="hl">怎么做</span>：每周 2 篇文言+5 句对账+复读；<span class="hl">多久见效</span>：6 周翻译满分率 ≥80%。</li>
+      <li><b>做：主观题"追问一层"。</b>每写完一个要点，追问"这说明了什么/为什么会有这个效果"，把答案从"是什么"推向"为什么"。<span class="hl">怎么做</span>：每周 3 道主观题强制追问；<span class="hl">多久见效</span>：8 周答案层次感明显。</li>
+      <li><b>做：作文"关系式思辨"。</b>从"并列式辩证"升级为"关系式思辨"：材料中的两个概念是什么关系（条件/转化/张力/统一），围绕关系展开论证。<span class="hl">怎么做</span>：每周作文强制写"关系句"作为中心论点；<span class="hl">多久见效</span>：8 周作文稳定 55 水平。</li>
+      <li><b>做：诗歌"情感分层"。</b>分析情感时区分"表层情感+深层情感+情感变化"，结合意象时间线梳理。<span class="hl">怎么做</span>：每周 2 首真题精析情感；<span class="hl">多久见效</span>：6 周诗歌主观题再提 1 分。</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>6.6 训练方案与时间分配（周计划）</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>时段</th><th>内容</th><th>时间投入</th><th>验收标准</th></tr></thead>
+      <tbody>
+        <tr><td>周一</td><td>文言精读 1 篇+五要素对账 5 句</td><td class="num">35 分钟</td><td>满分率 ≥80%</td></tr>
+        <tr><td>周二/周四</td><td>主观题"追问一层"训练 1~2 道</td><td class="num">25 分钟×2</td><td>每点含"为什么"层</td></tr>
+        <tr><td>周三</td><td>诗歌情感分层精析 1~2 首</td><td class="num">25 分钟</td><td>情感分析含层次与变化</td></tr>
+        <tr><td>周五</td><td>信息类保持训练（限时）</td><td class="num">25 分钟</td><td>选择题全对</td></tr>
+        <tr><td>周六</td><td>作文 1 篇（关系式思辨）</td><td class="num">80 分钟</td><td>中心论点含关系句</td></tr>
+        <tr><td>周日</td><td>周复盘+深度失分归因</td><td class="num">30 分钟</td><td>区分"答没答到"与"答没答深"</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">周总投入约 4.2 小时；本档训练重心转向"深度"，题量保持不增。</p>
+  </div>
+  <div class="card">
+    <h3>6.7 家长协同要点</h3>
+    <p><b>能做的：</b></p>
+    <ul class="tight">
+      <li>鼓励孩子精读高质量时评（人民日报评论等），每周 1 篇做"观点+论证结构"拆解——这是思辨力的低成本训练。</li>
+      <li>与孩子讨论时用"你觉得两者是什么关系？"替代"你同意哪个？"，训练关系式思考。</li>
+      <li>为语文老师精批作文创造条件（打印稿、批注空间），确保每月 1 次高质量反馈。</li>
+    </ul>
+    <p><b>不能做的：</b></p>
+    <ul class="tight">
+      <li>不要再用"补习班押题"干扰孩子——120 档需要的是独立思考，不是标准答案。</li>
+      <li>不要拿"作文满分范文"让孩子背诵仿写——仿写会消解个性，而 120 以上拼的就是个性表达。</li>
+      <li>不要因"模拟考 118"就否定进度——分数波动 ±3 分在 120 档属正常区间，要看趋势不看单次。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>6.8 常见误区与里程碑</h3>
+    <p><b>本档 3 个常见误区：</b></p>
+    <ul class="tight">
+      <li>误区一：<b>继续堆砌阅读题量</b>。120 档已不缺熟练度，缺的是"想深一层"的能力，刷题边际收益趋零。</li>
+      <li>误区二：<b>作文追求"金句开头"</b>。阅卷看全文论证质量，金句只能锦上添花，不能雪中送炭。</li>
+      <li>误区三：<b>忽视精神状态管理</b>。120 档的失分常在"考砸的科目影响心态"下连环发生，稳定情绪也是提分。</li>
+    </ul>
+    <p><b>里程碑：</b></p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>节点</th><th>目标</th></tr></thead>
+      <tbody>
+        <tr><td>1 个月</td><td>翻译满分率 ≥80%，主观题带"为什么"层，作文关系式论点成型</td></tr>
+        <tr><td>3 个月</td><td>总分稳定 125，思辨深度与材料运用拉开差距，进入稳高分段</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="seg-125">
+  <div class="sec-head"><span class="sec-no">07</span><h2>125 分档 · 稳高分段</h2></div>
+  <p class="lead">125 分意味着已经进入"稳高分段"：全省考生中这是相当靠前的位置。此档的差距不再来自"会不会"，而是来自"想得深不深、材料用得好不好"——思辨深度与材料运用，是 125→130 的胜负手。</p>
+  <div class="chips"><span class="chip">定位：稳高分段</span><span class="chip">思辨深度拉开差距</span><span class="chip">材料运用是关键</span><span class="chip gold">本档关键词：深度与运用</span></div>
+  <div class="card">
+    <h3>7.1 分数定位画像</h3>
+    <p><span class="flag judge">判断</span>125 分档学生的画像非常鲜明：<b>技术动作几乎无可挑剔，差距全在"内容"层面</b>。作文结构、卷面、审题都已过关，缺的是"观点有没有击中要害、材料有没有翻出新意"；现代文主观题要点齐全，缺的是"分析深度"；诗歌鉴赏框架完整，缺的是"独到解读"。<span class="flag fact">事实</span>2025 年语文命题明确强调"思维品质的深刻性、敏捷性、灵活性、批判性、独创性"，并鼓励"突破固定思维模式、提出有价值的问题"（<a href="https://m.chinanews.com.cn/wap/detail/chs/zw/10428401.shtml" target="_blank" rel="noopener noreferrer">中新网-2025 年高考语文试题评析</a>）。<span class="flag judge">判断</span>命题导向决定：125 分以上考生的区分度，正在从"答题技术"转向"思维产品"。</p>
+    <div class="callout">心态画像：125 分档学生进入"高原区"——练题手感好但分数上不去。此时真正有效的不是加练，而是<b>换一种输入：读深书、深思考、重写作文</b>。</div>
+  </div>
+  <div class="card">
+    <h3>7.2 到下一档的差距量化：还差 5 分，从哪里拿</h3>
+    <p><span class="flag judge">判断</span>125→130 的 5 分：作文 55→57（+2，靠"材料运用+深刻稳定"）、压轴阅读题（文学类第 8/9 题、古诗文鉴赏）+2（向满分靠拢）、语言运用保持满分（+0）、翻译精度收尾（+1）。本档起，<b>文学类阅读的"最后一问"与作文的"最后一个层次"成为主战场</b>。</p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>缺口来源</th><th>当前典型损失</th><th>可回收目标</th><th>为什么最现实</th></tr></thead>
+      <tbody>
+        <tr><td>文学类主观题末问（约 4~6 分）</td><td class="num">丢 1~2 分</td><td class="num">少丢 1~2 分</td><td>"随文设题"新趋势下，深度解读能力可训练</td></tr>
+        <tr><td>作文材料运用</td><td class="num">55</td><td class="num">57（+2）</td><td>从"用对材料"到"用活材料"（新鲜度+角度）</td></tr>
+        <tr><td>文言翻译+诗歌</td><td class="num">丢 1~2 分</td><td class="num">少丢 1 分</td><td>五要素+情感分层已就位，收尾</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>7.3 得分结构拆解：当前 vs 目标 130</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>板块</th><th>当前（125 档典型）</th><th>目标（130 档）</th><th>差距</th></tr></thead>
+      <tbody>
+        <tr><td>现代文阅读 / 35</td><td class="num">23</td><td class="num">24</td><td>+1（末问深度）</td></tr>
+        <tr><td>古诗文阅读 / 35</td><td class="num">27</td><td class="num">29</td><td>+2（鉴赏满分化）</td></tr>
+        <tr><td>语言文字运用 / 20</td><td class="num">20</td><td class="num">20</td><td>+0（保持满分）</td></tr>
+        <tr><td>写作 / 60</td><td class="num">55</td><td class="num">57</td><td>+2（材料运用+深刻）</td></tr>
+        <tr><td><b>合计 / 150</b></td><td class="num"><b>125</b></td><td class="num"><b>130</b></td><td>+5</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">注：板块分为教研设定画像分，用于对照分析。</p>
+  </div>
+  <div class="card">
+    <h3>7.4 核心失分诊断</h3>
+    <ul class="tight">
+      <li><b>文学类末问"差一口气"</b>：第 9 题类开放问答题（6 分）拿 4~5 分，最后一层"主题/时代意义"说不透。</li>
+      <li><b>作文材料"用而不活"</b>：素材够新但用法雷同（"感动中国人物"排比式堆砌），缺乏"从一个材料里挖出多个角度"的能力。</li>
+      <li><b>诗歌"解读不独到"</b>：答案与大部分考生雷同，阅卷找不到"亮点句"。</li>
+      <li><b>卷面"够好不够精"</b>：字迹清楚但缺乏书写美感，在 130 档边缘可能成为那 1 分。</li>
+      <li><b>语言运用偶失"一字"</b>：成语、标点、病句的"最后一问"状态性失误。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>7.5 提分路径：4 步可执行动作</h3>
+    <ol class="steps">
+      <li><b>做：文学类"末问深挖"。</b>每篇文学类文本的末问，先答常规要点，再强制写"最后一层"（主题深化/时代关联/个人思考），哪怕多写一句也可能多拿 1 分。<span class="hl">怎么做</span>：每周 2 篇文学类精做末问；<span class="hl">多久见效</span>：6 周末问稳定满分或近满。</li>
+      <li><b>做：作文"一材多用"。</b>选 5~6 个"高容量材料"（可涵盖科技/文化/社会多个议题），每个材料练 3 种用法、3 个角度。<span class="hl">怎么做</span>：每周深挖 1 个材料写 3 个不同角度的论证段；<span class="hl">多久见效</span>：8 周作文材料运用明显脱俗。</li>
+      <li><b>做：诗歌"独到句"训练。</b>每首诗要求自己写一句"别人想不到"的解读，作为答案的亮点句（前提：符合文本）。<span class="hl">怎么做</span>：每周 2 首真题练亮点句；<span class="hl">多久见效</span>：6 周鉴赏题稳定高分。</li>
+      <li><b>做：重写式作文。</b>每周作文不追求"写新的"，改为"把上周的作文重写一遍，改深一个层次"——重写是 125 档最有效的作文训练。<span class="hl">怎么做</span>：隔周重写 1 篇旧作；<span class="hl">多久见效</span>：6 周作文整体抬升 1~2 分。</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>7.6 训练方案与时间分配（周计划）</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>时段</th><th>内容</th><th>时间投入</th><th>验收标准</th></tr></thead>
+      <tbody>
+        <tr><td>周一/周三</td><td>文学类末问深挖各 1 篇</td><td class="num">30 分钟×2</td><td>末问含"最后一层"</td></tr>
+        <tr><td>周二</td><td>材料一材多用（3 角度）</td><td class="num">35 分钟</td><td>3 个角度论证段成文</td></tr>
+        <tr><td>周四</td><td>诗歌亮点句训练 1~2 首</td><td class="num">25 分钟</td><td>每首有亮点句</td></tr>
+        <tr><td>周五</td><td>文言翻译+语言运用保持</td><td class="num">30 分钟</td><td>满分率 ≥90%</td></tr>
+        <tr><td>周六</td><td>作文（新写与重写交替）</td><td class="num">90 分钟</td><td>重写版比原版深一层</td></tr>
+        <tr><td>周日</td><td>周复盘+亮点句/角度归档</td><td class="num">30 分钟</td><td>本周积累可复用表达</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">周总投入约 4.5 小时；"写+重写"取代"只写"，训练质量优先于数量。</p>
+  </div>
+  <div class="card">
+    <h3>7.7 家长协同要点</h3>
+    <p><b>能做的：</b></p>
+    <ul class="tight">
+      <li>营造"慢阅读"环境：每月 1 本人文社科好书（非考试材料），读后讨论，滋养"深刻"与"丰富"。</li>
+      <li>把孩子的作文按时间存档，每月回顾一次"进步在哪里"——125 档的进步是渐进的，需要长期视角。</li>
+      <li>与学校老师沟通时，明确请求"针对性反馈"（如：发展等级哪一项最值得突破），而非泛泛的总分评价。</li>
+    </ul>
+    <p><b>不能做的：</b></p>
+    <ul class="tight">
+      <li>不要用"还差几分上 130"制造焦虑——高原期的进步以月为单位，急不来。</li>
+      <li>不要替孩子决定"读什么书"——给他选择权，自主阅读才有效。</li>
+      <li>不要在作文上"指导具体写法"——125 档以上需要的是信任与反馈，不是家长代笔式的建议。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>7.8 常见误区与里程碑</h3>
+    <p><b>本档 3 个常见误区：</b></p>
+    <ul class="tight">
+      <li>误区一：<b>作文素材"求多不求深"</b>。背 100 个素材不如把 5 个素材用出 20 种角度。</li>
+      <li>误区二：<b>文学类阅读"只做选择题"</b>。主观题末问是 130 分门槛的钥匙，逃避它等于放弃分水岭。</li>
+      <li>误区三：<b>认为"语文学了也没用"</b>。高原期最容易放弃，而 125→130 恰恰是坚持者的红利区。</li>
+    </ul>
+    <p><b>里程碑：</b></p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>节点</th><th>目标</th></tr></thead>
+      <tbody>
+        <tr><td>1 个月</td><td>文学类末问稳定 5~6 分，作文材料 1 材 3 用熟练</td></tr>
+        <tr><td>3 个月</td><td>总分稳定 130，作文 55+ 与压轴阅读成为主战场</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="seg-130">
+  <div class="sec-head"><span class="sec-no">08</span><h2>130 分档 · 高分段</h2></div>
+  <p class="lead">130 分在全国任何省份都是实打实的高分：作文 55+、压轴阅读接近满分、语言运用满分。这一档开始，考生面对的是"最后 15 分"的战场——作文上限、创新表达、零失误三件事。</p>
+  <div class="chips"><span class="chip">定位：高分段</span><span class="chip">作文 55+ 主战场</span><span class="chip">压轴阅读是分水岭</span><span class="chip gold">本档关键词：上限与创新</span></div>
+  <div class="card">
+    <h3>8.1 分数定位画像</h3>
+    <p><span class="flag judge">判断</span>130 分档学生的画像可以概括为"三项全优"：技术全优（审题/结构/卷面）、知识全优（默写/翻译/语言运用）、思维优良但未臻顶尖（深刻有余、创新不足）。他们的作文通常稳定在 55±2，阅读压轴题偶尔失 1~2 分，语言运用偶有状态性失误。<span class="flag fact">事实</span>从全国范围看，这样的分数已是极少数：以福建 2025 年官方数据为参照，全省语文平均分仅 103.25，130 分已远超平均线约 27 分（<a href="http://fjnews.fjsen.com/2025-10/31/content_32068998.htm" target="_blank" rel="noopener noreferrer">东南网-2025 福建高考语文平均分</a>）；<span class="flag fact">事实</span>而 2026 年福建语文平均分较 2025 年又有抬升（物理组约 +9.62、历史组约 +8.04，据官方学科评价报告推算），高分段竞争同步加剧（<a href="http://m.toutiao.com/group/7696746667696980514/" target="_blank" rel="noopener noreferrer">新福建-2026 福建高考各科平均分</a>）。</p>
+    <div class="callout">心态画像：130 分档学生最稀缺的资源是"松弛感"——技术已经完备，剩下的提升高度依赖灵感、状态与表达的个性，越紧绷越写不出"活"的文章。</div>
+  </div>
+  <div class="card">
+    <h3>8.2 到下一档的差距量化：还差 5 分，从哪里拿</h3>
+    <p><span class="flag judge">判断</span>130→135 的 5 分，路径非常窄：作文 57→58（+1，创新表达）、古诗文鉴赏/文言（+3~4，向满分化）、现代文压轴末问（+1）。本档之后"全面均衡"成为关键词——不再有单一短板，只有"作文上限"这一个天花板。</p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>缺口来源</th><th>当前典型损失</th><th>可回收目标</th><th>为什么最现实</th></tr></thead>
+      <tbody>
+        <tr><td>作文创新表达（60 分）</td><td class="num">57</td><td class="num">58（+1）</td><td>见解新颖/材料新鲜/构思新巧，突出其一即可</td></tr>
+        <tr><td>古诗文鉴赏与翻译</td><td class="num">丢 1~2 分</td><td class="num">少丢 1~2 分</td><td>向 33~35 分靠拢，接近满分</td></tr>
+        <tr><td>现代文压轴末问</td><td class="num">丢 1~2 分</td><td class="num">少丢 1 分</td><td>开放题"自圆其说+独到"，可练可塑</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>8.3 得分结构拆解：当前 vs 目标 135</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>板块</th><th>当前（130 档典型）</th><th>目标（135 档）</th><th>差距</th></tr></thead>
+      <tbody>
+        <tr><td>现代文阅读 / 35</td><td class="num">24</td><td class="num">24</td><td>+0（保持顶尖）</td></tr>
+        <tr><td>古诗文阅读 / 35</td><td class="num">29</td><td class="num">33</td><td>+4（满分化）</td></tr>
+        <tr><td>语言文字运用 / 20</td><td class="num">20</td><td class="num">20</td><td>+0（满分保持）</td></tr>
+        <tr><td>写作 / 60</td><td class="num">57</td><td class="num">58</td><td>+1（创新表达）</td></tr>
+        <tr><td><b>合计 / 150</b></td><td class="num"><b>130</b></td><td class="num"><b>135</b></td><td>+5</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">注：板块分为教研设定画像分，用于对照分析。</p>
+  </div>
+  <div class="card">
+    <h3>8.4 核心失分诊断</h3>
+    <ul class="tight">
+      <li><b>作文"稳而不惊"</b>：通篇无可挑剔，但没有任何让阅卷人"眼前一亮"的点——发展等级拿满难。</li>
+      <li><b>压轴阅读"差一句"</b>：开放题的最后一点（如"谈谈你的理解/评价"）答得保守，不敢表达个性化见解。</li>
+      <li><b>古诗文"满分洁癖缺失"</b>：默认"丢 1~2 分正常"，不再较真最后一分。</li>
+      <li><b>卷面审美</b>：字迹规范但无"书写气质"，在高分段竞争中属于隐形减分。</li>
+      <li><b>临场波动</b>：语文是首考科目，开考 30 分钟的状态决定了阅读题的"手感"。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>8.5 提分路径：4 步可执行动作</h3>
+    <ol class="steps">
+      <li><b>做：作文"创新一点"攻坚。</b>四维（深刻/丰富/文采/创新）中挑"创新"维度专项：练"反常识但成立的立意""新角度切入旧材料""独特构思框架"。<span class="hl">怎么做</span>：每周 1 篇创新实验作文，允许"冒险"；<span class="hl">多久见效</span>：8 周形成 2~3 个可复用的"个人招牌构思"。</li>
+      <li><b>做：古诗文"满分化收尾"。</b>以"错 1 分即全篇重做"为标准训练：翻译、诗歌、默写三件套追求 100%。<span class="hl">怎么做</span>：每周 2 篇文言+2 首诗歌+默写滚动；<span class="hl">多久见效</span>：6 周古诗文板块 33~35 分稳定。</li>
+      <li><b>做：压轴题"个性化答案"。</b>开放题训练时，在标准要点之外强制写"我的理解"一句，练"自圆其说"能力。<span class="hl">怎么做</span>：每周 2 道开放题；<span class="hl">多久见效</span>：6 周末问稳定近满。</li>
+      <li><b>做：练字"气质化"。</b>每天 15 分钟临写楷书/行楷，目标是"卷面有书写气质"，这是高分段 1 分级的竞争力。<span class="hl">怎么做</span>：每日 15 分钟，坚持一学期；<span class="hl">多久见效</span>：3 个月卷面明显提升。</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>8.6 训练方案与时间分配（周计划）</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>时段</th><th>内容</th><th>时间投入</th><th>验收标准</th></tr></thead>
+      <tbody>
+        <tr><td>每日</td><td>练字 15 分钟（楷/行楷）</td><td class="num">15 分钟×7</td><td>月内字迹气质可辨</td></tr>
+        <tr><td>周一</td><td>古诗文满分化训练（文言 1 篇+诗歌 1 首）</td><td class="num">40 分钟</td><td>错 1 分即重做</td></tr>
+        <tr><td>周三</td><td>压轴开放题个性化训练 2 道</td><td class="num">30 分钟</td><td>每道含"我的理解"</td></tr>
+        <tr><td>周五</td><td>全卷保持性训练（限时）</td><td class="num">60 分钟</td><td>板块时间预算达标</td></tr>
+        <tr><td>周六</td><td>创新实验作文 1 篇</td><td class="num">90 分钟</td><td>含"个人招牌构思"</td></tr>
+        <tr><td>周日</td><td>周复盘+亮点归档</td><td class="num">30 分钟</td><td>积累可复用表达与构思</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">周总投入约 4.6 小时；训练密度不增，"精准度+个性度"成为核心指标。</p>
+  </div>
+  <div class="card">
+    <h3>8.7 家长协同要点</h3>
+    <p><b>能做的：</b></p>
+    <ul class="tight">
+      <li>保护孩子的"输入时间"：留出读书、观影、看展、散步思考的空白，这些是创新表达的土壤。</li>
+      <li>欣赏而非点评孩子的"冒险作文"——130 档的作文需要鼓励试错，不能次次求稳。</li>
+      <li>考前 100 天，配合孩子调整作息，保证语文首考科目的精神状态。</li>
+    </ul>
+    <p><b>不能做的：</b></p>
+    <ul class="tight">
+      <li>不要要求"每篇作文都 58 分"——允许波动，135 档的作文是"上限博弈"，不是"底线保分"。</li>
+      <li>不要把孩子的个性化表达当"跑题"批评——阅卷标准鼓励"自圆其说"。</li>
+      <li>不要加购大量教辅——130 档最不需要的是资料堆砌。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>8.8 常见误区与里程碑</h3>
+    <p><b>本档 3 个常见误区：</b></p>
+    <ul class="tight">
+      <li>误区一：<b>作文越来越"稳"越来越"平庸"</b>。130 档的作文必须敢冒"1 分险"，才可能拿"2 分彩"。</li>
+      <li>误区二：<b>忽视书写</b>。高分段 1 分可能是上千名次，书写气质是投入产出比最高的训练。</li>
+      <li>误区三：<b>考前焦虑性刷题</b>。130 档考前的正确姿势是"保温"而非"加练"——保持手感，养精蓄锐。</li>
+    </ul>
+    <p><b>里程碑：</b></p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>节点</th><th>目标</th></tr></thead>
+      <tbody>
+        <tr><td>1 个月</td><td>古诗文 33 分左右，作文出现"个人招牌构思"雏形</td></tr>
+        <tr><td>3 个月</td><td>总分稳定 135，全面均衡，只剩"最后 15 分"在作文上限与创新表达</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="seg-135">
+  <div class="sec-head"><span class="sec-no">09</span><h2>135 分档 · 顶尖段</h2></div>
+  <p class="lead">135 分是"顶尖段"：技术、知识、思维三项全优，几乎每道题都接近满分。此时剩"最后 15 分"，全部集中在两个地方——<b>作文上限</b>与<b>创新表达</b>。这是一场"从优秀到卓越"的博弈。</p>
+  <div class="chips"><span class="chip">定位：顶尖段</span><span class="chip">全面均衡</span><span class="chip">最后 15 分在作文上限</span><span class="chip gold">本档关键词：卓越博弈</span></div>
+  <div class="card">
+    <h3>9.1 分数定位画像</h3>
+    <p><span class="flag judge">判断</span>135 分档学生在考场上几乎是"无短板"的存在：默写、翻译、语言运用接近全对，现代文/古诗文压轴题稳定近满，作文稳定 58 上下。<b>他们的分数曲线已经"顶到卷面结构的天花板"</b>——除去作文 60 分的上限与压轴题的最后 1 分，几乎没有弹性空间。<span class="flag fact">事实</span>作文满分 60 分是卷面硬上限，基础题 90 分 + 作文 60 分的结构决定了：即便所有客观题满分、主观题全对，剩余空间也全部压在作文与开放题上（<a href="https://m.gaokao.cn/gk/49440" target="_blank" rel="noopener noreferrer">掌上高考-高考语文试卷结构</a>）。<span class="flag judge">判断</span>换句话说，135→145 的 10 分，本质是"作文与个性化表达"的 10 分。</p>
+    <div class="callout">心态画像：135 分档学生需要重新定义"成功"——不是"少丢分"，而是"敢拿大分"：作文上限、开放题独到见解、创新表达。稳，已经不够了。</div>
+  </div>
+  <div class="card">
+    <h3>9.2 到下一档的差距量化：还差 5 分，从哪里拿</h3>
+    <p><span class="flag judge">判断</span>135→140 的 5 分：作文 58→59（+1，向发展等级满分靠拢）、古诗文 33→35（+2，满分）、现代文 24→26（+2，压轴题全对，含开放题"自圆其说+独到"）。这 5 分的前提是<b>零失误</b>：任何一科"状态性失误"都会让 140 从指缝溜走。</p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>缺口来源</th><th>当前典型损失</th><th>可回收目标</th><th>为什么最现实</th></tr></thead>
+      <tbody>
+        <tr><td>作文上限（60 分）</td><td class="num">58</td><td class="num">59（+1）</td><td>发展等级"突出点"再深化+整体完成度</td></tr>
+        <tr><td>古诗文满分化</td><td class="num">33</td><td class="num">35（+2）</td><td>翻译/诗歌"最后一分"较真到底</td></tr>
+        <tr><td>现代文压轴+开放题</td><td class="num">24</td><td class="num">26（+2）</td><td>个性化答案+审题零跳读</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>9.3 得分结构拆解：当前 vs 目标 140</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>板块</th><th>当前（135 档典型）</th><th>目标（140 档）</th><th>差距</th></tr></thead>
+      <tbody>
+        <tr><td>现代文阅读 / 35</td><td class="num">24</td><td class="num">26</td><td>+2（压轴全对）</td></tr>
+        <tr><td>古诗文阅读 / 35</td><td class="num">33</td><td class="num">35</td><td>+2（满分）</td></tr>
+        <tr><td>语言文字运用 / 20</td><td class="num">20</td><td class="num">20</td><td>+0（满分保持）</td></tr>
+        <tr><td>写作 / 60</td><td class="num">58</td><td class="num">59</td><td>+1（上限突破）</td></tr>
+        <tr><td><b>合计 / 150</b></td><td class="num"><b>135</b></td><td class="num"><b>140</b></td><td>+5</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">注：板块分为教研设定画像分，用于对照分析。</p>
+  </div>
+  <div class="card">
+    <h3>9.4 核心失分诊断</h3>
+    <ul class="tight">
+      <li><b>作文"差一口气到顶"</b>：发展等级 3 项突出但无一"登峰造极"，语言偶有瑕疵（如一处病句、一个俗套词）。</li>
+      <li><b>开放题"惜墨如金"</b>：最后一问写得保守，怕"画蛇添足"，反而错失加分机会。</li>
+      <li><b>古诗文"最后一分"</b>：翻译某词取义不精、诗歌情感判断微偏，丢 1 分。</li>
+      <li><b>开考节奏</b>：语文首考，前 40 分钟如果状态未热，选择题可能连错。</li>
+      <li><b>完美主义反噬</b>：越想 140 越怕失误，怕失误又导致审题过度谨慎、耗时超支。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>9.5 提分路径：4 步可执行动作</h3>
+    <ol class="steps">
+      <li><b>做：作文"天花板攻坚"。</b>发展等级"深刻/丰富/有文采/有创新"四维中选定 1~2 维追求"登峰造极"：深挖一个领域（如哲学、科技伦理、文化传承），形成"专业级"的深度文本。<span class="hl">怎么做</span>：每月 1 个专题深读+2 篇相关作文；<span class="hl">多久见效</span>：一学期形成个人"天花板表达"。</li>
+      <li><b>做：开放题"敢写敢赢"。</b>最后一问训练标准从"答稳"改为"答出亮点"：在自圆其说的前提下，必须有一句独到见解。<span class="hl">怎么做</span>：每周 2 道开放题，强制亮点句；<span class="hl">多久见效</span>：6 周形成"敢写"习惯。</li>
+      <li><b>做：古诗文"零容忍"。</b>任何 1 分失误都要重做全篇并归因——训练目标是"古诗文板块零失误"的肌肉记忆。<span class="hl">怎么做</span>：每周 2 篇文言+2 首诗歌；<span class="hl">多久见效</span>：8 周板块满分率 ≥90%。</li>
+      <li><b>做：考前"热身手感"方案。</b>制定开考 15 分钟的热身策略（如先做默写+语言运用暖场，再做阅读），用模拟卷反复验证。<span class="hl">怎么做</span>：考前 1 个月每周 1 次全真模拟验证热身方案；<span class="hl">多久见效</span>：考前形成稳定节奏。</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>9.6 训练方案与时间分配（周计划）</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>时段</th><th>内容</th><th>时间投入</th><th>验收标准</th></tr></thead>
+      <tbody>
+        <tr><td>每日</td><td>练字+默写滚动</td><td class="num">20 分钟×7</td><td>卷面气质+默写零失误</td></tr>
+        <tr><td>周一/周三</td><td>古诗文零容忍训练</td><td class="num">35 分钟×2</td><td>错 1 分全篇重做</td></tr>
+        <tr><td>周二</td><td>开放题亮点句训练 2 道</td><td class="num">30 分钟</td><td>每道含独到见解</td></tr>
+        <tr><td>周四</td><td>全卷限时保持（含热身方案）</td><td class="num">60 分钟</td><td>时间预算+节奏达标</td></tr>
+        <tr><td>周六</td><td>专题深读+作文 1 篇</td><td class="num">120 分钟</td><td>作文含"天花板表达"尝试</td></tr>
+        <tr><td>周日</td><td>周复盘+失误零容忍台账</td><td class="num">30 分钟</td><td>失误全部归因并闭环</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">周总投入约 4.9 小时；本档训练量不增，"精度+深度+个性"三重升级。</p>
+  </div>
+  <div class="card">
+    <h3>9.7 家长协同要点</h3>
+    <p><b>能做的：</b></p>
+    <ul class="tight">
+      <li>为孩子提供"专题资源"：高水平讲座、纪录片、深度访谈——滋养"天花板表达"的深度来源。</li>
+      <li>尊重孩子的学习节奏：135 档的训练更多是"内功"，表面安静，内在剧烈。</li>
+      <li>关注考前精神状态：语文首考，前一晚睡眠与开考心态比再练一套题重要得多。</li>
+    </ul>
+    <p><b>不能做的：</b></p>
+    <ul class="tight">
+      <li>不要用"必须 140"给孩子设限——135 档以上的波动属正常，执念反而制造失误。</li>
+      <li>不要干扰孩子的"热身方案"（如开考先做哪块）——那是他验证过的节奏。</li>
+      <li>不要在考后第一时间对答案式复盘——顶尖段需要的是"考试归考试"的断舍离。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>9.8 常见误区与里程碑</h3>
+    <p><b>本档 3 个常见误区：</b></p>
+    <ul class="tight">
+      <li>误区一：<b>把 140 当成"少丢分"的结果</b>。135 以上必须"多拿分"，两者方向相反。</li>
+      <li>误区二：<b>作文不敢冒险</b>。顶尖段作文的个性表达，是 140 的入场券。</li>
+      <li>误区三：<b>临考突击</b>。135 档的临考只能"保温"，突击只会破坏状态。</li>
+    </ul>
+    <p><b>里程碑：</b></p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>节点</th><th>目标</th></tr></thead>
+      <tbody>
+        <tr><td>1 个月</td><td>古诗文板块满分率 ≥90%，开放题敢写亮点，热身方案成型</td></tr>
+        <tr><td>3 个月</td><td>总分冲击 140，几乎无短板，靠写作天花板与零失误</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="seg-140">
+  <div class="sec-head"><span class="sec-no">10</span><h2>140 分档 · 超顶尖段</h2></div>
+  <p class="lead">140 分是"超顶尖段"：全省每届考生中屈指可数。到达这一档的考生几乎无短板，分数由两件事决定——<b>写作天花板</b>与<b>零失误</b>。每一分都带着"运气与状态"的成分，也带着多年积累的必然。</p>
+  <div class="chips"><span class="chip">定位：超顶尖段</span><span class="chip">几乎无短板</span><span class="chip">写作天花板+零失误</span><span class="chip gold">本档关键词：天人合一</span></div>
+  <div class="card">
+    <h3>10.1 分数定位画像</h3>
+    <p><span class="flag judge">判断</span>140 分档考生是"素养型天才+系统训练"的复合体：语感、积累、思维、心态四项皆强。他们的共同特征不是"刷题多"，而是<b>长期大量高质量阅读、写作与思考的习惯</b>——考场表现只是日常素养的投影。<span class="flag fact">事实</span>从阅卷尺度看，作文要冲到 58~60 分，需要基础等级（内容 20+表达 20）与发展等级（20 分）全面突出，且卷面、字数、标点全程无瑕疵；任何 1 分失误在 140 档都是"致命"的（<a href="https://www.gaokao.cn/zd/10763" target="_blank" rel="noopener noreferrer">掌上高考-高考作文评分</a>）。<span class="flag judge">判断</span>因此，140 分的构成可以概括为"135 分的技术+5 分的状态"，状态管理本身就是考试能力。</p>
+    <div class="callout">心态画像：140 分档考生最大的对手是自己——对"满分作文"的执念会挤压写作的自由度，对"零失误"的执念会放大开考焦虑。最高境界是"忘掉分数，进入文本"。</div>
+  </div>
+  <div class="card">
+    <h3>10.2 到下一档的差距量化：还差 5 分，从哪里拿</h3>
+    <p><span class="flag judge">判断</span>140→145 的 5 分，几乎全部压在作文上（59→60，+1）与现代文压轴零失误（26→30，+4）。145 分意味着：古诗文满分、语言运用满分、现代文接近满分、作文接近满分——这是"每道题都答到阅卷人心里"的罕见状态，其出现概率是全省极少数。</p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>缺口来源</th><th>当前典型损失</th><th>可回收目标</th><th>为什么最现实</th></tr></thead>
+      <tbody>
+        <tr><td>作文上限（60 分）</td><td class="num">59</td><td class="num">60（+1）</td><td>发展等级"登峰造极"+零瑕疵语言，遇题发挥</td></tr>
+        <tr><td>现代文压轴（35 分）</td><td class="num">26</td><td class="num">30（+4）</td><td>压轴题与开放题全对+独到，需"状态全开"</td></tr>
+        <tr><td>零失误</td><td class="num">偶失 1 分</td><td class="num">全程 0 失误</td><td>审题、卷面、时间三项零容忍</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="card">
+    <h3>10.3 得分结构拆解：当前 vs 目标 145</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>板块</th><th>当前（140 档典型）</th><th>目标（145 档）</th><th>差距</th></tr></thead>
+      <tbody>
+        <tr><td>现代文阅读 / 35</td><td class="num">26</td><td class="num">30</td><td>+4（压轴零失误）</td></tr>
+        <tr><td>古诗文阅读 / 35</td><td class="num">35</td><td class="num">35</td><td>+0（满分保持）</td></tr>
+        <tr><td>语言文字运用 / 20</td><td class="num">20</td><td class="num">20</td><td>+0（满分保持）</td></tr>
+        <tr><td>写作 / 60</td><td class="num">59</td><td class="num">60</td><td>+1（接近满分）</td></tr>
+        <tr><td><b>合计 / 150</b></td><td class="num"><b>140</b></td><td class="num"><b>145</b></td><td>+5</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">注：板块分为教研设定画像分，用于对照分析。</p>
+  </div>
+  <div class="card">
+    <h3>10.4 核心失分诊断</h3>
+    <ul class="tight">
+      <li><b>作文"完美中的微瑕"</b>：立意、结构、材料、语言全优，但一处用词、一个标点、一处过渡仍可能让 60 变 59。</li>
+      <li><b>压轴题"惜最后一层"</b>：答案完整但深度/独到处未达"阅卷人击节"的程度。</li>
+      <li><b>开考"慢热"</b>：前 20 分钟阅读题节奏未起，选择题"细看"变"盯看"，耗时失分。</li>
+      <li><b>情绪峰值管理</b>：模拟考 142 后期待值拉满，正式考反而紧张——"高期待反噬"是顶尖段特有风险。</li>
+      <li><b>卷面"最后一个字"</b>：作文结尾仓促或涂改，破坏整体完成度印象。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>10.5 提分路径：4 步可执行动作</h3>
+    <ol class="steps">
+      <li><b>做：作文"语言纯净度"。</b>连续 6 周，每篇作文写完后做"语言体检"：删冗余、换俗词、查标点、校病句，目标是全文零瑕疵。<span class="hl">怎么做</span>：每周作文+1 次全文自检；<span class="hl">多久见效</span>：6 周语言纯净度肉眼可见。</li>
+      <li><b>做：压轴题"阅卷人视角"。</b>写完后自问三句："阅卷老师看到我的要点会打钩吗？会停顿思考吗？会眼前一亮吗？"三个"会"都满足才算过。<span class="hl">怎么做</span>：每周 2 道压轴题三问自评；<span class="hl">多久见效</span>：8 周答案完成度达到顶尖标准。</li>
+      <li><b>做：考前"降期待"策略。</b>把目标从"145"改写为"把每一题答到当下的最好"——聚焦过程，释放写作自由度。<span class="hl">怎么做</span>：考前 30 天每天默念+模拟卷内化；<span class="hl">多久见效</span>：考场上明显更松弛。</li>
+      <li><b>做：全程模拟"零失误"。</b>每周 1 次全真模拟，把"零失误"当硬指标：任何审题跳读、区域错位、时间超支都记入台账。<span class="hl">怎么做</span>：每周 1 次全真卷；<span class="hl">多久见效</span>：考前 1 个月失误台账清零。</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>10.6 训练方案与时间分配（周计划）</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>时段</th><th>内容</th><th>时间投入</th><th>验收标准</th></tr></thead>
+      <tbody>
+        <tr><td>每日</td><td>练字+默写+成语滚动（碎片 15 分钟）</td><td class="num">15 分钟×7</td><td>基础板块零失误</td></tr>
+        <tr><td>周二</td><td>压轴题阅卷人视角训练 2 道</td><td class="num">35 分钟</td><td>三问全部"会"</td></tr>
+        <tr><td>周四</td><td>全真模拟（含零失误台账）</td><td class="num">150 分钟</td><td>失误台账项递减</td></tr>
+        <tr><td>周六</td><td>作文 1 篇+语言纯净度体检</td><td class="num">120 分钟</td><td>全文零瑕疵</td></tr>
+        <tr><td>周日</td><td>周复盘+期待值管理</td><td class="num">30 分钟</td><td>情绪状态与分数曲线脱钩</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">周总投入约 5.2 小时，其中全真模拟占比高——顶尖段的训练核心是"考场化"。</p>
+  </div>
+  <div class="card">
+    <h3>10.7 家长协同要点</h3>
+    <p><b>能做的：</b></p>
+    <ul class="tight">
+      <li>做"情绪缓冲垫"：顶尖段考生需要的是"无论考多少都爱你"的稳定，不是更高的期待。</li>
+      <li>保证考前一晚睡眠与早餐质量，语文是首考科目，生理状态直接决定"零失误"概率。</li>
+      <li>考后不追问细节，先让孩子休息——顶尖段的复盘在情绪平复之后才有效。</li>
+    </ul>
+    <p><b>不能做的：</b></p>
+    <ul class="tight">
+      <li>不要在任何场合强调"你可是要冲 145 的"——高期待是顶尖段最大的失误源。</li>
+      <li>不要拿"别人家 140 的孩子"做参照——到达此段位，每个考生的路径都不可复制。</li>
+      <li>不要在考前加任何新资料、新方法——顶尖段考前只能"保温"。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>10.8 常见误区与里程碑</h3>
+    <p><b>本档 3 个常见误区：</b></p>
+    <ul class="tight">
+      <li>误区一：<b>把模拟考高分当定局</b>。140 档的考场表现高度依赖状态，模拟成绩≠正式成绩。</li>
+      <li>误区二：<b>考场上"求稳反求乱"</b>。过度谨慎导致每题都"再检查一遍"，时间崩溃。</li>
+      <li>误区三：<b>考后情绪崩盘</b>。一次失误否定全部，反而影响后续科目——顶尖段更要"考完即忘"。</li>
+    </ul>
+    <p><b>里程碑：</b></p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>节点</th><th>目标</th></tr></thead>
+      <tbody>
+        <tr><td>1 个月</td><td>全真模拟失误台账递减至零，作文语言零瑕疵</td></tr>
+        <tr><td>3 个月</td><td>总分冲击 145：写作接近满分+阅读零失误的罕见状态</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section id="seg-145">
+  <div class="sec-head"><span class="sec-no">11</span><h2>145 分档 · 超顶尖冲刺</h2></div>
+  <p class="lead">145 分是全国范围"全省极少数"的分数，是每一届考生中可以被写进学校史册的成绩。它要求写作接近满分、阅读零失误、整卷无可挑剔——这是"素养+状态+运气"三者同频的罕见时刻。</p>
+  <div class="chips"><span class="chip">定位：全省极少数的顶尖分数</span><span class="chip">写作接近满分</span><span class="chip">阅读零失误</span><span class="chip gold">本档关键词：可遇不可求</span></div>
+  <div class="card">
+    <h3>11.1 分数定位画像</h3>
+    <p><span class="flag judge">判断</span>145 分档考生不是"训练出来的"，而是"长出来的"：从小学起的阅读习惯、深厚的文化积累、罕见的语言天赋、稳定到近乎机器的心态，再加一场状态全开的考试。<span class="flag fact">事实</span>从数据看这类考生的稀缺性：以 2025 年福建官方报告为例，全省语文平均分 103.25，145 分是平均线的 1.4 倍以上，且语文高分段历来是各科中最稀疏的——作文 60 分的卷面上限决定了语文不可能像数学那样频繁出现"超高分"（<a href="http://fjnews.fjsen.com/2025-10/31/content_32068998.htm" target="_blank" rel="noopener noreferrer">东南网-2025 福建高考平均分</a>）。<span class="flag judge">判断</span>因此对绝大多数考生而言，145 是"方向标"而非"目标值"——它的价值在于反推：写作逼近满分需要什么、阅读零失误需要什么、整卷无瑕需要什么，然后把这些"什么"拆进 130~140 的训练里。</p>
+    <div class="callout">心态画像：真正可能考到 145 的考生，几乎从不想着 145——他们只想"把这篇作文写好、把这题答到位"。分数是专注的副产品，不是目标本身。</div>
+  </div>
+  <div class="card">
+    <h3>11.2 到下一档的差距量化：145 已是天花板档</h3>
+    <p><span class="flag judge">判断</span>145 分之上只剩 146~150 的"神仙区间"，其分布逻辑与本表相同：古诗文与语言运用已满分（55 分）、现代文需 33~35 分、作文需 59~60 分——即<b>客观与半客观题全对 + 主观题全部"顶格给分"</b>。这 5 分已不属于"训练可回收"范围，而属于"状态与阅卷的边际"。</p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>缺口来源</th><th>现状</th><th>150 满分路径</th><th>现实性评估</th></tr></thead>
+      <tbody>
+        <tr><td>现代文阅读 / 35</td><td class="num">30</td><td class="num">33~35</td><td>需压轴题与开放题全部"顶格给分"，极少出现</td></tr>
+        <tr><td>古诗文阅读 / 35</td><td class="num">35</td><td class="num">35</td><td>已满分，保持零失误</td></tr>
+        <tr><td>语言文字运用 / 20</td><td class="num">20</td><td class="num">20</td><td>已满分，保持零失误</td></tr>
+        <tr><td>写作 / 60</td><td class="num">60</td><td class="num">60</td><td>已接近满分；满分作文需发展等级登峰造极+零瑕疵</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">注：板块分为教研设定画像分，用于对照分析。</p>
+  </div>
+  <div class="card">
+    <h3>11.3 得分结构拆解：145 档画像</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>板块</th><th>145 档典型得分</th><th>板块满分</th><th>得分率</th></tr></thead>
+      <tbody>
+        <tr><td>现代文阅读 / 35</td><td class="num">30</td><td class="num">35</td><td class="num">约 86%</td></tr>
+        <tr><td>古诗文阅读 / 35</td><td class="num">35</td><td class="num">35</td><td class="num">100%</td></tr>
+        <tr><td>语言文字运用 / 20</td><td class="num">20</td><td class="num">20</td><td class="num">100%</td></tr>
+        <tr><td>写作 / 60</td><td class="num">60</td><td class="num">60</td><td class="num">100%</td></tr>
+        <tr><td><b>合计 / 150</b></td><td class="num"><b>145</b></td><td class="num">150</td><td class="num">约 97%</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">注：板块分为教研设定画像分，用于对照分析。</p>
+  </div>
+  <div class="card">
+    <h3>11.4 核心失分诊断（145 档的"最后一分"级风险）</h3>
+    <ul class="tight">
+      <li><b>作文"差一档"</b>：立意深刻但未达"独到"，或语言优美但发展等级缺"创新"项，60 变 58。</li>
+      <li><b>压轴题"差一句"</b>：答案完整但缺"点睛句"，与"顶格给分"失之交臂。</li>
+      <li><b>选择题"一念之差"</b>：一道 3 分选择题的犹豫，就可能让 145 变 142。</li>
+      <li><b>卷面"最后一笔"</b>：作文末尾一个涂改、一处超出区域，都会影响整体印象分。</li>
+      <li><b>心态"最后一个关口"</b>：当发现前面全对时，兴奋导致的"手抖"——顶尖段最隐蔽的风险。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>11.5 提分路径：3 步可执行动作（145 档的维护策略）</h3>
+    <ol class="steps">
+      <li><b>做：作文"满分模拟"。</b>每 2 周挑战一次"满分作文"写作：不限时、反复打磨、逐句优化，体验"顶格"的完成度标准。<span class="hl">怎么做</span>：双周 1 篇打磨作文；<span class="hl">多久见效</span>：3 个月形成满分级"完成度"手感。</li>
+      <li><b>做：压轴题"点睛句"训练。</b>答案完成后再加写一句"提升句"（升华/联系/独见），练"锦上添花"的本能。<span class="hl">怎么做</span>：每周 2 道压轴题；<span class="hl">多久见效</span>：6 周点睛句信手拈来。</li>
+      <li><b>做：考前"静默保温"。</b>考前 2 周只做两件事：基础板块碎片滚动+心态训练（冥想/运动/规律作息），拒绝任何新题新法。<span class="hl">怎么做</span>：考前 14 天执行保温清单；<span class="hl">多久见效</span>：考场上状态峰值。</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>11.6 训练方案与时间分配（周计划）</h3>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>时段</th><th>内容</th><th>时间投入</th><th>验收标准</th></tr></thead>
+      <tbody>
+        <tr><td>每日</td><td>默写+成语+练字碎片滚动</td><td class="num">15 分钟×7</td><td>基础板块零失误</td></tr>
+        <tr><td>周二/周四</td><td>压轴题点睛句训练各 1 道</td><td class="num">30 分钟×2</td><td>每道含提升句</td></tr>
+        <tr><td>周三</td><td>全真模拟或半卷模拟</td><td class="num">90 分钟</td><td>全程零失误</td></tr>
+        <tr><td>双周六</td><td>满分作文打磨 1 篇</td><td class="num">150 分钟</td><td>完成度达到顶格标准</td></tr>
+        <tr><td>周日</td><td>周复盘+心态日志</td><td class="num">30 分钟</td><td>状态曲线向上，失误归零</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">周总投入约 5 小时；145 档的日常训练核心是"维护+打磨"，不增题量、不添新料。</p>
+  </div>
+  <div class="card">
+    <h3>11.7 家长协同要点</h3>
+    <p><b>能做的：</b></p>
+    <ul class="tight">
+      <li>做"最安静的观众"：顶尖段考生需要的支持是"退后一步"，不是"再进一步"。</li>
+      <li>管理外部信息：屏蔽"状元访谈""满分作文"等干扰信息，保护孩子的专注场域。</li>
+      <li>无条件信任：无论模拟考 138 还是 145，都传递"你已经是了不起的孩子"的信号。</li>
+    </ul>
+    <p><b>不能做的：</b></p>
+    <ul class="tight">
+      <li>不要把 145 挂嘴边——顶尖段考生比任何人都清楚目标，家庭只需提供松弛。</li>
+      <li>不要在考前安排任何"突击计划"——保温期最怕"好心办坏事"。</li>
+      <li>不要在孩子表达压力时说"别有压力"——倾听比安抚更有用。</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>11.8 常见误区与里程碑</h3>
+    <p><b>本档 3 个常见误区：</b></p>
+    <ul class="tight">
+      <li>误区一：<b>把 145 当"必然目标"</b>。它是"小概率事件"，强求只会破坏发挥；把 130~140 当目标更科学。</li>
+      <li>误区二：<b>考前继续加练</b>。顶尖段的边际收益在考前为负，保温才是最优策略。</li>
+      <li>误区三：<b>把一次模拟 143 当成"稳了"</b>。顶尖分数是"状态函数"，每一次都要重新挣来。</li>
+    </ul>
+    <p><b>里程碑：</b></p>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>节点</th><th>目标</th></tr></thead>
+      <tbody>
+        <tr><td>1 个月</td><td>满分作文"完成度"手感成型，压轴题点睛句稳定输出</td></tr>
+        <tr><td>3 个月</td><td>考场上状态峰值，写作接近满分+阅读零失误，冲击全省极少数顶尖分数</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<div class="wrap">
+  <h3 class="ref-title">数据来源与口径说明</h3>
+  <p class="small">本页所有数据均按来源分层标注：<b>官方</b>（政府/考试院/教育部渠道）、<b>权威媒体</b>（主流新闻媒体）、<b>行业观察</b>（教培/学科网等第三方统计）。每档得分结构中的"板块分"为教研设定的典型画像分（判断口径），用于对照分析，非任何官方公布数据。</p>
+  <ol class="ref-list">
+    <li>掌上高考：高考语文试卷结构（现代文 35/古诗文 35/语言运用 20/写作 60；基础 90+作文 60）——行业权威平台，约数口径 <a href="https://m.gaokao.cn/gk/49440" target="_blank" rel="noopener noreferrer">https://m.gaokao.cn/gk/49440</a></li>
+    <li>掌上高考：高考作文评分（基础等级 40 分=内容 20+表达 20；发展等级 20 分；字数/错别字/标题扣分细则）——行业权威平台 <a href="https://www.gaokao.cn/zd/10763" target="_blank" rel="noopener noreferrer">https://www.gaokao.cn/zd/10763</a></li>
+    <li>东南网（海峡教育报）：2025 年福建省高考学科评价报告——全省语文平均 103.25、物理组 103.05、历史组 104.08、难度值 0.69（官方） <a href="http://fjnews.fjsen.com/2025-10/31/content_32068998.htm" target="_blank" rel="noopener noreferrer">http://fjnews.fjsen.com/2025-10/31/content_32068998.htm</a></li>
+    <li>新福建（海峡教育报）：2026 年福建省高考学科评价报告——语文物理组平均分较 2025 年高 9.62 分、历史组高 8.04 分（官方，增幅为推算口径） <a href="http://m.toutiao.com/group/7696746667696980514/" target="_blank" rel="noopener noreferrer">http://m.toutiao.com/group/7696746667696980514/</a></li>
+    <li>南方+：广东从未公布高考单科平均分，网传数据不可信（权威媒体辟谣口径） <a href="https://static.nfnews.com/content/202606/24/c12558797.html" target="_blank" rel="noopener noreferrer">https://static.nfnews.com/content/202606/24/c12558797.html</a></li>
+    <li>人民网：新课标高中语文必背古诗文 72 篇（文言文 32 篇+诗词曲 40 篇）——权威媒体 <a href="http://edu.people.com.cn/n1/2018/0117/c1006-29768885.html" target="_blank" rel="noopener noreferrer">http://edu.people.com.cn/n1/2018/0117/c1006-29768885.html</a></li>
+    <li>人民网：广东 2007—2013 年作文平均分 37.8~40.38；2012 年 31~50 分占 84.93%、51~60 分仅 0.9%（权威媒体引述华南师大柯汉琳） <a href="http://edu.people.com.cn/n/2014/0617/c1053-25158665.html" target="_blank" rel="noopener noreferrer">http://edu.people.com.cn/n/2014/0617/c1053-25158665.html</a></li>
+    <li>学科网：2024 年新课标 I 卷（福建泉州）阅卷统计——作文平均 46.68/60（难度 0.78）；文言翻译 4.20/8（难度 0.53）等（行业观察·地区阅卷统计） <a href="https://m.zxxk.com/soft/48159482.html" target="_blank" rel="noopener noreferrer">https://m.zxxk.com/soft/48159482.html</a></li>
+    <li>长治市教育局：2023 年新课标 II 卷山西阅卷个案——小说第 8 题（4 分）平均不足 2 分、信息类第 4 题约 20% 零分（官方渠道·个案） <a href="https://jyj.changzhi.gov.cn/jyzc/202406/t20240611_2907778.html" target="_blank" rel="noopener noreferrer">https://jyj.changzhi.gov.cn/jyzc/202406/t20240611_2907778.html</a></li>
+    <li>中国教育在线（转载）：《2025 年中国高中语文学情调查报告》——阅读平均得分率 58.3%，论述类平均失分 7.2、文学类 8.5、古诗文 9.3（行业观察） <a href="https://gaokao.eol.cn/gzxy/yxdt/202606/t20260615_2745070.shtml" target="_blank" rel="noopener noreferrer">https://gaokao.eol.cn/gzxy/yxdt/202606/t20260615_2745070.shtml</a></li>
+    <li>中新网（微言教育）：2025 年高考语文试题评析——两套全国卷、强调思维品质与批判性思维考查（官方渠道） <a href="https://m.chinanews.com.cn/wap/detail/chs/zw/10428401.shtml" target="_blank" rel="noopener noreferrer">https://m.chinanews.com.cn/wap/detail/chs/zw/10428401.shtml</a></li>
+    <li>南阳日报：2015 年河南高考语文作文平均 45.32（含 0 分）/46.19（不含 0 分）（权威媒体·历史数据） <a href="http://epaper.01ny.cn/01nyrb/html/2015-06/25/content_3817848.htm" target="_blank" rel="noopener noreferrer">http://epaper.01ny.cn/01nyrb/html/2015-06/25/content_3817848.htm</a></li>
+    <li>教研积累口径：审题失手年均丢 12~18 分、高一入学检测阅读得分率 59.7%（个案）、作文"40 分现象"等为教研经验值，标注为判断，非官方数据。</li>
+  </ol>
+</div>
+
+
+
+<footer>
+  <div class="brand">刘老师教研 · 高中语文教研 · 95-145分档提分全面分析 · 供考生与家长对照使用</div>
+  <p>本文为教研分析，不针对个体做结论，请以当年考试说明与正式试卷为准</p>
+  <p>本页面为单文件 HTML，全内联样式，可离线保存与打印</p>
+</footer>
+</body>
+</html>
