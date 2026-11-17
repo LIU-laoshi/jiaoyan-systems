@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>刘老师教研 · 高考历史地图时间轴</title>
+<style>
+:root{--bg:#f6f1e7;--panel:#fbf8f1;--soft:#efe9dc;--line:#ddd3c2;--ink:#2f2a26;--accent:#a03a2b;--muted:#8a7f70;--map:#c9d2dc;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:"Songti SC","Noto Serif CJK SC","Source Han Serif SC","STSong","SimSun",serif;line-height:1.85;font-size:16px;}
+img,svg{max-width:100%;height:auto;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+.hero{text-align:center;padding:64px 24px 36px;}
+.kicker{display:inline-block;letter-spacing:.35em;font-size:13px;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:6px 18px;margin-bottom:22px;}
+.hero h1{font-size:clamp(30px,4.6vw,52px);letter-spacing:.08em;font-weight:700;}
+.hero .sub{margin-top:14px;color:#5c544a;font-size:17px;letter-spacing:.06em;}
+.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:34px;}
+.stat{flex:0 1 190px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 10px;}
+.stat b{display:block;font-size:26px;color:var(--accent);letter-spacing:.04em;}
+.stat span{font-size:13px;color:var(--muted);}
+.period-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0 26px;}
+.pbtn{background:var(--panel);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:8px 14px;font-size:14px;cursor:pointer;font-family:inherit;transition:all .18s ease;}
+.pbtn:hover{border-color:var(--accent);color:var(--accent);}
+.pbtn.active{background:var(--accent);border-color:var(--accent);color:#fdfaf4;}
+.pbtn.is-hidden{display:none;}
+.search-wrap{position:relative;max-width:640px;margin:0 auto 30px;}
+#searchInput{width:100%;padding:12px 18px;border:1px solid var(--line);border-radius:10px;background:var(--panel);font-size:15px;font-family:inherit;color:var(--ink);}
+#searchInput:focus{outline:2px solid var(--accent);outline-offset:1px;}
+#searchResults{position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fffdf8;border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px rgba(47,42,38,.12);max-height:320px;overflow:auto;z-index:30;display:none;}
+.sr-item{display:block;width:100%;text-align:left;padding:10px 16px;border:none;background:none;font-family:inherit;font-size:14px;color:var(--ink);cursor:pointer;border-bottom:1px dashed var(--line);}
+.sr-item:last-child{border-bottom:none;}
+.sr-item:hover,.sr-item:focus{background:var(--soft);}
+.sr-empty{padding:10px 16px;font-size:14px;color:var(--muted);}
+.stage{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,1fr);gap:22px;align-items:start;}
+.map-panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;}
+.map-panel svg{display:block;width:100%;height:auto;border-radius:6px;}
+.map-svg.is-hidden{display:none;}
+.map-note-line{margin-top:10px;font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px;letter-spacing:.02em;}
+.info-card{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:20px 22px;}
+.info-card .ic-kicker{font-size:12px;color:var(--accent);letter-spacing:.3em;}
+.info-card h3{font-size:24px;margin:6px 0 2px;letter-spacing:.06em;}
+.ic-range{font-size:14px;color:var(--muted);margin-bottom:10px;}
+.ic-row{margin:8px 0;}
+.ic-row b{color:var(--accent);}
+.ic-events{margin:12px 0 0;padding-left:20px;}
+.ic-events li{margin:6px 0;font-size:14px;}
+.timeline-bar{background:var(--soft);border:1px solid var(--line);border-radius:12px;margin:26px 0 8px;padding:16px 20px 18px;}
+.tl-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.ctrl-btn{background:var(--accent);color:#fdfaf4;border:none;border-radius:8px;padding:9px 18px;font-size:15px;cursor:pointer;font-family:inherit;}
+.ctrl-btn.ghost{background:var(--panel);color:var(--ink);border:1px solid var(--line);}
+.speed-group{display:flex;gap:6px;align-items:center;}
+.speed-group span{font-size:13px;color:var(--muted);margin-right:2px;}
+.speed-btn{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:6px 12px;font-size:13px;cursor:pointer;font-family:inherit;color:var(--ink);}
+.speed-btn.active{background:var(--accent);color:#fdfaf4;border-color:var(--accent);}
+.year-label{font-size:19px;font-weight:700;color:var(--accent);min-width:96px;text-align:center;letter-spacing:.05em;}
+.tl-slider{width:100%;margin-top:14px;accent-color:var(--accent);cursor:pointer;}
+.tl-hint{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:2px;}
+.period-detail{margin-top:44px;padding-top:26px;border-top:1px solid var(--line);scroll-margin-top:16px;}
+.period-detail h2{font-size:24px;letter-spacing:.08em;color:var(--ink);margin-bottom:6px;}
+.period-detail h2 .no{color:var(--accent);margin-right:10px;}
+.period-meta{font-size:14px;color:#5c544a;margin-bottom:14px;}
+.period-meta b{color:var(--accent);}
+.period-detail h3{font-size:18px;margin:22px 0 8px;color:var(--accent);letter-spacing:.05em;}
+.tbl-scroll{overflow-x:auto;margin:10px 0 4px;border:1px solid var(--line);border-radius:8px;}
+table{width:100%;border-collapse:collapse;min-width:620px;background:var(--panel);}
+caption{text-align:left;font-weight:700;padding:10px 14px;background:var(--soft);border-bottom:1px solid var(--line);letter-spacing:.04em;}
+th,td{padding:10px 14px;border:1px solid #e6dcc8;vertical-align:top;text-align:left;}
+thead th{background:#e9e0cf;letter-spacing:.04em;}
+tbody th{background:#f2ecdf;white-space:nowrap;width:120px;}
+.event-list{padding-left:22px;margin:8px 0;}
+.event-list li{margin:7px 0;}
+.event-list .yr{color:var(--accent);font-weight:700;margin-right:6px;}
+.flag{display:inline-block;font-size:11px;line-height:1;padding:3px 7px;border-radius:4px;margin-left:6px;vertical-align:1px;letter-spacing:.05em;}
+.flag.fact{background:#e3efe4;color:#2f6b3a;border:1px solid #bcd8bf;}
+.flag.judge{background:#f3e3dc;color:var(--accent);border:1px solid #e2c4b6;}
+.callout{background:#f3e9dc;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:14px 18px;margin:14px 0;}
+.callout .co-title{font-weight:700;color:var(--accent);margin-bottom:6px;letter-spacing:.06em;}
+.callout ul{padding-left:20px;}
+.callout li{margin:5px 0;}
+.usage{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:44px 0 8px;}
+.usage h2{font-size:20px;margin-bottom:10px;color:var(--ink);letter-spacing:.06em;}
+.usage ul{padding-left:22px;}
+.usage li{margin:7px 0;font-size:15px;}
+footer{border-top:1px solid var(--line);margin-top:44px;padding:26px 0 40px;text-align:center;color:var(--muted);font-size:13px;letter-spacing:.04em;}
+footer .brand{color:var(--accent);font-weight:700;font-size:15px;letter-spacing:.12em;margin-bottom:6px;}
+footer p{margin:4px 0;}
+.map-svg{font-family:inherit;}
+.map-svg .base{fill:#c9d2dc;stroke:#9aa8b6;stroke-width:1.5;}
+.map-svg .base-split{fill:#e7dfce;stroke:#b9ac93;stroke-width:1.5;}
+.map-svg .river{fill:none;stroke:#a7b7bd;stroke-width:2;opacity:.9;}
+.map-svg .wall{fill:none;stroke:#a03a2b;stroke-width:2;stroke-dasharray:6 4;opacity:.8;}
+.map-svg .canal{fill:none;stroke:#a03a2b;stroke-width:3;stroke-dasharray:8 6;opacity:.85;}
+.map-svg .region{stroke:#fffdf8;stroke-width:1.2;opacity:.9;}
+.map-svg .cap-dot{fill:#a03a2b;stroke:#f6f1e7;stroke-width:2;}
+.map-svg .site-dot{fill:#5a6b7a;stroke:#f6f1e7;stroke-width:1.5;}
+.map-svg .cap-label{font-size:13px;font-weight:700;fill:#a03a2b;}
+.map-svg .site-label{font-size:12px;fill:#2f2a26;}
+.map-svg .region-label{font-size:14px;font-weight:700;fill:#4a4238;letter-spacing:.2em;}
+.map-svg .map-note{font-size:12px;fill:#8a7f70;}
+.map-svg .legend-title{font-size:12px;font-weight:700;fill:#2f2a26;}
+.map-svg .legend-text{font-size:11px;fill:#2f2a26;}
+@media (max-width:900px){.stage{grid-template-columns:1fr;}.hero{padding-top:44px;}}
+@media (max-width:560px){.wrap{padding:0 14px;}.year-label{min-width:70px;}}
+@media print{nav,.timeline-bar,.search-wrap{display:none;}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="kicker">刘老师教研 · 高考历史</div>
+  <h1>高考历史地图时间轴</h1>
+  <p class="sub">以「时间轴 × 地图 × 考点」三层结构，串起高考历史中国古代史至近代史 12 大时期主线</p>
+  <div class="stats">
+    <div class="stat"><b>12</b><span>大时期</span></div>
+    <div class="stat"><b>100+</b><span>高考常考事件</span></div>
+    <div class="stat"><b>12</b><span>组考点地图</span></div>
+    <div class="stat"><b>1</b><span>套时间轴记忆法</span></div>
+  </div>
+</header>
+
+<nav class="period-nav" aria-label="时期快捷导航">
+  <button type="button" class="pbtn" data-year="-770">春秋战国</button>
+  <button type="button" class="pbtn" data-year="-221">秦</button>
+  <button type="button" class="pbtn" data-year="-202">西汉</button>
+  <button type="button" class="pbtn" data-year="25">东汉</button>
+  <button type="button" class="pbtn" data-year="220">三国两晋南北朝</button>
+  <button type="button" class="pbtn" data-year="581">隋</button>
+  <button type="button" class="pbtn" data-year="618">唐</button>
+  <button type="button" class="pbtn" data-year="907">五代十国与北宋</button>
+  <button type="button" class="pbtn" data-year="1127">南宋与辽金</button>
+  <button type="button" class="pbtn" data-year="1271">元</button>
+  <button type="button" class="pbtn" data-year="1368">明</button>
+  <button type="button" class="pbtn" data-year="1644">清前期至近代</button>
+</nav>
+
+<div class="search-wrap">
+  <input type="search" id="searchInput" placeholder="搜索时期 / 都城 / 事件 / 人物，如：贞观、郡县制、安史之乱、澶渊之盟" aria-label="搜索历史时期与考点">
+  <div id="searchResults" role="listbox"></div>
+</div>
+
+<main class="wrap">
+  <section class="stage" aria-label="历史地图与时期信息">
+    <div class="map-panel">
+      <svg class="map-svg" id="map-svg-0" viewBox="0 0 800 600" role="img"><title>春秋战国时期教学示意地图</title>
+        <path class="base-split" d="M700,75 L645,62 L585,70 L558,98 L545,115 L620,142 L655,178 L682,214 L658,248 L628,264 L607,288 L621,318 L602,352 L612,382 L590,412 L578,448 L560,492 L542,504 L526,480 L510,468 L496,452 L478,466 L452,438 L422,412 L396,394 L370,374 L346,352 L322,320 L306,294 L284,270 L262,254 L232,242 L206,230 L182,214 L158,188 L140,160 L126,132 L142,104 L170,86 L200,70 L242,56 L292,48 L345,46 L400,50 L460,48 L520,53 L580,60 L646,64 L700,75 Z"/>
+        <path class="region" fill="#c9d2dc" points="300,225 420,290 412,382 360,368 322,330 288,296 268,268 300,225"/>
+        <path class="region" fill="#cbbfa9" points="420,175 515,165 545,255 470,268 430,232 420,200"/>
+        <path class="region" fill="#b9c4ae" points="558,235 632,248 630,288 578,300 546,272"/>
+        <path class="region" fill="#cfb5a9" points="540,88 645,84 660,128 602,148 542,118"/>
+        <path class="region" fill="#c0b6cc" points="428,336 560,326 572,418 486,430 424,384"/>
+        <path class="region" fill="#b8c4c4" points="560,358 602,348 612,388 588,408 556,392"/>
+        <path class="river" d="M262,254 C296,238 336,222 388,222 C424,222 452,238 488,232 C516,228 540,248 560,250 C576,252 592,262 590,278"/>
+        <path class="river" d="M302,338 C338,334 366,350 404,352 C442,354 470,340 504,342 C534,344 554,366 584,368 C598,369 612,374 618,362"/>
+        <circle class="cap-dot" cx="390" cy="272" r="6"/><text class="cap-label" x="398" y="276">咸阳·秦都</text>
+        <circle class="cap-dot" cx="526" cy="262" r="6"/><text class="cap-label" x="534" y="266">洛邑·周</text>
+        <circle class="cap-dot" cx="600" cy="272" r="6"/><text class="cap-label" x="606" y="276">临淄·齐</text>
+        <circle class="cap-dot" cx="600" cy="124" r="6"/><text class="cap-label" x="606" y="128">蓟·燕</text>
+        <circle class="cap-dot" cx="490" cy="390" r="6"/><text class="cap-label" x="496" y="394">郢·楚</text>
+        <circle class="cap-dot" cx="512" cy="215" r="6"/><text class="cap-label" x="516" y="219">邯郸·赵</text>
+        <circle class="site-dot" cx="516" cy="236" r="4"/><text class="site-label" x="522" y="240">长平·前260</text>
+        <circle class="site-dot" cx="456" cy="278" r="4"/><text class="site-label" x="462" y="282">函谷关</text>
+        <circle class="site-dot" cx="356" cy="362" r="4"/><text class="site-label" x="362" y="366">都江堰</text>
+        <g class="legend" transform="translate(26,488)"><rect x="0" y="0" width="180" height="100" rx="6" fill="#f6f1e7" opacity=".94" stroke="#d8cfc0"/><text class="legend-title" x="10" y="18">图例</text><rect x="10" y="26" width="12" height="12" fill="#c9d2dc"/><text class="legend-text" x="28" y="37">秦·西陲</text><rect x="10" y="42" width="12" height="12" fill="#cbbfa9"/><text class="legend-text" x="28" y="53">晋·中原（赵魏韩）</text><rect x="10" y="58" width="12" height="12" fill="#b9c4ae"/><text class="legend-text" x="28" y="69">齐·东</text><rect x="10" y="74" width="12" height="12" fill="#c0b6cc"/><text class="legend-text" x="28" y="85">楚·南 / 燕·吴越</text><circle class="cap-dot" cx="16" cy="92" r="4"/><text class="legend-text" x="28" y="96">都城 / 都会</text></g>
+        <text class="map-note" x="770" y="24" text-anchor="end">教学示意地图 · 非精确疆域</text>
+      </svg>
+      <svg class="map-svg is-hidden" id="map-svg-1" viewBox="0 0 800 600" role="img"><title>秦朝教学示意地图</title>
+        <path class="base" d="M700,75 L645,62 L585,70 L558,98 L545,115 L620,142 L655,178 L682,214 L658,248 L628,264 L607,288 L621,318 L602,352 L612,382 L590,412 L578,448 L560,492 L542,504 L526,480 L510,468 L496,452 L478,466 L452,438 L422,412 L396,394 L370,374 L346,352 L322,320 L306,294 L284,270 L262,254 L232,242 L206,230 L182,214 L158,188 L140,160 L126,132 L142,104 L170,86 L200,70 L242,56 L292,48 L345,46 L400,50 L460,48 L520,53 L580,60 L646,64 L700,75 Z"/>
+        <path class="river" d="M262,254 C296,238 336,222 388,222 C424,222 452,238 488,232 C516,228 540,248 560,250 C576,252 592,262 590,278"/>
+        <path class="river" d="M302,338 C338,334 366,350 404,352 C442,354 470,340 504,342 C534,344 554,366 584,368 C598,369 612,374 618,362"/>
+        <path class="wall" d="M255,150 L300,130 L360,118 L430,112 L500,118 L560,112 L620,108 L668,115"/>
+        <circle class="cap-dot" cx="390" cy="272" r="6"/><text class="cap-label" x="398" y="276">咸阳·都</text>
+        <circle class="site-dot" cx="255" cy="150" r="4"/><text class="site-label" x="196" y="146">临洮·长城起点</text>
+        <circle class="site-dot" cx="668" cy="115" r="4"/><text class="site-label" x="676" y="119">辽东·长城终点</text>
+        <circle class="site-dot" cx="542" cy="468" r="4"/><text class="site-label" x="548" y="472">灵渠</text>
+        <circle class="site-dot" cx="518" cy="480" r="4"/><text class="site-label" x="448" y="484">桂林郡</text>
+        <circle class="site-dot" cx="558" cy="492" r="4"/><text class="site-label" x="566" y="496">南海郡</text>
+        <circle class="site-dot" cx="502" cy="462" r="4"/><text class="site-label" x="508" y="466">象郡</text>
+        <g class="legend" transform="translate(26,504)"><rect x="0" y="0" width="180" height="66" rx="6" fill="#f6f1e7" opacity=".94" stroke="#d8cfc0"/><text class="legend-title" x="10" y="18">图例</text><rect x="10" y="26" width="12" height="12" fill="#c9d2dc"/><text class="legend-text" x="28" y="37">秦直辖郡县</text><rect x="10" y="42" width="12" height="12" fill="none" stroke="#a03a2b" stroke-width="2" stroke-dasharray="4 3"/><text class="legend-text" x="28" y="53">长城</text><circle class="cap-dot" cx="16" cy="60" r="4"/><text class="legend-text" x="28" y="64">都城</text></g>
+        <text class="map-note" x="770" y="24" text-anchor="end">教学示意地图 · 非精确疆域</text>
+      </svg>
+      <svg class="map-svg is-hidden" id="map-svg-2" viewBox="0 0 800 600" role="img"><title>西汉教学示意地图</title>
+        <path class="base" d="M700,75 L645,62 L585,70 L558,98 L545,115 L620,142 L655,178 L682,214 L658,248 L628,264 L607,288 L621,318 L602,352 L612,382 L590,412 L578,448 L560,492 L542,504 L526,480 L510,468 L496,452 L478,466 L452,438 L422,412 L396,394 L370,374 L346,352 L322,320 L306,294 L284,270 L262,254 L232,242 L206,230 L182,214 L158,188 L140,160 L126,132 L142,104 L170,86 L200,70 L242,56 L292,48 L345,46 L400,50 L460,48 L520,53 L580,60 L646,64 L700,75 Z"/>
+        <path class="region" fill="#cfb5a9" points="260,58 640,52 660,100 300,122 250,96"/>
+        <text class="region-label" x="330" y="84">匈奴</text>
+        <path class="region" fill="#cbbfa9" points="168,178 262,142 300,216 246,258 190,228"/>
+        <text class="region-label" x="196" y="206">西域都护</text>
+        <path class="river" d="M262,254 C296,238 336,222 388,222 C424,222 452,238 488,232 C516,228 540,248 560,250 C576,252 592,262 590,278"/>
+        <path class="river" d="M302,338 C338,334 366,350 404,352 C442,354 470,340 504,342 C534,344 554,366 584,368 C598,369 612,374 618,362"/>
+        <path class="wall" d="M255,150 L300,130 L360,118 L430,112 L500,118 L560,112 L620,108 L668,115"/>
+        <circle class="cap-dot" cx="452" cy="266" r="6"/><text class="cap-label" x="460" y="270">长安·都</text>
+        <circle class="site-dot" cx="532" cy="258" r="4"/><text class="site-label" x="538" y="262">洛阳</text>
+        <circle class="site-dot" cx="242" cy="190" r="4"/><text class="site-label" x="248" y="194">玉门关</text>
+        <circle class="site-dot" cx="228" cy="204" r="4"/><text class="site-label" x="234" y="208">敦煌</text>
+        <circle class="site-dot" cx="182" cy="210" r="4"/><text class="site-label" x="130" y="214">楼兰</text>
+        <circle class="site-dot" cx="526" cy="140" r="4"/><text class="site-label" x="462" y="140">白登山·前200</text>
+        <text class="site-label" x="196" y="238">西域都护·前60</text>
+        <g class="legend" transform="translate(26,504)"><rect x="0" y="0" width="180" height="82" rx="6" fill="#f6f1e7" opacity=".94" stroke="#d8cfc0"/><text class="legend-title" x="10" y="18">图例</text><rect x="10" y="26" width="12" height="12" fill="#c9d2dc"/><text class="legend-text" x="28" y="37">汉直辖郡国</text><rect x="10" y="42" width="12" height="12" fill="#cbbfa9"/><text class="legend-text" x="28" y="53">西域都护辖区</text><rect x="10" y="58" width="12" height="12" fill="#cfb5a9"/><text class="legend-text" x="28" y="69">匈奴</text><circle class="cap-dot" cx="16" cy="76" r="4"/><text class="legend-text" x="28" y="80">都城</text></g>
+        <text class="map-note" x="770" y="24" text-anchor="end">教学示意地图 · 非精确疆域</text>
+      </svg>
+      <svg class="map-svg is-hidden" id="map-svg-3" viewBox="0 0 800 600" role="img"><title>东汉教学示意地图</title>
+        <path class="base" d="M700,75 L645,62 L585,70 L558,98 L545,115 L620,142 L655,178 L682,214 L658,248 L628,264 L607,288 L621,318 L602,352 L612,382 L590,412 L578,448 L560,492 L542,504 L526,480 L510,468 L496,452 L478,466 L452,438 L422,412 L396,394 L370,374 L346,352 L322,320 L306,294 L284,270 L262,254 L232,242 L206,230 L182,214 L158,188 L140,160 L126,132 L142,104 L170,86 L200,70 L242,56 L292,48 L345,46 L400,50 L460,48 L520,53 L580,60 L646,64 L700,75 Z"/>
+        <path class="region" fill="#cfb5a9" points="260,58 640,52 660,100 300,122 250,96"/>
+        <text class="region-label" x="330" y="84">北匈奴</text>
+        <path class="region" fill="#cbbfa9" points="168,178 262,142 300,216 246,258 190,228"/>
+        <text class="region-label" x="196" y="206">西域</text>
+        <path class="river" d="M262,254 C296,238 336,222 388,222 C424,222 452,238 488,232 C516,228 540,248 560,250 C576,252 592,262 590,278"/>
+        <path class="river" d="M302,338 C338,334 366,350 404,352 C442,354 470,340 504,342 C534,344 554,366 584,368 C598,369 612,374 618,362"/>
+        <circle class="cap-dot" cx="532" cy="258" r="6"/><text class="cap-label" x="540" y="262">洛阳·都</text>
+        <circle class="site-dot" cx="452" cy="266" r="4"/><text class="site-label" x="398" y="262">长安</text>
+        <circle class="site-dot" cx="210" cy="200" r="4"/><text class="site-label" x="134" y="196">班超经营西域</text>
+        <circle class="site-dot" cx="528" cy="298" r="4"/><text class="site-label" x="534" y="302">昆阳之战·23</text>
+        <circle class="site-dot" cx="536" cy="230" r="4"/><text class="site-label" x="542" y="234">钜鹿·黄巾184</text>
+        <circle class="site-dot" cx="556" cy="366" r="4"/><text class="site-label" x="562" y="370">赤壁·208</text>
+        <g class="legend" transform="translate(26,504)"><rect x="0" y="0" width="180" height="82" rx="6" fill="#f6f1e7" opacity=".94" stroke="#d8cfc0"/><text class="legend-title" x="10" y="18">图例</text><rect x="10" y="26" width="12" height="12" fill="#c9d2dc"/><text class="legend-text" x="28" y="37">汉直辖州郡</text><rect x="10" y="42" width="12" height="12" fill="#cbbfa9"/><text class="legend-text" x="28" y="53">西域诸国</text><rect x="10" y="58" width="12" height="12" fill="#cfb5a9"/><text class="legend-text" x="28" y="69">北匈奴</text><circle class="cap-dot" cx="16" cy="76" r="4"/><text class="legend-text" x="28" y="80">都城</text></g>
+        <text class="map-note" x="770" y="24" text-anchor="end">教学示意地图 · 非精确疆域</text>
+      </svg>
+      <svg class="map-svg is-hidden" id="map-svg-4" viewBox="0 0 800 600" role="img"><title>三国两晋南北朝教学示意地图</title>
+        <path class="base-split" d="M700,75 L645,62 L585,70 L558,98 L545,115 L620,142 L655,178 L682,214 L658,248 L628,264 L607,288 L621,318 L602,352 L612,382 L590,412 L578,448 L560,492 L542,504 L526,480 L510,468 L496,452 L478,466 L452,438 L422,412 L396,394 L370,374 L346,352 L322,320 L306,294 L284,270 L262,254 L232,242 L206,230 L182,214 L158,188 L140,160 L126,132 L142,104 L170,86 L200,70 L242,56 L292,48 L345,46 L400,50 L460,48 L520,53 L580,60 L646,64 L700,75 Z"/>
+        <path class="region" fill="#c9d2dc" points="310,120 645,105 660,225 585,268 460,282 360,238"/>
+        <text class="region-label" x="480" y="180">魏</text>
+        <path class="region" fill="#b9c4ae" points="340,282 452,292 420,398 352,380 322,332"/>
+        <text class="region-label" x="362" y="352">蜀</text>
+        <path class="region" fill="#cbbfa9" points="522,286 642,268 628,420 562,432 508,344"/>
+        <text class="region-label" x="572" y="360">吴</text>
+        <path class="river" d="M262,254 C296,238 336,222 388,222 C424,222 452,238 488,232 C516,228 540,248 560,250 C576,252 592,262 590,278"/>
+        <path class="river" d="M302,338 C338,334 366,350 404,352 C442,354 470,340 504,342 C534,344 554,366 584,368 C598,369 612,374 618,362"/>
+        <circle class="cap-dot" cx="532" cy="258" r="6"/><text class="cap-label" x="540" y="262">洛阳·魏都</text>
+        <circle class="cap-dot" cx="406" cy="360" r="6"/><text class="cap-label" x="414" y="364">成都·蜀都</text>
+        <circle class="cap-dot" cx="600" cy="335" r="6"/><text class="cap-label" x="606" y="339">建业·吴都</text>
+        <circle class="site-dot" cx="548" cy="292" r="4"/><text class="site-label" x="554" y="296">官渡·200</text>
+        <circle class="site-dot" cx="556" cy="366" r="4"/><text class="site-label" x="562" y="370">赤壁·208</text>
+        <circle class="site-dot" cx="482" cy="372" r="4"/><text class="site-label" x="488" y="376">夷陵·222</text>
+        <circle class="site-dot" cx="586" cy="310" r="4"/><text class="site-label" x="592" y="314">淝水·383</text>
+        <circle class="site-dot" cx="520" cy="158" r="4"/><text class="site-label" x="526" y="162">平城·北魏</text>
+        <g class="legend" transform="translate(26,504)"><rect x="0" y="0" width="180" height="82" rx="6" fill="#f6f1e7" opacity=".94" stroke="#d8cfc0"/><text class="legend-title" x="10" y="18">图例</text><rect x="10" y="26" width="12" height="12" fill="#c9d2dc"/><text class="legend-text" x="28" y="37">魏（北）</text><rect x="10" y="42" width="12" height="12" fill="#cbbfa9"/><text class="legend-text" x="28" y="53">吴（东南）</text><rect x="10" y="58" width="12" height="12" fill="#b9c4ae"/><text class="legend-text" x="28" y="69">蜀（西南）</text><circle class="cap-dot" cx="16" cy="76" r="4"/><text class="legend-text" x="28" y="80">都城</text></g>
+        <text class="map-note" x="770" y="24" text-anchor="end">教学示意地图 · 非精确疆域</text>
+      </svg>
+      <svg class="map-svg is-hidden" id="map-svg-5" viewBox="0 0 800 600" role="img"><title>隋朝教学示意地图</title>
+        <path class="base" d="M700,75 L645,62 L585,70 L558,98 L545,115 L620,142 L655,178 L682,214 L658,248 L628,264 L607,288 L621,318 L602,352 L612,382 L590,412 L578,448 L560,492 L542,504 L526,480 L510,468 L496,452 L478,466 L452,438 L422,412 L396,394 L370,374 L346,352 L322,320 L306,294 L284,270 L262,254 L232,242 L206,230 L182,214 L158,188 L140,160 L126,132 L142,104 L170,86 L200,70 L242,56 L292,48 L345,46 L400,50 L460,48 L520,53 L580,60 L646,64 L700,75 Z"/>
+        <path class="river" d="M262,254 C296,238 336,222 388,222 C424,222 452,238 488,232 C516,228 540,248 560,250 C576,252 592,262 590,278"/>
+        <path class="river" d="M302,338 C338,334 366,350 404,352 C442,354 470,340 504,342 C534,344 554,366 584,368 C598,369 612,374 618,362"/>
+        <path class="canal" d="M632,138 C590,180 560,220 532,258 C556,292 580,318 588,328 C598,342 606,352 612,358"/>
+        <circle class="cap-dot" cx="452" cy="266" r="6"/><text class="cap-label" x="460" y="270">大兴·长安·都</text>
+        <circle class="site-dot" cx="532" cy="258" r="4"/><text class="site-label" x="538" y="262">东都洛阳</text>
+        <circle class="site-dot" cx="632" cy="138" r="4"/><text class="site-label" x="640" y="142">涿郡·北端</text>
+        <circle class="site-dot" cx="588" cy="328" r="4"/><text class="site-label" x="594" y="332">江都</text>
+        <circle class="site-dot" cx="612" cy="358" r="4"/><text class="site-label" x="618" y="362">余杭·南端</text>
+        <g class="legend" transform="translate(26,504)"><rect x="0" y="0" width="180" height="66" rx="6" fill="#f6f1e7" opacity=".94" stroke="#d8cfc0"/><text class="legend-title" x="10" y="18">图例</text><rect x="10" y="26" width="12" height="12" fill="#c9d2dc"/><text class="legend-text" x="28" y="37">隋直辖郡县</text><rect x="10" y="42" width="12" height="12" fill="none" stroke="#a03a2b" stroke-width="2" stroke-dasharray="4 3"/><text class="legend-text" x="28" y="53">大运河（605）</text><circle class="cap-dot" cx="16" cy="60" r="4"/><text class="legend-text" x="28" y="64">都城</text></g>
+        <text class="map-note" x="770" y="24" text-anchor="end">教学示意地图 · 非精确疆域</text>
+      </svg>
+      <svg class="map-svg is-hidden" id="map-svg-6" viewBox="0 0 800 600" role="img"><title>唐朝教学示意地图</title>
+        <path class="base" d="M700,75 L645,62 L585,70 L558,98 L545,115 L620,142 L655,178 L682,214 L658,248 L628,264 L607,288 L621,318 L602,352 L612,382 L590,412 L578,448 L560,492 L542,504 L526,480 L510,468 L496,452 L478,466 L452,438 L422,412 L396,394 L370,374 L346,352 L322,320 L306,294 L284,270 L262,254 L232,242 L206,230 L182,214 L158,188 L140,160 L126,132 L142,104 L170,86 L200,70 L242,56 L292,48 L345,46 L400,50 L460,48 L520,53 L580,60 L646,64 L700,75 Z"/>
+        <path class="region" fill="#cbbfa9" points="168,178 262,142 300,216 246,258 190,228"/>
+        <text class="region-label" x="196" y="206">安西·北庭</text>
+        <path class="region" fill="#b9c4ae" points="352,348 470,378 430,468 362,430 330,380"/>
+        <text class="region-label" x="378" y="420">吐蕃</text>
+        <path class="region" fill="#b8c4c4" points="640,150 668,140 672,180 640,185"/>
+        <text class="region-label" x="642" y="168">渤海</text>
+        <path class="river" d="M262,254 C296,238 336,222 388,222 C424,222 452,238 488,232 C516,228 540,248 560,250 C576,252 592,262 590,278"/>
+        <path class="river" d="M302,338 C338,334 366,350 404,352 C442,354 470,340 504,342 C534,344 554,366 584,368 C598,369 612,374 618,362"/>
+        <circle class="cap-dot" cx="452" cy="266" r="6"/><text class="cap-label" x="460" y="270">长安·西京</text>
+        <circle class="cap-dot" cx="532" cy="258" r="6"/><text class="cap-label" x="540" y="262">洛阳·东都</text>
+        <circle class="site-dot" cx="242" cy="190" r="4"/><text class="site-label" x="248" y="194">玉门关</text>
+        <circle class="site-dot" cx="228" cy="204" r="4"/><text class="site-label" x="234" y="208">敦煌</text>
+        <circle class="site-dot" cx="414" cy="420" r="4"/><text class="site-label" x="420" y="424">逻些·吐蕃都</text>
+        <circle class="site-dot" cx="602" cy="158" r="4"/><text class="site-label" x="608" y="162">范阳·安史755</text>
+        <circle class="site-dot" cx="432" cy="216" r="4"/><text class="site-label" x="438" y="220">灵武·肃宗756</text>
+        <g class="legend" transform="translate(26,494)"><rect x="0" y="0" width="180" height="98" rx="6" fill="#f6f1e7" opacity=".94" stroke="#d8cfc0"/><text class="legend-title" x="10" y="18">图例</text><rect x="10" y="26" width="12" height="12" fill="#c9d2dc"/><text class="legend-text" x="28" y="37">唐直辖州县</text><rect x="10" y="42" width="12" height="12" fill="#cbbfa9"/><text class="legend-text" x="28" y="53">安西·北庭都护府</text><rect x="10" y="58" width="12" height="12" fill="#b9c4ae"/><text class="legend-text" x="28" y="69">吐蕃</text><rect x="10" y="74" width="12" height="12" fill="#b8c4c4"/><text class="legend-text" x="28" y="85">渤海</text><circle class="cap-dot" cx="16" cy="90" r="4"/><text class="legend-text" x="28" y="94">都城</text></g>
+        <text class="map-note" x="770" y="24" text-anchor="end">教学示意地图 · 非精确疆域</text>
+      </svg>
+      <svg class="map-svg is-hidden" id="map-svg-7" viewBox="0 0 800 600" role="img"><title>五代十国与北宋教学示意地图</title>
+        <path class="base-split" d="M700,75 L645,62 L585,70 L558,98 L545,115 L620,142 L655,178 L682,214 L658,248 L628,264 L607,288 L621,318 L602,352 L612,382 L590,412 L578,448 L560,492 L542,504 L526,480 L510,468 L496,452 L478,466 L452,438 L422,412 L396,394 L370,374 L346,352 L322,320 L306,294 L284,270 L262,254 L232,242 L206,230 L182,214 L158,188 L140,160 L126,132 L142,104 L170,86 L200,70 L242,56 L292,48 L345,46 L400,50 L460,48 L520,53 L580,60 L646,64 L700,75 Z"/>
+        <path class="region" fill="#cbbfa9" points="300,80 660,55 662,165 505,182 305,138"/>
+        <text class="region-label" x="470" y="112">辽</text>
+        <path class="region" fill="#c9d2dc" points="468,175 655,152 652,328 560,360 502,300"/>
+        <text class="region-label" x="548" y="268">北宋</text>
+        <path class="region" fill="#b9c4ae" points="232,128 332,118 342,218 252,230"/>
+        <text class="region-label" x="278" y="176">西夏</text>
+        <path class="region" fill="#cfb5a9" points="342,328 432,328 422,428 352,418"/>
+        <text class="region-label" x="376" y="382">大理</text>
+        <path class="river" d="M262,254 C296,238 336,222 388,222 C424,222 452,238 488,232 C516,228 540,248 560,250 C576,252 592,262 590,278"/>
+        <path class="river" d="M302,338 C338,334 366,350 404,352 C442,354 470,340 504,342 C534,344 554,366 584,368 C598,369 612,374 618,362"/>
+        <circle class="cap-dot" cx="560" cy="252" r="6"/><text class="cap-label" x="568" y="256">东京·汴京·都</text>
+        <circle class="site-dot" cx="616" cy="150" r="4"/><text class="site-label" x="622" y="154">幽州·燕云</text>
+        <circle class="site-dot" cx="556" cy="222" r="4"/><text class="site-label" x="562" y="226">澶州·1004</text>
+        <circle class="site-dot" cx="556" cy="76" r="4"/><text class="site-label" x="562" y="80">辽上京</text>
+        <circle class="site-dot" cx="302" cy="158" r="4"/><text class="site-label" x="240" y="154">兴庆·西夏都</text>
+        <circle class="site-dot" cx="388" cy="378" r="4"/><text class="site-label" x="394" y="382">大理</text>
+        <g class="legend" transform="translate(26,494)"><rect x="0" y="0" width="180" height="98" rx="6" fill="#f6f1e7" opacity=".94" stroke="#d8cfc0"/><text class="legend-title" x="10" y="18">图例</text><rect x="10" y="26" width="12" height="12" fill="#c9d2dc"/><text class="legend-text" x="28" y="37">北宋</text><rect x="10" y="42" width="12" height="12" fill="#cbbfa9"/><text class="legend-text" x="28" y="53">辽</text><rect x="10" y="58" width="12" height="12" fill="#b9c4ae"/><text class="legend-text" x="28" y="69">西夏</text><rect x="10" y="74" width="12" height="12" fill="#cfb5a9"/><text class="legend-text" x="28" y="85">大理</text><circle class="cap-dot" cx="16" cy="90" r="4"/><text class="legend-text" x="28" y="94">都城</text></g>
+        <text class="map-note" x="770" y="24" text-anchor="end">教学示意地图 · 非精确疆域</text>
+      </svg>
+      <svg class="map-svg is-hidden" id="map-svg-8" viewBox="0 0 800 600" role="img"><title>南宋与辽金教学示意地图</title>
+        <path class="base-split" d="M700,75 L645,62 L585,70 L558,98 L545,115 L620,142 L655,178 L682,214 L658,248 L628,264 L607,288 L621,318 L602,352 L612,382 L590,412 L578,448 L560,492 L542,504 L526,480 L510,468 L496,452 L478,466 L452,438 L422,412 L396,394 L370,374 L346,352 L322,320 L306,294 L284,270 L262,254 L232,242 L206,230 L182,214 L158,188 L140,160 L126,132 L142,104 L170,86 L200,70 L242,56 L292,48 L345,46 L400,50 L460,48 L520,53 L580,60 L646,64 L700,75 Z"/>
+        <path class="region" fill="#cbbfa9" points="300,78 668,58 664,210 560,282 452,282 330,220"/>
+        <text class="region-label" x="520" y="150">金</text>
+        <path class="region" fill="#c9d2dc" points="462,298 660,288 650,432 540,452 472,382"/>
+        <text class="region-label" x="548" y="380">南宋</text>
+        <path class="region" fill="#b9c4ae" points="232,128 332,118 342,218 252,230"/>
+        <text class="region-label" x="278" y="176">西夏</text>
+        <path class="region" fill="#cfb5a9" points="342,328 432,328 422,428 352,418"/>
+        <text class="region-label" x="376" y="382">大理</text>
+        <path class="canal" d="M452,290 L650,290"/>
+        <text class="site-label" x="500" y="282">淮水—大散关之界</text>
+        <path class="river" d="M262,254 C296,238 336,222 388,222 C424,222 452,238 488,232 C516,228 540,248 560,250 C576,252 592,262 590,278"/>
+        <path class="river" d="M302,338 C338,334 366,350 404,352 C442,354 470,340 504,342 C534,344 554,366 584,368 C598,369 612,374 618,362"/>
+        <circle class="cap-dot" cx="618" cy="358" r="6"/><text class="cap-label" x="626" y="362">临安·都</text>
+        <circle class="site-dot" cx="650" cy="120" r="4"/><text class="site-label" x="656" y="124">中都·金</text>
+        <circle class="site-dot" cx="452" cy="290" r="4"/><text class="site-label" x="458" y="294">大散关</text>
+        <circle class="site-dot" cx="558" cy="292" r="4"/><text class="site-label" x="564" y="296">郾城·1140</text>
+        <circle class="site-dot" cx="545" cy="330" r="4"/><text class="site-label" x="551" y="334">襄阳</text>
+        <circle class="site-dot" cx="606" cy="500" r="4"/><text class="site-label" x="612" y="504">崖山·1279</text>
+        <g class="legend" transform="translate(26,494)"><rect x="0" y="0" width="180" height="98" rx="6" fill="#f6f1e7" opacity=".94" stroke="#d8cfc0"/><text class="legend-title" x="10" y="18">图例</text><rect x="10" y="26" width="12" height="12" fill="#c9d2dc"/><text class="legend-text" x="28" y="37">南宋</text><rect x="10" y="42" width="12" height="12" fill="#cbbfa9"/><text class="legend-text" x="28" y="53">金</text><rect x="10" y="58" width="12" height="12" fill="#b9c4ae"/><text class="legend-text" x="28" y="69">西夏</text><rect x="10" y="74" width="12" height="12" fill="#cfb5a9"/><text class="legend-text" x="28" y="85">大理</text><circle class="cap-dot" cx="16" cy="90" r="4"/><text class="legend-text" x="28" y="94">都城</text></g>
+        <text class="map-note" x="770" y="24" text-anchor="end">教学示意地图 · 非精确疆域</text>
+      </svg>
+      <svg class="map-svg is-hidden" id="map-svg-9" viewBox="0 0 800 600" role="img"><title>元朝教学示意地图</title>
+        <path class="base" d="M700,75 L645,62 L585,70 L558,98 L545,115 L620,142 L655,178 L682,214 L658,248 L628,264 L607,288 L621,318 L602,352 L612,382 L590,412 L578,448 L560,492 L542,504 L526,480 L510,468 L496,452 L478,466 L452,438 L422,412 L396,394 L370,374 L346,352 L322,320 L306,294 L284,270 L262,254 L232,242 L206,230 L182,214 L158,188 L140,160 L126,132 L142,104 L170,86 L200,70 L242,56 L292,48 L345,46 L400,50 L460,48 L520,53 L580,60 L646,64 L700,75 Z"/>
+        <path class="region" fill="#cbbfa9" points="260,58 640,52 660,100 300,122 250,96"/>
+        <text class="region-label" x="380" y="84">岭北·辽阳行省</text>
+        <path class="region" fill="#b9c4ae" points="352,348 470,378 430,468 362,430 330,380"/>
+        <text class="region-label" x="378" y="420">宣政院辖区</text>
+        <path class="river" d="M262,254 C296,238 336,222 388,222 C424,222 452,238 488,232 C516,228 540,248 560,250 C576,252 592,262 590,278"/>
+        <path class="river" d="M302,338 C338,334 366,350 404,352 C442,354 470,340 504,342 C534,344 554,366 584,368 C598,369 612,374 618,362"/>
+        <circle class="cap-dot" cx="650" cy="120" r="6"/><text class="cap-label" x="658" y="124">大都·都</text>
+        <circle class="site-dot" cx="600" cy="96" r="4"/><text class="site-label" x="606" y="100">上都</text>
+        <circle class="site-dot" cx="602" cy="420" r="4"/><text class="site-label" x="608" y="424">泉州·海外贸易</text>
+        <circle class="site-dot" cx="606" cy="500" r="4"/><text class="site-label" x="612" y="504">崖山·1279</text>
+        <circle class="site-dot" cx="742" cy="378" r="4"/><text class="site-label" x="748" y="382">澎湖巡检司</text>
+        <g class="legend" transform="translate(26,504)"><rect x="0" y="0" width="180" height="82" rx="6" fill="#f6f1e7" opacity=".94" stroke="#d8cfc0"/><text class="legend-title" x="10" y="18">图例</text><rect x="10" y="26" width="12" height="12" fill="#c9d2dc"/><text class="legend-text" x="28" y="37">元行省辖区</text><rect x="10" y="42" width="12" height="12" fill="#b9c4ae"/><text class="legend-text" x="28" y="53">宣政院辖区</text><rect x="10" y="58" width="12" height="12" fill="#cbbfa9"/><text class="legend-text" x="28" y="69">岭北·辽阳行省</text><circle class="cap-dot" cx="16" cy="76" r="4"/><text class="legend-text" x="28" y="80">都城</text></g>
+        <text class="map-note" x="770" y="24" text-anchor="end">教学示意地图 · 非精确疆域</text>
+      </svg>
+      <svg class="map-svg is-hidden" id="map-svg-10" viewBox="0 0 800 600" role="img"><title>明朝教学示意地图</title>
+        <path class="base" d="M700,75 L645,62 L585,70 L558,98 L545,115 L620,142 L655,178 L682,214 L658,248 L628,264 L607,288 L621,318 L602,352 L612,382 L590,412 L578,448 L560,492 L542,504 L526,480 L510,468 L496,452 L478,466 L452,438 L422,412 L396,394 L370,374 L346,352 L322,320 L306,294 L284,270 L262,254 L232,242 L206,230 L182,214 L158,188 L140,160 L126,132 L142,104 L170,86 L200,70 L242,56 L292,48 L345,46 L400,50 L460,48 L520,53 L580,60 L646,64 L700,75 Z"/>
+        <path class="region" fill="#cfb5a9" points="260,58 640,52 660,100 300,122 250,96"/>
+        <text class="region-label" x="330" y="84">鞑靼·瓦剌</text>
+        <path class="region" fill="#cbbfa9" points="660,80 700,70 712,140 668,150"/>
+        <text class="region-label" x="676" y="116">奴儿干都司</text>
+        <path class="region" fill="#b9c4ae" points="352,348 470,378 430,468 362,430 330,380"/>
+        <text class="region-label" x="378" y="420">乌斯藏都司</text>
+        <path class="river" d="M262,254 C296,238 336,222 388,222 C424,222 452,238 488,232 C516,228 540,248 560,250 C576,252 592,262 590,278"/>
+        <path class="river" d="M302,338 C338,334 366,350 404,352 C442,354 470,340 504,342 C534,344 554,366 584,368 C598,369 612,374 618,362"/>
+        <path class="wall" d="M255,150 L300,130 L360,118 L430,112 L500,118 L560,112 L620,108 L668,115"/>
+        <circle class="cap-dot" cx="650" cy="120" r="6"/><text class="cap-label" x="658" y="124">北京·都</text>
+        <circle class="cap-dot" cx="596" cy="332" r="6"/><text class="cap-label" x="602" y="336">南京·初都</text>
+        <circle class="site-dot" cx="682" cy="140" r="4"/><text class="site-label" x="688" y="144">山海关</text>
+        <circle class="site-dot" cx="612" cy="346" r="4"/><text class="site-label" x="618" y="350">刘家港·郑和</text>
+        <circle class="site-dot" cx="622" cy="386" r="4"/><text class="site-label" x="628" y="390">台州·戚继光1561</text>
+        <circle class="site-dot" cx="652" cy="104" r="4"/><text class="site-label" x="658" y="108">土木堡·1449</text>
+        <g class="legend" transform="translate(26,494)"><rect x="0" y="0" width="180" height="98" rx="6" fill="#f6f1e7" opacity=".94" stroke="#d8cfc0"/><text class="legend-title" x="10" y="18">图例</text><rect x="10" y="26" width="12" height="12" fill="#c9d2dc"/><text class="legend-text" x="28" y="37">明直辖两京十三省</text><rect x="10" y="42" width="12" height="12" fill="#cbbfa9"/><text class="legend-text" x="28" y="53">奴儿干都司</text><rect x="10" y="58" width="12" height="12" fill="#b9c4ae"/><text class="legend-text" x="28" y="69">乌斯藏都司</text><rect x="10" y="74" width="12" height="12" fill="#cfb5a9"/><text class="legend-text" x="28" y="85">鞑靼·瓦剌</text><circle class="cap-dot" cx="16" cy="90" r="4"/><text class="legend-text" x="28" y="94">都城</text></g>
+        <text class="map-note" x="770" y="24" text-anchor="end">教学示意地图 · 非精确疆域</text>
+      </svg>
+      <svg class="map-svg is-hidden" id="map-svg-11" viewBox="0 0 800 600" role="img"><title>清朝教学示意地图</title>
+        <path class="base" d="M700,75 L645,62 L585,70 L558,98 L545,115 L620,142 L655,178 L682,214 L658,248 L628,264 L607,288 L621,318 L602,352 L612,382 L590,412 L578,448 L560,492 L542,504 L526,480 L510,468 L496,452 L478,466 L452,438 L422,412 L396,394 L370,374 L346,352 L322,320 L306,294 L284,270 L262,254 L232,242 L206,230 L182,214 L158,188 L140,160 L126,132 L142,104 L170,86 L200,70 L242,56 L292,48 L345,46 L400,50 L460,48 L520,53 L580,60 L646,64 L700,75 Z"/>
+        <path class="region" fill="#cfb5a9" points="260,58 640,52 660,100 300,122 250,96"/>
+        <text class="region-label" x="330" y="84">乌里雅苏台将军辖区</text>
+        <path class="region" fill="#b9c4ae" points="660,80 700,70 712,140 668,150"/>
+        <text class="region-label" x="676" y="116">东北三将军辖区</text>
+        <path class="region" fill="#cbbfa9" points="168,178 262,142 300,216 246,258 190,228"/>
+        <text class="region-label" x="196" y="206">伊犁将军辖区</text>
+        <path class="river" d="M262,254 C296,238 336,222 388,222 C424,222 452,238 488,232 C516,228 540,248 560,250 C576,252 592,262 590,278"/>
+        <path class="river" d="M302,338 C338,334 366,350 404,352 C442,354 470,340 504,342 C534,344 554,366 584,368 C598,369 612,374 618,362"/>
+        <circle class="cap-dot" cx="650" cy="120" r="6"/><text class="cap-label" x="658" y="124">北京·都</text>
+        <circle class="site-dot" cx="556" cy="498" r="4"/><text class="site-label" x="562" y="502">广州·通商口岸</text>
+        <circle class="site-dot" cx="596" cy="332" r="4"/><text class="site-label" x="602" y="336">南京·天京/条约</text>
+        <circle class="site-dot" cx="552" cy="470" r="4"/><text class="site-label" x="558" y="474">虎门·1840</text>
+        <circle class="site-dot" cx="660" cy="176" r="4"/><text class="site-label" x="666" y="180">天津</text>
+        <circle class="site-dot" cx="744" cy="390" r="4"/><text class="site-label" x="750" y="394">台湾府·1684</text>
+        <g class="legend" transform="translate(26,494)"><rect x="0" y="0" width="180" height="98" rx="6" fill="#f6f1e7" opacity=".94" stroke="#d8cfc0"/><text class="legend-title" x="10" y="18">图例</text><rect x="10" y="26" width="12" height="12" fill="#c9d2dc"/><text class="legend-text" x="28" y="37">清直省</text><rect x="10" y="42" width="12" height="12" fill="#cbbfa9"/><text class="legend-text" x="28" y="53">伊犁将军辖区</text><rect x="10" y="58" width="12" height="12" fill="#b9c4ae"/><text class="legend-text" x="28" y="69">东北三将军辖区</text><rect x="10" y="74" width="12" height="12" fill="#cfb5a9"/><text class="legend-text" x="28" y="85">乌里雅苏台将军辖区</text><circle class="cap-dot" cx="16" cy="90" r="4"/><text class="legend-text" x="28" y="94">都城</text></g>
+        <text class="map-note" x="770" y="24" text-anchor="end">教学示意地图 · 非精确疆域</text>
+      </svg>
+      <p class="map-note-line">教学示意地图，非精确疆域：政权色块与地点标注仅为辅助教学理解的简化分区示意，精确疆域与边界以历史地图集和统编教材为准。</p>
+    </div>
+    <aside class="info-card" id="infoCard" aria-live="polite"></aside>
+  </section>
+
+  <section class="timeline-bar" aria-label="时间轴控制">
+    <div class="tl-top">
+      <button type="button" class="ctrl-btn" id="playBtn">播放</button>
+      <button type="button" class="ctrl-btn ghost" id="prevBtn" aria-label="向前十年">‹ 前</button>
+      <button type="button" class="ctrl-btn ghost" id="nextBtn" aria-label="向后十年">后 ›</button>
+      <div class="speed-group"><span>倍速</span>
+        <button type="button" class="speed-btn" data-speed="0.5">0.5×</button>
+        <button type="button" class="speed-btn active" data-speed="1">1×</button>
+        <button type="button" class="speed-btn" data-speed="2">2×</button>
+      </div>
+      <div class="year-label" id="yearLabel">前221</div>
+    </div>
+    <input type="range" id="timelineSlider" min="-770" max="1912" step="1" value="-221" aria-label="历史时间轴年份拖动条">
+    <div class="tl-hint"><span>前770 · 春秋战国开始</span><span>1912 · 清帝退位</span></div>
+  </section>
+
+  <section class="period-detail" id="period-0">
+    <h2><span class="no">01</span>春秋战国（前770—前221）</h2>
+    <p class="period-meta"><b>起止：</b>前770—前221 ｜ <b>都城：</b>洛邑（周）· 咸阳（秦）· 诸侯国都 ｜ <b>地图示意：</b>周天子王畿（洛邑）与秦、晋、齐、燕、楚、吴越等大国分区示意，标注郢、邯郸、临淄等都会与长平、函谷关等战场。</p>
+    <div class="tbl-scroll"><table>
+      <caption>阶段特征（政治 / 经济 / 文化）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">阶段特征</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">政治</th><td>王室衰微、礼崩乐坏，分封制与宗法制走向瓦解，郡县制萌芽；诸侯争霸与兼并战争推动统一趋势；各国变法图强，商鞅变法成效最大<span class="flag fact">事实</span>——前356年秦孝公任用商鞅变法，为秦统一奠定基础。</td></tr>
+        <tr><th scope="row">经济</th><td>铁制农具与牛耕推广，井田制瓦解、土地私有制确立（前594年鲁国初税亩）；水利兴修（都江堰、郑国渠）；工商业发展，重农抑商思想出现。</td></tr>
+        <tr><th scope="row">文化</th><td>私学兴起、百家争鸣（儒、墨、道、法）；孔子创立儒学、老子道家思想；《诗经》《楚辞》；天文与科技领先（哈雷彗星记录、司南雏形）。</td></tr>
+      </tbody>
+    </table></div>
+    <h3>重大事件（高考常考）</h3>
+    <ol class="event-list">
+      <li><span class="yr">前770</span>周平王东迁洛邑，东周开始，春秋时期开启</li>
+      <li><span class="yr">前594</span>鲁国实行初税亩，承认土地私有合法化</li>
+      <li><span class="yr">前356</span>秦孝公任用商鞅变法（废井田、奖军功、行县制）</li>
+      <li><span class="yr">前260</span>长平之战，秦将白起大败赵军，六国难独抗秦</li>
+      <li><span class="yr">约前256</span>李冰主持修建都江堰，成都平原成"天府之国"</li>
+      <li><span class="yr">前230—前221</span>秦相继灭韩、赵、魏、楚、燕、齐，统一六国</li>
+    </ol>
+    <div class="tbl-scroll"><table>
+      <caption>高考考点与命题方向（春秋战国）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">内容</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">核心考点</th><td>分封制、宗法制的瓦解与郡县制萌芽；商鞅变法的内容与历史作用；百家争鸣的代表人物与主张；铁器牛耕与土地制度变革</td></tr>
+        <tr><th scope="row">史料实证考法</th><td>以《史记·商君列传》与云梦秦简等出土简牍互证，辨析商鞅变法措施的实态；以春秋青铜器铭文、铁器出土分布考察生产力发展</td></tr>
+        <tr><th scope="row">典型设问示例</th><td>"根据材料并结合所学，说明商鞅变法得以成功的因素及其历史作用"；"从政治、经济、思想三方面概括春秋战国时期社会转型的表现"</td></tr>
+        <tr><th scope="row">答题要点</th><td>生产力（铁器牛耕）→ 土地制度变化 → 阶级变动（新兴地主）→ 变法与兼并 → 统一趋势；思想维度把握"礼崩乐坏—百家争鸣"的因果链条<span class="flag judge">判断</span>——转型主线按"生产力—制度—阶级—思想"四层作答更易得分。</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><div class="co-title">易错点 · 时间线记忆锚点</div>
+      <ul>
+        <li>春秋与战国分期：前770年东迁为春秋开端；战国始年有前475年（周元王元年）与前403年（三家分晋）两说，教材多用"春秋战国之际"表述，答题避免写死单一节点</li>
+        <li>商鞅变法在前356年（秦孝公），不要写成秦惠文王时期；商鞅虽遭车裂，新法未废</li>
+        <li>都江堰（成都平原·岷江）与郑国渠（关中）不可混淆；"初税亩"是鲁国、前594年</li>
+        <li>百家争鸣是"学术下移、思想解放"，与西汉"独尊儒术"形成对比记忆</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="period-detail" id="period-1">
+    <h2><span class="no">02</span>秦（前221—前207）</h2>
+    <p class="period-meta"><b>起止：</b>前221—前207 ｜ <b>都城：</b>咸阳 ｜ <b>地图示意：</b>秦统一后疆域示意，北筑长城（临洮—辽东）、南开灵渠，置桂林、象、南海三郡，岭南与直道交通示意。</p>
+    <div class="tbl-scroll"><table>
+      <caption>阶段特征（政治 / 经济 / 文化）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">阶段特征</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">政治</th><td>首创皇帝制度、三公九卿制与郡县制，确立专制主义中央集权体制<span class="flag fact">事实</span>——前221年秦灭六国后全面推行郡县制，废除分封。颁行秦律，严刑峻法，以吏为师。</td></tr>
+        <tr><th scope="row">经济</th><td>统一货币（半两钱）、度量衡与车轨；重农抑商；驰道、直道、灵渠等交通水利工程贯通全国。</td></tr>
+        <tr><th scope="row">文化</th><td>书同文（以秦小篆为标准字体）；焚书坑儒、禁私学；法家思想占主导，思想控制空前。</td></tr>
+      </tbody>
+    </table></div>
+    <h3>重大事件（高考常考）</h3>
+    <ol class="event-list">
+      <li><span class="yr">前221</span>秦王嬴政灭齐，统一六国，建立中央集权国家</li>
+      <li><span class="yr">前215</span>蒙恬率三十万大军北击匈奴，收复河套，筑万里长城（起临洮至辽东）</li>
+      <li><span class="yr">前214</span>开凿灵渠沟通湘江、漓江，平定岭南，置桂林、象、南海三郡</li>
+      <li><span class="yr">前213</span>采李斯之议颁"焚书令"，禁私学</li>
+      <li><span class="yr">前212</span>坑杀方士儒生于咸阳；修直道、营阿房宫与骊山陵</li>
+      <li><span class="yr">前210</span>秦始皇巡游途中病逝于沙丘，赵高、胡亥矫诏篡位</li>
+      <li><span class="yr">前209</span>陈胜、吴广大泽乡起义（"王侯将相宁有种乎"）</li>
+      <li><span class="yr">前207</span>巨鹿之战项羽大破秦军主力，刘邦入咸阳，秦朝灭亡</li>
+    </ol>
+    <div class="tbl-scroll"><table>
+      <caption>高考考点与命题方向（秦）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">内容</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">核心考点</th><td>专制主义中央集权制度的确立（皇帝制、三公九卿制、郡县制）；秦朝巩固统一的措施；秦亡原因与历史教训；统一多民族国家的建立</td></tr>
+        <tr><th scope="row">史料实证考法</th><td>用云梦秦简、里耶秦简等出土简牍与《史记》对读，考察秦律实态与基层行政（如"封诊式"）；用秦半两钱、度量衡实物考察统一措施</td></tr>
+        <tr><th scope="row">典型设问示例</th><td>"秦朝郡县制与分封制相比有何进步性？"；"从政治、经济、文化角度概括秦朝巩固统一的措施"；"分析秦朝速亡的原因与历史启示"</td></tr>
+        <tr><th scope="row">答题要点</th><td>制度创新（郡县制强化中央集权）＋统一措施（文字、货币、度量衡、车轨）＋暴政（徭役、赋税、严刑）→ 阶级矛盾激化而速亡；强调"统一顺应历史趋势，暴政是速亡主因"<span class="flag judge">判断</span>——谈秦朝经验教训时，"制度创新与暴政速亡"两分法是最常用得分结构。</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><div class="co-title">易错点 · 时间线记忆锚点</div>
+      <ul>
+        <li>秦亡于前207，西汉建于前202：中间隔着楚汉之争（前206—前202），两者并不直接衔接</li>
+        <li>焚书在前213、坑儒在前212，顺序勿写反；"坑儒"主要针对方士与儒生，并非杀尽天下儒生</li>
+        <li>郡县制全面推行在秦统一后，但其萌芽于春秋战国（商鞅变法"集小乡邑聚为县"）</li>
+        <li>半两钱（秦）与五铢钱（汉武帝）易混：前者标志货币统一，后者标志铸币权收归中央</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="period-detail" id="period-2">
+    <h2><span class="no">03</span>西汉（前202—9）</h2>
+    <p class="period-meta"><b>起止：</b>前202—9 ｜ <b>都城：</b>长安 ｜ <b>地图示意：</b>西汉疆域示意，西北标注玉门关、敦煌、楼兰与西域都护辖区；北疆标注白登山（前200）与匈奴活动区。</p>
+    <div class="tbl-scroll"><table>
+      <caption>阶段特征（政治 / 经济 / 文化）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">阶段特征</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">政治</th><td>汉承秦制并有所损益：郡国并行→推恩令解决王国问题；中朝、刺史强化皇权；察举制选官；从黄老无为到"罢黜百家，独尊儒术"<span class="flag fact">事实</span>——前127年汉武帝颁推恩令，前136年设五经博士、尊崇儒学。</td></tr>
+        <tr><th scope="row">经济</th><td>休养生息、文景之治；汉武帝盐铁官营、均输平准、铸五铢钱；丝绸之路开通，中外贸易繁荣。</td></tr>
+        <tr><th scope="row">文化</th><td>董仲舒新儒学与太学建立；司马迁著《史记》；造纸术萌芽；佛教渐入（东汉初正式传入）。</td></tr>
+      </tbody>
+    </table></div>
+    <h3>重大事件（高考常考）</h3>
+    <ol class="event-list">
+      <li><span class="yr">前202</span>刘邦称帝建汉，定都长安，实行休养生息</li>
+      <li><span class="yr">前200</span>白登之围，汉初对匈奴采取和亲政策</li>
+      <li><span class="yr">前154</span>七国之乱，景帝平定，削弱诸侯王</li>
+      <li><span class="yr">前138</span>张骞第一次出使西域，联络大月氏夹击匈奴（一说前139年）</li>
+      <li><span class="yr">前127</span>汉武帝颁推恩令，解决王国问题</li>
+      <li><span class="yr">前119</span>漠北之战，卫青、霍去病大破匈奴；张骞第二次出使西域</li>
+      <li><span class="yr">前60</span>设西域都护，西域正式归属中央政权</li>
+      <li><span class="yr">8</span>王莽代汉建"新"，西汉结束</li>
+    </ol>
+    <div class="tbl-scroll"><table>
+      <caption>高考考点与命题方向（西汉）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">内容</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">核心考点</th><td>汉承秦制与制度创新（郡国并行→推恩令）；汉武帝加强中央集权措施；丝绸之路与中外交流；儒学独尊与思想统一</td></tr>
+        <tr><th scope="row">史料实证考法</th><td>以《史记》《汉书》与居延汉简、马王堆汉墓简帛互证，考察汉初政治与边疆治理；以丝路沿线出土文物考察中外交流</td></tr>
+        <tr><th scope="row">典型设问示例</th><td>"汉武帝从哪些方面加强中央集权？"；"分析张骞出使西域的历史意义"；"比较文景之治与汉武帝时期的治国方略"</td></tr>
+        <tr><th scope="row">答题要点</th><td>政治（推恩令、刺史、中朝）＋经济（盐铁官营、均输平准）＋思想（独尊儒术）三位一体；民族关系线索为"和亲—战争—设都护"<span class="flag judge">判断</span>——西汉题常见陷阱是只答政治措施而丢掉经济与思想得分点。</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><div class="co-title">易错点 · 时间线记忆锚点</div>
+      <ul>
+        <li>西汉灭于9年（王莽建新），东汉始于25年：中间有"新"朝17年，别把两汉连写</li>
+        <li>张骞第一次出使目的是"联合大月氏夹击匈奴"，不是单纯通商；第二次出使才携带丝织品开展交往</li>
+        <li>推恩令（前127）与削藩（前154七国之乱）都针对王国问题：前者"温水煮青蛙"、后者武装平叛</li>
+        <li>"罢黜百家，独尊儒术"是思想文化专制与统一结合的典范，与秦"焚书坑儒"形成对比记忆</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="period-detail" id="period-3">
+    <h2><span class="no">04</span>东汉（25—220）</h2>
+    <p class="period-meta"><b>起止：</b>25—220 ｜ <b>都城：</b>洛阳 ｜ <b>地图示意：</b>东汉疆域示意，标注洛阳（都）、长安、西域（班超经营）、钜鹿（黄巾起义）、昆阳与赤壁战场。</p>
+    <div class="tbl-scroll"><table>
+      <caption>阶段特征（政治 / 经济 / 文化）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">阶段特征</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">政治</th><td>光武中兴（度田、释放奴婢、尚书台强化皇权）；外戚与宦官交替专权；豪强地主田庄经济膨胀<span class="flag fact">事实</span>——25年刘秀定都洛阳，史称光武中兴。</td></tr>
+        <tr><th scope="row">经济</th><td>田庄经济自给自足、人身依附关系加强；江南地区继续开发；蔡伦改进造纸术（105年）推动文化传播。</td></tr>
+        <tr><th scope="row">文化</th><td>谶纬之学流行；佛教传入（洛阳白马寺）、道教产生（太平道、五斗米道）；班超经营西域三十年；张衡发明地动仪。</td></tr>
+      </tbody>
+    </table></div>
+    <h3>重大事件（高考常考）</h3>
+    <ol class="event-list">
+      <li><span class="yr">25</span>刘秀称帝，定都洛阳，建立东汉</li>
+      <li><span class="yr">73</span>窦固出击北匈奴，班超奉命出使西域</li>
+      <li><span class="yr">105</span>蔡伦改进造纸术（"蔡侯纸"）</li>
+      <li><span class="yr">184</span>张角领导黄巾起义，东汉统治名存实亡</li>
+      <li><span class="yr">189</span>董卓进京，军阀混战开始</li>
+      <li><span class="yr">200</span>官渡之战，曹操以少胜多击败袁绍</li>
+      <li><span class="yr">208</span>赤壁之战，孙刘联军大败曹操，奠定三国鼎立基础</li>
+      <li><span class="yr">220</span>曹丕代汉，东汉灭亡</li>
+    </ol>
+    <div class="tbl-scroll"><table>
+      <caption>高考考点与命题方向（东汉）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">内容</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">核心考点</th><td>光武中兴与东汉政治特点（外戚宦官专权）；豪强地主与田庄经济；黄巾起义；蔡伦改进造纸术；东汉与西域关系</td></tr>
+        <tr><th scope="row">史料实证考法</th><td>以《后汉书》与长沙东牌楼简等出土简牍互证，考察东汉基层社会与田庄；以出土古纸实物与文献互证"蔡侯纸"</td></tr>
+        <tr><th scope="row">典型设问示例</th><td>"分析东汉后期外戚宦官交替专权的原因与影响"；"蔡伦改进造纸术有何历史意义？"；"从统一多民族国家发展角度评价两汉经营西域"</td></tr>
+        <tr><th scope="row">答题要点</th><td>光武中兴＝恢复经济＋强化皇权（尚书台）；外戚宦官专权是皇权强化的畸形产物；豪强田庄是分裂割据的经济根源<span class="flag judge">判断</span>——"外戚宦官专权—豪强割据—黄巾起义"是东汉衰亡的完整因果链。</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><div class="co-title">易错点 · 时间线记忆锚点</div>
+      <ul>
+        <li>赤壁之战（208）属东汉末年，不是三国时期；三国鼎立始于220年曹丕代汉</li>
+        <li>官渡（200，曹操统一北方关键）与赤壁（208，奠定三分）两个"以少胜多"别混</li>
+        <li>造纸术"改进"于东汉蔡伦（105），"发明"萌芽于西汉；答题写"改进"更准确</li>
+        <li>班超经营西域在东汉，张骞通西域在西汉——"两班两汉"易混</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="period-detail" id="period-4">
+    <h2><span class="no">05</span>三国两晋南北朝（220—589）</h2>
+    <p class="period-meta"><b>起止：</b>220—589 ｜ <b>都城：</b>洛阳（魏/西晋）、成都（蜀）、建业/建康（吴/南朝）、平城→洛阳（北魏）｜ <b>地图示意：</b>三国鼎立（魏蜀吴）分区示意，标注官渡、赤壁、夷陵、淝水战场与平城、建康等政权中心。</p>
+    <div class="tbl-scroll"><table>
+      <caption>阶段特征（政治 / 经济 / 文化）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">阶段特征</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">政治</th><td>政权更迭频繁（三国→西晋→东晋十六国→南北朝）；门阀士族政治（九品中正制）；北魏孝文帝改革促进民族交融<span class="flag fact">事实</span>——494年孝文帝迁都洛阳，推行汉化改革；三省制雏形出现。</td></tr>
+        <tr><th scope="row">经济</th><td>北方长期战乱、中原人口南迁，江南经济开发；北魏行均田制（485）；庄园经济与手工业继续发展。</td></tr>
+        <tr><th scope="row">文化</th><td>佛教盛行（云冈、龙门石窟）、道教发展、玄学兴起；书法（王羲之）、绘画（顾恺之）、文学（建安七子、陶渊明）；《齐民要术》《水经注》。</td></tr>
+      </tbody>
+    </table></div>
+    <h3>重大事件（高考常考）</h3>
+    <ol class="event-list">
+      <li><span class="yr">220</span>曹丕代汉建魏（洛阳）；<span class="yr">221</span>刘备成都称帝（蜀汉）；<span class="yr">229</span>孙权建业称帝（吴）</li>
+      <li><span class="yr">263</span>魏灭蜀；<span class="yr">266</span>司马炎代魏建西晋（洛阳）</li>
+      <li><span class="yr">280</span>西晋灭吴，统一全国</li>
+      <li><span class="yr">316</span>西晋灭亡（匈奴攻陷长安）；<span class="yr">317</span>司马睿建东晋（建康）</li>
+      <li><span class="yr">383</span>淝水之战，东晋以少胜多大败前秦</li>
+      <li><span class="yr">420</span>刘裕代晋建宋，南朝开始（宋齐梁陈，皆都建康）</li>
+      <li><span class="yr">439</span>北魏统一北方；<span class="yr">494</span>孝文帝迁都洛阳</li>
+      <li><span class="yr">589</span>隋灭陈，南北重新统一</li>
+    </ol>
+    <div class="tbl-scroll"><table>
+      <caption>高考考点与命题方向（三国两晋南北朝）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">内容</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">核心考点</th><td>三国鼎立与西晋短暂统一；淝水之战；江南开发与经济重心南移起步；北魏孝文帝改革；九品中正制与门阀政治；民族交融</td></tr>
+        <tr><th scope="row">史料实证考法</th><td>以《魏书》与北魏石窟造像、墓志互证孝文帝汉化；以《宋书》"江南"记载与出土农具考察江南开发；以九品中正制度文书考察门阀政治</td></tr>
+        <tr><th scope="row">典型设问示例</th><td>"分析北魏孝文帝改革的背景、内容与历史作用"；"三国两晋南北朝时期江南地区得到开发的原因与表现"；"如何理解这一时期'分裂中的统一趋势'？"</td></tr>
+        <tr><th scope="row">答题要点</th><td>民族交融为主线（胡汉互化）；门阀政治＝皇权与士族共治；江南开发＝人口南迁＋政策＋自然条件；分裂中孕育统一（北周统一北方→隋统一）<span class="flag judge">判断</span>——命题人常以"民族交融"为隐性线索串联全单元，答题务必落到"交融促进统一"。</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><div class="co-title">易错点 · 时间线记忆锚点</div>
+      <ul>
+        <li>三国（220—280）→西晋（265建、280统一、316亡）→东晋十六国（317—420）→南北朝（420—589）："两晋"与"南北朝"界限别混</li>
+        <li>淝水之战（383）是东晋与前秦之战，不是东晋与北魏；前秦失败后北方重归分裂</li>
+        <li>孝文帝迁都洛阳（494）核心是"汉化"（改汉姓、说汉语、通婚、易服），别答成"鲜卑化"</li>
+        <li>九品中正制（220年曹丕立）是门阀政治的制度基础，隋文帝废之、隋炀帝立进士科</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="period-detail" id="period-5">
+    <h2><span class="no">06</span>隋（581—618）</h2>
+    <p class="period-meta"><b>起止：</b>581—618 ｜ <b>都城：</b>大兴（长安）· 东都洛阳 ｜ <b>地图示意：</b>隋朝统一疆域示意，大运河以洛阳为中心、北抵涿郡、南至余杭，标注江都、余杭等运河重镇。</p>
+    <div class="tbl-scroll"><table>
+      <caption>阶段特征（政治 / 经济 / 文化）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">阶段特征</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">政治</th><td>结束近三百年分裂，重新统一；确立三省六部制；创立科举制（进士科）<span class="flag fact">事实</span>——隋炀帝时设进士科，标志科举制正式确立；均田制、租庸调制、府兵制发展。</td></tr>
+        <tr><th scope="row">经济</th><td>开凿大运河（605年起，以洛阳为中心，沟通五大水系）；设含嘉仓等大型粮仓；手工业与商业恢复发展。</td></tr>
+        <tr><th scope="row">文化</th><td>雕版印刷术早期形态出现；佛教盛行（房山石经）；科举推动教育发展；南北文化交融。</td></tr>
+      </tbody>
+    </table></div>
+    <h3>重大事件（高考常考）</h3>
+    <ol class="event-list">
+      <li><span class="yr">581</span>杨坚代北周建隋，定都大兴，开皇之治</li>
+      <li><span class="yr">589</span>隋灭陈，统一南北，结束分裂</li>
+      <li><span class="yr">604</span>隋文帝去世，杨广（隋炀帝）即位</li>
+      <li><span class="yr">605</span>开凿大运河；设进士科，科举制正式确立（一说606年）</li>
+      <li><span class="yr">611</span>王薄长白山起义，隋末农民战争爆发</li>
+      <li><span class="yr">618</span>隋炀帝被杀于江都，隋朝灭亡</li>
+    </ol>
+    <div class="tbl-scroll"><table>
+      <caption>高考考点与命题方向（隋）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">内容</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">核心考点</th><td>隋统一的意义；大运河（605、以洛阳为中心、沟通五大水系）；科举制创立；三省六部制；隋朝速亡原因</td></tr>
+        <tr><th scope="row">史料实证考法</th><td>以《隋书》与出土含嘉仓铭砖、洛阳回洛仓遗址互证，考察大运河漕运与粮储；以敦煌、吐鲁番文书考察均田制实态</td></tr>
+        <tr><th scope="row">典型设问示例</th><td>"结合材料说明大运河开凿的历史作用与消极影响"；"为什么说科举制的创立是选官制度的重大变革？"；"隋朝短暂而亡的原因与启示"</td></tr>
+        <tr><th scope="row">答题要点</th><td>统一→制度创新（三省六部、科举）→重大工程（运河）→滥用民力→暴政速亡；"其兴也勃，其亡也忽"可用于隋朝评价<span class="flag judge">判断</span>——隋朝"制度创新与速亡教训"常被命题人组合设问，作答先分"功"与"过"两层。</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><div class="co-title">易错点 · 时间线记忆锚点</div>
+      <ul>
+        <li>大运河"以洛阳为中心"，不是以长安为中心；沟通海河、黄河、淮河、长江、钱塘江五大水系</li>
+        <li>科举"正式确立"标志＝隋炀帝设进士科（605年）；隋文帝587年设分科考试是开端——时间与阶段别混</li>
+        <li>隋581年建立、589年统一、618年灭亡：与唐618年建朝衔接，但并非"建立即统一"</li>
+        <li>大运河是隋炀帝时期（605年起）开凿，不是隋文帝；"开皇之治"是文帝治世</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="period-detail" id="period-6">
+    <h2><span class="no">07</span>唐（618—907）</h2>
+    <p class="period-meta"><b>起止：</b>618—907 ｜ <b>都城：</b>长安（西京）· 洛阳（东都）｜ <b>地图示意：</b>唐疆域示意，标注安西、北庭都护府辖区、吐蕃、渤海等周边政权，及玉门关、敦煌、逻些等地点。</p>
+    <div class="tbl-scroll"><table>
+      <caption>阶段特征（政治 / 经济 / 文化）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">阶段特征</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">政治</th><td>三省六部制完善、科举制发展；贞观之治、开元盛世；安史之乱后藩镇割据、宦官专权、牛李党争<span class="flag fact">事实</span>——755年安史之乱爆发，唐朝由盛转衰。</td></tr>
+        <tr><th scope="row">经济</th><td>曲辕犁、筒车推广；均田制、租庸调制→两税法（780）；长安国际都市、坊市制度；广州设市舶使，海上丝路繁荣。</td></tr>
+        <tr><th scope="row">文化</th><td>开放包容、兼收并蓄；唐诗鼎盛（李白、杜甫、白居易）；书法绘画（颜真卿、吴道子）；玄奘西行、鉴真东渡；雕版印刷（《金刚经》868年）。</td></tr>
+      </tbody>
+    </table></div>
+    <h3>重大事件（高考常考）</h3>
+    <ol class="event-list">
+      <li><span class="yr">618</span>李渊建唐，定都长安</li>
+      <li><span class="yr">626</span>玄武门之变，李世民即位，开启贞观之治（627—649）</li>
+      <li><span class="yr">690</span>武则天称帝，改国号为周（中国历史上唯一的女皇帝）</li>
+      <li><span class="yr">713</span>唐玄宗改元开元，开元盛世（713—741）</li>
+      <li><span class="yr">755—763</span>安史之乱，唐朝由盛转衰</li>
+      <li><span class="yr">780</span>杨炎推行两税法，征税标准转向以资产为主</li>
+      <li><span class="yr">875</span>黄巢起义（875—884，唐末农民战争）</li>
+      <li><span class="yr">907</span>朱温废唐哀帝，唐朝灭亡</li>
+    </ol>
+    <div class="tbl-scroll"><table>
+      <caption>高考考点与命题方向（唐）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">内容</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">核心考点</th><td>三省六部制与科举制的运行机制及意义；贞观之治、开元盛世；民族关系（文成公主入藏、天可汗、安西都护）；安史之乱与两税法；开放的社会风气</td></tr>
+        <tr><th scope="row">史料实证考法</th><td>以《贞观政要》、敦煌户籍文书、唐墓壁画与碑刻互证，考察唐前期制度与社会生活；以两税法诏书考察赋役改革</td></tr>
+        <tr><th scope="row">典型设问示例</th><td>"分析三省六部制的运作特点及其作用"；"结合史实说明唐朝民族政策的特点"；"安史之乱如何影响唐朝及此后中国历史走向？"；"比较两税法与租庸调制"</td></tr>
+        <tr><th scope="row">答题要点</th><td>制度（三省分权、皇权集中；科举打破门第）＋开放（中外交流、民族交融）＋繁荣（经济文化）→由盛转衰（安史之乱）→制度调整（两税法）与地方失控（藩镇割据）<span class="flag judge">判断</span>——唐朝题最常考"由盛转衰的转折点"与"制度创新"，务必把755年安史之乱作为分界锚点。</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><div class="co-title">易错点 · 时间线记忆锚点</div>
+      <ul>
+        <li>贞观之治（太宗627—649）与开元盛世（玄宗713—741）：两位皇帝、两个盛世别混</li>
+        <li>武则天690年称帝，改国号为"周"（武周）；她仍属于唐朝皇帝序列，别写"唐朝灭亡"</li>
+        <li>安史之乱755年爆发、763年平定，历时约8年；由安禄山、史思明发动</li>
+        <li>两税法（780）征税由"人丁"为主转向"资产"为主，是赋役制度重大变革——高频考点</li>
+        <li>黄巢起义爆发时间教材多作875年（也有878年说），答题写"875年前后"更稳</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="period-detail" id="period-7">
+    <h2><span class="no">08</span>五代十国与北宋（907—1127）</h2>
+    <p class="period-meta"><b>起止：</b>907—1127 ｜ <b>都城：</b>东京（开封）｜ <b>地图示意：</b>北宋与辽、西夏、大理并立格局示意，标注东京、幽州（燕云）、澶州、辽上京、兴庆等政权中心。</p>
+    <div class="tbl-scroll"><table>
+      <caption>阶段特征（政治 / 经济 / 文化）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">阶段特征</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">政治</th><td>五代十国分裂割据；北宋结束中原与南方分裂，但属"局部统一"；崇文抑武、强干弱枝，二府三司分割相权；与辽、西夏并立<span class="flag fact">事实</span>——960年赵匡胤陈桥兵变建立北宋。</td></tr>
+        <tr><th scope="row">经济</th><td>商品经济繁荣（交子出现于北宋四川、坊市界限打破、夜市兴盛）；经济重心进一步南移；制瓷（景德镇）、造船业发展。</td></tr>
+        <tr><th scope="row">文化</th><td>活字印刷术（毕昇）、指南针用于航海、火药武器使用；理学兴起（二程）；宋词、话本；司马光《资治通鉴》。</td></tr>
+      </tbody>
+    </table></div>
+    <h3>重大事件（高考常考）</h3>
+    <ol class="event-list">
+      <li><span class="yr">907</span>朱温建后梁，五代十国开始</li>
+      <li><span class="yr">960</span>赵匡胤发动陈桥兵变，建立北宋，定都东京</li>
+      <li><span class="yr">979</span>北宋灭北汉，基本统一中原与南方</li>
+      <li><span class="yr">1004—1005</span>宋辽澶州之战后订立澶渊之盟（岁币换和平）</li>
+      <li><span class="yr">1038</span>元昊建立西夏，定都兴庆</li>
+      <li><span class="yr">1069</span>王安石主持熙宁变法（富国强兵）</li>
+      <li><span class="yr">1115</span>完颜阿骨打建立金</li>
+      <li><span class="yr">1125</span>金灭辽；<span class="yr">1127</span>靖康之变，金灭北宋</li>
+    </ol>
+    <div class="tbl-scroll"><table>
+      <caption>高考考点与命题方向（五代十国与北宋）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">内容</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">核心考点</th><td>宋太祖加强中央集权（杯酒释兵权、二府三司、通判、转运使、崇文抑武）；澶渊之盟的辩证评价；王安石变法；宋代商品经济发展（交子、城市商业）；经济重心南移</td></tr>
+        <tr><th scope="row">史料实证考法</th><td>以《东京梦华录》与《清明上河图》、宋墓壁画、交子实物互证，考察北宋城市商业与市民生活；以熙宁变法诏令考察改革</td></tr>
+        <tr><th scope="row">典型设问示例</th><td>"评价宋太祖加强中央集权的措施"；"如何辩证评价澶渊之盟？"；"分析王安石变法失败的原因"；"宋代经济重心南移完成的表现有哪些？"</td></tr>
+        <tr><th scope="row">答题要点</th><td>强干弱枝（防内患）→积贫积弱（冗官冗兵冗费）→变法（王安石1069）→与辽夏并立（和议）→金崛起（1115）→靖康之变（1127）；崇文抑武利弊并存<span class="flag judge">判断</span>——"防弊—积弊—变法—再积弊"是宋代政治命题的常见主线。</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><div class="co-title">易错点 · 时间线记忆锚点</div>
+      <ul>
+        <li>北宋是"局部统一"：中原与南方统一，但北方有辽、西北有西夏，并非全国统一</li>
+        <li>澶渊之盟是宋辽之盟（岁币给辽），不是宋金；南宋与金的和议是"绍兴和议"（1141）</li>
+        <li>交子出现于北宋四川，是世界上最早的纸币——别写成南宋或"纸币在全国通用"</li>
+        <li>王安石变法1069年（神宗熙宁二年）开始；范仲淹"庆历新政"是1043年——两场改革别混</li>
+        <li>金1115年建立、1125年灭辽、1127年灭北宋——按"建—灭辽—灭宋"三组年份记忆</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="period-detail" id="period-8">
+    <h2><span class="no">09</span>南宋与辽金（1127—1279）</h2>
+    <p class="period-meta"><b>起止：</b>1127—1279 ｜ <b>都城：</b>临安（南宋）· 中都（金）｜ <b>地图示意：</b>南宋与金南北对峙格局示意，淮水—大散关为界，标注临安、中都、郾城、大散关、襄阳、崖山等地点。</p>
+    <div class="tbl-scroll"><table>
+      <caption>阶段特征（政治 / 经济 / 文化）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">阶段特征</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">政治</th><td>宋金南北对峙（绍兴和议以淮水—大散关为界，宋称臣纳贡）；金仿汉制、迁都中都；南宋偏安；蒙古崛起灭金灭宋<span class="flag fact">事实</span>——1141年宋金订立绍兴和议，形成南北对峙。</td></tr>
+        <tr><th scope="row">经济</th><td>经济重心南移完成（"苏湖熟，天下足"）；海外贸易空前（泉州刺桐港、市舶司）；棉纺织业兴起；纸币（会子）流通。</td></tr>
+        <tr><th scope="row">文化</th><td>理学成熟（朱熹集大成）；宋词（辛弃疾、陆游）、话本；书院兴盛；火药、指南针等科技传播海外。</td></tr>
+      </tbody>
+    </table></div>
+    <h3>重大事件（高考常考）</h3>
+    <ol class="event-list">
+      <li><span class="yr">1127</span>赵构在应天府称帝建立南宋，后定都临安</li>
+      <li><span class="yr">1140</span>岳飞率岳家军取得郾城大捷</li>
+      <li><span class="yr">1141</span>宋金绍兴和议，以淮水—大散关为界</li>
+      <li><span class="yr">1206</span>铁木真统一蒙古各部，建立蒙古国（成吉思汗）</li>
+      <li><span class="yr">1234</span>宋蒙联合灭金</li>
+      <li><span class="yr">1276</span>元军攻占临安；<span class="yr">1279</span>崖山海战，南宋灭亡</li>
+    </ol>
+    <div class="tbl-scroll"><table>
+      <caption>高考考点与命题方向（南宋与辽金）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">内容</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">核心考点</th><td>绍兴和议与宋金对峙；岳飞抗金评价；经济重心南移完成；理学兴起；蒙古崛起与南宋灭亡</td></tr>
+        <tr><th scope="row">史料实证考法</th><td>以《宋史》与金代界壕遗址、宋金和议相关碑刻文书互证，考察宋金关系与边疆；以泉州海外交通石刻、沉船遗址考察海外贸易</td></tr>
+        <tr><th scope="row">典型设问示例</th><td>"经济重心南移何时完成？有何表现？"；"评价南宋偏安政策"；"分析宋金对峙对中国历史发展的影响"；"南宋为何最终亡于蒙古？"</td></tr>
+        <tr><th scope="row">答题要点</th><td>对峙格局（和战交替）＋南移完成（经济）＋民族交融（女真汉化）＋理学兴起（文化）；蒙古1206建国→1234灭金→1279灭宋<span class="flag judge">判断</span>——南宋题常以"偏安"为切口考查民族气节与经济成就的辩证关系，两面作答最稳。</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><div class="co-title">易错点 · 时间线记忆锚点</div>
+      <ul>
+        <li>1127年既是靖康之变（北宋亡）也是南宋建立——同年"一亡一立"，别混</li>
+        <li>绍兴和议（1141）宋对金"称臣"，澶渊之盟（1004—1005）宋辽是"兄弟之国"——和议性质别混</li>
+        <li>岳飞是南宋抗金名将，郾城大捷在1140年；"岳家军"不是朝廷正式编制</li>
+        <li>经济重心南移"完成"于南宋（教材口径），北宋是"进一步南移"，勿提前完成时间</li>
+        <li>金灭于1234年（蒙宋联军），不是蒙古单独灭金；辽灭于1125年</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="period-detail" id="period-9">
+    <h2><span class="no">10</span>元（1271—1368）</h2>
+    <p class="period-meta"><b>起止：</b>1271—1368 ｜ <b>都城：</b>大都（今北京）｜ <b>地图示意：</b>元朝大一统疆域示意，标注大都、上都、泉州（海外贸易）、崖山、澎湖（巡检司）与宣政院辖区（吐蕃）。</p>
+    <div class="tbl-scroll"><table>
+      <caption>阶段特征（政治 / 经济 / 文化）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">阶段特征</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">政治</th><td>蒙古族建立的第一个大一统王朝；行省制度（开中国省制先河）；宣政院管辖西藏；澎湖巡检司管辖台湾地区；实行四等人制<span class="flag fact">事实</span>——1271年忽必烈改国号为大元，定都大都。</td></tr>
+        <tr><th scope="row">经济</th><td>农业恢复（劝农司）；棉花种植与棉纺织推广（黄道婆）；漕运、海运发达；纸币（中统钞）流通；海外贸易繁荣（泉州）。</td></tr>
+        <tr><th scope="row">文化</th><td>元曲、杂剧（关汉卿《窦娥冤》）、散曲；郭守敬编订《授时历》；《农桑辑要》；中外交流活跃（马可·波罗来华）。</td></tr>
+      </tbody>
+    </table></div>
+    <h3>重大事件（高考常考）</h3>
+    <ol class="event-list">
+      <li><span class="yr">1206</span>成吉思汗建立大蒙古国</li>
+      <li><span class="yr">1271</span>忽必烈改国号"大元"；<span class="yr">1272</span>定都大都</li>
+      <li><span class="yr">1276</span>元军攻占临安，南宋覆亡</li>
+      <li><span class="yr">1279</span>崖山海战，元统一全国</li>
+      <li><span class="yr">约1281</span>设澎湖巡检司管辖台湾地区；行省制度逐步确立</li>
+      <li><span class="yr">1293</span>通惠河贯通，京杭大运河全程通航</li>
+      <li><span class="yr">1368</span>明军攻占大都，元朝作为全国政权结束</li>
+    </ol>
+    <div class="tbl-scroll"><table>
+      <caption>高考考点与命题方向（元）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">内容</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">核心考点</th><td>行省制度的内容与历史意义；宣政院与西藏归属中央；澎湖巡检司与台湾；元朝统一多民族国家的发展；民族政策评价</td></tr>
+        <tr><th scope="row">史料实证考法</th><td>以《元史》与元大都遗址、泉州海外交通石刻、元青花瓷等互证，考察元朝行政、贸易与中外交流；以行省公文考察地方制度</td></tr>
+        <tr><th scope="row">典型设问示例</th><td>"分析行省制度的特点与历史作用"；"元朝如何加强对边疆地区的管辖？"；"评价元朝统一对中国历史发展的意义"</td></tr>
+        <tr><th scope="row">答题要点</th><td>行省（中央派出机构演变为地方行政，利于中央集权）＋边疆治理（宣政院、澎湖巡检司、岭北辽阳行省）＋统一促进民族交融（回族形成）＋交通商业繁荣；四等人制是民族压迫的体现，评价须辩证<span class="flag judge">判断</span>——元朝题"制度创新＋边疆治理＋民族交融"三件套，缺一即失分。</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><div class="co-title">易错点 · 时间线记忆锚点</div>
+      <ul>
+        <li>元朝1271年建（国号"大元"），蒙古国1206年建——两者不是同一概念；忽必烈是元世祖</li>
+        <li>行省制是地方制度，中书省是中央机构——"行"即"行中书省"，别混</li>
+        <li>宣政院管辖西藏（宗教与军政），理藩院是清朝机构——朝代别混</li>
+        <li>澎湖巡检司（元）管辖台湾地区；"台湾府"是清朝1684年设置——两组别混</li>
+        <li>元朝1368年亡于明军攻占大都；此后元廷退居漠北称"北元"，但元朝作为全国政权已结束</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="period-detail" id="period-10">
+    <h2><span class="no">11</span>明（1368—1644）</h2>
+    <p class="period-meta"><b>起止：</b>1368—1644 ｜ <b>都城：</b>应天府（南京）→ 北京（1421迁都）｜ <b>地图示意：</b>明朝疆域示意，标注北京、南京、山海关、刘家港（郑和出发地）、台州（戚继光抗倭）、乌斯藏都司等。</p>
+    <div class="tbl-scroll"><table>
+      <caption>阶段特征（政治 / 经济 / 文化）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">阶段特征</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">政治</th><td>废丞相、设内阁、设厂卫特务机构、八股取士，君主专制空前强化<span class="flag fact">事实</span>——1380年朱元璋废中书省与丞相，权分六部；1421年迁都北京；张居正改革。</td></tr>
+        <tr><th scope="row">经济</th><td>农业（引进玉米、番薯）、手工业（景德镇瓷都、苏杭丝织）、商品经济繁荣；江南丝织业出现"机户出资、机工出力"的雇佣关系（资本主义萌芽）；白银货币化；一条鞭法（1581）。</td></tr>
+        <tr><th scope="row">文化</th><td>理学僵化、王阳明心学、李贽反正统；小说（《三国演义》《水浒传》《西游记》）；《天工开物》《农政全书》《本草纲目》；利玛窦来华、西学东渐。</td></tr>
+      </tbody>
+    </table></div>
+    <h3>重大事件（高考常考）</h3>
+    <ol class="event-list">
+      <li><span class="yr">1368</span>朱元璋称帝建明，定都南京（应天府）</li>
+      <li><span class="yr">1380</span>废丞相（胡惟庸案），权分六部</li>
+      <li><span class="yr">1405—1433</span>郑和七下西洋，最远到达东非海岸</li>
+      <li><span class="yr">1421</span>明成祖迁都北京</li>
+      <li><span class="yr">1449</span>土木堡之变，明英宗被俘；于谦领导北京保卫战</li>
+      <li><span class="yr">1561</span>戚继光台州九捷，基本肃清东南倭患</li>
+      <li><span class="yr">1572—1582</span>张居正辅政改革；<span class="yr">1581</span>推行一条鞭法</li>
+      <li><span class="yr">1616</span>努尔哈赤建立后金；<span class="yr">1644</span>李自成攻入北京，明亡</li>
+    </ol>
+    <div class="tbl-scroll"><table>
+      <caption>高考考点与命题方向（明）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">内容</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">核心考点</th><td>君主专制强化（废丞相、内阁、厂卫、八股取士）；内阁制与丞相制的区别；一条鞭法与赋役改革；资本主义萌芽；郑和下西洋；海禁政策</td></tr>
+        <tr><th scope="row">史料实证考法</th><td>以《明实录》、徽州契约文书、明代墓志家谱互证，考察赋役制度与商品经济发展；以郑和航海档案、宝船遗址考察海外交往</td></tr>
+        <tr><th scope="row">典型设问示例</th><td>"内阁制与丞相制有何不同？"；"如何理解明清时期的'资本主义萌芽'？"；"评价郑和下西洋"；"一条鞭法的内容和历史意义是什么？"</td></tr>
+        <tr><th scope="row">答题要点</th><td>皇权强化（丞相废→内阁"票拟"无决策权→厂卫监察→八股控制思想）＋经济变革（白银、一条鞭法、萌芽）＋对外（郑和朝贡贸易与海禁并存）→明末农民起义（1644）<span class="flag judge">判断</span>——明代题的高频陷阱是把"内阁"当"丞相"，作答须强调内阁非法定机构、无行政决策权。</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><div class="co-title">易错点 · 时间线记忆锚点</div>
+      <ul>
+        <li>内阁不是法定中央机构，首辅无丞相之权（"票拟"须经皇帝"批红"）——"有相之实无相之名"易错</li>
+        <li>一条鞭法（1581，张居正）：赋役合并、折银征收——标志白银成为主要流通货币</li>
+        <li>郑和下西洋1405—1433年七次，目的是"宣扬国威、朝贡贸易"，不是殖民扩张；最远到达东非海岸</li>
+        <li>1368年定都南京、1421年迁都北京——"先南后北"，别写成建明即定都北京</li>
+        <li>资本主义萌芽出现在明中后期江南丝织业，是"萌芽"而非资本主义生产方式确立——程度词要准</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="period-detail" id="period-11">
+    <h2><span class="no">12</span>清前期至近代（1644—1912）</h2>
+    <p class="period-meta"><b>起止：</b>1644—1912（分清前中期 1644—1840 与晚清 1840—1912 两阶段）｜ <b>都城：</b>北京 ｜ <b>地图示意：</b>清朝疆域示意，标注北京、东北三将军辖区、伊犁将军辖区、乌里雅苏台将军辖区、台湾府，及广州（通商口岸）、南京、虎门等近代地点。</p>
+    <div class="tbl-scroll"><table>
+      <caption>阶段特征一：清前中期（1644—1840）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">阶段特征</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">政治</th><td>君主专制达到顶峰（军机处1729、密折制）；统一多民族国家巩固（平定三藩、统一台湾、雅克萨之战、设驻藏大臣、设伊犁将军）<span class="flag fact">事实</span>——1729年雍正帝设军机处，标志君主专制发展到顶峰。</td></tr>
+        <tr><th scope="row">经济</th><td>康乾盛世、人口激增、多熟种植与边疆开发；1757年限定广州一口通商（闭关锁国）；手工业与商业继续发展。</td></tr>
+        <tr><th scope="row">文化</th><td>文字狱与思想控制；乾嘉考据学；《四库全书》编纂；京剧形成；传统科技总结（《医宗金鉴》等）。</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tbl-scroll"><table>
+      <caption>阶段特征二：晚清（1840—1912）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">阶段特征</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">政治</th><td>列强侵略加深（鸦片战争→第二次鸦片战争→甲午战争→八国联军侵华），中国逐步沦为半殖民地半封建社会；太平天国运动；洋务运动、戊戌变法、清末新政等自救探索；1911年辛亥革命、1912年清帝退位。</td></tr>
+        <tr><th scope="row">经济</th><td>自然经济逐渐解体；洋务企业创办（军事工业与民用工业）；民族资本主义产生（19世纪六七十年代）与初步发展。</td></tr>
+        <tr><th scope="row">文化</th><td>开眼看世界（魏源"师夷长技以制夷"）；中体西用；维新思想（康有为、梁启超）；革命思想（孙中山三民主义）；西学东渐与新式教育。</td></tr>
+      </tbody>
+    </table></div>
+    <h3>重大事件（高考常考）</h3>
+    <ol class="event-list">
+      <li><span class="yr">1644</span>清军入关，顺治帝迁都北京</li>
+      <li><span class="yr">1662</span>郑成功收复台湾；<span class="yr">1683</span>清军统一台湾，<span class="yr">1684</span>设台湾府</li>
+      <li><span class="yr">1685—1686</span>雅克萨之战；<span class="yr">1689</span>中俄《尼布楚条约》（近代第一个边界条约）</li>
+      <li><span class="yr">1727</span>设驻藏大臣（一说1728）；<span class="yr">1729</span>设军机处</li>
+      <li><span class="yr">1757</span>限定广州一口通商，闭关锁国</li>
+      <li><span class="yr">1840—1842</span>第一次鸦片战争；<span class="yr">1842</span>《南京条约》（中国近代第一个不平等条约）</li>
+      <li><span class="yr">1851—1864</span>太平天国运动（1851金田起义、1853定都天京、1856天京事变）</li>
+      <li><span class="yr">1856—1860</span>第二次鸦片战争；<span class="yr">1860</span>火烧圆明园；<span class="yr">1861</span>洋务运动开始（总理衙门成立）</li>
+      <li><span class="yr">1894—1895</span>甲午中日战争；<span class="yr">1895</span>《马关条约》（割台湾及澎湖列岛）</li>
+      <li><span class="yr">1898</span>戊戌变法（百日维新）；<span class="yr">1900</span>八国联军侵华；<span class="yr">1901</span>《辛丑条约》</li>
+      <li><span class="yr">1911</span>辛亥革命；<span class="yr">1912</span>清帝退位，清朝结束</li>
+    </ol>
+    <div class="tbl-scroll"><table>
+      <caption>高考考点与命题方向（清前期至近代）</caption>
+      <thead><tr><th scope="col">维度</th><th scope="col">内容</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">核心考点</th><td>军机处与君主专制顶峰；清朝前期统一多民族国家的巩固（台湾、西藏、新疆、东北）；闭关锁国；列强侵略与不平等条约体系；近代化探索（洋务、戊戌、辛亥）；半殖民地半封建社会形成</td></tr>
+        <tr><th scope="row">史料实证考法</th><td>以《清实录》、奏折档案与故宫军机处档案互证，考察军机处运作与边疆治理；以条约文本、通商口岸海关档案考察半殖民地化进程</td></tr>
+        <tr><th scope="row">典型设问示例</th><td>"军机处的设立如何标志君主专制达到顶峰？"；"清朝前期如何巩固统一多民族国家？"；"从鸦片战争到八国联军，中国半殖民地化程度如何逐步加深？"；"比较洋务运动与戊戌变法"</td></tr>
+        <tr><th scope="row">答题要点</th><td>康乾盛世（疆域巩固）→闭关（1757一口通商）→1840年后：侵略（《南京条约》《马关条约》《辛丑条约》递进）＋抗争（太平天国、义和团）＋探索（器物：洋务→制度：戊戌、辛亥→思想：新文化运动）<span class="flag judge">判断</span>——晚清题最常用"侵略—抗争—探索"三线并进框架，按时间排序作答可避免丢分。</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><div class="co-title">易错点 · 时间线记忆锚点</div>
+      <ul>
+        <li>军机处1729年（雍正七年）设立，标志君主专制达到顶峰；内阁仍在但形同虚设</li>
+        <li>《南京条约》割让的是"香港岛"（不是香港全境）、开放五口通商、协定关税</li>
+        <li>《马关条约》割台湾及澎湖列岛、赔款白银二亿两、允许日本在华设厂（资本输出）</li>
+        <li>《辛丑条约》（1901）标志中国完全陷入半殖民地半封建社会（教材口径）——与"开始沦为"（《南京条约》）呼应记忆</li>
+        <li>台湾府1684年设置（清统一台湾后），与元朝澎湖巡检司分属不同时代，勿混</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="usage">
+    <h2>使用说明</h2>
+    <ul>
+      <li><b>形态参考：</b>本系统参考《江山时序》「时间轴＋地图＋信息卡」交互形态，按高考历史主线重构为 12 大时期教研版，单文件零外部资源。</li>
+      <li><b>播放与定位：</b>点击底部「播放」自动沿时间轴推进年份，并自动切换时期、地图与信息卡；用 0.5×/1×/2× 倍速按钮调整节奏；拖动滑块或点按前后箭头可精准定位任意年份。</li>
+      <li><b>时期切换：</b>点击顶部 12 个时期按钮，或在上方搜索框输入时期名、都城、事件、人物关键词（如"贞观""郡县制""安史之乱""澶渊之盟"），即可定位到对应时期并展开完整考点。</li>
+      <li><b>教学使用：</b>每时期下方含阶段特征表、重大事件时间线、高考考点表（核心考点/史料实证考法/典型设问/答题要点）与易错点；教师可用于一轮复习串讲，学生可用于时间线自查与错点排查。</li>
+      <li><b>口径说明：</b>地图为教学示意图，非精确疆域；个别年份存在教材口径差异（如战国始年、澶渊之盟年份、黄巢起义爆发年、驻藏大臣设立年），均已按主流教材口径或标注"约/一说"。</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="brand">刘老师教研 · 高考历史地图时间轴</div>
+  <p>面向高中生 · 历史教师 · 家长 ｜ 12 大时期 × 100+ 高考常考事件 × 12 组考点地图</p>
+  <p>边界声明：本页地图为教学示意地图，非精确疆域；史实以统编教材与课程标准为准；高考考点与答题要点为教研判断口径。</p>
+  <p>刘老师 · 小初高全科教研与升学规划 ｜ 央视中学生频道《教育兴国》受邀专访嘉宾 ｜ 从业 8 年 · 累计规划学员 3100+</p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  try {
+    var PERIODS = [
+      { name: '春秋战国', range: '前770—前221', capital: '洛邑（周）· 咸阳（秦）· 诸侯国都', stage: '王室衰微、诸侯争霸兼并；铁器牛耕、井田制瓦解；百家争鸣，统一趋势增强', events: ['前770 周平王东迁洛邑，东周开始', '前356 秦孝公任用商鞅变法，秦国崛起', '前260 长平之战，秦赵决战', '前230—前221 秦相继攻灭六国', '前221 秦统一六国，建立中央集权国家'] },
+      { name: '秦', range: '前221—前207', capital: '咸阳', stage: '首创皇帝制、三公九卿与郡县制，确立专制主义中央集权；书同文、车同轨、统一度量衡；严刑峻法、徭役繁重', events: ['前221 灭六国，统一天下', '前215 蒙恬北击匈奴，收复河套', '前214 开凿灵渠，置岭南三郡', '前213 焚书；前212 坑儒', '前209 陈胜吴广大泽乡起义', '前207 巨鹿之战后秦亡'] },
+      { name: '西汉', range: '前202—9', capital: '长安', stage: '汉承秦制，郡国并行到推恩令；休养生息到独尊儒术；张骞通西域，丝绸之路开通', events: ['前202 刘邦称帝建汉', '前200 白登之围，汉初和亲', '前154 七国之乱', '前138 张骞第一次出使西域', '前127 颁推恩令', '前119 漠北之战；前60 设西域都护', '8 王莽代汉，西汉结束'] },
+      { name: '东汉', range: '25—220', capital: '洛阳', stage: '光武中兴；外戚宦官交替专权；豪强庄园经济；佛教传入、道教产生；班超经营西域', events: ['25 刘秀称帝，定都洛阳', '73 班超出使西域', '105 蔡伦改进造纸术', '184 黄巾起义', '200 官渡之战', '208 赤壁之战', '220 曹丕代汉，东汉亡'] },
+      { name: '三国两晋南北朝', range: '220—589', capital: '洛阳（魏/西晋）· 成都（蜀）· 建业/建康（吴/南朝）· 平城→洛阳（北魏）', stage: '政权更迭频繁；门阀士族政治；民族交融（孝文帝改革）；江南开发与经济重心南移起步', events: ['220 曹丕建魏；221 刘备建蜀汉；229 孙权建吴', '263 魏灭蜀；266 西晋建立；280 灭吴统一', '316 西晋亡；317 东晋建', '383 淝水之战', '420 南朝宋建立，宋齐梁陈相继', '494 北魏孝文帝迁都洛阳'] },
+      { name: '隋', range: '581—618', capital: '大兴（长安）· 东都洛阳', stage: '结束近三百年分裂重新统一；三省六部制与科举制创立；大运河开通；滥用民力、二世而亡', events: ['581 杨坚代北周建隋', '589 灭陈，统一南北', '605 开凿大运河，设进士科', '611 隋末农民起义爆发', '618 隋亡，唐兴'] },
+      { name: '唐', range: '618—907', capital: '长安（西京）· 洛阳（东都）', stage: '制度完备（三省六部、科举、两税法）；开放包容（中外交流、民族交融）；安史之乱后由盛转衰', events: ['618 李渊建唐', '626 玄武门之变', '627—649 贞观之治', '690 武则天称帝（武周）', '713 开元盛世', '755—763 安史之乱', '780 两税法', '875 黄巢起义；907 唐亡'] },
+      { name: '五代十国与北宋', range: '907—1127', capital: '东京（开封）', stage: '五代十国分裂割据；北宋崇文抑武、强干弱枝；与辽、西夏并立；商品经济繁荣，经济重心南移', events: ['907 朱温建后梁，五代十国开始', '960 陈桥兵变，北宋建立', '1004—1005 澶渊之盟', '1038 元昊建西夏', '1069 王安石变法', '1115 金建立；1125 金灭辽', '1127 靖康之变，北宋亡'] },
+      { name: '南宋与辽金', range: '1127—1279', capital: '临安（南宋）· 中都（金）', stage: '宋金南北对峙；经济重心南移完成；海外贸易繁荣；理学成熟；蒙古崛起灭金灭宋', events: ['1127 赵构建南宋', '1140 岳飞郾城大捷', '1141 绍兴和议', '1206 铁木真建蒙古国', '1234 宋蒙联合灭金', '1276 临安陷落；1279 崖山海战，南宋亡'] },
+      { name: '元', range: '1271—1368', capital: '大都（今北京）', stage: '蒙古族建立的大一统王朝；行省制开省制先河；宣政院管辖西藏、澎湖巡检司管辖台湾；民族等级政策', events: ['1206 成吉思汗建大蒙古国', '1271 忽必烈改国号大元', '1276 灭南宋；1279 统一全国', '1293 通惠河通航', '1368 明军攻占大都，元亡'] },
+      { name: '明', range: '1368—1644', capital: '应天府（南京）→ 北京（1421迁都）', stage: '君主专制空前强化（废丞相、设内阁、厂卫、八股取士）；商品经济繁荣、资本主义萌芽；郑和下西洋', events: ['1368 朱元璋建明，定都南京', '1380 废丞相', '1405—1433 郑和七下西洋', '1421 迁都北京', '1449 土木堡之变', '1561 戚继光台州抗倭大捷', '1581 一条鞭法', '1644 李自成攻入北京，明亡'] },
+      { name: '清前期至近代', range: '1644—1912', capital: '北京', stage: '清前中期君主专制顶峰（军机处）、统一多民族国家巩固、闭关锁国；1840年后列强侵略加深，中国逐步沦为半殖民地半封建社会', events: ['1644 清军入关', '1662 郑成功收复台湾；1684 设台湾府', '1689 中俄《尼布楚条约》', '1729 设军机处', '1840—1842 鸦片战争；1842 《南京条约》', '1851—1864 太平天国运动', '1894—1895 甲午战争；1895 《马关条约》', '1911 辛亥革命；1912 清帝退位'] }
+    ];
+    var YEAR_MIN = -770, YEAR_MAX = 1912;
+    var state = { year: -221, playing: false, speed: 1, timer: null };
+
+    var mapSvgs = document.querySelectorAll('.map-svg');
+    var detailSections = document.querySelectorAll('.period-detail');
+    var navBtns = document.querySelectorAll('.pbtn');
+    var slider = document.getElementById('timelineSlider');
+    var yearLabel = document.getElementById('yearLabel');
+    var playBtn = document.getElementById('playBtn');
+    var prevBtn = document.getElementById('prevBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    var speedBtns = document.querySelectorAll('.speed-btn');
+    var infoCard = document.getElementById('infoCard');
+    var searchInput = document.getElementById('searchInput');
+    var searchResults = document.getElementById('searchResults');
+
+    function fmtYear(y) { return y < 0 ? '前' + String(-y) : String(y); }
+    function periodIndexForYear(y) {
+      var ranges = [
+        [-770, -221], [-221, -207], [-202, 9], [25, 219], [220, 589], [581, 617],
+        [618, 906], [907, 1126], [1127, 1270], [1271, 1367], [1368, 1643], [1644, 1912]
+      ];
+      for (var i = 0; i < ranges.length; i++) {
+        if (y >= ranges[i][0] && y <= ranges[i][1]) return i;
+      }
+      return y < YEAR_MIN ? 0 : 11;
+    }
+    function renderYear() {
+      yearLabel.textContent = fmtYear(state.year);
+      slider.value = String(state.year);
+    }
+    function setActivePeriod(index, withScroll) {
+      for (var i = 0; i < mapSvgs.length; i++) {
+        mapSvgs[i].classList.toggle('is-hidden', i !== index);
+      }
+      for (var j = 0; j < navBtns.length; j++) {
+        navBtns[j].classList.toggle('active', j === index);
+      }
+      updateCard(index);
+      if (withScroll && detailSections[index]) {
+        detailSections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+    function updateCard(index) {
+      var p = PERIODS[index];
+      var html = '<div class="ic-kicker">刘老师教研 · 时期信息卡</div>';
+      html += '<h3>' + p.name + '</h3>';
+      html += '<div class="ic-range">' + p.range + ' · 都城：' + p.capital + '</div>';
+      html += '<p class="ic-row"><b>阶段：</b>' + p.stage + '</p>';
+      html += '<p class="ic-row"><b>重大事件（速览）：</b></p><ol class="ic-events">';
+      for (var i = 0; i < p.events.length; i++) html += '<li>' + p.events[i] + '</li>';
+      html += '</ol>';
+      infoCard.innerHTML = html;
+    }
+    function setYear(y, withScroll) {
+      if (y < YEAR_MIN) y = YEAR_MIN;
+      if (y > YEAR_MAX) y = YEAR_MAX;
+      var changed = y !== state.year;
+      state.year = y;
+      renderYear();
+      if (changed) setActivePeriod(periodIndexForYear(y), withScroll);
+    }
+    function stepYear(delta) {
+      var next = state.year + delta;
+      if (next > YEAR_MAX) { next = YEAR_MAX; stopPlay(); }
+      setYear(next, false);
+    }
+    function startPlay() {
+      if (state.playing) return;
+      if (state.year >= YEAR_MAX) setYear(YEAR_MIN, false);
+      state.playing = true;
+      playBtn.textContent = '暂停';
+      playBtn.classList.add('active');
+      state.timer = setInterval(function () { stepYear(Math.round(5 * state.speed)); }, 250);
+    }
+    function stopPlay() {
+      if (!state.playing) return;
+      state.playing = false;
+      clearInterval(state.timer);
+      state.timer = null;
+      playBtn.textContent = '播放';
+      playBtn.classList.remove('active');
+    }
+    playBtn.addEventListener('click', function () { state.playing ? stopPlay() : startPlay(); });
+    prevBtn.addEventListener('click', function () { stepYear(-10); });
+    nextBtn.addEventListener('click', function () { stepYear(10); });
+    speedBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        state.speed = parseFloat(btn.getAttribute('data-speed')) || 1;
+        for (var i = 0; i < speedBtns.length; i++) speedBtns[i].classList.toggle('active', speedBtns[i] === btn);
+        if (state.playing) {
+          clearInterval(state.timer);
+          state.timer = setInterval(function () { stepYear(Math.round(5 * state.speed)); }, 250);
+        }
+      });
+    });
+    slider.addEventListener('input', function () {
+      if (state.playing) stopPlay();
+      setYear(parseInt(slider.value, 10), false);
+    });
+    navBtns.forEach(function (btn, idx) {
+      btn.addEventListener('click', function () {
+        stopPlay();
+        setYear(parseInt(btn.getAttribute('data-year'), 10), false);
+        setActivePeriod(idx, true);
+      });
+    });
+    searchInput.addEventListener('input', function () {
+      var q = searchInput.value.trim().toLowerCase();
+      var matches = [];
+      if (q) {
+        for (var i = 0; i < detailSections.length; i++) {
+          var hay = (PERIODS[i].name + ' ' + PERIODS[i].capital + ' ' + detailSections[i].textContent).toLowerCase();
+          if (hay.indexOf(q) !== -1) matches.push(i);
+        }
+      }
+      renderSearch(q, matches);
+    });
+    function renderSearch(q, matches) {
+      for (var i = 0; i < navBtns.length; i++) {
+        navBtns[i].classList.toggle('is-hidden', !!q && matches.indexOf(i) === -1);
+      }
+      if (!q) { searchResults.style.display = 'none'; searchResults.innerHTML = ''; return; }
+      searchResults.style.display = 'block';
+      if (!matches.length) {
+        searchResults.innerHTML = '<div class="sr-empty">未找到匹配内容，试试「贞观」「郡县制」「安史之乱」等关键词</div>';
+        return;
+      }
+      var html = '';
+      for (var j = 0; j < matches.length; j++) {
+        html += '<button type="button" class="sr-item" data-idx="' + matches[j] + '">' + PERIODS[matches[j]].name + '（' + PERIODS[matches[j]].range + '）· ' + PERIODS[matches[j]].capital + '</button>';
+      }
+      searchResults.innerHTML = html;
+      searchResults.querySelectorAll('.sr-item').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var idx = parseInt(btn.getAttribute('data-idx'), 10);
+          stopPlay();
+          setYear(parseInt(navBtns[idx].getAttribute('data-year'), 10), false);
+          setActivePeriod(idx, true);
+          searchInput.value = '';
+          renderSearch('', []);
+        });
+      });
+    }
+    document.addEventListener('click', function (e) {
+      if (e.target !== searchInput && !searchResults.contains(e.target)) {
+        searchResults.style.display = 'none';
+      }
+    });
+
+    renderYear();
+    setActivePeriod(periodIndexForYear(state.year), false);
+  } catch (err) {
+    if (window.console && console.error) console.error('刘老师教研时间轴初始化失败：', err);
+  }
+})();
+</script>
+</body>
+</html>
